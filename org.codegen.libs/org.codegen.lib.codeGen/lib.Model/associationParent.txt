@@ -1,0 +1,43 @@
+﻿		
+		Public Overridable Property <association_name>() As <datatype> _
+			implements <implements>.<association_name>
+		          
+            Set(ByVal value As <datatype>)
+                Me._<association_name> = value
+                me.<child_field_runtime> = value.<parent_field_runtime>
+                
+            End Set
+
+
+            Get
+                'LAZY LOADING! Only hit the database to get the child object if we need it
+                If Me._<association_name> Is Nothing Then
+					Me.load<association_name>
+                End If 
+				
+                Return Me._<association_name>
+            End Get
+        End Property
+        
+        ''' <summary>
+        ''' Loads child/parent object and sets 
+        ''' the appropriate properties
+        ''' </summary>
+        Public Overridable Sub load<association_name>
+			
+			If me.<association_name>Loaded then return
+			
+			If Me._<association_name> Is Nothing AndAlso _
+                   Me.<child_field_runtime> > 0 Then
+                
+                Me._<association_name> = new <db_mapper>().FindByKey( _ 
+				                 Me.<child_field_runtime>.Value)
+                
+            End If ' me._<association_name> is Nothing
+
+            If Me._<association_name> Is Nothing Then
+                Me._<association_name> = <datatype>Factory.Create()
+                
+            End If ' second check me._<association_name> is Nothing
+			            
+        End Sub

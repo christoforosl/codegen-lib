@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C74737DF-2306-4605-9D15-C4BF4ED6788C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>ModelLibTestsWinApp.My.MyApplication</StartupObject>
+    <RootNamespace>ModelLibTestsWinApp</RootNamespace>
+    <AssemblyName>ModelLibTestsWinApp</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>ModelLibTestsWinApp.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>ModelLibTestsWinApp.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>On</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="ModelLibTestsWinApp.BusObjects" />
+    <Import Include="ModelLibTestsWinApp.BusObjects.Mappers" />
+    <Import Include="org.codegen.win.controls" />
+    <Import Include="org.model.lib" />
+    <Import Include="org.model.lib.db" />
+    <Import Include="org.model.lib.Model" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\Edit\ucEmployeeDetails.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Edit\ucEmployeeInfoDetails.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Edit\ucEmployeeProjectDetails.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Edit\ucEmployeeRankDetails.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Edit\ucProjectDetails.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\List\ucEmployeeInfoList.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\List\ucEmployeeList.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\List\ucEmployeeProjectList.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\List\ucEmployeeRankList.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\List\ucProjectList.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\frmEditableProjectList.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Edit\frmEmployeeDetails.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Edit\frmEmployeeInfoDetails.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Edit\frmEmployeeProjectDetails.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Edit\frmEmployeeRankDetails.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Edit\frmProjectDetails.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmEditableProjectListSingleRow.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmReadOnlyProjectDetails.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmTimeControlTest.Designer.vb">
+      <DependentUpon>frmTimeControlTest.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmTimeControlTest.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\List\frmEmployeeInfoList.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\List\frmEmployeeList.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\List\frmEmployeeProjectList.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\List\frmEmployeeRankList.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\List\frmProjectList.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MDIParent.Designer.vb">
+      <DependentUpon>MDIParent.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MDIParent.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="BusObjects\Mappers\EmployeeDBMapper.vb" />
+    <Compile Include="BusObjects\Employee.vb" />
+    <Compile Include="BusObjects\EmployeeBase.vb">
+      <DependentUpon>Employee.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BusObjects\Mappers\EmployeeProjectDBMapper.vb" />
+    <Compile Include="BusObjects\EmployeeProject.vb" />
+    <Compile Include="BusObjects\EmployeeProjectBase.vb">
+      <DependentUpon>EmployeeProject.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BusObjects\Mappers\EmployeeRankDBMapper.vb" />
+    <Compile Include="BusObjects\EmployeeRank.vb" />
+    <Compile Include="BusObjects\EmployeeRankBase.vb">
+      <DependentUpon>EmployeeRank.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BusObjects\Mappers\EmployeeInfoDBMapper.vb" />
+    <Compile Include="BusObjects\EmployeeInfo.vb" />
+    <Compile Include="BusObjects\EmployeeInfoBase.vb">
+      <DependentUpon>EmployeeInfo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BusObjects\Mappers\ProjectDBMapper.vb" />
+    <Compile Include="BusObjects\Project.vb" />
+    <Compile Include="BusObjects\ProjectBase.vb">
+      <DependentUpon>Project.vb</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\Edit\ucEmployeeDetails.resx">
+      <DependentUpon>ucEmployeeDetails.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Edit\ucEmployeeInfoDetails.resx">
+      <DependentUpon>ucEmployeeInfoDetails.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Edit\ucEmployeeProjectDetails.resx">
+      <DependentUpon>ucEmployeeProjectDetails.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Edit\ucEmployeeRankDetails.resx">
+      <DependentUpon>ucEmployeeRankDetails.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Edit\ucProjectDetails.resx">
+      <DependentUpon>ucProjectDetails.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\List\ucEmployeeInfoList.resx">
+      <DependentUpon>ucEmployeeInfoList.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\List\ucEmployeeList.resx">
+      <DependentUpon>ucEmployeeList.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\List\ucEmployeeProjectList.resx">
+      <DependentUpon>ucEmployeeProjectList.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\List\ucEmployeeRankList.resx">
+      <DependentUpon>ucEmployeeRankList.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\List\ucProjectList.resx">
+      <DependentUpon>ucProjectList.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Edit\frmEmployeeDetails.resx">
+      <DependentUpon>frmEmployeeDetails.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Edit\frmEmployeeInfoDetails.resx">
+      <DependentUpon>frmEmployeeInfoDetails.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Edit\frmEmployeeProjectDetails.resx">
+      <DependentUpon>frmEmployeeProjectDetails.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Edit\frmProjectDetails.resx">
+      <DependentUpon>frmProjectDetails.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmReadOnlyProjectDetails.resx">
+      <DependentUpon>frmReadOnlyProjectDetails.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmTimeControlTest.resx">
+      <DependentUpon>frmTimeControlTest.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\List\frmEmployeeInfoList.resx">
+      <DependentUpon>frmEmployeeInfoList.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\List\frmEmployeeList.resx">
+      <DependentUpon>frmEmployeeList.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MDIParent.resx">
+      <DependentUpon>MDIParent.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BusObjects\Mappers\EmployeeDBMapperSql.xml">
+      <DependentUpon>EmployeeDBMapper.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BusObjects\Mappers\EmployeeProjectDBMapperSql.xml">
+      <DependentUpon>EmployeeProjectDBMapper.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BusObjects\Mappers\EmployeeRankDBMapperSql.xml">
+      <DependentUpon>EmployeeRankDBMapper.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BusObjects\Mappers\EmployeeInfoDBMapperSql.xml">
+      <DependentUpon>EmployeeInfoDBMapper.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BusObjects\Mappers\ProjectDBMapperSql.xml">
+      <DependentUpon>ProjectDBMapper.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="My Project\app.manifest" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\org.codegen.common\org.codegen.common.vbproj">
+      <Project>{C367EAE9-FDEA-468D-9A91-C5075F927D39}</Project>
+      <Name>org.codegen.common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\org.codegen.lib.db\org.model.lib.db.vbproj">
+      <Project>{C744D17D-3132-4365-8C44-9D295D942597}</Project>
+      <Name>org.model.lib.db</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\org.codegen.lib\org.model.lib.vbproj">
+      <Project>{BF9890A4-769A-406D-9AD0-0D9F5A7376A0}</Project>
+      <Name>org.model.lib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\org.codegen.win.controls\org.codegen.win.controls.vbproj">
+      <Project>{32D6AC6F-ED2F-4210-A3E8-359BE2F9F5C2}</Project>
+      <Name>org.codegen.win.controls</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

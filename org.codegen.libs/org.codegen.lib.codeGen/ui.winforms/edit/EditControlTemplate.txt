@@ -1,0 +1,107 @@
+﻿Imports System.ComponentModel
+
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+Public Class uc<MODEL_CLASS_NAME>Details
+    Inherits UcBaseEditControl
+    Implements IUcEditControl
+
+#Region "Designer"
+    'UserControl overrides dispose to clean up the component list.
+    <System.Diagnostics.DebuggerNonUserCode()> _
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing AndAlso components IsNot Nothing Then
+                components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
+
+    Public Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+        
+        ' Add any initialization after the InitializeComponent() call.
+        
+    End Sub
+
+    'Required by the Windows Form Designer
+    Private components As System.ComponentModel.IContainer
+
+    'NOTE: The following procedure is required by the Windows Form Designer
+    'It can be modified using the Windows Form Designer.  
+    'Do not modify it using the code editor.
+    <System.Diagnostics.DebuggerStepThrough()> _
+    Private Sub InitializeComponent()
+
+       <CONTROLS_INSTANTIATIONS>
+
+        Me.SuspendLayout()
+		<CONTROLS_LAYOUT>
+		
+        'uc<MODEL_CLASS_NAME>
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+       <CONTROLS_ADD>
+		
+		Me.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
+        Me.Dock = DockStyle.Fill
+        Me.Name = "uc<MODEL_CLASS_NAME>"
+        Me.Size = New System.Drawing.Size(548, 150)
+		Me.ResumeLayout(False)
+        Me.PerformLayout()
+
+    End Sub
+
+	
+	<CONTROLS_DECLARATIONS>
+
+#End Region
+
+#Region "Methods"
+    
+	 ''' <summary>
+    ''' Fills the controls on the screen from data in the object
+    ''' </summary>
+    ''' <remarks></remarks>
+	Public Sub _loadData() Handles Me.evLoadObjectData
+
+        Dim mo As <MODEL_CLASS_NAME> = DirectCast(Me.ModelObject(), <MODEL_CLASS_NAME>)
+        <LOAD_TO_CONTROLS>
+
+		me.resetLastLoadedValues()
+		Me.ErrProvider.Clear()
+
+    End Sub
+
+
+    ''' <summary>
+	''' Loads the object from the database and then sets the proeperties 
+	''' of the object from values on the controls
+	''' </summary>
+	''' <remarks></remarks>
+	Public Sub _loadToObject() Handles Me.evLoadToObject
+
+        Dim mo As <MODEL_CLASS_NAME> = DirectCast(me.ModelObject, <MODEL_CLASS_NAME>)
+        <LOAD_TO_OBJECT>
+
+    End Sub
+
+    Public Sub _InitializeControl() Handles Me.InitializeControl
+
+        If me.isInitialized = False Then
+			'setup datasources
+			<CONTROLS_LOAD_CODE>
+			me.isInitialized = true
+		End if
+
+	End Sub
+
+#End Region
+
+
+End Class
+

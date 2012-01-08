@@ -1,0 +1,425 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{32D6AC6F-ED2F-4210-A3E8-359BE2F9F5C2}</ProjectGuid>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>org.codegen.win.controls</AssemblyName>
+    <AssemblyOriginatorKeyFile>org.codegen.win.controls.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyMode>None</AssemblyOriginatorKeyMode>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <OptionCompare>Binary</OptionCompare>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionStrict>On</OptionStrict>
+    <RootNamespace>org.codegen.win.controls</RootNamespace>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <MyType>Windows</MyType>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <SignAssembly>false</SignAssembly>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\..\codeGenLibs\</OutputPath>
+    <DocumentationFile>org.codegen.win.controls.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>42030,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42024,42032,42036,42099</WarningsAsErrors>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>org.codegen.win.controls.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>42030,42104,42108,42109,42353,42354,42355</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42024,42032,42036,42099</WarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic.Compatibility" />
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="org.codegen.common" />
+    <Import Include="org.codegen.common.Translation" />
+    <Import Include="org.model.lib" />
+    <Import Include="org.model.lib.db" />
+    <Import Include="org.model.lib.Model" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BaseForms\frmBase.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForms\frmBaseGrid.Designer.vb">
+      <DependentUpon>frmBaseGrid.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForms\frmBaseGrid.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForms\frmDialogBase.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForms\frmBaseEdit.Designer.vb">
+      <DependentUpon>frmBaseEdit.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForms\frmBaseEdit.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForms\IMoveNextPrevious.vb" />
+    <Compile Include="BaseForms\IUcEditControl.vb" />
+    <Compile Include="BaseForms\UcBaseEditControl.Designer.vb">
+      <DependentUpon>UcBaseEditControl.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForms\UcBaseEditControl.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaseForms\ucEditToolar.Designer.vb">
+      <DependentUpon>ucEditToolar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForms\ucEditToolar.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CGLGrid\CalendarEditingControl.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CGLGrid\CGBaseGrid.Designer.vb">
+      <DependentUpon>CGBaseGrid.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CGLGrid\CGBaseGrid.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CGLGrid\persistors\CGBaseGridRowPersistor.vb" />
+    <Compile Include="CGLGrid\DataGridViewAutoFilterBooleanColumnHeaderCell.vb" />
+    <Compile Include="CGLGrid\DataGridViewAutoFilterCheckBoxColumn.vb" />
+    <Compile Include="CGLGrid\DataGridViewAutoFilterComboColumnHeaderCell.vb" />
+    <Compile Include="CGLGrid\DataGridViewCalendarColumn.vb" />
+    <Compile Include="CGLGrid\DataGridViewAutoFilterTextBoxColumn.vb" />
+    <Compile Include="CGLGrid\DataGridViewAutoFilterColumnHeaderCell.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CGLGrid\persistors\ICGBaseGridRowPersistor.vb" />
+    <Compile Include="CGLGrid\persistors\DataGridViewRowLoader.vb" />
+    <Compile Include="CGLGrid\export\ExcelGridExporter.vb" />
+    <Compile Include="CGLGrid\frmDGSetup.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CGLGrid\GridUtils.vb" />
+    <Compile Include="CGLGrid\IGridColumnProvider.vb" />
+    <Compile Include="CGLGrid\CGObjectGrid.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CGLGrid\CGSQLGrid.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EmptyRequiredFieldException.vb" />
+    <Compile Include="InputControls\CGComboBox.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="InputControls\CGTimeBox.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="InputControls\CGTextBox.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="InputControls\CGCheckBox.Designer.vb">
+      <DependentUpon>CGCheckBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="InputControls\CGCheckBox.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="InputControls\CGDecimalTextBox.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="InputControls\iCGBaseControl.vb" />
+    <Compile Include="InputControls\CGDateTextBox.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="InputControls\CGIntTextBox.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ErrorLogger.vb" />
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UIComponents\CustomToolStripMenuItem.Designer.vb">
+      <DependentUpon>CustomToolStripMenuItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UIComponents\CustomToolStripMenuItem.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UIComponents\CustomToolStrip.Designer.vb">
+      <DependentUpon>CustomToolStrip.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UIComponents\CustomToolStrip.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UIComponents\HeaderRenderer.vb" />
+    <Compile Include="UIComponents\TitleStrip.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WinControlsLocalizer.vb" />
+    <Compile Include="winUtils.vb" />
+    <EmbeddedResource Include="BaseForms\frmBase.resx">
+      <DependentUpon>frmBase.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForms\frmBaseGrid.resx">
+      <DependentUpon>frmBaseGrid.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForms\frmDialogBase.resx">
+      <DependentUpon>frmDialogBase.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForms\UcBaseEditControl.resx">
+      <DependentUpon>UcBaseEditControl.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForms\ucEditToolar.resx">
+      <DependentUpon>ucEditToolar.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CGLGrid\CGBaseGrid.resx">
+      <DependentUpon>CGBaseGrid.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CGLGrid\frmDGSetup.resx">
+      <DependentUpon>frmDGSetup.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CGLGrid\CGObjectGrid.resx">
+      <DependentUpon>CGObjectGrid.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputControls\CGCheckBox.resx">
+      <DependentUpon>CGCheckBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputControls\CGComboBox.resx">
+      <DependentUpon>CGComboBox.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputControls\CGTextBox.resx">
+      <DependentUpon>CGTextBox.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputControls\CGDateTextBox.resx">
+      <DependentUpon>CGDateTextBox.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputControls\CGIntTextBox.resx">
+      <DependentUpon>CGIntTextBox.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="langStrings2.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <Generator>PublicVbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="org.codegen.win.controls.snk" />
+    <None Include="Resources\back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bluefooter.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blueheader.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\browse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\email.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\forward.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\graphs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\help.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\leftspine.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\more.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\online.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\orders.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\reports.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sound.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trends.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\updates.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AddTableHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EditTableHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeleteHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PrintHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toExcel.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\synch.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\newitem.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\saveitem.GIF" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SaveAllHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GoLtrHS.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\DataSources\t_DataGridSetup.datasource" />
+    <None Include="Resources\GoRtlHS.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Collapse_large.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BaseForms\frmBaseEdit.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmBaseEdit.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CGLGrid\CGSQLGrid.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CGSQLGrid.vb</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="Resources\Critical.bmp" />
+    <None Include="Resources\doubleDownArrows.bmp" />
+    <None Include="Resources\downarraowsRed.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\org.codegen.common\org.codegen.common.vbproj">
+      <Project>{C367EAE9-FDEA-468D-9A91-C5075F927D39}</Project>
+      <Name>org.codegen.common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\org.codegen.lib.db\org.model.lib.db.vbproj">
+      <Project>{C744D17D-3132-4365-8C44-9D295D942597}</Project>
+      <Name>org.model.lib.db</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\org.codegen.lib\org.model.lib.vbproj">
+      <Project>{BF9890A4-769A-406D-9AD0-0D9F5A7376A0}</Project>
+      <Name>org.model.lib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
