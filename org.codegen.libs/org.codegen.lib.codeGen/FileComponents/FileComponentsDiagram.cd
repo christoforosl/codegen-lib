@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="com.netu.lib.codeGen.FileComponents.GeneratedFileComponent">
+    <Position X="6" Y="1.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgEAIQAEAAAAAAAADAQQAAAMAAIACAAIAABAAAg=</HashCode>
+      <FileName>FileComponents\GeneratedFileComponent.vb</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="com.netu.lib.codeGen.FileComponents.VBClassFileComponent">
+    <Position X="5.5" Y="6.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>BAAACAAQAACAAAAAAAAEBAQQAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>FileComponents\VBClassFileComponent.vb</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="com.netu.lib.codeGen.FileComponents.MapperBaseFileComponent">
+    <Position X="9" Y="8.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAACAQAAAAAAEAAAAAAAAABAAAACAAAAAAAA=</HashCode>
+      <FileName>FileComponents\MapperFileComponents.vb</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="com.netu.lib.codeGen.FileComponents.SingletonMapperBaseToGenerate">
+    <Position X="8.25" Y="12.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FileComponents\MapperFileComponents.vb</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="com.netu.lib.codeGen.FileComponents.ModelObjectBaseFileComponent">
+    <Position X="1.25" Y="9.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FileComponents\ModelObjectBaseFileComponent.vb</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="com.netu.lib.codeGen.FileComponents.SQLStatementsFileComponent">
+    <Position X="11" Y="12.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAADAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FileComponents\SQLStatementsFileComponent.vb</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="com.netu.lib.codeGen.FileComponents.ValueObjectFileComponent">
+    <Position X="1.25" Y="11.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FileComponents\ValueObjectFileComponent.vb</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="com.netu.lib.codeGen.FileComponents.ModelObjectFileComponent">
+    <Position X="4.75" Y="12" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAACAQAAAAAAEAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>FileComponents\ModelObjectFileComponent.vb</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="com.netu.lib.codeGen.FileComponents.IGeneratedFileComponent">
+    <Position X="2.25" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAADAQQAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>FileComponents\GeneratedFileComponent.vb</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="com.netu.lib.codeGen.FileComponents.IVBProjectIncludedFile">
+    <Position X="12" Y="2.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>FileComponents\IVBProjectIncludedFile.vb</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

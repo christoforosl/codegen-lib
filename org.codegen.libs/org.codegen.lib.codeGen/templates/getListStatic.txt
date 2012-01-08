@@ -1,0 +1,59 @@
+﻿		
+		Public Shared Function findList() As List(Of <MODEL_CLASS_NAME>)
+			
+			return all<MODEL_CLASS_NAME>
+			
+        End Function
+		
+		Public Shared Function findByKey(id as Integer) as <MODEL_CLASS_NAME>
+			
+			Dim ret as <MODEL_CLASS_NAME> = Nothing
+			
+			for each tmp as <MODEL_CLASS_NAME> in all<MODEL_CLASS_NAME>
+				if tmp.id = id Then
+					ret = tmp
+				End If
+			next
+			
+            return ret
+            
+        End function
+            
+#Region """All"" collection management, available for objects marked as ""static"""
+
+	    Private shared ReadOnly _isSingleton As Boolean = True
+        Private Shared _all As List(Of <MODEL_CLASS_NAME>) = Nothing
+        Private Shared _allLock As New Object
+
+        protected Shared Sub ResetAll()
+
+			if _isSingleton = false then return
+			
+            SyncLock (_allLock)
+                'reset all collection
+                _all = Nothing
+            End SyncLock
+
+        End Sub
+
+		Public Shared Property all<MODEL_CLASS_NAME>() As List(Of <MODEL_CLASS_NAME>)
+            
+            Set(ByVal value As List(Of <MODEL_CLASS_NAME>))
+                _all = value
+            End Set
+           
+            Protected Get
+				' Get is marked as Protected, and should be accessed by calling function getList
+                SyncLock (_allLock)
+                    If _all Is Nothing Then
+                        Dim db As <MODEL_CLASS_NAME>DBMapper = New <MODEL_CLASS_NAME>DBMapper
+                        _all = db.findAll
+                        <sort>
+                    End If
+                End SyncLock
+                Return _all
+            End Get
+             
+        End Property
+	
+#End Region

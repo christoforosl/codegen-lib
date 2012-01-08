@@ -1,0 +1,8 @@
+<?xml version="1.0" standalone="yes" ?>
+<stmt>
+	<key>key</key>
+	<MSSQL></MSSQL>
+	<ORACLE></ORACLE>
+	<COMMON></COMMON>
+	<JET></JET>
+</stmt>

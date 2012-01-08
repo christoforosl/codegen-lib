@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DslangStrings>
+  <langString>
+    <langKey>cmdAdd</langKey>
+    <langValueEN>&amp;Add</langValueEN>
+    <langValueEL>&amp;Πρόσθεση</langValueEL>
+  </langString>
+
+  <langString>
+    <langKey>Form_Add_Text</langKey>
+    <langValueEN>Add New</langValueEN>
+    <langValueEL>Πρόσθεση</langValueEL>
+  </langString>
+  
+  <langString>
+    <langKey>cmdDelete</langKey>
+    <langValueEN>&amp;Delete</langValueEN>
+    <langValueEL>&amp;Διαγραφή</langValueEL>
+  </langString>
+
+  <langString>
+    <langKey>cmdEdit</langKey>
+    <langValueEN>&amp;Edit</langValueEN>
+    <langValueEL>&amp;Αλλαγή</langValueEL>
+  </langString>
+
+  <langString>
+    <langKey>Form_Edit_Text</langKey>
+    <langValueEN>Edit</langValueEN>
+    <langValueEL>Αλλαγή</langValueEL>
+  </langString>
+  
+  <langString>
+    <langKey>cmdPrint</langKey>
+    <langValueEN>&amp;Print</langValueEN>
+    <langValueEL>&amp;Εκτύπωση</langValueEL>
+  </langString>
+
+  <langString>
+    <langKey>cmdExcel</langKey>
+    <langValueEN>&amp;Excel</langValueEN>
+    <langValueEL>&amp;Excel</langValueEL>
+  </langString>
+
+  <langString>
+    <langKey>cmdClose</langKey>
+    <langValueEN>&amp;Close</langValueEN>
+    <langValueEL>&amp;Κλείσημο</langValueEL>
+  </langString>
+
+  <langString>
+    <langKey>cmdSave</langKey>
+    <langValueEN>&amp;Save</langValueEN>
+    <langValueEL>&amp;Αποθήκευση</langValueEL>
+  </langString>
+
+  <langString>
+    <langKey>cmdSaveAs</langKey>
+    <langValueEN>Sa&amp;ve As</langValueEN>
+    <langValueEL>Αντι&amp;γραφή</langValueEL>
+  </langString>
+
+  <langString>
+    <langKey>cmdPrevious</langKey>
+    <langValueEN>&amp;Previous</langValueEN>
+    <langValueEL>&amp;Προηγ.</langValueEL>
+  </langString>
+
+  <langString>
+    <langKey>cmdHideColumn</langKey>
+    <langValueEN>Hide Column</langValueEN>
+    <langValueEL>Απόκρυψη Στήλης</langValueEL>
+  </langString>
+
+  
+
+  <langString>
+    <langKey>cmdNext</langKey>
+    <langValueEN>&amp;Next</langValueEN>
+    <langValueEL>&amp;Επόμενο</langValueEL>
+  </langString>
+
+  <langString>
+    <langKey>cmdCancel</langKey>
+    <langValueEN>&amp;Cancel</langValueEN>
+    <langValueEL>&amp;Ακύρωση</langValueEL>
+  </langString>
+
+  <langString>
+    <langKey>please_enter_or_select_field</langKey>
+    <langValueEN>Please enter or select a value for required field {0}.</langValueEN>
+    <langValueEL>Παρακαλώ Καταχωρείστε η Επιλέξτε Τιμή Για το Πεδίο {0}.</langValueEL>
+  </langString>
+
+
+  
+  
+  <langString>
+    <langKey>grid_rows_showing</langKey>
+    <langValueEN>Number of Records in Grid: {0}</langValueEN>
+    <langValueEL>Αριθμός Εγγραφών στη Λίστα: {0}</langValueEL>
+  </langString>
+
+  <langString>
+    <langKey>warn_delete</langKey>
+    <langValueEN>Are you sure you want to delete this record?</langValueEN>
+    <langValueEL>Η εγγραφή θα διαγραφεί.  Είστε σίγουρος/η?</langValueEL>
+  </langString>
+
+  <langString>
+    <langKey>warn_move_rec</langKey>
+    <langValueEN>Do you want to save your changes before moving from the record?</langValueEN>
+    <langValueEL>Να Αποθηκευτούν οι Αλλαγές σας  πριν την κίνηση σε άλλη εγγραφή?</langValueEL>
+  </langString>
+
+  <langString>
+    <langKey>invalid_date</langKey>
+    <langValueEN>Please enter a valid date in field {0}.</langValueEN>
+    <langValueEL>Παρακαλώ Καταχωρείστε Ημερομηνία στο πεδίο {0}</langValueEL>
+  </langString>
+
+  <langString>
+    <langKey>invalid_date</langKey>
+    <langValueEN>Please enter a valid time value in field {0} in the form HH:MM, (examples 18:30, 09:20, etc).</langValueEN>
+    <langValueEL>Παρακαλώ Καταχωρείστε Ώρα στο πεδίο {0} (ΠΧ, 18:30, 09:10, κτλ)</langValueEL>
+  </langString>
+  
+  <langString>
+    <langKey>invalid_integer</langKey>
+    <langValueEN>Please enter a valid Integer number in field {0}.</langValueEN>
+    <langValueEL>Το πεδίο {0} δεχεται μόνο ακαίρεο αριθμό, χωρίς κόμμα η τελεία.</langValueEL>
+  </langString>
+
+  <langString>
+    <langKey>Search</langKey>
+    <langValueEN>Search</langValueEN>
+    <langValueEL>Αναζήτηση</langValueEL>
+  </langString>
+
+  <langString>
+    <langKey>record_loaded_ok</langKey>
+    <langValueEN>Record with ID: {0} Loaded OK</langValueEN>
+    <langValueEL>Επιτυχής Φόρτωση Εγγραφής με Αρ. {0}</langValueEL>
+  </langString>
+
+  <langString>
+    <langKey>record_not_saved</langKey>
+    <langValueEN>Record not saved! Please examine the form for problems and try again.</langValueEN>
+    <langValueEL>H Εγγραφή ΔΕΝ αποθηκεύτηκε στη Βάση Δεδομένων. Δοκιμάστε ξανά.</langValueEL>
+  </langString>
+
+  <langString>
+    <langKey>new_record</langKey>
+    <langValueEN>--NEW--</langValueEN>
+    <langValueEL>--NEA--</langValueEL>
+  </langString>
+
+  
+
+</DslangStrings>

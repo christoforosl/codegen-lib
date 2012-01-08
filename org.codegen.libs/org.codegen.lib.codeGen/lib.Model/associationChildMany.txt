@@ -1,0 +1,95 @@
+﻿		
+		Public Overridable Function get<association_name_singular>(ByVal i As Integer) As <datatype> _
+				implements <iface>.get<association_name_singular>
+
+            me.load<association_name>
+            If Me._<association_name>.Count >= (i - 1) Then
+                Return Me._<association_name>.Item(i)
+            End If
+            Return Nothing
+
+        End Function
+        
+		
+		Public Overridable Sub Add<association_name_singular> _
+				(val As <datatype>) _
+				implements <iface>.Add<association_name_singular>
+
+			me.load<association_name>
+			val.<child_field_runtime> = me.<parent_field_runtime>
+			me._<association_name>.add(val)
+
+        End Sub
+
+		
+		Public Overridable Sub Remove<association_name_singular>( _ 
+					val As <datatype>) _
+					implements <iface>.Remove<association_name_singular>
+			
+			me.load<association_name>
+			me._deleted<association_name>.add(val)
+			me._<association_name>.remove(val)
+
+        End Sub
+
+		
+		Public Overridable Function getDeleted<association_name>() As IEnumerable(Of <datatype>) _
+					implements <iface>.getDeleted<association_name>
+			
+			return me._deleted<association_name>
+
+        End Function
+
+        Public Overridable Property <association_name>() _ 
+					As IEnumerable(Of <datatype>) _
+					implements <implements>.<association_name>
+
+            Get
+				'1 to many relation
+                'LAZY LOADING! Only hit the database to get the child object if we need it
+                If Me._<association_name> Is Nothing Then
+                    me.load<association_name>
+                End If ' me._<association_name> is Nothing
+				<sort>
+                Return Me._<association_name>
+            End Get
+            
+			Set(value as IEnumerable(Of <datatype>))
+				if value is nothing then
+					Me._<association_name> = nothing
+                Else
+                    Me._<association_name> = New List(Of <datatype>)
+                    While value.GetEnumerator.MoveNext
+                        Me._<association_name>.Add(value.GetEnumerator.Current)
+                    End While
+                End If
+			End Set
+
+        End Property
+        
+        ''' <summary>
+        ''' Loads child objects from dabatabase, if not loaded already
+        ''' </summary>
+        Public Overridable Sub load<association_name>
+			
+			if me.<association_name>Loaded then return
+			
+			If Me.isNew Then
+                Me._<association_name> = New List(Of <datatype>)
+            Else
+                Me._<association_name> = new <db_mapper>().findList( _ 
+							"<child_field>={0}", Me.Id)
+            End If          
+            
+        End Sub
+        
+        
+         
+        ''' <summary>
+        ''' resets the child object to force reload from database
+        ''' </summary>
+        Public Overridable Sub reset<association_name>
+			
+			me.<association_name>=nothing
+
+		End Sub

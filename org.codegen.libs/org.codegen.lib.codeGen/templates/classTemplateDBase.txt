@@ -1,0 +1,84 @@
+Option Strict On
+Imports COM.CGL.DATAACCESS.clsSQLStatement
+Imports COM.CGL.DATAACCESS.clsdb
+Imports COM.CGL.DATAACCESS
+
+Namespace <NAMESPACE>
+
+<CLASS_ACCESS_LEVEL> class <ClassName>
+    inherits <Base Class>
+    <iAuditable>
+
+    Public Overrides Property IdValue() As Integer
+            Get
+                return me.<PK_MO_FIELD_NAME>
+            End Get
+            Set(ByVal value As Integer)
+                me.<PK_MO_FIELD_NAME> = value
+            End Set
+    End Property
+
+#Region "Field CONSTANTS"
+<constants>
+#END Region
+
+#Region "Field Declarations"
+<Field Declarations>
+#END Region
+
+#Region "Field Properties"
+<CLASS_PROPERTIES>
+#End Region
+
+#Region "Database Access"
+
+Public overrides function getLoadSQL() as String
+    return "select * from <TBL> where <PK_TABKE_FIELD_NAME>={0}"
+end function
+
+Public overrides function getUpdateSQL() as String
+        return "<getUpdateSQL>" 
+end function
+
+Public overrides function getInsertSQL() as String
+        return "<getInsertStatement>" 
+end function
+
+Public overrides function getDeleteSQL() as String
+        return "delete from <TBL> where <PK_TABKE_FIELD_NAME>={0}"
+end function
+
+Public overrides function DBloadFromRs(rs as idatareader) as boolean
+
+    <LOAD_FIELDS>
+    DBloadFromRs=true
+   
+end function
+
+Public Overrides Function DBSaveRec() As Boolean
+
+    Dim sql As String
+    Try
+        Me.beginTrans()
+
+        If Me.<PK_MO_FIELD_NAME> > 0 Then
+            sql = Me.getUpdateSQL
+            Me.dbConn.executeSQLWithParams(sql, _<UPDATE_PARAMS>
+
+        Else
+            sql = Me.getInsertSQL
+            Me.dbConn.executeSQLWithParams(sql, _<INSERT_PARAMS>)
+
+        End If
+        Me.commitTrans()
+    Finally
+        Me.rollbackTrans()
+    End Try
+
+End Function
+    
+#END Region
+
+END CLASS
+
+End Namespace
