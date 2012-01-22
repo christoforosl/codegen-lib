@@ -169,9 +169,11 @@ Public Class ModelGenerator
     Public Property ProjectOutputDirTest() As String
         Set(ByVal val As String)
 
-            val = resolveRelativePathsAndCheck(val, Me.relativeDirectory)
-            If val.EndsWith("\") = False Then
-                val &= "\"
+            If Not String.IsNullOrEmpty(val) Then
+                val = resolveRelativePathsAndCheck(val, Me.relativeDirectory)
+                If val.EndsWith("\") = False Then
+                    val &= "\"
+                End If
             End If
 
             Me._projectOutputDirTest = val
@@ -184,11 +186,13 @@ Public Class ModelGenerator
 
     Public Property ProjectOutputDirUI As String
         Set(ByVal val As String)
-
-            val = resolveRelativePathsAndCheck(val, Me.relativeDirectory)
-            If val.EndsWith("\") = False Then
-                val &= "\"
+            If Not String.IsNullOrEmpty(val) Then
+                val = resolveRelativePathsAndCheck(val, Me.relativeDirectory)
+                If val.EndsWith("\") = False Then
+                    val &= "\"
+                End If
             End If
+
             Me._ProjectOutputDirUI = val
 
         End Set
@@ -199,11 +203,13 @@ Public Class ModelGenerator
 
     Public Property ProjectOutputDirModel() As String
         Set(ByVal val As String)
-
-            val = resolveRelativePathsAndCheck(val, Me.relativeDirectory)
-            If val.EndsWith("\") = False Then
-                val &= "\"
+            If Not String.IsNullOrEmpty(val) Then
+                val = resolveRelativePathsAndCheck(val, Me.relativeDirectory)
+                If val.EndsWith("\") = False Then
+                    val &= "\"
+                End If
             End If
+
             Me._ProjectOutputDirModel = val
 
         End Set
