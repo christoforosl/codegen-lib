@@ -95,7 +95,7 @@ Namespace <DBMAPPER_NAMESPACE>
 		'''	 <param name="params"> Parameter values to be passed to sql statement </param>
 		'''	 <returns> A List(Of <MODEL_CLASS_NAME>) object containing all objects loaded </returns>
 		'''	 
-		Public Function findList(ByVal sWhereClause As String, _
+		Public shadows Function findList(ByVal sWhereClause As String, _
 											ByVal ParamArray params() As Object) _
 											As List(Of <MODEL_CLASS_NAME>)
 

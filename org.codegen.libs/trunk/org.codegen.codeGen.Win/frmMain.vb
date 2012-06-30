@@ -95,7 +95,7 @@ Public Class frmMain
                     End If
                 Next
             End If
-            Call MsgBox(String.Format("{0}{1}XML Conf File Error:{2}", ex.Message, vbCrLf, dsErr), MsgBoxStyle.Critical, "NETU Code Generator")
+            Call MsgBox(String.Format("{0}{1}XML Conf File Error:{2}", ex.Message + vbCrLf + ex.StackTrace, vbCrLf, dsErr), MsgBoxStyle.Critical, "NETU Code Generator")
         End Try
 
     End Sub

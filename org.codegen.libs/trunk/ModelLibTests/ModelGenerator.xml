@@ -2,10 +2,10 @@
 <project xmlns="ClassGenerator3">
   
   <GeneratorVersion>2</GeneratorVersion>
-  <projectFile>C:\VSProjects\IIC\org.codegen.libs\ModelLibTestsWinApp\ModelLibTestsWinApp.vbproj</projectFile>
+  <projectFile>C:\VSProjects\org.codegen.libs\ModelLibTestsWinApp\ModelLibTestsWinApp.vbproj</projectFile>
   <projectName>ModelLibTests</projectName>
-  <outputDir>C:\VSProjects\IIC\org.codegen.libs\ModelLibTestsWinApp\</outputDir>
-  <testProjectOutputDir>C:\VSProjects\IIC\org.codegen.libs\ModelLibTests\Tests\</testProjectOutputDir>
+  <outputDir>C:\VSProjects\org.codegen.libs\ModelLibTestsWinApp\</outputDir>
+  <testProjectOutputDir>C:\VSProjects\org.codegen.libs\ModelLibTests\Tests\</testProjectOutputDir>
   <defaultNamespace>BusObjects</defaultNamespace>
   <defaultDBMapperNameSpace>BusObjects.DBMappers</defaultDBMapperNameSpace>
   <dbConnectionString>
