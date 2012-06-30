@@ -133,33 +133,33 @@ Namespace BusObjects.Mappers
 		'''	 <param name="params"> Parameter values to be passed to sql statement </param>
 		'''	 <returns> A List(Of Employee) object containing all objects loaded </returns>
 		'''	 
-		Public Function findList(ByVal sWhereClause As String, _
-											ByVal ParamArray params() As Object) _
-											As List(Of Employee)
+        Public Shadows Function findList(ByVal sWhereClause As String, _
+           ByVal ParamArray params() As Object) _
+           As List(Of Employee)
 
-			dim sql as String = Me.getSqlWithWhereClause(sWhereClause)
-			Dim rs As IDataReader = Nothing
-			Dim molist As New List(Of Employee)
-						
-			Try				
-				rs = dbConn.getDataReaderWithParams(sql, params)
+            Dim sql As String = Me.getSqlWithWhereClause(sWhereClause)
+            Dim rs As IDataReader = Nothing
+            Dim molist As New List(Of Employee)
+
+            Try
+                rs = dbConn.getDataReaderWithParams(sql, params)
                 Me.Loader.DataSource = rs
-               
-				Do While rs.Read
-					Dim mo As IModelObject = Me.getModelInstance
-					Me.Loader.load(mo)
+
+                Do While rs.Read
+                    Dim mo As IModelObject = Me.getModelInstance
+                    Me.Loader.load(mo)
                     molist.Add(DirectCast(mo, Employee))
-					
-				Loop
 
-				
-			Finally
-				Me.dbConn.closeDataReader(rs)
-			End Try
+                Loop
 
-			Return molist
 
-		End Function
+            Finally
+                Me.dbConn.closeDataReader(rs)
+            End Try
+
+            Return molist
+
+        End Function
     
 		'''    
 		'''	 <summary>Returns all records from database for a coresponding ModelObject </summary>

@@ -134,6 +134,39 @@ Public MustInherit Class DBMapper
 
     End Function
 
+    ''' <summary>
+    ''' Retrieves an enumerable if IModelObject based on the key value passed
+    ''' </summary>
+    ''' <returns>List of loaded ModelObject class instances</returns>
+    ''' <remarks></remarks>
+    Public Function findList(ByVal sWhereClause As String, _
+                                          ByVal ParamArray params() As Object) _
+                                          As IEnumerable(Of IModelObject)
+
+        Dim rs As IDataReader = Nothing
+        Dim ret As List(Of IModelObject) = New List(Of IModelObject)
+
+        Try
+            
+            rs = dbConn.getDataReaderWithParams(Me.getSqlWithWhereClause(sWhereClause), params)
+            Me.Loader.DataSource = rs
+
+            Do While rs.Read
+                Dim mo As IModelObject = Me.getModelInstance
+                Me.Loader.load(mo)
+                mo.isDirty = False
+                mo.afterLoad()
+                ret.Add(mo)
+            Loop
+
+        Finally
+            Me.dbConn.closeDataReader(rs)
+        End Try
+
+        Return ret
+
+
+    End Function
 
 #Region "Transaction Support"
 
