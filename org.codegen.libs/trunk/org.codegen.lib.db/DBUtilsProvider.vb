@@ -46,26 +46,28 @@ Public Class DBUtilsProviderFromConfig
                     TryCast(System.Configuration.ConfigurationManager.GetSection("DBConfig"),  _
                     DBConfig)
 
-        Select Case CType(dbConfigSect.sqlConnectionType, enumConnType)
+        If dbConfigSect IsNot Nothing Then
+            Select Case CType(dbConfigSect.sqlConnectionType, enumConnType)
 
-            Case enumConnType.CONN_MSSQL
-                ret = New MSSQLUtils()
-                ret.sqldialect = enumSqlDialect.MSSQL
+                Case enumConnType.CONN_MSSQL
+                    ret = New MSSQLUtils()
+                    ret.sqldialect = enumSqlDialect.MSSQL
 
-            Case enumConnType.CONN_OLEDB
-                ret = New OLEDBUtils()
-                ret.sqldialect = CType(dbConfigSect.sqlDialect, enumSqlDialect)
+                Case enumConnType.CONN_OLEDB
+                    ret = New OLEDBUtils()
+                    ret.sqldialect = CType(dbConfigSect.sqlDialect, enumSqlDialect)
 
-        End Select
+            End Select
 
-        Dim connstr As String = dbConfigSect.dbconnstring
+            Dim connstr As String = dbConfigSect.dbconnstring
 
-        If CBool(dbConfigSect.dbConnStringEncrypted) Then
-            ret.ConnString = SimpleEncrypt.Decipher(connstr)
+            If CBool(dbConfigSect.dbConnStringEncrypted) Then
+                ret.ConnString = SimpleEncrypt.Decipher(connstr)
 
-        Else
-            ret.ConnString = connstr
+            Else
+                ret.ConnString = connstr
 
+            End If
         End If
 
         Return ret

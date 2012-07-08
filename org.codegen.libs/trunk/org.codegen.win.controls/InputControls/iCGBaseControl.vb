@@ -6,6 +6,7 @@ Public Interface ICGBaseControl
     Property MaxValue() As Object
 
     Property isMandatory() As Boolean
+    Property showAsteriskForMandatory() As Boolean
     Property ErrProvider As ErrorProvider
     Property AssociatedLabel As Label
     Property [ReadOnly] As Boolean
