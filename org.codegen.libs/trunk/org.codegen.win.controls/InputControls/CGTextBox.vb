@@ -182,7 +182,7 @@ Public Class CGTextBox
     Private Sub _ParentChanged(ByVal sender As Object, ByVal e As System.EventArgs) _
                         Handles Me.ParentChanged
 
-        If Not Me.DesignMode AndAlso Me.isMandatory Then
+        If Not Me.DesignMode AndAlso Me.isMandatory AndAlso Me.showAsteriskForMandatory Then
 
             addAsteriskLabel(CType(Me, Control), CType(Me.Parent, Control))
 
