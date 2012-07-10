@@ -69,6 +69,29 @@ Public Class CGIntTextBox
 
     End Property
 
+    <System.ComponentModel.Browsable(False), _
+    System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)> _
+    Public Property integerValue() As Integer?
+        Get
+            If IsNumeric(Me.Text) Then
+                Return CInt(Me.Text)
+            Else
+                Return Nothing
+            End If
+        End Get
+
+        Set(ByVal sValue As Integer?)
+
+            If sValue.HasValue AndAlso IsNumeric(sValue) Then
+                Me.Text = CStr(sValue)
+            Else
+                Me.Text = String.Empty
+            End If
+
+        End Set
+
+    End Property
+
     Protected Function numberKeyPress(ByVal KeyAscii As Integer) As Boolean
 
         If Chr(KeyAscii) = "+" Then

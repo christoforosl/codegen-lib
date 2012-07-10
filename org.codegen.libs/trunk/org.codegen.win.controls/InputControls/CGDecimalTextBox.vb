@@ -22,6 +22,29 @@ Public Class CGDecimalTextBox
         End Set
     End Property
 
+    <System.ComponentModel.Browsable(False), _
+   System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)> _
+    Public Property decimalValue() As Decimal?
+        Get
+            If IsNumeric(Me.Text) Then
+                Return CDec(Me.Text)
+            Else
+                Return Nothing
+            End If
+        End Get
+
+        Set(ByVal sValue As Decimal?)
+
+            If sValue.HasValue AndAlso IsNumeric(sValue) Then
+                Me.Text = CStr(sValue)
+            Else
+                Me.Text = String.Empty
+            End If
+
+        End Set
+
+    End Property
+
     Private Sub _KeyPress(ByVal sender As Object, _
                                          ByVal e As System.Windows.Forms.KeyPressEventArgs) _
                                      Handles MyBase.KeyPress
