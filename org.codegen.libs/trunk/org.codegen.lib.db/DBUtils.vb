@@ -892,7 +892,7 @@ Public MustInherit Class DBUtils
         Else
             Dim org As DateTime = val.Value
             Dim truncatedDateTime As DateTime = New DateTime(org.Year, org.Month, org.Day, org.Hour, org.Minute, org.Second)
-            Debug.WriteLine("Saving datetime:" & truncatedDateTime)
+            'Debug.WriteLine("Saving datetime:" & truncatedDateTime)
             tmp.Value = truncatedDateTime
         End If
 
