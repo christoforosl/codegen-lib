@@ -269,7 +269,11 @@ Public MustInherit Class DBMapper
             Me.beginTrans()
 
             If o.isDirty() = True Then
-                Debug.WriteLine("Start Saving :" & o.GetType.Name)
+                If o.isNew Then
+                    Debug.WriteLine("Start Insert :" & o.GetType.Name)
+                Else
+                    Debug.WriteLine("Start Update :" & o.GetType.Name)
+                End If
 
                 o.setAuditFields()
 
@@ -280,11 +284,11 @@ Public MustInherit Class DBMapper
 
             End If
 
-            Me.saveParents(o)
-            Me.saveModelObject(o)
-            Me.saveChildren(o)
+                Me.saveParents(o)
+                Me.saveModelObject(o)
+                Me.saveChildren(o)
 
-            Me.commitTrans()
+                Me.commitTrans()
 
 
         Finally
