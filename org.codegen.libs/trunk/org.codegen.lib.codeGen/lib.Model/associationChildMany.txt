@@ -14,9 +14,10 @@
 		Public Overridable Sub Add<association_name_singular> _
 				(val As <datatype>) _
 				implements <iface>.Add<association_name_singular>
-
+			'1-Many , add a single item!
 			me.load<association_name>
 			val.<child_field_runtime> = me.<parent_field_runtime>
+			AddHandler Me.IDChanged, AddressOf val.handleParentIdChanged
 			me._<association_name>.add(val)
 
         End Sub
