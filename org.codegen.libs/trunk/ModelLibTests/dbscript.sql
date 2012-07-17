@@ -152,7 +152,7 @@ insert into [EmployeeProject] ([EPEmployeeId],[EPProjectId],[AssignDate],[EndDat
 values (2,3,dateAdd(m,-3, getDate()),null,100.00)
 go
 ALTER TABLE dbo.Employee ADD
-	Address nvarchar(50) NULL,
+	[Address] nvarchar(50) NULL,
 	Telephone nvarchar(10) NULL,
 	Mobile nvarchar(10) NULL,
 	IdNumber nvarchar(10) NULL,

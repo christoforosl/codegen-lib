@@ -1,11 +1,12 @@
 ﻿        
         Public Overridable Property <association_name>() As <datatype> _
 			implements <implements>.<association_name>
-				
+			'1-1 child association
             Set(ByVal value As <datatype>)
                 Me._<association_name> = value
 				If value isnot Nothing then
 					Me._<association_name>.<child_field_runtime> = me.<parent_field_runtime>
+					AddHandler Me.IDChanged, AddressOf value.handleParentIdChanged
 				else
 					Me._<association_name>.<child_field_runtime> = Nothing
 				End If     
@@ -13,8 +14,7 @@
 
 
             Get
-				'1 to 1 relation
-                'LAZY LOADING! Only hit the database to get the child object if we need it
+			    'LAZY LOADING! Only hit the database to get the child object if we need it
                 If Me._<association_name> Is Nothing Then
 					Call Me.load<association_name>
                 End If 
@@ -32,7 +32,8 @@
 			If me.<association_name>Loaded then return
 			
 			If  Me.<parent_field_runtime> > 0 Then
-				Me._<association_name> = _ 
+				'call setter here, not the private variable
+				Me.<association_name> = _ 
 					new <db_mapper>().findWhere( _ 
 					   "<child_field>={0}", Me.<parent_field_runtime>)
 				
@@ -40,8 +41,8 @@
 			End If ' me._<association_name> is Nothing
 
             If Me._<association_name> Is Nothing Then
-                Me._<association_name> = <datatype>Factory.Create()
-                Me._<association_name>.<child_field_runtime> = me.<parent_field_runtime>
+                'call setter here, not the private variable
+				Me.<association_name> = <datatype>Factory.Create()
                 
             End If
             

@@ -117,9 +117,6 @@ Namespace Model
 
         Function copy() As IModelObject
 
-        Sub setupIDChangeListeners()
-
-
         Function getAuditor() As IAuditor
 
     End Interface

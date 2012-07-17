@@ -1,11 +1,14 @@
-﻿		
+﻿		''' <summary>
+        ''' Gets/Sets parent object
+        ''' </summary>
 		Public Overridable Property <association_name>() As <datatype> _
 			implements <implements>.<association_name>
-		          
+		    '1-1 parent association
             Set(ByVal value As <datatype>)
                 Me._<association_name> = value
 				If value isnot Nothing then
 					me.<child_field_runtime> = value.<parent_field_runtime>
+					AddHandler value.IDChanged, AddressOf Me.handleParentIdChanged
                 Else
 					me.<child_field_runtime> = Nothing
 				End If
@@ -24,8 +27,7 @@
         End Property
         
         ''' <summary>
-        ''' Loads child/parent object and sets 
-        ''' the appropriate properties
+        ''' Loads parent object and sets the appropriate properties
         ''' </summary>
         Public Overridable Sub load<association_name>
 			
@@ -34,13 +36,15 @@
 			If Me._<association_name> Is Nothing AndAlso _
                    Me.<child_field_runtime> > 0 Then
                 
-                Me._<association_name> = new <db_mapper>().FindByKey( _ 
+				'call the setter here, not the private variable!
+                Me.<association_name> = new <db_mapper>().FindByKey( _ 
 				                 Me.<child_field_runtime>.Value)
                 
             End If ' me._<association_name> is Nothing
 
             If Me._<association_name> Is Nothing Then
-                Me._<association_name> = <datatype>Factory.Create()
+                'call the setter here, not the private variable!
+				Me.<association_name> = <datatype>Factory.Create()
                 
             End If ' second check me._<association_name> is Nothing
 			            
