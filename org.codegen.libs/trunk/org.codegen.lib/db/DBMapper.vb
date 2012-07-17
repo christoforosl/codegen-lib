@@ -264,7 +264,6 @@ Public MustInherit Class DBMapper
     Public Overridable Sub save(ByVal o As IModelObject) Implements IDataMapper.save
 
         Try
-            o.setupIDChangeListeners()
 
             Me.beginTrans()
 

@@ -321,19 +321,19 @@ Namespace Model
             RaiseEvent IDChanged(Me)
         End Sub
 
-        Public Overridable Sub setupIDChangeListeners() Implements IModelObject.setupIDChangeListeners
+        'Public Overridable Sub setupIDChangeListeners() Implements IModelObject.setupIDChangeListeners
 
-            Dim children As List(Of ModelObject) = Me.getChildren
-            For Each obj As ModelObject In children
-                AddHandler Me.IDChanged, AddressOf obj.handleParentIdChanged
-            Next
+        '    Dim children As List(Of ModelObject) = Me.getChildren
+        '    For Each obj As ModelObject In children
+        '        AddHandler Me.IDChanged, AddressOf obj.handleParentIdChanged
+        '    Next
 
-            Dim pars As List(Of ModelObject) = Me.getParents
-            For Each obj As ModelObject In pars
-                AddHandler obj.IDChanged, AddressOf Me.handleParentIdChanged
-            Next
+        '    Dim pars As List(Of ModelObject) = Me.getParents
+        '    For Each obj As ModelObject In pars
+        '        AddHandler obj.IDChanged, AddressOf Me.handleParentIdChanged
+        '    Next
 
-        End Sub
+        'End Sub
 
 
 #End Region

@@ -59,13 +59,27 @@
 					Me._<association_name> = nothing
                 Else
                     Me._<association_name> = New List(Of <datatype>)
-                    While value.GetEnumerator.MoveNext
-                        Me._<association_name>.Add(value.GetEnumerator.Current)
-                    End While
+                    Me.addTo<association_name>List(value)
                 End If
 			End Set
 
         End Property
+
+		''' <summary>
+        ''' Private method to add to the <association_name> List. 
+		''' The list must have aldready been initialized
+        ''' </summary>
+		Private Sub addTo<association_name>List(ByVal value As IEnumerable(Of <datatype>))
+
+			Dim enumtor As IEnumerator(Of <datatype>) = value.GetEnumerator
+        
+		    While enumtor.MoveNext
+                Dim v As <datatype> = enumtor.Current
+                AddHandler Me.IDChanged, AddressOf v.handleParentIdChanged
+                Me._<association_name>.Add(v)
+            End While
+
+        End Sub
         
         ''' <summary>
         ''' Loads child objects from dabatabase, if not loaded already
@@ -73,23 +87,13 @@
         Public Overridable Sub load<association_name>
 			
 			if me.<association_name>Loaded then return
-			
-			If Me.isNew Then
-                Me._<association_name> = New List(Of <datatype>)
-            Else
-                Me._<association_name> = new <db_mapper>().findList( _ 
-							"<child_field>={0}", Me.Id)
+			'init list
+			Me._<association_name> = New List(Of <datatype>)
+
+			If Not Me.isNew Then
+                
+                Me.addTo<association_name>List( new <db_mapper>().findList( _ 
+																		"<child_field>={0}", Me.Id))
             End If          
             
         End Sub
-        
-        
-         
-        ''' <summary>
-        ''' resets the child object to force reload from database
-        ''' </summary>
-        Public Overridable Sub reset<association_name>
-			
-			me.<association_name>=nothing
-
-		End Sub
