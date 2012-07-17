@@ -135,13 +135,14 @@ Public Class Association
 
             If Me.IsReadOnly Then
                 'in case of readonly association, just append a comment
-                ret += vbTab + vbTab & "'***Readonly Association:" & Me.associationName.ToLower() & " ***!" & vbCrLf
+                ret += vbTab + vbTab & "'***Readonly Parent Association:" & Me.associationName.ToLower() & " ***!" & vbCrLf
             Else
 
-                Dim mapperClassName As String = GetAssociatedMapperClassName() 'ModelGenerator.Current.CurrentObjectBeingGenerated.FullyQualifiedMapperClassName
+                Dim mapperClassName As String = GetAssociatedMapperClassName()
                 Dim mappervar As String = Me.associationName.ToLower() & "Mapper"
+                ret += vbTab + vbTab & "'*** Parent Association:" & Me.associationName.ToLower() & vbCrLf
                 ret += vbTab + vbTab & "if thisMo." & Me.getGet() & "Loaded() AndAlso thisMo." & Me.getGet() & "().NeedsSave() Then" & vbCrLf
-                ret += vbTab + vbTab + vbTab + "dim mappervar as " & mapperClassName & "= new " & mapperClassName & "(me.dbConn())" & vbCrLf
+                ret += vbTab + vbTab + vbTab + "Dim mappervar as " & mapperClassName & "= new " & mapperClassName & "(me.dbConn())" & vbCrLf
                 ret += vbTab + vbTab + vbTab + "mappervar.save(thisMo." & Me.getGet() & ")" & vbCrLf
                 ret += vbTab + vbTab & vbTab + "thisMo." & DBTable.getRuntimeName(Me.ChildFieldName()) & " = thisMo." & Me.getGet() & "." & DBTable.getRuntimeName(Me.ParentFieldName()) & vbCrLf
                 ret += vbTab + vbTab & "end if" & vbCrLf
@@ -176,13 +177,13 @@ Public Class Association
 
         Else
             If Me.IsReadOnly Then
-                ret += vbTab + vbTab & "'***Readonly Association:" & Me.associationName.ToLower() & " ***!" & vbCrLf
+                ret += vbTab + vbTab & "'***Readonly Child Association:" & Me.associationName.ToLower() & " ***!" & vbCrLf
             Else
 
                 Dim mapperClassName As String = GetAssociatedMapperClassName()
                 Dim mappervar As String = Me.associationName.ToLower() & "Mapper"
-
-                ret = vbTab & vbTab & "If ret." & Me.associationName & "Loaded = True then " & vbCrLf
+                ret = vbTab + vbTab & "'***Child Association:" & Me.associationName.ToLower() & vbCrLf
+                ret &= vbTab & vbTab & "If ret." & Me.associationName & "Loaded = True then " & vbCrLf
                 ret &= vbTab & vbTab & vbTab & "Dim " & mappervar & " as " & _
                               mapperClassName & " = new " & mapperClassName & "(me.DBConn())" & vbCrLf
 
@@ -237,6 +238,7 @@ Public Class Association
         End If
 
         sb.Append(vbTab & "Friend Function " & Me.getCanonicalName() & "Loaded As Boolean" & vbCrLf)
+        sb.Append(vbTab & vbTab & "'***" & CStr(IIf(isParent, "Parent Association", "Child Association")) & vbCrLf)
         sb.Append(vbTab & vbTab & "return  me._" & fieldName & " is Nothing = False" & vbCrLf)
         sb.Append(vbTab & "End Function " & vbCrLf)
 
