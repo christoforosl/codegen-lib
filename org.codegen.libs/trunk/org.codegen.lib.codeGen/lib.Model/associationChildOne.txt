@@ -4,8 +4,11 @@
 				
             Set(ByVal value As <datatype>)
                 Me._<association_name> = value
-                Me._<association_name>.<child_field_runtime> = me.<parent_field_runtime>
-				                                
+				If value isnot Nothing then
+					Me._<association_name>.<child_field_runtime> = me.<parent_field_runtime>
+				else
+					Me._<association_name>.<child_field_runtime> = Nothing
+				End If     
             End Set
 
 
