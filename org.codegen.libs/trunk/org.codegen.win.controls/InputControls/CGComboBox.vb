@@ -262,7 +262,8 @@ Public Class CGComboBox
     Description("Returns the Int value of selected Item.")> _
     Public ReadOnly Property intValue() As Integer?
         Get
-            If IsNumeric(Me.Value) Then
+            'change, 20/7: only return a number if value is greater than 0
+            If IsNumeric(Me.Value) AndAlso CInt(Me.Value) > 0 Then
                 Return CInt(Me.Value)
             Else
                 Return Nothing
@@ -279,7 +280,8 @@ Public Class CGComboBox
      Description("Returns the String value of selected Item.")> _
     Public ReadOnly Property StrValue() As String
         Get
-            If Me.Value Is Nothing Then
+            'change, 20/7: only return a value if value is not empty string
+            If Me.Value Is Nothing OrElse String.IsNullOrEmpty(CStr(Me.Value)) Then
                 Return String.Empty
             Else
                 Return CStr(Me.Value)
@@ -294,9 +296,11 @@ Public Class CGComboBox
     Public Property Value() As Object Implements ICGBaseControl.Value
 
         Get
-
-            Return Me.SelectedValue
-
+            If Me.SelectedValue IsNot Nothing AndAlso CStr(Me.SelectedValue) <> "" AndAlso CStr(Me.SelectedValue) <> "0" Then
+                Return Me.SelectedValue
+            Else
+                Return Nothing
+            End If
         End Get
 
         Set(ByVal value As Object)
