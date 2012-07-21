@@ -296,8 +296,12 @@ Public Class CGComboBox
     Public Property Value() As Object Implements ICGBaseControl.Value
 
         Get
-            If Me.SelectedValue IsNot Nothing AndAlso CStr(Me.SelectedValue) <> "" AndAlso CStr(Me.SelectedValue) <> "0" Then
+            If Me.SelectedValue IsNot Nothing AndAlso _
+                    CStr(Me.SelectedValue) <> "" AndAlso _
+                    CStr(Me.SelectedValue) <> "0" Then
+
                 Return Me.SelectedValue
+
             Else
                 Return Nothing
             End If
