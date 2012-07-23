@@ -292,7 +292,7 @@ Public Class CGComboBox
 
 
     <Browsable(False), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), _
-  Description("Returns the Value of selected Item.")> _
+  Description("Returns the Value of selected Item. Note: empty Strings and 0 values are ignored and nothing is returned instead.")> _
     Public Property Value() As Object Implements ICGBaseControl.Value
 
         Get
