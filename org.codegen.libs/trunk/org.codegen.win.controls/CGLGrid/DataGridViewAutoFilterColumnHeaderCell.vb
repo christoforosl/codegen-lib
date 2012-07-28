@@ -964,6 +964,7 @@ Public Class DataGridViewAutoFilterColumnHeaderCell
         End If
 
         Dim data As BindingSource = Me.GetFilterListData()
+        If data Is Nothing Then Exit Sub
 
         ' Prevent the data source from notifying the DataGridView of changes. 
         data.RaiseListChangedEvents = False
@@ -1416,8 +1417,10 @@ Public Class DataGridViewAutoFilterColumnHeaderCell
             ' the filteringEnabledValue and BindingSource.SupportsFiltering values.
             Dim data As BindingSource = _
                 TryCast(Me.DataGridView.DataSource, BindingSource)
-            Debug.Assert(data IsNot Nothing)
+            If data Is Nothing Then Return False
+
             Return filteringEnabledValue AndAlso data.SupportsFiltering
+
         End Get
 
         Set(ByVal value As Boolean)
