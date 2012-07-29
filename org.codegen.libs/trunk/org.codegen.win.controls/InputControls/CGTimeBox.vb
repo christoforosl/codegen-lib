@@ -43,14 +43,29 @@ Public Class CGTimeBox
 
     End Function
 
-    Private Sub CGTimeBox_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.LostFocus
+    Protected Overrides Sub OnLostFocus(ByVal e As System.EventArgs)
 
         If parseTime(Me.Text) IsNot Nothing Then
             Me.Text = Format(parseTime(Me.Text), FormatPattern)
         End If
 
+        MyBase.OnLostFocus(e)
+
+    End Sub
+    Protected Overrides Sub OnValidating(ByVal e As System.ComponentModel.CancelEventArgs)
+
+        If parseTime(Me.Text) IsNot Nothing Then
+            Me.Text = Format(parseTime(Me.Text), FormatPattern)
+        Else
+            e.Cancel = True
+            Return
+        End If
+
+        MyBase.OnValidating(e)
+
     End Sub
 
+    
     Public Shared Function parseTime(ByVal tm As String) As DateTime?
 
         Dim hs As String = String.Empty
