@@ -1,4 +1,6 @@
 ﻿		
+		#Region "Association <association_name>"
+
 		Public Overridable Function get<association_name_singular>(ByVal i As Integer) As <datatype> _
 				implements <iface>.get<association_name_singular>
 
@@ -22,7 +24,14 @@
 
         End Sub
 
-		
+		 Public Overridable Sub Clear<association_name>()
+
+            Me.load<association_name>()
+            Me._deleted<association_name>.AddRange(Me._<association_name>)
+            Me._<association_name>.Clear()
+
+        End Sub
+
 		Public Overridable Sub Remove<association_name_singular>( _ 
 					val As <datatype>) _
 					implements <iface>.Remove<association_name_singular>
@@ -98,3 +107,4 @@
             End If          
             
         End Sub
+		#End Region
