@@ -57,8 +57,10 @@ Public NotInheritable Class WinEventLogger
 
     Public Shared Sub WriteError(ByVal e As Exception)
 
-        Dim msg As String = e.Message & vbCrLf
-        msg &= msg
+        Dim msg As String = e.Message & vbCrLf & _
+                        "Stack Trace:" & _
+                                        e.StackTrace
+
         Call WriteError(msg)
 
     End Sub
