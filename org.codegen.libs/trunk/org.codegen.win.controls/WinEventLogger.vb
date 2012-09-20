@@ -33,7 +33,11 @@ Public NotInheritable Class WinEventLogger
                 EventLog.CreateEventSource(cEventSource, LOG_NAME)
             End If
         Catch e As Exception
-            MsgBox("Error in WinEventLogger.WriteError: " & e.Message, MsgBoxStyle.Exclamation, cEventSource)
+            MsgBox("Error in WinEventLogger.WriteError, while trying to write to log: [" & _
+                   LOG_NAME & "." & cEventSource & "]" & _
+                   e.Message & _
+                   "Original Error Message:" & errorMessage, _
+                   MsgBoxStyle.Exclamation, cEventSource)
         End Try
     End Sub
 
@@ -51,7 +55,11 @@ Public NotInheritable Class WinEventLogger
                 EventLog.CreateEventSource(cEventSource, LOG_NAME)
             End If
         Catch e As Exception
-            MsgBox("Error in WinEventLogger.WriteInfo: " & e.Message, MsgBoxStyle.Exclamation, cEventSource)
+            MsgBox("Error in WinEventLogger.WriteInfo , while trying to write to log: [" & _
+                   LOG_NAME & "." & cEventSource & "]" & _
+                   e.Message & _
+                   "Original Info Message:" & errorMessage, _
+                   MsgBoxStyle.Exclamation, cEventSource)
         End Try
     End Sub
 
