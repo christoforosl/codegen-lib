@@ -17,10 +17,16 @@ Public NotInheritable Class WinEventLogger
 
     Private Const LOG_NAME As String = "Application"
 
-    Private Shared cEventSource As String = winUtils.ApplicationTitle
+    Public Shared cEventSource As String
 
     Public Shared Sub WriteError(ByVal errorMessage As String)
         Try
+
+            If String.IsNullOrEmpty(cEventSource) Then
+                MsgBox("You must set a value to variable cEbentSource")
+                Exit Sub
+            End If
+
             'the event source should be created during the installation process
             If EventLog.SourceExists(cEventSource) Then
 
@@ -43,6 +49,12 @@ Public NotInheritable Class WinEventLogger
 
     Public Shared Sub WriteInfo(ByVal errorMessage As String)
         Try
+
+            If String.IsNullOrEmpty(cEventSource) Then
+                MsgBox("You must set a value to variable cEbentSource")
+                Exit Sub
+            End If
+
             'the event source should be created during the installation process
             If EventLog.SourceExists(cEventSource) Then
 
