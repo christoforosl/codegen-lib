@@ -16,10 +16,13 @@ Partial Class frmBaseGrid
 
     Sub New()
 
+
         ' This call is required by the designer.
         InitializeComponent()
         Me.GridMode = frmGridMode.MODE_LIST
         ' Add any initialization after the InitializeComponent() call.
+
+        Me.Font = winUtils.ApplicationDefaultFont
 
     End Sub
 
@@ -99,7 +102,7 @@ Partial Class frmBaseGrid
         Me.pnlGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlGrid.Location = New System.Drawing.Point(0, 53)
         Me.pnlGrid.Name = "pnlGrid"
-        Me.pnlGrid.Size = New System.Drawing.Size(832, 301)
+        Me.pnlGrid.Size = New System.Drawing.Size(971, 301)
         Me.pnlGrid.TabIndex = 3
         '
         'pnlSelectToolbar
@@ -108,7 +111,7 @@ Partial Class frmBaseGrid
         Me.pnlSelectToolbar.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlSelectToolbar.Location = New System.Drawing.Point(0, 0)
         Me.pnlSelectToolbar.Name = "pnlSelectToolbar"
-        Me.pnlSelectToolbar.Size = New System.Drawing.Size(832, 28)
+        Me.pnlSelectToolbar.Size = New System.Drawing.Size(971, 28)
         Me.pnlSelectToolbar.TabIndex = 0
         '
         'tlSripSelectMode
@@ -116,7 +119,7 @@ Partial Class frmBaseGrid
         Me.tlSripSelectMode.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdSelectAndClose, Me.cmdSelectCancel, Me.tsepSearch2, Me.tsLblSearch2, Me.tsTxtSearch2})
         Me.tlSripSelectMode.Location = New System.Drawing.Point(0, 0)
         Me.tlSripSelectMode.Name = "tlSripSelectMode"
-        Me.tlSripSelectMode.Size = New System.Drawing.Size(832, 25)
+        Me.tlSripSelectMode.Size = New System.Drawing.Size(971, 25)
         Me.tlSripSelectMode.TabIndex = 0
         Me.tlSripSelectMode.Text = "ToolStrip1"
         '
@@ -154,7 +157,7 @@ Partial Class frmBaseGrid
         Me.tsTxtSearch2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.tsTxtSearch2.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(161, Byte))
         Me.tsTxtSearch2.Name = "tsTxtSearch2"
-        Me.tsTxtSearch2.Size = New System.Drawing.Size(100, 25)
+        Me.tsTxtSearch2.Size = New System.Drawing.Size(116, 25)
         '
         'pnlEditToolbar
         '
@@ -162,7 +165,7 @@ Partial Class frmBaseGrid
         Me.pnlEditToolbar.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlEditToolbar.Location = New System.Drawing.Point(0, 28)
         Me.pnlEditToolbar.Name = "pnlEditToolbar"
-        Me.pnlEditToolbar.Size = New System.Drawing.Size(832, 25)
+        Me.pnlEditToolbar.Size = New System.Drawing.Size(971, 25)
         Me.pnlEditToolbar.TabIndex = 0
         '
         'tlStripList
@@ -172,7 +175,7 @@ Partial Class frmBaseGrid
         Me.tlStripList.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdAdd, Me.cmdEdit, Me.cmdDelete, Me.tsepPrintAndExcel, Me.cmdPrint, Me.cmdExcel, Me.cmdConfigureGrid, Me.tsepSearch, Me.tsLblSearch, Me.tsTxtSearch})
         Me.tlStripList.Location = New System.Drawing.Point(0, 0)
         Me.tlStripList.Name = "tlStripList"
-        Me.tlStripList.Size = New System.Drawing.Size(832, 25)
+        Me.tlStripList.Size = New System.Drawing.Size(971, 25)
         Me.tlStripList.TabIndex = 3
         Me.tlStripList.Text = "tlStripList"
         '
@@ -248,14 +251,14 @@ Partial Class frmBaseGrid
         Me.tsTxtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.tsTxtSearch.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(161, Byte))
         Me.tsTxtSearch.Name = "tsTxtSearch"
-        Me.tsTxtSearch.Size = New System.Drawing.Size(100, 25)
+        Me.tsTxtSearch.Size = New System.Drawing.Size(116, 25)
         '
         'frmBaseGrid
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(832, 354)
+        Me.ClientSize = New System.Drawing.Size(971, 354)
         Me.Controls.Add(Me.pnlGrid)
         Me.Controls.Add(Me.pnlEditToolbar)
         Me.Controls.Add(Me.pnlSelectToolbar)

@@ -7,8 +7,10 @@ Public Class MDIParent
     Private formsMenuMap As New Dictionary(Of ToolStripMenuItem, String)
 
     Private Sub MDIParent_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        
-		Me.Text = winUtils.ApplicationTitle
+
+        winUtils.ApplicationDefaultFont = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, _
+                                System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Text = winUtils.ApplicationTitle
 		Me.setupMenues()
 
     End Sub
