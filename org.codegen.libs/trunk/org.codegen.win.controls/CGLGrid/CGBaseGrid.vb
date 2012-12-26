@@ -43,13 +43,13 @@ Namespace Grid
         Public Sub New()
             MyBase.New()
             Me.Dock = System.Windows.Forms.DockStyle.Fill
-
+            _traceSrc = New TraceSource("CGBaseGrid")
             ' This call is required by the designer.
             InitializeComponent()
-            Me.setSkin()
             AddHandler Me.MouseDown, AddressOf Me.grdData_MouseDown
+            Me.Font = winUtils.ApplicationDefaultFont
+            Me.setSkin()
 
-            _traceSrc = New TraceSource("CGBaseGrid")
 
         End Sub
 #End Region
@@ -381,7 +381,7 @@ Namespace Grid
 
             Dim rowHeadStyle As New DataGridViewCellStyle
             rowHeadStyle.BackColor = SystemColors.Desktop
-            rowHeadStyle.Font = New Font("Tahoma", 8.25!, FontStyle.Regular, GraphicsUnit.Point, 0)
+            rowHeadStyle.Font = winUtils.ApplicationDefaultFont ' New Font("Tahoma", 8.25!, FontStyle.Regular, GraphicsUnit.Point, 0)
             rowHeadStyle.ForeColor = SystemColors.WindowText
             rowHeadStyle.SelectionBackColor = SystemColors.Highlight
             rowHeadStyle.SelectionForeColor = SystemColors.HighlightText
@@ -401,7 +401,7 @@ Namespace Grid
             Me.AllowUserToResizeRows = False
 
             Me.EditMode = DataGridViewEditMode.EditProgrammatically
-            Me.Font = New Font("Tahoma", 8.25!, FontStyle.Regular, GraphicsUnit.Point, 0)
+            'Me.Font = winUtils.ApplicationDefaultFont 'New Font("Tahoma", 8.25!, FontStyle.Regular, GraphicsUnit.Point, 0)
 
         End Sub
 
@@ -414,30 +414,6 @@ Namespace Grid
         End Sub
 
        
-        'Private Sub CGBaseGrid_RowLeave(ByVal sender As Object, ByVal e As  _
-        '                                System.Windows.Forms.DataGridViewCellEventArgs) Handles Me.RowLeave
-        '    If Me.DataLoading Then Return
-        '    If Me.ReadOnly Then Return
-        '    _traceSrc.TraceInformation("CGBaseGrid_RowLeave")
-        '    Me.CGBaseGridRowPersistor.SaveRowToStore(Me, Me.Rows(e.RowIndex))
-        'End Sub
-        'Private Sub CGBaseGrid_KeyDown(ByVal sender As Object, ByVal e As  _
-        '                               System.Windows.Forms.KeyEventArgs)
-        '    'on enter key of the row, call save
-        '    If e.KeyCode = Keys.Enter Then
-
-        '        If Me.DataLoading Then Return
-        '        If Me.ReadOnly Then Return
-        '        _traceSrc.TraceInformation("CGBaseGrid_EnterKeyDown")
-        '        Me.CGBaseGridRowPersistor.SaveRowToStore(Me, Me.CurrentRow)
-        '    End If
-        'End Sub
-
-        'Private Sub CGBaseGrid_EditingControlShowing(ByVal sender As Object, _
-        '                                             ByVal e As System.Windows.Forms.DataGridViewEditingControlShowingEventArgs) Handles Me.EditingControlShowing
-        '    AddHandler e.Control.KeyDown, AddressOf CGBaseGrid_KeyDown
-        'End Sub
-
         Private Sub CGBaseGrid_CellValidated(ByVal sender As Object, _
                                              ByVal e As DataGridViewCellEventArgs) _
                                          Handles Me.CellValidated
