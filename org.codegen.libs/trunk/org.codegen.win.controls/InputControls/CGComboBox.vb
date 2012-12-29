@@ -10,6 +10,7 @@ Public Class CGComboBox
     Implements ICGBaseControl
 
 #Region "read only combo code"
+
 #Region "-- Declarations --"
     Private _ReadOnly As Boolean
     Private _DroppedDown As Boolean
@@ -297,8 +298,14 @@ Public Class CGComboBox
 
         Get
             If Me.SelectedValue IsNot Nothing AndAlso _
-                    CStr(Me.SelectedValue) <> "" AndAlso _
-                    CStr(Me.SelectedValue) <> "0" Then
+                    CStr(Me.SelectedValue) <> ""  Then
+
+                'note: we removed AndAlso _
+                '    CStr(Me.SelectedValue) <> "0"
+                'if "0" is selected we want it to be returned. 
+                'In case of a boolean value 1/0 we need the 0 to be a legitimate value.
+                'If you need to add a "Please Select", give it an string empty value and not 0
+                '
 
                 Return Me.SelectedValue
 
