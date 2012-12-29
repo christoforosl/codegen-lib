@@ -54,11 +54,14 @@ Public Class CGTimeBox
     End Sub
     Protected Overrides Sub OnValidating(ByVal e As System.ComponentModel.CancelEventArgs)
 
-        If parseTime(Me.Text) IsNot Nothing Then
-            Me.Text = Format(parseTime(Me.Text), FormatPattern)
-        Else
-            e.Cancel = True
-            Return
+        If String.IsNullOrEmpty(Me.Text.Trim) = False Then
+            If parseTime(Me.Text) IsNot Nothing Then
+                Me.Text = Format(parseTime(Me.Text), FormatPattern)
+            Else
+                Me.addError("Invalid time value entered in text box:" & Me.Label)
+                e.Cancel = True
+                Return
+            End If
         End If
 
         MyBase.OnValidating(e)
