@@ -348,7 +348,7 @@ Public Class CGComboBox
               ByVal e As System.ComponentModel.CancelEventArgs) _
              Handles Me.Validating
 
-        If Me.SelectedItem Is Nothing AndAlso Me.isMandatory Then
+        If Me.Value Is Nothing AndAlso Me.isMandatory Then
             Me.addError(CGTextBox.getReqFieldMessage(Me.Label))
             e.Cancel = True
         End If
