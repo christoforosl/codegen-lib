@@ -299,7 +299,7 @@ Public Class CGComboBox
         Get
             If IsDBNull(Me.SelectedValue) = False _
                     AndAlso Me.SelectedValue IsNot Nothing AndAlso _
-                    CStr(Me.SelectedValue) <> "" Then
+                    String.IsNullOrEmpty(CStr(Me.SelectedValue)) = False Then
 
                 'note: we removed AndAlso _
                 '    CStr(Me.SelectedValue) <> "0"
