@@ -71,11 +71,13 @@ Public Class DBTable
         Dim objStmt As IDataReader = Nothing
 
         Try
-
-            Me.loadPrimaryKey()
+            If (String.IsNullOrEmpty(Me.PrimaryKeyFieldName)) Then
+                Me.loadPrimaryKey()
+            End If
 
             'load all field from "selectObject" which could be a view.
-            objStmt = ModelGenerator.Current.dbConn.getDataReader("select * from " & ModelGenerator.Current.dbConn.quoteObjectName(Me.SelectObject) & " where 1=0")
+            'note: do not quote [] name, to support other databases
+            objStmt = ModelGenerator.Current.dbConn.getDataReader("select * from " & Me.SelectObject & " where 1=0")
             Dim objectFields As Dictionary(Of String, IDBField) = extractFieldsFromMetadata(objStmt)
             ModelGenerator.Current.dbConn.closeDataReader(objStmt)
 
@@ -171,17 +173,17 @@ Public Class DBTable
 
     Private Sub loadPrimaryKey()
 
-        Dim ret As String = String.Empty
+        Dim pkFieldName As String = String.Empty
         Dim sql As String = String.Empty
         Dim rs As IDataReader = Nothing
 
         Try
 
             If ModelGenerator.Current.dbConn.sqldialect = DBUtils.enumSqlDialect.ORACLE Then
-                ret = ModelGenerator.Current.dbConn.getSValue("SELECT COLUMN_NAME, POSITION FROM user_CONS_COLUMNS a, user_constraints b WHERE a.TABLE_NAME ='" & _TableName & "' AND b.constraint_type = 'P' and a.table_name=b.table_name and a.constraint_name = b.constraint_name")
+                pkFieldName = ModelGenerator.Current.dbConn.getSValue("SELECT COLUMN_NAME, POSITION FROM user_CONS_COLUMNS a, user_constraints b WHERE a.TABLE_NAME ='" & _TableName & "' AND b.constraint_type = 'P' and a.table_name=b.table_name and a.constraint_name = b.constraint_name")
 
             ElseIf ModelGenerator.Current.dbConn.sqldialect = DBUtils.enumSqlDialect.MSSQL Then
-                ret = ModelGenerator.Current.dbConn.getSValue("SELECT a.Column_Name FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS a CROSS JOIN INFORMATION_SCHEMA.TABLE_CONSTRAINTS AS b WHERE (b.constraint_type = 'PRIMARY KEY') AND (a.constraint_name = b.constraint_name) AND a.table_name ='" & _TableName & "'")  'order by a.table_name, a.column_name
+                pkFieldName = ModelGenerator.Current.dbConn.getSValue("SELECT a.Column_Name FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS a CROSS JOIN INFORMATION_SCHEMA.TABLE_CONSTRAINTS AS b WHERE (b.constraint_type = 'PRIMARY KEY') AND (a.constraint_name = b.constraint_name) AND a.table_name ='" & _TableName & "'")  'order by a.table_name, a.column_name
 
             ElseIf ModelGenerator.Current.dbConn.sqldialect = DBUtils.enumSqlDialect.JET Or _
                    ModelGenerator.Current.dbConn.sqldialect = DBUtils.enumSqlDialect.MSSQL Then
@@ -190,9 +192,9 @@ Public Class DBTable
                     New Object() {Nothing, Nothing, Me._TableName})
 
                 If mySchema.Rows.Count = 0 Then
-                    ret = ""
+                    pkFieldName = ""
                 Else
-                    ret = mySchema.Rows(0).ItemArray(3).ToString()
+                    pkFieldName = mySchema.Rows(0).ItemArray(3).ToString()
                 End If
 
 
@@ -206,15 +208,15 @@ Public Class DBTable
 
         End Try
 
-        If ret.Equals(String.Empty) Then
+        If pkFieldName.Equals(String.Empty) Then
             Throw New ApplicationException("Faield to get Primary Key field name for table **" & Me._TableName & "**" & Constants.vbCrLf & "DBObject requires the table to have a primary key field, consisting of just one column.")
         End If
 
-        Me.PrimaryKey = ret
+        Me.PrimaryKeyFieldName = pkFieldName
 
     End Sub
 
-   
+
     Public ReadOnly Property hasFieldName(ByVal fname As String) As Boolean Implements IDBTable.hasFieldName
         Get
             Return Me.Fields.ContainsKey(fname.ToLower)
@@ -253,8 +255,8 @@ Public Class DBTable
         End Set
     End Property
 
-    
-       
+
+
 
     ''' <summary>
     ''' If a field has been customized / specified in the xml generator specification
@@ -295,8 +297,8 @@ Public Class DBTable
 
     End Function
 
-    Public Property PrimaryKey() As String Implements IDBTable.PrimaryKey
-        
+    Public Property PrimaryKeyFieldName() As String Implements IDBTable.PrimaryKeyFieldName
+
 
     Public ReadOnly Property quotedTableName() As String Implements IDBTable.quotedTableName
 
@@ -315,11 +317,11 @@ Public Class DBTable
 
     Public Overridable Function getPrimaryKeyName() As String Implements IDBTable.getPrimaryKeyName
 
-        If PrimaryKey Is Nothing OrElse Me.PrimaryKey.Equals("") Then
+        If PrimaryKeyFieldName Is Nothing OrElse Me.PrimaryKeyFieldName.Equals("") Then
             loadPrimaryKey()
         End If
 
-        Return Me.PrimaryKey
+        Return Me.PrimaryKeyFieldName
     End Function
 
     Public Shared Function getRuntimeName(ByVal name As String) As String
@@ -385,7 +387,7 @@ Public Class DBTable
     Public Sub New(ByVal _intableName As String, ByVal _pkfield As String)
 
         Me._TableName = _intableName
-        Me.PrimaryKey = _pkfield
+        Me.PrimaryKeyFieldName = _pkfield
 
     End Sub
 

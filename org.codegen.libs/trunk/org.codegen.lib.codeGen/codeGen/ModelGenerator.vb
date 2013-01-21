@@ -11,7 +11,7 @@ Imports System.Threading
 
 '''
 ''' <summary>
-''' Generates ModelObject derived java classeses based 
+''' Generates ModelObject derived classes based 
 ''' on the ModelObject and Mapper objects 
 ''' </summary>
 ''' 
