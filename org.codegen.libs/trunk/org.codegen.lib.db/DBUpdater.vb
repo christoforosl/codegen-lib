@@ -10,7 +10,7 @@ Friend Class ORADBUpdater
         Return vbCrLf & "/" & vbCrLf
     End Function
 
-    Protected Friend Overrides Function getSQLCommandFileName(ByVal iVersion As Int16) As String
+    Protected Friend Overrides Function getSQLCommandFileName(ByVal iVersion As Integer) As String
         Return "dbUpdate_" & CStr(iVersion) & "_ORA.SQL"
     End Function
 
@@ -19,7 +19,7 @@ Friend Class ORADBUpdater
         Dim rs As IDataReader
         Dim dbversion As Int32
 
-        rs = _dbconn.getDataReader("SELECT version from sysDatabaseVersion ORDER BY VERSION DESC FOR UPDATE NOWAIT") 'lock table exclusively
+        rs = _dbconn.getDataReader("SELECT version from DatabaseVersion ORDER BY VERSION DESC FOR UPDATE NOWAIT") 'lock table exclusively
         If rs.Read Then
             dbversion = CInt(rs(0))
         Else
@@ -40,7 +40,7 @@ Friend Class MSSQLDBUpdater
         Return vbCrLf & "go" & vbCrLf
     End Function
 
-    Protected Friend Overrides Function getSQLCommandFileName(ByVal iVersion As Int16) As String
+    Protected Friend Overrides Function getSQLCommandFileName(ByVal iVersion As Integer) As String
         Return "dbUpdate_" & CStr(iVersion) & "_MS.SQL"
     End Function
 
@@ -55,7 +55,7 @@ Friend Class MSSQLDBUpdater
             'ErrorLogging.addError("Backup log failed.", "logon")
         End Try
 
-        rs = _dbconn.getDataReader("SELECT max(version) from sysDatabaseVersion WITH (TABLOCKX)") 'lock table exclusively
+        rs = _dbconn.getDataReader("SELECT max(version) from DatabaseVersion WITH (TABLOCKX)") 'lock table exclusively
         If rs.Read Then
             dbversion = CInt(rs(0))
         Else
@@ -76,7 +76,7 @@ Friend Class MSAccessUpdater
         Return vbCrLf & "/" & vbCrLf
     End Function
 
-    Protected Friend Overrides Function getSQLCommandFileName(ByVal iVersion As Int16) As String
+    Protected Friend Overrides Function getSQLCommandFileName(ByVal iVersion As Integer) As String
         Return "dbUpdate_" & CStr(iVersion) & "_AC.SQL"
     End Function
 
@@ -85,7 +85,7 @@ Friend Class MSAccessUpdater
         Dim rs As IDataReader
         Dim dbversion As Int32
 
-        rs = _dbconn.getDataReader("SELECT max(version) from sysDatabaseVersion") 'lock table exclusively
+        rs = _dbconn.getDataReader("SELECT max(version) from DatabaseVersion") 'lock table exclusively
         If rs.Read Then
             dbversion = CInt(rs(0))
         Else
@@ -141,14 +141,14 @@ End Class
 Public MustInherit Class DBUpdater
 
     Protected _dbconn As DBUtils
-    Protected _codeDatabaseVersion As Int16
+    Protected _codeDatabaseVersion As Integer
     Protected _assemblyName As String
 
     Protected Friend MustOverride Function getVersionAndLockTable() As Int32
 
     'the character or string that the sql commands are separated with
     Protected Friend MustOverride Function getSQLCommandSeparator() As String
-    Protected Friend MustOverride Function getSQLCommandFileName(ByVal iVersion As Int16) As String
+    Protected Friend MustOverride Function getSQLCommandFileName(ByVal iVersion As Integer) As String
 
     Public Event VersionUpgradeCompleted(ByVal iversion As Integer)
 
@@ -269,7 +269,7 @@ Public MustInherit Class DBUpdater
 
 #Region "Public class interface"
 
-    Public Shared Function dbUpdateVersion(ByVal _dbconn As DBUtils, ByVal _dbversion As Int16, ByVal assemblyName As String) As Boolean
+    Public Shared Function dbUpdateVersion(ByVal _dbconn As DBUtils, ByVal _dbversion As Integer, ByVal assemblyName As String) As Boolean
         Dim dbu As DBUpdater
 
         If _dbconn.ConnType = DBUtils.enumConnType.CONN_OLEDB Then
