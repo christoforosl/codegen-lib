@@ -41,7 +41,7 @@ Public Interface IDBTable
     Property CustomizedFields() As Dictionary(Of String, IDBField)
     Property Associations() As List(Of IAssociation)
 
-    Property PrimaryKey() As String
+    Property PrimaryKeyFieldName() As String
     ReadOnly Property quotedTableName() As String
     ReadOnly Property quotedSelectObject() As String
 
