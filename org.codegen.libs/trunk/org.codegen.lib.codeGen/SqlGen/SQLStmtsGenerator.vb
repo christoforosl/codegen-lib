@@ -18,7 +18,9 @@ Public Class SQLStmtsGenerator
         Dim fldLineCnt As Integer = 0
         Dim count As Integer = 0
 
-        Dim tblName As String = "[" & Me.dbTable.SelectObject & "]"
+        'Dim tblName As String = "[" & Me.dbTable.SelectObject & "]"
+        'note: do not use above [] to support generation from a foreign schema select * from [dbname.dbo.table] fails!
+        Dim tblName As String = Me.dbTable.SelectObject
         If prefix = ":" Then tblName = """" & Me.dbTable.SelectObject & """"
 
         sb.Append("SELECT ")
@@ -58,7 +60,10 @@ Public Class SQLStmtsGenerator
         Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
         Dim vec As Dictionary(Of String, IDBField) = dbTable.Fields()
 
-        Dim tblName As String = "[" & Me.dbTable.TableName & "]"
+
+        'Dim tblName As String = "[" & Me.dbTable.TableName & "]"
+        'note: do not use above [] to support generation from a foreign schema select * from [dbname.dbo.table] fails!
+        Dim tblName As String = Me.dbTable.TableName
         If paramPrefix = ":" Then tblName = """" & Me.dbTable.TableName & """"
 
         Dim keyparam As Integer = 0
@@ -96,7 +101,9 @@ Public Class SQLStmtsGenerator
         Dim keyparam As Integer = 0
         Dim fldLineCnt As Integer = 0
 
-        Dim tblName As String = "[" & Me.dbTable.TableName & "]"
+        'Dim tblName As String = "[" & Me.dbTable.TableName & "]"
+        'note: do not use above [] to support generation from a foreign schema select * from [dbname.dbo.table] fails!
+        Dim tblName As String = Me.dbTable.TableName
         If paramPrefix = ":" Then tblName = """" & Me.dbTable.TableName & """"
 
         For Each field As DBField In vec.Values
@@ -145,7 +152,9 @@ Public Class SQLStmtsGenerator
         Dim fldLineCnt As Integer = 0
         Dim parameterCounter As Integer = 1
         Dim keyparam As Integer = 0
-        Dim tblName As String = "[" & Me.dbTable.TableName & "]"
+        'Dim tblName As String = "[" & Me.dbTable.TableName & "]"
+        'note: do not use above [] to support generation from a foreign schema select * from [dbname.dbo.table] fails!
+        Dim tblName As String = Me.dbTable.TableName
 
         For Each field As DBField In vec.Values
             If field.IsTableField Then
