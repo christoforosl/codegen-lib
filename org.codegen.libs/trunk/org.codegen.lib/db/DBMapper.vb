@@ -268,11 +268,6 @@ Public MustInherit Class DBMapper
             Me.beginTrans()
 
             If o.isDirty() = True Then
-                If o.isNew Then
-                    Debug.WriteLine("Start Insert :" & o.GetType.Name)
-                Else
-                    Debug.WriteLine("Start Update :" & o.GetType.Name)
-                End If
 
                 o.setAuditFields()
 
