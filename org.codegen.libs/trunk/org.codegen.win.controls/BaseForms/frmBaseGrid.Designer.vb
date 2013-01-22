@@ -37,7 +37,6 @@ Partial Class frmBaseGrid
         Me.mnAdd = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnEdit = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnDelete = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnReports = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.pnlGrid = New System.Windows.Forms.Panel()
         Me.pnlSelectToolbar = New System.Windows.Forms.Panel()
         Me.tlSripSelectMode = New System.Windows.Forms.ToolStrip()
@@ -58,6 +57,7 @@ Partial Class frmBaseGrid
         Me.tsepSearch = New System.Windows.Forms.ToolStripSeparator()
         Me.tsLblSearch = New System.Windows.Forms.ToolStripDropDownButton()
         Me.tsTxtSearch = New System.Windows.Forms.ToolStripTextBox()
+        Me.tsReportButton = New System.Windows.Forms.ToolStripDropDownButton()
         Me.mnActions.SuspendLayout()
         Me.pnlSelectToolbar.SuspendLayout()
         Me.tlSripSelectMode.SuspendLayout()
@@ -69,33 +69,28 @@ Partial Class frmBaseGrid
         '
         Me.mnActions.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnAdd, Me.mnEdit, Me.mnDelete})
         Me.mnActions.Name = "mnActions"
-        Me.mnActions.Size = New System.Drawing.Size(153, 92)
+        Me.mnActions.Size = New System.Drawing.Size(150, 70)
         '
         'mnAdd
         '
         Me.mnAdd.Name = "mnAdd"
         Me.mnAdd.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.N), System.Windows.Forms.Keys)
-        Me.mnAdd.Size = New System.Drawing.Size(152, 22)
+        Me.mnAdd.Size = New System.Drawing.Size(149, 22)
         Me.mnAdd.Text = "Add"
         '
         'mnEdit
         '
         Me.mnEdit.Name = "mnEdit"
         Me.mnEdit.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.E), System.Windows.Forms.Keys)
-        Me.mnEdit.Size = New System.Drawing.Size(152, 22)
+        Me.mnEdit.Size = New System.Drawing.Size(149, 22)
         Me.mnEdit.Text = "Edit"
         '
         'mnDelete
         '
         Me.mnDelete.Name = "mnDelete"
         Me.mnDelete.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.D), System.Windows.Forms.Keys)
-        Me.mnDelete.Size = New System.Drawing.Size(152, 22)
+        Me.mnDelete.Size = New System.Drawing.Size(149, 22)
         Me.mnDelete.Text = "Delete"
-        '
-        'mnReports
-        '
-        Me.mnReports.Name = "mnReports"
-        Me.mnReports.Size = New System.Drawing.Size(61, 4)
         '
         'pnlGrid
         '
@@ -172,7 +167,7 @@ Partial Class frmBaseGrid
         '
         Me.tlStripList.AccessibleRole = System.Windows.Forms.AccessibleRole.None
         Me.tlStripList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlStripList.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdAdd, Me.cmdEdit, Me.cmdDelete, Me.tsepPrintAndExcel, Me.cmdPrint, Me.cmdExcel, Me.cmdConfigureGrid, Me.tsepSearch, Me.tsLblSearch, Me.tsTxtSearch})
+        Me.tlStripList.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdAdd, Me.cmdEdit, Me.cmdDelete, Me.tsepPrintAndExcel, Me.cmdPrint, Me.cmdExcel, Me.cmdConfigureGrid, Me.tsepSearch, Me.tsLblSearch, Me.tsTxtSearch, Me.tsReportButton})
         Me.tlStripList.Location = New System.Drawing.Point(0, 0)
         Me.tlStripList.Name = "tlStripList"
         Me.tlStripList.Size = New System.Drawing.Size(971, 25)
@@ -253,6 +248,14 @@ Partial Class frmBaseGrid
         Me.tsTxtSearch.Name = "tsTxtSearch"
         Me.tsTxtSearch.Size = New System.Drawing.Size(116, 25)
         '
+        'tsReportButton
+        '
+        Me.tsReportButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.tsReportButton.Name = "tsReportButton"
+        Me.tsReportButton.Size = New System.Drawing.Size(60, 22)
+        Me.tsReportButton.Text = "Reports"
+        Me.tsReportButton.Visible = False
+        '
         'frmBaseGrid
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 13.0!)
@@ -279,7 +282,6 @@ Partial Class frmBaseGrid
 
     End Sub
     Public WithEvents mnActions As System.Windows.Forms.ContextMenuStrip
-    Public WithEvents mnReports As System.Windows.Forms.ContextMenuStrip
     Public WithEvents pnlGrid As System.Windows.Forms.Panel
 
     Public WithEvents tlStripList As System.Windows.Forms.ToolStrip
@@ -304,6 +306,7 @@ Partial Class frmBaseGrid
 	Friend WithEvents mnAdd As System.Windows.Forms.ToolStripMenuItem
 	Friend WithEvents mnEdit As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnDelete As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents tsReportButton As System.Windows.Forms.ToolStripDropDownButton
 
 
 

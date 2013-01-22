@@ -19,6 +19,12 @@ Public Class frmBaseGrid
     Private Const STR_CMD_HIDE_COLUMN As String = "cmdHideColumn"
     Private _GridMode As frmGridMode
 
+    ''' <summary>
+    ''' Event fires after search of grid is completed
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Event gridSearchExecuted()
+
     <Browsable(True)> _
     Public Property [ReadOnly] As Boolean
         Get
@@ -57,9 +63,9 @@ Public Class frmBaseGrid
     End Property
     Private Sub frmBaseGrid_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-		If Not Me.DesignMode Then
-			If Me.grdData Is Nothing Then
-				Throw New ApplicationException("Method grdData must be overwritten by inheritors")
+        If Not Me.DesignMode Then
+            If Me.grdData Is Nothing Then
+                Throw New ApplicationException("Method grdData must be overwritten by inheritors")
             End If
 
             If Me.Modal Then
@@ -68,33 +74,33 @@ Public Class frmBaseGrid
                 Me.FormBorderStyle = FormBorderStyle.Fixed3D
             End If
 
-		End If
+        End If
 
-		AddHandler Me.cmdConfigureGrid.Click, AddressOf Me.mnConfigureGrid_Click
-		AddHandler Me.cmdAdd.Click, AddressOf Me.mnAdd_Click
-		AddHandler Me.cmdEdit.Click, AddressOf Me.mnEdit_Click
-		AddHandler Me.cmdDelete.Click, AddressOf Me.mnDelete_Click
-		AddHandler Me.cmdExcel.Click, AddressOf Me.mnToExcel_click
+        AddHandler Me.cmdConfigureGrid.Click, AddressOf Me.mnConfigureGrid_Click
+        AddHandler Me.cmdAdd.Click, AddressOf Me.mnAdd_Click
+        AddHandler Me.cmdEdit.Click, AddressOf Me.mnEdit_Click
+        AddHandler Me.cmdDelete.Click, AddressOf Me.mnDelete_Click
+        AddHandler Me.cmdExcel.Click, AddressOf Me.mnToExcel_click
 
-		Me.ShowConfigButton = False
-		Me.ShowPrintButton = False
+        Me.ShowConfigButton = False
+        Me.ShowPrintButton = False
 
-		If Not Me.DesignMode Then
+        If Not Me.DesignMode Then
 
-			Me.addMenues()
-			Me.cmdAdd.Text = WinControlsLocalizer.getString("cmdAdd")
-			Me.cmdEdit.Text = WinControlsLocalizer.getString("cmdEdit")
-			Me.cmdExcel.Text = WinControlsLocalizer.getString("cmdExcel")
-			Me.cmdPrint.Text = WinControlsLocalizer.getString("cmdPrint")
-			Me.cmdConfigureGrid.Text = WinControlsLocalizer.getString("cmdChooseGridFields")
+            Me.addMenues()
+            Me.cmdAdd.Text = WinControlsLocalizer.getString("cmdAdd")
+            Me.cmdEdit.Text = WinControlsLocalizer.getString("cmdEdit")
+            Me.cmdExcel.Text = WinControlsLocalizer.getString("cmdExcel")
+            Me.cmdPrint.Text = WinControlsLocalizer.getString("cmdPrint")
+            Me.cmdConfigureGrid.Text = WinControlsLocalizer.getString("cmdChooseGridFields")
             Me.tsLblSearch.Text = WinControlsLocalizer.getString("Search")
             Me.tsLblSearch2.Text = WinControlsLocalizer.getString("Search")
 
-			Me.cmdDelete.Text = WinControlsLocalizer.getString("cmdDelete")
+            Me.cmdDelete.Text = WinControlsLocalizer.getString("cmdDelete")
 
-			'only show the search textbox if search fields are defined
-			Me.ShowSearch = Me.ShowSearch AndAlso Me.grdData.gpSearchFields.Count > 0
-			Me.ShowConfigButton = False	'for the moment do not show the config button
+            'only show the search textbox if search fields are defined
+            Me.ShowSearch = Me.ShowSearch AndAlso Me.grdData.gpSearchFields.Count > 0
+            Me.ShowConfigButton = False 'for the moment do not show the config button
 
 
             If Me.grdData.gpSearchFields IsNot Nothing AndAlso _
@@ -127,13 +133,13 @@ Public Class frmBaseGrid
 
             End If
 
-                Call winUtils.sizeMdiChild(Me)
+            Call winUtils.sizeMdiChild(Me)
 
-            End If
+        End If
 
 
 
-	End Sub
+    End Sub
 
 #Region "Properties"
 
@@ -272,6 +278,8 @@ Public Class frmBaseGrid
         Me.grdData.BindingSource.Filter = finalfilter
         Me._lastUsedFilter = newSearchFilter
 
+        RaiseEvent gridSearchExecuted()
+
     End Sub
 
     Protected Sub mnToExcel_click(ByVal sender As Object, ByVal e As EventArgs)
@@ -352,7 +360,7 @@ Public Class frmBaseGrid
         Dim item As ToolStripMenuItem
 
         Me.mnActions.Items.Clear()
-        Me.mnReports.Items.Clear()
+
 
         If Me.GridMode = frmGridMode.MODE_SELECT Then Exit Sub
 
@@ -433,6 +441,25 @@ Public Class frmBaseGrid
 
         AddHandler item.Click, handler
         Me.mnActions.Items.Add(item)
+
+    End Sub
+
+
+    Public Sub addToReportMenu(ByVal btnText As String, _
+                               ByVal handler As System.EventHandler, _
+                               Optional ByVal tag As String = "")
+
+        Dim item As ToolStripMenuItem = New ToolStripMenuItem
+        item.Text = btnText
+        item.Name = "reportBtn" & CStr(Me.tsReportButton.DropDownItems.Count + 1)
+        If (String.IsNullOrEmpty(tag) = False) Then
+            item.Tag = tag
+        End If
+
+        AddHandler item.Click, handler
+        Me.tsReportButton.DropDownItems.Add(item)
+
+        Me.tsReportButton.Visible = True
 
     End Sub
 
