@@ -250,11 +250,11 @@ Partial Class frmBaseGrid
         '
         'tsReportButton
         '
-        Me.tsReportButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.tsReportButton.Image = Global.org.codegen.win.controls.My.Resources.Resources.trends
+        Me.tsReportButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsReportButton.Name = "tsReportButton"
-        Me.tsReportButton.Size = New System.Drawing.Size(60, 22)
+        Me.tsReportButton.Size = New System.Drawing.Size(76, 22)
         Me.tsReportButton.Text = "Reports"
-        Me.tsReportButton.Visible = False
         '
         'frmBaseGrid
         '
