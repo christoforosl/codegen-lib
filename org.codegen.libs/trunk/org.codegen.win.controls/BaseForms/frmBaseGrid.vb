@@ -86,7 +86,7 @@ Public Class frmBaseGrid
         Me.ShowPrintButton = False
 
         If Not Me.DesignMode Then
-
+            Me.tsReportButton.Visible = False
             Me.addMenues()
             Me.cmdAdd.Text = WinControlsLocalizer.getString("cmdAdd")
             Me.cmdEdit.Text = WinControlsLocalizer.getString("cmdEdit")
