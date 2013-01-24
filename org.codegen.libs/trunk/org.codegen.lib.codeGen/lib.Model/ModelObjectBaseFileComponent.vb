@@ -4,7 +4,7 @@ Namespace FileComponents
 
     <ReplacementTokenAttribute(GetType(ClassAccessLevelToken), _
                 GetType(ObjectEqualsToken), _
-                GetType(ObjectCopyToken), _
+                GetType(ObjectCopyToken), GetType(ObjectMergeToken), _
                 GetType(XOrFieldsToken), _
                 GetType(DBMapperClassNameSpaceToken), _
                 GetType(ClassNameSpaceToken), _

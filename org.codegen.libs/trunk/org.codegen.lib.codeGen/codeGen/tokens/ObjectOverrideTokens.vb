@@ -2,6 +2,53 @@
 
 Namespace Tokens
 
+
+    Public Class ObjectMergeToken
+        Inherits ReplacementToken
+
+
+        Sub New()
+            Me.StringToReplace = "MERGE_FIELDS"
+        End Sub
+
+        Public Overrides Function getReplacementCode(ByVal t As IObjectToGenerate) As String
+            Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+            Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
+            
+            For Each field As DBField In vec.Values
+                If field.isPrimaryKey Then
+                Else
+
+
+                    sb.Append("If ")
+                    If field.RuntimeType Is Type.GetType("System.String") Then
+                        sb.Append("not String.isNullOrEmpty(o." & field.RuntimeFieldName & ")")
+                    Else
+                        sb.Append("not o." & field.RuntimeFieldName & " is Nothing")
+                    End If
+                    sb.Append(" AndAlso _").Append(vbCrLf).Append(vbTab).Append(vbTab)
+
+                    If field.RuntimeType Is Type.GetType("System.String") Then
+                        sb.Append(" String.isNullOrEmpty(me." & field.RuntimeFieldName & ")")
+                    Else
+                        sb.Append(" me." & field.RuntimeFieldName & " is Nothing")
+                    End If
+                    sb.Append(" Then ").Append(vbCrLf)
+
+                    sb.Append(vbTab + vbTab & "me." & field.RuntimeFieldName & " = o." & _
+                                        field.RuntimeFieldName & _
+                                vbCrLf)
+
+                    sb.Append("End If")
+                    sb.Append(vbCrLf)
+
+                End If
+            Next
+
+            Return sb.ToString()
+        End Function
+    End Class
+
     Public Class ObjectCopyToken
         Inherits ReplacementToken
 
