@@ -83,7 +83,7 @@ Public Class frm<MODEL_CLASS_NAME>List
         return me.uc<MODEL_CLASS_NAME>List.grd<MODEL_CLASS_NAME>
     End Function
 
-	Protected Overrides Sub deleteRecord(ByVal pkval As Integer)
+	 Protected Sub DeleteRecordConfirmed(pkval as Integer) Handles Me.gridDeleteRecordConfirmed
         
 		Dim m As New <MODEL_CLASS_NAME>DBMapper
         Dim mo As <MODEL_CLASS_NAME> = m.findByKey(pkval)
