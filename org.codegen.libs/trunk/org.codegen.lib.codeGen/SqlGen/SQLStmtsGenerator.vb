@@ -46,7 +46,7 @@ Public Class SQLStmtsGenerator
 
         If forpkey Then
             'sb.Append(vbCrLf & vbTab)
-            sb.Append("WHERE " & dbTable.getPrimaryKeyName() & "=" & prefix & "0")
+            sb.Append(" WHERE " & dbTable.getPrimaryKeyName() & "=" & prefix & "0")
         End If
 
         'sb.Append(vbCrLf)
@@ -189,8 +189,7 @@ Public Class SQLStmtsGenerator
         Dim parameterCounter As Integer = 1
         Dim keyparam As Integer = 0
         Dim fldLineCnt As Integer = 0
-        Dim tblName As String = """" & Me.dbTable.TableName & """"
-
+        Dim tblName As String = Me.dbTable.TableName
 
         For Each field As DBField In vec.Values
 

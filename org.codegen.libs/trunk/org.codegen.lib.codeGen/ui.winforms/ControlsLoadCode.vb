@@ -24,7 +24,7 @@ Namespace org.codegen.lib.codeGen.Tokens
 
                 Dim fldName As String = DBTable.getRuntimeName(field.FieldName())
                 If field.isLookup Then
-                    Dim lk As FieldLookupInfo = t.DbTable.LookupInfo.Item(fldName)
+                    Dim lk As FieldLookupInfo = t.DbTable.LookupInfo.Item(fldName.ToUpper)
                     Dim ds As String = "new " & GetAssociatedMapperClassName(lk.DataSource) & "().findAll()"
                     
                     sb.Append(vbTab & "Me.").Append(fldName).Append(".DataSource = ").Append(ds).Append(vbCrLf)

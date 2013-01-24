@@ -322,7 +322,7 @@ Public Class XMLClassGenerator
                     lk.DataSource = getRowValue(lookupRow, "DataSource", True)
                     lk.DisplayMember = getRowValue(lookupRow, "DisplayMember", True)
                     lk.ValueMember = getRowValue(lookupRow, "ValueMember", True)
-                    ogen.DbTable.LookupInfo.Add(fldname, lk)
+                    ogen.DbTable.LookupInfo.Add(fldname.ToUpper, lk)
 
                 Next
             End If
