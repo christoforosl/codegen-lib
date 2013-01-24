@@ -83,13 +83,13 @@ Public Class frmEmployeeRankList
         return me.ucEmployeeRankList.grdEmployeeRank
     End Function
 
-	Protected Overrides Sub deleteRecord(ByVal pkval As Integer)
-        
-		Dim m As New EmployeeRankDBMapper
-        Dim mo As EmployeeRank = m.findByKey(pkval)
-        Call m.delete(mo)
+        Protected Sub DeleteRecordConfirmed(ByVal pkval As Integer) Handles Me.gridDeleteRecordConfirmed
 
-    End Sub
+            Dim m As New EmployeeRankDBMapper
+            Dim mo As EmployeeRank = m.findByKey(pkval)
+            Call m.delete(mo)
+
+        End Sub
 
 #End Region
 

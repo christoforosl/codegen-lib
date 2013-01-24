@@ -87,7 +87,7 @@ Namespace Forms.List
             Return Me.ucProjectList.grdProject
         End Function
 
-        Protected Overrides Sub deleteRecord(ByVal pkval As Integer)
+        Protected Sub DeleteRecordConfirmed(ByVal pkval As Integer) Handles Me.gridDeleteRecordConfirmed
 
             Dim m As New ProjectDBMapper
             Dim mo As Project = m.findByKey(pkval)

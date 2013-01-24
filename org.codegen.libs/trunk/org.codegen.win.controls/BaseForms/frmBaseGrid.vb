@@ -24,6 +24,7 @@ Public Class frmBaseGrid
     ''' </summary>
     ''' <remarks></remarks>
     Public Event gridSearchExecuted()
+    Public Event gridDeleteRecordConfirmed(ByVal pkval As Integer)
 
     <Browsable(True)> _
     Public Property [ReadOnly] As Boolean
@@ -61,6 +62,12 @@ Public Class frmBaseGrid
         End Set
 
     End Property
+
+    Private Sub frmBaseGrid_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
+        If e.KeyCode = Keys.Delete Then
+            Call deleteRecord()
+        End If
+    End Sub
     Private Sub frmBaseGrid_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         If Not Me.DesignMode Then
@@ -310,15 +317,7 @@ Public Class frmBaseGrid
 
     Private Sub mnDelete_Click(ByVal sender As Object, ByVal e As EventArgs)
 
-        If IsNumeric(Me.grdData.IdValue) _
-                AndAlso winUtils.MsgboxQuestion("Are you sure you want to delete this record?") _
-                = MsgBoxResult.Yes Then
-
-            Call deleteRecord(Me.grdData.IdValue)
-            Me.grdData.requery()
-
-        End If
-
+        Call deleteRecord()
 
     End Sub
 
@@ -560,8 +559,19 @@ Public Class frmBaseGrid
 
 #End Region
 
-    Protected Overridable Sub deleteRecord(ByVal pkval As Integer)
-        Throw New ApplicationException("Method deleteRecord must be overwritten by inheritors")
+    Protected Sub deleteRecord()
+
+        If IsNumeric(Me.grdData.IdValue) _
+               AndAlso winUtils.MsgboxQuestion("Are you sure you want to delete this record?") _
+               = MsgBoxResult.Yes Then
+
+            RaiseEvent gridDeleteRecordConfirmed(Me.grdData.IdValue)
+            Me.grdData.requery()
+
+        End If
+
+
+
     End Sub
 
     ''' <summary>

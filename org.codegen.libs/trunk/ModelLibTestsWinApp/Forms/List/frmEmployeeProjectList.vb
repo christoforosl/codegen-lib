@@ -83,13 +83,13 @@ Public Class frmEmployeeProjectList
         return me.ucEmployeeProjectList.grdEmployeeProject
     End Function
 
-	Protected Overrides Sub deleteRecord(ByVal pkval As Integer)
-        
-		Dim m As New EmployeeProjectDBMapper
-        Dim mo As EmployeeProject = m.findByKey(pkval)
-        Call m.delete(mo)
+        Protected Sub DeleteRecordConfirmed() Handles Me.gridDeleteRecordConfirmed
 
-    End Sub
+            Dim m As New EmployeeProjectDBMapper
+            Dim mo As EmployeeProject = m.findByKey(Me.grdData.IdValue)
+            Call m.delete(mo)
+
+        End Sub
 
 #End Region
 

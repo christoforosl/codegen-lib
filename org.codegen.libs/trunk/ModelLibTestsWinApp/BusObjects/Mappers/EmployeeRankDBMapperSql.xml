@@ -8,23 +8,23 @@
   </stmt>
   <stmt>
     <key>selectall</key>
-    <MSSQL>SELECT RankId,Rank FROM [EmployeeRank]</MSSQL>
-    <JET>SELECT RankId,Rank FROM [EmployeeRank]</JET>
+    <MSSQL>SELECT RankId,Rank FROM EmployeeRank</MSSQL>
+    <JET>SELECT RankId,Rank FROM EmployeeRank</JET>
   </stmt>
   <stmt>
     <key>selectone</key>
-    <MSSQL>SELECT RankId,Rank FROM [EmployeeRank]WHERE RankId=@0</MSSQL>
-    <JET>SELECT RankId,Rank FROM [EmployeeRank]WHERE RankId=@0</JET>
+    <MSSQL>SELECT RankId,Rank FROM EmployeeRank WHERE RankId=@0</MSSQL>
+    <JET>SELECT RankId,Rank FROM EmployeeRank WHERE RankId=@0</JET>
   </stmt>
   <stmt>
     <key>delete</key>
-    <MSSQL>DELETE FROM [EmployeeRank] WHERE RankId=@0</MSSQL>
-    <JET>DELETE FROM [EmployeeRank] WHERE RankId=@0</JET>
+    <MSSQL>DELETE FROM EmployeeRank WHERE RankId=@0</MSSQL>
+    <JET>DELETE FROM EmployeeRank WHERE RankId=@0</JET>
   </stmt>
   <stmt>
     <key>insert</key>
-    <MSSQL>insert into [EmployeeRank] (Rank) values (@Rank)</MSSQL>
-    <JET>insert into [EmployeeRank] (Rank) values (@Rank)</JET>
+    <MSSQL>insert into EmployeeRank (Rank) values (@Rank)</MSSQL>
+    <JET>insert into EmployeeRank (Rank) values (@Rank)</JET>
   </stmt>
   <stmt>
     <key>update</key>
