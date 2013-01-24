@@ -16,7 +16,7 @@ Namespace org.codegen.lib.codeGen.Tokens
 
             For Each field As DBField In flds.Values
                 If field.isLookup Then
-                    Dim lk As FieldLookupInfo = field.ParentTable.LookupInfo.Item(field.FieldName)
+                    Dim lk As FieldLookupInfo = field.ParentTable.LookupInfo.Item(field.FieldName.ToUpper)
                     Dim ds As String = "new " & ControlsLoadCode.GetAssociatedMapperClassName(lk.DataSource) & "().findAll()"
 
                     sb.Append(vbTab & "Me.").Append(field.FieldName).Append(".HeaderCell =  New DataGridViewAutoFilterComboColumnHeaderCell()").Append(vbCrLf)

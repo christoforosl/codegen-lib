@@ -40,7 +40,7 @@ Namespace org.codegen.lib.codeGen.Tokens
 
         Public Shared Function getControlType(ByVal field As DBField) As String
 
-            If field.ParentTable.LookupInfo.ContainsKey(field.FieldName) Then
+            If field.ParentTable.LookupInfo.ContainsKey(field.FieldName.ToUpper) Then
                 Return "CGComboBox"
             Else
                 If field.isBoolean Then

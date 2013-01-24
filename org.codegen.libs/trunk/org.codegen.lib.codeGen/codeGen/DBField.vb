@@ -228,7 +228,7 @@ Public Class DBField
 
     Public Function isLookup() As Boolean Implements IDBField.isLookup
 
-        Return Me.ParentTable.LookupInfo.ContainsKey(Me.FieldName)
+        Return Me.ParentTable.LookupInfo.ContainsKey(Me.FieldName.ToUpper)
 
     End Function
 
