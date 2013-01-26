@@ -149,8 +149,8 @@ Namespace <NAMESPACE>
 	Public Overrides Function copy() as IModelObject
 		'creates a copy
 		
-		'NOTE: we can't cast from HolidayBase to Holiday, so below we 
-        'instantiate a Holiday, NOT a HolidayBase object
+		'NOTE: we can't cast from <MODEL_CLASS_NAME>Base to <MODEL_CLASS_NAME>, so below we 
+        'instantiate a <MODEL_CLASS_NAME>, NOT a <MODEL_CLASS_NAME>Base object
         Dim ret as <MODEL_CLASS_NAME> = <MODEL_CLASS_NAME>Factory.Create()
             
 		<COPY_FIELDS>
@@ -160,11 +160,9 @@ Namespace <NAMESPACE>
 	End Function
 	
 	Public Overrides Sub merge(other as IModelObject)
-		'creates a copy
+		'merges this <MODEL_CLASS_NAME> model object (me) with the "other" instance 
 		
-		'NOTE: we can't cast from HolidayBase to Holiday, so below we 
-        'instantiate a Holiday, NOT a HolidayBase object
-        Dim o as <MODEL_CLASS_NAME> = CType(other, <MODEL_CLASS_NAME>)
+		Dim o as <MODEL_CLASS_NAME> = CType(other, <MODEL_CLASS_NAME>)
             
 		<MERGE_FIELDS>
 		

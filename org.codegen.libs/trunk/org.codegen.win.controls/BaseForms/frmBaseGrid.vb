@@ -8,7 +8,7 @@ Imports System.Reflection
 ''' SELECT mode: shows select/close button
 ''' </summary>
 ''' <remarks></remarks>
-Public Enum frmGridMode
+Public Enum enumGridFormMode
     MODE_LIST
     MODE_SELECT
 End Enum
@@ -17,14 +17,29 @@ End Enum
 Public Class frmBaseGrid
 
     Private Const STR_CMD_HIDE_COLUMN As String = "cmdHideColumn"
-    Private _GridMode As frmGridMode
+    Private Const STR_WARN_DELETE As String = "warn_delete"
+
+    Private _GridMode As enumGridFormMode = enumGridFormMode.MODE_LIST
 
     ''' <summary>
     ''' Event fires after search of grid is completed
     ''' </summary>
+    Public Event gridSearchExecuted(ByVal sender As System.Object)
+
+    ''' <summary>
+    ''' Event fires after the user selected "Yes" to delete a record
+    ''' </summary>
+    ''' <param name="sender">Grid</param>
+    ''' <param name="pkval">Idetifier / Primary key of record being deleted</param>
     ''' <remarks></remarks>
-    Public Event gridSearchExecuted()
-    Public Event gridDeleteRecordConfirmed(ByVal pkval As Integer)
+    Public Event gridDeleteRecordConfirmed(ByVal sender As System.Object, ByVal pkval As Integer)
+
+    ''' <summary>
+    ''' fires after user has added/deleted/edited/searched the grid
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <remarks></remarks>
+    Public Event gridRowCountChanged(ByVal sender As System.Object)
 
     <Browsable(True)> _
     Public Property [ReadOnly] As Boolean
@@ -39,17 +54,17 @@ Public Class frmBaseGrid
     End Property
 
     <Browsable(False)> _
-    Public Property GridMode As frmGridMode
+    Public Property GridMode As enumGridFormMode
         Get
             Return _GridMode
         End Get
-        Set(ByVal value As frmGridMode)
+        Set(ByVal value As enumGridFormMode)
             _GridMode = value
 
-            Me.pnlSelectToolbar.Visible = (Me._GridMode = frmGridMode.MODE_SELECT)
-            Me.pnlEditToolbar.Visible = (Me._GridMode = frmGridMode.MODE_LIST)
+            Me.pnlSelectToolbar.Visible = (Me._GridMode = enumGridFormMode.MODE_SELECT)
+            Me.pnlEditToolbar.Visible = (Me._GridMode = enumGridFormMode.MODE_LIST)
 
-            If (Me._GridMode = frmGridMode.MODE_SELECT) Then
+            If (Me._GridMode = enumGridFormMode.MODE_SELECT) Then
                 Me.MaximizeBox = False
                 Me.MinimizeBox = False
                 Me.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedDialog
@@ -63,10 +78,13 @@ Public Class frmBaseGrid
 
     End Property
 
-    Private Sub frmBaseGrid_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
+    Private Sub frmBaseGrid_KeyDown(ByVal sender As Object, _
+                                    ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
+
         If e.KeyCode = Keys.Delete Then
-            Call deleteRecord()
+            Call ListDeleteRecord()
         End If
+
     End Sub
     Private Sub frmBaseGrid_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
@@ -93,6 +111,9 @@ Public Class frmBaseGrid
         Me.ShowPrintButton = False
 
         If Not Me.DesignMode Then
+
+            AddHandler Me.grdData.GridDataLoaded, AddressOf gridDataLoaded
+
             Me.tsReportButton.Visible = False
             Me.addMenues()
             Me.cmdAdd.Text = WinControlsLocalizer.getString("cmdAdd")
@@ -128,7 +149,7 @@ Public Class frmBaseGrid
                     tsmiSearch.Text = sf
                     tsmiSearch.Visible = True
 
-                    If Me.GridMode = frmGridMode.MODE_LIST Then
+                    If Me.GridMode = enumGridFormMode.MODE_LIST Then
                         Me.tsLblSearch.DropDownItems.Add(tsmiSearch)
                     Else
                         Me.tsLblSearch2.DropDownItems.Add(tsmiSearch)
@@ -244,7 +265,6 @@ Public Class frmBaseGrid
         If e.KeyCode <> Keys.Enter Then Exit Sub
         If Me.grdData.gpSearchFields Is Nothing OrElse Me.grdData.gpSearchFields.Count = 0 Then Exit Sub
 
-
         Dim arr(0 To Me.grdData.gpSearchFields.Count - 1) As String
         Dim newSearchFilter As String = String.Empty
         Dim searchTerm As String = CType(sender, ToolStripTextBox).Text.Trim
@@ -285,7 +305,8 @@ Public Class frmBaseGrid
         Me.grdData.BindingSource.Filter = finalfilter
         Me._lastUsedFilter = newSearchFilter
 
-        RaiseEvent gridSearchExecuted()
+        RaiseEvent gridSearchExecuted(Me.grdData)
+        RaiseEvent gridRowCountChanged(Me.grdData)
 
     End Sub
 
@@ -299,25 +320,19 @@ Public Class frmBaseGrid
 
     Private Sub mnAdd_Click(ByVal sender As Object, ByVal e As EventArgs)
 
-        If Me.cmdAdd.Enabled = False Then Exit Sub
         Call ListEditRecord(0)
 
     End Sub
 
     Private Sub Grid_DoubleClick(ByVal sender As Object, ByVal e As EventArgs)
 
-        If Not Me.cmdEdit.Enabled Then Return
-
-        'On double click, Only bring up the edit form if the grid is readonly
-        If Me.grdData.ReadOnly Then
-            Call ListEditRecord(Me.grdData.IdValue)
-        End If
-
+        Call ListEditRecord(Me.grdData.IdValue)
+        
     End Sub
 
     Private Sub mnDelete_Click(ByVal sender As Object, ByVal e As EventArgs)
 
-        Call deleteRecord()
+        Call ListDeleteRecord()
 
     End Sub
 
@@ -344,7 +359,7 @@ Public Class frmBaseGrid
 
     Private Sub mnEdit_Click(ByVal sender As Object, ByVal e As EventArgs)
 
-        If Me.cmdEdit.Enabled = False Then Exit Sub
+
         Call ListEditRecord(Me.grdData.IdValue)
 
 
@@ -360,8 +375,7 @@ Public Class frmBaseGrid
 
         Me.mnActions.Items.Clear()
 
-
-        If Me.GridMode = frmGridMode.MODE_SELECT Then Exit Sub
+        If Me.GridMode = enumGridFormMode.MODE_SELECT Then Exit Sub
 
         AddHandler Me.grdData.DoubleClick, AddressOf Me.Grid_DoubleClick
 
@@ -462,6 +476,35 @@ Public Class frmBaseGrid
 
     End Sub
 
+    ''' <summary>
+    ''' Adds a menu item to the right click context menu of the grid of the page
+    ''' </summary>
+    ''' <param name="btnText">Button Text</param>
+    ''' <param name="handler">Pointer to the handler of the click event of the menu</param>
+    ''' <param name="withSeparator">Boolean that if true, inserts a separator before the menu item</param>
+    ''' <param name="tag">Tag of item</param>
+    ''' <remarks></remarks>
+    Public Sub addToGridContextMenu(ByVal btnText As String, _
+                               ByVal handler As System.EventHandler, _
+                               Optional ByVal withSeparator As Boolean = False, _
+                               Optional ByVal tag As String = "")
+
+        Dim item As ToolStripMenuItem = New ToolStripMenuItem
+        item.Text = btnText
+        item.Name = "actionBtn" & CStr(Me.mnActions.Items.Count + 1)
+        If (String.IsNullOrEmpty(tag) = False) Then
+            item.Tag = tag
+        End If
+
+        If withSeparator Then
+            Me.mnActions.Items.Add(New ToolStripSeparator)
+        End If
+
+        AddHandler item.Click, handler
+        Me.mnActions.Items.Add(item)
+
+    End Sub
+
 #End Region
 
 #Region "Search Box"
@@ -533,6 +576,13 @@ Public Class frmBaseGrid
     ''' </remarks>
     <Description("Procedure that gets called on edit button click.")> _
     Public Overridable Sub ListEditRecord(ByVal IdValue As Integer)
+
+        If Me.ReadOnly Then Exit Sub
+        If Me.grdData.ReadOnly Then Exit Sub
+
+        If IdValue = 0 AndAlso Me.cmdAdd.Enabled = False Then Exit Sub
+        If IdValue <> 0 AndAlso Me.cmdEdit.Enabled = False Then Exit Sub
+
         Dim f As frmBaseEdit
 
         Try
@@ -543,6 +593,8 @@ Public Class frmBaseGrid
 
                 If f.ShowDialog = Windows.Forms.DialogResult.OK Then
                     Call Me.grdData.requery()
+                    RaiseEvent gridRowCountChanged(Me.grdData)
+
                 End If
             End If
 
@@ -559,14 +611,27 @@ Public Class frmBaseGrid
 
 #End Region
 
-    Protected Sub deleteRecord()
+    ''' <summary>
+    ''' This method does not actually Delete a record from the undelying grid of the form.
+    ''' It asks for confirmation and if the user answered yes, it raises event gridDeleteRecordConfirmed
+    ''' </summary>
+    ''' <remarks>
+    ''' This method exits without doing anything if: ReadOnly is true, or button cmd delete is disabled.
+    ''' After delete is called, the grid is refreshed, regardless if the deletion was successfull
+    ''' </remarks>
+    Protected Sub ListDeleteRecord()
+
+        If Me.ReadOnly Then Exit Sub
+        If Me.cmdDelete.Enabled = False Then Exit Sub
+        Dim msg As String = String.Format(WinControlsLocalizer.getString(STR_WARN_DELETE), Me.getRecordDescriptionForDeleteWarning)
 
         If IsNumeric(Me.grdData.IdValue) _
-               AndAlso winUtils.MsgboxQuestion("Are you sure you want to delete this record?") _
+               AndAlso winUtils.MsgboxQuestion(msg) _
                = MsgBoxResult.Yes Then
 
-            RaiseEvent gridDeleteRecordConfirmed(Me.grdData.IdValue)
+            RaiseEvent gridDeleteRecordConfirmed(Me.grdData, Me.grdData.IdValue)
             Me.grdData.requery()
+            RaiseEvent gridRowCountChanged(Me.grdData)
 
         End If
 
@@ -597,13 +662,39 @@ Public Class frmBaseGrid
 
     End Sub
 
-    Private Sub cmdCancel_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmdSelectCancel.Click
+    Private Sub cmdCancel_Click(ByVal sender As Object, ByVal e As System.EventArgs) _
+                    Handles cmdSelectCancel.Click
+
         Me.DialogResult = DialogResult.Cancel
+
     End Sub
 
     Private Function quoteSearchTerm(ByVal searchTerm As String) As String
         Return "'" & searchTerm.Replace("'", "''") & "'"
     End Function
+
+    ''' <summary>
+    ''' Returns a description of the record to be deleted.
+    ''' By default this returns an empty string, which means that the delete
+    ''' warning will present the user with a generic
+    ''' "Are you sure you want to delete this record?" warning.
+    ''' 
+    ''' Clients should override 
+    ''' this method and provide a better description of the record by including 
+    ''' the name or number of the record to be deleted. For example.
+    ''' to delete a "person" object, returing the name of the person would
+    ''' offer a much more clearer idea to the user of what will be deleted.
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Protected Function getRecordDescriptionForDeleteWarning() As Object
+        Return String.Empty
+    End Function
+
+
+    Private Sub gridDataLoaded(ByVal sender As Object)
+        RaiseEvent gridRowCountChanged(sender)
+    End Sub
 
 
 End Class

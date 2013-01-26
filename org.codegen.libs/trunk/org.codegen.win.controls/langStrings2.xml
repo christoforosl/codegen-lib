@@ -91,10 +91,7 @@
     <langValueEN>Please enter or select a value for required field {0}.</langValueEN>
     <langValueEL>Παρακαλώ Καταχωρείστε η Επιλέξτε Τιμή Για το Πεδίο {0}.</langValueEL>
   </langString>
-
-
-  
-  
+ 
   <langString>
     <langKey>grid_rows_showing</langKey>
     <langValueEN>Number of Records in Grid: {0}</langValueEN>
@@ -103,8 +100,8 @@
 
   <langString>
     <langKey>warn_delete</langKey>
-    <langValueEN>Are you sure you want to delete this record?</langValueEN>
-    <langValueEL>Η εγγραφή θα διαγραφεί.  Είστε σίγουρος/η?</langValueEL>
+    <langValueEN>The selected row {0} will be deleted.  Are you sure?</langValueEN>
+    <langValueEL>Η επιλεγμένη εγγραφή {0} θα διαγραφεί.  Είστε σίγουρος/η?</langValueEL>
   </langString>
 
   <langString>

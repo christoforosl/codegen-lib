@@ -288,7 +288,7 @@ Namespace Grid
 
 #Region "Events"
 
-        Public Event GridDataLoaded(ByVal iRows As Integer)
+        Public Event GridDataLoaded(ByVal sender As Object)
 
         ''' <summary>
         ''' Refreshes the datagrid with data, keeping the current row
@@ -335,7 +335,7 @@ Namespace Grid
                     If Not String.IsNullOrEmpty(Me.gpSortColumn) Then
                         Me.Sort(Me.Columns(Me.gpSortColumn), Me.gpSortDirection)
                     End If
-                    RaiseEvent GridDataLoaded(Me.Rows.Count)
+                    RaiseEvent GridDataLoaded(Me)
 
                 Finally
                     Me._dataLoading = False

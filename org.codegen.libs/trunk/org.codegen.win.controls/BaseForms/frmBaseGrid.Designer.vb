@@ -19,7 +19,7 @@ Partial Class frmBaseGrid
 
         ' This call is required by the designer.
         InitializeComponent()
-        Me.GridMode = frmGridMode.MODE_LIST
+        Me.GridMode = enumGridFormMode.MODE_LIST
         ' Add any initialization after the InitializeComponent() call.
 
         Me.Font = winUtils.ApplicationDefaultFont
@@ -69,27 +69,27 @@ Partial Class frmBaseGrid
         '
         Me.mnActions.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnAdd, Me.mnEdit, Me.mnDelete})
         Me.mnActions.Name = "mnActions"
-        Me.mnActions.Size = New System.Drawing.Size(150, 70)
+        Me.mnActions.Size = New System.Drawing.Size(153, 92)
         '
         'mnAdd
         '
         Me.mnAdd.Name = "mnAdd"
         Me.mnAdd.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.N), System.Windows.Forms.Keys)
-        Me.mnAdd.Size = New System.Drawing.Size(149, 22)
+        Me.mnAdd.Size = New System.Drawing.Size(152, 22)
         Me.mnAdd.Text = "Add"
         '
         'mnEdit
         '
         Me.mnEdit.Name = "mnEdit"
         Me.mnEdit.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.E), System.Windows.Forms.Keys)
-        Me.mnEdit.Size = New System.Drawing.Size(149, 22)
+        Me.mnEdit.Size = New System.Drawing.Size(152, 22)
         Me.mnEdit.Text = "Edit"
         '
         'mnDelete
         '
         Me.mnDelete.Name = "mnDelete"
         Me.mnDelete.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.D), System.Windows.Forms.Keys)
-        Me.mnDelete.Size = New System.Drawing.Size(149, 22)
+        Me.mnDelete.Size = New System.Drawing.Size(152, 22)
         Me.mnDelete.Text = "Delete"
         '
         'pnlGrid
@@ -265,6 +265,7 @@ Partial Class frmBaseGrid
         Me.Controls.Add(Me.pnlGrid)
         Me.Controls.Add(Me.pnlEditToolbar)
         Me.Controls.Add(Me.pnlSelectToolbar)
+
         Me.MaximizeBox = True
         Me.MinimizeBox = True
         Me.Name = "frmBaseGrid"

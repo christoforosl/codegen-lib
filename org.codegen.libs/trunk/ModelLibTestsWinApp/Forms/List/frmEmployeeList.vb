@@ -83,7 +83,7 @@ Public Class frmEmployeeList
         return me.ucEmployeeList.grdEmployee
     End Function
 
-        Protected Sub DeleteRecordConfirmed(ByVal pkval As Integer) Handles Me.gridDeleteRecordConfirmed
+        Protected Sub DeleteRecordConfirmed(ByVal sender As System.Object, ByVal pkval As Integer) Handles Me.gridDeleteRecordConfirmed
 
             Dim m As New EmployeeDBMapper
             Dim mo As Employee = m.findByKey(pkval)

@@ -70,7 +70,9 @@ Partial Class frmBaseEdit
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents UcEditToolar As org.codegen.win.controls.ucEditToolar
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents lblEditStatus As System.Windows.Forms.ToolStripStatusLabel
+
+    Protected WithEvents UcEditToolar As org.codegen.win.controls.ucEditToolar
+    Protected WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
+    Protected WithEvents lblEditStatus As System.Windows.Forms.ToolStripStatusLabel
+
 End Class
