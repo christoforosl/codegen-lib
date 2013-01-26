@@ -20,6 +20,21 @@ Imports System.Windows.Forms.VisualStyles
 Imports System.Collections
 Imports System.Reflection
 
+
+Public Structure DataGridViewAutoFilterColumnStatus
+
+    ''' <summary>
+    ''' Total Number of rows, without the filter applied
+    ''' </summary>
+    Public Property UnfilteredRowCount As Integer
+
+    ''' <summary>
+    ''' The number of rows shown after the filter was applied
+    ''' </summary>
+    Public Property FilteredRowCount As Integer
+
+End Structure
+
 ''' <summary>
 ''' Provides a drop-down filter list in a DataGridViewColumnHeaderCell.
 ''' </summary>
@@ -1199,7 +1214,9 @@ Public Class DataGridViewAutoFilterColumnHeaderCell
     ''' the number of rows currently displayed and y is the number of rows 
     ''' available, or String.Empty if all rows are currently displayed.</returns>
     Public Shared Function GetFilterStatus( _
-        ByVal dataGridView As DataGridView) As String
+        ByVal dataGridView As DataGridView) As DataGridViewAutoFilterColumnStatus
+
+        Dim status As New DataGridViewAutoFilterColumnStatus
 
         ' Continue only if the specified value is valid. 
         If dataGridView Is Nothing Then
@@ -1216,11 +1233,11 @@ Public Class DataGridViewAutoFilterColumnHeaderCell
             data Is Nothing OrElse _
             data.DataSource Is Nothing OrElse _
             Not data.SupportsFiltering Then
-            Return String.Empty
+            Return status
         End If
 
         ' Retrieve the filtered row count. 
-        Dim currentRowCount As Int32 = data.Count
+        Dim filteredRowCount As Int32 = data.Count
 
         ' Retrieve the unfiltered row count by 
         ' temporarily unfiltering the data.
@@ -1231,16 +1248,19 @@ Public Class DataGridViewAutoFilterColumnHeaderCell
         data.Filter = oldFilter
         data.RaiseListChangedEvents = True
 
-        Debug.Assert(currentRowCount <= unfilteredRowCount, _
+        Debug.Assert(filteredRowCount <= unfilteredRowCount, _
             "current count is greater than unfiltered count")
 
         ' Return String.Empty if the filtered and unfiltered counts
         ' are the same, otherwise, return the status string. 
-        If currentRowCount = unfilteredRowCount Then
-            Return String.Empty
+        If filteredRowCount = unfilteredRowCount Then
+            Return status
         End If
-        Return String.Format("{0} of {1} records found", _
-            currentRowCount, unfilteredRowCount)
+
+        status.FilteredRowCount = filteredRowCount
+        status.UnfilteredRowCount = unfilteredRowCount
+
+        Return status
 
     End Function 'GetFilterStatus
 

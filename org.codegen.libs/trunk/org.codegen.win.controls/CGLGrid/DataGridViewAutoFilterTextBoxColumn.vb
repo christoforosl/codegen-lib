@@ -163,7 +163,7 @@ Public Class DataGridViewAutoFilterTextBoxColumn
     ''' <returns>A string in the format "x of y records found" where x is 
     ''' the number of rows currently displayed and y is the number of rows 
     ''' available, or String.Empty if all rows are currently displayed.</returns>
-    Public Shared Function GetFilterStatus(ByVal dataGridView As DataGridView) As String
+    Public Shared Function GetFilterStatus(ByVal dataGridView As DataGridView) As DataGridViewAutoFilterColumnStatus
         Return DataGridViewAutoFilterColumnHeaderCell.GetFilterStatus(dataGridView)
     End Function
 
