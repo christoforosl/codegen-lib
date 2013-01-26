@@ -41,6 +41,52 @@ Public Class frmBaseGrid
     ''' <remarks></remarks>
     Public Event gridRowCountChanged(ByVal sender As System.Object)
 
+
+    <Browsable(True)> _
+    Public Property AllowEdit As Boolean
+        Get
+            Return Me.cmdEdit.Visible
+        End Get
+        Set(ByVal value As Boolean)
+
+            Me.cmdEdit.Visible = value
+            Me.cmdEdit.Enabled = Not value
+            Me.mnEdit.Visible = value
+            Me.mnEdit.Enabled = Not value
+
+        End Set
+    End Property
+
+    <Browsable(True)> _
+    Public Property AllowAddNew As Boolean
+        Get
+            Return Me.cmdAdd.Visible
+        End Get
+        Set(ByVal value As Boolean)
+
+            Me.cmdAdd.Visible = value
+            Me.cmdAdd.Enabled = Not value
+            Me.mnAdd.Visible = value
+            Me.mnAdd.Enabled = Not value
+        End Set
+    End Property
+
+    <Browsable(True)> _
+    Public Property AllowDelete As Boolean
+        Get
+            Return Me.cmdDelete.Visible
+        End Get
+        Set(ByVal value As Boolean)
+
+            Me.cmdDelete.Visible = value
+            Me.cmdDelete.Enabled = Not value
+            Me.mnDelete.Visible = value
+            Me.mnDelete.Enabled = Not value
+
+        End Set
+
+    End Property
+
     <Browsable(True)> _
     Public Property [ReadOnly] As Boolean
         Get
@@ -379,26 +425,27 @@ Public Class frmBaseGrid
 
         AddHandler Me.grdData.DoubleClick, AddressOf Me.Grid_DoubleClick
 
-        item = New ToolStripMenuItem
+        item = Me.mnAdd
         item.Text = WinControlsLocalizer.getString("cmdAdd")
         item.ShortcutKeys = (Keys.Control Or Keys.N)
         AddHandler item.Click, AddressOf Me.mnAdd_Click
-
         Me.mnActions.Items.Add(item)
-        item = New ToolStripMenuItem
+
+
+        item = Me.mnEdit
         item.Text = WinControlsLocalizer.getString("cmdEdit")
         item.ShortcutKeys = (Keys.Control Or Keys.E)
-
         AddHandler item.Click, AddressOf Me.mnEdit_Click
-
         Me.mnActions.Items.Add(item)
-        item = New ToolStripMenuItem
+
+
+        item = Me.mnDelete
         item.Text = WinControlsLocalizer.getString("cmdDelete")
         item.ShortcutKeys = (Keys.Control Or Keys.D)
-
         AddHandler item.Click, AddressOf Me.mnDelete_Click
-
         Me.mnActions.Items.Add(item)
+
+
         item = New ToolStripMenuItem
         item.Text = WinControlsLocalizer.getString("cmdExcel")
         item.ShortcutKeys = (Keys.Control Or Keys.X)
@@ -622,7 +669,9 @@ Public Class frmBaseGrid
 
         If Me.ReadOnly Then Exit Sub
         If Me.cmdDelete.Enabled = False Then Exit Sub
-        Dim msg As String = String.Format(WinControlsLocalizer.getString(STR_WARN_DELETE), Me.getRecordDescriptionForDeleteWarning)
+
+        Dim msg As String = String.Format(WinControlsLocalizer.getString(STR_WARN_DELETE), _
+                                          Me.getRecordDescriptionForDeleteWarning)
 
         If IsNumeric(Me.grdData.IdValue) _
                AndAlso winUtils.MsgboxQuestion(msg) _

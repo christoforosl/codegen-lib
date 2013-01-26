@@ -265,7 +265,6 @@ Partial Class frmBaseGrid
         Me.Controls.Add(Me.pnlGrid)
         Me.Controls.Add(Me.pnlEditToolbar)
         Me.Controls.Add(Me.pnlSelectToolbar)
-
         Me.MaximizeBox = True
         Me.MinimizeBox = True
         Me.Name = "frmBaseGrid"
