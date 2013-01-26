@@ -18,6 +18,8 @@ Public Class frmBaseGrid
 
     Private Const STR_CMD_HIDE_COLUMN As String = "cmdHideColumn"
     Private Const STR_WARN_DELETE As String = "warn_delete"
+    Private Const STR_WARN_DELETE_MULTIPLE As String = "warn_delete_multiple"
+
 
     Private _GridMode As enumGridFormMode = enumGridFormMode.MODE_LIST
 
@@ -32,7 +34,7 @@ Public Class frmBaseGrid
     ''' <param name="sender">Grid</param>
     ''' <param name="pkval">Idetifier / Primary key of record being deleted</param>
     ''' <remarks></remarks>
-    Public Event gridDeleteRecordConfirmed(ByVal sender As System.Object, ByVal pkval As Integer)
+    Public Event gridDeleteRecordConfirmed(ByVal sender As System.Object)
 
     ''' <summary>
     ''' fires after user has added/deleted/edited/searched the grid
@@ -41,6 +43,13 @@ Public Class frmBaseGrid
     ''' <remarks></remarks>
     Public Event gridRowCountChanged(ByVal sender As System.Object)
 
+    ''' <summary>
+    ''' determines whether the form processes a delete operation when 
+    ''' multiple rows are selected in the datagrid.  By default 
+    ''' this property is false
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Property AllowDeleteMultipleSelection As Boolean = False
 
     <Browsable(True)> _
     Public Property AllowEdit As Boolean
@@ -373,7 +382,7 @@ Public Class frmBaseGrid
     Private Sub Grid_DoubleClick(ByVal sender As Object, ByVal e As EventArgs)
 
         Call ListEditRecord(Me.grdData.IdValue)
-        
+
     End Sub
 
     Private Sub mnDelete_Click(ByVal sender As Object, ByVal e As EventArgs)
@@ -669,20 +678,32 @@ Public Class frmBaseGrid
 
         If Me.ReadOnly Then Exit Sub
         If Me.cmdDelete.Enabled = False Then Exit Sub
+        If Me.grdData.SelectedRows.Count = 0 Then Exit Sub
 
-        Dim msg As String = String.Format(WinControlsLocalizer.getString(STR_WARN_DELETE), _
+        If Me.grdData.SelectedRows.Count > 1 AndAlso Me.AllowDeleteMultipleSelection = False Then
+            winUtils.MsgboxQuestion(WinControlsLocalizer.getString("multi_select_delete_disabled"))
+            Exit Sub
+        End If
+
+        Dim msg As String
+
+        If Me.grdData.SelectedRows.Count = 1 Then
+            msg = String.Format(WinControlsLocalizer.getString(STR_WARN_DELETE), _
                                           Me.getRecordDescriptionForDeleteWarning)
 
-        If IsNumeric(Me.grdData.IdValue) _
-               AndAlso winUtils.MsgboxQuestion(msg) _
-               = MsgBoxResult.Yes Then
+        Else
+            msg = String.Format(WinControlsLocalizer.getString(STR_WARN_DELETE_MULTIPLE), _
+                                          Me.getRecordDescriptionForDeleteWarning)
+        End If
 
-            RaiseEvent gridDeleteRecordConfirmed(Me.grdData, Me.grdData.IdValue)
+
+        If winUtils.MsgboxQuestion(msg)= MsgBoxResult.Yes Then
+
+            RaiseEvent gridDeleteRecordConfirmed(Me.grdData)
             Me.grdData.requery()
             RaiseEvent gridRowCountChanged(Me.grdData)
 
         End If
-
 
 
     End Sub

@@ -1,4 +1,6 @@
-﻿'Form to test editable grids with just one row
+﻿Imports org.codegen.win.controls.Grid
+
+'Form to test editable grids with just one row
 Namespace Forms.List
     <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
     Public Class frmEditableProjectListSingleRow
@@ -89,16 +91,19 @@ Namespace Forms.List
             Return Me.ucProjectList.grdProject
         End Function
 
-        Protected Sub DeleteRecordConfirmed(ByVal sender As System.Object, ByVal pkval As Integer) Handles Me.gridDeleteRecordConfirmed
+        Protected Sub DeleteRecordConfirmed(ByVal sender As System.Object) Handles Me.gridDeleteRecordConfirmed
 
             Dim m As New ProjectDBMapper
-            Dim mo As Project = m.findByKey(pkval)
+            Dim gridsender As org.codegen.win.controls.Grid.CGBaseGrid = CType(sender, CGBaseGrid)
+            Dim pkval As Object = gridsender.SelectedRows(0).Cells(gridsender.gpKeyColumnIndex)
+            Dim mo As Project = m.findByKey(CInt(pkval))
             Call m.delete(mo)
+
 
         End Sub
 
 #End Region
-        
+
 
     End Class
 
