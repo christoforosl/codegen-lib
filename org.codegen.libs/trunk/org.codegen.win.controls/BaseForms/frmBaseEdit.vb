@@ -307,14 +307,19 @@ Public Class frmBaseEdit
     ''' Sets the status text of the form, (ie the text that appears on the 
     ''' status bar at the bottom of the form) in RED color
     ''' </summary>
-    Public Sub AlertStatus(ByVal txt As String)
-        Me.lblEditStatus.Text = txt
+    Public Overridable Sub setAlertStatusRecordFailed()
+
+        Me.lblEditStatus.Text = WinControlsLocalizer.getString("record_not_saved")
         Me.lblEditStatus.ForeColor = Color.Red
+
     End Sub
 
-    Public Sub resetStatus()
+
+    Public Overridable Sub setAlertStatusOK()
+
         Me.lblEditStatus.Text = "OK"
         Me.lblEditStatus.ForeColor = Color.Black
+
     End Sub
 
     Protected Overridable Sub MovePrevious()
@@ -353,7 +358,7 @@ Public Class frmBaseEdit
             If Me.SaveData() = True Then
                 Me.DialogResult = Windows.Forms.DialogResult.OK
             Else
-                Me.AlertStatus(WinControlsLocalizer.getString("record_not_saved"))
+                Me.setAlertStatusRecordFailed()
             End If
 
         Catch ex As Exception
