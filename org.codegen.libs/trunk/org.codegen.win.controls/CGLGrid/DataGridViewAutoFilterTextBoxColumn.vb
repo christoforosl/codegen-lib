@@ -76,7 +76,8 @@ Public Class DataGridViewAutoFilterTextBoxColumn
     ''' <summary>
     ''' Called to select an item programatically
     ''' </summary>
-    ''' <param name="svalue">A string containing the value to search and find within the filtered compbo box items</param>
+    ''' <param name="svalue">A string containing the value to search and find 
+    ''' within the filtered compbo box items</param>
     ''' <remarks></remarks>
     Public Sub selectFilteredItem(ByVal svalue As String)
 
@@ -92,7 +93,8 @@ Public Class DataGridViewAutoFilterTextBoxColumn
     ''' <remarks></remarks>
     Public Sub selectFilteredItemByIndex(ByVal findIndex As Integer)
 
-        Call CType(HeaderCell, DataGridViewAutoFilterColumnHeaderCell).selectFilteredItemByIndex(findIndex)
+        Call CType(HeaderCell, DataGridViewAutoFilterColumnHeaderCell). _
+            selectFilteredItemByIndex(findIndex)
 
     End Sub
 

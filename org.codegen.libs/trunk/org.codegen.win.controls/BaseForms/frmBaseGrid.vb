@@ -578,7 +578,6 @@ Public Class frmBaseGrid
     Public Overridable Sub ListEditRecord(ByVal IdValue As Integer)
 
         If Me.ReadOnly Then Exit Sub
-        If Me.grdData.ReadOnly Then Exit Sub
 
         If IdValue = 0 AndAlso Me.cmdAdd.Enabled = False Then Exit Sub
         If IdValue <> 0 AndAlso Me.cmdEdit.Enabled = False Then Exit Sub
@@ -619,7 +618,7 @@ Public Class frmBaseGrid
     ''' This method exits without doing anything if: ReadOnly is true, or button cmd delete is disabled.
     ''' After delete is called, the grid is refreshed, regardless if the deletion was successfull
     ''' </remarks>
-    Protected Sub ListDeleteRecord()
+    Public Sub ListDeleteRecord()
 
         If Me.ReadOnly Then Exit Sub
         If Me.cmdDelete.Enabled = False Then Exit Sub

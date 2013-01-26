@@ -288,7 +288,7 @@ Namespace Grid
 
 #Region "Events"
 
-        Public Event GridDataLoaded(ByVal sender As Object)
+        Public Event GridDataLoaded(ByVal sender As CGBaseGrid)
 
         ''' <summary>
         ''' Refreshes the datagrid with data, keeping the current row
@@ -409,7 +409,7 @@ Namespace Grid
              ByVal e As System.ComponentModel.ListChangedEventArgs) _
             Handles BindingSource.ListChanged
 
-            RaiseEvent GridDataLoaded(Me.Rows.Count)
+            RaiseEvent GridDataLoaded(Me)
 
         End Sub
 
@@ -425,6 +425,15 @@ Namespace Grid
             _traceSrc.TraceInformation("Save Row from CellValidated")
             Me.CGBaseGridRowPersistor.SaveRowToStore(Me, Me.CurrentRow)
         End Sub
+
+        ''' <summary>
+        ''' Handles filtered applied event of a DataGridViewAutoFilterColumnHeaderCell
+        ''' </summary>
+        ''' <remarks></remarks>
+        Public Overridable Sub OnFilteredColumnApplied(ByVal sender As Object)
+            RaiseEvent GridDataLoaded(Me)
+        End Sub
+
     End Class
 
 End Namespace
