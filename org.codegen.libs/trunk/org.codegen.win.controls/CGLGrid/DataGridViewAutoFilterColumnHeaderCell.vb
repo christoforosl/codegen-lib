@@ -19,9 +19,10 @@ Imports System.Windows.Forms
 Imports System.Windows.Forms.VisualStyles
 Imports System.Collections
 Imports System.Reflection
+Imports org.codegen.win.controls.Grid
 
 
-Public Structure DataGridViewAutoFilterColumnStatus
+Public Class DataGridViewAutoFilterColumnStatus
 
     ''' <summary>
     ''' Total Number of rows, without the filter applied
@@ -33,13 +34,24 @@ Public Structure DataGridViewAutoFilterColumnStatus
     ''' </summary>
     Public Property FilteredRowCount As Integer
 
-End Structure
+    ''' <summary>
+    ''' The filtered that was applied, in human readable form
+    ''' </summary>
+    Public Property FilterAppliedHuman As String = String.Empty
+
+    ''' <summary>
+    ''' The filtered applied, in sql criteria
+    ''' </summary>
+    Public Property FilteredApplied As String = String.Empty
+
+End Class
 
 ''' <summary>
 ''' Provides a drop-down filter list in a DataGridViewColumnHeaderCell.
 ''' </summary>
 Public Class DataGridViewAutoFilterColumnHeaderCell
     Inherits DataGridViewColumnHeaderCell
+
     Protected containsBlanks As Boolean = False
     Protected containsNonBlanks As Boolean = False
 
@@ -71,6 +83,8 @@ Public Class DataGridViewAutoFilterColumnHeaderCell
     ''' </summary>
     Private filtered As Boolean
 
+    Public Event FilterApplied(ByVal sender As Object)
+
     ''' <summary>
     ''' Initializes a new instance of the DataGridViewColumnHeaderCell 
     ''' class and sets its property values to the property values of the 
@@ -97,6 +111,7 @@ Public Class DataGridViewAutoFilterColumnHeaderCell
         ' This enables the Clone method to reuse this constructor. 
         Dim filterCell As DataGridViewAutoFilterColumnHeaderCell = _
             TryCast(oldHeaderCell, DataGridViewAutoFilterColumnHeaderCell)
+
         If filterCell IsNot Nothing Then
             Me.FilteringEnabled = filterCell.FilteringEnabled
             Me.AutomaticSortingEnabled = filterCell.AutomaticSortingEnabled
@@ -106,6 +121,7 @@ Public Class DataGridViewAutoFilterColumnHeaderCell
         End If
 
     End Sub
+
 
     ''' <summary>
     ''' Initializes a new instance of the DataGridViewColumnHeaderCell 
@@ -129,6 +145,7 @@ Public Class DataGridViewAutoFilterColumnHeaderCell
     ''' <param name="svalue">A string containing the value to search and find within the filtered compbo box items</param>
     ''' <remarks></remarks>
     Public Sub selectFilteredItem(ByVal svalue As String)
+
         Me.ShowDropDownList() 'call this to load items
         Dim findIndex As Integer = dropDownListBox.FindStringExact(svalue)
         If findIndex > -1 Then
@@ -145,6 +162,7 @@ Public Class DataGridViewAutoFilterColumnHeaderCell
     ''' filtered compbo box items</param>
     ''' <remarks></remarks>
     Public Sub selectFilteredItemByIndex(ByVal findIndex As Integer)
+
         Me.ShowDropDownList() 'call this to load items
         If findIndex > -1 Then
             dropDownListBox.SelectedIndex = findIndex
@@ -163,6 +181,10 @@ Public Class DataGridViewAutoFilterColumnHeaderCell
         ' Continue only if there is a DataGridView. 
         If Me.DataGridView Is Nothing Then
             Return
+        End If
+
+        If TypeOf Me.DataGridView Is CGBaseGrid Then
+            AddHandler Me.FilterApplied, AddressOf CType(Me.DataGridView, CGBaseGrid).OnFilteredColumnApplied
         End If
 
         ' Disable sorting and filtering for columns that can't make
@@ -189,14 +211,14 @@ Public Class DataGridViewAutoFilterColumnHeaderCell
         End If
 
         ' Confirm that the data source meets requirements. 
-        VerifyDataSource()
+        Me.VerifyDataSource()
 
         ' Add handlers to DataGridView events. 
-        HandleDataGridViewEvents()
+        Me.HandleDataGridViewEvents()
 
         ' Initialize the drop-down button bounds so that any initial
         ' column autosizing will accommodate the button width. 
-        SetDropDownButtonBounds()
+        Me.SetDropDownButtonBounds()
 
         ' Call the OnDataGridViewChanged method on the base class to 
         ' raise the DataGridViewChanged event.
@@ -235,6 +257,7 @@ Public Class DataGridViewAutoFilterColumnHeaderCell
     ''' cached filter values when changes in the DataGridView require it.
     ''' </summary>
     Private Sub HandleDataGridViewEvents()
+
         AddHandler Me.DataGridView.Scroll, AddressOf DataGridView_Scroll
         AddHandler Me.DataGridView.ColumnDisplayIndexChanged, AddressOf DataGridView_ColumnDisplayIndexChanged
         AddHandler Me.DataGridView.ColumnWidthChanged, AddressOf DataGridView_ColumnWidthChanged
@@ -353,13 +376,19 @@ Public Class DataGridViewAutoFilterColumnHeaderCell
     ''' Resets the cached filter values if the filter has been removed.
     ''' </summary>
     Private Sub ResetFilter()
+
         If Me.DataGridView Is Nothing Then Return
+
         Dim source As BindingSource = _
             TryCast(Me.DataGridView.DataSource, BindingSource)
+
         If source Is Nothing OrElse String.IsNullOrEmpty(source.Filter) Then
             filtered = False
             selectedFilterValue = "(All)"
             currentColumnFilter = String.Empty
+
+            RaiseEvent FilterApplied(Me)
+
         End If
     End Sub
 
@@ -1008,6 +1037,7 @@ Public Class DataGridViewAutoFilterColumnHeaderCell
             filters.Add("(Blanks)", Nothing)
             filters.Add("(NonBlanks)", Nothing)
         End If
+        RaiseEvent FilterApplied(Me)
 
     End Sub 'PopulateFilters
 
@@ -1116,6 +1146,7 @@ Public Class DataGridViewAutoFilterColumnHeaderCell
             data.Filter = FilterWithoutCurrentColumn(data.Filter)
             filtered = False
             currentColumnFilter = String.Empty
+            RaiseEvent FilterApplied(Me)
             Return
         End If
 
@@ -1164,6 +1195,7 @@ Public Class DataGridViewAutoFilterColumnHeaderCell
         ' calls to the FilterWithoutCurrentColumn method. 
         filtered = True
         currentColumnFilter = newColumnFilter
+        RaiseEvent FilterApplied(Me)
 
     End Sub 'UpdateFilter
 
@@ -1229,10 +1261,10 @@ Public Class DataGridViewAutoFilterColumnHeaderCell
 
         ' Return String.Empty if there is no appropriate data source or
         ' there is no filter in effect. 
-        If String.IsNullOrEmpty(data.Filter) OrElse _
-            data Is Nothing OrElse _
-            data.DataSource Is Nothing OrElse _
-            Not data.SupportsFiltering Then
+        If data Is Nothing OrElse String.IsNullOrEmpty(data.Filter) OrElse _
+                        data.DataSource Is Nothing OrElse _
+                                    Not data.SupportsFiltering Then
+
             Return status
         End If
 
@@ -1248,14 +1280,18 @@ Public Class DataGridViewAutoFilterColumnHeaderCell
         data.Filter = oldFilter
         data.RaiseListChangedEvents = True
 
+        status.FilteredApplied = data.Filter
+        status.FilterAppliedHuman = data.Filter
+
         Debug.Assert(filteredRowCount <= unfilteredRowCount, _
             "current count is greater than unfiltered count")
 
-        ' Return String.Empty if the filtered and unfiltered counts
-        ' are the same, otherwise, return the status string. 
-        If filteredRowCount = unfilteredRowCount Then
-            Return status
-        End If
+        '' Return String.Empty if the filtered and unfiltered counts
+        '' are the same, otherwise, return the status string. 
+        'If filteredRowCount = unfilteredRowCount Then
+
+        '    Return status
+        'End If
 
         status.FilteredRowCount = filteredRowCount
         status.UnfilteredRowCount = unfilteredRowCount
