@@ -105,6 +105,19 @@
   </langString>
 
   <langString>
+    <langKey>warn_delete_multiple</langKey>
+    <langValueEN>**All** selected rows will be deleted.  Are you sure?</langValueEN>
+    <langValueEL>**ΟΛΕΣ** οι επιλεγμένες εγγραφές θα διαγραφούν.  Είστε σίγουρος/η?</langValueEL>
+  </langString>
+
+
+  <langString>
+    <langKey>multi_select_delete_disabled</langKey>
+    <langValueEN>Please select only one row for deletion.</langValueEN>
+    <langValueEL>Παρακαλώ επιλέξτε μόνο μία γραμμή για διαγραφή.</langValueEL>
+  </langString>
+  
+  <langString>
     <langKey>warn_move_rec</langKey>
     <langValueEN>Do you want to save your changes before moving from the record?</langValueEN>
     <langValueEL>Να Αποθηκευτούν οι Αλλαγές σας  πριν την κίνηση σε άλλη εγγραφή?</langValueEL>

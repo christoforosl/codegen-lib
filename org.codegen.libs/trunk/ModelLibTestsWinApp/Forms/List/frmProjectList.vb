@@ -1,34 +1,36 @@
-﻿Namespace Forms.List
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Public Class frmProjectList
-    Inherits frmBaseGrid
+﻿Imports org.codegen.win.controls.Grid
+
+Namespace Forms.List
+    <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+    Public Class frmProjectList
+        Inherits frmBaseGrid
 
 #Region "Designer"
-    
-	'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
-    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
-        Try
-            If disposing AndAlso components IsNot Nothing Then
-                components.Dispose()
-            End If
-        Finally
-            MyBase.Dispose(disposing)
-        End Try
-     End Sub
-     
-	 Friend WithEvents ucProjectList As ucProjectList
 
-    'Required by the Windows Form Designer
-    Private components As System.ComponentModel.IContainer
+        'Form overrides dispose to clean up the component list.
+        <System.Diagnostics.DebuggerNonUserCode()> _
+        Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+            Try
+                If disposing AndAlso components IsNot Nothing Then
+                    components.Dispose()
+                End If
+            Finally
+                MyBase.Dispose(disposing)
+            End Try
+        End Sub
 
-    'NOTE: The following procedure is required by the Windows Form Designer
-    'It can be modified using the Windows Form Designer.  
-    'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
-    Private Sub InitializeComponent()
-            
-			Me.ucProjectList = New ucProjectList()
+        Friend WithEvents ucProjectList As ucProjectList
+
+        'Required by the Windows Form Designer
+        Private components As System.ComponentModel.IContainer
+
+        'NOTE: The following procedure is required by the Windows Form Designer
+        'It can be modified using the Windows Form Designer.  
+        'Do not modify it using the code editor.
+        <System.Diagnostics.DebuggerStepThrough()> _
+        Private Sub InitializeComponent()
+
+            Me.ucProjectList = New ucProjectList()
             Me.pnlGrid.SuspendLayout()
             Me.SuspendLayout()
             '
@@ -66,34 +68,36 @@ Public Class frmProjectList
 #End Region
 
 #Region "Standard Code"
-	
-	Private Sub frmProjectList_Load(ByVal sender As Object, ByVal e As System.EventArgs) _
-				Handles Me.Load
 
-		
-        Me.grdData.loadGrid()
+        Private Sub frmProjectList_Load(ByVal sender As Object, ByVal e As System.EventArgs) _
+           Handles Me.Load
 
-    End Sub
 
-	''' <summary>
-	''' This function is common to all forms that inherit from class frmBaseGrid
-	''' It priovides a common name to the underlying grid control that shows the records
-	''' </summary>
-	Public Overrides Function grdData() As org.codegen.win.controls.Grid.CGBaseGrid
-        return me.ucProjectList.grdProject
-    End Function
+            Me.grdData.loadGrid()
 
-        Protected Sub DeleteRecordConfirmed(ByVal sender As System.Object, ByVal pkval As Integer) Handles Me.gridDeleteRecordConfirmed
+        End Sub
+
+        ''' <summary>
+        ''' This function is common to all forms that inherit from class frmBaseGrid
+        ''' It priovides a common name to the underlying grid control that shows the records
+        ''' </summary>
+        Public Overrides Function grdData() As org.codegen.win.controls.Grid.CGBaseGrid
+            Return Me.ucProjectList.grdProject
+        End Function
+
+        Protected Sub DeleteRecordConfirmed(ByVal sender As System.Object) Handles Me.gridDeleteRecordConfirmed
 
             Dim m As New ProjectDBMapper
-            Dim mo As Project = m.findByKey(pkval)
+            Dim gridsender As org.codegen.win.controls.Grid.CGBaseGrid = CType(sender, CGBaseGrid)
+            Dim pkval As Object = gridsender.SelectedRows(0).Cells(gridsender.gpKeyColumnIndex)
+            Dim mo As Project = m.findByKey(CInt(pkval))
             Call m.delete(mo)
 
         End Sub
 
 #End Region
 
-End Class
+    End Class
 
-End Namespace 
+End Namespace
 
