@@ -686,16 +686,7 @@ Public Class frmBaseGrid
             Exit Sub
         End If
 
-        Dim msg As String
-
-        If Me.grdData.SelectedRows.Count = 1 Then
-            msg = String.Format(WinControlsLocalizer.getString(STR_WARN_DELETE), _
-                                          Me.getRecordDescriptionForDeleteWarning)
-
-        Else
-            msg = String.Format(WinControlsLocalizer.getString(STR_WARN_DELETE_MULTIPLE), _
-                                          Me.getRecordDescriptionForDeleteWarning)
-        End If
+        Dim msg As String = GetDeleteConfirmMsg()
 
 
         If winUtils.MsgboxQuestion(msg) = MsgBoxResult.Yes Then
@@ -743,28 +734,33 @@ Public Class frmBaseGrid
         Return "'" & searchTerm.Replace("'", "''") & "'"
     End Function
 
-    ''' <summary>
-    ''' Returns a description of the record to be deleted.
-    ''' By default this returns an empty string, which means that the delete
-    ''' warning will present the user with a generic
-    ''' "Are you sure you want to delete this record?" warning.
-    ''' 
-    ''' Clients should override 
-    ''' this method and provide a better description of the record by including 
-    ''' the name or number of the record to be deleted. For example.
-    ''' to delete a "person" object, returing the name of the person would
-    ''' offer a much more clearer idea to the user of what will be deleted.
-    ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Protected Function getRecordDescriptionForDeleteWarning() As Object
-        Return String.Empty
-    End Function
-
-
     Private Sub gridDataLoaded(ByVal sender As Object)
         RaiseEvent gridRowCountChanged(sender)
     End Sub
 
+    ''' <summary>
+    ''' This is the message shown to the user in order to confirm the deletion of records.
+    ''' Clients can override this method and return a customized message
+    '''
+    ''' By default this returns generic warning messages  like 
+    ''' "Are you sure you want to delete this record?" 
+    ''' 
+    ''' Clients should override 
+    ''' this method and provide a better warning message of the record(s) to be deleted by including 
+    ''' the name or number of the record to be deleted. For example.
+    ''' to delete a "person" object, returing the name of the person would
+    ''' offer a much more clearer idea to the user of what will be deleted.
+    ''' </summary>
+    Public Function GetDeleteConfirmMsg() As String
+        'get Delete Confirm Message
+        Dim msg As String
+        If Me.grdData.SelectedRows.Count = 1 Then
+            msg = WinControlsLocalizer.getString(STR_WARN_DELETE)
+
+        Else
+            msg = WinControlsLocalizer.getString(STR_WARN_DELETE_MULTIPLE)
+        End If
+        Return msg
+    End Function
 
 End Class
