@@ -751,7 +751,7 @@ Public Class frmBaseGrid
     ''' to delete a "person" object, returing the name of the person would
     ''' offer a much more clearer idea to the user of what will be deleted.
     ''' </summary>
-    Public Function GetDeleteConfirmMsg() As String
+    Public Overridable Function GetDeleteConfirmMsg() As String
         'get Delete Confirm Message
         Dim msg As String
         If Me.grdData.SelectedRows.Count = 1 Then
