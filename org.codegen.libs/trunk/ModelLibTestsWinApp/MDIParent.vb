@@ -1,6 +1,7 @@
 ﻿Imports System.Windows.Forms
 Imports System.Reflection.Assembly
 Imports System.Reflection
+Imports System.Threading
 
 Public Class MDIParent
 
@@ -11,13 +12,24 @@ Public Class MDIParent
         winUtils.ApplicationDefaultFont = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, _
                                 System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Text = winUtils.ApplicationTitle
-		Me.setupMenues()
+        Me.setupMenues()
+
+        Dim pro As New ProgressIndicator
+        pro.prgStart("this is a test", 10, True)
+        pro.showCancel = True
+        For i As Integer = 1 To 10
+            Thread.Sleep(500)
+            pro.prgProgress(i)
+        Next
+        pro.prgEnd()
+        'Dim f As New frmProgress
+        'f.Show()
 
     End Sub
 
     Private Sub ShowListForm(ByVal sender As Object, ByVal e As EventArgs)
 
-		Dim f As Form
+        Dim f As Form
         Try
             Call winUtils.HourglassOn()
             Dim listform As String = Me.formsMenuMap.Item(CType(sender, ToolStripMenuItem))
@@ -26,7 +38,7 @@ Public Class MDIParent
                                             BindingFlags.CreateInstance, _
                                             Nothing, Nothing, Nothing, Nothing)
 
-			f = DirectCast(fo, Form)
+            f = DirectCast(fo, Form)
             If f.IsMdiChild Then
                 f.MdiParent = Me
             End If
@@ -63,7 +75,7 @@ Public Class MDIParent
 
         ChildFormCount += 1
 
-        f.Show
+        f.Show()
 
     End Sub
 
@@ -97,8 +109,8 @@ Public Class MDIParent
 
     Private ChildFormCount As Integer
 
-    
-   
+
+
 
     Private Sub setupMenues()
 

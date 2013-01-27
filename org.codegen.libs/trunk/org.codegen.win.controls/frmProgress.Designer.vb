@@ -23,9 +23,9 @@ Partial Class frmProgress
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.ProgressBar = New System.Windows.Forms.ProgressBar()
-        Me.bwProgress = New System.ComponentModel.BackgroundWorker()
         Me.lblMessage = New System.Windows.Forms.Label()
         Me.btnCancel = New System.Windows.Forms.Button()
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.SuspendLayout()
         '
         'ProgressBar
@@ -34,11 +34,6 @@ Partial Class frmProgress
         Me.ProgressBar.Name = "ProgressBar"
         Me.ProgressBar.Size = New System.Drawing.Size(402, 23)
         Me.ProgressBar.TabIndex = 0
-        '
-        'bwProgress
-        '
-        Me.bwProgress.WorkerReportsProgress = True
-        Me.bwProgress.WorkerSupportsCancellation = True
         '
         'lblMessage
         '
@@ -61,6 +56,11 @@ Partial Class frmProgress
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
+        'BackgroundWorker1
+        '
+        Me.BackgroundWorker1.WorkerReportsProgress = True
+        Me.BackgroundWorker1.WorkerSupportsCancellation = True
+        '
         'frmProgress
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -76,7 +76,7 @@ Partial Class frmProgress
         Me.ShowInTaskbar = False
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "frmProgress"
+        Me.Text = "Progress Bar"
         Me.TopMost = True
         Me.ResumeLayout(False)
 
@@ -84,5 +84,5 @@ Partial Class frmProgress
     Public WithEvents ProgressBar As System.Windows.Forms.ProgressBar
     Public WithEvents lblMessage As System.Windows.Forms.Label
     Public WithEvents btnCancel As System.Windows.Forms.Button
-    Private WithEvents bwProgress As System.ComponentModel.BackgroundWorker
+    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
 End Class
