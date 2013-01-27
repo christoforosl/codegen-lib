@@ -32,7 +32,6 @@ Public Class frmBaseGrid
     ''' Event fires after the user selected "Yes" to delete a record
     ''' </summary>
     ''' <param name="sender">Grid</param>
-    ''' <param name="pkval">Idetifier / Primary key of record being deleted</param>
     ''' <remarks></remarks>
     Public Event gridDeleteRecordConfirmed(ByVal sender As System.Object)
 
@@ -634,10 +633,11 @@ Public Class frmBaseGrid
     Public Overridable Sub ListEditRecord(ByVal IdValue As Integer)
 
         If Me.ReadOnly Then Exit Sub
+        If Me.GridMode = enumGridFormMode.MODE_SELECT Then Exit Sub
+        If IdValue <> 0 AndAlso (Me.cmdEdit.Visible = False OrElse Me.cmdEdit.Enabled = False) Then Exit Sub
 
-        If IdValue = 0 AndAlso Me.cmdAdd.Enabled = False Then Exit Sub
-        If IdValue <> 0 AndAlso Me.cmdEdit.Enabled = False Then Exit Sub
-
+        If IdValue = 0 AndAlso (Me.cmdAdd.Visible = False OrElse Me.cmdAdd.Enabled = False) Then Exit Sub
+        
         Dim f As frmBaseEdit
 
         Try
@@ -676,6 +676,7 @@ Public Class frmBaseGrid
     ''' </remarks>
     Public Sub ListDeleteRecord()
 
+        If Me.GridMode = enumGridFormMode.MODE_SELECT Then Exit Sub
         If Me.ReadOnly Then Exit Sub
         If Me.cmdDelete.Enabled = False Then Exit Sub
         If Me.grdData.SelectedRows.Count = 0 Then Exit Sub
@@ -697,7 +698,7 @@ Public Class frmBaseGrid
         End If
 
 
-        If winUtils.MsgboxQuestion(msg)= MsgBoxResult.Yes Then
+        If winUtils.MsgboxQuestion(msg) = MsgBoxResult.Yes Then
 
             RaiseEvent gridDeleteRecordConfirmed(Me.grdData)
             Me.grdData.requery()
