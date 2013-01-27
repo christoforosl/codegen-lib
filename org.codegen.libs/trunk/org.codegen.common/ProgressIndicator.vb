@@ -1,5 +1,6 @@
 ﻿
 Public Interface IProgressIndicator
+
     Event StartProgress(ByVal maxSteps As Integer)
     Event doProgress(ByVal currentStep As Integer)
 
@@ -8,6 +9,7 @@ Public Interface IProgressIndicator
     Property CurrentStep() As Integer
     Property MaxSteps() As Integer
     Property Status() As String
+
 End Interface
 
 Public Class ProgressIndicator

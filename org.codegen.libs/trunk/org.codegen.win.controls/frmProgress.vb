@@ -1,9 +1,26 @@
 ﻿Public Class frmProgress
 
+    Private _isCancelled As Boolean
+    Private _isInitialized As Boolean
+
+    Public ReadOnly Property isCancelled As Boolean
+        Get
+            Return _isCancelled
+        End Get
+    End Property
+
+    Public Property IsInitialized() As Boolean
+        Get
+            Return _isInitialized
+        End Get
+        Set(ByVal value As Boolean)
+            _isInitialized = value
+        End Set
+    End Property
+
     Public Sub canCancel(ByVal b As Boolean)
 
         Me.btnCancel.Visible = Not b
-        Me.bwProgress.WorkerSupportsCancellation = Not b
 
     End Sub
 
@@ -11,44 +28,29 @@
         Me.btnCancel.Text = WinControlsLocalizer.getString("cmdCancel")
     End Sub
 
-    Private Sub bwProgress_DoWork(ByVal sender As System.Object, _
-                                  ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bwProgress.DoWork
-
-        Me.btnCancel.Enabled = True
-
-    End Sub
-
-    Private Sub bwProgress_ProgressChanged(ByVal sender As Object, ByVal e As System.ComponentModel.ProgressChangedEventArgs) Handles bwProgress.ProgressChanged
-        Me.ProgressBar.Value = e.ProgressPercentage
-    End Sub
-
-    Private Sub bwProgress_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwProgress.RunWorkerCompleted
-        ' First, handle the case where an exception was thrown. 
-        If (e.Error IsNot Nothing) Then
-            Call winUtils.MsgboxInfo(e.Error.Message)
-
-        ElseIf e.Cancelled Then
-            ' Next, handle the case where the user canceled the  
-            ' operation. 
-            ' Note that due to a race condition in  
-            ' the DoWork event handler, the Cancelled 
-            ' flag may not have been set, even though 
-            ' CancelAsync was called.
-            Me.lblMessage.Text = "Canceled"
-        Else
-            ' Finally, handle the case where the operation succeeded.
-
-        End If
-
-        Me.btnCancel.Enabled = False
-
-    End Sub
 
     Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
 
-        If Me.bwProgress.IsBusy Then
-            Me.bwProgress.CancelAsync()
-        End If
+        Me._isCancelled = True
 
     End Sub
+
+    Sub initProgressBar(ByVal maxSteps As Integer)
+
+        Me.ProgressBar.Minimum = 0
+        Me.ProgressBar.Maximum = maxSteps
+        Me._isCancelled = False
+        Me._isInitialized = True
+
+    End Sub
+
+    Sub Progress(ByVal currentStep As Integer)
+
+        If currentStep > Me.ProgressBar.Maximum Then currentStep = Me.ProgressBar.Maximum
+        If currentStep < Me.ProgressBar.Minimum Then currentStep = Me.ProgressBar.Minimum
+
+        Me.ProgressBar.Value = currentStep
+
+    End Sub
+
 End Class

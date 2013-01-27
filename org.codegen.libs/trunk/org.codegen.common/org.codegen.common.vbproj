@@ -136,7 +136,6 @@
     <Compile Include="pluginSDK\IPluginContext.vb" />
     <Compile Include="pluginSDK\PluginSectionHandler.vb" />
     <Compile Include="Translation\ILanguageStrings.vb" />
-    <Compile Include="ProgressIndicator.vb" />
     <Compile Include="SimpleEncrypt.vb">
       <SubType>Code</SubType>
     </Compile>
