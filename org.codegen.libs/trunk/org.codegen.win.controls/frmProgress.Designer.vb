@@ -23,6 +23,7 @@ Partial Class frmProgress
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.ProgressBar = New System.Windows.Forms.ProgressBar()
+        Me.bwProgress = New System.ComponentModel.BackgroundWorker()
         Me.lblMessage = New System.Windows.Forms.Label()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.SuspendLayout()
@@ -33,6 +34,11 @@ Partial Class frmProgress
         Me.ProgressBar.Name = "ProgressBar"
         Me.ProgressBar.Size = New System.Drawing.Size(402, 23)
         Me.ProgressBar.TabIndex = 0
+        '
+        'bwProgress
+        '
+        Me.bwProgress.WorkerReportsProgress = True
+        Me.bwProgress.WorkerSupportsCancellation = True
         '
         'lblMessage
         '
@@ -78,4 +84,5 @@ Partial Class frmProgress
     Public WithEvents ProgressBar As System.Windows.Forms.ProgressBar
     Public WithEvents lblMessage As System.Windows.Forms.Label
     Public WithEvents btnCancel As System.Windows.Forms.Button
+    Private WithEvents bwProgress As System.ComponentModel.BackgroundWorker
 End Class
