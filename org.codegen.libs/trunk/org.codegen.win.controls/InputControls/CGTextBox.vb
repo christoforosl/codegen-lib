@@ -19,13 +19,13 @@ Public Class CGTextBox
 
         MyBase.New()
         Me.SetStyle(ControlStyles.SupportsTransparentBackColor, True)
-        Me.CharacterCasing = winUtils.ApplicationDefaultCasing
+        Me.CharacterCasing = FormsApplicationContext.current.ApplicationDefaultCasing
 
         'This call is required by the Component Designer.
         InitializeComponent()
 
         'Add any initialization after the InitializeComponent() call
-        Me.Font = winUtils.ApplicationDefaultFont
+        Me.Font = FormsApplicationContext.current.ApplicationDefaultFont
 
 
     End Sub
@@ -80,7 +80,7 @@ Public Class CGTextBox
         Set(ByVal value As Label)
             _AssociatedLabel = value
             If _AssociatedLabel IsNot Nothing Then
-                _AssociatedLabel.Font = winUtils.ApplicationDefaultFont
+                _AssociatedLabel.Font = FormsApplicationContext.current.ApplicationDefaultFont
             End If
 
         End Set

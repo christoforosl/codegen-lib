@@ -9,9 +9,9 @@ Public Class MDIParent
 
     Private Sub MDIParent_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        winUtils.ApplicationDefaultFont = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, _
+        FormsApplicationContext.current.ApplicationDefaultFont = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, _
                                 System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Text = winUtils.ApplicationTitle
+        Me.Text = FormsApplicationContext.current.ApplicationTitle
         Me.setupMenues()
 
         Dim pro As New ProgressIndicator

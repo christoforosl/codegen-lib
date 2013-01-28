@@ -16,7 +16,7 @@ Partial Class ucEditToolar
 
     Sub New()
 
-        Me.Font = winUtils.ApplicationDefaultFont
+        Me.Font = FormsApplicationContext.current.ApplicationDefaultFont
         ' This call is required by the designer.
         InitializeComponent()
 
@@ -169,10 +169,10 @@ Partial Class ucEditToolar
     Friend WithEvents cmdAdd As System.Windows.Forms.ToolStripButton
     Friend WithEvents sepCustomItems As System.Windows.Forms.ToolStripSeparator
 
-    
+
 
     Private Sub ucEditToolar_ControlAdded(ByVal sender As Object, _
                                           ByVal e As System.Windows.Forms.ControlEventArgs) Handles Me.ControlAdded
-        e.Control.Font = winUtils.ApplicationDefaultFont
+        e.Control.Font = FormsApplicationContext.current.ApplicationDefaultFont
     End Sub
 End Class

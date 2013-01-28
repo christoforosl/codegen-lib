@@ -15,7 +15,7 @@ Public Class frmBase
 
         'This call is required by the Windows Form Designer.
         InitializeComponent()
-        Me.Font = winUtils.ApplicationDefaultFont
+        Me.Font = FormsApplicationContext.current.ApplicationDefaultFont
         'Add any initialization after the InitializeComponent() call
 
     End Sub

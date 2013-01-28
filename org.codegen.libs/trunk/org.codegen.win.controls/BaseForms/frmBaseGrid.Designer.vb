@@ -22,7 +22,7 @@ Partial Class frmBaseGrid
         Me.GridMode = enumGridFormMode.MODE_LIST
         ' Add any initialization after the InitializeComponent() call.
 
-        Me.Font = winUtils.ApplicationDefaultFont
+        Me.Font = FormsApplicationContext.current.ApplicationDefaultFont
 
     End Sub
 
