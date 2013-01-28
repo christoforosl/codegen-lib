@@ -31,7 +31,8 @@
 
     Public Sub prgStart(ByVal message As String, _
                         ByVal totalSteps As Integer, _
-                        ByVal showCancel As Boolean)
+                        ByVal showCancel As Boolean,
+                        ByVal workMethod As System.ComponentModel.DoWorkEventHandler)
 
         Me.isCancelled = False
         Me.progressMessage = message
@@ -43,11 +44,14 @@
             _frmProgress.Show()
 
         End If
-
+        _frmProgress.Refresh()
         _frmProgress = CType(Application.OpenForms("frmProgress"), controls.frmProgress)
         _frmProgress.btnCancel.Visible = Me.showCancel
         _frmProgress.lblMessage.Text = Me.progressMessage
-        _frmProgress.Refresh()
+        AddHandler _frmProgress.backroundWorkerProgress.DoWork, workMethod
+        _frmProgress.backroundWorkerProgress.RunWorkerAsync()
+
+
 
     End Sub
 

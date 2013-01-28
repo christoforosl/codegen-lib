@@ -32,6 +32,7 @@
     Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
 
         Me._isCancelled = True
+        Me.backroundWorkerProgress.CancelAsync()
 
     End Sub
 
@@ -53,4 +54,19 @@
 
     End Sub
 
+    Private Sub backroundWorkerProgress_ProgressChanged(ByVal sender As Object, ByVal e As System.ComponentModel.ProgressChangedEventArgs) Handles backroundWorkerProgress.ProgressChanged
+        Me.ProgressBar.Value = e.ProgressPercentage
+    End Sub
+
+    Private Sub backroundWorkerProgress_RunWorkerCompleted(ByVal sender As Object, _
+                                ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) _
+                                    Handles backroundWorkerProgress.RunWorkerCompleted
+        Me.Close()
+
+    End Sub
+
+    
+    Private Sub backroundWorkerProgress_DoWork(ByVal sender As System.Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles backroundWorkerProgress.DoWork
+
+    End Sub
 End Class
