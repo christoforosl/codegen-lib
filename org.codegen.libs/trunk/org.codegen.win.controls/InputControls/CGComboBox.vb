@@ -209,7 +209,7 @@ Public Class CGComboBox
         Set(ByVal value As Label)
             _AssociatedLabel = value
             If _AssociatedLabel IsNot Nothing Then
-                _AssociatedLabel.Font = winUtils.ApplicationDefaultFont
+                _AssociatedLabel.Font = FormsApplicationContext.current.ApplicationDefaultFont
             End If
 
         End Set
@@ -221,7 +221,7 @@ Public Class CGComboBox
 
         Me._loading = False
         Me.InitializeComponent()
-        Me.Font = winUtils.ApplicationDefaultFont
+        Me.Font = FormsApplicationContext.current.ApplicationDefaultFont
 
     End Sub
 

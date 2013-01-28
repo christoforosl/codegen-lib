@@ -161,6 +161,13 @@ Public Class frmBaseEdit
 
 #Region "Form Events"
 
+    ''' <summary>
+    ''' If this property is true, hitting the ENTER key on the keyboard will cause the edit form to validate, save and close.
+    ''' The default value is iniitilized to that of FormsApplicationContext.current.SaveOnEnterKey which should be set on applciation startup.
+    ''' This value can be customized on a per form basis
+    ''' </summary>
+    Public Property SaveOnEnterKey As Boolean = FormsApplicationContext.current.SaveOnEnterKey
+
     Private Sub frmBaseEdit_FormClosing(ByVal sender As Object, ByVal e As FormClosingEventArgs) Handles Me.FormClosing
 
         If e.CloseReason = CloseReason.UserClosing Then
@@ -179,8 +186,9 @@ Public Class frmBaseEdit
             End If
 
         ElseIf e.KeyCode = Keys.Enter Then
-            Me.ValidateAndSaveRecord()
-
+            If Me.SaveOnEnterKey Then
+                Me.ValidateAndSaveRecord()
+            End If
         End If
 
     End Sub

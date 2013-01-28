@@ -17,7 +17,7 @@ Partial Class CGCheckBox
         Me.Size = New System.Drawing.Size(17, 20)
         Me.SetStyle(ControlStyles.SupportsTransparentBackColor, True)
         Me.BackColor = Color.Transparent
-        Me.Font = winUtils.ApplicationDefaultFont
+        Me.Font = FormsApplicationContext.current.ApplicationDefaultFont
 
         'This call is required by the Component Designer.
         InitializeComponent()

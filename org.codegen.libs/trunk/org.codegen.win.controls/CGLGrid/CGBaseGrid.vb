@@ -47,7 +47,7 @@ Namespace Grid
             ' This call is required by the designer.
             InitializeComponent()
             AddHandler Me.MouseDown, AddressOf Me.grdData_MouseDown
-            Me.Font = winUtils.ApplicationDefaultFont
+            Me.Font = FormsApplicationContext.current.ApplicationDefaultFont
             Me.setSkin()
 
 
@@ -381,7 +381,7 @@ Namespace Grid
 
             Dim rowHeadStyle As New DataGridViewCellStyle
             rowHeadStyle.BackColor = SystemColors.Desktop
-            rowHeadStyle.Font = winUtils.ApplicationDefaultFont ' New Font("Tahoma", 8.25!, FontStyle.Regular, GraphicsUnit.Point, 0)
+            rowHeadStyle.Font = FormsApplicationContext.current.ApplicationDefaultFont ' New Font("Tahoma", 8.25!, FontStyle.Regular, GraphicsUnit.Point, 0)
             rowHeadStyle.ForeColor = SystemColors.WindowText
             rowHeadStyle.SelectionBackColor = SystemColors.Highlight
             rowHeadStyle.SelectionForeColor = SystemColors.HighlightText
@@ -401,7 +401,7 @@ Namespace Grid
             Me.AllowUserToResizeRows = False
 
             Me.EditMode = DataGridViewEditMode.EditProgrammatically
-            'Me.Font = winUtils.ApplicationDefaultFont 'New Font("Tahoma", 8.25!, FontStyle.Regular, GraphicsUnit.Point, 0)
+            'Me.Font = ApplicationContext.current.ApplicationDefaultFont 'New Font("Tahoma", 8.25!, FontStyle.Regular, GraphicsUnit.Point, 0)
 
         End Sub
 

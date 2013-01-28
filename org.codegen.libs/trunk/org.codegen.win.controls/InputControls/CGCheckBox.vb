@@ -19,7 +19,7 @@ Public Class CGCheckBox
         Set(ByVal value As Label)
             _AssociatedLabel = value
             If _AssociatedLabel IsNot Nothing Then
-                _AssociatedLabel.Font = winUtils.ApplicationDefaultFont
+                _AssociatedLabel.Font = FormsApplicationContext.current.ApplicationDefaultFont
             End If
 
         End Set
