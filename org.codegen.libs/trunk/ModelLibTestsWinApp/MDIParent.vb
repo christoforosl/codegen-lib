@@ -2,6 +2,7 @@
 Imports System.Reflection.Assembly
 Imports System.Reflection
 Imports System.Threading
+Imports System.ComponentModel
 
 Public Class MDIParent
 
@@ -15,17 +16,14 @@ Public Class MDIParent
         Me.setupMenues()
 
         Dim pro As New ProgressIndicator
-        pro.prgStart("this is a test", 10, True)
-        pro.showCancel = True
-        For i As Integer = 1 To 10
-            Thread.Sleep(500)
-            pro.prgProgress(i)
-        Next
-        pro.prgEnd()
+        pro.prgStart("this is a test", 10, True, AddressOf dowork)
+
         'Dim f As New frmProgress
         'f.Show()
 
     End Sub
+
+
 
     Private Sub ShowListForm(ByVal sender As Object, ByVal e As EventArgs)
 
@@ -139,5 +137,17 @@ Public Class MDIParent
         AddHandler mnPrdDetails.Click, AddressOf ShowListForm
 
     End Sub
+
+    Private Sub dowork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs)
+
+        Dim worker As BackgroundWorker = CType(sender, BackgroundWorker)
+
+        For i As Integer = 1 To 10
+            Thread.Sleep(500)
+            worker.ReportProgress(CInt(i / 10 * 100))
+        Next
+
+    End Sub
+
 
 End Class

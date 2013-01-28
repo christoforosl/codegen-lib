@@ -25,7 +25,7 @@ Partial Class frmProgress
         Me.ProgressBar = New System.Windows.Forms.ProgressBar()
         Me.lblMessage = New System.Windows.Forms.Label()
         Me.btnCancel = New System.Windows.Forms.Button()
-        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.backroundWorkerProgress = New System.ComponentModel.BackgroundWorker()
         Me.SuspendLayout()
         '
         'ProgressBar
@@ -56,10 +56,10 @@ Partial Class frmProgress
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
-        'BackgroundWorker1
+        'backroundWorkerProgress
         '
-        Me.BackgroundWorker1.WorkerReportsProgress = True
-        Me.BackgroundWorker1.WorkerSupportsCancellation = True
+        Me.backroundWorkerProgress.WorkerReportsProgress = True
+        Me.backroundWorkerProgress.WorkerSupportsCancellation = True
         '
         'frmProgress
         '
@@ -84,5 +84,5 @@ Partial Class frmProgress
     Public WithEvents ProgressBar As System.Windows.Forms.ProgressBar
     Public WithEvents lblMessage As System.Windows.Forms.Label
     Public WithEvents btnCancel As System.Windows.Forms.Button
-    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents backroundWorkerProgress As System.ComponentModel.BackgroundWorker
 End Class
