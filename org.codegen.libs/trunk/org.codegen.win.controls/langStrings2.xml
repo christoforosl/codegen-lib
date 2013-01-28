@@ -110,6 +110,12 @@
     <langValueEL>**ΟΛΕΣ** οι επιλεγμένες εγγραφές θα διαγραφούν.  Είστε σίγουρος/η?</langValueEL>
   </langString>
 
+  <langString>
+    <langKey>cancel_progress</langKey>
+    <langValueEN>Are you sure you want to cancel this operation?</langValueEN>
+    <langValueEL>Είστε σίγουρος/η ότι θέλετε να ακυρώσετε την διαδικασία;</langValueEL>
+  </langString>
+  
 
   <langString>
     <langKey>multi_select_delete_disabled</langKey>

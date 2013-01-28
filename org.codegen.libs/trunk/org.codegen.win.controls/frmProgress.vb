@@ -31,8 +31,10 @@
 
     Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
 
-        Me._isCancelled = True
-        Me.backroundWorkerProgress.CancelAsync()
+        If winUtils.MsgboxQuestion("Are you sure you want to cancel?") = vbYes Then
+            Me._isCancelled = True
+            Me.backroundWorkerProgress.CancelAsync()
+        End If
 
     End Sub
 
@@ -66,7 +68,5 @@
     End Sub
 
     
-    Private Sub backroundWorkerProgress_DoWork(ByVal sender As System.Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles backroundWorkerProgress.DoWork
-
-    End Sub
+   
 End Class
