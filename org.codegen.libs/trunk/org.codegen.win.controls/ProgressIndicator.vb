@@ -39,8 +39,8 @@
         frmProgress.btnCancel.Visible = Me.showCancel
         frmProgress.lblMessage.Text = Me.progressMessage
         AddHandler frmProgress.backroundWorkerProgress.DoWork, workMethod
-        frmProgress.backroundWorkerProgress.RunWorkerAsync()
-        frmProgress.ShowDialog()
+        frmProgress.backroundWorkerProgress.RunWorkerAsync(frmProgress.lblMessage)
+        frmProgress.Show()
 
 
     End Sub

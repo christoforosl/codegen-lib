@@ -2,6 +2,17 @@
 Partial Class frmProgress
     Inherits System.Windows.Forms.Form
 
+
+    Private Const CP_NOCLOSE_BUTTON As Integer = &H200
+    Protected Overrides ReadOnly Property CreateParams() As CreateParams
+        Get
+            Dim myCp As CreateParams = MyBase.CreateParams
+            myCp.ClassStyle = myCp.ClassStyle Or CP_NOCLOSE_BUTTON
+            Return myCp
+
+        End Get
+    End Property
+
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
@@ -91,6 +102,7 @@ Partial Class frmProgress
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Progress Bar"
+        Me.TopMost = True
         Me.ResumeLayout(False)
 
     End Sub
