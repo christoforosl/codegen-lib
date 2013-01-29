@@ -33,8 +33,10 @@
 
         If Application.OpenForms("frmProgress") Is Nothing Then
             frmProgress = New frmProgress
-
+        Else
+            frmProgress = CType(Application.OpenForms("frmProgress"), controls.frmProgress)
         End If
+
         frmProgress.Refresh()
         frmProgress.btnCancel.Visible = Me.showCancel
         frmProgress.lblMessage.Text = Me.progressMessage
