@@ -188,7 +188,13 @@ Public Class frmBaseEdit
         ElseIf e.KeyCode = Keys.Enter Then
             If Me.SaveOnEnterKey Then
                 Me.ValidateAndSaveRecord()
+                e.Handled = True
             End If
+
+        ElseIf e.Control And e.KeyCode = Keys.S Then 'ctrl+s save
+            Me.ValidateAndSaveRecord()
+            e.Handled = True
+
         End If
 
     End Sub
