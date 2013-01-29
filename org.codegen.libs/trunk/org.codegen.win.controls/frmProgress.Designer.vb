@@ -26,11 +26,12 @@ Partial Class frmProgress
         Me.lblMessage = New System.Windows.Forms.Label()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.backroundWorkerProgress = New System.ComponentModel.BackgroundWorker()
+        Me.lblPercentage = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'ProgressBar
         '
-        Me.ProgressBar.Location = New System.Drawing.Point(12, 56)
+        Me.ProgressBar.Location = New System.Drawing.Point(13, 56)
         Me.ProgressBar.Name = "ProgressBar"
         Me.ProgressBar.Size = New System.Drawing.Size(402, 23)
         Me.ProgressBar.TabIndex = 0
@@ -40,7 +41,7 @@ Partial Class frmProgress
         Me.lblMessage.BackColor = System.Drawing.Color.Yellow
         Me.lblMessage.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.lblMessage.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(161, Byte))
-        Me.lblMessage.Location = New System.Drawing.Point(11, 9)
+        Me.lblMessage.Location = New System.Drawing.Point(12, 9)
         Me.lblMessage.Name = "lblMessage"
         Me.lblMessage.Size = New System.Drawing.Size(402, 36)
         Me.lblMessage.TabIndex = 1
@@ -49,9 +50,9 @@ Partial Class frmProgress
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(169, 105)
+        Me.btnCancel.Location = New System.Drawing.Point(152, 110)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(88, 23)
+        Me.btnCancel.Size = New System.Drawing.Size(124, 29)
         Me.btnCancel.TabIndex = 2
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
@@ -61,11 +62,24 @@ Partial Class frmProgress
         Me.backroundWorkerProgress.WorkerReportsProgress = True
         Me.backroundWorkerProgress.WorkerSupportsCancellation = True
         '
+        'lblPercentage
+        '
+        Me.lblPercentage.BackColor = System.Drawing.Color.Transparent
+        Me.lblPercentage.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lblPercentage.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(161, Byte))
+        Me.lblPercentage.Location = New System.Drawing.Point(166, 79)
+        Me.lblPercentage.Name = "lblPercentage"
+        Me.lblPercentage.Size = New System.Drawing.Size(100, 23)
+        Me.lblPercentage.TabIndex = 3
+        Me.lblPercentage.Text = "100%"
+        Me.lblPercentage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'frmProgress
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(426, 151)
+        Me.Controls.Add(Me.lblPercentage)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.lblMessage)
         Me.Controls.Add(Me.ProgressBar)
@@ -84,4 +98,5 @@ Partial Class frmProgress
     Public WithEvents lblMessage As System.Windows.Forms.Label
     Public WithEvents btnCancel As System.Windows.Forms.Button
     Friend WithEvents backroundWorkerProgress As System.ComponentModel.BackgroundWorker
+    Friend WithEvents lblPercentage As System.Windows.Forms.Label
 End Class

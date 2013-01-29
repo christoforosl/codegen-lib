@@ -21,11 +21,14 @@
     Public Sub canCancel(ByVal b As Boolean)
 
         Me.btnCancel.Visible = Not b
+        Me.ControlBox = b
 
     End Sub
 
     Private Sub frmProgress_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Me.btnCancel.Text = WinControlsLocalizer.getString("cmdCancel")
+        Call winUtils.HourglassOn()
+
     End Sub
 
 
@@ -53,20 +56,22 @@
         If currentStep < Me.ProgressBar.Minimum Then currentStep = Me.ProgressBar.Minimum
 
         Me.ProgressBar.Value = currentStep
+        Me.lblPercentage.Text = currentStep & "%"
 
     End Sub
 
     Private Sub backroundWorkerProgress_ProgressChanged(ByVal sender As Object, ByVal e As System.ComponentModel.ProgressChangedEventArgs) Handles backroundWorkerProgress.ProgressChanged
-        Me.ProgressBar.Value = e.ProgressPercentage
+
+        Call Progress(e.ProgressPercentage)
+
     End Sub
 
     Private Sub backroundWorkerProgress_RunWorkerCompleted(ByVal sender As Object, _
                                 ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) _
                                     Handles backroundWorkerProgress.RunWorkerCompleted
         Me.Close()
-
+        Call winUtils.HourglassOff()
     End Sub
 
-    
-   
+  
 End Class
