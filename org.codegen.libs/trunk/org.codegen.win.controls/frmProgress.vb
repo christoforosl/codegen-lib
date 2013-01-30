@@ -50,19 +50,27 @@
 
     End Sub
 
-    Sub Progress(ByVal currentStep As Integer)
+    Sub Progress(ByVal currentStep As Integer, ByVal msg As String)
 
         If currentStep > Me.ProgressBar.Maximum Then currentStep = Me.ProgressBar.Maximum
         If currentStep < Me.ProgressBar.Minimum Then currentStep = Me.ProgressBar.Minimum
 
         Me.ProgressBar.Value = currentStep
         Me.lblPercentage.Text = currentStep & "%"
-
+        If String.IsNullOrEmpty(msg) = False Then
+            Me.lblMessage.Text = msg
+        End If
     End Sub
 
-    Private Sub backroundWorkerProgress_ProgressChanged(ByVal sender As Object, ByVal e As System.ComponentModel.ProgressChangedEventArgs) Handles backroundWorkerProgress.ProgressChanged
+    Sub Progress(ByVal currentStep As Integer)
 
-        Call Progress(e.ProgressPercentage)
+        Call Progress(currentStep, String.Empty)
+
+    End Sub
+    Private Sub backroundWorkerProgress_ProgressChanged(ByVal sender As Object, _
+                                                        ByVal e As System.ComponentModel.ProgressChangedEventArgs) Handles backroundWorkerProgress.ProgressChanged
+        Dim msg As String = e.UserState.ToString()
+        Call Progress(e.ProgressPercentage, msg)
 
     End Sub
 

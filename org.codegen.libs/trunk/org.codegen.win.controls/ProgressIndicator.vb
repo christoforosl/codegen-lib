@@ -42,8 +42,14 @@
         frmProgress.lblMessage.Text = Me.progressMessage
         AddHandler frmProgress.backroundWorkerProgress.DoWork, workMethod
         frmProgress.backroundWorkerProgress.RunWorkerAsync(frmProgress.lblMessage)
-        frmProgress.Show()
 
+#If Not Debug Then
+        frmProgress.topmost = true
+#End If
+
+        frmProgress.Show()
+        frmProgress.Activate()
+        frmProgress.BringToFront()
 
     End Sub
 
