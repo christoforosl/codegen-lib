@@ -102,7 +102,6 @@ Partial Class frmProgress
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Progress Bar"
-        Me.TopMost = True
         Me.ResumeLayout(False)
 
     End Sub
