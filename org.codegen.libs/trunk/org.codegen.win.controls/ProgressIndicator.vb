@@ -2,7 +2,6 @@
 
     Private frmProgress As frmProgress
 
-
     Private _progressMessage As String
     Private TotalSteps As Integer
 
@@ -41,6 +40,8 @@
         frmProgress.btnCancel.Visible = Me.showCancel
         frmProgress.lblMessage.Text = Me.progressMessage
         AddHandler frmProgress.backroundWorkerProgress.DoWork, workMethod
+        AddHandler frmProgress.backroundWorkerProgress.RunWorkerCompleted, AddressOf RunWorkerCompleted
+
         frmProgress.backroundWorkerProgress.RunWorkerAsync(frmProgress.lblMessage)
 
 #If Not Debug Then
@@ -55,8 +56,14 @@
 
     Public Sub prgEnd()
 
-        frmProgress.Hide()
         frmProgress.Close()
+
+    End Sub
+
+    Private Sub RunWorkerCompleted(ByVal sender As Object, _
+                                   ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs)
+
+        Call prgEnd()
 
     End Sub
 

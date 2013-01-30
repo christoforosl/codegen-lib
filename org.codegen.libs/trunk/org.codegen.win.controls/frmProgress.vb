@@ -32,7 +32,8 @@
     End Sub
 
 
-    Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
+    Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+                Handles btnCancel.Click
 
         If winUtils.MsgboxQuestion("Are you sure you want to cancel?") = vbYes Then
             Me._isCancelled = True
@@ -69,17 +70,16 @@
     End Sub
     Private Sub backroundWorkerProgress_ProgressChanged(ByVal sender As Object, _
                                                         ByVal e As System.ComponentModel.ProgressChangedEventArgs) Handles backroundWorkerProgress.ProgressChanged
-        Dim msg As String = e.UserState.ToString()
+        Dim msg As String = String.Empty
+        If e.UserState IsNot Nothing Then
+            msg = e.UserState.ToString()
+        End If
+
         Call Progress(e.ProgressPercentage, msg)
 
     End Sub
 
-    Private Sub backroundWorkerProgress_RunWorkerCompleted(ByVal sender As Object, _
-                                ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) _
-                                    Handles backroundWorkerProgress.RunWorkerCompleted
-        Me.Close()
-        Call winUtils.HourglassOff()
-    End Sub
+   
 
   
 End Class
