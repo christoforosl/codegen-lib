@@ -44,10 +44,7 @@
 
         frmProgress.backroundWorkerProgress.RunWorkerAsync(frmProgress.lblMessage)
 
-#If Not Debug Then
-        frmProgress.topmost = true
-#End If
-
+        frmProgress.TopMost = True
         frmProgress.Show()
         frmProgress.Activate()
         frmProgress.BringToFront()
