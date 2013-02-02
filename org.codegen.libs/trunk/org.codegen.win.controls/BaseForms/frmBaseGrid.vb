@@ -320,7 +320,7 @@ Public Class frmBaseGrid
         If e.KeyCode <> Keys.Enter Then Exit Sub
         If Me.grdData.gpSearchFields Is Nothing OrElse Me.grdData.gpSearchFields.Count = 0 Then Exit Sub
 
-        Dim arr As List(Of String)
+        Dim arr As List(Of String) = New List(Of String)
         Dim newSearchFilter As String = String.Empty
         Dim searchTerm As String = CType(sender, ToolStripTextBox).Text.Trim
 
@@ -350,8 +350,9 @@ Public Class frmBaseGrid
 
                 ' if field is numeric, only include it if search term is numeric!
                 If lsearchCol.ValueType Is System.Type.GetType("System.Decimal") _
-                            OrElse lsearchCol.ValueType Is System.Type.GetType("System.Integer") _
-                            OrElse lsearchCol.ValueType Is System.Type.GetType("System.Long") Then
+                    OrElse lsearchCol.ValueType Is System.Type.GetType("System.Int16") _
+                            OrElse lsearchCol.ValueType Is System.Type.GetType("System.Int32") _
+                            OrElse lsearchCol.ValueType Is System.Type.GetType("System.Int64") Then
 
                     If IsNumeric(searchTerm) Then
                         arr.Add(Me.grdData.gpSearchFields(i) & "=" & searchTerm)
