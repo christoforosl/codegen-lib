@@ -1,6 +1,7 @@
 Imports org.codegen.win.controls.Grid
 Imports System.ComponentModel
 Imports System.Reflection
+Imports System.Collections.Generic
 
 ''' <summary>
 ''' Enumeration to indicate the mode of the list form
@@ -319,7 +320,7 @@ Public Class frmBaseGrid
         If e.KeyCode <> Keys.Enter Then Exit Sub
         If Me.grdData.gpSearchFields Is Nothing OrElse Me.grdData.gpSearchFields.Count = 0 Then Exit Sub
 
-        Dim arr(0 To Me.grdData.gpSearchFields.Count - 1) As String
+        Dim arr As List(Of String)
         Dim newSearchFilter As String = String.Empty
         Dim searchTerm As String = CType(sender, ToolStripTextBox).Text.Trim
 
@@ -331,16 +332,42 @@ Public Class frmBaseGrid
             'partial search
             For i As Integer = 0 To Me.grdData.gpSearchFields.Count - 1
 
-                arr(i) = Me.grdData.gpSearchFields(i) & " LIKE " & Me.quoteSearchTerm(searchTerm)
+                Dim lsearchCol As DataGridViewColumn = GetSearchColumn(i)
+
+                If lsearchCol.ValueType Is System.Type.GetType("System.String") Then
+                    arr.Add(Me.grdData.gpSearchFields(i) & " LIKE " & Me.quoteSearchTerm(searchTerm))
+                Else
+                    arr.Add(" convert([" & Me.grdData.gpSearchFields(i) & "], 'System.String') LIKE " & Me.quoteSearchTerm(searchTerm))
+                End If
+
             Next
-            newSearchFilter = "(" & String.Join(" OR ", arr) & ")"
+
+
 
         Else 'exact value search
             For i As Integer = 0 To Me.grdData.gpSearchFields.Count - 1
-                arr(i) = Me.grdData.gpSearchFields(i) & "=" & Me.quoteSearchTerm(searchTerm)
-            Next
-            newSearchFilter = "(" & String.Join(" OR ", arr) & ")"
+                Dim lsearchCol As DataGridViewColumn = GetSearchColumn(i)
 
+                ' if field is numeric, only include it if search term is numeric!
+                If lsearchCol.ValueType Is System.Type.GetType("System.Decimal") _
+                            OrElse lsearchCol.ValueType Is System.Type.GetType("System.Integer") _
+                            OrElse lsearchCol.ValueType Is System.Type.GetType("System.Long") Then
+
+                    If IsNumeric(searchTerm) Then
+                        arr.Add(Me.grdData.gpSearchFields(i) & "=" & searchTerm)
+                    End If
+
+                Else
+                    arr.Add(Me.grdData.gpSearchFields(i) & "=" & Me.quoteSearchTerm(searchTerm))
+                End If
+
+            Next
+
+
+        End If
+
+        If arr.Count > 0 Then
+            newSearchFilter = "(" & String.Join(" OR ", arr) & ")"
         End If
 
         Dim finalfilter As String
@@ -637,7 +664,7 @@ Public Class frmBaseGrid
         If IdValue <> 0 AndAlso (Me.cmdEdit.Visible = False OrElse Me.cmdEdit.Enabled = False) Then Exit Sub
 
         If IdValue = 0 AndAlso (Me.cmdAdd.Visible = False OrElse Me.cmdAdd.Enabled = False) Then Exit Sub
-        
+
         Dim f As frmBaseEdit
 
         Try
@@ -731,7 +758,9 @@ Public Class frmBaseGrid
     End Sub
 
     Private Function quoteSearchTerm(ByVal searchTerm As String) As String
+
         Return "'" & searchTerm.Replace("'", "''") & "'"
+
     End Function
 
     Private Sub gridDataLoaded(ByVal sender As Object)
@@ -761,6 +790,27 @@ Public Class frmBaseGrid
             msg = WinControlsLocalizer.getString(STR_WARN_DELETE_MULTIPLE)
         End If
         Return msg
+    End Function
+
+
+    Private _SearchColumnCache As Dictionary(Of Integer, DataGridViewColumn)
+
+    Private Function GetSearchColumn(ByVal i As Integer) As DataGridViewColumn
+
+        If _SearchColumnCache Is Nothing Then
+            _SearchColumnCache = New Dictionary(Of Integer, DataGridViewColumn)
+        End If
+
+        If _SearchColumnCache.ContainsKey(i) = False Then
+            Dim lsearchCol As DataGridViewColumn = Me.grdData.Columns(Me.grdData.gpSearchFields(i))
+            If lsearchCol Is Nothing Then
+                Throw New ApplicationException(String.Format("Search Column {0} does not exist", Me.grdData.gpSearchFields(i)))
+            End If
+            _SearchColumnCache(i) = lsearchCol
+        End If
+
+        Return _SearchColumnCache.Item(i)
+
     End Function
 
 End Class
