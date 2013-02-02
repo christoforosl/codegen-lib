@@ -36,6 +36,7 @@ End Class
 Friend Class MSSQLDBUpdater
     Inherits DBUpdater
 
+
     Protected Friend Overrides Function getSQLCommandSeparator() As String
         Return vbCrLf & "go" & vbCrLf
     End Function
@@ -101,7 +102,8 @@ End Class
 
 ''' <summary>
 ''' Class to fascilitate easy upgrade of a database.
-''' <br></br>
+''' </summary>
+''' <remarks>
 ''' Requirements:
 ''' <ol>
 ''' <li>Create a table in your database called <b>sysDatabaseVersion</b>
@@ -136,8 +138,7 @@ End Class
 ''' opening sql script files and executing the commands for each version.
 ''' After each version sql file is done, a new row is inserted in table sysDatabaseVersion, updating the version,
 ''' until the versions come to the same lebel.
-''' </summary>
-''' <remarks></remarks>
+''' </remarks>
 Public MustInherit Class DBUpdater
 
     Protected _dbconn As DBUtils
@@ -151,6 +152,11 @@ Public MustInherit Class DBUpdater
     Protected Friend MustOverride Function getSQLCommandFileName(ByVal iVersion As Integer) As String
 
     Public Event VersionUpgradeCompleted(ByVal iversion As Integer)
+
+    ''' <summary>
+    ''' Command to execute for backing up the database.  Only applies for sql server.
+    ''' </summary>
+    Public Property backupSQLStatement As String
 
     Private Shared Function getResourceStream(ByVal resname As String, ByVal assemblyName As String) As Stream
 
@@ -193,7 +199,7 @@ Public MustInherit Class DBUpdater
 
     End Function
 
-    Private Function upgradeDatabase() As Boolean
+    Private Sub upgradeDatabase()
 
         Dim myerrprefix As String
         Dim scriptFile As String
@@ -219,6 +225,11 @@ Public MustInherit Class DBUpdater
                 'Throw New ApplicationException("Bad File Version: " & dbversion & ".  Expected version less than " & _codeDatabaseVersion)
                 'ErrorLogging.addError("Newer Database Version: " & dbversion & ".  Expected version less than " & _codeDatabaseVersion, "", "", ErrorLogging.enumErrType.ERR_INFO)
             Else
+
+                If String.IsNullOrEmpty(Me.backupSQLStatement) = False Then
+                    Dim sqlBackup As String = String.Format(Me.backupSQLStatement, CStr(dbversion), CStr(_codeDatabaseVersion))
+                    _dbconn.executeSQL(sqlBackup)
+                End If
 
                 myerrprefix = "Error upgrading to version " & _codeDatabaseVersion & ": "
 
@@ -253,7 +264,7 @@ Public MustInherit Class DBUpdater
 
             End If
             _dbconn.commitTrans()
-            Return True
+
 
         Catch ex As Exception
             Dim errMsg As String = scriptFile & vbCrLf & "Error Updating database """ & dbName & """ to version " & dbversion & vbCrLf & ex.Message & vbCrLf & ex.StackTrace
@@ -265,11 +276,22 @@ Public MustInherit Class DBUpdater
             System.Threading.Monitor.Exit(oLock)
         End Try
 
-    End Function
+    End Sub
 
 #Region "Public class interface"
 
-    Public Shared Function dbUpdateVersion(ByVal _dbconn As DBUtils, ByVal _dbversion As Integer, ByVal assemblyName As String) As Boolean
+    ''' <summary>
+    ''' Creates an updater class instance and brings the database to the target version
+    ''' </summary>
+    ''' <param name="_dbconn">Database connection to your database</param>
+    ''' <param name="_dbversion">The target version</param>
+    ''' <param name="_backupSQLStatement">SQL to execute before the upgrade to backup database</param>
+    ''' <param name="_assemblyName">your assembly name</param>
+    Public Shared Sub dbUpdateVersion(ByVal _dbconn As DBUtils, _
+                                           ByVal _dbversion As Integer, _
+                                           ByVal _backupSQLStatement As String, _
+                                           ByVal _assemblyName As String)
+
         Dim dbu As DBUpdater
 
         If _dbconn.ConnType = DBUtils.enumConnType.CONN_OLEDB Then
@@ -277,17 +299,17 @@ Public MustInherit Class DBUpdater
 
         ElseIf _dbconn.ConnType = DBUtils.enumConnType.CONN_MSSQL Then
             dbu = New MSSQLDBUpdater
-
+            dbu.backupSQLStatement = _backupSQLStatement
         ElseIf _dbconn.ConnType = DBUtils.enumConnType.CONN_ORACLE Then
             dbu = New ORADBUpdater
         End If
 
         dbu._dbconn = _dbconn
         dbu._codeDatabaseVersion = _dbversion
-        dbu._assemblyName = assemblyName
-        Return dbu.upgradeDatabase()
+        dbu._assemblyName = _assemblyName
+        dbu.upgradeDatabase()
 
-    End Function
+    End Sub
 
 #End Region
 End Class
