@@ -627,7 +627,7 @@ Public Class frmBaseGrid
     ''' <summary>
     ''' Prepares the edit form intance loadded from "LoadEditForm".  It is called from ListEditRecord.
     ''' If this function returns true, then the form is shown.  If the function returns false, then the
-    ''' form is not shown.  Insided PrepareEditForm, the system sets the ID of the 
+    ''' form is not shown.  Inside PrepareEditForm, the system sets the ID of the 
     ''' record and loads data on the screen.
     ''' </summary>
     ''' <param name="IdValue">The primary key value being edited, 0 if new record.</param>
@@ -814,4 +814,5 @@ Public Class frmBaseGrid
 
     End Function
 
+   
 End Class
