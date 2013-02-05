@@ -40,12 +40,8 @@ Public Class CGCheckBox
             Return _isMandatory
         End Get
         Set(ByVal value As Boolean)
-            'If value Then
-            '    Me.BackColor = System.Drawing.Color.LightYellow
-            'Else
-            '    Me.BackColor = System.Drawing.Color.Transparent
-            'End If
-            _isMandatory = value
+            
+            _isMandatory = False ' for checkboxes, no need to mark them as mandatory
         End Set
 
     End Property
@@ -99,16 +95,6 @@ Public Class CGCheckBox
         End If
     End Function
 
-    Private Sub _ParentChanged(ByVal sender As Object, ByVal e As System.EventArgs)
-
-
-        If Not Me.DesignMode AndAlso Me.isMandatory AndAlso Me.showAsteriskForMandatory Then
-
-            CGTextBox.addAsteriskLabel(CType(Me, Control), CType(Me.Parent, Control))
-
-        End If
-
-    End Sub
 
     Public Sub makeReadOnly() Implements IReadOnlyEnabled.setReadOnly
         Me.ReadOnly = True

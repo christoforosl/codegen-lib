@@ -21,12 +21,18 @@ Public Class SQLStmtsRegistry
 
         Dim cStmts As SQLStmts
 
-        If _xmlStatementFiles.ContainsKey(filekey) = False Then
-            cStmts = SQLStmts.getStmtsFromResource(filekey)
-            Call _xmlStatementFiles.Add(filekey, cStmts)
-        Else
-            cStmts = _xmlStatementFiles.Item(filekey)
-        End If
+        SyncLock _xmlStatementFiles
+
+            If _xmlStatementFiles.ContainsKey(filekey) = False Then
+                cStmts = SQLStmts.getStmtsFromResource(filekey)
+                Call _xmlStatementFiles.Add(filekey, cStmts)
+            Else
+                cStmts = _xmlStatementFiles.Item(filekey)
+            End If
+
+
+        End SyncLock
+
         Return cStmts.getStatement(statemtKey, sqlDialect, pParams)
 
     End Function
