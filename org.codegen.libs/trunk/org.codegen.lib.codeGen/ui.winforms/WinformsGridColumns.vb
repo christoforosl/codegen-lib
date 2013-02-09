@@ -152,74 +152,77 @@ Namespace org.codegen.lib.codeGen.Tokens
 
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
 
-            sb.Append(vbTab).Append("' column: ").Append(field.RuntimeFieldName).Append(vbCrLf)
+            Dim lFieldRuntimeFieldName As String = field.RuntimeFieldName
+            Dim dataPropertyname As String = field.FieldName
+
+            sb.Append(vbTab).Append("' column: ").Append(lFieldRuntimeFieldName).Append(vbCrLf)
 
             If field.isDate Then
-                sb.Append(vbTab).Append("").Append(field.RuntimeFieldName) _
+                sb.Append(vbTab).Append("").Append(lFieldRuntimeFieldName) _
                      .Append(".CellTemplate = New CalendarCell").Append(vbCrLf)
 
             ElseIf field.isBoolean Then
-                sb.Append(vbTab).Append("").Append(field.RuntimeFieldName) _
+                sb.Append(vbTab).Append("").Append(lFieldRuntimeFieldName) _
                      .Append(".CellTemplate = New DataGridViewCheckBoxCell").Append(vbCrLf)
-                sb.Append(vbTab).Append("").Append(field.RuntimeFieldName) _
+                sb.Append(vbTab).Append("").Append(lFieldRuntimeFieldName) _
                     .Append(".HeaderCell = New DataGridViewAutoFilterBooleanColumnHeaderCell").Append(vbCrLf)
 
             ElseIf field.isLookup Then
 
-                sb.Append(vbTab).Append("").Append(field.RuntimeFieldName) _
+                sb.Append(vbTab).Append("").Append(lFieldRuntimeFieldName) _
                      .Append(".CellTemplate = New DataGridViewComboBoxCell").Append(vbCrLf)
-                sb.Append(vbTab).Append("").Append(field.RuntimeFieldName) _
+                sb.Append(vbTab).Append("").Append(lFieldRuntimeFieldName) _
                     .Append(".HeaderCell = New DataGridViewAutoFilterComboColumnHeaderCell").Append(vbCrLf)
 
 
-                
+
 
             Else
-                sb.Append(vbTab).Append("").Append(field.RuntimeFieldName) _
+                sb.Append(vbTab).Append("").Append(lFieldRuntimeFieldName) _
                      .Append(".CellTemplate = New DataGridViewTextBoxCell").Append(vbCrLf)
             End If
 
-            sb.Append(vbTab).Append("").Append(field.RuntimeFieldName) _
-                     .Append(".Name = """).Append(field.RuntimeFieldName).Append("""") _
+            sb.Append(vbTab).Append("").Append(lFieldRuntimeFieldName) _
+                     .Append(".Name = """).Append(lFieldRuntimeFieldName).Append("""") _
                      .Append(vbCrLf)
 
-            sb.Append(vbTab).Append("").Append(field.RuntimeFieldName) _
-                     .Append(".DataPropertyName = """).Append(field.RuntimeFieldName).Append("""") _
+            sb.Append(vbTab).Append("").Append(lFieldRuntimeFieldName) _
+                     .Append(".DataPropertyName = """).Append(dataPropertyname).Append("""") _
                      .Append(vbCrLf)
 
-            sb.Append(vbTab).Append("").Append(field.RuntimeFieldName) _
+            sb.Append(vbTab).Append("").Append(lFieldRuntimeFieldName) _
                      .Append(".ReadOnly = True").Append(vbCrLf)
 
-            sb.Append(vbTab).Append("").Append(field.RuntimeFieldName) _
-                     .Append(".HeaderText = """).Append(field.RuntimeFieldName).Append("""") _
+            sb.Append(vbTab).Append("").Append(lFieldRuntimeFieldName) _
+                     .Append(".HeaderText = """).Append(lFieldRuntimeFieldName).Append("""") _
                      .Append(vbCrLf)
-            sb.Append(vbTab).Append("").Append(field.RuntimeFieldName) _
-                     .Append(".HeaderCell.value = """).Append(field.RuntimeFieldName).Append("""") _
+            sb.Append(vbTab).Append("").Append(lFieldRuntimeFieldName) _
+                     .Append(".HeaderCell.value = """).Append(lFieldRuntimeFieldName).Append("""") _
                      .Append(vbCrLf)
 
-            sb.Append(vbTab).Append("").Append(field.RuntimeFieldName) _
+            sb.Append(vbTab).Append("").Append(lFieldRuntimeFieldName) _
                      .Append(".DefaultCellStyle.Alignment = "). _
                         Append(getFieldAlignment(field)). _
                         Append(vbCrLf)
 
-            sb.Append(vbTab).Append("").Append(field.RuntimeFieldName) _
+            sb.Append(vbTab).Append("").Append(lFieldRuntimeFieldName) _
                      .Append(".HeaderCell.Style.Alignment = "). _
                         Append(getFieldAlignment(field)). _
                         Append(vbCrLf)
 
 
-            sb.Append(vbTab).Append("").Append(field.RuntimeFieldName) _
+            sb.Append(vbTab).Append("").Append(lFieldRuntimeFieldName) _
                      .Append(".Width = "). _
                         Append(getFieldWidth(field)). _
                         Append(vbCrLf)
 
-            sb.Append(vbTab).Append("").Append(field.RuntimeFieldName) _
+            sb.Append(vbTab).Append("").Append(lFieldRuntimeFieldName) _
                      .Append(".Visible = "). _
                         Append((field.isPrimaryKey = False)). _
                         Append(vbCrLf)
 
             If String.IsNullOrEmpty(getFieldFormat(field)) = False Then
-                sb.Append(vbTab).Append("").Append(field.RuntimeFieldName) _
+                sb.Append(vbTab).Append("").Append(lFieldRuntimeFieldName) _
                          .Append(".CellTemplate.Style.Format = """).Append(getFieldFormat(field)) _
                          .Append("""") _
                           .Append(vbCrLf)
@@ -228,7 +231,7 @@ Namespace org.codegen.lib.codeGen.Tokens
             'sb.Append(vbTab).Append("grid.Columns.Add(").Append(""). _
             '    Append(field.RuntimeFieldName).Append(")").Append(vbCrLf)
 
-            sb.Append(vbTab).Append("'**** End Setup of column: ").Append(field.RuntimeFieldName). _
+            sb.Append(vbTab).Append("'**** End Setup of column: ").Append(lFieldRuntimeFieldName). _
                 Append(vbCrLf).Append(vbCrLf).Append(vbCrLf)
 
             Return sb.ToString
