@@ -51,12 +51,18 @@ Public Class frmBaseGrid
     ''' <remarks></remarks>
     Public Property AllowDeleteMultipleSelection As Boolean = False
 
+    Private _allowEdit As Boolean
+    Private _allowAddNew As Boolean
+    Private _AllowDelete As Boolean
+
     <Browsable(True)> _
     Public Property AllowEdit As Boolean
         Get
-            Return Me.cmdEdit.Visible
+            Return _allowEdit
         End Get
         Set(ByVal value As Boolean)
+
+            _allowEdit = value
 
             Me.cmdEdit.Visible = value
             Me.cmdEdit.Enabled = Not value
@@ -69,10 +75,10 @@ Public Class frmBaseGrid
     <Browsable(True)> _
     Public Property AllowAddNew As Boolean
         Get
-            Return Me.cmdAdd.Visible
+            Return _allowAddNew
         End Get
         Set(ByVal value As Boolean)
-
+            _allowAddNew = value
             Me.cmdAdd.Visible = value
             Me.cmdAdd.Enabled = Not value
             Me.mnAdd.Visible = value
@@ -83,10 +89,10 @@ Public Class frmBaseGrid
     <Browsable(True)> _
     Public Property AllowDelete As Boolean
         Get
-            Return Me.cmdDelete.Visible
+            Return _AllowDelete
         End Get
         Set(ByVal value As Boolean)
-
+            _AllowDelete = value
             Me.cmdDelete.Visible = value
             Me.cmdDelete.Enabled = Not value
             Me.mnDelete.Visible = value
@@ -94,18 +100,6 @@ Public Class frmBaseGrid
 
         End Set
 
-    End Property
-
-    <Browsable(True)> _
-    Public Property [ReadOnly] As Boolean
-        Get
-            Return Not Me.cmdAdd.Enabled
-        End Get
-        Set(ByVal value As Boolean)
-            Me.cmdAdd.Enabled = Not value
-            Me.cmdEdit.Enabled = Not value
-            Me.cmdDelete.Enabled = Not value
-        End Set
     End Property
 
     <Browsable(False)> _
@@ -136,9 +130,16 @@ Public Class frmBaseGrid
     Private Sub frmBaseGrid_KeyDown(ByVal sender As Object, _
                                     ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
 
-        If e.KeyCode = Keys.Delete Then
+        If e.KeyCode = Keys.Delete AndAlso Me.ActiveControl Is Me.grdData Then
             Call ListDeleteRecord()
+            e.Handled = True
         End If
+
+        If e.KeyCode = Keys.Enter AndAlso Me.ActiveControl Is Me.grdData Then
+            Call ListEditRecord(Me.grdData.IdValue)
+            e.Handled = True
+        End If
+
 
     End Sub
     Private Sub frmBaseGrid_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -660,11 +661,9 @@ Public Class frmBaseGrid
     <Description("Procedure that gets called on edit button click.")> _
     Public Overridable Sub ListEditRecord(ByVal IdValue As Integer)
 
-        If Me.ReadOnly Then Exit Sub
         If Me.GridMode = enumGridFormMode.MODE_SELECT Then Exit Sub
-        If IdValue <> 0 AndAlso (Me.cmdEdit.Visible = False OrElse Me.cmdEdit.Enabled = False) Then Exit Sub
-
-        If IdValue = 0 AndAlso (Me.cmdAdd.Visible = False OrElse Me.cmdAdd.Enabled = False) Then Exit Sub
+        If IdValue <> 0 AndAlso (Me.AllowEdit = False) Then Exit Sub
+        If IdValue = 0 AndAlso (Me.AllowAddNew = False) Then Exit Sub
 
         Dim f As frmBaseEdit
 
@@ -705,7 +704,7 @@ Public Class frmBaseGrid
     Public Sub ListDeleteRecord()
 
         If Me.GridMode = enumGridFormMode.MODE_SELECT Then Exit Sub
-        If Me.ReadOnly Then Exit Sub
+        If Me.AllowDelete = False Then Exit Sub
         If Me.cmdDelete.Enabled = False Then Exit Sub
         If Me.grdData.SelectedRows.Count = 0 Then Exit Sub
 
