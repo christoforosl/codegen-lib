@@ -51,9 +51,9 @@ Public Class frmBaseGrid
     ''' <remarks></remarks>
     Public Property AllowDeleteMultipleSelection As Boolean = False
 
-    Private _allowEdit As Boolean
-    Private _allowAddNew As Boolean
-    Private _AllowDelete As Boolean
+    Private _allowEdit As Boolean = True
+    Private _allowAddNew As Boolean = True
+    Private _AllowDelete As Boolean = True
 
     <Browsable(True)> _
     Public Property AllowEdit As Boolean
