@@ -297,8 +297,7 @@ Namespace Grid
         ''' 
         Public Sub requery()
 
-            'Dim col As Integer = Me.FirstDisplayedCell.ColumnIndex
-            'Dim row As Integer = Me.FirstDisplayedCell.RowIndex
+            
             Dim selectedValue As Object = Nothing
 
             If Me.SelectedRows.Count > 0 Then

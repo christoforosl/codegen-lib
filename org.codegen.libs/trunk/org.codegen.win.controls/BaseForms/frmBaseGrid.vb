@@ -55,6 +55,14 @@ Public Class frmBaseGrid
     Private _allowAddNew As Boolean = True
     Private _AllowDelete As Boolean = True
 
+    Public Sub setReadOnly()
+
+        Me.AllowAddNew = False
+        Me.AllowEdit = False
+        Me.AllowDelete = False
+
+    End Sub
+
     <Browsable(True)> _
     Public Property AllowEdit As Boolean
         Get
