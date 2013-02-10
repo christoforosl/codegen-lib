@@ -10,8 +10,19 @@ Public MustInherit Class DBUtils
 
 #Region "db provider"
 
+    Private Shared _dbrovider As IDBUtilsProvider
 
-    Private Shared dbrovider As IDBUtilsProvider
+    Public Shared Property dbProvider As IDBUtilsProvider
+        Get
+            If _dbrovider Is Nothing Then
+                _dbrovider = New DBUtilsProviderFromConfig
+            End If
+            Return _dbrovider
+        End Get
+        Set(ByVal value As IDBUtilsProvider)
+            _dbrovider = value
+        End Set
+    End Property
 
     ''' <summary>
     ''' Constructs a DBUtilsBase class from the connection string stored in the configuration file.
@@ -20,11 +31,8 @@ Public MustInherit Class DBUtils
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public Shared Function Current() As DBUtils
-        If dbrovider Is Nothing Then
-            dbrovider = New DBUtilsProviderFromConfig
-        End If
-
-        Return dbrovider.getDBUtils
+        
+        Return dbProvider.getDBUtils
 
     End Function
 
