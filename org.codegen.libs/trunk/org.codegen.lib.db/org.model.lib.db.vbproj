@@ -74,6 +74,8 @@
     <Compile Include="DBTranslator.vb" />
     <Compile Include="DBUpdater.vb" />
     <Compile Include="DBUtilsProvider.vb" />
+    <Compile Include="DBUtilsProviderFromConfig.vb" />
+    <Compile Include="DBUtilsProviderFromRegistry.vb" />
     <Compile Include="examples.vb" />
     <Compile Include="OLEDBUtils.vb" />
     <Compile Include="DBConfig.vb" />
