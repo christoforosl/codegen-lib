@@ -26,4 +26,5 @@ Public Class DBUtilsProviderFromRegistry
         Return DBUtils.getFromConnString(connString, sqlConnType, iDialect, dbConfigSect.logFile)
 
     End Function
+
 End Class
