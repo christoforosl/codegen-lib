@@ -55,11 +55,15 @@ Public Class frmBaseGrid
     Private _allowAddNew As Boolean = True
     Private _AllowDelete As Boolean = True
 
-    Public Sub setReadOnly()
+    ''' <summary>
+    ''' Disables AddNew, Edit and delete buttons and menues
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Sub setReadOnly(Optional ByVal bReadOnly As Boolean = True)
 
-        Me.AllowAddNew = False
-        Me.AllowEdit = False
-        Me.AllowDelete = False
+        Me.AllowAddNew = Not bReadOnly 'only allow addnew if not read only
+        Me.AllowEdit = Not bReadOnly 'only allow edit if not read only
+        Me.AllowDelete = Not bReadOnly 'only allow delete if not read only
 
     End Sub
 
@@ -87,10 +91,12 @@ Public Class frmBaseGrid
         End Get
         Set(ByVal value As Boolean)
             _allowAddNew = value
+
             Me.cmdAdd.Visible = value
             Me.cmdAdd.Enabled = Not value
             Me.mnAdd.Visible = value
             Me.mnAdd.Enabled = Not value
+
         End Set
     End Property
 
