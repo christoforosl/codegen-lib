@@ -67,6 +67,27 @@ Public Class frmBaseGrid
 
     End Sub
 
+    Public Sub setEditButtonText(ByVal stext As String)
+
+        Me.cmdEdit.Text = stext
+        Me.mnEdit.Text = stext
+
+    End Sub
+
+    Public Sub setAddButtonText(ByVal stext As String)
+
+        Me.cmdAdd.Text = stext
+        Me.mnAdd.Text = stext
+
+    End Sub
+
+    Public Sub setDeleteButtonText(ByVal stext As String)
+
+        Me.cmdDelete.Text = stext
+        Me.mnDelete.Text = stext
+
+    End Sub
+
     <Browsable(True)> _
     Public Property AllowEdit As Boolean
         Get
@@ -186,15 +207,19 @@ Public Class frmBaseGrid
 
             Me.tsReportButton.Visible = False
             Me.addMenues()
-            Me.cmdAdd.Text = WinControlsLocalizer.getString("cmdAdd")
-            Me.cmdEdit.Text = WinControlsLocalizer.getString("cmdEdit")
+
+            Call setAddButtonText(WinControlsLocalizer.getString("cmdAdd"))
+            Call setEditButtonText(WinControlsLocalizer.getString("cmdEdit"))
+            Call setDeleteButtonText(WinControlsLocalizer.getString("cmdDelete"))
+
             Me.cmdExcel.Text = WinControlsLocalizer.getString("cmdExcel")
             Me.cmdPrint.Text = WinControlsLocalizer.getString("cmdPrint")
             Me.cmdConfigureGrid.Text = WinControlsLocalizer.getString("cmdChooseGridFields")
+
             Me.tsLblSearch.Text = WinControlsLocalizer.getString("Search")
             Me.tsLblSearch2.Text = WinControlsLocalizer.getString("Search")
 
-            Me.cmdDelete.Text = WinControlsLocalizer.getString("cmdDelete")
+
 
             'only show the search textbox if search fields are defined
             Me.ShowSearch = Me.ShowSearch AndAlso Me.grdData.gpSearchFields.Count > 0
