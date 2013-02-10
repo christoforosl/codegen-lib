@@ -1,4 +1,6 @@
-﻿''' <summary>
+﻿Imports System.Configuration.ConfigurationManager
+
+''' <summary>
 ''' Singleton class
 ''' </summary>
 ''' <remarks></remarks>
@@ -33,6 +35,25 @@ Public Class FormsApplicationContext
     Private _ApplicationdefaultFont As Font = _
                     New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, _
                                 System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+
+
+    Private _Translator As ILanguageStrings
+
+    Public Property Translator() As ILanguageStrings
+
+        Get
+            If _Translator Is Nothing AndAlso AppSettings.Item("Translator") IsNot Nothing Then
+                _Translator = ILanguageStrings.getFromConfig
+            End If
+            Return _Translator
+        End Get
+
+        Set(ByVal value As ILanguageStrings)
+            _Translator = value
+        End Set
+
+    End Property
+
 
     ''' <summary>
     ''' Gets/Sets the font used by all input controls
