@@ -62,7 +62,7 @@ Public Class frmBase
 
 #Region "Custom Properties"
 
-    Private Shared _Translator As ILanguageStrings
+    
     Private Shared _isLocalized As Boolean?
 
     Public Shared ReadOnly Property isLocalized As Boolean
@@ -83,20 +83,7 @@ Public Class frmBase
 
     End Property
 
-    Public Shared Property Translator() As ILanguageStrings
-
-        Get
-            If _Translator Is Nothing AndAlso AppSettings.Item("Translator") IsNot Nothing Then
-                _Translator = ILanguageStrings.getFromConfig
-            End If
-            Return _Translator
-        End Get
-
-        Set(ByVal value As ILanguageStrings)
-            _Translator = value
-        End Set
-
-    End Property
+   
 
 #End Region
 
@@ -118,14 +105,14 @@ Public Class frmBase
 		Const STR_FRM_BASE_GRID As String = "frmbasegrid"
 		Const STR_FRM_BASE_EDIT As String = "frmbaseedit"
 
-		If String.IsNullOrEmpty(Me.Name) = False _
-				AndAlso Me.Name.ToLower <> STR_FRM_BASE _
-				AndAlso Me.Name.ToLower <> STR_FRM_BASE_GRID _
-				AndAlso Me.Name.ToLower <> STR_FRM_BASE_EDIT _
-				AndAlso frmBase.Translator IsNot Nothing Then
+        If String.IsNullOrEmpty(Me.Name) = False _
+          AndAlso Me.Name.ToLower <> STR_FRM_BASE _
+          AndAlso Me.Name.ToLower <> STR_FRM_BASE_GRID _
+          AndAlso Me.Name.ToLower <> STR_FRM_BASE_EDIT _
+          AndAlso FormsApplicationContext.current.Translator IsNot Nothing Then
 
-			Me.Text = frmBase.Translator.getString(Me.Name & ".Text")
-		End If
+            Me.Text = FormsApplicationContext.current.Translator.getString(Me.Name & ".Text")
+        End If
 
 	End Sub
 
