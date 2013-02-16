@@ -183,6 +183,7 @@ Public Class frmBaseEdit
             'only close form if top level
             If Me.TopLevel Then
                 Me.DialogResult = Windows.Forms.DialogResult.Cancel
+                e.Handled = True
             End If
 
         ElseIf e.KeyCode = Keys.Enter Then
