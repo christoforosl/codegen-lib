@@ -177,6 +177,7 @@ Public Class frmBaseGrid
 
 
     End Sub
+
     Private Sub frmBaseGrid_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         If Not Me.DesignMode Then
