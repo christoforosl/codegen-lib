@@ -222,6 +222,7 @@ Public Class CGComboBox
         Me._loading = False
         Me.InitializeComponent()
         Me.Font = FormsApplicationContext.current.ApplicationDefaultFont
+        Me.DropDownStyle = ComboBoxStyle.DropDownList
 
     End Sub
 
