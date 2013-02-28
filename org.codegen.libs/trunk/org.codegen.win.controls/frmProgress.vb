@@ -35,11 +35,22 @@
     Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) _
                 Handles btnCancel.Click
 
-        If winUtils.MsgboxQuestion("Are you sure you want to cancel?") = vbYes Then
-            Me._isCancelled = True
-            Me.backroundWorkerProgress.CancelAsync()
-        End If
+        Dim restoreTopMost As Boolean
 
+        Try
+            restoreTopMost = Me.TopMost
+            If Me.TopMost Then
+                Me.TopMost = False
+            End If
+            If winUtils.MsgboxQuestion("Are you sure you want to cancel?") = vbYes Then
+                Me._isCancelled = True
+                Me.backroundWorkerProgress.CancelAsync()
+            End If
+
+        Finally
+            Me.TopMost = restoreTopMost
+        End Try
+        
     End Sub
 
     Sub initProgressBar(ByVal maxSteps As Integer)

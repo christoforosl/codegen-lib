@@ -165,14 +165,26 @@ Public Class frmBaseGrid
     Private Sub frmBaseGrid_KeyDown(ByVal sender As Object, _
                                     ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
 
-        If e.KeyCode = Keys.Delete AndAlso Me.ActiveControl Is Me.grdData Then
-            Call ListDeleteRecord()
-            e.Handled = True
+        If e.KeyCode = Keys.Delete Then
+            If Me.ActiveControl IsNot Nothing AndAlso _
+                        (Me.ActiveControl Is Me.grdData.Parent _
+                                OrElse Me.ActiveControl Is Me.grdData) Then
+
+                Call ListDeleteRecord()
+                e.Handled = True
+
+            End If
         End If
 
-        If e.KeyCode = Keys.Enter AndAlso Me.ActiveControl Is Me.grdData Then
-            Call ListEditRecord(Me.grdData.IdValue)
-            e.Handled = True
+        If e.KeyCode = Keys.Enter Then
+
+            If Me.ActiveControl IsNot Nothing AndAlso _
+                        (Me.ActiveControl Is Me.grdData.Parent _
+                                OrElse Me.ActiveControl Is Me.grdData) Then
+                Call ListEditRecord(Me.grdData.IdValue)
+                e.Handled = True
+            End If
+
         End If
 
 
