@@ -15,7 +15,7 @@ Namespace Encryption
     ''' infeasible to find two distinct inputs that hash to the same value. Hash functions 
     ''' are commonly used with digital signatures and for data integrity.
     ''' </summary>
-    Public Class Hash
+    Class Hash
 
         ''' <summary>
         ''' Type of hash; some are security oriented, others are fast and simple
@@ -228,7 +228,7 @@ Namespace Encryption
     ''' Symmetric encryption uses a single key to encrypt and decrypt. 
     ''' Both parties (encryptor and decryptor) must share the same secret key.
     ''' </summary>
-    Public Class Symmetric
+    Class Symmetric
 
         Private Const _DefaultIntializationVector As String = "%1Az=-@qT"
         Private Const _BufferSize As Integer = 2048
@@ -525,7 +525,7 @@ Namespace Encryption
     ''' <remarks>
     ''' The only provider supported is the <see cref="RSACryptoServiceProvider"/>
     ''' </remarks>
-    Public Class Asymmetric
+    Class Asymmetric
 
         Private _rsa As RSACryptoServiceProvider
         Private _KeyContainerName As String = "Encryption.AsymmetricEncryption.DefaultContainerName"
@@ -1007,7 +1007,7 @@ Namespace Encryption
     ''' use the .Hex property to set/get a string-based Hexadecimal representation 
     ''' use the .Base64 to set/get a string-based Base64 representation 
     ''' </summary>
-    Public Class Data
+    Class Data
         Private _b As Byte()
         Private _MaxBytes As Integer = 0
         Private _MinBytes As Integer = 0
@@ -1363,36 +1363,37 @@ Namespace Encryption
 
 #End Region
 
+
+
+    Public Class SimpleEncrypt
+
+        Private Shared ReadOnly ENCRYPT_PASSWORD As String = "$#iyry7"
+
+        Public Shared Function Cipher(ByVal toEncryptText As String) As String
+
+            Dim sym As New Encryption.Symmetric(Encryption.Symmetric.Provider.Rijndael)
+            Dim key As New Encryption.Data(ENCRYPT_PASSWORD)
+            Dim encryptedData As Encryption.Data
+            encryptedData = sym.Encrypt(New Encryption.Data(toEncryptText), key)
+            Dim base64EncryptedString As String = encryptedData.ToBase64
+
+            Return base64EncryptedString
+
+        End Function
+
+        Public Shared Function Decipher(ByVal base64EncryptedString As String) As String
+
+            Dim sym As New Encryption.Symmetric(Encryption.Symmetric.Provider.Rijndael)
+            Dim key As New Encryption.Data(ENCRYPT_PASSWORD)
+            Dim encryptedData As New Encryption.Data
+            Dim decryptedData As Encryption.Data
+
+            encryptedData.Base64 = base64EncryptedString
+            decryptedData = sym.Decrypt(encryptedData, key)
+
+            Return decryptedData.ToString
+
+        End Function
+
+    End Class
 End Namespace
-
-Public Class SimpleEncrypt
-
-    Private Shared ReadOnly ENCRYPT_PASSWORD As String = "$#iyry7"
-
-    Public Shared Function Cipher(ByVal toEncryptText As String) As String
-
-        Dim sym As New Encryption.Symmetric(Encryption.Symmetric.Provider.Rijndael)
-        Dim key As New Encryption.Data(ENCRYPT_PASSWORD)
-        Dim encryptedData As Encryption.Data
-        encryptedData = sym.Encrypt(New Encryption.Data(toEncryptText), key)
-        Dim base64EncryptedString As String = encryptedData.ToBase64
-
-        Return base64EncryptedString
-
-    End Function
-
-    Public Shared Function Decipher(ByVal base64EncryptedString As String) As String
-
-        Dim sym As New Encryption.Symmetric(Encryption.Symmetric.Provider.Rijndael)
-        Dim key As New Encryption.Data(ENCRYPT_PASSWORD)
-        Dim encryptedData As New Encryption.Data
-        Dim decryptedData As Encryption.Data
-
-        encryptedData.Base64 = base64EncryptedString
-        decryptedData = sym.Decrypt(encryptedData, key)
-
-        Return decryptedData.ToString
-
-    End Function
-
-End Class

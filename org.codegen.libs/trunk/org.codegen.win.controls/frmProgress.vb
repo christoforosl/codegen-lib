@@ -1,31 +1,9 @@
 ﻿Public Class frmProgress
 
-    Private _isCancelled As Boolean
-    Private _isInitialized As Boolean
-
-    Public ReadOnly Property isCancelled As Boolean
-        Get
-            Return _isCancelled
-        End Get
-    End Property
-
     Public Property IsInitialized() As Boolean
-        Get
-            Return _isInitialized
-        End Get
-        Set(ByVal value As Boolean)
-            _isInitialized = value
-        End Set
-    End Property
-
-    Public Sub canCancel(ByVal b As Boolean)
-
-        Me.btnCancel.Visible = Not b
-        Me.ControlBox = b
-
-    End Sub
 
     Private Sub frmProgress_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
         Me.btnCancel.Text = WinControlsLocalizer.getString("cmdCancel")
         Call winUtils.HourglassOn()
 
@@ -43,8 +21,9 @@
                 Me.TopMost = False
             End If
             If winUtils.MsgboxQuestion("Are you sure you want to cancel?") = vbYes Then
-                Me._isCancelled = True
+
                 Me.backroundWorkerProgress.CancelAsync()
+                Me.Hide()
             End If
 
         Finally
@@ -53,14 +32,6 @@
         
     End Sub
 
-    Sub initProgressBar(ByVal maxSteps As Integer)
-
-        Me.ProgressBar.Minimum = 0
-        Me.ProgressBar.Maximum = maxSteps
-        Me._isCancelled = False
-        Me._isInitialized = True
-
-    End Sub
 
     Sub Progress(ByVal currentStep As Integer, ByVal msg As String)
 
@@ -69,16 +40,14 @@
 
         Me.ProgressBar.Value = currentStep
         Me.lblPercentage.Text = currentStep & "%"
+
         If String.IsNullOrEmpty(msg) = False Then
             Me.lblMessage.Text = msg
         End If
-    End Sub
-
-    Sub Progress(ByVal currentStep As Integer)
-
-        Call Progress(currentStep, String.Empty)
 
     End Sub
+
+   
     Private Sub backroundWorkerProgress_ProgressChanged(ByVal sender As Object, _
                                                         ByVal e As System.ComponentModel.ProgressChangedEventArgs) Handles backroundWorkerProgress.ProgressChanged
         Dim msg As String = String.Empty
@@ -90,7 +59,5 @@
 
     End Sub
 
-   
 
-  
 End Class
