@@ -16,10 +16,9 @@ Public Class MDIParent
         Me.setupMenues()
 
         Dim pro As New ProgressIndicator
-        pro.Start("this is a test", 10, True, AddressOf dowork)
-
-        'Dim f As New frmProgress
-        'f.Show()
+        pro.showCancel = True
+        pro.progressWindowTitle = "this is a test"
+        pro.Start(AddressOf dowork)
 
     End Sub
 
@@ -144,8 +143,9 @@ Public Class MDIParent
 
         For i As Integer = 1 To 10
             Thread.Sleep(500)
-            worker.ReportProgress(CInt(i / 10 * 100))
+            worker.ReportProgress(CInt(i / 10 * 100), "test ")
             If worker.CancellationPending Then
+                worker.CancelAsync()
                 MsgBox("cancelled")
                 Exit For
             End If

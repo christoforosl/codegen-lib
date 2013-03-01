@@ -2,43 +2,29 @@
 
     Private frmProgress As frmProgress
 
-    Private _progressMessage As String
     Private TotalSteps As Integer
 
     Public Property showCancel As Boolean
     Public Property isCancelled As Boolean
 
-    ''' <summary>
-    ''' The message show to the user while the operation is running
-    ''' </summary>
-    Public Property progressMessage() As String
-        Get
-            Return _progressMessage
-        End Get
-        Set(ByVal value As String)
-            _progressMessage = value
-        End Set
-    End Property
+    Public Property progressWindowTitle() As String
 
-    Public Sub Start(ByVal message As String, _
-                        ByVal totalSteps As Integer, _
-                        ByVal showCancel As Boolean,
-                        ByVal workMethod As System.ComponentModel.DoWorkEventHandler)
+    Public Sub Start(ByVal workMethod As System.ComponentModel.DoWorkEventHandler)
 
         Me.isCancelled = False
-        Me.progressMessage = message
+
         Me.showCancel = showCancel
-        Me.TotalSteps = totalSteps
+        Me.TotalSteps = TotalSteps
 
         If Application.OpenForms("frmProgress") Is Nothing Then
             frmProgress = New frmProgress
         Else
             frmProgress = CType(Application.OpenForms("frmProgress"), controls.frmProgress)
         End If
-
+        frmProgress.Text = Me.progressWindowTitle
         frmProgress.Refresh()
         frmProgress.btnCancel.Visible = Me.showCancel
-        frmProgress.lblMessage.Text = Me.progressMessage
+        frmProgress.lblMessage.Text = String.Empty
         AddHandler frmProgress.backroundWorkerProgress.DoWork, workMethod
         AddHandler frmProgress.backroundWorkerProgress.RunWorkerCompleted, AddressOf RunWorkerCompleted
 
