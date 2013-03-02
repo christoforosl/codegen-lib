@@ -1,11 +1,9 @@
 ﻿Public Class frmProgress
 
-    Public Property IsInitialized() As Boolean
-
+    
     Private Sub frmProgress_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         Me.btnCancel.Text = WinControlsLocalizer.getString("cmdCancel")
-        Call winUtils.HourglassOn()
 
     End Sub
 
@@ -49,7 +47,8 @@
 
    
     Private Sub backroundWorkerProgress_ProgressChanged(ByVal sender As Object, _
-                                                        ByVal e As System.ComponentModel.ProgressChangedEventArgs) Handles backroundWorkerProgress.ProgressChanged
+                                                        ByVal e As System.ComponentModel.ProgressChangedEventArgs) _
+                                                                Handles backroundWorkerProgress.ProgressChanged
         Dim msg As String = String.Empty
         If e.UserState IsNot Nothing Then
             msg = e.UserState.ToString()
