@@ -59,4 +59,8 @@
     End Sub
 
 
+    Private Sub backroundWorkerProgress_RunWorkerCompleted(ByVal sender As Object, _
+                                                           ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles backroundWorkerProgress.RunWorkerCompleted
+        Me.Close()
+    End Sub
 End Class
