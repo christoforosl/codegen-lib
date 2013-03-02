@@ -46,12 +46,9 @@ Public Class ProgressIndicator
 
     Private _frmProgress As frmProgress
 
-    Private TotalSteps As Integer
-
     Public Property showCancel As Boolean
 
-
-    Public ReadOnly Property frmProgress As frmProgress
+    Private ReadOnly Property frmProgress As frmProgress
         Get
             If _frmProgress Is Nothing Then
                 If Application.OpenForms(STR_FORM_PROGRESS) Is Nothing Then
@@ -86,9 +83,14 @@ Public Class ProgressIndicator
     End Property
 
     Private Delegate Sub SetTextCallback(ByVal [text] As String)
+    Private Delegate Sub CloseCallback()
 
     Private Sub SetText(ByVal x As String)
         frmProgress.Text = x
+    End Sub
+
+    Private Sub CloseForm()
+        frmProgress.Close()
     End Sub
 
 
@@ -101,7 +103,6 @@ Public Class ProgressIndicator
         frmProgress.btnCancel.Visible = Me.showCancel
         frmProgress.lblMessage.Text = String.Empty
         AddHandler frmProgress.backroundWorkerProgress.DoWork, workMethod
-        AddHandler frmProgress.backroundWorkerProgress.RunWorkerCompleted, AddressOf RunWorkerCompleted
 
         frmProgress.backroundWorkerProgress.RunWorkerAsync(frmProgress.lblMessage)
 
@@ -112,20 +113,14 @@ Public Class ProgressIndicator
 
     End Sub
 
-    Public Sub prgEnd()
+    Public Sub [End]()
 
-        If frmProgress.backroundWorkerProgress.IsBusy Then
-            frmProgress.backroundWorkerProgress.CancelAsync()
+        If Me.frmProgress.InvokeRequired Then
+            Dim d As New CloseCallback(AddressOf CloseForm)
+            Me.frmProgress.Invoke(d, New Object() {})
+        Else
+            Me.frmProgress.Close()
         End If
-
-        frmProgress.Close()
-
-    End Sub
-
-    Private Sub RunWorkerCompleted(ByVal sender As Object, _
-                                   ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs)
-
-        Call prgEnd()
 
     End Sub
 

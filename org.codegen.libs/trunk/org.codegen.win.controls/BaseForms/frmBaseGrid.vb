@@ -371,11 +371,17 @@ Public Class frmBaseGrid
                 Handles tsTxtSearch.KeyDown, tsTxtSearch2.KeyDown
 
         If e.KeyCode <> Keys.Enter Then Exit Sub
+        Dim searchTerm As String = CType(sender, ToolStripTextBox).Text.Trim
+        Call Me.executeSearch(searchTerm)
+
+    End Sub
+
+    Private Sub executeSearch(ByVal searchTerm As String)
+
         If Me.grdData.gpSearchFields Is Nothing OrElse Me.grdData.gpSearchFields.Count = 0 Then Exit Sub
 
         Dim arr As List(Of String) = New List(Of String)
         Dim newSearchFilter As String = String.Empty
-        Dim searchTerm As String = CType(sender, ToolStripTextBox).Text.Trim
 
         If String.IsNullOrEmpty(searchTerm) Then
             'clear the _gridFilterFromSearch
@@ -394,8 +400,6 @@ Public Class frmBaseGrid
                 End If
 
             Next
-
-
 
         Else 'exact value search
             For i As Integer = 0 To Me.grdData.gpSearchFields.Count - 1
@@ -416,7 +420,6 @@ Public Class frmBaseGrid
                 End If
 
             Next
-
 
         End If
 
@@ -444,7 +447,6 @@ Public Class frmBaseGrid
         RaiseEvent gridRowCountChanged(Me.grdData)
 
     End Sub
-
     Protected Sub mnToExcel_click(ByVal sender As Object, ByVal e As EventArgs)
         Me.toExcel()
     End Sub
