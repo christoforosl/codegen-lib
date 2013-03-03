@@ -376,7 +376,7 @@ Public Class frmBaseGrid
 
     End Sub
 
-    Private Sub executeSearch(ByVal searchTerm As String)
+    Public Sub executeSearch(ByVal searchTerm As String)
 
         If Me.grdData.gpSearchFields Is Nothing OrElse Me.grdData.gpSearchFields.Count = 0 Then Exit Sub
 
@@ -394,9 +394,9 @@ Public Class frmBaseGrid
                 Dim lsearchCol As DataGridViewColumn = GetSearchColumn(i)
 
                 If lsearchCol.ValueType Is System.Type.GetType("System.String") Then
-                    arr.Add(Me.grdData.gpSearchFields(i) & " LIKE " & Me.quoteSearchTerm(searchTerm))
+                    arr.Add(lsearchCol.DataPropertyName & " LIKE " & Me.quoteSearchTerm(searchTerm))
                 Else
-                    arr.Add(" convert([" & Me.grdData.gpSearchFields(i) & "], 'System.String') LIKE " & Me.quoteSearchTerm(searchTerm))
+                    arr.Add(" convert([" & lsearchCol.DataPropertyName & "], 'System.String') LIKE " & Me.quoteSearchTerm(searchTerm))
                 End If
 
             Next
@@ -412,11 +412,11 @@ Public Class frmBaseGrid
                             OrElse lsearchCol.ValueType Is System.Type.GetType("System.Int64") Then
 
                     If IsNumeric(searchTerm) Then
-                        arr.Add(Me.grdData.gpSearchFields(i) & "=" & searchTerm)
+                        arr.Add(lsearchCol.DataPropertyName & "=" & searchTerm)
                     End If
 
                 Else
-                    arr.Add(Me.grdData.gpSearchFields(i) & "=" & Me.quoteSearchTerm(searchTerm))
+                    arr.Add(lsearchCol.DataPropertyName & "=" & Me.quoteSearchTerm(searchTerm))
                 End If
 
             Next
@@ -562,6 +562,16 @@ Public Class frmBaseGrid
 
     End Sub
 
+    ''' <summary>
+    ''' Adds a button to the grid toolbar and the action menu of the grid form
+    ''' </summary>
+    ''' <param name="text">Text of the button</param>
+    ''' <param name="handler">handler of the button click event</param>
+    ''' <param name="tbtn">ToolStripButton to add</param>
+    ''' <param name="mn">Menu Item to add to actions menu</param>
+    ''' <param name="witdh">Width of button, default 60</param>
+    ''' <param name="img">Image of button</param>
+    ''' <remarks></remarks>
     Public Sub addToolbarActionButton(ByVal text As String, _
                                        ByVal handler As System.EventHandler, _
                                        ByVal tbtn As ToolStripButton,
@@ -579,6 +589,14 @@ Public Class frmBaseGrid
 
     End Sub
 
+    ''' <summary>
+    ''' Creats and the Adds a button to the grid toolbar and the action menu of the grid form
+    ''' </summary>
+    ''' <param name="text">Text of the button</param>
+    ''' <param name="handler">handler of the button click event</param>
+    ''' <param name="witdh">Width of button, default 60</param>
+    ''' <param name="img">Image of button</param>
+    ''' <remarks></remarks>
     Public Sub addToolbarActionButton(ByVal text As String, _
                             ByVal handler As System.EventHandler, _
                             Optional ByVal witdh As Integer = 60, _
@@ -594,7 +612,6 @@ Public Class frmBaseGrid
         Me.mnActions.Items.Add(item)
 
     End Sub
-
 
     Public Sub addToReportMenu(ByVal btnText As String, _
                                ByVal handler As System.EventHandler, _
