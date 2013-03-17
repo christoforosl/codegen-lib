@@ -16,11 +16,14 @@
         Private ReadOnly Property frmProgress As frmProgress
             Get
                 If _frmProgress Is Nothing Then
+
                     If Application.OpenForms(STR_FORM_PROGRESS) Is Nothing Then
                         _frmProgress = New frmProgress
                     Else
-                        _frmProgress = CType(Application.OpenForms(STR_FORM_PROGRESS), controls.BackroundWorkerProgressIndicator.frmProgress)
+                        _frmProgress = CType(Application.OpenForms(STR_FORM_PROGRESS),  _
+                                    controls.BackroundWorkerProgressIndicator.frmProgress)
                     End If
+
                 End If
                 Return _frmProgress
 
@@ -55,7 +58,6 @@
         Private Sub CloseForm()
             frmProgress.Close()
         End Sub
-
 
         Public Sub Start(ByVal workMethod As System.ComponentModel.DoWorkEventHandler)
 
