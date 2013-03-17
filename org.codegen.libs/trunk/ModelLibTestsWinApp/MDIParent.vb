@@ -15,7 +15,7 @@ Public Class MDIParent
         Me.Text = FormsApplicationContext.current.ApplicationTitle
         Me.setupMenues()
 
-        Dim pro As New ProgressIndicator
+        Dim pro As New BackroundWorkerProgressIndicator.BackroundWorkerProgressIndicator
         pro.showCancel = True
         pro.progressWindowTitle = "this is a test"
         pro.Start(AddressOf dowork)

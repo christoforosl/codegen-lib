@@ -132,9 +132,8 @@
     <Compile Include="Emailer.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="pluginSDK\IPlugin.vb" />
-    <Compile Include="pluginSDK\IPluginContext.vb" />
-    <Compile Include="pluginSDK\PluginSectionHandler.vb" />
+    <Compile Include="progressIndicator\IProgressable.vb" />
+    <Compile Include="progressIndicator\ProgressableEventArgs.vb" />
     <Compile Include="Translation\ILanguageStrings.vb" />
     <Compile Include="SimpleEncrypt.vb">
       <SubType>Code</SubType>
