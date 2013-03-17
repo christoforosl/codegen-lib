@@ -191,10 +191,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="EmptyRequiredFieldException.vb" />
-    <Compile Include="frmProgress.Designer.vb">
+    <Compile Include="progressIndicator\frmProgress.Designer.vb">
       <DependentUpon>frmProgress.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmProgress.vb">
+    <Compile Include="progressIndicator\frmProgress.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="InputControls\CGComboBox.vb">
@@ -222,7 +222,7 @@
     <Compile Include="InputControls\CGIntTextBox.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ProgressIndicator.vb" />
+    <Compile Include="progressIndicator\ProgressIndicator.vb" />
     <Compile Include="WinEventLogger.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -275,7 +275,7 @@
     <EmbeddedResource Include="CGLGrid\CGObjectGrid.resx">
       <DependentUpon>CGObjectGrid.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmProgress.resx">
+    <EmbeddedResource Include="progressIndicator\frmProgress.resx">
       <DependentUpon>frmProgress.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InputControls\CGCheckBox.resx">

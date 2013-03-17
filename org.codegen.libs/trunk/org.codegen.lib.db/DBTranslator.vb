@@ -22,7 +22,6 @@ Imports System.Configuration.ConfigurationManager
 ''' <remarks></remarks>
 Public Class DBTranslator
     Inherits ILanguageStrings
-    Implements IPlugin
 
     Private Const STR_INSERT As String = "INSERT INTO sysLanguageStrings (langKey,langValueEL,langValueEN) VALUES ({0},{1},{2})"
     Private Const STR_UPDATE As String = "UPDATE sysLanguageStrings SET langValueEL={0},langValueEN={1} WHERE langKey={2}"
@@ -99,17 +98,6 @@ Public Class DBTranslator
         If cachedStrings.ContainsKey(skey.ToUpper) Then
             cachedStrings.Remove(skey.ToUpper)
         End If
-
-    End Sub
-
-    Public ReadOnly Property Name As String Implements IPlugin.Name
-        Get
-            Return Me.GetType.Name
-        End Get
-    End Property
-
-    Public Sub PerformAction(ByVal context As IPluginContext) _
-        Implements IPlugin.PerformAction
 
     End Sub
 
