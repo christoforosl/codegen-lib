@@ -19,6 +19,14 @@ Namespace ProgressIndicator
         End Sub
 
         ''' <summary>
+        ''' Emptry constructor
+        ''' </summary>
+        ''' <remarks></remarks>
+        Sub New()
+
+        End Sub
+
+        ''' <summary>
         ''' Constructor to be called at start of process, to set total steps
         ''' </summary>
         ''' <param name="totalSteps">Total steps of the progress</param>
