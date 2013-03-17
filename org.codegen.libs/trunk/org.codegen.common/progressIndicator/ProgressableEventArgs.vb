@@ -11,10 +11,26 @@ Namespace ProgressIndicator
         ''' <param name="current">Current Step</param>
         ''' <param name="message">Message to be shown to the user</param>
         ''' <remarks></remarks>
-        Sub New(ByVal current As Long, ByVal message As String)
-           
+        Sub New(ByVal current As Long, ByVal totalSteps As Long, ByVal message As String)
+
             Me.currentStep = current
+            Me.totalSteps = totalSteps
             Me.userMessage = message
+
+        End Sub
+
+
+        ''' <summary>
+        ''' Constructor to be used during running of process, 
+        ''' to indicate progress and user message
+        ''' </summary>
+        ''' <param name="current">Current Step</param>
+        ''' <param name="totalSteps">Total Steps</param>
+        ''' <remarks></remarks>
+        Sub New(ByVal current As Long, ByVal totalSteps As Long)
+
+            Me.currentStep = current
+            Me.totalSteps = totalSteps
 
         End Sub
 
