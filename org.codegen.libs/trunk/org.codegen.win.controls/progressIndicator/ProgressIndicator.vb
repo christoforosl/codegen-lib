@@ -29,7 +29,7 @@
 
         Public Property progressWindowTitle() As String
             Get
-                Return frmProgress.Text
+                Return Me.frmProgress.Text
             End Get
             Set(ByVal value As String)
 
@@ -42,8 +42,6 @@
                 Else
                     Me.frmProgress.Text = value
                 End If
-
-
             End Set
         End Property
 
@@ -61,12 +59,14 @@
 
         Public Sub Start(ByVal workMethod As System.ComponentModel.DoWorkEventHandler)
 
-            Me.showCancel = showCancel
-
-            frmProgress.Text = Me.progressWindowTitle
-            frmProgress.Refresh()
-            frmProgress.btnCancel.Visible = Me.showCancel
-            frmProgress.lblMessage.Text = String.Empty
+            Me.frmProgress.Text = Me.progressWindowTitle
+            Me.frmProgress.Refresh()
+            Me.frmProgress.setShowCancelButton(Me.showCancel)
+            Me.frmProgress.setMessageLabelText(String.Empty)
+            Me.frmProgress.TopMost = True
+            Me.frmProgress.Show()
+            Me.frmProgress.Activate()
+            Me.frmProgress.BringToFront()
 
             AddHandler frmProgress.ProgressCancelled, AddressOf progressCancelled
             AddHandler frmProgress.backroundWorkerProgress.DoWork, workMethod
@@ -76,14 +76,7 @@
             AddHandler frmProgress.backroundWorkerProgress.ProgressChanged, _
                                AddressOf ProgressChanged
 
-            frmProgress.backroundWorkerProgress.RunWorkerAsync(frmProgress.lblMessage)
-
-            frmProgress.TopMost = True
-            frmProgress.Show()
-            frmProgress.Activate()
-            frmProgress.BringToFront()
-
-
+            Me.frmProgress.backroundWorkerProgress.RunWorkerAsync()
 
         End Sub
 
