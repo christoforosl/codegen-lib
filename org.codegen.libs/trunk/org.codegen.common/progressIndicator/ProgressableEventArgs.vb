@@ -4,26 +4,61 @@ Namespace ProgressIndicator
     Public Class ProgressableEventArgs
         Inherits System.EventArgs
 
-        Sub New(ByVal current As Long, ByVal total As Long)
-            If (total = 0) Then
-                Throw New ArgumentException("total cannot be 0")
-            End If
-            Me.currentLength = current
-            Me.totalLength = total
-        End Sub
-
-        Sub New(ByVal total As Long)
-            If (total = 0) Then
-                Throw New ArgumentException("total cannot be 0")
-            End If
-            Me.currentLength = 0
-            Me.totalLength = total
+        ''' <summary>
+        ''' Constructor to be used during running of process, 
+        ''' to indicate progress and user message
+        ''' </summary>
+        ''' <param name="current">Current Step</param>
+        ''' <param name="message">Message to be shown to the user</param>
+        ''' <remarks></remarks>
+        Sub New(ByVal current As Long, ByVal message As String)
+           
+            Me.currentStep = current
+            Me.userMessage = message
 
         End Sub
 
+        ''' <summary>
+        ''' Constructor to be called at start of process, to set total steps
+        ''' </summary>
+        ''' <param name="totalSteps">Total steps of the progress</param>
+        ''' <remarks></remarks>
+        Sub New(ByVal totalSteps As Long)
+
+            If (totalSteps = 0) Then
+                Throw New ArgumentException("totalSteps cannot be 0")
+            End If
+            Me.currentStep = 0
+            Me.totalSteps = totalSteps
+
+        End Sub
+
+
+        ''' <summary>
+        ''' Boolean indicating that whether the progress operation has been cancelled by the user
+        ''' </summary>
+        ''' <value></value>
+        ''' <returns></returns>
+        ''' <remarks></remarks>
         Public Property wasCancelled As Boolean
-        Public Property currentLength As Long
-        Public Property totalLength As Long
+
+        ''' <summary>
+        ''' The current step number of the progress
+        ''' </summary>
+        ''' <value></value>
+        ''' <returns></returns>
+        ''' <remarks></remarks>
+        Public Property currentStep As Long
+
+        ''' <summary>
+        ''' The total steps of the progress
+        ''' </summary>
+        Public Property totalSteps As Long
+
+        ''' <summary>
+        ''' The progress message to show to the user
+        ''' </summary>
+        Public Property userMessage As String
 
     End Class
 
