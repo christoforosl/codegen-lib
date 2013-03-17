@@ -108,9 +108,9 @@
             Me.ResumeLayout(False)
 
         End Sub
-        Public WithEvents ProgressBar As System.Windows.Forms.ProgressBar
-        Public WithEvents lblMessage As System.Windows.Forms.Label
-        Public WithEvents btnCancel As System.Windows.Forms.Button
+        Private WithEvents ProgressBar As System.Windows.Forms.ProgressBar
+        Private WithEvents lblMessage As System.Windows.Forms.Label
+        Private WithEvents btnCancel As System.Windows.Forms.Button
         Friend WithEvents backroundWorkerProgress As System.ComponentModel.BackgroundWorker
         Friend WithEvents lblPercentage As System.Windows.Forms.Label
     End Class

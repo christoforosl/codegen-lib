@@ -143,7 +143,7 @@ Public Class MDIParent
 
         For i As Integer = 1 To 10
             Thread.Sleep(500)
-            worker.ReportProgress(CInt(i / 10 * 100), "test ")
+            worker.ReportProgress(CInt(i / 10 * 100), "test " & i)
             If worker.CancellationPending Then
                 worker.CancelAsync()
                 MsgBox("cancelled")

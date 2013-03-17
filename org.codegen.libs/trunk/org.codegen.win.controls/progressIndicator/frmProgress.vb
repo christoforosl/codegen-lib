@@ -4,6 +4,18 @@
 
         Public Event ProgressCancelled(ByVal sender As Object, ByVal e As EventArgs)
 
+        Public Sub setShowCancelButton(ByVal showit As Boolean)
+
+            Me.btnCancel.Visible = showit
+
+        End Sub
+
+        Public Sub setMessageLabelText(ByVal text As String)
+
+            Me.lblMessage.Text = text
+
+        End Sub
+
         Private Sub frmProgress_Load(ByVal sender As Object, _
                                      ByVal e As System.EventArgs) Handles Me.Load
 
