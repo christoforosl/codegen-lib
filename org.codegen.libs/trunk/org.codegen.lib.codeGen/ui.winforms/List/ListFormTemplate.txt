@@ -83,11 +83,11 @@ Public Class frm<MODEL_CLASS_NAME>List
         return me.uc<MODEL_CLASS_NAME>List.grd<MODEL_CLASS_NAME>
     End Function
 
-	 Protected Sub DeleteRecordConfirmed(pkval as Integer) Handles Me.gridDeleteRecordConfirmed
+	 Protected Sub DeleteRecordConfirmed() Handles Me.gridDeleteRecordConfirmed
         
-		Dim m As New <MODEL_CLASS_NAME>DBMapper
-        Dim mo As <MODEL_CLASS_NAME> = m.findByKey(pkval)
-        Call m.delete(mo)
+		  Dim m As New <MODEL_CLASS_NAME>DBMapper
+          Dim mo As <MODEL_CLASS_NAME> = m.findByKey(Me.grdData.IdValue)
+          Call m.delete(mo)
 
     End Sub
 

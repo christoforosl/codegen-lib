@@ -83,13 +83,14 @@ Public Class frmEmployeeInfoList
         return me.ucEmployeeInfoList.grdEmployeeInfo
     End Function
 
-        Protected Sub gridDeleteRecord() Handles Me.gridDeleteRecordConfirmed
-
-            Dim m As New EmployeeInfoDBMapper
-            Dim mo As EmployeeInfo = m.findByKey(Me.grdData.IdValue)
-            Call m.delete(mo)
+	 Protected Sub DeleteRecordConfirmed() Handles Me.gridDeleteRecordConfirmed
+        
+		  Dim m As New EmployeeInfoDBMapper
+          Dim mo As EmployeeInfo = m.findByKey(Me.grdData.IdValue)
+          Call m.delete(mo)
 
         End Sub
+
 
 #End Region
 

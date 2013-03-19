@@ -142,7 +142,8 @@ Public Class ucEmployeeProjectDetails
 	Me.Rate.Location = New System.Drawing.Point(135, 135)
 	Me.Rate.Name ="Rate"
 	Me.Rate.Size = New System.Drawing.Size(200, 20)
-	Me.Rate.MaxLength = 2
+	Me.Rate.MaxLength = 10
+	Me.Rate.FormatPattern = "00000000.00"
 	Me.Rate.TabIndex = 4
 	Me.Rate.visible = True
 	Me.Rate.AssociatedLabel = me.Ratelbl

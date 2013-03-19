@@ -73,7 +73,8 @@ CREATE TABLE [EmployeeProject](
 )
 ) 
 GO
-ALTER TABLE [Employee]  WITH CHECK ADD  CONSTRAINT [FK_Employee_EmployeeRank] FOREIGN KEY([EmployeeRankId])
+ALTER TABLE [Employee]  WITH CHECK ADD  CONSTRAINT [FK_Employee_EmployeeRank]
+ FOREIGN KEY([EmployeeRankId])
 REFERENCES [EmployeeRank] ([RankId])
 GO
 ALTER TABLE [Employee] CHECK CONSTRAINT [FK_Employee_EmployeeRank]
@@ -152,7 +153,7 @@ insert into [EmployeeProject] ([EPEmployeeId],[EPProjectId],[AssignDate],[EndDat
 values (2,3,dateAdd(m,-3, getDate()),null,100.00)
 go
 ALTER TABLE dbo.Employee ADD
-	[Address] nvarchar(50) NULL,
+	Salary decimal(10,2) null, [Address] nvarchar(50) NULL,
 	Telephone nvarchar(10) NULL,
 	Mobile nvarchar(10) NULL,
 	IdNumber nvarchar(10) NULL,

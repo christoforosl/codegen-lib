@@ -1,7 +1,7 @@
 Imports System.ComponentModel
 
 Public Class CGDecimalTextBox
-    Inherits CGIntTextBox
+    Inherits CGTextBox
 
     <Browsable(False), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)> _
     Public Overrides Property value() As Object
