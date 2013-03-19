@@ -80,7 +80,8 @@ Public Class ucEmployeeInfoDetails
 	Me.Salary.Location = New System.Drawing.Point(135, 45)
 	Me.Salary.Name ="Salary"
 	Me.Salary.Size = New System.Drawing.Size(200, 20)
-	Me.Salary.MaxLength = 2
+	Me.Salary.MaxLength = 10
+	Me.Salary.FormatPattern = "00000000.00"
 	Me.Salary.TabIndex = 1
 	Me.Salary.visible = True
 	Me.Salary.AssociatedLabel = me.Salarylbl

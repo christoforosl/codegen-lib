@@ -150,7 +150,7 @@ Public Class CGIntTextBox
 
     Private Sub CGIntTextBox_Validating(ByVal sender As Object, _
                                         ByVal e As System.ComponentModel.CancelEventArgs) _
-                                    Handles Me.Validating
+                                            Handles Me.Validating
 
         If Not String.IsNullOrEmpty(Me.Text) Then
             Dim intvalue As Integer

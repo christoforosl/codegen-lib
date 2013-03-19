@@ -13,7 +13,7 @@
   </dbConnectionString>
   <dbConnectionDialect>MSSQL</dbConnectionDialect>
   <dbConnectionType>CONN_MSSQL</dbConnectionType>
-  <UIProjectOutputDir>C:\VSProjects\IIC\org.codegen.libs\ModelLibTestsWinApp\</UIProjectOutputDir>
+  <UIProjectOutputDir>C:\VSProjects\org.codegen.libs\ModelLibTestsWinApp\</UIProjectOutputDir>
   
   <table>
     

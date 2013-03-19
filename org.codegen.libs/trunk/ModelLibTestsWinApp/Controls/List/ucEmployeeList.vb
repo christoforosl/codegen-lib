@@ -29,6 +29,7 @@ Public Class ucEmployeeList
 			me.EmployeeId = new DataGridViewTextBoxColumn
 	me.EmployeeName = new DataGridViewTextBoxColumn
 	me.EmployeeRankId = new DataGridViewComboBoxColumn
+	me.Salary = new DataGridViewTextBoxColumn
 	me.Address = new DataGridViewTextBoxColumn
 	me.Telephone = new DataGridViewTextBoxColumn
 	me.Mobile = new DataGridViewTextBoxColumn
@@ -95,6 +96,21 @@ Public Class ucEmployeeList
 	EmployeeRankId.Width = 100
 	EmployeeRankId.Visible = True
 	'**** End Setup of column: EmployeeRankId
+
+
+	' column: Salary
+	Salary.CellTemplate = New DataGridViewTextBoxCell
+	Salary.Name = "Salary"
+	Salary.DataPropertyName = "Salary"
+	Salary.ReadOnly = True
+	Salary.HeaderText = "Salary"
+	Salary.HeaderCell.value = "Salary"
+	Salary.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight
+	Salary.HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopRight
+	Salary.Width = 50
+	Salary.Visible = True
+	Salary.CellTemplate.Style.Format = "C"
+	'**** End Setup of column: Salary
 
 
 	' column: Address
@@ -209,6 +225,7 @@ Public Class ucEmployeeList
 			me.grdEmployee.Columns.Add(EmployeeId)
 	me.grdEmployee.Columns.Add(EmployeeName)
 	me.grdEmployee.Columns.Add(EmployeeRankId)
+	me.grdEmployee.Columns.Add(Salary)
 	me.grdEmployee.Columns.Add(Address)
 	me.grdEmployee.Columns.Add(Telephone)
 	me.grdEmployee.Columns.Add(Mobile)
@@ -227,6 +244,7 @@ Public Class ucEmployeeList
 		Private WithEvents EmployeeId As DataGridViewTextBoxColumn
 	Private WithEvents EmployeeName As DataGridViewTextBoxColumn
 	Private WithEvents EmployeeRankId As DataGridViewComboBoxColumn
+	Private WithEvents Salary As DataGridViewTextBoxColumn
 	Private WithEvents Address As DataGridViewTextBoxColumn
 	Private WithEvents Telephone As DataGridViewTextBoxColumn
 	Private WithEvents Mobile As DataGridViewTextBoxColumn

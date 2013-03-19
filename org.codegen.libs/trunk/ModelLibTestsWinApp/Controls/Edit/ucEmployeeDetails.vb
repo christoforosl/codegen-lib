@@ -41,6 +41,8 @@ Public Class ucEmployeeDetails
 	Me.EmployeeName = New CGTextBox
 	Me.EmployeeRankIdlbl = New System.Windows.Forms.Label
 	Me.EmployeeRankId = New CGComboBox
+	Me.Salarylbl = New System.Windows.Forms.Label
+	Me.Salary = New CGDecimalTextBox
 	Me.Addresslbl = New System.Windows.Forms.Label
 	Me.Address = New CGTextBox
 	Me.Telephonelbl = New System.Windows.Forms.Label
@@ -98,136 +100,156 @@ Public Class ucEmployeeDetails
 	Me.EmployeeRankId.isMandatory = True
 	Me.EmployeeRankId.AssociatedLabel = me.EmployeeRankIdlbl
 
+	'Salarylbl.
+	Me.Salarylbl.AutoSize = False
+	Me.Salarylbl.Location = New System.Drawing.Point(5, 75)
+	Me.Salarylbl.Name = "Salarylbl"
+	Me.Salarylbl.Size = New System.Drawing.Size(120, 20)
+	Me.Salarylbl.TabIndex = 2
+	Me.Salarylbl.Text = "Salary"
+	Me.Salarylbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+
+	'Salary
+	Me.Salary.AutoSize = True
+	Me.Salary.Location = New System.Drawing.Point(135, 75)
+	Me.Salary.Name ="Salary"
+	Me.Salary.Size = New System.Drawing.Size(200, 20)
+	Me.Salary.MaxLength = 10
+	Me.Salary.FormatPattern = "00000000.00"
+	Me.Salary.TabIndex = 2
+	Me.Salary.visible = True
+	Me.Salary.AssociatedLabel = me.Salarylbl
+
 	'Addresslbl.
 	Me.Addresslbl.AutoSize = False
-	Me.Addresslbl.Location = New System.Drawing.Point(5, 75)
+	Me.Addresslbl.Location = New System.Drawing.Point(5, 105)
 	Me.Addresslbl.Name = "Addresslbl"
 	Me.Addresslbl.Size = New System.Drawing.Size(120, 20)
-	Me.Addresslbl.TabIndex = 2
+	Me.Addresslbl.TabIndex = 3
 	Me.Addresslbl.Text = "Address"
 	Me.Addresslbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 
 	'Address
 	Me.Address.AutoSize = True
-	Me.Address.Location = New System.Drawing.Point(135, 75)
+	Me.Address.Location = New System.Drawing.Point(135, 105)
 	Me.Address.Name ="Address"
 	Me.Address.Size = New System.Drawing.Size(200, 20)
 	Me.Address.MaxLength = 255
-	Me.Address.TabIndex = 2
+	Me.Address.TabIndex = 3
 	Me.Address.visible = True
 	Me.Address.AssociatedLabel = me.Addresslbl
 
 	'Telephonelbl.
 	Me.Telephonelbl.AutoSize = False
-	Me.Telephonelbl.Location = New System.Drawing.Point(5, 105)
+	Me.Telephonelbl.Location = New System.Drawing.Point(5, 135)
 	Me.Telephonelbl.Name = "Telephonelbl"
 	Me.Telephonelbl.Size = New System.Drawing.Size(120, 20)
-	Me.Telephonelbl.TabIndex = 3
+	Me.Telephonelbl.TabIndex = 4
 	Me.Telephonelbl.Text = "Telephone"
 	Me.Telephonelbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 
 	'Telephone
 	Me.Telephone.AutoSize = True
-	Me.Telephone.Location = New System.Drawing.Point(135, 105)
+	Me.Telephone.Location = New System.Drawing.Point(135, 135)
 	Me.Telephone.Name ="Telephone"
 	Me.Telephone.Size = New System.Drawing.Size(200, 20)
 	Me.Telephone.MaxLength = 255
-	Me.Telephone.TabIndex = 3
+	Me.Telephone.TabIndex = 4
 	Me.Telephone.visible = True
 	Me.Telephone.AssociatedLabel = me.Telephonelbl
 
 	'Mobilelbl.
 	Me.Mobilelbl.AutoSize = False
-	Me.Mobilelbl.Location = New System.Drawing.Point(5, 135)
+	Me.Mobilelbl.Location = New System.Drawing.Point(5, 165)
 	Me.Mobilelbl.Name = "Mobilelbl"
 	Me.Mobilelbl.Size = New System.Drawing.Size(120, 20)
-	Me.Mobilelbl.TabIndex = 4
+	Me.Mobilelbl.TabIndex = 5
 	Me.Mobilelbl.Text = "Mobile"
 	Me.Mobilelbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 
 	'Mobile
 	Me.Mobile.AutoSize = True
-	Me.Mobile.Location = New System.Drawing.Point(135, 135)
+	Me.Mobile.Location = New System.Drawing.Point(135, 165)
 	Me.Mobile.Name ="Mobile"
 	Me.Mobile.Size = New System.Drawing.Size(200, 20)
 	Me.Mobile.MaxLength = 255
-	Me.Mobile.TabIndex = 4
+	Me.Mobile.TabIndex = 5
 	Me.Mobile.visible = True
 	Me.Mobile.AssociatedLabel = me.Mobilelbl
 
 	'IdNumberlbl.
 	Me.IdNumberlbl.AutoSize = False
-	Me.IdNumberlbl.Location = New System.Drawing.Point(5, 165)
+	Me.IdNumberlbl.Location = New System.Drawing.Point(5, 195)
 	Me.IdNumberlbl.Name = "IdNumberlbl"
 	Me.IdNumberlbl.Size = New System.Drawing.Size(120, 20)
-	Me.IdNumberlbl.TabIndex = 5
+	Me.IdNumberlbl.TabIndex = 6
 	Me.IdNumberlbl.Text = "IdNumber"
 	Me.IdNumberlbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 
 	'IdNumber
 	Me.IdNumber.AutoSize = True
-	Me.IdNumber.Location = New System.Drawing.Point(135, 165)
+	Me.IdNumber.Location = New System.Drawing.Point(135, 195)
 	Me.IdNumber.Name ="IdNumber"
 	Me.IdNumber.Size = New System.Drawing.Size(200, 20)
 	Me.IdNumber.MaxLength = 255
-	Me.IdNumber.TabIndex = 5
+	Me.IdNumber.TabIndex = 6
 	Me.IdNumber.visible = True
 	Me.IdNumber.AssociatedLabel = me.IdNumberlbl
 
 	'SSINumberlbl.
 	Me.SSINumberlbl.AutoSize = False
-	Me.SSINumberlbl.Location = New System.Drawing.Point(5, 195)
+	Me.SSINumberlbl.Location = New System.Drawing.Point(5, 225)
 	Me.SSINumberlbl.Name = "SSINumberlbl"
 	Me.SSINumberlbl.Size = New System.Drawing.Size(120, 20)
-	Me.SSINumberlbl.TabIndex = 6
+	Me.SSINumberlbl.TabIndex = 7
 	Me.SSINumberlbl.Text = "SSINumber"
 	Me.SSINumberlbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 
 	'SSINumber
 	Me.SSINumber.AutoSize = True
-	Me.SSINumber.Location = New System.Drawing.Point(135, 195)
+	Me.SSINumber.Location = New System.Drawing.Point(135, 225)
 	Me.SSINumber.Name ="SSINumber"
 	Me.SSINumber.Size = New System.Drawing.Size(200, 20)
 	Me.SSINumber.MaxLength = 255
-	Me.SSINumber.TabIndex = 6
+	Me.SSINumber.TabIndex = 7
 	Me.SSINumber.visible = True
 	Me.SSINumber.AssociatedLabel = me.SSINumberlbl
 
 	'HireDatelbl.
 	Me.HireDatelbl.AutoSize = False
-	Me.HireDatelbl.Location = New System.Drawing.Point(5, 225)
+	Me.HireDatelbl.Location = New System.Drawing.Point(5, 255)
 	Me.HireDatelbl.Name = "HireDatelbl"
 	Me.HireDatelbl.Size = New System.Drawing.Size(120, 20)
-	Me.HireDatelbl.TabIndex = 7
+	Me.HireDatelbl.TabIndex = 8
 	Me.HireDatelbl.Text = "HireDate"
 	Me.HireDatelbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 
 	'HireDate
 	Me.HireDate.AutoSize = True
-	Me.HireDate.Location = New System.Drawing.Point(135, 225)
+	Me.HireDate.Location = New System.Drawing.Point(135, 255)
 	Me.HireDate.Name ="HireDate"
 	Me.HireDate.Size = New System.Drawing.Size(200, 20)
 	Me.HireDate.MaxLength = 255
-	Me.HireDate.TabIndex = 7
+	Me.HireDate.TabIndex = 8
 	Me.HireDate.visible = True
 	Me.HireDate.AssociatedLabel = me.HireDatelbl
 
 	'NumDependentslbl.
 	Me.NumDependentslbl.AutoSize = False
-	Me.NumDependentslbl.Location = New System.Drawing.Point(5, 255)
+	Me.NumDependentslbl.Location = New System.Drawing.Point(5, 285)
 	Me.NumDependentslbl.Name = "NumDependentslbl"
 	Me.NumDependentslbl.Size = New System.Drawing.Size(120, 20)
-	Me.NumDependentslbl.TabIndex = 8
+	Me.NumDependentslbl.TabIndex = 9
 	Me.NumDependentslbl.Text = "NumDependents"
 	Me.NumDependentslbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 
 	'NumDependents
 	Me.NumDependents.AutoSize = True
-	Me.NumDependents.Location = New System.Drawing.Point(135, 255)
+	Me.NumDependents.Location = New System.Drawing.Point(135, 285)
 	Me.NumDependents.Name ="NumDependents"
 	Me.NumDependents.Size = New System.Drawing.Size(200, 20)
 	Me.NumDependents.MaxLength = 255
-	Me.NumDependents.TabIndex = 8
+	Me.NumDependents.TabIndex = 9
 	Me.NumDependents.visible = True
 	Me.NumDependents.AssociatedLabel = me.NumDependentslbl
 
@@ -241,6 +263,8 @@ Public Class ucEmployeeDetails
 	me.Controls.add(me.EmployeeName)
 	me.Controls.add(me.EmployeeRankIdlbl)
 	me.Controls.add(me.EmployeeRankId)
+	me.Controls.add(me.Salarylbl)
+	me.Controls.add(me.Salary)
 	me.Controls.add(me.Addresslbl)
 	me.Controls.add(me.Address)
 	me.Controls.add(me.Telephonelbl)
@@ -272,6 +296,8 @@ Public Class ucEmployeeDetails
 	Friend WithEvents EmployeeName As CGTextBox
 	Friend WithEvents EmployeeRankIdlbl As System.Windows.Forms.Label
 	Friend WithEvents EmployeeRankId As CGComboBox
+	Friend WithEvents Salarylbl As System.Windows.Forms.Label
+	Friend WithEvents Salary As CGDecimalTextBox
 	Friend WithEvents Addresslbl As System.Windows.Forms.Label
 	Friend WithEvents Address As CGTextBox
 	Friend WithEvents Telephonelbl As System.Windows.Forms.Label
@@ -301,6 +327,7 @@ Public Class ucEmployeeDetails
         Dim mo As Employee = DirectCast(Me.ModelObject(), Employee)
         	Me.EmployeeName.value = mo.EmployeeName
 	Me.EmployeeRankId.value = mo.EmployeeRankId
+	Me.Salary.value = mo.Salary
 	Me.Address.value = mo.Address
 	Me.Telephone.value = mo.Telephone
 	Me.Mobile.value = mo.Mobile
@@ -326,6 +353,7 @@ Public Class ucEmployeeDetails
         Dim mo As Employee = DirectCast(me.ModelObject, Employee)
         	mo.setEmployeeName(Me.EmployeeName.text)
 	mo.EmployeeRankId= Me.EmployeeRankId.IntValue
+	mo.setSalary(Me.Salary.text)
 	mo.setAddress(Me.Address.text)
 	mo.setTelephone(Me.Telephone.text)
 	mo.setMobile(Me.Mobile.text)
