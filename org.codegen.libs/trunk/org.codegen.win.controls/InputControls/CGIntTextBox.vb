@@ -1,7 +1,7 @@
 Public Class CGIntTextBox
     Inherits CGTextBox
 
-    Protected Shadows sFormatPattern As String = "0"
+
     Private _interval As Single = 0.5
     Private _canGoNegative As Boolean = False
 
@@ -131,7 +131,7 @@ Public Class CGIntTextBox
 
         Set(ByVal Value As String)
             If IsNumeric(Value) Then
-                MyBase.Text = Format(Val(Value), sFormatPattern)
+                MyBase.Text = Format(Val(Value), Me.FormatPattern)
             Else
                 MyBase.Text = Value
 
