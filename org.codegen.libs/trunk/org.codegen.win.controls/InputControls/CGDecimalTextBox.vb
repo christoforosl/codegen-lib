@@ -9,15 +9,20 @@ Public Class CGDecimalTextBox
             If IsNumeric(Me.Text) Then
                 Return CDec(Me.Text)
             Else
-                Return 0
+                Return String.Empty
             End If
         End Get
 
         Set(ByVal sValue As Object)
-            If IsNumeric(sValue) Then
-                Me.Text = CStr(sValue)
+            If TypeOf sValue Is Decimal Then
+                Me.decimalValue = CDec(sValue)
             Else
-                Me.Text = String.Empty
+
+                If IsNumeric(sValue) Then
+                    Me.Text = CStr(sValue)
+                Else
+                    Me.Text = String.Empty
+                End If
             End If
         End Set
     End Property
@@ -62,6 +67,7 @@ Public Class CGDecimalTextBox
         If Not String.IsNullOrEmpty(Me.Text) Then
             If Not Decimal.TryParse(Me.Text, decvalue) Then
                 e.Cancel = True
+                Me.addError(String.Format(WinControlsLocalizer.getString("invalid_decimal"), Me.Label))
             End If
 
         End If
