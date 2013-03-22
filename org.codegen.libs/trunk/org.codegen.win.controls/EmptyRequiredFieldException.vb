@@ -1,7 +1,9 @@
 Namespace Exceptions
 
+    <Serializable()>
     Public NotInheritable Class EmptyRequiredFieldException
         Inherits ArgumentException
+
 
         Public Sub New(ByVal msg As String)
             MyBase.New(msg)

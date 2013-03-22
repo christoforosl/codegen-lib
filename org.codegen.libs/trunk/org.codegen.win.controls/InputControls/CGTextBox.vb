@@ -194,17 +194,18 @@ Public Class CGTextBox
 
         If parent Is Nothing Then Exit Sub
 
-        Dim c As New Label
-        c.Text = "*"
-        c.Name = ctl.Name & "ast"
-        c.Location = ctl.Location
-        c.Left = c.Left - 10
-        c.Visible = True
-        c.TextAlign = ContentAlignment.MiddleCenter
-        c.Size = New System.Drawing.Size(10, 20)
+        Using c As New Label
+            c.Text = "*"
+            c.Name = ctl.Name & "ast"
+            c.Location = ctl.Location
+            c.Left = c.Left - 10
+            c.Visible = True
+            c.TextAlign = ContentAlignment.MiddleCenter
+            c.Size = New System.Drawing.Size(10, 20)
 
-        parent.Controls.Add(c)
-        c.BringToFront()
+            parent.Controls.Add(c)
+            c.BringToFront()
+        End Using
 
     End Sub
 
