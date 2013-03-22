@@ -31,9 +31,10 @@ Public NotInheritable Class WinEventLogger
             If EventLog.SourceExists(cEventSource) Then
 
                 'write the message as an error
-                Dim msg As EventLog = New EventLog(LOG_NAME)
-                msg.Source = cEventSource
-                msg.WriteEntry(errorMessage, EventLogEntryType.Error)
+                Using msg As EventLog = New EventLog(LOG_NAME)
+                    msg.Source = cEventSource
+                    msg.WriteEntry(errorMessage, EventLogEntryType.Error)
+                End Using
             Else
                 'try to create the event source for the next error (this requires admin rights)
                 EventLog.CreateEventSource(cEventSource, LOG_NAME)
@@ -59,9 +60,11 @@ Public NotInheritable Class WinEventLogger
             If EventLog.SourceExists(cEventSource) Then
 
                 'write the message as an error
-                Dim msg As EventLog = New EventLog(LOG_NAME)
-                msg.Source = cEventSource
-                msg.WriteEntry(errorMessage, EventLogEntryType.Information)
+                Using msg As EventLog = New EventLog(LOG_NAME)
+                    msg.Source = cEventSource
+                    msg.WriteEntry(errorMessage, EventLogEntryType.Information)
+                End Using
+
             Else
                 'try to create the event source for the next error (this requires admin rights)
                 EventLog.CreateEventSource(cEventSource, LOG_NAME)
