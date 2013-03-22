@@ -165,17 +165,18 @@ Public Class CGTextBox
     Public Shared Sub setbackColor(ByVal c As ICGBaseControl)
 
         If c Is Nothing Then Exit Sub
-        Dim lC As Control = CType(c, Control)
+        Using lC As Control = CType(c, Control)
 
-        If c.ReadOnly Then
-            lC.BackColor = System.Drawing.SystemColors.ButtonFace 'Color.FromArgb(204, 204, 204)
-        Else
-            If c.isMandatory Then
-                lC.BackColor = System.Drawing.Color.LightYellow
+            If c.ReadOnly Then
+                lC.BackColor = System.Drawing.SystemColors.ButtonFace 'Color.FromArgb(204, 204, 204)
             Else
-                lC.BackColor = System.Drawing.Color.Transparent
+                If c.isMandatory Then
+                    lC.BackColor = System.Drawing.Color.LightYellow
+                Else
+                    lC.BackColor = System.Drawing.Color.Transparent
+                End If
             End If
-        End If
+        End Using
 
     End Sub
 
@@ -195,6 +196,7 @@ Public Class CGTextBox
         If parent Is Nothing Then Exit Sub
 
         Using c As New Label
+
             c.Text = "*"
             c.Name = ctl.Name & "ast"
             c.Location = ctl.Location
@@ -205,6 +207,7 @@ Public Class CGTextBox
 
             parent.Controls.Add(c)
             c.BringToFront()
+
         End Using
 
     End Sub
