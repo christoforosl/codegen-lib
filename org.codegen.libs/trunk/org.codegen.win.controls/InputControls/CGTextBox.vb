@@ -165,18 +165,17 @@ Public Class CGTextBox
     Public Shared Sub setbackColor(ByVal c As ICGBaseControl)
 
         If c Is Nothing Then Exit Sub
-        Using lC As Control = CType(c, Control)
+        Dim lC As Control = CType(c, Control)
 
-            If c.ReadOnly Then
-                lC.BackColor = System.Drawing.SystemColors.ButtonFace 'Color.FromArgb(204, 204, 204)
+        If c.ReadOnly Then
+            lC.BackColor = System.Drawing.SystemColors.ButtonFace 'Color.FromArgb(204, 204, 204)
+        Else
+            If c.isMandatory Then
+                lC.BackColor = System.Drawing.Color.LightYellow
             Else
-                If c.isMandatory Then
-                    lC.BackColor = System.Drawing.Color.LightYellow
-                Else
-                    lC.BackColor = System.Drawing.Color.Transparent
-                End If
+                lC.BackColor = System.Drawing.Color.Transparent
             End If
-        End Using
+        End If
 
     End Sub
 
@@ -195,20 +194,17 @@ Public Class CGTextBox
 
         If parent Is Nothing Then Exit Sub
 
-        Using c As New Label
+        Dim c As New Label
+        c.Text = "*"
+        c.Name = ctl.Name & "ast"
+        c.Location = ctl.Location
+        c.Left = c.Left - 10
+        c.Visible = True
+        c.TextAlign = ContentAlignment.MiddleCenter
+        c.Size = New System.Drawing.Size(10, 20)
 
-            c.Text = "*"
-            c.Name = ctl.Name & "ast"
-            c.Location = ctl.Location
-            c.Left = c.Left - 10
-            c.Visible = True
-            c.TextAlign = ContentAlignment.MiddleCenter
-            c.Size = New System.Drawing.Size(10, 20)
-
-            parent.Controls.Add(c)
-            c.BringToFront()
-
-        End Using
+        parent.Controls.Add(c)
+        c.BringToFront()
 
     End Sub
 
