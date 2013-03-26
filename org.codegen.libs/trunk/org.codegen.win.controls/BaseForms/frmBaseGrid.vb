@@ -232,6 +232,8 @@ Public Class frmBaseGrid
             Me.tsLblSearch.Text = WinControlsLocalizer.getString("Search")
             Me.tsLblSearch2.Text = WinControlsLocalizer.getString("Search")
 
+
+
             'only show the search textbox if search fields are defined
             Me.ShowSearch = Me.ShowSearch AndAlso Me.grdData.gpSearchFields.Count > 0
             Me.ShowConfigButton = False 'for the moment do not show the config button
@@ -502,11 +504,11 @@ Public Class frmBaseGrid
 
 #End Region
 
-    Private mnexcel As New ToolStripMenuItem
-
 #Region "Methods"
     <Description("Adds the shortcut menues displayed when a user righ-clicks on the data grid.")> _
     Private Sub addMenues()
+
+        Dim item As ToolStripMenuItem
 
         Me.mnActions.Items.Clear()
 
@@ -514,31 +516,48 @@ Public Class frmBaseGrid
 
         AddHandler Me.grdData.DoubleClick, AddressOf Me.Grid_DoubleClick
 
-        Me.mnAdd.Text = WinControlsLocalizer.getString("cmdAdd")
-        Me.mnAdd.ShortcutKeys = (Keys.Control Or Keys.N)
-        AddHandler Me.mnAdd.Click, AddressOf Me.mnAdd_Click
-        Me.mnActions.Items.Add(Me.mnAdd)
+        item = Me.mnAdd
+        item.Text = WinControlsLocalizer.getString("cmdAdd")
+        item.ShortcutKeys = (Keys.Control Or Keys.N)
+        AddHandler item.Click, AddressOf Me.mnAdd_Click
+        Me.mnActions.Items.Add(item)
 
 
-        Me.mnEdit.Text = WinControlsLocalizer.getString("cmdEdit")
-        Me.mnEdit.ShortcutKeys = (Keys.Control Or Keys.E)
-        AddHandler Me.mnEdit.Click, AddressOf Me.mnEdit_Click
-        Me.mnActions.Items.Add(Me.mnEdit)
+        item = Me.mnEdit
+        item.Text = WinControlsLocalizer.getString("cmdEdit")
+        item.ShortcutKeys = (Keys.Control Or Keys.E)
+        AddHandler item.Click, AddressOf Me.mnEdit_Click
+        Me.mnActions.Items.Add(item)
 
-        Me.mnDelete.Text = WinControlsLocalizer.getString("cmdDelete")
-        Me.mnDelete.ShortcutKeys = (Keys.Control Or Keys.D)
-        AddHandler Me.mnDelete.Click, AddressOf Me.mnDelete_Click
-        Me.mnActions.Items.Add(Me.mnDelete)
+
+        item = Me.mnDelete
+        item.Text = WinControlsLocalizer.getString("cmdDelete")
+        item.ShortcutKeys = (Keys.Control Or Keys.D)
+        AddHandler item.Click, AddressOf Me.mnDelete_Click
+        Me.mnActions.Items.Add(item)
+
+
+        item = New ToolStripMenuItem
+        item.Text = WinControlsLocalizer.getString("cmdExcel")
+        item.ShortcutKeys = (Keys.Control Or Keys.X)
+        AddHandler item.Click, AddressOf Me.mnToExcel_click
+        Me.mnActions.Items.Add(item)
 
         Me.mnActions.Items.Add(New ToolStripSeparator)
 
+        'item = New ToolStripMenuItem
+        'item.Name = STR_CMD_HIDE_COLUMN
+        'item.Text = WinControlsLocalizer.getString(STR_CMD_HIDE_COLUMN)
+        'AddHandler item.Click, AddressOf Me.mnHideCol_click
 
-        mnexcel.Text = WinControlsLocalizer.getString("cmdExcel")
-        mnexcel.ShortcutKeys = (Keys.Control Or Keys.X)
-        AddHandler mnexcel.Click, AddressOf Me.mnToExcel_click
-        Me.mnActions.Items.Add(mnexcel)
-        
+        'uncomment when configure grid is ready
+        'item = New ToolStripMenuItem
+        'item.Name = "cmdConfigureGrid"
+        'item.Text = WinControlsLocalizer.getString("cmdConfigureGrid")
+        'AddHandler item.Click, AddressOf Me.mnConfigureGrid_Click
+
         AddHandler mnActions.Opening, AddressOf Me.mnActions_Opening
+        Me.mnActions.Items.Add(item)
         Me.grdData.ContextMenuStrip = Me.mnActions
 
     End Sub
