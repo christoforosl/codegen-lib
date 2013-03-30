@@ -2,8 +2,8 @@ Public Interface ICGBaseControl
     Inherits IReadOnlyEnabled
 
     Property Value() As Object
-    Property MinValue() As Object
-    Property MaxValue() As Object
+    Property MinValue() As String
+    Property MaxValue() As String
 
     Property isMandatory() As Boolean
     Property showAsteriskForMandatory() As Boolean

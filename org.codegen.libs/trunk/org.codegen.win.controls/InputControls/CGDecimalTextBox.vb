@@ -51,11 +51,14 @@ Public Class CGDecimalTextBox
     End Property
 
     Private Sub _KeyPress(ByVal sender As Object, _
-                                         ByVal e As System.Windows.Forms.KeyPressEventArgs) _
-                                     Handles MyBase.KeyPress
+                                         ByVal e As System.Windows.Forms.KeyEventArgs) _
+                                     Handles MyBase.KeyDown
 
+        If e.KeyCode = Keys.Delete OrElse e.KeyCode = Keys.Back Then
+        Else
+            e.Handled = Me.decimalKeyPress(e.KeyCode)
+        End If
 
-        e.Handled = Me.decimalKeyPress(Asc(e.KeyChar))
 
     End Sub
 
@@ -107,7 +110,7 @@ Public Class CGDecimalTextBox
         If Me.MaxValue Is Nothing OrElse String.IsNullOrEmpty(Me.Text) Then
             Return True
         Else
-            Dim compareToResult As Integer = CDec(Me.Text).CompareTo(CDec(Me.MinValue))
+            Dim compareToResult As Integer = CDec(Me.Text).CompareTo(CDec(Me.MaxValue))
             Return compareToResult = COMPARE_TO_LESS_THAN OrElse _
                        compareToResult = COMPARE_TO_EQUAL
         End If
