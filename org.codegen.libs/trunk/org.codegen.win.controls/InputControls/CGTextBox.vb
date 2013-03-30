@@ -60,8 +60,8 @@ Public Class CGTextBox
     Public Const COMPARE_TO_GREATER_THAN As Integer = 1
     Public Const COMPARE_TO_EQUAL As Integer = 0
 
-    Public Property MaxValue As Object = Nothing Implements ICGBaseControl.MaxValue
-    Public Property MinValue As Object = Nothing Implements ICGBaseControl.MinValue
+    Public Property MaxValue As String = Nothing Implements ICGBaseControl.MaxValue
+    Public Property MinValue As String = Nothing Implements ICGBaseControl.MinValue
 
     Public Property ErrProvider As System.Windows.Forms.ErrorProvider Implements ICGBaseControl.ErrProvider
     Public Overridable Property FormatPattern() As String

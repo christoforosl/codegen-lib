@@ -198,8 +198,8 @@ Public Class CGComboBox
 
     Private _AssociatedLabel As Windows.Forms.Label
 
-    Public Property MaxValue As Object Implements ICGBaseControl.MaxValue
-    Public Property MinValue As Object Implements ICGBaseControl.MinValue
+    Public Property MaxValue As String Implements ICGBaseControl.MaxValue
+    Public Property MinValue As String Implements ICGBaseControl.MinValue
     Public Property ErrProvider As System.Windows.Forms.ErrorProvider Implements ICGBaseControl.ErrProvider
 
     Public Property AssociatedLabel As Label Implements ICGBaseControl.AssociatedLabel
