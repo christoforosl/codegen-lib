@@ -87,7 +87,7 @@ Public Class CGDecimalTextBox
     ''' </remarks>
     Public Overrides Function checkMinValue() As Boolean
 
-        If Me.MinValue Is Nothing OrElse String.IsNullOrEmpty(Me.Text) Then
+        If String.IsNullOrEmpty(Me.MinValue) OrElse String.IsNullOrEmpty(Me.Text) Then
             Return True
         Else
             Dim compareToResult As Integer = CDec(Me.Text).CompareTo(CDec(Me.MinValue))
@@ -107,7 +107,7 @@ Public Class CGDecimalTextBox
     ''' </remarks>
     Public Overrides Function checkMaxValue() As Boolean
 
-        If Me.MaxValue Is Nothing OrElse String.IsNullOrEmpty(Me.Text) Then
+        If String.IsNullOrEmpty(Me.MaxValue) OrElse String.IsNullOrEmpty(Me.Text) Then
             Return True
         Else
             Dim compareToResult As Integer = CDec(Me.Text).CompareTo(CDec(Me.MaxValue))

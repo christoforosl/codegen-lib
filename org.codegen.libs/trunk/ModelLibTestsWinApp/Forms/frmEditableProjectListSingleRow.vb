@@ -95,8 +95,8 @@ Namespace Forms.List
 
             Dim m As New ProjectDBMapper
             Dim gridsender As org.codegen.win.controls.Grid.CGBaseGrid = CType(sender, CGBaseGrid)
-            Dim pkval As Object = gridsender.SelectedRows(0).Cells(gridsender.gpKeyColumnIndex)
-            Dim mo As Project = m.findByKey(CInt(pkval))
+
+            Dim mo As Project = m.findByKey(Me.grdData.IdValue)
             Call m.delete(mo)
 
 
