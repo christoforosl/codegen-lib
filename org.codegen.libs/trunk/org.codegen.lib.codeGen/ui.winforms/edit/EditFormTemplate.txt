@@ -44,8 +44,8 @@ Public Class frm<MODEL_CLASS_NAME>Details
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(573, <EDIT_FORM_HEIGHT>)
         Me.Controls.Add(Me.Uc<MODEL_CLASS_NAME>)
-        Me.Name = "frm<MODEL_CLASS_NAME>"
-        Me.Text = "frm<MODEL_CLASS_NAME>"
+        Me.Name = "frm<MODEL_CLASS_NAME>Details"
+        Me.Text = "frm<MODEL_CLASS_NAME>Details"
 		
         Me.Controls.SetChildIndex(Me.Uc<MODEL_CLASS_NAME>, 0)
         Me.ResumeLayout(False)
