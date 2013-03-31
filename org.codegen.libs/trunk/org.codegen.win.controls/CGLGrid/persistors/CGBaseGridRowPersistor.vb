@@ -29,12 +29,12 @@ Namespace Grid
                 Return
             End If
 
-            'MsgBox("UpdateRow but IsCurrentRowDirty=true")
             cgGrid.EndEdit()
             If cgGrid.BindingSource IsNot Nothing Then cgGrid.BindingSource.EndEdit()
 
             Dim mo As IModelObject
-            Dim pk As Integer? = CType(dataRow.Cells(cgGrid.gpKeyColumnIndex).Value, Integer?)
+            Dim keyIdx As Integer = cgGrid.Columns(cgGrid.gpKeyColumnName).Index
+            Dim pk As Integer? = CType(dataRow.Cells(keyIdx).Value, Integer?)
 
             If pk Is Nothing Then
                 mo = Me.DBMapper.getModelInstance

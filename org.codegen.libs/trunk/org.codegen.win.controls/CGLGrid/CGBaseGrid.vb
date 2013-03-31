@@ -34,7 +34,7 @@ Namespace Grid
         Public WithEvents BindingSource As BindingSource
 
         Protected Const INT_PK_FIELD_INDEX_NOT_SET As Integer = -1
-        Protected _pkFieldIndex As Integer = INT_PK_FIELD_INDEX_NOT_SET
+
 
         Protected _traceSrc As TraceSource = Nothing
 
@@ -183,20 +183,7 @@ Namespace Grid
 
         End Property
 
-        <Description("Gets/Sets the primary key column index."), Browsable(False)> _
-        Public ReadOnly Property gpKeyColumnIndex() As Integer
-            Get
-                If (Me._pkFieldIndex = INT_PK_FIELD_INDEX_NOT_SET) Then
-                    If Me.gpKeyColumnName = String.Empty Then
-                        Throw New ArgumentException("Property gpKeyColumn must be set in order to get the Key Column Index")
-                    End If
-
-                    Me._pkFieldIndex = Me.Columns.Item(Me.gpKeyColumnName).Index
-                End If
-                Return Me._pkFieldIndex
-            End Get
-
-        End Property
+        
 
 #End Region
 
@@ -281,7 +268,8 @@ Namespace Grid
 
         Public Function IdValue() As Integer
             If Me.SelectedRows.Count = 0 Then Return 0
-            Return CInt(Me.SelectedRows(0).Cells(Me.gpKeyColumnIndex).Value)
+            Dim keyIdx As Integer = Me.Columns(Me.gpKeyColumnName).Index
+            Return CInt(Me.SelectedRows(0).Cells(keyIdx).Value)
         End Function
 
 #End Region
@@ -297,7 +285,7 @@ Namespace Grid
         ''' 
         Public Sub requery()
 
-            
+
             Dim selectedValue As Object = Nothing
 
             If Me.SelectedRows.Count > 0 Then
@@ -307,12 +295,10 @@ Namespace Grid
             Me.DataSource = Nothing
             Me.loadGrid()
 
-            ' try to reposition the selected row to the first one that 
-            ' was selected before the requery
-            'Me.FirstDisplayedCell = Me.Item(col, row)
 
             If selectedValue IsNot Nothing Then
-                Dim pos As Integer = Me.BindingSource.Find(Me.gpKeyColumnName, _
+                Dim lKeyColumn As DataGridViewColumn = Me.Columns(Me.gpKeyColumnName)
+                Dim pos As Integer = Me.BindingSource.Find(lKeyColumn.DataPropertyName, _
                      selectedValue)
                 If pos >= 0 Then
                     Me.BindingSource.Position = pos
