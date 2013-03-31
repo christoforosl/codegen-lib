@@ -143,7 +143,7 @@ Public MustInherit Class DBUpdater
 
     Protected _dbconn As DBUtils
     Protected _codeDatabaseVersion As Integer
-    Protected _assemblyName As String
+    Protected _assemblyName As Assembly
 
     Protected Friend MustOverride Function getVersionAndLockTable() As Int32
 
@@ -158,30 +158,16 @@ Public MustInherit Class DBUpdater
     ''' </summary>
     Public Property backupSQLStatement As String
 
-    Private Shared Function getResourceStream(ByVal resname As String, ByVal assemblyName As String) As Stream
+    Private Shared Function getResourceStream(ByVal resname As String, ByVal assembly As Assembly) As Stream
 
-        Dim loadAsembly As [Assembly]
-        Dim i As Integer
-
-        For i = 0 To Thread.GetDomain.GetAssemblies.Length - 1
-            If Thread.GetDomain.GetAssemblies(i).FullName.ToLower.IndexOf(assemblyName.ToLower) = 0 Then
-                loadAsembly = Thread.GetDomain.GetAssemblies(i)
-                Exit For
-            End If
-        Next
-        If loadAsembly Is Nothing Then
-            Throw New ApplicationException("Could not load resource file " & assemblyName & " " & resname)
-        End If
-
-        Return loadAsembly.GetManifestResourceStream(assemblyName & "." & resname)
-
+        Return assembly.GetManifestResourceStream(assembly.GetName.Name & "." & resname)
 
     End Function
 
-    Private Shared Function getResourceFileText(ByVal resname As String, ByVal assemblyName As String) As String
+    Private Shared Function getResourceFileText(ByVal resname As String, ByVal assembly As Assembly) As String
 
         Dim templ As String = String.Empty
-        Dim d As Stream = getResourceStream(resname, assemblyName)
+        Dim d As Stream = getResourceStream(resname, assembly)
         Dim ds As StreamReader = New StreamReader(d, System.Text.Encoding.GetEncoding("Windows-1253"))
         Dim tline As String
         Try
@@ -280,17 +266,25 @@ Public MustInherit Class DBUpdater
 
 #Region "Public class interface"
 
+    Public Shared Sub dbUpdateVersion(ByVal _dbconn As DBUtils, _
+                                        ByVal _dbversion As Integer, _
+                                        ByVal type As Type, _
+                                        ByVal _backupSQLStatement As String)
+
+        Call dbUpdateVersion(_dbconn, _dbversion, type.Assembly, _backupSQLStatement)
+
+    End Sub
     ''' <summary>
     ''' Creates an updater class instance and brings the database to the target version
     ''' </summary>
     ''' <param name="_dbconn">Database connection to your database</param>
     ''' <param name="_dbversion">The target version</param>
     ''' <param name="_backupSQLStatement">SQL to execute before the upgrade to backup database</param>
-    ''' <param name="_assemblyName">your assembly name</param>
+    ''' <param name="_assembly">the assembly that contains the embedded resource sql files</param>
     Public Shared Sub dbUpdateVersion(ByVal _dbconn As DBUtils, _
                                            ByVal _dbversion As Integer, _
-                                           ByVal _backupSQLStatement As String, _
-                                           ByVal _assemblyName As String)
+                                           ByVal _assembly As Assembly, _
+                                           Optional ByVal _backupSQLStatement As String = "")
 
         Dim dbu As DBUpdater
 
@@ -306,7 +300,7 @@ Public MustInherit Class DBUpdater
 
         dbu._dbconn = _dbconn
         dbu._codeDatabaseVersion = _dbversion
-        dbu._assemblyName = _assemblyName
+        dbu._assemblyName = _assembly
         dbu.upgradeDatabase()
 
     End Sub
