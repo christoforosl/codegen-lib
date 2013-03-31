@@ -55,8 +55,8 @@ Public Class uc<MODEL_CLASS_NAME>List
         Me.ClientSize = New System.Drawing.Size(573, 262)
         Me.Controls.Add(Me.grd<MODEL_CLASS_NAME>)
 		<WINFROMS_GRID_COLUMNS_ADD>
-        Me.Name = "ucList<MODEL_CLASS_NAME>"
-        Me.Text = "ucList<MODEL_CLASS_NAME>"
+        Me.Name = "uc<MODEL_CLASS_NAME>List"
+        Me.Text = "uc<MODEL_CLASS_NAME>List"
         Me.ResumeLayout(False)
 
     End Sub

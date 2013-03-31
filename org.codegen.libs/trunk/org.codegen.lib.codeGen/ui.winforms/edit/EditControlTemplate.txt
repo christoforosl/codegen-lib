@@ -49,7 +49,7 @@ Public Class uc<MODEL_CLASS_NAME>Details
 		
 		Me.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
         Me.Dock = DockStyle.Fill
-        Me.Name = "uc<MODEL_CLASS_NAME>"
+        Me.Name = "uc<MODEL_CLASS_NAME>Details"
         Me.Size = New System.Drawing.Size(548, 150)
 		Me.ResumeLayout(False)
         Me.PerformLayout()
