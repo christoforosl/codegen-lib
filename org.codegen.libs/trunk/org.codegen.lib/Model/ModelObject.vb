@@ -54,6 +54,12 @@ Namespace Model
         Public Sub addValidator(ByVal x As IModelObjectValidator)
             If Me.objectValidators Is Nothing Then
                 Me.objectValidators = New List(Of IModelObjectValidator)
+            Else
+                For Each v As IModelObjectValidator In Me.objectValidators
+                    If v.GetType Is x.GetType Then
+                        Return 'do not add instance of same validator if already there
+                    End If
+                Next
             End If
             Me.objectValidators.Add(x)
         End Sub
@@ -113,7 +119,8 @@ Namespace Model
         ''' <param name="fieldname"></param>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        Protected Function isFieldChanged(ByVal fieldname As String) As Boolean
+        Public Function isFieldChanged(ByVal fieldname As String) As Boolean
+
             If Me.changedFields IsNot Nothing AndAlso Me.changedFields.ContainsKey(fieldname) Then
                 Return Me.changedFields.Item(fieldname)
             End If
