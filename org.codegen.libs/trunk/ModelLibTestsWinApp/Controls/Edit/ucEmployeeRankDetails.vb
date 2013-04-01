@@ -74,7 +74,7 @@ Public Class ucEmployeeRankDetails
 		
 		Me.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
         Me.Dock = DockStyle.Fill
-        Me.Name = "ucEmployeeRank"
+        Me.Name = "ucEmployeeRankDetails"
         Me.Size = New System.Drawing.Size(548, 150)
 		Me.ResumeLayout(False)
         Me.PerformLayout()

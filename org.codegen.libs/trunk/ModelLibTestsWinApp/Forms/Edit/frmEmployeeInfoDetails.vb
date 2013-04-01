@@ -44,8 +44,8 @@ Public Class frmEmployeeInfoDetails
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(573, 150)
         Me.Controls.Add(Me.UcEmployeeInfo)
-        Me.Name = "frmEmployeeInfo"
-        Me.Text = "frmEmployeeInfo"
+        Me.Name = "frmEmployeeInfoDetails"
+        Me.Text = "frmEmployeeInfoDetails"
 		
         Me.Controls.SetChildIndex(Me.UcEmployeeInfo, 0)
         Me.ResumeLayout(False)

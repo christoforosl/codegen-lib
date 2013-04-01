@@ -87,8 +87,8 @@ Public Class ucEmployeeRankList
 			me.grdEmployeeRank.Columns.Add(RankId)
 	me.grdEmployeeRank.Columns.Add(Rank)
 
-        Me.Name = "ucListEmployeeRank"
-        Me.Text = "ucListEmployeeRank"
+        Me.Name = "ucEmployeeRankList"
+        Me.Text = "ucEmployeeRankList"
         Me.ResumeLayout(False)
 
     End Sub

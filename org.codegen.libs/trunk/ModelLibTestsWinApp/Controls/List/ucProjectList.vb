@@ -79,7 +79,7 @@ Public Class ucProjectList
 	IsActive.CellTemplate = New DataGridViewCheckBoxCell
 	IsActive.HeaderCell = New DataGridViewAutoFilterBooleanColumnHeaderCell
 	IsActive.Name = "IsActive"
-	IsActive.DataPropertyName = "IsActive"
+	IsActive.DataPropertyName = "isActive"
 	IsActive.ReadOnly = True
 	IsActive.HeaderText = "IsActive"
 	IsActive.HeaderCell.value = "IsActive"
@@ -104,8 +104,8 @@ Public Class ucProjectList
 	me.grdProject.Columns.Add(ProjectName)
 	me.grdProject.Columns.Add(IsActive)
 
-        Me.Name = "ucListProject"
-        Me.Text = "ucListProject"
+        Me.Name = "ucProjectList"
+        Me.Text = "ucProjectList"
         Me.ResumeLayout(False)
 
     End Sub

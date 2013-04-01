@@ -154,8 +154,8 @@ Public Class ucEmployeeProjectList
 	me.grdEmployeeProject.Columns.Add(EndDate)
 	me.grdEmployeeProject.Columns.Add(Rate)
 
-        Me.Name = "ucListEmployeeProject"
-        Me.Text = "ucListEmployeeProject"
+        Me.Name = "ucEmployeeProjectList"
+        Me.Text = "ucEmployeeProjectList"
         Me.ResumeLayout(False)
 
     End Sub
