@@ -44,8 +44,8 @@ Public Class frmProjectDetails
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(573, 115)
         Me.Controls.Add(Me.UcProject)
-        Me.Name = "frmProject"
-        Me.Text = "frmProject"
+        Me.Name = "frmProjectDetails"
+        Me.Text = "frmProjectDetails"
 		
         Me.Controls.SetChildIndex(Me.UcProject, 0)
         Me.ResumeLayout(False)

@@ -120,8 +120,8 @@ Public Class ucEmployeeInfoList
 	me.grdEmployeeInfo.Columns.Add(Salary)
 	me.grdEmployeeInfo.Columns.Add(Address)
 
-        Me.Name = "ucListEmployeeInfo"
-        Me.Text = "ucListEmployeeInfo"
+        Me.Name = "ucEmployeeInfoList"
+        Me.Text = "ucEmployeeInfoList"
         Me.ResumeLayout(False)
 
     End Sub

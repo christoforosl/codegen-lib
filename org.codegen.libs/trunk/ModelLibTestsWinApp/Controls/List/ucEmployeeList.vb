@@ -234,8 +234,8 @@ Public Class ucEmployeeList
 	me.grdEmployee.Columns.Add(HireDate)
 	me.grdEmployee.Columns.Add(NumDependents)
 
-        Me.Name = "ucListEmployee"
-        Me.Text = "ucListEmployee"
+        Me.Name = "ucEmployeeList"
+        Me.Text = "ucEmployeeList"
         Me.ResumeLayout(False)
 
     End Sub

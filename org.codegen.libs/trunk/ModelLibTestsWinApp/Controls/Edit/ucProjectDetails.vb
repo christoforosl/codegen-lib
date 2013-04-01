@@ -95,7 +95,7 @@ Public Class ucProjectDetails
 		
 		Me.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
         Me.Dock = DockStyle.Fill
-        Me.Name = "ucProject"
+        Me.Name = "ucProjectDetails"
         Me.Size = New System.Drawing.Size(548, 150)
 		Me.ResumeLayout(False)
         Me.PerformLayout()
