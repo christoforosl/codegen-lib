@@ -203,23 +203,26 @@ Namespace <DBMAPPER_NAMESPACE>
         
          Public Shared Function findList() As List(Of <MODEL_CLASS_NAME>)
 			
-			Dim ret as List(Of <MODEL_CLASS_NAME>)
-			Dim dbm as <MODEL_CLASS_NAME>DBMapper = new <MODEL_CLASS_NAME>DBMapper()
-			ret = dbm.findAll()
-			return ret
+			return new <MODEL_CLASS_NAME>DBMapper().findAll()
 			
         End Function
         
         Public Shared Function findByKey(id as Integer) as <MODEL_CLASS_NAME>
 			
-			Dim ret as <MODEL_CLASS_NAME> = Nothing
-			Dim dbm as <MODEL_CLASS_NAME>DBMapper = new <MODEL_CLASS_NAME>DBMapper()
-			ret = DirectCast(dbm.findByKey(id),<MODEL_CLASS_NAME>)
-            
-            return ret
-            
+			return DirectCast( new <MODEL_CLASS_NAME>DBMapper().findByKey(id),<MODEL_CLASS_NAME>)
+                        
         end function
         
+		''' <summary>
+        ''' Reload the <MODEL_CLASS_NAME> from the database
+        ''' </summary>
+        ''' <remarks>use this method when you want to relad the <MODEL_CLASS_NAME> from the database, discarding any changes</remarks>
+		Public Shared Sub reload(ByVal mo As <MODEL_CLASS_NAME>)
+
+            mo = DirectCast(New <MODEL_CLASS_NAME>DBMapper().findByKey(mo.Id), <MODEL_CLASS_NAME>)
+            
+        End Sub
+
 #End Region
 
 #Region "Shared Save and Delete Functions"
