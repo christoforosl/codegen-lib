@@ -4,18 +4,20 @@ Imports System.Globalization
 
 Public NotInheritable Class winUtils
 
-    Public Shared Sub MsgboxInfo(ByVal msg As String)
-        Call MsgBox(msg, MsgBoxStyle.Information, FormsApplicationContext.current.ApplicationTitle)
+    Public Shared Sub MsgboxInfo(ByVal msg As String, ParamArray params() As Object)
+
+        Call MsgBox(String.Format(msg, params), MsgBoxStyle.Information, FormsApplicationContext.current.ApplicationTitle)
+
     End Sub
 
 
-    Public Shared Sub MsgboxStop(ByVal msg As String)
-        Call MsgBox(msg, MsgBoxStyle.Critical, FormsApplicationContext.current.ApplicationTitle)
+    Public Shared Sub MsgboxStop(ByVal msg As String, ParamArray params() As Object)
+        Call MsgBox(String.Format(msg, params), MsgBoxStyle.Critical, FormsApplicationContext.current.ApplicationTitle)
     End Sub
 
-    Public Shared Function MsgboxQuestion(ByVal msg As String) As MsgBoxResult
+    Public Shared Function MsgboxQuestion(ByVal msg As String, ParamArray params() As Object) As MsgBoxResult
 
-        Return MsgBox(msg, CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), FormsApplicationContext.current.ApplicationTitle)
+        Return MsgBox(String.Format(msg, params), CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), FormsApplicationContext.current.ApplicationTitle)
 
     End Function
 
