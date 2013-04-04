@@ -511,10 +511,11 @@ Public Class frmBaseEdit
 
     End Sub
 
+    Private Const STR_WARN_DELETE As String = "warn_delete"
+
     Private Sub UcEditToolar1_Delete_Click(ByVal sender As Object, ByVal e As EventArgs)
 
-        If MsgBox("Are you sure you want to delete this record?", _
-                 CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle)) = MsgBoxResult.Yes Then
+        If winUtils.MsgboxQuestion(WinControlsLocalizer.getString(STR_WARN_DELETE)) = MsgBoxResult.Yes Then
 
             Me.DeleteData()
             Me.DialogResult = Windows.Forms.DialogResult.OK

@@ -100,8 +100,8 @@
 
   <langString>
     <langKey>warn_delete</langKey>
-    <langValueEN>The selected row {0} will be deleted.  Are you sure?</langValueEN>
-    <langValueEL>Η επιλεγμένη εγγραφή {0} θα διαγραφεί.  Είστε σίγουρος/η?</langValueEL>
+    <langValueEN>This record will be deleted.  Are you sure?</langValueEN>
+    <langValueEL>Η εγγραφή θα διαγραφεί.  Είστε σίγουρος/η?</langValueEL>
   </langString>
 
   <langString>
