@@ -152,7 +152,10 @@ Namespace Model
             Me.Id = ModelObjectKeyGen.nextId()
             Me.isDirty = False
 
-            Me.addValidator(ModelContext.Current.getModelValidator(Me.GetType))
+            Dim lval As IModelObjectValidator = ModelContext.Current.getModelValidator(Me.GetType)
+            If lval IsNot Nothing Then
+                Me.addValidator(lval)
+            End If
 
         End Sub
 
