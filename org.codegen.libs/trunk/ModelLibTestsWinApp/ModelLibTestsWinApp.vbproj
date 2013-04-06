@@ -202,6 +202,7 @@
     <Compile Include="BusObjects\ProjectBase.vb">
       <DependentUpon>Project.vb</DependentUpon>
     </Compile>
+    <Compile Include="SampleGlobalValidator.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controls\Edit\ucEmployeeDetails.resx">

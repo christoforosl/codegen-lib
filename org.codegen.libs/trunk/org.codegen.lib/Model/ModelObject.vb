@@ -38,7 +38,6 @@ Namespace Model
         Private _New As Boolean = True
         Private _Dirty As Boolean = False
 
-
         '''<summary> Gets/Sets the Id of the object  </summary>
         ''' <returns> an int value stored in the Key object </returns>	 
         Public MustOverride Property Id() As Integer Implements IModelObject.Id
@@ -52,6 +51,10 @@ Namespace Model
         Private Property objectDeleteValidators As List(Of IModelObjectValidator)
 
         Public Sub addValidator(ByVal x As IModelObjectValidator)
+
+            ' x could be nothing.  see sub new, it calls 
+            If x Is Nothing Then Exit Sub
+
             If Me.objectValidators Is Nothing Then
                 Me.objectValidators = New List(Of IModelObjectValidator)
             Else
@@ -137,10 +140,19 @@ Namespace Model
 
         End Function
 
+        ''' <summary>
+        ''' Default constructor of model object.
+        ''' </summary>
+        ''' <remarks>
+        ''' The constructor sets the Id of the new object by calling ModelObjectKeyGen.nextId(), sets dirty to false
+        ''' and loads any configured validators from ModelContext.Current.getModelValidator
+        '''</remarks>
         Public Sub New()
 
             Me.Id = ModelObjectKeyGen.nextId()
             Me.isDirty = False
+
+            Me.addValidator(ModelContext.Current.getModelValidator(Me.GetType))
 
         End Sub
 

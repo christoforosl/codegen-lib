@@ -12,8 +12,11 @@ Public Class MDIParent
 
         FormsApplicationContext.current.ApplicationDefaultFont = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, _
                                 System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+
         Me.Text = FormsApplicationContext.current.ApplicationTitle
         Me.setupMenues()
+
+        ModelContext.Current.addGlobalModelValidator(GetType(Employee), GetType(SampleEmployeeGlobalValidator))
 
         'Dim pro As New BackroundWorkerProgressIndicator.BackroundWorkerProgressIndicator
         'pro.showCancel = True
