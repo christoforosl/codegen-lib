@@ -216,6 +216,59 @@ Namespace Model
             CurrentDBUtils.rollbackTrans()
 
         End Sub
+
+        ''' <summary>
+        ''' Dictionary of global validators, per type.
+        ''' The key should be a modelObject and the value should be a IModelObjectValidator type 
+        ''' </summary>
+        ''' <remarks></remarks>
+        Private globalModelValidators As Dictionary(Of Type, Type) = New Dictionary(Of Type, Type)
+
+        ''' <summary>
+        ''' Adds a global validator for a specific model object.  This allows for separating the model 
+        ''' from the logic of the application.  Without this, all validators would have to recide 
+        ''' inside the Model project
+        ''' </summary>
+        ''' <param name="modelObjectType">The type of the model object.  Use GetType(x) where x is the class (not instance) of the model object</param>
+        ''' <param name="validatorType">The type of the validator object.  Use GetType(val) where val is the class (not instance) of the validator</param>
+        ''' <remarks></remarks>
+        Public Sub addGlobalModelValidator(ByVal modelObjectType As Type, ByVal validatorType As Type)
+
+            If Not GetType(IModelObject).IsAssignableFrom(modelObjectType) Then
+                Throw New ApplicationException("modelObjectType param must implement IModelObject")
+            End If
+
+            If Not GetType(IModelObjectValidator).IsAssignableFrom(validatorType) Then
+                Throw New ApplicationException("validatorType param must implement IModelObjectValidator")
+            End If
+
+
+            Me.globalModelValidators.Add(modelObjectType, validatorType)
+
+        End Sub
+
+        ''' <summary>
+        ''' Returns a validator, if any, configured for the specified model object type
+        ''' </summary>
+        ''' <param name="modelObjectType">The type of the model object.  
+        ''' Use GetType(x) where x is the class (not instance) of the model object
+        ''' </param>
+        ''' <returns>
+        ''' Returns a validator, if any, configured for the specified model object type. 
+        ''' If not validator is configured, it returns null(nothing)
+        ''' </returns>
+        ''' <remarks></remarks>
+        Public Function getModelValidator(ByVal modelObjectType As Type) As IModelObjectValidator
+
+            If Me.globalModelValidators.ContainsKey(modelObjectType) Then
+                Return CType(Activator.CreateInstance(Me.globalModelValidators.Item(modelObjectType)),  _
+                                IModelObjectValidator)
+            End If
+            Return Nothing
+
+        End Function
+
     End Class
 
+    
 End Namespace
