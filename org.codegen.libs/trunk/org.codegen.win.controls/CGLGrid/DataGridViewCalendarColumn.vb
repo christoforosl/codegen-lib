@@ -59,13 +59,8 @@ Public Class CalendarCell
 
         Dim ctl As CalendarEditingControl = _
             CType(DataGridView.EditingControl, CalendarEditingControl)
-        ctl.Value = CType(Me.Value, DateTime)
 
     End Sub
-
-
-
-
     Public Overrides ReadOnly Property EditType() As Type
         Get
             ' Return the type of the editing contol that CalendarCell uses.
