@@ -343,15 +343,22 @@ Namespace Grid
         Protected MustOverride Sub bindToData()
 
         ''' <summary>
-        ''' Allows in place editing of grid data
+        ''' Allows in place editing of grid data, by settign the DBMapper and the editable columns.
+        ''' The editable column names are the columns passed in the params arrays
         ''' </summary>
         ''' <param name="inDbMapper">The Mapper object responsible for loading and saving model objects</param>
+        ''' <param name="editableColumnNames">A variable string array, with names of columns to make editable </param>
         ''' <remarks></remarks>
-        Public Sub setEditable(ByVal inDbMapper As DBMapper)
+        Public Sub setEditable(ByVal inDbMapper As DBMapper, _
+                               ByVal ParamArray editableColumnNames() As String)
 
             Me.ReadOnly = False
             Me.EditMode = DataGridViewEditMode.EditOnKeystrokeOrF2
             Me.DBMapper = inDbMapper
+
+            For Each sColName As String In editableColumnNames
+                Me.Columns(sColName).ReadOnly = False
+            Next
 
         End Sub
 
