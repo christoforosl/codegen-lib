@@ -409,6 +409,7 @@ Namespace Grid
 
             _traceSrc.TraceInformation("Save Row from CellValidated")
             Me.CGBaseGridRowPersistor.SaveRowToStore(Me, Me.CurrentRow)
+
         End Sub
 
         ''' <summary>
