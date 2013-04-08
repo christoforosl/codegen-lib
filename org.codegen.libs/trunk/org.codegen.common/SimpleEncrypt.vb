@@ -1371,6 +1371,10 @@ Namespace Encryption
 
         Public Shared Function Cipher(ByVal toEncryptText As String) As String
 
+            If String.IsNullOrEmpty(toEncryptText) Then
+                Return String.Empty
+            End If
+
             Dim sym As New Encryption.Symmetric(Encryption.Symmetric.Provider.Rijndael)
             Dim key As New Encryption.Data(ENCRYPT_PASSWORD)
             Dim encryptedData As Encryption.Data
@@ -1382,6 +1386,10 @@ Namespace Encryption
         End Function
 
         Public Shared Function Decipher(ByVal base64EncryptedString As String) As String
+
+            If String.IsNullOrEmpty(base64EncryptedString) Then
+                Return String.Empty
+            End If
 
             Dim sym As New Encryption.Symmetric(Encryption.Symmetric.Provider.Rijndael)
             Dim key As New Encryption.Data(ENCRYPT_PASSWORD)
