@@ -97,7 +97,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="NullChecker.vb" />
-    <Compile Include="SimpleEncrypt.vb" />
     <Compile Include="SQLStmts.vb" />
     <Compile Include="SQLStmtsRegistry.vb" />
     <Compile Include="TypeConverter.vb" />
