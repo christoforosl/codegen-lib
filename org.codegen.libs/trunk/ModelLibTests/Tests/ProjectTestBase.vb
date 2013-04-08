@@ -56,7 +56,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
     <TestMethod()> Public Sub TestLoadAndSaveProject()
 
-        Dim pid As Integer = ModelContext.CurrentDBUtils.getIntValue("select top 1 ProjectId from Project")
+        Dim pid As Integer = ModelContext.Current.DbUtils.getIntValue("select top 1 ProjectId from Project")
         If pid = 0 Then
             Assert.Inconclusive("No Project in database, table is empty")
         Else

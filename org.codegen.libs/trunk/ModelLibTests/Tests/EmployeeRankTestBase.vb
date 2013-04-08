@@ -56,7 +56,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
     <TestMethod()> Public Sub TestLoadAndSaveEmployeeRank()
 
-        Dim pid As Integer = ModelContext.CurrentDBUtils.getIntValue("select top 1 RankId from EmployeeRank")
+        Dim pid As Integer = ModelContext.Current.DbUtils.getIntValue("select top 1 RankId from EmployeeRank")
         If pid = 0 Then
             Assert.Inconclusive("No EmployeeRank in database, table is empty")
         Else

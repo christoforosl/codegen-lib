@@ -89,6 +89,11 @@ Namespace Model
             setCurrent(New ModelContext(p, locale))
         End Sub
 
+        Public Shared Sub newCurrent(ByVal username As String)
+            Dim p As ModelObjectPrincipal = New ModelObjectPrincipal(username)
+            setCurrent(New ModelContext(p))
+        End Sub
+
         '''    
         '''	<summary>
         ''' Creates a new intance of ModelContext and sets the Principal and Locale objects,
@@ -131,63 +136,57 @@ Namespace Model
 
         End Function
 
-        Public Shared Property Locale() As System.Globalization.CultureInfo
+        Public Property DbUtils() As DBUtils
             Get
-                Return Current._locale
-            End Get
-            Set(ByVal value As System.Globalization.CultureInfo)
-                Current._locale = value
-            End Set
-        End Property
-
-        Public Shared Property CurrentUser() As ModelObjectPrincipal
-            Get
-                Return Current._principal
-            End Get
-            Set(ByVal value As ModelObjectPrincipal)
-                Current._principal = value
-            End Set
-        End Property
-
-        Public Shared Property CurrentDBUtils() As DBUtils
-            Get
-                If Current._dbUtils Is Nothing Then
-                    Current._dbUtils = DBUtils.Current
-                End If
-                Return Current._dbUtils
+                Return _dbUtils
             End Get
             Set(ByVal value As DBUtils)
-                Current._dbUtils = value
+                _dbUtils = Value
+            End Set
+        End Property
+        Public Property Locale() As System.Globalization.CultureInfo
+            Get
+                Return _locale
+            End Get
+            Set(ByVal value As System.Globalization.CultureInfo)
+                _locale = value
             End Set
         End Property
 
+        Public Property CurrentUser() As ModelObjectPrincipal
+            Get
+                Return _principal
+            End Get
+            Set(ByVal value As ModelObjectPrincipal)
+                _principal = value
+            End Set
+        End Property
 
-        Private Shared Function getAttributes() As Hashtable
-            If Current._attributes Is Nothing Then
-                Current._attributes = New Hashtable(10)
+        Private Function getAttributes() As Hashtable
+            If _attributes Is Nothing Then
+                _attributes = New Hashtable(10)
             End If
-            Return Current._attributes
+            Return _attributes
         End Function
 
-        Public Shared Sub setAttribute(ByVal key As String, ByVal val As Object)
-            getAttributes().Add(key, val)
+        Public Sub setAttribute(ByVal key As String, ByVal val As Object)
+            Me.getAttributes().Add(key, val)
         End Sub
 
-        Public Shared Function getAttribute(ByVal key As String) As Object
-            Return getAttributes().Item(key)
+        Public Function getAttribute(ByVal key As String) As Object
+            Return Me.getAttributes().Item(key)
         End Function
-
 
         Public Shared Sub beginTrans()
             If Current() Is Nothing Then
                 Return
             End If
 
-            If CurrentDBUtils Is Nothing Then
+            If Current().DbUtils Is Nothing Then
                 Throw New ApplicationException("Application service connection is null!")
             End If
 
-            CurrentDBUtils.beginTrans()
+            Current().DbUtils.beginTrans()
 
         End Sub
 
@@ -196,11 +195,11 @@ Namespace Model
                 Return
             End If
 
-            If CurrentDBUtils Is Nothing Then
+            If Current()._dbUtils Is Nothing Then
                 Throw New ApplicationException("Application service connection is null!")
             End If
 
-            CurrentDBUtils.commitTrans()
+            Current()._dbUtils.commitTrans()
 
         End Sub
 
@@ -209,11 +208,11 @@ Namespace Model
                 Return
             End If
 
-            If CurrentDBUtils Is Nothing Then
+            If Current()._dbUtils Is Nothing Then
                 Throw New ApplicationException("Application service connection is null!")
             End If
 
-            CurrentDBUtils.rollbackTrans()
+            Current()._dbUtils.rollbackTrans()
 
         End Sub
 
