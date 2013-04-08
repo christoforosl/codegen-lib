@@ -39,7 +39,7 @@ Public MustInherit Class DBMapper
     '''	 <summary>Instantiation without a Connection </summary>
     '''	 
     Public Sub New()
-        Me.dbConn = ModelContext.CurrentDBUtils
+        Me.dbConn = ModelContext.Current.DbUtils
     End Sub
 
 #End Region
