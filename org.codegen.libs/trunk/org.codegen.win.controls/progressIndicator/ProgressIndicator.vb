@@ -1,17 +1,33 @@
-﻿Namespace BackroundWorkerProgressIndicator
+﻿Namespace BackroundProgressIndicator
 
     ''' <summary>
     ''' Class that encapsulates a form with a progress bar and 
     ''' a backround worker
     ''' </summary>
     ''' <remarks></remarks>
-    Public Class BackroundWorkerProgressIndicator
+    Public Class BackroundProgressIndicator
         Implements IDisposable
 
         Private Const STR_FORM_PROGRESS As String = "frmProgress"
 
         Private _frmProgress As frmProgress
 
+        Private _isDone As Boolean
+
+        ''' <summary>
+        ''' Returns a boolean value indicating wheher the process was finished or not
+        ''' 
+        ''' </summary>
+        Public ReadOnly Property isDone As Boolean
+            Get
+                Return _isDone
+            End Get
+        End Property
+
+
+        ''' <summary>
+        ''' Gets/Sets show cancel button indicator. If false, the process will not cancellable
+        ''' </summary>
         Public Property showCancel As Boolean
 
         Private ReadOnly Property frmProgress As frmProgress
@@ -22,7 +38,7 @@
                         _frmProgress = New frmProgress
                     Else
                         _frmProgress = CType(Application.OpenForms(STR_FORM_PROGRESS),  _
-                                    controls.BackroundWorkerProgressIndicator.frmProgress)
+                                    controls.BackroundProgressIndicator.frmProgress)
                     End If
 
                 End If
@@ -70,6 +86,8 @@
             Me.frmProgress.Show()
             Me.frmProgress.Activate()
             Me.frmProgress.BringToFront()
+            Me.frmProgress.Refresh()
+            Me._isDone = False
 
             AddHandler frmProgress.ProgressCancelled, AddressOf progressCancelled
             AddHandler frmProgress.backroundWorkerProgress.DoWork, workMethod
@@ -83,7 +101,7 @@
 
         End Sub
 
-        Public Sub [End]()
+        Public Sub EndProcess()
 
             If Me.frmProgress.InvokeRequired Then
                 Dim d As New CloseCallback(AddressOf CloseForm)
@@ -91,6 +109,7 @@
             Else
                 Me.frmProgress.Close()
             End If
+            Me._isDone = True
 
         End Sub
 
@@ -98,6 +117,7 @@
                      ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs)
 
             Me.frmProgress.Close()
+            Me._isDone = True
 
         End Sub
 
@@ -110,13 +130,14 @@
             End If
 
             Call Me.frmProgress.Progress(e.ProgressPercentage, msg)
-
+            Me.frmProgress.Refresh()
         End Sub
 
         Private Sub progressCancelled(ByVal sender As Object, ByVal e As EventArgs)
 
             Me.frmProgress.backroundWorkerProgress.CancelAsync()
             Me.frmProgress.Hide()
+            Me._isDone = True
 
         End Sub
 

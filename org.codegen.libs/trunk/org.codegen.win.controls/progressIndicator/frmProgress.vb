@@ -1,4 +1,4 @@
-﻿Namespace BackroundWorkerProgressIndicator
+﻿Namespace BackroundProgressIndicator
 
     Public Class frmProgress
 
@@ -37,7 +37,7 @@
                 If winUtils.MsgboxQuestion(WinControlsLocalizer.getString("cancel_progress")) = vbYes Then
 
                     RaiseEvent ProgressCancelled(Me, New EventArgs())
-                    
+
                 End If
 
             Finally

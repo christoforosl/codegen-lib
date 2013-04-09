@@ -1,4 +1,4 @@
-﻿Namespace BackroundWorkerProgressIndicator
+﻿Namespace BackroundProgressIndicator
 
 
     <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
@@ -85,7 +85,7 @@
             Me.lblPercentage.Name = "lblPercentage"
             Me.lblPercentage.Size = New System.Drawing.Size(100, 23)
             Me.lblPercentage.TabIndex = 3
-            Me.lblPercentage.Text = "100%"
+            Me.lblPercentage.Text = "0%"
             Me.lblPercentage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
             '
             'frmProgress
