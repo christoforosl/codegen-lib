@@ -18,10 +18,10 @@ Public Class MDIParent
 
         ModelContext.Current.addGlobalModelValidator(GetType(Employee), GetType(SampleEmployeeGlobalValidator))
 
-        'Dim pro As New BackroundWorkerProgressIndicator.BackroundWorkerProgressIndicator
-        'pro.showCancel = True
-        'pro.progressWindowTitle = "this is a test"
-        'pro.Start(AddressOf dowork)
+        Dim pro As New BackroundProgressIndicator.BackroundProgressIndicator
+        pro.showCancel = False
+        pro.progressWindowTitle = "this is a test"
+        pro.Start(AddressOf dowork)
 
     End Sub
 
@@ -145,7 +145,7 @@ Public Class MDIParent
         Dim worker As BackgroundWorker = CType(sender, BackgroundWorker)
 
         For i As Integer = 1 To 10
-            Thread.Sleep(500)
+            Thread.Sleep(100)
             worker.ReportProgress(CInt(i / 10 * 100), "test " & i)
             If worker.CancellationPending Then
                 worker.CancelAsync()
