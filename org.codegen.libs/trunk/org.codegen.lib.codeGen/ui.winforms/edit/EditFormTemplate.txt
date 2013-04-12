@@ -81,9 +81,9 @@ Public Class frm<MODEL_CLASS_NAME>Details
 			Me.Uc<MODEL_CLASS_NAME>.loadToObject
 			dim db as New <MODEL_CLASS_NAME>DBMapper()
 			db.save(  Me.Uc<MODEL_CLASS_NAME>.ModelObject )
-			return true
+			return enumSaveDataResult.SAVE_SUCESS_AND_CLOSE
 		else
-			return false
+			return enumSaveDataResult.SAVE_FAIL
 		end if
 
 	End Function
