@@ -356,8 +356,10 @@ Public Class frmBaseEdit
     End Sub
 
     Public Overridable Sub setAlertStatusRecordSaveSuccess()
+
         Me.lblEditStatus.Text = WinControlsLocalizer.getString("record_saved")
         Me.lblEditStatus.ForeColor = Color.Red
+
     End Sub
     Public Overridable Sub setAlertStatusOK()
 
@@ -448,8 +450,8 @@ Public Class frmBaseEdit
     Private Function CancelAndClose() As Boolean
 
         If Me.UcEditToolar.cmdSave.Enabled AndAlso Me.dataChanged Then
-            If MsgBox("Are you sure you want to close and cancel any of your changes?", _
-                      CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle)) = MsgBoxResult.Yes Then
+
+            If winUtils.MsgboxQuestion(WinControlsLocalizer.getString("confirm_close_and_loose_changes")) = MsgBoxResult.Yes Then
                 Return True
             End If
             Return False

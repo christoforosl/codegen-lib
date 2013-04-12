@@ -115,7 +115,13 @@
     <langValueEN>Are you sure you want to cancel this operation?</langValueEN>
     <langValueEL>Είστε σίγουρος/η ότι θέλετε να ακυρώσετε την διαδικασία;</langValueEL>
   </langString>
-  
+
+
+  <langString>
+    <langKey>confirm_close_and_loose_changes</langKey>
+    <langValueEN>Are you sure you want to close and cancel any of your changes?</langValueEN>
+    <langValueEL>Είστε σίγουρος/η ότι θέλετε να κλείσετε την οθόνη? Οποιεσδήποτε αλλαγές θα χαθούν.</langValueEL>
+  </langString>
 
   <langString>
     <langKey>multi_select_delete_disabled</langKey>
@@ -163,6 +169,13 @@
     <langKey>record_not_saved</langKey>
     <langValueEN>Record not saved! Please examine the form for problems and try again.</langValueEN>
     <langValueEL>H Εγγραφή ΔΕΝ αποθηκεύτηκε στη Βάση Δεδομένων. Δοκιμάστε ξανά.</langValueEL>
+  </langString>
+
+
+  <langString>
+    <langKey>record_saved</langKey>
+    <langValueEN>Record saved successfully.</langValueEN>
+    <langValueEL>H Εγγραφή αποθηκεύτηκε επιτυχώς.</langValueEL>
   </langString>
 
   <langString>
