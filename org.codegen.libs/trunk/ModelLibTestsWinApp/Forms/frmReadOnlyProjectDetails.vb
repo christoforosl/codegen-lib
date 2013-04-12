@@ -75,18 +75,18 @@
 		End Sub
 
 
-		Public Overrides Function SaveData() As Boolean
+        Public Overrides Function SaveData() As enumSaveDataResult
 
-			If Me.ValidateChildren() Then
-				Me.UcProject.loadToObject()
-				Dim db As New ProjectDBMapper()
-				db.save(Me.UcProject.ModelObject)
-				Return True
-			Else
-				Return False
-			End If
+            If Me.ValidateChildren() Then
+                Me.UcProject.loadToObject()
+                Dim db As New ProjectDBMapper()
+                db.save(Me.UcProject.ModelObject)
+                Return enumSaveDataResult.SAVE_SUCESS_AND_CLOSE
+            Else
+                Return enumSaveDataResult.SAVE_FAIL
+            End If
 
-		End Function
+        End Function
 
 		Public Overrides Function dataChanged() As Boolean
 

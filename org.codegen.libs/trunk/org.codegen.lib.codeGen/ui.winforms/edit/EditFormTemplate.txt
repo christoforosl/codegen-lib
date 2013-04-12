@@ -75,7 +75,7 @@ Public Class frm<MODEL_CLASS_NAME>Details
 	End Sub
 
 
-	Public Overrides Function SaveData() As Boolean
+	Public Overrides Function SaveData() As enumSaveDataResult
 
 		if Me.ValidateChildren() then
 			Me.Uc<MODEL_CLASS_NAME>.loadToObject

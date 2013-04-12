@@ -1,5 +1,31 @@
 Imports System.ComponentModel
 
+''' <summary>
+''' Enumeration for reults values of SaveData of frmBaseEdit
+''' </summary>
+''' <remarks></remarks>
+Public Enum enumSaveDataResult
+
+    ''' <summary>
+    ''' Data was saved ok, close the form
+    ''' </summary>
+    ''' <remarks></remarks>
+    SAVE_SUCESS_AND_CLOSE
+
+    ''' <summary>
+    ''' Data was saved OK, do not close the form
+    ''' </summary>
+    ''' <remarks></remarks>
+    SAVE_SUCESS_AND_STAY
+
+    ''' <summary>
+    ''' Data as not saved ok, error message will be shown
+    ''' </summary>
+    ''' <remarks></remarks>
+    SAVE_FAIL
+
+End Enum
+
 Public Class frmBaseEdit
     Implements IReadOnlyEnabled
 
@@ -329,7 +355,10 @@ Public Class frmBaseEdit
 
     End Sub
 
-
+    Public Overridable Sub setAlertStatusRecordSaveSuccess()
+        Me.lblEditStatus.Text = WinControlsLocalizer.getString("record_saved")
+        Me.lblEditStatus.ForeColor = Color.Red
+    End Sub
     Public Overridable Sub setAlertStatusOK()
 
         Me.lblEditStatus.Text = "OK"
@@ -369,9 +398,12 @@ Public Class frmBaseEdit
     ''' <remarks></remarks>
     Protected Sub ValidateAndSaveRecord()
         Try
-
-            If Me.SaveData() = True Then
+            Dim saveResult As enumSaveDataResult = Me.SaveData
+            If saveResult = enumSaveDataResult.SAVE_SUCESS_AND_CLOSE Then
                 Me.DialogResult = Windows.Forms.DialogResult.OK
+
+            ElseIf saveResult = enumSaveDataResult.SAVE_SUCESS_AND_STAY Then
+                Me.setAlertStatusRecordSaveSuccess()
             Else
                 Me.setAlertStatusRecordFailed()
             End If
@@ -399,7 +431,9 @@ Public Class frmBaseEdit
                     Return False
 
                 Case MsgBoxResult.Yes
-                    Return Me.SaveData() ' save data returns true if we saved ok to the database
+
+                    Dim ret As enumSaveDataResult = Me.SaveData()
+                    Return ret <> enumSaveDataResult.SAVE_FAIL
 
                 Case Else
                     Return True
@@ -427,7 +461,7 @@ Public Class frmBaseEdit
 
     Public Overridable Function SaveAndClose() As Boolean
 
-        If Me.SaveData() = False Then Exit Function
+        If Me.SaveData() = enumSaveDataResult.SAVE_FAIL Then Exit Function
         Me.DialogResult = Windows.Forms.DialogResult.OK
 
     End Function
@@ -435,6 +469,9 @@ Public Class frmBaseEdit
 #End Region
 
 #Region "Load, Save, Delete"
+
+   
+
     ''' <summary>
     ''' LoadData 
     ''' </summary>
@@ -450,7 +487,7 @@ Public Class frmBaseEdit
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Overridable Function SaveData() As Boolean
+    Public Overridable Function SaveData() As enumSaveDataResult
 
         Throw New NotImplementedException("clients must override this to save record.")
 
