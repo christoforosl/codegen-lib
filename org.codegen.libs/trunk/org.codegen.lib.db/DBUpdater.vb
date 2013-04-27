@@ -56,7 +56,7 @@ Friend Class MSSQLDBUpdater
             'ErrorLogging.addError("Backup log failed.", "logon")
         End Try
 
-        rs = _dbconn.getDataReader("SELECT max(version) from DatabaseVersion WITH (TABLOCKX)") 'lock table exclusively
+        rs = _dbconn.getDataReader("SELECT isnull(max(version), 0) from DatabaseVersion WITH (TABLOCKX)") 'lock table exclusively
         If rs.Read Then
             dbversion = CInt(rs(0))
         Else
