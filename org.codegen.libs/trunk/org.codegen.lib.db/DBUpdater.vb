@@ -36,7 +36,6 @@ End Class
 Friend Class MSSQLDBUpdater
     Inherits DBUpdater
 
-
     Protected Friend Overrides Function getSQLCommandSeparator() As String
         Return vbCrLf & "go" & vbCrLf
     End Function
@@ -50,11 +49,11 @@ Friend Class MSSQLDBUpdater
         Dim rs As IDataReader
         Dim dbversion As Int32
 
-        Try
-            Call _dbconn.executeSQL("backup log " & _dbconn.Connection.Database & " with truncate_only ")
-        Catch ex As Exception
-            'ErrorLogging.addError("Backup log failed.", "logon")
-        End Try
+        'Try
+        '    Call _dbconn.executeSQL("backup log " & _dbconn.Connection.Database & " with truncate_only ")
+        'Catch ex As Exception
+        '    'ErrorLogging.addError("Backup log failed.", "logon")
+        'End Try
 
         rs = _dbconn.getDataReader("SELECT isnull(max(version), 0) from DatabaseVersion WITH (TABLOCKX)") 'lock table exclusively
         If rs.Read Then
