@@ -99,6 +99,7 @@ Public Class PropertyGenerator
 
 
         Dim runtimeFieldName As String = field.RuntimeFieldName()
+        Dim propertyFieldname As String = field.RuntimeFieldName
 
         Dim ret As StringBuilder = New StringBuilder
 
@@ -111,14 +112,14 @@ Public Class PropertyGenerator
                                 "(ByVal value As " & field.getPropertyDataType & ")", sLengthChecker))
         End If
 
-        If runtimeFieldName = "ReadOnly" Then runtimeFieldName = "[ReadOnly]"
-        If runtimeFieldName = "new" Then runtimeFieldName = "[new]"
+        If runtimeFieldName.ToLower = "readonly" Then runtimeFieldName = "[ReadOnly]"
+        If runtimeFieldName.ToLower = "new" Then runtimeFieldName = "[new]"
 
         ret = ret.Replace("<0>", runtimeFieldName)
         ret = ret.Replace("<IMPL>", sImplements)
 
         If field.isBoolean Then
-            ret.Append("Public Sub set").Append(runtimeFieldName).Append("(ByVal val As String)").Append(vbCrLf)
+            ret.Append("Public Sub set").Append(propertyFieldname).Append("(ByVal val As String)").Append(vbCrLf)
             ret.Append("	If String.IsNullOrEmpty(val) Then").Append(vbCrLf)
             ret.Append("		Me.").Append(runtimeFieldName).Append(" = Nothing").Append(vbCrLf)
             ret.Append("	Else").Append(vbCrLf)
@@ -133,7 +134,7 @@ Public Class PropertyGenerator
             ret.Append("End Sub").Append(vbCrLf)
 
         ElseIf field.isInteger Then
-            ret.Append("Public Sub set").Append(runtimeFieldName).Append("(ByVal val As String)").Append(vbCrLf)
+            ret.Append("Public Sub set").Append(propertyFieldname).Append("(ByVal val As String)").Append(vbCrLf)
             ret.Append("	If IsNumeric(val) Then").Append(vbCrLf)
             ret.Append("		Me.").Append(runtimeFieldName).Append(" = CInt(val)").Append(vbCrLf)
             ret.Append("	ElseIf String.IsNullOrEmpty(val) Then").Append(vbCrLf)
@@ -146,7 +147,7 @@ Public Class PropertyGenerator
             ret.Append("End Sub").Append(vbCrLf)
 
         ElseIf field.isDecimal Then
-            ret.Append("Public Sub set").Append(runtimeFieldName).Append("(ByVal val As String)").Append(vbCrLf)
+            ret.Append("Public Sub set").Append(propertyFieldname).Append("(ByVal val As String)").Append(vbCrLf)
             ret.Append("	If IsNumeric(val) Then").Append(vbCrLf)
             ret.Append("		Me.").Append(runtimeFieldName).Append(" = CDec(val)").Append(vbCrLf)
             ret.Append("	ElseIf String.IsNullOrEmpty(val) Then").Append(vbCrLf)
@@ -158,7 +159,7 @@ Public Class PropertyGenerator
             ret.Append("	End If").Append(vbCrLf)
             ret.Append("End Sub").Append(vbCrLf)
         ElseIf field.isDate Then
-            ret.Append("Public Sub set").Append(runtimeFieldName).Append("(ByVal val As String)").Append(vbCrLf)
+            ret.Append("Public Sub set").Append(propertyFieldname).Append("(ByVal val As String)").Append(vbCrLf)
             ret.Append("	If IsDate(val) Then").Append(vbCrLf)
             ret.Append("		Me.").Append(runtimeFieldName).Append(" = CDate(val)").Append(vbCrLf)
             ret.Append("	ElseIf String.IsNullOrEmpty(val) Then").Append(vbCrLf)
@@ -171,7 +172,7 @@ Public Class PropertyGenerator
             ret.Append("	End If").Append(vbCrLf)
             ret.Append("End Sub").Append(vbCrLf)
         ElseIf field.RuntimeTypeStr = "System.String" Then
-            ret.Append("Public Sub set").Append(runtimeFieldName).Append("(ByVal val As String)").Append(vbCrLf)
+            ret.Append("Public Sub set").Append(propertyFieldname).Append("(ByVal val As String)").Append(vbCrLf)
             ret.Append("	If not String.isNullOrEmpty(val) Then").Append(vbCrLf)
             ret.Append("		Me.").Append(runtimeFieldName).Append(" = val").Append(vbCrLf)
             ret.Append("	Else").Append(vbCrLf)
@@ -188,8 +189,12 @@ Public Class PropertyGenerator
                     Implements IPropertyGenerator.generateInterfaceDeclaration
 
         Dim sb As StringBuilder = New StringBuilder()
+        Dim fname As String = field.RuntimeFieldName()
+        If fname.ToLower = "readonly" OrElse fname.ToLower = "new" Then
+            fname = "[" & fname & "]"
+        End If
         If (Not field.FieldName.ToLower.Equals("id")) Then
-            sb.Append(vbTab & "Property " & field.RuntimeFieldName() & " as " & field.getPropertyDataType)
+            sb.Append(vbTab & "Property " & fname & " as " & field.getPropertyDataType)
             sb.Append(vbCrLf)
         End If
 

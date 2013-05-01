@@ -60,8 +60,10 @@ Public Class DBField
                     Optional ByVal accessLevel As String = "private", _
                     Optional ByVal withInitialiser As Boolean = True) As String Implements IDBField.getClassVariableDeclaration
 
+        Dim fname As String = Me.RuntimeFieldName()
+
         Dim ret As String = vbTab & accessLevel & " _" & _
-                        Me.RuntimeFieldName() & " as " & _
+                        fname & " as " & _
                         getFieldDataType()
 
         If withInitialiser AndAlso Me.isPrimaryKey = False Then ret &= " = Nothing"
