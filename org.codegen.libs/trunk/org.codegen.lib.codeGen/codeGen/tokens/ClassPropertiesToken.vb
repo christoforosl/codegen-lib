@@ -87,7 +87,6 @@ Namespace Tokens
         End Function
     End Class
 
-
     Public Class ClassAccessLevelToken
         Inherits ReplacementToken
         Sub New()
@@ -128,19 +127,7 @@ Namespace Tokens
                 For Each field As DBField In vec.Values
 
                     sb.Append(proGen.generateInterfaceDeclaration(field))
-                    'Dim runtimeFieldName As String = field.RuntimeFieldName()
-                    'If field.isInteger Then
-                    '    sb.Append("Sub set").Append(runtimeFieldName).Append("(ByVal val As String)").Append(vbCrLf)
-
-                    'End If
-                    'If field.isDecimal Then
-                    '    sb.Append("Sub set").Append(runtimeFieldName).Append("(ByVal val As String)").Append(vbCrLf)
-
-                    'End If
-                    'If field.isDate Then
-                    '    sb.Append("Sub set").Append(runtimeFieldName).Append("(ByVal val As String)").Append(vbCrLf)
-
-                    'End If
+                    
 
                 Next
 
@@ -227,7 +214,6 @@ Namespace Tokens
 
 
     End Class
-
 
     Public Class ClassFieldStringConstantsToken
         Inherits ReplacementToken
