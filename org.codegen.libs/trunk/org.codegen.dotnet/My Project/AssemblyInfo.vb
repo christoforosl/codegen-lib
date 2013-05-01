@@ -9,7 +9,7 @@ Imports System.Runtime.InteropServices
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("org.codegen.dotnet")> 
-<Assembly: AssemblyDescription("")> 
+<Assembly: AssemblyDescription("Base objects library used for code Generation")> 
 <Assembly: AssemblyCompany("Microsoft")> 
 <Assembly: AssemblyProduct("org.codegen.dotnet")> 
 <Assembly: AssemblyCopyright("Copyright © Microsoft 2011")> 
