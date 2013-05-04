@@ -1,4 +1,5 @@
 ﻿Imports System.Configuration.ConfigurationManager
+Imports org.codegen.common.TranslationServices
 
 ''' <summary>
 ''' Singleton class
@@ -37,18 +38,18 @@ Public Class FormsApplicationContext
                                 System.Drawing.GraphicsUnit.Point, CType(0, Byte))
 
 
-    Private _Translator As ILanguageStrings
+    Private _Translator As TranslatedStringsProvider
 
-    Public Property Translator() As ILanguageStrings
+    Public Property Translator() As TranslatedStringsProvider
 
         Get
             If _Translator Is Nothing AndAlso AppSettings.Item("Translator") IsNot Nothing Then
-                _Translator = ILanguageStrings.getFromConfig
+                _Translator = TranslationServices.Translator.getFromConfig
             End If
             Return _Translator
         End Get
 
-        Set(ByVal value As ILanguageStrings)
+        Set(ByVal value As TranslatedStringsProvider)
             _Translator = value
         End Set
 

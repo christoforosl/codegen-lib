@@ -273,8 +273,8 @@ Public Class CommonUtils
     Public Shared Sub setSystemCulture(ByVal slang As String)
 
         Dim ci As CultureInfo
-        If slang = Translation.ILanguageStrings.CULT_ENGLISH_UK Then
-            ci = New CultureInfo(Translation.ILanguageStrings.CULT_ENGLISH_UK)
+        If slang = TranslationServices.TranslatedStringsProvider.CULT_ENGLISH_UK Then
+            ci = New CultureInfo(TranslationServices.TranslatedStringsProvider.CULT_ENGLISH_UK)
         Else
             ci = CommonUtils.CYGreekCulture
         End If
@@ -287,8 +287,8 @@ Public Class CommonUtils
     Public Shared Sub setSystemCulture(ByVal slang As String, ByVal currencySymbol As String)
 
         Dim ci As CultureInfo
-        If slang = Translation.ILanguageStrings.CULT_ENGLISH_UK Then
-            ci = New CultureInfo(Translation.ILanguageStrings.CULT_ENGLISH_UK)
+        If slang = TranslationServices.TranslatedStringsProvider.CULT_ENGLISH_UK Then
+            ci = New CultureInfo(TranslationServices.TranslatedStringsProvider.CULT_ENGLISH_UK)
         Else
             ci = CommonUtils.CYGreekCulture
         End If

@@ -3,7 +3,7 @@ Imports System.Security.Permissions
 Imports System.Threading
 Imports System.Collections.Generic
 
-Namespace Translation
+Namespace TranslationServices
     ''' <summary>
     ''' Class to fascilitate translation services from an XML file.
     ''' The xml structure must be the same as the database table structure:
@@ -20,7 +20,7 @@ Namespace Translation
     ''' </summary>
     ''' <remarks></remarks>
     Public Class XMLanguageStrings
-        Inherits ILanguageStrings
+        Inherits TranslatedStringsProvider
 
         Private _dv As DataView
 
@@ -31,12 +31,12 @@ Namespace Translation
 
         End Property
 
-        
+
         Public Overrides Sub deleteString(ByVal key As String)
 
         End Sub
 
-        Public Overrides Function getStringDB(ByVal key As String, _
+        Public Overrides Function retrieveStringFromStore(ByVal key As String, _
                                               Optional ByVal inLang As String = "") _
                                     As String
 

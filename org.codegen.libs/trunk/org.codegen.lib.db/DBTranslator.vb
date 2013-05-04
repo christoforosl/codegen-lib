@@ -2,7 +2,7 @@ Imports System.Globalization
 Imports System.Security.Permissions
 Imports System.Threading
 Imports System.Collections.Generic
-Imports org.codegen.common.Translation
+Imports org.codegen.common.TranslationServices
 
 Imports System.Configuration.ConfigurationManager
 
@@ -21,7 +21,7 @@ Imports System.Configuration.ConfigurationManager
 ''' </summary>
 ''' <remarks></remarks>
 Public Class DBTranslator
-    Inherits ILanguageStrings
+    Inherits TranslatedStringsProvider
 
     Private Const STR_INSERT As String = "INSERT INTO sysLanguageStrings (langKey,langValueEL,langValueEN) VALUES ({0},{1},{2})"
     Private Const STR_UPDATE As String = "UPDATE sysLanguageStrings SET langValueEL={0},langValueEN={1} WHERE langKey={2}"
@@ -30,7 +30,7 @@ Public Class DBTranslator
 
     Private _insertDefaultTranslatorKey As Boolean
 
-    Public Overrides Function getStringDB(ByVal key As String, Optional ByVal inLang As String = "") As String
+    Public Overrides Function retrieveStringFromStore(ByVal key As String, Optional ByVal inLang As String = "") As String
 
         Dim skey As String
         Dim slang As String
@@ -39,7 +39,7 @@ Public Class DBTranslator
 
         skey = key.Trim
         slang = inLang.Trim
-        If slang = String.Empty Then slang = ILanguageStrings.LANG_ENGLISH
+        If slang = String.Empty Then slang = TranslatedStringsProvider.LANG_ENGLISH
 
         If _insertDefaultTranslatorKey Then
             Me.insertInitialLangValue(skey)
@@ -50,12 +50,12 @@ Public Class DBTranslator
 
         If tmp = String.Empty Then
             'is null, take english as the default
-            If slang <> ILanguageStrings.LANG_ENGLISH Then
+            If slang <> TranslatedStringsProvider.LANG_ENGLISH Then
                 tmp = dbConn.getSValueWithParams(sql, UCase(skey), slang)
             End If
-            getStringDB = tmp
+            retrieveStringFromStore = tmp
         Else
-            getStringDB = tmp
+            retrieveStringFromStore = tmp
         End If
 
     End Function
