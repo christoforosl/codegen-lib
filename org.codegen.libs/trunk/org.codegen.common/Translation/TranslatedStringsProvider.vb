@@ -4,12 +4,13 @@ Imports System.Threading
 Imports System.Collections.Generic
 Imports System.Configuration.ConfigurationManager
 
-Namespace Translation
+Namespace TranslationServices
+
     ''' <summary>
     ''' Abstract class to provide an interface for Language translation of key-value pair
     ''' </summary>
     ''' <remarks></remarks>
-    Public MustInherit Class ILanguageStrings
+    Public MustInherit Class TranslatedStringsProvider
 
         Public Shared ReadOnly CULT_GREEK_GREECE As String = "EL-GR"
         Public Shared ReadOnly CULT_GREEK_CY As String = "EL-CY"
@@ -21,10 +22,33 @@ Namespace Translation
         Protected Const LABEL_KEY As String = "_label"
         Protected cachedStrings As Dictionary(Of String, String)
 
+        ''' <summary>
+        ''' Deletes a string to the store where translated strings are stored.
+        ''' </summary>
         Public MustOverride Sub deleteString(ByVal key As String)
-        Public MustOverride Sub insertOrUpdate(ByVal key As String, ByVal valueEN As String, ByVal valueEL As String)
-        Public MustOverride Function getStringDB(ByVal key As String, Optional ByVal inLang As String = "") As String
 
+        ''' <summary>
+        ''' Inserts or Updated a string to the store where translated strings are stored.
+        ''' </summary>
+        ''' <param name="key">Key of string to save/update</param>
+        ''' <param name="valueEL">Value in Greek</param>
+        ''' <param name="valueEN">Value in English</param>
+        ''' <remarks></remarks>
+        Public MustOverride Sub insertOrUpdate(ByVal key As String, ByVal valueEL As String, ByVal valueEN As String)
+
+
+        ''' <summary>
+        ''' Rertrieves a string from the store where translated strings are stored.
+        ''' </summary>
+        ''' <param name="key">Key of string to retrieve</param>
+        ''' <param name="inLang">Language code - This is the TwoLetterISOLanguageName</param>
+        ''' <returns>Translated string</returns>
+        ''' <remarks></remarks>
+        Public MustOverride Function retrieveStringFromStore(ByVal key As String, Optional ByVal inLang As String = "") As String
+
+        ''' <summary>
+        ''' Returns the TwoLetterISOLanguageName of the current thread
+        ''' </summary>
         Public Shared ReadOnly Property CurrentLanguageCode() As String
             Get
                 Return Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpper
@@ -66,7 +90,7 @@ Namespace Translation
         Private Function GetStringFromProvider(ByVal key As String, ByVal inlang As String, ByVal collKey As String) As String
 
             Dim ret As String
-            Dim lGetStringDB As String = Me.getStringDB(key, inlang)
+            Dim lGetStringDB As String = Me.retrieveStringFromStore(key, inlang)
 
             Me.AddToCachedStrings(collKey, lGetStringDB)
             ret = CStr(cachedStrings.Item(collKey))
@@ -88,27 +112,7 @@ Namespace Translation
 
         End Sub
 
-        Public Shared Function getFromConfig() As ILanguageStrings
 
-
-            If AppSettings.Item("Translator") IsNot Nothing Then
-                Try
-
-                    Dim oTranslator As Object = Nothing
-                    Dim ttype As Type = Type.GetType(AppSettings.Item("Translator"))
-                    oTranslator = Activator.CreateInstance(ttype)
-                    Return CType(oTranslator, ILanguageStrings)
-
-                Catch ex As Exception
-                    'just ignore error and return null
-                End Try
-                Return Nothing
-
-            Else
-                Return Nothing
-            End If
-
-        End Function
 
     End Class
 End Namespace

@@ -23,6 +23,6 @@ Public Class WinControlsLocalizer
     End Function
 
     ' Fields
-    Public Shared clang As XMLanguageStrings = New XMLanguageStrings()
+    Public Shared clang As TranslationServices.XMLanguageStrings = New TranslationServices.XMLanguageStrings()
 
 End Class

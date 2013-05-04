@@ -134,10 +134,11 @@
     </Compile>
     <Compile Include="progressIndicator\IProgressable.vb" />
     <Compile Include="progressIndicator\ProgressableEventArgs.vb" />
-    <Compile Include="Translation\ILanguageStrings.vb" />
+    <Compile Include="Translation\TranslatedStringsProvider.vb" />
     <Compile Include="SimpleEncrypt.vb">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Translation\Translator.vb" />
     <Compile Include="Translation\XMLanguageStrings.vb" />
     <Compile Include="CommonUtils.vb">
       <SubType>Code</SubType>
