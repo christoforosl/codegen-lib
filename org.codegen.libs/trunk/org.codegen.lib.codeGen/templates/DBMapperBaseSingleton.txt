@@ -15,7 +15,7 @@
 '</comments>
 
 Namespace <DBMAPPER_NAMESPACE>
-
+	<ComVisible(False)> _
     Public Class <MODEL_CLASS_NAME>DBMapper
         Inherits DBMapper
 		
