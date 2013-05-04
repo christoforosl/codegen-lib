@@ -44,6 +44,28 @@ Namespace TranslationServices
             End Set
         End Property
 
+        ''' <summary>
+        ''' Retrurns true if the current systen language is English
+        ''' </summary>
+        ''' <returns>True/False</returns>
+        ''' <remarks>The current system language is the Curent Thread's </remarks>
+        Public Function isEnglish() As Boolean
+            Return TranslatedStringsProvider.CurrentLanguageCode = TranslatedStringsProvider.LANG_ENGLISH
+        End Function
+
+        ''' <summary>
+        ''' Retrurns true if the current systen language is Greek
+        ''' </summary>
+        ''' <returns>True/False</returns>
+        ''' <remarks>The current system language is the Curent Thread's </remarks>
+        Public Function isGreek() As Boolean
+            Return isEnglish() = False
+        End Function
+
+        Public Shared Function getString(ByVal key As String) As String
+            Return current.StringsProvider.getString(key)
+        End Function
+
         Public Shared Function getFromConfig() As TranslatedStringsProvider
 
             If AppSettings.Item("Translator") IsNot Nothing Then
