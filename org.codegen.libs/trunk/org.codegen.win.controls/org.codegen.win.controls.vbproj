@@ -110,7 +110,6 @@
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="org.codegen.common" />
-    <Import Include="org.codegen.common.Translation" />
     <Import Include="org.model.lib" />
     <Import Include="org.model.lib.db" />
     <Import Include="org.model.lib.Model" />
