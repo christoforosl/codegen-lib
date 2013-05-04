@@ -14,7 +14,7 @@
 '</comments>
 
 Namespace <DBMAPPER_NAMESPACE>
-
+	<System.Runtime.InteropServices.ComVisible(False)> _
     <CLASS_ACCESS_LEVEL> Class <MODEL_CLASS_NAME>DBMapper
         Inherits DBMapper
 		
@@ -151,7 +151,7 @@ Namespace <DBMAPPER_NAMESPACE>
     End Class
 
 #Region " <MODEL_CLASS_NAME> Loader "
-	
+	<System.Runtime.InteropServices.ComVisible(False)> _
 	Public Class <MODEL_CLASS_NAME>DataReaderLoader
 		Inherits DataReaderLoader
 
@@ -180,6 +180,7 @@ Namespace <DBMAPPER_NAMESPACE>
 	'''<summary>
     ''' Final Class with convinience shared methods for loading/saving the EmployeeRank ModelObject. 
     '''</summary>
+	<System.Runtime.InteropServices.ComVisible(False)> _
 	Public NotInheritable Class <MODEL_CLASS_NAME>DataUtils
 
 #Region "Shared ""get"" Functions "

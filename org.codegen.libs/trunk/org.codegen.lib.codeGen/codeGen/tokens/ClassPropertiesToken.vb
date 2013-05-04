@@ -117,7 +117,8 @@ Namespace Tokens
 
                 sb.Append("#Region ""Interface""")
                 sb.Append(vbCrLf)
-                sb.Append("Public Interface " & PropertyInterface & ":" & _
+                sb.Append("<System.Runtime.InteropServices.ComVisible(False)> _" & vbCrLf)
+                sb.Append(vbTab & "Public Interface " & PropertyInterface & ":" & _
                                         " Inherits IModelObject")
                 sb.Append(vbCrLf)
 

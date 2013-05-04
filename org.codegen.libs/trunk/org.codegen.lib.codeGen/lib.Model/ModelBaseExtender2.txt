@@ -1,5 +1,5 @@
 Option Strict On
-
+Imports System.Runtime.InteropServices
 '<comments>
 '************************************************************
 '
@@ -13,7 +13,7 @@ Option Strict On
 '</comments>
 
 Namespace <NAMESPACE>
-
+	<ComVisible(False)> _
 	Public Class <MODEL_CLASS_NAME>Factory
 		
 		'Shared function to create a new instance of the class and return it.

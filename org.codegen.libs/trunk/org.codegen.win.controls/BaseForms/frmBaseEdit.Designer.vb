@@ -28,11 +28,15 @@ Partial Class frmBaseEdit
         'UcEditToolar
         '
         Me.UcEditToolar.Dock = System.Windows.Forms.DockStyle.Top
+        Me.UcEditToolar.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.UcEditToolar.Location = New System.Drawing.Point(0, 0)
         Me.UcEditToolar.Name = "UcEditToolar"
+        Me.UcEditToolar.ShowAdd = True
+        Me.UcEditToolar.ShowDelete = True
+        Me.UcEditToolar.ShowNavigationButtons = True
         Me.UcEditToolar.ShowPrint = True
         Me.UcEditToolar.ShowSaveAs = True
-        Me.UcEditToolar.Size = New System.Drawing.Size(689, 30)
+        Me.UcEditToolar.Size = New System.Drawing.Size(804, 30)
         Me.UcEditToolar.TabIndex = 0
         '
         'StatusStrip1
@@ -40,7 +44,8 @@ Partial Class frmBaseEdit
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.lblEditStatus})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 480)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(689, 22)
+        Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 16, 0)
+        Me.StatusStrip1.Size = New System.Drawing.Size(804, 22)
         Me.StatusStrip1.TabIndex = 1
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -54,10 +59,10 @@ Partial Class frmBaseEdit
         '
         'frmBaseEdit
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(689, 502)
+        Me.ClientSize = New System.Drawing.Size(804, 502)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.UcEditToolar)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle

@@ -1,7 +1,7 @@
 
 'NOTE: DO NOT ADD REFERENCES TO COM.NETU.LIB HERE, INSTEAD ADD
 'THE IMPORT ON THE REFERENCES OF THE PROJECT
-
+Imports System.Runtime.InteropServices
 Imports System.Collections.Generic
 Imports System.Xml.Serialization
 '<comments>
@@ -20,7 +20,7 @@ Namespace <NAMESPACE>
 
 <MODEL_INTERFACE_DEFINITION>
 
-	<Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)> _
+	<ComVisible(False),Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)> _
 	<CLASS_ACCESS_LEVEL> class <MODEL_CLASS_NAME>Base
 		Inherits ModelObject
 		Implements IEquatable(Of <MODEL_CLASS_NAME>Base),
@@ -195,6 +195,7 @@ Namespace <NAMESPACE>
 	End Class
 
 #Region "Req Fields validator"
+	<System.Runtime.InteropServices.ComVisible(False)> _
     Public Class <MODEL_CLASS_NAME>RequiredFieldsValidator
         Implements IModelObjectValidator
 
