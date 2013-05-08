@@ -2,6 +2,7 @@
 
     Sub MoveNext()
     Sub MovePrevious()
+    Sub MoveCurrent()
 
 End Interface
 
@@ -58,6 +59,10 @@ Public Class GridMoveNextPrevious
             End If
 
         End If
+
+    End Sub
+
+    Public Sub MoveCurrent() Implements IMoveNextPrevious.MoveCurrent
 
     End Sub
 End Class
