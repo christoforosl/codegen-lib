@@ -285,16 +285,6 @@
     <EmbeddedResource Include="SqlGen\SqlTemplate.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\org.codegen.dotnet\org.codegen.dotnet.vbproj">
-      <Project>{C64224BB-B4A8-439D-9413-01545789D31E}</Project>
-      <Name>org.codegen.dotnet</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\org.codegen.lib.db\org.model.lib.db.vbproj">
-      <Project>{C744D17D-3132-4365-8C44-9D295D942597}</Project>
-      <Name>org.model.lib.db</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="lib.Model\associationChildOne.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -324,6 +314,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ui.asp.net\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\org.codegen.dotnet\org.codegen.dotnet.vbproj">
+      <Project>{C64224BB-B4A8-439D-9413-01545789D31E}</Project>
+      <Name>org.codegen.dotnet</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\org.codegen.lib.db\org.model.lib.db.vbproj">
+      <Project>{C744D17D-3132-4365-8C44-9D295D942597}</Project>
+      <Name>org.model.lib.db</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
