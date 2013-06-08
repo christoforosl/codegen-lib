@@ -10,7 +10,7 @@ Imports System.Windows.Forms.Design
 
 Namespace UIComponents
 
-    <Designer(GetType(System.Windows.Forms.Design.ControlDesigner))> _
+
     Public Class TitleStrip
         Inherits ToolStrip
 
