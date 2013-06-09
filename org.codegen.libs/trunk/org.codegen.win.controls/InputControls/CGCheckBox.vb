@@ -40,7 +40,7 @@ Public Class CGCheckBox
             Return _isMandatory
         End Get
         Set(ByVal value As Boolean)
-            
+
             _isMandatory = False ' for checkboxes, no need to mark them as mandatory
         End Set
 
@@ -102,5 +102,7 @@ Public Class CGCheckBox
 
     Public Property showAsteriskForMandatory As Boolean = True _
         Implements ICGBaseControl.showAsteriskForMandatory
+
+    Public Property DataPropertyName As String Implements ICGBaseControl.DataPropertyName
        
 End Class
