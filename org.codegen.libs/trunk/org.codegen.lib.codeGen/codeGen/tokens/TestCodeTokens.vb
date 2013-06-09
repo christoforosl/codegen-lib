@@ -39,6 +39,28 @@ Namespace Tokens
 
     End Class
 
+    Public Class AssertRandomFields
+        Inherits ReplacementToken
+
+        Sub New()
+            Me.StringToReplace = "TEST_ASSERT_RANDOM_FIELDS"
+        End Sub
+        Public Overrides Function getReplacementCode(ByVal og As IObjectToGenerate) As String
+            Return String.Empty
+        End Function
+    End Class
+
+    Public Class ModifyRandomFields
+        Inherits ReplacementToken
+
+        Sub New()
+            Me.StringToReplace = "TEST_CHANGE_RANDOM_FIELDS"
+        End Sub
+        Public Overrides Function getReplacementCode(ByVal og As IObjectToGenerate) As String
+            Return String.Empty
+        End Function
+    End Class
+
     Public Class TestAssertAssociationsToken
         Inherits ReplacementToken
 

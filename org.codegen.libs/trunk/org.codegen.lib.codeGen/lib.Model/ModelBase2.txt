@@ -19,8 +19,8 @@ Imports System.Xml.Serialization
 Namespace <NAMESPACE>
 
 <MODEL_INTERFACE_DEFINITION>
-
-	<ComVisible(False),Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)> _
+	<DefaultMapperAttr(GetType(<MODEL_CLASS_NAME>DBMapper)), _
+	 ComVisible(False),Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)> _
 	<CLASS_ACCESS_LEVEL> class <MODEL_CLASS_NAME>Base
 		Inherits ModelObject
 		Implements IEquatable(Of <MODEL_CLASS_NAME>Base),

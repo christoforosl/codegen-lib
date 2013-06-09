@@ -67,6 +67,7 @@
     <Compile Include="db\DataRowLoader.vb" />
     <Compile Include="db\DBMapper.vb" />
     <Compile Include="db\SQLStatement.vb" />
+    <Compile Include="Model\AttributeDefaultMapper.vb" />
     <Compile Include="Model\IAuditable.vb" />
     <Compile Include="Model\IAuditor.vb" />
     <Compile Include="Model\IChildObject.vb" />

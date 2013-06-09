@@ -12,9 +12,9 @@ Namespace FileComponents
     ''' </summary>
     ''' <remarks></remarks>
     <ReplacementTokenAttribute(GetType(ClassNameSpaceToken), GetType(GeneratorToken), _
-                GetType(CurentDateToken), GetType(ClassAccessLevelToken), _
-            GetType(ModelObjectClassNameToken), _
-           GetType(IfaceNameToken), GetType(ClassAccessLevelToken))> _
+        GetType(CurentDateToken), GetType(ClassAccessLevelToken), _
+        GetType(ModelObjectClassNameToken), _
+        GetType(IfaceNameToken), GetType(ClassAccessLevelToken))> _
     Public Class ModelObjectFileComponent
         Inherits VBClassFileComponent
 

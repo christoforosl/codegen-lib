@@ -23,20 +23,21 @@ Namespace BusObjects
             Return New Employee()
         End Function
     
-	End Class
+    End Class
 
-	<Serializable()> _
-	Public class Employee
-		inherits EmployeeBase
-		implements IEmployee
+
+    <Serializable()> _
+    Public Class Employee
+        Inherits EmployeeBase
+        Implements IEmployee
 
 #Region "Constructor"
-    
-    public sub New()
-        
-		'Empty constructor.  
-        
-    End Sub
+
+        Public Sub New()
+
+            'Empty constructor.  
+
+        End Sub
 
 #End Region
 
@@ -47,7 +48,7 @@ Namespace BusObjects
 #Region "Before Save,After Save and Validate Overriden Methods "
 
 #End Region
-        
+
 #Region "Shadowed and Other Methods "
 
 #End Region
@@ -56,7 +57,7 @@ Namespace BusObjects
 
 #End Region
 
-	End Class
+    End Class
 
 End Namespace
 

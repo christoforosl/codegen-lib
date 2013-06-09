@@ -75,18 +75,18 @@ Public Class frmEmployeeInfoDetails
 	End Sub
 
 
-        Public Overrides Function SaveData() As enumSaveDataResult
+	Public Overrides Function SaveData() As enumSaveDataResult
 
-            If Me.ValidateChildren() Then
-                Me.UcEmployeeInfo.loadToObject()
-                Dim db As New EmployeeInfoDBMapper()
-                db.save(Me.UcEmployeeInfo.ModelObject)
-                Return enumSaveDataResult.SAVE_SUCESS_AND_CLOSE
-            Else
-                Return enumSaveDataResult.SAVE_FAIL
-            End If
+		if Me.ValidateChildren() then
+			Me.UcEmployeeInfo.loadToObject
+			dim db as New EmployeeInfoDBMapper()
+			db.save(  Me.UcEmployeeInfo.ModelObject )
+			return enumSaveDataResult.SAVE_SUCESS_AND_CLOSE
+		else
+			return enumSaveDataResult.SAVE_FAIL
+		end if
 
-        End Function
+	End Function
 	
 	Public Overrides Function dataChanged() As Boolean
 
