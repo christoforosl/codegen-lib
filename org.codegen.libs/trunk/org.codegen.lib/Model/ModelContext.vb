@@ -268,6 +268,48 @@ Namespace Model
 
         End Function
 
+
+        ''' <summary>
+        ''' 
+        ''' </summary>
+        ''' <param name="modelObjectInstance">The model Object to save</param>
+        ''' <remarks></remarks>
+        Public Sub saveModelObject(modelObjectInstance As ModelObject)
+
+            Dim sattr As DefaultMapperAttr = CType(Attribute.GetCustomAttribute(modelObjectInstance.GetType, _
+                                                        GetType(DefaultMapperAttr)), DefaultMapperAttr)
+
+            If sattr Is Nothing Then
+                Throw New ApplicationException( _
+                    String.Format("Call to ModelContext.Save must pass a model object with attribute DefaultMapperAttr set. ""{0}"" does not have the attribute set.", _
+                    modelObjectInstance.GetType.ToString))
+            End If
+
+            Dim tmp As DBMapper = CType(Activator.CreateInstance(sattr.defaultMapper),  _
+                                            DBMapper)
+
+            tmp.save(modelObjectInstance)
+
+        End Sub
+
+        Public Function loadModelObject(Of T As ModelObject)(id As Integer) As T
+            ''Public Function Blah(Of T As {IImplementedByT})(Foo As T)
+            Dim sattr As DefaultMapperAttr = CType(Attribute.GetCustomAttribute(GetType(T), _
+                                                        GetType(DefaultMapperAttr)), DefaultMapperAttr)
+
+            If sattr Is Nothing Then
+                Throw New ApplicationException( _
+                    String.Format("Call to ModelContext.Save must pass a model object with attribute DefaultMapperAttr set. ""{0}"" does not have the attribute set.", _
+                    GetType(T).ToString))
+            End If
+
+            Dim tmp As DBMapper = CType(Activator.CreateInstance(sattr.defaultMapper),  _
+                                            DBMapper)
+
+            Return CType(CType(tmp.findByKey(CInt(id)), ModelObject), T)
+
+        End Function
+
     End Class
 
     
