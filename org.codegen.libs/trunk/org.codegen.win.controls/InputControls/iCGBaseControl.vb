@@ -11,6 +11,14 @@ Public Interface ICGBaseControl
     Property AssociatedLabel As Label
     Property [ReadOnly] As Boolean
 
+    ''' <summary>
+    ''' The field that this control is getting/saving data from
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Property DataPropertyName As String
+
     Function Label() As String
 
     Sub addError(ByVal errMesg As String)

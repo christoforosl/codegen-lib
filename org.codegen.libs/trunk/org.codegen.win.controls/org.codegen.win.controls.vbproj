@@ -120,6 +120,12 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseForms\frmBaseModelObjectEdit.Designer.vb">
+      <DependentUpon>frmBaseModelObjectEdit.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForms\frmBaseModelObjectEdit.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormsApplicationContext.vb" />
     <Compile Include="AssemblyInfo.vb">
       <SubType>Code</SubType>

@@ -322,5 +322,7 @@ Public Class CGTextBox
 
     Public Property showAsteriskForMandatory As Boolean = True _
                 Implements ICGBaseControl.showAsteriskForMandatory
+
+    Public Property DataPropertyName As String Implements ICGBaseControl.DataPropertyName
        
 End Class

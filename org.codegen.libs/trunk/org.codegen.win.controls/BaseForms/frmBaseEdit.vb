@@ -85,6 +85,12 @@ Public Class frmBaseEdit
 
 #Region "properties"
 
+    ''' <summary>
+    ''' Returns the form that opened this edit form.
+    ''' Usually this will be the list form that the user double clicked 
+    ''' to edit a record
+    ''' </summary>
+    ''' <value></value>
     Public Overloads Property Owner As Form
         Get
             Return MyBase.Owner
@@ -98,56 +104,86 @@ Public Class frmBaseEdit
         End Set
     End Property
 
+    Private _showAdd As Boolean = True
 
+    ''' <summary>
+    ''' Gets/Sets indicator that decides if the form shows the "Add New" button
+    ''' </summary>
     <Browsable(True)> _
     Public Property ShowAdd As Boolean
         Get
-            Return Me.UcEditToolar.ShowAdd
+            Return _showAdd
         End Get
         Set(ByVal value As Boolean)
+            _showAdd = value
             Me.UcEditToolar.ShowAdd = value
         End Set
     End Property
 
+    Private _showPrint As Boolean = True
+
+    ''' <summary>
+    ''' Gets/Sets indicator that decides if the form shows the "Print" button
+    ''' </summary>
     <Browsable(True)> _
     Public Property ShowPrint As Boolean
         Get
-            Return Me.UcEditToolar.ShowPrint
+            Return _showPrint
         End Get
         Set(ByVal value As Boolean)
+            _showPrint = value
             Me.UcEditToolar.ShowPrint = value
         End Set
     End Property
 
+    Private _ShowSaveAs As Boolean = False
+
+    ''' <summary>
+    ''' Gets/Sets indicator that decides if the form shows the "Save As" button.
+    ''' Default is FALSE
+    ''' </summary>
     <Browsable(True)> _
     Public Property ShowSaveAs() As Boolean
         Get
             Return Me.UcEditToolar.ShowSaveAs
         End Get
         Set(ByVal value As Boolean)
+            _ShowSaveAs = value
             Me.UcEditToolar.ShowSaveAs = value
         End Set
     End Property
 
+    Private _ShowNavigationButtons As Boolean = True
+    ''' <summary>
+    ''' Gets/Sets indicator that decides if the form shows the Navigation Buttons (Next/Previous).
+    ''' Default is TRUE
+    ''' </summary>
     <Browsable(True)> _
     Public Property ShowNavigationButtons As Boolean
         Get
-            Return Me.UcEditToolar.ShowNavigationButtons
+            Return _ShowNavigationButtons
         End Get
 
         Set(ByVal value As Boolean)
+            _ShowNavigationButtons = value
             Me.UcEditToolar.ShowNavigationButtons = value
         End Set
 
     End Property
 
+    Private _ShowDelete As Boolean = True
+    ''' <summary>
+    ''' Gets/Sets indicator that decides if the form shows the Delete Button
+    ''' Default is TRUE
+    ''' </summary>
     <Browsable(True)> _
     Public Property ShowDelete As Boolean
         Get
-            Return Me.UcEditToolar.ShowDelete
+            Return _ShowDelete
         End Get
 
         Set(ByVal value As Boolean)
+            _ShowDelete = value
             Me.UcEditToolar.ShowDelete = value
         End Set
 
