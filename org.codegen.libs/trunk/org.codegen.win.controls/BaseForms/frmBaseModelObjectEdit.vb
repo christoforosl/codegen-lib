@@ -1,4 +1,5 @@
 ﻿Imports System.Collections.Generic
+Imports System.ComponentModel
 
 ''' <summary>
 ''' Base form Class that can be used to Load/Save model Objects.
@@ -17,7 +18,7 @@ Public Class frmBaseModelObjectEdit
                 String.IsNullOrEmpty(CType(c, ICGBaseControl).DataPropertyName) = False Then
 
                 ret.Add(CType(c, ICGBaseControl))
-                
+
             End If
 
             If TypeOf c Is ContainerControl Then
@@ -32,6 +33,7 @@ Public Class frmBaseModelObjectEdit
 
     Private _bindableCotrols As List(Of ICGBaseControl)
 
+    <Browsable(False)> _
     Public ReadOnly Property BindableControls As IList(Of ICGBaseControl)
         Get
             If _bindableCotrols Is Nothing Then
@@ -54,17 +56,22 @@ Public Class frmBaseModelObjectEdit
 
     Private _ModelObjectInstance As IModelObject
 
+    <Browsable(False)> _
     Public Property ModelObjectInstance As IModelObject
         Get
-            If _ModelObjectInstance Is Nothing Then
-                Dim loader As DBMapper = ModelContext.GetModelDefaultMapper(ModelObjectType)
-                If Me.IdValue > 0 Then
-                    _ModelObjectInstance = loader.findByKey(Me.IdValue)
-                Else
-                    _ModelObjectInstance = loader.getModelInstance
-                End If
+            If Me.DesignMode = False Then
 
+                If _ModelObjectInstance Is Nothing Then
+                    Dim loader As DBMapper = ModelContext.GetModelDefaultMapper(ModelObjectType)
+                    If Me.IdValue > 0 Then
+                        _ModelObjectInstance = loader.findByKey(Me.IdValue)
+                    Else
+                        _ModelObjectInstance = loader.getModelInstance
+                    End If
+
+                End If
             End If
+
             Return _ModelObjectInstance
         End Get
         Set(value As IModelObject)
@@ -112,7 +119,7 @@ Public Class frmBaseModelObjectEdit
 
     End Sub
 
-    
+
     Private Sub frmBaseModelObjectEdit_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         Me.LoadData()
     End Sub
