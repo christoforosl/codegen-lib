@@ -3,6 +3,7 @@ Imports System.Reflection.Assembly
 Imports System.Reflection
 Imports System.Threading
 Imports System.ComponentModel
+Imports ModelLibTestsWinApp.Forms.Edit
 
 Public Class MDIParent
 
@@ -123,6 +124,12 @@ Public Class MDIParent
         Me.setupMenue("readonlytest", "Read Only Test", ".Forms.frmReadOnlyProjectDetails")
         Me.setupMenue("TimeControlTest", "Time Control Test", ".frmTimeControlTest")
 
+        Dim newMenu As ToolStripMenuItem = New ToolStripMenuItem
+        newMenu.Name = "EmployeeEditTest"
+        newMenu.Text = "frm Employee Details 2"
+        Me.ActionsMenu.DropDownItems.Add(newMenu)
+        AddHandler newMenu.Click, AddressOf ShowEmployeeEditTest
+
     End Sub
 
     Private Sub setupMenue(ByVal menuname As String, ByVal text As String, ByVal editForm As String)
@@ -153,6 +160,12 @@ Public Class MDIParent
                 Exit For
             End If
         Next
+
+    End Sub
+
+    Private Sub ShowEmployeeEditTest(sender As Object, e As EventArgs)
+        Dim f As New frmEmployeeDetails2
+        f.Show()
 
     End Sub
 

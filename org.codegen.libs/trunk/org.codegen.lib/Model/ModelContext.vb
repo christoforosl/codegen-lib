@@ -268,29 +268,56 @@ Namespace Model
 
         End Function
 
+        Public Shared Function GetModelDefaultMapper(ByVal modelType As Type) _
+                       As DBMapper
+
+            'get default dbMapper
+            Dim sattr As DefaultMapperAttr = CType(Attribute.GetCustomAttribute(modelType, _
+                                                        GetType(DefaultMapperAttr)), DefaultMapperAttr)
+
+            If sattr Is Nothing Then
+                Throw New ApplicationException( _
+                    String.Format("Call to ModelContext.Save/Load Model Object must pass a model object with attribute DefaultMapperAttr set. ""{0}"" does not have the attribute set.", _
+                    modelType.ToString))
+            End If
+            Dim mapper As DBMapper = CType(Activator.CreateInstance(sattr.defaultMapper),  _
+                                            DBMapper)
+
+            Return mapper
+
+        End Function
+
+        Public Shared Function GetModelDefaultMapper(ByVal modelObjectInstance As IModelObject) _
+                        As DBMapper
+
+            Return GetModelDefaultMapper(modelObjectInstance.GetType)
+
+        End Function
 
         ''' <summary>
         ''' 
         ''' </summary>
         ''' <param name="modelObjectInstance">The model Object to save</param>
         ''' <remarks></remarks>
-        Public Sub saveModelObject(modelObjectInstance As ModelObject)
+        Public Sub saveModelObject(modelObjectInstance As IModelObject)
 
-            Dim sattr As DefaultMapperAttr = CType(Attribute.GetCustomAttribute(modelObjectInstance.GetType, _
-                                                        GetType(DefaultMapperAttr)), DefaultMapperAttr)
-
-            If sattr Is Nothing Then
-                Throw New ApplicationException( _
-                    String.Format("Call to ModelContext.Save must pass a model object with attribute DefaultMapperAttr set. ""{0}"" does not have the attribute set.", _
-                    modelObjectInstance.GetType.ToString))
-            End If
-
-            Dim tmp As DBMapper = CType(Activator.CreateInstance(sattr.defaultMapper),  _
-                                            DBMapper)
-
-            tmp.save(modelObjectInstance)
+            Dim mapper As DBMapper = GetModelDefaultMapper(modelObjectInstance)
+            mapper.save(modelObjectInstance)
 
         End Sub
+
+        ''' <summary>
+        ''' 
+        ''' </summary>
+        ''' <param name="modelObjectInstance">The model Object to save</param>
+        ''' <remarks></remarks>
+        Public Sub deleteModelObject(modelObjectInstance As IModelObject)
+
+            Dim mapper As DBMapper = GetModelDefaultMapper(modelObjectInstance)
+            mapper.delete(modelObjectInstance)
+
+        End Sub
+
 
         Public Function loadModelObject(Of T As ModelObject)(id As Integer) As T
             ''Public Function Blah(Of T As {IImplementedByT})(Foo As T)
