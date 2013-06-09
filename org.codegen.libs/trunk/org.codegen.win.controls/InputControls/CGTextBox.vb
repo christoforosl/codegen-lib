@@ -67,6 +67,27 @@ Public Class CGTextBox
     Public Overridable Property FormatPattern() As String
 
     ''' <summary>
+    ''' The name of the field that corresponds to the name of the ModelObject property
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private _DataPropertyName As String
+
+    ''' <summary>
+    ''' Gets/Sets the DataPropertyName
+    ''' </summary>
+    Public Property DataPropertyName As String Implements ICGBaseControl.DataPropertyName
+        Get
+            If String.IsNullOrEmpty(_DataPropertyName) Then
+                Return Me.Name
+            End If
+            Return _DataPropertyName
+        End Get
+        Set(value As String)
+            _DataPropertyName = value
+        End Set
+    End Property
+
+    ''' <summary>
     ''' We need to remove the accents so we override default.net 
     ''' behavior 
     ''' </summary>
@@ -323,6 +344,6 @@ Public Class CGTextBox
     Public Property showAsteriskForMandatory As Boolean = True _
                 Implements ICGBaseControl.showAsteriskForMandatory
 
-    Public Property DataPropertyName As String Implements ICGBaseControl.DataPropertyName
+
        
 End Class

@@ -12,6 +12,27 @@ Public Class CGCheckBox
     Public Property MinValue As String Implements ICGBaseControl.MinValue
     Public Property ErrProvider As ErrorProvider Implements ICGBaseControl.ErrProvider
 
+    ''' <summary>
+    ''' The name of the field that corresponds to the name of the ModelObject property
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private _DataPropertyName As String
+
+    ''' <summary>
+    ''' Gets/Sets the DataPropertyName
+    ''' </summary>
+    Public Property DataPropertyName As String Implements ICGBaseControl.DataPropertyName
+        Get
+            If String.IsNullOrEmpty(_DataPropertyName) Then
+                Return Me.Name
+            End If
+            Return _DataPropertyName
+        End Get
+        Set(value As String)
+            _DataPropertyName = value
+        End Set
+    End Property
+
     Public Property AssociatedLabel As Label Implements ICGBaseControl.AssociatedLabel
         Get
             Return _AssociatedLabel
@@ -103,6 +124,6 @@ Public Class CGCheckBox
     Public Property showAsteriskForMandatory As Boolean = True _
         Implements ICGBaseControl.showAsteriskForMandatory
 
-    Public Property DataPropertyName As String Implements ICGBaseControl.DataPropertyName
+
        
 End Class
