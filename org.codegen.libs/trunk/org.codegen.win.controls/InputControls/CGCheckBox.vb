@@ -121,9 +121,5 @@ Public Class CGCheckBox
         Me.ReadOnly = True
     End Sub
 
-    Public Property showAsteriskForMandatory As Boolean = True _
-        Implements ICGBaseControl.showAsteriskForMandatory
 
-
-       
 End Class

@@ -394,7 +394,8 @@ Public Class CGComboBox
     Private Sub _ParentChanged(ByVal sender As Object, ByVal e As System.EventArgs) _
                        Handles Me.ParentChanged
 
-        If Not Me.DesignMode AndAlso Me.isMandatory AndAlso Me.showAsteriskForMandatory Then
+        If Not Me.DesignMode AndAlso Me.isMandatory _
+                    AndAlso FormsApplicationContext.current.showAsteriskForMandatoryFields Then
 
             CGTextBox.addAsteriskLabel(CType(Me, Control), CType(Me.Parent, Control))
 
@@ -405,9 +406,6 @@ Public Class CGComboBox
     Public Sub makeReadOnly() Implements IReadOnlyEnabled.setReadOnly
         Me.ReadOnly = True
     End Sub
-
-    Public Property showAsteriskForMandatory As Boolean = True _
-                Implements ICGBaseControl.showAsteriskForMandatory
 
 
 
