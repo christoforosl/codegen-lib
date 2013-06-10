@@ -39,7 +39,7 @@ Public Class DBTranslator
 
         skey = key.Trim
         slang = inLang.Trim
-        If slang = String.Empty Then slang = TranslatedStringsProvider.LANG_ENGLISH
+        If slang = String.Empty Then slang = Translator.LANG_ENGLISH
 
         If _insertDefaultTranslatorKey Then
             Me.insertInitialLangValue(skey)
@@ -50,7 +50,7 @@ Public Class DBTranslator
 
         If tmp = String.Empty Then
             'is null, take english as the default
-            If slang <> TranslatedStringsProvider.LANG_ENGLISH Then
+            If slang <> Translator.LANG_ENGLISH Then
                 tmp = dbConn.getSValueWithParams(sql, UCase(skey), slang)
             End If
             retrieveStringFromStore = tmp

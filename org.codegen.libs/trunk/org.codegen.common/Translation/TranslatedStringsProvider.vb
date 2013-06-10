@@ -12,13 +12,6 @@ Namespace TranslationServices
     ''' <remarks></remarks>
     Public MustInherit Class TranslatedStringsProvider
 
-        Public Shared ReadOnly CULT_GREEK_GREECE As String = "EL-GR"
-        Public Shared ReadOnly CULT_GREEK_CY As String = "EL-CY"
-        Public Shared ReadOnly CULT_ENGLISH_UK As String = "EN-GB"
-
-        Public Shared ReadOnly LANG_GREEK As String = "EL"
-        Public Shared ReadOnly LANG_ENGLISH As String = "EN"
-
         Protected Const LABEL_KEY As String = "_label"
         Protected cachedStrings As Dictionary(Of String, String)
 
@@ -111,8 +104,6 @@ Namespace TranslationServices
             Me.cachedStrings = New Dictionary(Of String, String)()
 
         End Sub
-
-
-
     End Class
+
 End Namespace
