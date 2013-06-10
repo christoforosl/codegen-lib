@@ -8,10 +8,9 @@ Imports org.codegen.common.TranslationServices
 ''' </summary>
 ''' <remarks></remarks>
 Public Class frmBaseModelObjectEdit
+    Implements IChangeTrackable
 
-    Protected Const LABEL_KEY As String = "_label"
-
-    
+    Private _lastLoadedvalues As String
 
     Private Function getBindableControls(contCtrl As ContainerControl) _
                             As IEnumerable(Of ICGBaseControl)
@@ -129,6 +128,31 @@ Public Class frmBaseModelObjectEdit
     Private Sub frmBaseModelObjectEdit_Load(sender As Object, e As System.EventArgs) Handles Me.Load
 
         Call Me.LoadData()
+        Call Me.resetLastLoadedValues()
 
     End Sub
+
+    Public Function getConcatenatedControlValues() As String Implements IChangeTrackable.getConcatenatedControlValues
+
+        Return UcBaseEditControl.getConcatenatedControlValues(Me)
+
+    End Function
+
+    Public Function hasChanges() As Boolean Implements IChangeTrackable.hasChanges
+        Return Not (Me._lastLoadedvalues.Equals(Me.getConcatenatedControlValues()))
+    End Function
+
+    Public Sub resetLastLoadedValues() Implements IChangeTrackable.resetLastLoadedValues
+        Me._lastLoadedvalues = Me.getConcatenatedControlValues()
+    End Sub
+
+    ''' <summary>
+    ''' Examines whether data has changed on the screen sice we loaded the data in the controls
+    ''' </summary>
+    Public Overrides Function dataChanged() As Boolean
+
+        Return Me._lastLoadedvalues <> Me.getConcatenatedControlValues()
+
+    End Function
+
 End Class
