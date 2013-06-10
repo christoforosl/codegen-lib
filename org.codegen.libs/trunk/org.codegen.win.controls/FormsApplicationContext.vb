@@ -42,7 +42,7 @@ Public Class FormsApplicationContext
 
     Private _Translator As TranslatedStringsProvider
 
-    Public Property showAsteriskForMandatoryFields As Boolean
+    Public Property MarkMandatoryFieldsWithAsterisk As Boolean = True
 
     Public Property Translator() As TranslatedStringsProvider
 

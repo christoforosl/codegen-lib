@@ -102,6 +102,7 @@ Public Class CGTextBox
             _AssociatedLabel = value
             If _AssociatedLabel IsNot Nothing Then
                 _AssociatedLabel.Font = FormsApplicationContext.current.ApplicationDefaultFont
+
             End If
 
         End Set
@@ -112,10 +113,8 @@ Public Class CGTextBox
             Return _isMandatory
         End Get
         Set(ByVal value As Boolean)
-
             _isMandatory = value
             CGTextBox.setbackColor(Me)
-
         End Set
 
     End Property
@@ -200,35 +199,14 @@ Public Class CGTextBox
 
     End Sub
 
-    Private Sub _ParentChanged(ByVal sender As Object, ByVal e As System.EventArgs) _
-                        Handles Me.ParentChanged
-
-        If Not Me.DesignMode AndAlso _
+    Private Sub CGTextBox_ParentChanged(sender As Object, e As System.EventArgs) Handles Me.ParentChanged
+        If _AssociatedLabel IsNot Nothing AndAlso _
                 Me.isMandatory AndAlso _
-               FormsApplicationContext.current.showAsteriskForMandatoryFields Then
+                FormsApplicationContext.current.MarkMandatoryFieldsWithAsterisk Then
 
-            addAsteriskLabel(CType(Me, Control), CType(Me.Parent, Control))
-
+            AddHandler _AssociatedLabel.TextChanged, AddressOf CGTextBox.addAsteriskToLabel
+            Call CGTextBox.addAsteriskToLabel(_AssociatedLabel, New EventArgs)
         End If
-
-    End Sub
-
-    Public Shared Sub addAsteriskLabel(ByVal ctl As Control, ByVal parent As Control)
-
-        If parent Is Nothing Then Exit Sub
-
-        Dim c As New Label
-        c.Text = "*"
-        c.Name = ctl.Name & "ast"
-        c.Location = ctl.Location
-        c.Left = c.Left - 10
-        c.Visible = True
-        c.TextAlign = ContentAlignment.MiddleCenter
-        c.Size = New System.Drawing.Size(10, 20)
-
-        parent.Controls.Add(c)
-        c.BringToFront()
-
     End Sub
 
     Private Sub CGTextBox_Validating(ByVal sender As Object, _
@@ -341,6 +319,19 @@ Public Class CGTextBox
 
     Public Sub makeReadOnly() Implements IReadOnlyEnabled.setReadOnly
         Me.ReadOnly = True
+    End Sub
+
+    Public Shared Sub addAsteriskToLabel(sender As Object, e As EventArgs)
+
+        Dim c As Label = CType(sender, Label)
+        Const STR_Constant As String = " *"
+
+        If Not c.Text.EndsWith(STR_Constant) Then
+            c.Text = c.Text & STR_Constant
+        End If
+
+
+
     End Sub
 
 
