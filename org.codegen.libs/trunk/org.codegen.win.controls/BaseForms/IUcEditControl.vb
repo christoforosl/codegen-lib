@@ -3,6 +3,7 @@
 ''' </summary>
 ''' <remarks></remarks>
 Public Interface IUcEditControl
+    Inherits IChangeTrackable
 
     Property ModelObject As IModelObject 
 
@@ -12,6 +13,9 @@ Public Interface IUcEditControl
     ''' <remarks></remarks>
     Sub loadData()
 
+End Interface
+
+Public Interface IChangeTrackable
     ''' <summary>
     ''' Loads the object from the database and then sets the proeperties 
     ''' of the object from values on the controls
@@ -25,14 +29,14 @@ Public Interface IUcEditControl
     ''' <returns></returns>
     ''' <remarks></remarks>
     Function hasChanges() As Boolean
-    
+
     ''' <summary>
     ''' Returns a String wth all the controls' the text concatenated.
     ''' Used in determining if the form has changes or not
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Function getConcatenatedControlValues() as String
+    Function getConcatenatedControlValues() As String
 
     ''' <summary>
     ''' resets the _lastLoadedvalues variable to the concatenated values
@@ -40,3 +44,4 @@ Public Interface IUcEditControl
     Sub resetLastLoadedValues()
 
 End Interface
+
