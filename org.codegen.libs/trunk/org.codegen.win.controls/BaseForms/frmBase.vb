@@ -60,63 +60,18 @@ Public Class frmBase
 
 #End Region
 
-#Region "Custom Properties"
-
-    
-    Private Shared _isLocalized As Boolean?
-
-    Public Shared ReadOnly Property isLocalized As Boolean
-        Get
-
-            If _isLocalized Is Nothing Then
-                If AppSettings.HasKeys Then
-                    Dim sLocalizedForms As String = AppSettings.Item("LocalizedForms")
-                    If sLocalizedForms IsNot Nothing Then
-                        _isLocalized = (sLocalizedForms.ToLower = "true" _
-                                        OrElse sLocalizedForms = "1")
-                    End If
-                End If
-            End If
-            Return _isLocalized.GetValueOrDefault
-
-        End Get
-
-    End Property
-
-   
-
-#End Region
-
 #Region "Custom Methods"
 
-	Private Sub frmBase_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs) Handles Me.KeyDown
-		'if form is toplevel then close it.
-		If e.KeyCode = Keys.Escape AndAlso Me.TopLevel Then
+    Private Sub frmBase_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs) Handles Me.KeyDown
+        'if form is toplevel then close it.
+        If e.KeyCode = Keys.Escape AndAlso Me.TopLevel Then
             e.Handled = True
             Me.Close()
             Me.Dispose()
 
-		End If
-
-	End Sub
-
-	Public Sub setLocalizedText()
-
-
-		Const STR_FRM_BASE As String = "frmbase"
-		Const STR_FRM_BASE_GRID As String = "frmbasegrid"
-		Const STR_FRM_BASE_EDIT As String = "frmbaseedit"
-
-        If String.IsNullOrEmpty(Me.Name) = False _
-          AndAlso Me.Name.ToLower <> STR_FRM_BASE _
-          AndAlso Me.Name.ToLower <> STR_FRM_BASE_GRID _
-          AndAlso Me.Name.ToLower <> STR_FRM_BASE_EDIT _
-          AndAlso FormsApplicationContext.current.Translator IsNot Nothing Then
-
-            Me.Text = FormsApplicationContext.current.Translator.getString(Me.Name & ".Text")
         End If
 
-	End Sub
+    End Sub
 
 
 #End Region
@@ -150,11 +105,5 @@ Public Class frmBase
 
     End Function
 
-    Private Sub frmBase_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
-        If frmBase.isLocalized Then
-            Me.setLocalizedText()
-        End If
-
-    End Sub
+   
 End Class

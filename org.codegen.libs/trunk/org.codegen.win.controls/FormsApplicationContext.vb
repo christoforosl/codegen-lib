@@ -8,9 +8,12 @@ Imports org.codegen.common.TranslationServices
 Public Class FormsApplicationContext
 
 #Region "Singleton"
+
     Private Shared context As FormsApplicationContext
 
     Private Sub New()
+
+        
 
     End Sub
 
@@ -23,6 +26,9 @@ Public Class FormsApplicationContext
     End Function
 
 #End Region
+
+
+    
 
     ''' <summary>
     ''' If this property is true, then hitting "ENTER" key will validate and save a form
