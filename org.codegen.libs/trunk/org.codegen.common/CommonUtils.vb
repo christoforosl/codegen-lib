@@ -10,8 +10,7 @@ Imports System.Configuration
 
 Public Class CommonUtils
 
-    Public Const STR_POUND As String = "£"
-    Public Const STR_EURO As String = "€"
+   
 
     Public Shared Function getAssemblyVersion(ByVal iAssemly As [Assembly]) As String
 		If iAssemly Is Nothing Then Return String.Empty
@@ -234,69 +233,7 @@ Public Class CommonUtils
 
     End Sub
 
-    ''' <summary>
-    ''' Returns a culture with Greek language and the pound as currency symbol, if 
-    ''' current date is before 31/12/07, else it returns the Euro
-    ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks>
-    ''' </remarks>
-    Private Shared Function CYGreekCulture() As CultureInfo
-
-        Dim ret As CultureInfo = New CultureInfo("el-GR", False)
-        If Date.Today > DateSerial(2007, 31, 1) Then
-            ret.NumberFormat.CurrencySymbol = STR_EURO
-        Else
-            ret.NumberFormat.CurrencySymbol = STR_POUND
-        End If
-
-        ret.NumberFormat.CurrencyPositivePattern = 2
-        ret.NumberFormat.CurrencyNegativePattern = 12
-        ret.NumberFormat.CurrencyDecimalDigits = 2
-        ret.NumberFormat.CurrencyDecimalSeparator = "."
-        ret.NumberFormat.CurrencyGroupSeparator = ","
-
-        ret.NumberFormat.NumberGroupSeparator = ","
-        ret.NumberFormat.NumberDecimalSeparator = "."
-
-        ret.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy"
-
-        Return ret
-
-    End Function
-
-    ''' <summary>
-    ''' Sets the system culture
-    ''' </summary>
-    ''' <param name="slang"></param>
-    ''' <remarks></remarks>
-    Public Shared Sub setSystemCulture(ByVal slang As String)
-
-        Dim ci As CultureInfo
-        If slang = TranslationServices.TranslatedStringsProvider.CULT_ENGLISH_UK Then
-            ci = New CultureInfo(TranslationServices.TranslatedStringsProvider.CULT_ENGLISH_UK)
-        Else
-            ci = CommonUtils.CYGreekCulture
-        End If
-
-        Thread.CurrentThread.CurrentUICulture = ci
-        Thread.CurrentThread.CurrentCulture = ci
-
-    End Sub
-
-    Public Shared Sub setSystemCulture(ByVal slang As String, ByVal currencySymbol As String)
-
-        Dim ci As CultureInfo
-        If slang = TranslationServices.TranslatedStringsProvider.CULT_ENGLISH_UK Then
-            ci = New CultureInfo(TranslationServices.TranslatedStringsProvider.CULT_ENGLISH_UK)
-        Else
-            ci = CommonUtils.CYGreekCulture
-        End If
-        ci.NumberFormat.CurrencySymbol = currencySymbol
-        Thread.CurrentThread.CurrentUICulture = ci
-        Thread.CurrentThread.CurrentCulture = ci
-
-    End Sub
+   
 
 
     Public Shared Function ReadSetting(ByVal skey As String, ByVal sConfigSection As String) As String
