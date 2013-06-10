@@ -13,8 +13,6 @@ Public Class FormsApplicationContext
 
     Private Sub New()
 
-        
-
     End Sub
 
     Public Shared Function current() As FormsApplicationContext
@@ -27,8 +25,6 @@ Public Class FormsApplicationContext
 
 #End Region
 
-
-    
 
     ''' <summary>
     ''' If this property is true, then hitting "ENTER" key will validate and save a form
@@ -45,6 +41,8 @@ Public Class FormsApplicationContext
 
 
     Private _Translator As TranslatedStringsProvider
+
+    Public Property showAsteriskForMandatoryFields As Boolean
 
     Public Property Translator() As TranslatedStringsProvider
 
