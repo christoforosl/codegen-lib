@@ -233,22 +233,32 @@ Public Class frmBaseEdit
     Private Sub frmBaseEdit_FormClosing(ByVal sender As Object, ByVal e As FormClosingEventArgs) Handles Me.FormClosing
 
         If e.CloseReason = CloseReason.UserClosing Then
-            If CancelAndClose() = False Then
+            If canCancelAndClose() = False Then
                 e.Cancel = True
             End If
         End If
     End Sub
 
-    Private Sub frmBaseEdit_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs) Handles Me.KeyDown
+    Public Overrides Sub handleEscapeKey()
 
-        If e.KeyCode = Keys.Escape Then
-            'only close form if top level
-            If Me.TopLevel Then
+        If Me.TopLevel Then
+            If canCancelAndClose() Then
                 Me.DialogResult = Windows.Forms.DialogResult.Cancel
-                e.Handled = True
             End If
 
-        ElseIf e.KeyCode = Keys.Enter Then
+        End If
+
+    End Sub
+
+    Private Sub frmBaseEdit_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs) Handles Me.KeyDown
+
+        'the enter key is handled in the frmBase
+        'If e.KeyCode = Keys.Escape Then
+        '    'only close form if top level
+        '    Call handleEscapeKey()
+        '    e.Handled = True
+
+        If e.KeyCode = Keys.Enter Then
             If Me.SaveOnEnterKey Then
                 Me.ValidateAndSaveRecord()
                 e.Handled = True
@@ -375,7 +385,7 @@ Public Class frmBaseEdit
     ''' Sets the status text of the form, ie the text that appears on the 
     ''' status bar at the bottom of the form
     ''' </summary>
-   Public Sub UpdateStatus(ByVal txt As String)
+    Public Sub UpdateStatus(ByVal txt As String)
         Me.lblEditStatus.Text = txt
         Me.lblEditStatus.ForeColor = Color.Black
     End Sub
@@ -483,17 +493,27 @@ Public Class frmBaseEdit
 
     End Function
 
-    Private Function CancelAndClose() As Boolean
+    ''' <summary>
+    ''' If the form has dirty data *AND* the user confirms close, this function returns true
+    ''' if the form has no dirty data, it return false (ie, go ahead and close form)
+    ''' If the form 
+    ''' </summary>
+    ''' <returns>True if the form can be closed</returns>
+    ''' <remarks></remarks>
+    Private Function canCancelAndClose() As Boolean
 
-        If Me.UcEditToolar.cmdSave.Enabled AndAlso Me.dataChanged Then
+        Dim confirMsg As String = WinControlsLocalizer.getString("confirm_close_and_loose_changes")
+        Dim dirty As Boolean = Me.dataChanged
+        'MsgBox("dirrty:" & dirty)
+        If Me.UcEditToolar.cmdSave.Enabled AndAlso _
+                dirty AndAlso _
+                winUtils.MsgboxQuestion(confirMsg) = MsgBoxResult.No Then
 
-            If winUtils.MsgboxQuestion(WinControlsLocalizer.getString("confirm_close_and_loose_changes")) = MsgBoxResult.Yes Then
-                Return True
-            End If
             Return False
-        Else
-            Return True
+
         End If
+
+        Return True
 
     End Function
 
@@ -507,8 +527,6 @@ Public Class frmBaseEdit
 #End Region
 
 #Region "Load, Save, Delete"
-
-   
 
     ''' <summary>
     ''' LoadData 
@@ -601,7 +619,7 @@ Public Class frmBaseEdit
 
     Private Sub UcEditToolar1_Cancel_Click(ByVal sender As Object, ByVal e As EventArgs)
 
-        If CancelAndClose() Then
+        If canCancelAndClose() Then
             Me.DialogResult = Windows.Forms.DialogResult.Cancel
         End If
 

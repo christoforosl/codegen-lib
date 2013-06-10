@@ -111,22 +111,6 @@ Public Class UcBaseEditControl
 
     End Function
 
-    Private Function getConcatenatedControlValues(ByVal cparent As Control) As String
-        Dim ret As String = String.Empty
-
-        For Each c As Control In cparent.Controls
-            If TypeOf c Is ICGBaseControl Then
-                Dim lCValue As Object = CType(c, ICGBaseControl).Value
-                If lCValue IsNot Nothing Then
-                    ret = ret & lCValue.ToString
-                End If
-
-            Else
-                ret = ret & getConcatenatedControlValues(c)
-            End If
-        Next
-        Return ret
-    End Function
 
     ''' <summary>
     ''' Loads the object from the database and then sets the proeperties 
@@ -157,4 +141,22 @@ Public Class UcBaseEditControl
 		Me.assignErrProvider(Me)
 	End Sub
 
+
+
+    Public Shared Function getConcatenatedControlValues(ByVal cparent As Control) As String
+        Dim ret As String = String.Empty
+
+        For Each c As Control In cparent.Controls
+            If TypeOf c Is ICGBaseControl Then
+                Dim lCValue As Object = CType(c, ICGBaseControl).Value
+                If lCValue IsNot Nothing Then
+                    ret = ret & lCValue.ToString
+                End If
+
+            Else
+                ret = ret & getConcatenatedControlValues(c)
+            End If
+        Next
+        Return ret
+    End Function
 End Class

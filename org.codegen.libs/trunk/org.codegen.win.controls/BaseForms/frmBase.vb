@@ -64,15 +64,21 @@ Public Class frmBase
 
     Private Sub frmBase_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs) Handles Me.KeyDown
         'if form is toplevel then close it.
-        If e.KeyCode = Keys.Escape AndAlso Me.TopLevel Then
+        If e.KeyCode = Keys.Escape Then
+            Call handleEscapeKey()
             e.Handled = True
-            Me.Close()
-            Me.Dispose()
-
         End If
 
     End Sub
 
+    Public Overridable Sub handleEscapeKey()
+
+        If Me.TopLevel Then
+            Me.Close()
+            Me.Dispose()
+        End If
+
+    End Sub
 
 #End Region
 

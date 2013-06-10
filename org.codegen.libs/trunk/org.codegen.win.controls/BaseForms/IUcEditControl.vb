@@ -13,15 +13,17 @@ Public Interface IUcEditControl
     ''' <remarks></remarks>
     Sub loadData()
 
-End Interface
-
-Public Interface IChangeTrackable
     ''' <summary>
     ''' Loads the object from the database and then sets the proeperties 
     ''' of the object from values on the controls
     ''' </summary>
     ''' <remarks></remarks>
     Sub loadToObject()
+
+End Interface
+
+Public Interface IChangeTrackable
+   
 
     ''' <summary>
     ''' Returns true if data on control has changed
