@@ -41,6 +41,8 @@ Public Class CGCheckBox
             _AssociatedLabel = value
             If _AssociatedLabel IsNot Nothing Then
                 _AssociatedLabel.Font = FormsApplicationContext.current.ApplicationDefaultFont
+
+                
             End If
 
         End Set
@@ -122,4 +124,15 @@ Public Class CGCheckBox
     End Sub
 
 
+    Private Sub CGCheckBox_ParentChanged(sender As Object, e As System.EventArgs) Handles Me.ParentChanged
+
+        If _AssociatedLabel IsNot Nothing AndAlso _
+                Me.isMandatory AndAlso _
+                FormsApplicationContext.current.MarkMandatoryFieldsWithAsterisk Then
+
+            AddHandler _AssociatedLabel.TextChanged, AddressOf CGTextBox.addAsteriskToLabel
+            Call CGTextBox.addAsteriskToLabel(_AssociatedLabel, New EventArgs)
+        End If
+
+    End Sub
 End Class

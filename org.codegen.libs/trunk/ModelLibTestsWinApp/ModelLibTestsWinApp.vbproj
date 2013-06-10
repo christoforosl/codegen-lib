@@ -269,6 +269,12 @@
     <EmbeddedResource Include="Forms\Edit\frmProjectDetails.resx">
       <DependentUpon>frmProjectDetails.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmEditableProjectList.resx">
+      <DependentUpon>frmEditableProjectList.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmEditableProjectListSingleRow.resx">
+      <DependentUpon>frmEditableProjectListSingleRow.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmReadOnlyProjectDetails.resx">
       <DependentUpon>frmReadOnlyProjectDetails.vb</DependentUpon>
     </EmbeddedResource>
