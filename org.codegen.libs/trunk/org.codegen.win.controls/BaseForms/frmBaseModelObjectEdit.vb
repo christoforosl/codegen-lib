@@ -20,10 +20,6 @@ Public Class frmBaseModelObjectEdit
 
         For Each c As Control In contCtrl.Controls
 
-            If TypeOf c Is Label Then
-                CType(c, Label).Text = Translator.getString(c.Name & LABEL_KEY)
-            End If
-
             If TypeOf c Is ICGBaseControl AndAlso _
                 String.IsNullOrEmpty(CType(c, ICGBaseControl).DataPropertyName) = False Then
 
