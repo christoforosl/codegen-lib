@@ -12,7 +12,6 @@ Namespace TranslationServices
     ''' <remarks></remarks>
     Public MustInherit Class TranslatedStringsProvider
 
-        Protected Const LABEL_KEY As String = "_label"
         Protected cachedStrings As Dictionary(Of String, String)
 
         ''' <summary>

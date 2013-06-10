@@ -1,5 +1,6 @@
 ﻿Imports System.Collections.Generic
 Imports System.ComponentModel
+Imports org.codegen.common.TranslationServices
 
 ''' <summary>
 ''' Base form Class that can be used to Load/Save model Objects.
@@ -8,12 +9,21 @@ Imports System.ComponentModel
 ''' <remarks></remarks>
 Public Class frmBaseModelObjectEdit
 
+    Protected Const LABEL_KEY As String = "_label"
+
+    
+
     Private Function getBindableControls(contCtrl As ContainerControl) _
                             As IEnumerable(Of ICGBaseControl)
 
         Dim ret As New List(Of ICGBaseControl)
 
         For Each c As Control In contCtrl.Controls
+
+            If TypeOf c Is Label Then
+                CType(c, Label).Text = Translator.getString(c.Name & LABEL_KEY)
+            End If
+
             If TypeOf c Is ICGBaseControl AndAlso _
                 String.IsNullOrEmpty(CType(c, ICGBaseControl).DataPropertyName) = False Then
 
@@ -121,6 +131,8 @@ Public Class frmBaseModelObjectEdit
 
 
     Private Sub frmBaseModelObjectEdit_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-        Me.LoadData()
+
+        Call Me.LoadData()
+
     End Sub
 End Class

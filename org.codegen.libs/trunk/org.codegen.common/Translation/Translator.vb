@@ -78,21 +78,27 @@ Namespace TranslationServices
 
         End Sub
 
-        Public Sub setSystemCulture(ByVal slang As String, ByVal currencySymbol As String)
+        Public Function getSystemCulture() As CultureInfo
 
-            Dim ci As CultureInfo
-            If slang = TranslationServices.Translator.LANG_ENGLISH OrElse _
-                        slang = TranslationServices.Translator.CULT_ENGLISH_UK Then
+            Return Thread.CurrentThread.CurrentUICulture
 
-                ci = New CultureInfo(TranslationServices.Translator.CULT_ENGLISH_UK)
-            Else
-                ci = CYGreekCulture()
-            End If
-            ci.NumberFormat.CurrencySymbol = currencySymbol
-            Thread.CurrentThread.CurrentUICulture = ci
-            Thread.CurrentThread.CurrentCulture = ci
+        End Function
 
-        End Sub
+        'Public Sub setSystemCulture(ByVal slang As String, ByVal currencySymbol As String)
+
+        '    Dim ci As CultureInfo
+        '    If slang = TranslationServices.Translator.LANG_ENGLISH OrElse _
+        '                slang = TranslationServices.Translator.CULT_ENGLISH_UK Then
+
+        '        ci = New CultureInfo(TranslationServices.Translator.CULT_ENGLISH_UK)
+        '    Else
+        '        ci = CYGreekCulture()
+        '    End If
+        '    ci.NumberFormat.CurrencySymbol = currencySymbol
+        '    Thread.CurrentThread.CurrentUICulture = ci
+        '    Thread.CurrentThread.CurrentCulture = ci
+
+        'End Sub
 
         ''' <summary>
         ''' Gets/Sets the instance of a TranslatedStringsProvider to retieve translated strings
