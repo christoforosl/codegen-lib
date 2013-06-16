@@ -97,10 +97,10 @@ Public Class frmBaseGrid
 
             _allowEdit = value
 
-            Me.cmdEdit.Visible = value
-            Me.cmdEdit.Enabled = Not value
-            Me.mnEdit.Visible = value
-            Me.mnEdit.Enabled = Not value
+            Me.cmdEdit.Visible = _allowEdit
+            Me.cmdEdit.Enabled = _allowEdit
+            Me.mnEdit.Visible = _allowEdit
+            Me.mnEdit.Enabled = _allowEdit
 
         End Set
     End Property
@@ -114,9 +114,9 @@ Public Class frmBaseGrid
             _allowAddNew = value
 
             Me.cmdAdd.Visible = value
-            Me.cmdAdd.Enabled = Not value
+            Me.cmdAdd.Enabled = value
             Me.mnAdd.Visible = value
-            Me.mnAdd.Enabled = Not value
+            Me.mnAdd.Enabled = value
 
         End Set
     End Property
@@ -129,9 +129,9 @@ Public Class frmBaseGrid
         Set(ByVal value As Boolean)
             _AllowDelete = value
             Me.cmdDelete.Visible = value
-            Me.cmdDelete.Enabled = Not value
+            Me.cmdDelete.Enabled = value
             Me.mnDelete.Visible = value
-            Me.mnDelete.Enabled = Not value
+            Me.mnDelete.Enabled = value
 
         End Set
 
@@ -144,23 +144,34 @@ Public Class frmBaseGrid
         End Get
         Set(ByVal value As enumGridFormMode)
             _GridMode = value
-
-            Me.pnlSelectToolbar.Visible = (Me._GridMode = enumGridFormMode.MODE_SELECT)
-            Me.pnlEditToolbar.Visible = (Me._GridMode = enumGridFormMode.MODE_LIST)
-
-            If (Me._GridMode = enumGridFormMode.MODE_SELECT) Then
-                Me.MaximizeBox = False
-                Me.MinimizeBox = False
-                Me.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedDialog
-            Else
-                Me.MaximizeBox = True
-                Me.MinimizeBox = True
-                Me.FormBorderStyle = Windows.Forms.FormBorderStyle.Sizable
-            End If
+            Me.configureFormByMode()
 
         End Set
 
     End Property
+
+
+    Private Sub configureFormByMode()
+
+        Me.cmdSelectAndClose.Visible = (Me._GridMode = enumGridFormMode.MODE_SELECT)
+        Me.cmdSelectCancel.Visible = (Me._GridMode = enumGridFormMode.MODE_SELECT)
+        Me.AllowEdit = (Me._GridMode = enumGridFormMode.MODE_LIST)
+        Me.AllowDelete = (Me._GridMode = enumGridFormMode.MODE_LIST)
+        Me.AllowAddNew = (Me._GridMode = enumGridFormMode.MODE_LIST)
+        Me.ShowExcelButton = (Me._GridMode = enumGridFormMode.MODE_LIST)
+
+        If (Me._GridMode = enumGridFormMode.MODE_SELECT) Then
+            Me.MaximizeBox = False
+            Me.MinimizeBox = False
+            Me.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedDialog
+
+        Else
+            Me.MaximizeBox = True
+            Me.MinimizeBox = True
+            Me.FormBorderStyle = Windows.Forms.FormBorderStyle.Sizable
+        End If
+
+    End Sub
 
     Private Sub frmBaseGrid_KeyDown(ByVal sender As Object, _
                                     ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
@@ -215,7 +226,7 @@ Public Class frmBaseGrid
         Me.ShowPrintButton = False
 
         If Not Me.DesignMode Then
-
+            Me.configureFormByMode()
             AddHandler Me.grdData.GridDataLoaded, AddressOf gridDataLoaded
 
             Me.tsReportButton.Visible = False
@@ -230,14 +241,9 @@ Public Class frmBaseGrid
             Me.cmdConfigureGrid.Text = WinControlsLocalizer.getString("cmdChooseGridFields")
 
             Me.tsLblSearch.Text = WinControlsLocalizer.getString("Search")
-            Me.tsLblSearch2.Text = WinControlsLocalizer.getString("Search")
-
-
 
             'only show the search textbox if search fields are defined
             Me.ShowSearch = Me.ShowSearch AndAlso Me.grdData.gpSearchFields.Count > 0
-            Me.ShowConfigButton = False 'for the moment do not show the config button
-
 
             If Me.grdData.gpSearchFields IsNot Nothing AndAlso _
                         Me.grdData.gpSearchFields.Count > 0 Then
@@ -257,12 +263,9 @@ Public Class frmBaseGrid
                     tsmiSearch.Text = sf
                     tsmiSearch.Visible = True
 
-                    If Me.GridMode = enumGridFormMode.MODE_LIST Then
-                        Me.tsLblSearch.DropDownItems.Add(tsmiSearch)
-                    Else
-                        Me.tsLblSearch2.DropDownItems.Add(tsmiSearch)
-                    End If
 
+                    Me.tsLblSearch.DropDownItems.Add(tsmiSearch)
+                    
 
                 Next
 
@@ -272,7 +275,6 @@ Public Class frmBaseGrid
             Call winUtils.sizeMdiChild(Me)
 
         End If
-
 
 
     End Sub
@@ -330,17 +332,12 @@ Public Class frmBaseGrid
     <Description("Show or Hide the search tetbox on the toolbar.")> _
     Public Property ShowSearch() As Boolean
         Get
-            Return Me.tsTxtSearch.Visible OrElse Me.tsTxtSearch2.Visible
+            Return Me.tsTxtSearch.Visible
         End Get
         Set(ByVal value As Boolean)
             Me.tsTxtSearch.Visible = value
             Me.tsLblSearch.Visible = value
             Me.tsepSearch.Visible = value
-
-            Me.tsTxtSearch2.Visible = value
-            Me.tsLblSearch2.Visible = value
-            Me.tsepSearch2.Visible = value
-
         End Set
 
     End Property
@@ -368,7 +365,7 @@ Public Class frmBaseGrid
     End Sub
 
     Private Sub tsTxtSearch_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs) _
-                Handles tsTxtSearch.KeyDown, tsTxtSearch2.KeyDown
+                Handles tsTxtSearch.KeyDown
 
         If e.KeyCode <> Keys.Enter Then Exit Sub
         Dim searchTerm As String = CType(sender, ToolStripTextBox).Text.Trim

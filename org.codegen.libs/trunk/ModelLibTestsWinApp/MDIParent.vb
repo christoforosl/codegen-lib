@@ -19,10 +19,10 @@ Public Class MDIParent
 
         ModelContext.Current.addGlobalModelValidator(GetType(Employee), GetType(SampleEmployeeGlobalValidator))
 
-        Dim pro As New BackroundProgressIndicator.BackroundProgressIndicator
-        pro.showCancel = False
-        pro.progressWindowTitle = "this is a test"
-        pro.Start(AddressOf dowork)
+        'Dim pro As New BackroundProgressIndicator.BackroundProgressIndicator
+        'pro.showCancel = False
+        'pro.progressWindowTitle = "this is a test"
+        'pro.Start(AddressOf dowork)
 
     End Sub
 

@@ -19,9 +19,8 @@ Partial Class frmBaseGrid
 
         ' This call is required by the designer.
         InitializeComponent()
-        Me.GridMode = enumGridFormMode.MODE_LIST
-        ' Add any initialization after the InitializeComponent() call.
 
+        ' Add any initialization after the InitializeComponent() call.
         Me.Font = FormsApplicationContext.current.ApplicationDefaultFont
 
     End Sub
@@ -38,13 +37,8 @@ Partial Class frmBaseGrid
         Me.mnEdit = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnDelete = New System.Windows.Forms.ToolStripMenuItem()
         Me.pnlGrid = New System.Windows.Forms.Panel()
-        Me.pnlSelectToolbar = New System.Windows.Forms.Panel()
-        Me.tlSripSelectMode = New System.Windows.Forms.ToolStrip()
         Me.cmdSelectAndClose = New System.Windows.Forms.ToolStripButton()
         Me.cmdSelectCancel = New System.Windows.Forms.ToolStripButton()
-        Me.tsepSearch2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.tsLblSearch2 = New System.Windows.Forms.ToolStripDropDownButton()
-        Me.tsTxtSearch2 = New System.Windows.Forms.ToolStripTextBox()
         Me.pnlEditToolbar = New System.Windows.Forms.Panel()
         Me.tlStripList = New System.Windows.Forms.ToolStrip()
         Me.cmdAdd = New System.Windows.Forms.ToolStripButton()
@@ -59,8 +53,6 @@ Partial Class frmBaseGrid
         Me.tsTxtSearch = New System.Windows.Forms.ToolStripTextBox()
         Me.tsReportButton = New System.Windows.Forms.ToolStripDropDownButton()
         Me.mnActions.SuspendLayout()
-        Me.pnlSelectToolbar.SuspendLayout()
-        Me.tlSripSelectMode.SuspendLayout()
         Me.pnlEditToolbar.SuspendLayout()
         Me.tlStripList.SuspendLayout()
         Me.SuspendLayout()
@@ -95,28 +87,10 @@ Partial Class frmBaseGrid
         'pnlGrid
         '
         Me.pnlGrid.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlGrid.Location = New System.Drawing.Point(0, 53)
+        Me.pnlGrid.Location = New System.Drawing.Point(0, 25)
         Me.pnlGrid.Name = "pnlGrid"
-        Me.pnlGrid.Size = New System.Drawing.Size(971, 301)
+        Me.pnlGrid.Size = New System.Drawing.Size(971, 329)
         Me.pnlGrid.TabIndex = 3
-        '
-        'pnlSelectToolbar
-        '
-        Me.pnlSelectToolbar.Controls.Add(Me.tlSripSelectMode)
-        Me.pnlSelectToolbar.Dock = System.Windows.Forms.DockStyle.Top
-        Me.pnlSelectToolbar.Location = New System.Drawing.Point(0, 0)
-        Me.pnlSelectToolbar.Name = "pnlSelectToolbar"
-        Me.pnlSelectToolbar.Size = New System.Drawing.Size(971, 28)
-        Me.pnlSelectToolbar.TabIndex = 0
-        '
-        'tlSripSelectMode
-        '
-        Me.tlSripSelectMode.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdSelectAndClose, Me.cmdSelectCancel, Me.tsepSearch2, Me.tsLblSearch2, Me.tsTxtSearch2})
-        Me.tlSripSelectMode.Location = New System.Drawing.Point(0, 0)
-        Me.tlSripSelectMode.Name = "tlSripSelectMode"
-        Me.tlSripSelectMode.Size = New System.Drawing.Size(971, 25)
-        Me.tlSripSelectMode.TabIndex = 0
-        Me.tlSripSelectMode.Text = "ToolStrip1"
         '
         'cmdSelectAndClose
         '
@@ -134,31 +108,11 @@ Partial Class frmBaseGrid
         Me.cmdSelectCancel.Size = New System.Drawing.Size(63, 22)
         Me.cmdSelectCancel.Text = "Cancel"
         '
-        'tsepSearch2
-        '
-        Me.tsepSearch2.Name = "tsepSearch2"
-        Me.tsepSearch2.Size = New System.Drawing.Size(6, 25)
-        '
-        'tsLblSearch2
-        '
-        Me.tsLblSearch2.Name = "tsLblSearch2"
-        Me.tsLblSearch2.Size = New System.Drawing.Size(58, 22)
-        Me.tsLblSearch2.Text = "Search:"
-        '
-        'tsTxtSearch2
-        '
-        Me.tsTxtSearch2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.tsTxtSearch2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.HistoryList
-        Me.tsTxtSearch2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tsTxtSearch2.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(161, Byte))
-        Me.tsTxtSearch2.Name = "tsTxtSearch2"
-        Me.tsTxtSearch2.Size = New System.Drawing.Size(116, 25)
-        '
         'pnlEditToolbar
         '
         Me.pnlEditToolbar.Controls.Add(Me.tlStripList)
         Me.pnlEditToolbar.Dock = System.Windows.Forms.DockStyle.Top
-        Me.pnlEditToolbar.Location = New System.Drawing.Point(0, 28)
+        Me.pnlEditToolbar.Location = New System.Drawing.Point(0, 0)
         Me.pnlEditToolbar.Name = "pnlEditToolbar"
         Me.pnlEditToolbar.Size = New System.Drawing.Size(971, 25)
         Me.pnlEditToolbar.TabIndex = 0
@@ -167,7 +121,7 @@ Partial Class frmBaseGrid
         '
         Me.tlStripList.AccessibleRole = System.Windows.Forms.AccessibleRole.None
         Me.tlStripList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlStripList.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdAdd, Me.cmdEdit, Me.cmdDelete, Me.tsepPrintAndExcel, Me.cmdPrint, Me.cmdExcel, Me.cmdConfigureGrid, Me.tsepSearch, Me.tsLblSearch, Me.tsTxtSearch, Me.tsReportButton})
+        Me.tlStripList.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdSelectAndClose, Me.cmdSelectCancel, Me.cmdAdd, Me.cmdEdit, Me.cmdDelete, Me.tsepPrintAndExcel, Me.cmdPrint, Me.cmdExcel, Me.cmdConfigureGrid, Me.tsepSearch, Me.tsLblSearch, Me.tsTxtSearch, Me.tsReportButton})
         Me.tlStripList.Location = New System.Drawing.Point(0, 0)
         Me.tlStripList.Name = "tlStripList"
         Me.tlStripList.Size = New System.Drawing.Size(971, 25)
@@ -264,16 +218,11 @@ Partial Class frmBaseGrid
         Me.ClientSize = New System.Drawing.Size(971, 354)
         Me.Controls.Add(Me.pnlGrid)
         Me.Controls.Add(Me.pnlEditToolbar)
-        Me.Controls.Add(Me.pnlSelectToolbar)
         Me.MaximizeBox = True
         Me.MinimizeBox = True
         Me.Name = "frmBaseGrid"
         Me.Text = "frmBaseGrid"
         Me.mnActions.ResumeLayout(False)
-        Me.pnlSelectToolbar.ResumeLayout(False)
-        Me.pnlSelectToolbar.PerformLayout()
-        Me.tlSripSelectMode.ResumeLayout(False)
-        Me.tlSripSelectMode.PerformLayout()
         Me.pnlEditToolbar.ResumeLayout(False)
         Me.pnlEditToolbar.PerformLayout()
         Me.tlStripList.ResumeLayout(False)
@@ -296,14 +245,9 @@ Partial Class frmBaseGrid
     Public WithEvents tsLblSearch As System.Windows.Forms.ToolStripDropDownButton
 	Public WithEvents tsTxtSearch As System.Windows.Forms.ToolStripTextBox
 	Friend WithEvents pnlEditToolbar As System.Windows.Forms.Panel
-	Friend WithEvents pnlSelectToolbar As System.Windows.Forms.Panel
-	Friend WithEvents tlSripSelectMode As System.Windows.Forms.ToolStrip
-	Friend WithEvents cmdSelectAndClose As System.Windows.Forms.ToolStripButton
+    Friend WithEvents cmdSelectAndClose As System.Windows.Forms.ToolStripButton
 	Friend WithEvents cmdSelectCancel As System.Windows.Forms.ToolStripButton
-	Public WithEvents tsTxtSearch2 As System.Windows.Forms.ToolStripTextBox
-    Public WithEvents tsLblSearch2 As System.Windows.Forms.ToolStripDropDownButton
-	Public WithEvents tsepSearch2 As System.Windows.Forms.ToolStripSeparator
-	Friend WithEvents mnAdd As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnAdd As System.Windows.Forms.ToolStripMenuItem
 	Friend WithEvents mnEdit As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnDelete As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents tsReportButton As System.Windows.Forms.ToolStripDropDownButton
