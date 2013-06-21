@@ -168,7 +168,7 @@ Public Class frmBaseGrid
         Else
             Me.MaximizeBox = True
             Me.MinimizeBox = True
-            Me.FormBorderStyle = Windows.Forms.FormBorderStyle.Sizable
+            'Me.FormBorderStyle = Windows.Forms.FormBorderStyle.Sizable
         End If
 
     End Sub
