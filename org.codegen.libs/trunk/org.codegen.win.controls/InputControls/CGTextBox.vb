@@ -213,6 +213,7 @@ Public Class CGTextBox
                                      ByVal e As System.ComponentModel.CancelEventArgs) _
                                  Handles Me.Validating
 
+        If Me.DesignMode Then Exit Sub
         If Me.ErrProvider Is Nothing Then Exit Sub
 
         If Me.isMandatory AndAlso String.IsNullOrEmpty(Me.Text) Then
