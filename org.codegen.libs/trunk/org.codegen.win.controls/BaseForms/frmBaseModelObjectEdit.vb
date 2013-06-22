@@ -1,6 +1,5 @@
 ﻿Imports System.Collections.Generic
 Imports System.ComponentModel
-Imports org.codegen.common.TranslationServices
 
 ''' <summary>
 ''' Base form Class that can be used to Load/Save model Objects.
@@ -12,7 +11,7 @@ Public Class frmBaseModelObjectEdit
 
     Private _lastLoadedvalues As String
 
-    Private Function getBindableControls(contCtrl As ContainerControl) _
+    Private Function getBindableControls(contCtrl As Control) _
                             As IEnumerable(Of ICGBaseControl)
 
         Dim ret As New List(Of ICGBaseControl)
@@ -26,10 +25,7 @@ Public Class frmBaseModelObjectEdit
 
             End If
 
-            If TypeOf c Is ContainerControl Then
-                ret.AddRange(getBindableControls(CType(c, ContainerControl)))
-            End If
-
+            ret.AddRange(getBindableControls(CType(c, Control)))
         Next
 
         Return ret
