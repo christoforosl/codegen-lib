@@ -86,6 +86,13 @@ Public Class frmBaseEdit
 #Region "properties"
 
     ''' <summary>
+    ''' Counts the number of sucessfull saves while the form is open.
+    ''' This is because the user can select to leave form open after a save, and then 
+    ''' click "Cancel", in which case we need to refresh grid
+    ''' </summary>
+    Public Property NumberOfRecordsSaved() As Integer = 0
+
+    ''' <summary>
     ''' Returns the form that opened this edit form.
     ''' Usually this will be the list form that the user double clicked 
     ''' to edit a record
@@ -448,10 +455,13 @@ Public Class frmBaseEdit
         Try
             Dim saveResult As enumSaveDataResult = Me.SaveData
             If saveResult = enumSaveDataResult.SAVE_SUCESS_AND_CLOSE Then
+                Me.NumberOfRecordsSaved += 1
                 Me.DialogResult = Windows.Forms.DialogResult.OK
 
             ElseIf saveResult = enumSaveDataResult.SAVE_SUCESS_AND_STAY Then
+                Me.NumberOfRecordsSaved += 1
                 Me.setAlertStatusRecordSaveSuccess()
+
             Else
                 Me.setAlertStatusRecordFailed()
             End If
