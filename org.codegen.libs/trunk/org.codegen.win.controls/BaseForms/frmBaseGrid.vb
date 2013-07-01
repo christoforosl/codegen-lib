@@ -740,8 +740,8 @@ Public Class frmBaseGrid
             f = Me.LoadEditForm()
 
             If Me.PrepareEditForm(IdValue, f) Then
-
-                If f.ShowDialog = Windows.Forms.DialogResult.OK Then
+                f.ShowDialog()
+                If f IsNot Nothing AndAlso f.NumberOfRecordsSaved > 0 Then
                     Call Me.grdData.requery()
                     RaiseEvent gridRowCountChanged(Me.grdData)
 
