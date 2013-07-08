@@ -597,8 +597,12 @@ Public Class frmBaseGrid
     Public Sub addToolbarActionButton(ByVal text As String, _
                             ByVal handler As System.EventHandler, _
                             Optional ByVal witdh As Integer = 60, _
-                            Optional ByVal img As Drawing.Image = Nothing)
+                            Optional ByVal img As Drawing.Image = Nothing, _
+                            Optional ByVal hasSeparator As Boolean = False)
 
+        If hasSeparator Then
+            Call frmBase.addStripItem(Me.tlStripList, New ToolStripSeparator, String.Empty, Nothing)
+        End If
         Call frmBase.addStripItem(Me.tlStripList, New ToolStripButton, _
            text, handler, witdh, img)
 
@@ -769,7 +773,7 @@ Public Class frmBaseGrid
     ''' This method exits without doing anything if: ReadOnly is true, or button cmd delete is disabled.
     ''' After delete is called, the grid is refreshed, regardless if the deletion was successfull
     ''' </remarks>
-    Public Sub ListDeleteRecord()
+    Public Overridable Sub ListDeleteRecord()
 
         If Me.GridMode = enumGridFormMode.MODE_SELECT Then Exit Sub
         If Me.AllowDelete = False Then Exit Sub

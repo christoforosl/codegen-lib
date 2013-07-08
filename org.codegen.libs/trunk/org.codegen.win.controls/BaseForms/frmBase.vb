@@ -105,7 +105,9 @@ Public Class frmBase
         stripItem.Size = New System.Drawing.Size(witdh, 22)
         parentStrip.Items.Add(stripItem)
 
-        AddHandler stripItem.Click, handler
+        If handler IsNot Nothing Then
+            AddHandler stripItem.Click, handler
+        End If
 
         Return stripItem
 
