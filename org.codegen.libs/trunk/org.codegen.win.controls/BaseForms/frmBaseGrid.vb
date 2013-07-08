@@ -664,7 +664,7 @@ Public Class frmBaseGrid
     ''' <summary>
     ''' Loads and returns a reference to the edit form
     ''' </summary>
-    Public Function LoadEditForm() As frmBaseEdit
+    Public Overridable Function LoadEditForm() As frmBaseEdit
 
         If String.IsNullOrEmpty(Me.grdData.gpEditForm) Then
             Throw New ApplicationException("Please set the EditForm property.")
