@@ -245,8 +245,8 @@ Partial Class frmBaseGrid
     Public WithEvents tsLblSearch As System.Windows.Forms.ToolStripDropDownButton
 	Public WithEvents tsTxtSearch As System.Windows.Forms.ToolStripTextBox
 	Friend WithEvents pnlEditToolbar As System.Windows.Forms.Panel
-    Friend WithEvents cmdSelectAndClose As System.Windows.Forms.ToolStripButton
-	Friend WithEvents cmdSelectCancel As System.Windows.Forms.ToolStripButton
+    Public WithEvents cmdSelectAndClose As System.Windows.Forms.ToolStripButton
+    Public WithEvents cmdSelectCancel As System.Windows.Forms.ToolStripButton
     Friend WithEvents mnAdd As System.Windows.Forms.ToolStripMenuItem
 	Friend WithEvents mnEdit As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnDelete As System.Windows.Forms.ToolStripMenuItem
