@@ -416,7 +416,7 @@ Public Class frmBaseEdit
     End Sub
     Public Overridable Sub setAlertStatusOK()
 
-        Me.lblEditStatus.Text = "OK"
+        Me.lblEditStatus.Text = String.Empty
         Me.lblEditStatus.ForeColor = Color.Black
 
     End Sub
