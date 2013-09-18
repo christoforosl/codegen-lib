@@ -106,7 +106,7 @@ Public Class frmBaseModelObjectEdit
                 Me.ModelObjectInstance.setAttribute(c.DataPropertyName, c.Value)
             Next
             ModelContext.Current.saveModelObject(Me.ModelObjectInstance)
-
+            Call Me.resetLastLoadedValues()
             Return enumSaveDataResult.SAVE_SUCESS_AND_CLOSE
         Else
             Return enumSaveDataResult.SAVE_FAIL
