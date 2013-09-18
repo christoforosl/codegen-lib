@@ -36,7 +36,7 @@ Namespace TranslationServices
             Const STR_POUND As String = "£"
             Const STR_EURO As String = "€"
 
-            Dim ret As CultureInfo = New CultureInfo("el-GR", False)
+            Dim ret As CultureInfo = New CultureInfo("el", False)
             If Date.Today > DateSerial(2007, 31, 1) Then
                 ret.NumberFormat.CurrencySymbol = STR_EURO
             Else
