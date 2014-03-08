@@ -1079,18 +1079,7 @@ Public MustInherit Class DBUtils
     End Sub
 
 
-    'Private Function replaceParameterPlaceholders(ByVal sql As String, ByVal numOfParams As Integer) As String
-
-    '    Const STR_LEFT As String = "{"
-    '    Const STR_RIGHT As String = "}"
-
-
-    '    For i As Integer = 0 To numOfParams
-    '        sql = sql.Replace(String.Concat(STR_LEFT, i, STR_RIGHT), String.Concat(Me.paramPrefix, i))
-    '    Next
-    '    Return sql
-
-    'End Function
+   
     ''' <summary>
     ''' Executes an sql statement of type UPDATE, INSERT or DELETE, but allows for paramerized sql
     ''' </summary>
@@ -1178,10 +1167,11 @@ Public MustInherit Class DBUtils
     Public MustOverride Function getIdentitySQL() As String
 
     ''' <summary>
-    ''' Executes a stored procedure with parameters
+    ''' Executes a stored procedure with parameters. How to use:
     ''' </summary>
-    ''' <param name="spSql"></param>
-    ''' <param name="spParams"></param>
+    ''' <param name="spSql">Pass only the name of the stored procedure</param>
+    ''' <param name="spParams">Pass a list of parameters, with the same name as the parameters 
+    ''' of the stored procedure</param>
     ''' <remarks></remarks>
     Public Sub executeSP(ByVal spSql As String, ByVal spParams As System.Collections.Generic.List(Of IDataParameter))
 
