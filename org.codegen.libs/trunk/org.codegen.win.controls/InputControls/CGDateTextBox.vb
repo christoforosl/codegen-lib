@@ -189,7 +189,7 @@ Public Class CGDateTextBox
     ''' </remarks>
     Public Overrides Function checkMinValue() As Boolean
 
-        If Me.MinValue Is Nothing OrElse String.IsNullOrEmpty(Me.Text) Then
+        If String.IsNullOrEmpty(Me.MinValue) OrElse String.IsNullOrEmpty(Me.Text) Then
             Return True
         Else
             Dim compareToResult As Integer = CDate(Me.Text).CompareTo(CDate(Me.MinValue))
@@ -209,7 +209,7 @@ Public Class CGDateTextBox
     ''' </remarks>
     Public Overrides Function checkMaxValue() As Boolean
 
-        If Me.MaxValue Is Nothing OrElse String.IsNullOrEmpty(Me.Text) Then
+        If String.IsNullOrEmpty(Me.MaxValue) OrElse Not IsDate(Me.MaxValue) OrElse String.IsNullOrEmpty(Me.Text) Then
             Return True
         Else
             Dim compareToResult As Integer = CDate(Me.Text).CompareTo(CDate(Me.MinValue))
