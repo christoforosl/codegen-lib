@@ -60,7 +60,13 @@ Public Class PropertyGenerator
             vbTab & vbTab & vbTab & "End If" & vbCrLf
 
         If field.isBoolean Then
-            sproperty &= vbTab & vbTab & vbTab & "me._{0} = CInt(IIf(value.HasValue AndAlso value.Value, 1, 0))" & vbCrLf
+            If field.OriginalRuntimeType Is Type.GetType("System.Boolean") Then
+                sproperty &= vbTab & vbTab & vbTab & "me._{0} = value.HasValue AndAlso value.Value" & vbCrLf
+            Else
+                sproperty &= vbTab & vbTab & vbTab & "me._{0} = CInt(IIf(value.HasValue AndAlso value.Value, 1, 0))" & vbCrLf
+            End If
+
+
         Else
             sproperty &= vbTab & vbTab & vbTab & "me._{0} = value" & vbCrLf
         End If
