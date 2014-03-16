@@ -1242,7 +1242,7 @@ Public MustInherit Class DBUtils
     ''' <param name="spParams"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function getDataReader(ByVal sql As String, ByVal spParams As ArrayList) As IDataReader
+    Public Function getDataReader(ByVal sql As String, ByVal spParams As List(Of IDataParameter)) As IDataReader
 
         Dim rsado As IDataReader
         Dim icomm As IDbCommand
@@ -1251,7 +1251,7 @@ Public MustInherit Class DBUtils
 
             icomm = Me.Connection.CreateCommand()
             icomm.CommandText = sql
-            icomm.CommandType = CommandType.StoredProcedure
+            icomm.CommandType = CommandType.Text
             For Each param As IDataParameter In spParams
                 icomm.Parameters.Add(param)
             Next
