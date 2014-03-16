@@ -123,6 +123,33 @@ Namespace <DBMAPPER_NAMESPACE>
 
 		End Function
     
+		Public Shadows Function findList(ByVal sWhereClause As String, _
+           ByVal params As List(Of IDataParameter)) _
+           As List(Of <MODEL_CLASS_NAME>)
+
+            Dim sql As String = Me.getSqlWithWhereClause(sWhereClause)
+            Dim rs As IDataReader = Nothing
+            Dim molist As New List(Of <MODEL_CLASS_NAME>)
+
+            Try
+                rs = dbConn.getDataReader(sql, params)
+                Me.Loader.DataSource = rs
+
+                Do While rs.Read
+                    Dim mo As IModelObject = Me.getModelInstance
+                    Me.Loader.load(mo)
+                    molist.Add(DirectCast(mo, <MODEL_CLASS_NAME>))
+
+                Loop
+
+
+            Finally
+                Me.dbConn.closeDataReader(rs)
+            End Try
+
+            Return molist
+
+        End Function
 		'''    
 		'''	 <summary>Returns all records from database for a coresponding ModelObject </summary>
 		''' <returns>List(Of <MODEL_CLASS_NAME>) </returns>
@@ -193,6 +220,14 @@ Namespace <DBMAPPER_NAMESPACE>
 
         End Function
 		
+		Public Shared Function findList(ByVal where As String, ByVal params As List(Of IDataParameter)) _
+										As List(Of <MODEL_CLASS_NAME>)
+
+            Dim dbm As <MODEL_CLASS_NAME>DBMapper = New <MODEL_CLASS_NAME>DBMapper()
+            Return dbm.findList(where, params)
+
+        End Function
+
 		Public Shared Function findOne(ByVal where As String, ByVal ParamArray params() As Object) _
 					As <MODEL_CLASS_NAME>
 
