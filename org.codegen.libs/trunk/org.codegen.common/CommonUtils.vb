@@ -298,7 +298,7 @@ End Class
 
 Public Class Validate
 
-    Public Sub isTrue(val As Boolean, Optional msg As String = "Validate.isTrue assertion failed")
+    Public Shared Sub isTrue(val As Boolean, Optional msg As String = "Validate.isTrue assertion failed")
 
         If (Not val) Then
             Throw New ApplicationException(msg)
@@ -306,7 +306,7 @@ Public Class Validate
 
     End Sub
 
-    Public Sub isTrue(val As Boolean, msg As String, ParamArray args() As String)
+    Public Shared Sub isTrue(val As Boolean, msg As String, ParamArray args() As String)
 
         If (Not val) Then
             Throw New ApplicationException(String.Format(msg, args))
@@ -314,7 +314,7 @@ Public Class Validate
 
     End Sub
 
-    Public Sub isNotNull(val As Object, Optional msg As String = "Validate.isNotNull assertion failed")
+    Public Shared Sub isNotNull(val As Object, Optional msg As String = "Validate.isNotNull assertion failed")
 
         If (val Is Nothing) Then
             Throw New ApplicationException(msg)
@@ -322,7 +322,7 @@ Public Class Validate
 
     End Sub
 
-    Public Sub isNotNull(val As Object, msg As String, ParamArray args() As String)
+    Public Shared Sub isNotNull(val As Object, msg As String, ParamArray args() As String)
 
         If (val Is Nothing) Then
             Throw New ApplicationException(String.Format(msg, args))
@@ -330,7 +330,7 @@ Public Class Validate
 
     End Sub
 
-    Public Sub isNotEmptyString(val As String, Optional msg As String = "Validate.isNotEmptyString assertion failed")
+    Public Shared Sub isNotEmptyString(val As String, Optional msg As String = "Validate.isNotEmptyString assertion failed")
 
         If (String.IsNullOrEmpty(val)) Then
             Throw New ApplicationException(msg)
@@ -338,7 +338,7 @@ Public Class Validate
 
     End Sub
 
-    Public Sub isNotEmptyString(val As String, msg As String, ParamArray args() As String)
+    Public Shared Sub isNotEmptyString(val As String, msg As String, ParamArray args() As String)
 
         If (String.IsNullOrEmpty(val)) Then
             Throw New ApplicationException(String.Format(msg, args))
