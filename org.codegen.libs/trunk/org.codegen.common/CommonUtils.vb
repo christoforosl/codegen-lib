@@ -10,10 +10,8 @@ Imports System.Configuration
 
 Public Class CommonUtils
 
-   
-
     Public Shared Function getAssemblyVersion(ByVal iAssemly As [Assembly]) As String
-		If iAssemly Is Nothing Then Return String.Empty
+        If iAssemly Is Nothing Then Return String.Empty
         Dim ret As String = iAssemly.GetName.Version.Major & "." & iAssemly.GetName.Version.Minor
         If iAssemly.GetName.Version.Build > 1 Then
             ret &= "." & iAssemly.GetName.Version.Build
@@ -21,34 +19,34 @@ Public Class CommonUtils
         Return ret
 
     End Function
-	 Public Shared Function getEntryAssemblyVersion() As String
+    Public Shared Function getEntryAssemblyVersion() As String
 
-		Dim iAssemly As [Assembly] = [Assembly].GetEntryAssembly
+        Dim iAssemly As [Assembly] = [Assembly].GetEntryAssembly
         Return getAssemblyVersion(iAssemly)
 
     End Function
-   
 
-	''' <summary>
-	''' Retrieves the Assembly "Title" attribite as defined in the assembly.vb/assembly.cs file
-	''' </summary>
-	''' <returns></returns>
-	''' <remarks></remarks>
-	Public Shared Function GetAssemblyTitle(ByVal iAssemly As [Assembly]) As String 
-		If iAssemly Is Nothing Then Return String.Empty
 
-		Dim customAttributes As object()  = iAssemly.GetCustomAttributes(false)
-		For Each o As Object In customAttributes
-			If TypeOf(o) is System.Reflection.AssemblyTitleAttribute then
-				Return CType(o,System.Reflection.AssemblyTitleAttribute).Title
-			End If
-		Next
-		Return String.Empty
-	End Function 
+    ''' <summary>
+    ''' Retrieves the Assembly "Title" attribite as defined in the assembly.vb/assembly.cs file
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Shared Function GetAssemblyTitle(ByVal iAssemly As [Assembly]) As String
+        If iAssemly Is Nothing Then Return String.Empty
 
-	Public Shared Function GetEntryAssemblyTitle() As String 
-		Return GetAssemblyTitle([Assembly].GetEntryAssembly)
-	End Function 
+        Dim customAttributes As Object() = iAssemly.GetCustomAttributes(False)
+        For Each o As Object In customAttributes
+            If TypeOf (o) Is System.Reflection.AssemblyTitleAttribute Then
+                Return CType(o, System.Reflection.AssemblyTitleAttribute).Title
+            End If
+        Next
+        Return String.Empty
+    End Function
+
+    Public Shared Function GetEntryAssemblyTitle() As String
+        Return GetAssemblyTitle([Assembly].GetEntryAssembly)
+    End Function
 
 
     ''' <summary>
@@ -191,14 +189,23 @@ Public Class CommonUtils
     End Function
 
     ''' <summary>
+    ''' Opens a file as UTF-8 and returs its contents as string
+    ''' </summary>
+    ''' <param name="sFilePath"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Shared Function FileToString(ByVal sFilePath As String) As String
+        Return FileToString(sFilePath, Encoding.UTF8)
+    End Function
+    ''' <summary>
     ''' Opens a file and returns the contents as String
     ''' </summary>
     ''' <param name="sFilePath"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Shared Function TextFromFileGet(ByVal sFilePath As String) As String
+    Public Shared Function FileToString(ByVal sFilePath As String, enc As Encoding) As String
         ' Create an instance of StreamReader to read from a file.
-        Dim sr As StreamReader = New StreamReader(sFilePath)
+        Dim sr As StreamReader = New StreamReader(sFilePath, enc)
         Dim line As String
         Dim tmpl As New StringBuilder
         ' Read and display the lines from the file until the end 
@@ -222,18 +229,27 @@ Public Class CommonUtils
     ''' <param name="sFilePath"></param>
     ''' <param name="sFileContents"></param>
     ''' <remarks></remarks>
-    Public Shared Sub TextFromFileSave(ByVal sFilePath As String, _
-           ByVal sFileContents As String)
+    Public Shared Sub TextToFile(ByVal sFilePath As String, _
+                                        ByVal sFileContents As String, enc As Encoding)
 
         ' Create an instance of StreamReader to read from a file.
-        Dim sr As StreamWriter = New StreamWriter(sFilePath, False, System.Text.Encoding.UTF8)
+        Dim sr As StreamWriter = New StreamWriter(sFilePath, False, enc)
         sr.Write(sFileContents)
         sr.Close()
 
 
     End Sub
 
-   
+    Public Shared Sub TextToFile(ByVal sFilePath As String, _
+                                        ByVal sFileContents As String)
+
+        ' Create an instance of StreamReader to read from a file.
+        Dim sr As StreamWriter = New StreamWriter(sFilePath, False, Encoding.UTF8)
+        sr.Write(sFileContents)
+        sr.Close()
+
+
+    End Sub
 
 
     Public Shared Function ReadSetting(ByVal skey As String, ByVal sConfigSection As String) As String
@@ -277,5 +293,57 @@ Public Class CommonUtils
         Return d
 
     End Function
+
+End Class
+
+Public Class Validate
+
+    Public Sub isTrue(val As Boolean, Optional msg As String = "Validate.isTrue assertion failed")
+
+        If (Not val) Then
+            Throw New ApplicationException(msg)
+        End If
+
+    End Sub
+
+    Public Sub isTrue(val As Boolean, msg As String, ParamArray args() As String)
+
+        If (Not val) Then
+            Throw New ApplicationException(String.Format(msg, args))
+        End If
+
+    End Sub
+
+    Public Sub isNotNull(val As Object, Optional msg As String = "Validate.isNotNull assertion failed")
+
+        If (val Is Nothing) Then
+            Throw New ApplicationException(msg)
+        End If
+
+    End Sub
+
+    Public Sub isNotNull(val As Object, msg As String, ParamArray args() As String)
+
+        If (val Is Nothing) Then
+            Throw New ApplicationException(String.Format(msg, args))
+        End If
+
+    End Sub
+
+    Public Sub isNotEmptyString(val As String, Optional msg As String = "Validate.isNotEmptyString assertion failed")
+
+        If (String.IsNullOrEmpty(val)) Then
+            Throw New ApplicationException(msg)
+        End If
+
+    End Sub
+
+    Public Sub isNotEmptyString(val As String, msg As String, ParamArray args() As String)
+
+        If (String.IsNullOrEmpty(val)) Then
+            Throw New ApplicationException(String.Format(msg, args))
+        End If
+
+    End Sub
 
 End Class
