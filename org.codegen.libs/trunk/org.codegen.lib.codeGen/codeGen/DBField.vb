@@ -6,7 +6,7 @@ Imports System.Collections.Generic
 Public Class DBField
     Implements IDBField
 
-    Private _userSpecifiedDataType As System.Type
+    Private _userSpecifiedDataType As String
     Private _RuntimeType As System.Type
 
     Public Property AccessLevel() As String = "Public" Implements IDBField.AccessLevel
@@ -105,13 +105,13 @@ Public Class DBField
         If Me.isPrimaryKey Then
             ret = Me._RuntimeTypeStr
 
-        ElseIf Me.UserSpecifiedDataType Is Type.GetType("System.String") Then
-            ret = Me.UserSpecifiedDataType.ToString
+        ElseIf Me.FieldDataType = "System.String" Then
+            ret = Me.FieldDataType
 
         ElseIf Me.isNullableDataType Then
-            ret = "Nullable (of " & Me.UserSpecifiedDataType.ToString & ")"
+            ret = "Nullable (of " & Me.FieldDataType & ")"
         Else
-            ret = Me.UserSpecifiedDataType.ToString
+            ret = Me.FieldDataType
         End If
 
         Return ret
@@ -210,7 +210,7 @@ Public Class DBField
     Public Function isBoolean() As Boolean Implements IDBField.isBoolean
 
         Return Me.UserSpecifiedDataType IsNot Nothing AndAlso
-                Me.UserSpecifiedDataType Is Type.GetType("System.Boolean")
+                Me.UserSpecifiedDataType = "System.Boolean"
         'AndAlso (field.OriginalRuntimeType Is Type.GetType("System.Byte") _
         '                OrElse field.OriginalRuntimeType Is Type.GetType("System.Int16") _
         '                OrElse field.OriginalRuntimeType Is Type.GetType("System.Int32"))
@@ -258,7 +258,7 @@ Public Class DBField
 
             End If
             If Me._userSpecifiedDataType IsNot Nothing Then
-                _RuntimeType = _userSpecifiedDataType
+                _RuntimeTypeStr = _userSpecifiedDataType
             End If
             _RuntimeTypeStr = _RuntimeType.ToString
 
@@ -270,25 +270,36 @@ Public Class DBField
 
     ''' <summary>
     ''' The data type of the field as defined / customized in the xml generator file.
+    ''' </summary>
+    Public Property UserSpecifiedDataType() As String Implements IDBField.UserSpecifiedDataType
+        Get
+            Return _userSpecifiedDataType
+
+        End Get
+
+        Set(ByVal value As String)
+            _userSpecifiedDataType = value
+
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' The data type of the field as defined / customized in the xml generator file.
     ''' If no customized data type was defined, then the default data type of the field
     ''' as defined in the databse table structure
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Property UserSpecifiedDataType() As System.Type Implements IDBField.UserSpecifiedDataType
+    Public ReadOnly Property FieldDataType() As String Implements IDBField.FieldDataType
         Get
             If _userSpecifiedDataType Is Nothing Then
-                Return _RuntimeType
+                Return Me.RuntimeTypeStr
             Else
                 Return _userSpecifiedDataType
             End If
         End Get
 
-        Set(ByVal value As System.Type)
-            _userSpecifiedDataType = value
-
-        End Set
     End Property
 
 End Class

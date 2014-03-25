@@ -72,6 +72,7 @@ Namespace Tokens
 
     Public Class LoadFromDataRowToken
         Inherits ReplacementToken
+        Private Const STR_CType As String = "CType"
         'sJcode = sJcode.Replace("<LOADFROM_DATAROW_CODE>", getLoadFromDataRow())
         Sub New()
             Me.StringToReplace = "FILL_STATEMENT"
@@ -83,66 +84,72 @@ Namespace Tokens
             Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
 
             Dim setFromRs As String = vbTab & vbTab & vbTab & "if dr.IsNull(""{0}"") = false Then" & vbCrLf & _
-                                      vbTab & vbTab & vbTab & vbTab & "obj.{1} = {2}(dr.item(""{0}""))" & vbCrLf & _
+                                      vbTab & vbTab & vbTab & vbTab & "obj.{1} = {2}(dr.item(""{0}""){3})" & vbCrLf & _
                                       vbTab & vbTab & vbTab & "End if"
 
             'me.setFields(rs.getString(FIELD));
 
             For Each field As DBField In vec.Values
-                sb.Append(String.Format(setFromRs, field.FieldName(), _
-                                        field.RuntimeFieldName, _
-                                        Me.getVBTypeConverter(field)))
+                Dim customType As String = String.Empty
+                Dim converter As String = "CType"
+                customType = "," & field.UserSpecifiedDataType
+
+                Dim lFormat As String = String.Format(setFromRs, field.FieldName(), _
+                                                        field.RuntimeFieldName, _
+                                                        converter, _
+                                                        customType)
+                sb.Append(lFormat)
                 sb.Append(vbCrLf)
             Next
 
             Return sb.ToString()
         End Function
 
-        Public Function getVBTypeConverter(ByVal f As IDBField) As String
+        'Public Function getVBTypeConverter(ByVal f As IDBField) As String
 
-            Return LoadFromDataRowToken.getVBTypeConverter(f.RuntimeType)
+        '    Return LoadFromDataRowToken.getVBTypeConverter(f.RuntimeTypeStr)
 
-        End Function
+        'End Function
 
-        Public Shared Function getVBTypeConverter(ByVal sysType As System.Type) As _
-                    String
+        '    Public Shared Function getVBTypeConverter(ByVal sysType As String) As _
+        '                String
 
-            If sysType Is System.Type.GetType("System.Date") OrElse _
-                  sysType Is System.Type.GetType("System.DateTime") Then
-                Return "CDate"
+        '        'If sysType = ("System.Date") OrElse _
+        '        '      sysType = ("System.DateTime") Then
+        '        '    Return "CDate"
 
-            ElseIf sysType Is System.Type.GetType("System.Int16") Then
-                Return "CInt"
+        '        'ElseIf sysType = "System.Int16" Then
+        '        '    Return "CInt"
 
-            ElseIf sysType Is System.Type.GetType("System.Int32") Then
-                Return "CInt"
+        '        'ElseIf sysType = ("System.Int32") Then
+        '        '    Return "CInt"
 
-            ElseIf sysType Is System.Type.GetType("System.Int64") Then
-                Return "CLng"
+        '        'ElseIf sysType = ("System.Int64") Then
+        '        '    Return "CLng"
 
-            ElseIf sysType Is System.Type.GetType("System.Decimal") Then
-                Return "CDec"
+        '        'ElseIf sysType = ("System.Decimal") Then
+        '        '    Return "CDec"
 
-            ElseIf sysType Is System.Type.GetType("System.Double") Then
-                Return "CDec"
+        '        'ElseIf sysType = ("System.Double") Then
+        '        '    Return "CDec"
 
-            ElseIf sysType Is System.Type.GetType("System.Single") Then
-                Return "CDec"
+        '        'ElseIf sysType = ("System.Single") Then
+        '        '    Return "CDec"
 
-            ElseIf sysType Is System.Type.GetType("System.String") Then
-                Return "Cstr"
+        '        'ElseIf sysType = ("System.String") Then
+        '        '    Return "Cstr"
 
-            ElseIf sysType Is System.Type.GetType("System.Boolean") Then
-                Return "CBool"
+        '        'ElseIf sysType = ("System.Boolean") Then
+        '        '    Return "CBool"
 
-            ElseIf sysType Is System.Type.GetType("System.Byte") Then
-                Return "CInt"
-            Else
-                Throw New ApplicationException("Unhandled TypeConverter for type: ")
-            End If
+        '        'ElseIf sysType = ("System.Byte") Then
+        '        '    Return "CInt"
+        '        'Else
+        '        Return STR_CType
+        '        'End If
 
 
-        End Function
+        '    End Function
 
     End Class
 
@@ -206,9 +213,11 @@ Namespace Tokens
             'me.setFields(rs.getString(FIELD));
 
             For Each field As DBField In vec.Values
-                sb.Append(String.Format(setFromRs, DBTable.getRuntimeName(field.FieldName()), _
-                                                   Me.getDataReaderGetter(field), field.getConstant()))
-
+                'field.OriginalRuntimeType
+                Dim fldsetter As String = String.Format(setFromRs, _
+                                                DBTable.getRuntimeName(field.FieldName()), _
+                                                Me.getDataReaderGetter(field), field.getConstant())
+                sb.Append(fldsetter)
                 sb.Append(vbCrLf)
             Next
 
@@ -265,10 +274,11 @@ Namespace Tokens
                                                field.RuntimeType.ToString)
             End If
 
-            If field.UserSpecifiedDataType IsNot Nothing _
-                    AndAlso field.UserSpecifiedDataType.ToString <> field.OriginalRuntimeType.ToString Then
+            If String.IsNullOrEmpty(field.UserSpecifiedDataType) = False _
+                    AndAlso field.UserSpecifiedDataType <> field.OriginalRuntimeType.ToString Then
 
-                sString = LoadFromDataRowToken.getVBTypeConverter(field.UserSpecifiedDataType) & "(" & sString & ")"
+                sString = "CType(" & sString & "," & field.UserSpecifiedDataType & ")"
+                
 
             End If
 
