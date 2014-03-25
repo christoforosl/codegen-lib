@@ -340,10 +340,10 @@ Public Class XMLClassGenerator
 
                     Dim xmltype As String = getRowValue(FieldRow, XML_FIELD_ATTR_DATATYPE, String.Empty)
                     If String.IsNullOrEmpty(xmltype) = False Then
-                        If Type.GetType(xmltype) Is Nothing Then
-                            Throw New ApplicationException("Unknown System Type:" & xmltype)
-                        End If
-                        f.UserSpecifiedDataType = Type.GetType(xmltype)
+                        'If Type.GetType(xmltype) Is Nothing Then
+                        '    Throw New ApplicationException("Unknown System Type:" & xmltype)
+                        'End If
+                        f.UserSpecifiedDataType = xmltype
                     End If
 
                     f.AccessLevel = getRowValue(FieldRow, XML_FIELD_ATTR_ACCESS_LEVEL, String.Empty)

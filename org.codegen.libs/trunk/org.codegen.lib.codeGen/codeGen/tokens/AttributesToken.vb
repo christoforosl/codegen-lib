@@ -66,8 +66,12 @@ Namespace Tokens
                 sb.Append(vbTab + vbTab + vbTab & "If Val Is DBNull.Value OrElse Val Is Nothing Then" & vbCrLf)
                 sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & DBTable.getRuntimeName(field.FieldName()) & " = Nothing" & vbCrLf)
                 sb.Append(vbTab + vbTab + vbTab & "Else" & vbCrLf)
-                sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & DBTable.getRuntimeName(field.FieldName()) & _
-                           "=" & SetAttrStrToken.getTypeConverter2(field) & "(val)" & vbCrLf)
+
+                sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & DBTable.getRuntimeName(field.FieldName()) & "=")
+
+                sb.Append("CType(val,").Append(field.FieldDataType).Append(")").Append(vbCrLf)
+                
+
                 sb.Append(vbTab + vbTab + vbTab & "End If" & vbCrLf)
                 sb.Append(vbTab + vbTab + vbTab & "return" & vbCrLf)
 
@@ -79,15 +83,15 @@ Namespace Tokens
 
         End Function
 
-        Friend Shared Function getTypeConverter2(ByVal field As IDBField) As String
+        'Friend Shared Function getTypeConverter2(ByVal field As IDBField) As String
 
-            If field.UserSpecifiedDataType IsNot Nothing Then
-                Return LoadFromDataRowToken.getVBTypeConverter(field.UserSpecifiedDataType)
-            Else
-                Return LoadFromDataRowToken.getVBTypeConverter(field.RuntimeType)
-            End If
+        '    If field.UserSpecifiedDataType IsNot Nothing Then
+        '        Return LoadFromDataRowToken.getVBTypeConverter(field.UserSpecifiedDataType)
+        '    Else
+        '        Return LoadFromDataRowToken.getVBTypeConverter(field.RuntimeTypeStr)
+        '    End If
 
-        End Function
+        'End Function
 
     End Class
 
@@ -113,8 +117,10 @@ Namespace Tokens
                 sb.Append(vbTab + vbTab + vbTab & "If Val Is DBNull.Value OrElse Val Is Nothing Then" & vbCrLf)
                 sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & DBTable.getRuntimeName(field.FieldName()) & " = Nothing" & vbCrLf)
                 sb.Append(vbTab + vbTab + vbTab & "Else" & vbCrLf)
-                sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & DBTable.getRuntimeName(field.FieldName()) & _
-                           "=" & SetAttrStrToken.getTypeConverter2(field) & "(val)" & vbCrLf)
+
+                sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & DBTable.getRuntimeName(field.FieldName()) & "=")
+                sb.Append("CType(val,").Append(field.FieldDataType).Append(")").Append(vbCrLf)
+                
                 sb.Append(vbTab + vbTab + vbTab & "End If" & vbCrLf)
                 sb.Append(vbTab + vbTab + vbTab & "return" & vbCrLf)
 

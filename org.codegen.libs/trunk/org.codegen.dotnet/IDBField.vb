@@ -8,6 +8,8 @@ End Class
 
 Public Interface IDBField
 
+    ReadOnly Property FieldDataType() As String
+
     Function isBoolean() As Boolean
     Function isInteger() As Boolean
     Function isString() As Boolean
@@ -48,7 +50,7 @@ Public Interface IDBField
     ''' <value></value>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Property UserSpecifiedDataType() As System.Type
+    Property UserSpecifiedDataType() As String
 
 
 

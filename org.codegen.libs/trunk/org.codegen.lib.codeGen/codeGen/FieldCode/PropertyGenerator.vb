@@ -21,30 +21,30 @@ Public Class PropertyGenerator
                 vbTab & field.AccessLevel & " Overridable Property <0> as {1}<IMPL>" & vbCrLf & _
                 vbTab & "Get " & vbCrLf
 
-        If field.UserSpecifiedDataType IsNot Nothing Then
+        If String.IsNullOrEmpty(field.UserSpecifiedDataType) = False Then
 
-            If field.UserSpecifiedDataType Is Type.GetType("System.Boolean") _
+            If field.UserSpecifiedDataType = "System.Boolean" _
                        AndAlso (field.OriginalRuntimeType Is Type.GetType("System.Byte") _
                                 OrElse field.OriginalRuntimeType Is Type.GetType("System.Int16") _
                                 OrElse field.OriginalRuntimeType Is Type.GetType("System.Int32")) Then
 
                 sproperty &= vbTab & vbTab & "if _{0}.hasValue then" & vbCrLf
-                sproperty &= vbTab & vbTab & vbTab & "return  " & _
-                            LoadFromDataRowToken.getVBTypeConverter(field.UserSpecifiedDataType) & "( _{0}) " & vbCrLf
+                sproperty &= vbTab & vbTab & vbTab & "return  CType( _{0}," & field.FieldDataType & ")" & vbCrLf
 
                 sproperty &= vbTab & vbTab & "Else" & vbCrLf
                 sproperty &= vbTab & vbTab & vbTab & "return False" & vbCrLf
                 sproperty &= vbTab & vbTab & "End if 'end customized check" & vbCrLf
 
             Else
-                sproperty &= vbTab & vbTab & "return _{0}" & _
+                sproperty &= vbTab & vbTab & "return CType( _{0}," & field.UserSpecifiedDataType & " )" & _
                              vbCrLf
 
 
             End If
 
         Else
-            sproperty &= vbTab & vbTab & "return _{0} " & vbCrLf
+            sproperty &= vbTab & vbTab & "return _{0}" & _
+                             vbCrLf
         End If
 
         Dim PropertyInterface As String = DirectCast( _
@@ -142,7 +142,8 @@ Public Class PropertyGenerator
         ElseIf field.isInteger Then
             ret.Append("Public Sub set").Append(propertyFieldname).Append("(ByVal val As String)").Append(vbCrLf)
             ret.Append("	If IsNumeric(val) Then").Append(vbCrLf)
-            ret.Append("		Me.").Append(runtimeFieldName).Append(" = CInt(val)").Append(vbCrLf)
+            ret.Append("		Me.").Append(runtimeFieldName).Append(" = CType(val, ").Append(field.FieldDataType).Append(")").Append(vbCrLf)
+
             ret.Append("	ElseIf String.IsNullOrEmpty(val) Then").Append(vbCrLf)
             ret.Append("		Me.").Append(runtimeFieldName).Append(" = Nothing").Append(vbCrLf)
             ret.Append("	Else").Append(vbCrLf)
