@@ -8,6 +8,21 @@ Imports System.Globalization
 Imports System.Configuration
 
 
+Public Class StringUtils
+
+    Public Shared Function defaultString(x As String) As String
+        Return defaultString(x, String.Empty)
+    End Function
+
+    Public Shared Function defaultString(x As String, def As String) As String
+        If String.IsNullOrEmpty(x) Then
+            Return def
+        Else
+            Return x
+        End If
+    End Function
+
+End Class
 Public Class CommonUtils
 
     Public Shared Function getAssemblyVersion(ByVal iAssemly As [Assembly]) As String
