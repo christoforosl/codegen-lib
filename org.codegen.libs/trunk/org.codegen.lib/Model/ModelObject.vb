@@ -1,5 +1,6 @@
 Imports System.Xml
 Imports System.Runtime.InteropServices
+Imports System.Linq
 
 Namespace Model
     ''' <summary>  Model Objects 
@@ -478,6 +479,12 @@ Namespace Model
             Else
                 Return Nothing
             End If
+
+        End Function
+
+        Public Function getChangedFields() As List(Of String)
+
+            Return changedFields.Keys.ToList
 
         End Function
 
