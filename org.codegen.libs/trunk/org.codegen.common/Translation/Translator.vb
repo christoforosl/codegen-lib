@@ -147,8 +147,8 @@ Namespace TranslationServices
             Return isEnglish() = False
         End Function
 
-        Public Shared Function getString(ByVal key As String) As String
-            Return current.StringsProvider.getString(key)
+        Public Shared Function getString(ByVal key As String, ParamArray args() As String) As String
+            Return String.Format(current.StringsProvider.getString(key), args)
         End Function
 
         Public Shared Function getFromConfig() As TranslatedStringsProvider
