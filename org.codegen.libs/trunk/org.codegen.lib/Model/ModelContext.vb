@@ -29,14 +29,14 @@ Namespace Model
     Public Class ModelContext
 
         Private _locale As System.Globalization.CultureInfo = System.Globalization.CultureInfo.CurrentCulture
-        Private _principal As ModelObjectPrincipal = Nothing
+        Private _principal As IPrincipal = Nothing
         Private _attributes As Hashtable = Nothing
         Private _dbUtils As DBUtils
 
         <ThreadStatic()> _
         Private Shared _current As ModelContext = Nothing
 
-        Private Sub New(ByVal principal As ModelObjectPrincipal, _
+        Private Sub New(ByVal principal As IPrincipal, _
                         ByVal locale As System.Globalization.CultureInfo)
 
             Me.new()
@@ -46,7 +46,7 @@ Namespace Model
 
         End Sub
 
-        Private Sub New(ByVal principal As ModelObjectPrincipal)
+        Private Sub New(ByVal principal As IPrincipal)
 
             Me.New(principal, System.Globalization.CultureInfo.CurrentCulture())
 
@@ -62,7 +62,7 @@ Namespace Model
         '''	 and marks it as current. </summary>
         '''	 <param name="principal"> User object for Security checks </param>
         '''	 
-        Public Shared Sub newCurrent(ByVal principal As ModelObjectPrincipal)
+        Public Shared Sub newCurrent(ByVal principal As IPrincipal)
             setCurrent(New ModelContext(principal))
         End Sub
 
@@ -72,7 +72,7 @@ Namespace Model
         '''	and marks it as current. </summary>
         '''	<param name="principal"> User object for Security checks </param>
         '''	 
-        Public Shared Sub newCurrent(ByVal principal As ModelObjectPrincipal, ByVal locale As System.Globalization.CultureInfo)
+        Public Shared Sub newCurrent(ByVal principal As IPrincipal, ByVal locale As System.Globalization.CultureInfo)
             setCurrent(New ModelContext(principal, locale))
         End Sub
 
@@ -85,7 +85,7 @@ Namespace Model
         '''	<param name="username"> User name of ModelObjectIdentity for Security checks </param>
         '''	 
         Public Shared Sub newCurrent(ByVal username As String, ByVal locale As System.Globalization.CultureInfo)
-            Dim p As ModelObjectPrincipal = New ModelObjectPrincipal(username)
+            Dim p As IPrincipal = New GenericPrincipal(New GenericIdentity(username), Nothing)
             setCurrent(New ModelContext(p, locale))
         End Sub
 
@@ -95,8 +95,7 @@ Namespace Model
         '''	and marks it as current. <b>This method should only be used for testing</b>
         ''' </summary>
         Public Shared Sub newForUnitTests()
-            Dim p As ModelObjectPrincipal = New ModelObjectPrincipal("Test")
-            p.UserId = -1
+            Dim p As IPrincipal = New GenericPrincipal(New GenericIdentity("-1"), Nothing)
             setCurrent(New ModelContext(p))
         End Sub
 
@@ -140,11 +139,11 @@ Namespace Model
             End Set
         End Property
 
-        Public Shared Property CurrentUser() As ModelObjectPrincipal
+        Public Shared Property CurrentUser() As IPrincipal
             Get
                 Return Current._principal
             End Get
-            Set(ByVal value As ModelObjectPrincipal)
+            Set(ByVal value As IPrincipal)
                 Current._principal = value
             End Set
         End Property

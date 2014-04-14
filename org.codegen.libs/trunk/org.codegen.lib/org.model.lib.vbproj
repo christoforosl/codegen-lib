@@ -82,7 +82,6 @@
     <Compile Include="Model\IXMLEnabled.vb" />
     <Compile Include="Model\ModelObject.vb" />
     <Compile Include="Model\ModelObjectExceptions.vb" />
-    <Compile Include="Model\ModelObjectPrincipal.vb" />
     <Compile Include="Model\ModelObjectKeyGen.vb" />
     <Compile Include="Model\ModelContext.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
