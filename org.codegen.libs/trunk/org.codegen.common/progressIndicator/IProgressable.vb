@@ -1,6 +1,9 @@
 Namespace ProgressIndicator
 
     Public Interface IProgressable
+
+        Sub startProcess()
+
         ''' <summary>
         ''' Shows if the process has been cancelled by the user
         ''' </summary>
