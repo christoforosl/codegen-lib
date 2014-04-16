@@ -46,6 +46,16 @@
 
         End Sub
 
+        Public Sub resetProgress(ByVal msg As String)
+
+            Me.ProgressBar.Value = 0
+            Me.lblPercentage.Text = "0 %"
+            If String.IsNullOrEmpty(msg) = False Then
+                Me.lblMessage.Text = msg
+            End If
+            Me.Refresh()
+
+        End Sub
 
         Public Sub ReportProgress(ByVal currentStep As Integer, ByVal msg As String)
 
@@ -53,7 +63,7 @@
             If currentStep < Me.ProgressBar.Minimum Then currentStep = Me.ProgressBar.Minimum
 
             Me.ProgressBar.Value = currentStep
-            Me.lblPercentage.Text = currentStep & "%"
+            Me.lblPercentage.Text = currentStep & " %"
 
             If String.IsNullOrEmpty(msg) = False Then
                 Me.lblMessage.Text = msg

@@ -13,9 +13,9 @@ Namespace ProgressIndicator
         ''' <remarks></remarks>
         Sub New(ByVal current As Long, ByVal totalSteps As Long, ByVal message As String)
 
-            Me.currentStep = current
+            Me.currentStep = CInt(current * 100 / totalSteps) 'express it as a percentage
             Me.totalSteps = totalSteps
-            Me.userMessage = message
+            Me.progressMessage = message & String.Format("- {0} of {1}", current, totalSteps)
 
         End Sub
 
@@ -82,7 +82,7 @@ Namespace ProgressIndicator
         ''' <summary>
         ''' The progress message to show to the user
         ''' </summary>
-        Public Property userMessage As String
+        Public Property progressMessage As String
 
     End Class
 

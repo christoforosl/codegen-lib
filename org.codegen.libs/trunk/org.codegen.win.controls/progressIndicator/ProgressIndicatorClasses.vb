@@ -15,8 +15,9 @@ Namespace BackroundProgressIndicator
 
         Private _frmProgress As frmProgress2
 
-        Public Property progressable As IProgressable
+        Property progressable As IProgressable
         Public Property showCancel As Boolean
+        Public Property defaultMessage As String = WinControlsLocalizer.getString("progress.pleasewait")
 
         Public Sub New(prg As IProgressable)
 
@@ -56,7 +57,7 @@ Namespace BackroundProgressIndicator
         End Sub
 
         Private Sub processStart(sender As Object, e As ProgressableEventArgs)
-            'Throw New NotImplementedException
+            Me.frmProgress.resetProgress(e.progressMessage)
         End Sub
 
         Private Sub processFinished(sender As Object, e As ProgressableEventArgs)
@@ -66,7 +67,8 @@ Namespace BackroundProgressIndicator
         Private Sub reportProgress(sender As Object, e As ProgressableEventArgs)
             Me.frmProgress.ReportProgress( _
                     CInt(e.currentStep), _
-                    CStr(IIf(String.IsNullOrEmpty(e.userMessage), "Please wait...", e.userMessage)))
+                    CStr(IIf(String.IsNullOrEmpty(e.progressMessage), _
+                             Me.defaultMessage, e.progressMessage)))
 
         End Sub
 

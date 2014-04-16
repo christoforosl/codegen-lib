@@ -39,7 +39,6 @@
             Me.ProgressBar = New System.Windows.Forms.ProgressBar()
             Me.lblMessage = New System.Windows.Forms.Label()
             Me.btnCancel = New System.Windows.Forms.Button()
-            Me.backroundWorkerProgress = New System.ComponentModel.BackgroundWorker()
             Me.lblPercentage = New System.Windows.Forms.Label()
             Me.SuspendLayout()
             '
@@ -71,11 +70,6 @@
             Me.btnCancel.Text = "Cancel"
             Me.btnCancel.UseVisualStyleBackColor = True
             '
-            'backroundWorkerProgress
-            '
-            Me.backroundWorkerProgress.WorkerReportsProgress = True
-            Me.backroundWorkerProgress.WorkerSupportsCancellation = True
-            '
             'lblPercentage
             '
             Me.lblPercentage.BackColor = System.Drawing.Color.Transparent
@@ -88,7 +82,7 @@
             Me.lblPercentage.Text = "0%"
             Me.lblPercentage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
             '
-            'frmProgress
+            'frmProgress2
             '
             Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
             Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -99,19 +93,18 @@
             Me.Controls.Add(Me.ProgressBar)
             Me.MaximizeBox = False
             Me.MinimizeBox = False
-            Me.Name = "frmProgress"
+            Me.Name = "frmProgress2"
             Me.ShowIcon = False
             Me.ShowInTaskbar = False
             Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
             Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-            Me.Text = "Progress Bar"
+            Me.Text = "Please wait..."
             Me.ResumeLayout(False)
 
         End Sub
         Private WithEvents ProgressBar As System.Windows.Forms.ProgressBar
         Private WithEvents lblMessage As System.Windows.Forms.Label
         Private WithEvents btnCancel As System.Windows.Forms.Button
-        Friend WithEvents backroundWorkerProgress As System.ComponentModel.BackgroundWorker
         Friend WithEvents lblPercentage As System.Windows.Forms.Label
     End Class
 

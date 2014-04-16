@@ -1,6 +1,7 @@
 ﻿Option Strict Off
 
 Namespace Grid
+
     Class ExcelGridExporter
 
         Public Sub export(ByVal grid As CGBaseGrid)
