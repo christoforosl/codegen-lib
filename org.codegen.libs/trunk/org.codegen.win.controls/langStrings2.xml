@@ -184,6 +184,10 @@
     <langValueEL>--NEA--</langValueEL>
   </langString>
 
-  
+  <langString>
+    <langKey>progress.pleasewait</langKey>
+    <langValueEN>Please wait...</langValueEN>
+    <langValueEL>Παρακαλώ Περιμένετε...</langValueEL>
+  </langString>
 
 </DslangStrings>
