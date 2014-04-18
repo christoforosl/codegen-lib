@@ -2,22 +2,66 @@ Imports System.Reflection
 Imports System.Text
 Imports System.Globalization
 
+Public Interface IMessageBoxHandler
+    Sub showInformationMessageBox(ByVal msg As String)
+    Sub showErrorBox(ByVal msg As String)
+    Function showQuestionBox(ByVal msg As String) As MsgBoxResult
+End Interface
+
+Public NotInheritable Class DefaultMessageBoxHandler
+    Implements IMessageBoxHandler
+
+    Public Sub showErrorBox(msg As String) Implements IMessageBoxHandler.showErrorBox
+        Call MsgBox(msg, MsgBoxStyle.Critical, FormsApplicationContext.current.ApplicationTitle)
+    End Sub
+
+    Public Sub showMessageBox(msg As String) Implements IMessageBoxHandler.showInformationMessageBox
+        Call MsgBox(msg, MsgBoxStyle.Information, FormsApplicationContext.current.ApplicationTitle)
+    End Sub
+
+    Public Function showQuestionBox(msg As String) As MsgBoxResult Implements IMessageBoxHandler.showQuestionBox
+
+        Return MsgBox(msg, _
+            CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), _
+            FormsApplicationContext.current.ApplicationTitle)
+
+    End Function
+End Class
+
 Public NotInheritable Class winUtils
 
-    Public Shared Sub MsgboxInfo(ByVal msg As String, ParamArray params() As Object)
+    Public Shared Sub MsgboxInfo(ByVal msg As String, ParamArray params() As String)
+        Dim lmsg As String
+        If params.Length > 0 Then
+            lmsg = String.Format(msg, params)
+        Else
+            lmsg = msg
+        End If
 
-        Call MsgBox(String.Format(msg, params), MsgBoxStyle.Information, FormsApplicationContext.current.ApplicationTitle)
-
+        FormsApplicationContext.current().MessageBoxHandler.showInformationMessageBox(msg)
     End Sub
 
 
-    Public Shared Sub MsgboxStop(ByVal msg As String, ParamArray params() As Object)
-        Call MsgBox(String.Format(msg, params), MsgBoxStyle.Critical, FormsApplicationContext.current.ApplicationTitle)
+    Public Shared Sub MsgboxStop(ByVal msg As String, ParamArray params() As String)
+        Dim lmsg As String
+        If params.Length > 0 Then
+            lmsg = String.Format(msg, params)
+        Else
+            lmsg = msg
+        End If
+        FormsApplicationContext.current().MessageBoxHandler.showErrorBox(msg)
+
     End Sub
 
     Public Shared Function MsgboxQuestion(ByVal msg As String, ParamArray params() As Object) As MsgBoxResult
+        Dim lmsg As String
+        If params.Length > 0 Then
+            lmsg = String.Format(msg, params)
+        Else
+            lmsg = msg
+        End If
 
-        Return MsgBox(String.Format(msg, params), CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), FormsApplicationContext.current.ApplicationTitle)
+        Return FormsApplicationContext.current().MessageBoxHandler.showQuestionBox(lmsg)
 
     End Function
 
