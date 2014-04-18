@@ -121,4 +121,7 @@ Public Class FormsApplicationContext
         End Set
     End Property
 
+
+    Public Property MessageBoxHandler As IMessageBoxHandler = New DefaultMessageBoxHandler
+
 End Class
