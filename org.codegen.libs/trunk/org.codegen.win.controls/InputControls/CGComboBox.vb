@@ -268,8 +268,6 @@ Public Class CGComboBox
         Me.components = New Container
     End Sub
 
-
-
     Protected Overrides Sub OnSelectedItemChanged(ByVal e As EventArgs)
         If Not Me._loading Then
             MyBase.OnSelectedItemChanged(e)
