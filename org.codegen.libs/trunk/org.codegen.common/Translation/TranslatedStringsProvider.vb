@@ -1,4 +1,4 @@
-Imports System.Globalization
+
 Imports System.Security.Permissions
 Imports System.Threading
 Imports System.Collections.Generic
@@ -38,13 +38,19 @@ Namespace TranslationServices
         ''' <remarks></remarks>
         Public MustOverride Function retrieveStringFromStore(ByVal key As String, Optional ByVal inLang As String = "") As String
 
+        Private _CurrentLanguageCode As String = Translator.LANG_GREEK
+
         ''' <summary>
         ''' Returns the TwoLetterISOLanguageName of the current thread
         ''' </summary>
-        Public Shared ReadOnly Property CurrentLanguageCode() As String
+        Public Property CurrentLanguageCode() As String
             Get
-                Return Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpper
+                Return _CurrentLanguageCode.ToUpper
             End Get
+
+            Set(value As String)
+                _CurrentLanguageCode = value
+            End Set
 
         End Property
 
