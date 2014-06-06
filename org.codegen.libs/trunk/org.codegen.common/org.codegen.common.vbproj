@@ -145,6 +145,7 @@
     <Compile Include="CommonUtils.vb">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Validate.vb" />
     <None Include="codeGen.snk" />
     <None Include="sqlStmts.xsd" />
   </ItemGroup>
