@@ -32,7 +32,7 @@ Namespace Tokens
 
                 For Each association As Association In vec
                     If association.isParent Then
-                        sb.Append("if  Me." & association.getVariableName() & "Loaded then" & vbCrLf)
+                        sb.Append("if  Me._" & association.getVariableName() & "Loaded then" & vbCrLf)
                         sb.Append("ret.Add(me." & association.getVariableName() & ")" & vbCrLf)
                         sb.Append("End If" & vbCrLf)
 
@@ -64,7 +64,7 @@ Namespace Tokens
                         If association.isCardinalityMany Then
                             Dim dtype As String = association.ChildDatatype
                             'sb.Append(vbTab & "ret.add(me." & association.getVariableName() & ")" & vbCrLf)
-                            sb.Append(vbTab & "if  Me." & association.getVariableName() & "Loaded Then ' check if loaded first!" & vbCrLf)
+                            sb.Append(vbTab & "if  Me._" & association.getVariableName() & "Loaded Then ' check if loaded first!" & vbCrLf)
                             sb.Append(vbTab & vbTab & "Dim lp As List(Of ModelObject) = Me._" & association.getVariableName() & ".ConvertAll( _" & vbCrLf)
                             sb.Append(vbTab & vbTab & vbTab & vbTab & "New Converter(Of " & dtype & ", ModelObject)(" & vbCrLf)
                             sb.Append(vbTab & vbTab & vbTab & "Function(pf As " & dtype & ")" & vbCrLf)
@@ -73,7 +73,7 @@ Namespace Tokens
                             sb.Append(vbTab & vbTab & "ret.AddRange(lp)" & vbCrLf)
                             sb.Append(vbTab & "End If" & vbCrLf)
                         Else
-                            sb.Append(vbTab & "if  Me." & association.getVariableName() & "Loaded then" & vbCrLf)
+                            sb.Append(vbTab & "if  Me._" & association.getVariableName() & "Loaded then" & vbCrLf)
                             sb.Append(vbTab & vbTab & "ret.Add(me." & association.getVariableName() & ")" & vbCrLf)
                             sb.Append(vbTab & "End If" & vbCrLf)
                         End If

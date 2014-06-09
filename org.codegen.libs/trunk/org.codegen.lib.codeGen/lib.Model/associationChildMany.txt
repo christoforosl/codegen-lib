@@ -1,6 +1,8 @@
 ﻿		
 		#Region "Association <association_name>"
 
+		friend _<association_name>Loaded as Boolean
+
 		Public Overridable Function get<association_name_singular>(ByVal i As Integer) As <datatype> _
 				implements <iface>.get<association_name_singular>
 
@@ -10,8 +12,7 @@
             End If
             Return Nothing
 
-        End Function
-        
+        End Function        
 		
 		Public Overridable Sub Add<association_name_singular> _
 				(val As <datatype>) _
@@ -96,7 +97,7 @@
         ''' </summary>
         Public Overridable Sub load<association_name>
 			
-			if me.<association_name>Loaded then return
+			if me._<association_name>Loaded then return
 			'init list
 			Me._<association_name> = New List(Of <datatype>)
 
@@ -104,7 +105,8 @@
                 
                 Me.addTo<association_name>List( new <db_mapper>().findList( _ 
 																		"<child_field>={0}", Me.<parent_field_runtime>))
-            End If          
+            End If
             
+			me._<association_name>Loaded = true
         End Sub
 		#End Region

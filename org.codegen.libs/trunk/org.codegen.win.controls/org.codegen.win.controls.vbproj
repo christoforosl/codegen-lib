@@ -195,6 +195,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="EmptyRequiredFieldException.vb" />
+    <Compile Include="progressIndicator\BackroundProgressIndicator.vb" />
     <Compile Include="progressIndicator\frmProgress2.Designer.vb">
       <DependentUpon>frmProgress2.vb</DependentUpon>
     </Compile>
