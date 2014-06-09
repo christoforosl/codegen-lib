@@ -1,4 +1,9 @@
-﻿		''' <summary>
+﻿		
+		#Region "Association <association_name>"
+
+		friend _<association_name>Loaded as Boolean
+
+		''' <summary>
         ''' Gets/Sets parent object
         ''' </summary>
 		Public Overridable Property <association_name>() As <datatype> _
@@ -31,7 +36,7 @@
         ''' </summary>
         Public Overridable Sub load<association_name>
 			
-			If me.<association_name>Loaded then return
+			If me._<association_name>Loaded then return
 			
 			If Me._<association_name> Is Nothing AndAlso _
                    Me.<child_field_runtime> > 0 Then
@@ -42,10 +47,8 @@
                 
             End If ' me._<association_name> is Nothing
 
-            If Me._<association_name> Is Nothing Then
-                'call the setter here, not the private variable!
-				Me.<association_name> = <datatype>Factory.Create()
-                
-            End If ' second check me._<association_name> is Nothing
+            me._<association_name>Loaded=true
 			            
         End Sub
+
+		#End Region

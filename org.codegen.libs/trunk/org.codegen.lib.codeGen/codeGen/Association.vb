@@ -141,7 +141,7 @@ Public Class Association
                 Dim mapperClassName As String = GetAssociatedMapperClassName()
                 Dim mappervar As String = Me.associationName.ToLower() & "Mapper"
                 ret += vbTab + vbTab & "'*** Parent Association:" & Me.associationName.ToLower() & vbCrLf
-                ret += vbTab + vbTab & "if thisMo." & Me.getGet() & "Loaded() AndAlso thisMo." & Me.getGet() & "().NeedsSave() Then" & vbCrLf
+                ret += vbTab + vbTab & "if thisMo._" & Me.getGet() & "Loaded AndAlso thisMo." & Me.getGet() & "().NeedsSave() Then" & vbCrLf
                 ret += vbTab + vbTab + vbTab + "Dim mappervar as " & mapperClassName & "= new " & mapperClassName & "(me.dbConn())" & vbCrLf
                 ret += vbTab + vbTab + vbTab + "mappervar.save(thisMo." & Me.getGet() & ")" & vbCrLf
                 ret += vbTab + vbTab & vbTab + "thisMo." & DBTable.getRuntimeName(Me.ChildFieldName()) & " = thisMo." & Me.getGet() & "." & DBTable.getRuntimeName(Me.ParentFieldName()) & vbCrLf
@@ -183,7 +183,7 @@ Public Class Association
                 Dim mapperClassName As String = GetAssociatedMapperClassName()
                 Dim mappervar As String = Me.associationName.ToLower() & "Mapper"
                 ret = vbTab + vbTab & "'***Child Association:" & Me.associationName.ToLower() & vbCrLf
-                ret &= vbTab & vbTab & "If ret." & Me.associationName & "Loaded = True then " & vbCrLf
+                ret &= vbTab & vbTab & "If ret._" & Me.associationName & "Loaded = True then " & vbCrLf
                 ret &= vbTab & vbTab & vbTab & "Dim " & mappervar & " as " & _
                               mapperClassName & " = new " & mapperClassName & "(me.DBConn())" & vbCrLf
 
@@ -237,11 +237,7 @@ Public Class Association
             Throw New ApplicationException("PARENT relationship with cardinality ""MANY"" not allowed!")
         End If
 
-        sb.Append(vbTab & "Friend Function " & Me.getCanonicalName() & "Loaded As Boolean" & vbCrLf)
-        sb.Append(vbTab & vbTab & "'***" & CStr(IIf(isParent, "Parent Association", "Child Association")) & vbCrLf)
-        sb.Append(vbTab & vbTab & "return  me._" & fieldName & " is Nothing = False" & vbCrLf)
-        sb.Append(vbTab & "End Function " & vbCrLf)
-
+        
         Dim stmpl As String = templateText
 
         stmpl = stmpl.Replace("<sort>", CStr(IIf(String.IsNullOrEmpty(Me.SortField) = False, _
