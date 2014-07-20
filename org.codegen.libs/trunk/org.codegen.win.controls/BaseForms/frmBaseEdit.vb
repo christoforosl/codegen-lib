@@ -513,13 +513,16 @@ Public Class frmBaseEdit
     Private Function canCancelAndClose() As Boolean
 
         Dim confirMsg As String = WinControlsLocalizer.getString("confirm_close_and_loose_changes")
-        Dim dirty As Boolean = Me.dataChanged
-        'MsgBox("dirrty:" & dirty)
-        If Me.UcEditToolar.cmdSave.Enabled AndAlso _
-                dirty AndAlso _
-                winUtils.MsgboxQuestion(confirMsg) = MsgBoxResult.No Then
 
-            Return False
+        If Me.UcEditToolar.cmdSave.Enabled Then
+            Dim dirty As Boolean = Me.dataChanged
+            If dirty Then
+                Dim mresd As MsgBoxResult = winUtils.MsgboxQuestion(confirMsg)
+                MsgBox(mresd.ToString)
+                If mresd = MsgBoxResult.No Then
+                    Return False
+                End If
+            End If
 
         End If
 
@@ -638,5 +641,5 @@ Public Class frmBaseEdit
 #End Region
 
 
-    
+
 End Class
