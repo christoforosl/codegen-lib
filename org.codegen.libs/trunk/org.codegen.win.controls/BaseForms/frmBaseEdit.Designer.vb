@@ -89,6 +89,6 @@ Partial Class frmBaseEdit
     Protected WithEvents UcEditToolar As org.codegen.win.controls.ucEditToolar
     Protected WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Protected WithEvents lblEditStatus As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents panelControlArea As System.Windows.Forms.Panel
+    Protected WithEvents panelControlArea As System.Windows.Forms.Panel
 
 End Class

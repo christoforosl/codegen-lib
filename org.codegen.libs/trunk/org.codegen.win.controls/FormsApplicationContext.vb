@@ -44,6 +44,8 @@ Public Class FormsApplicationContext
 
     Public Property MarkMandatoryFieldsWithAsterisk As Boolean = True
 
+    Public Property requiredLabelsColor As Color = Color.DarkRed
+
     Public Property Translator() As TranslatedStringsProvider
 
         Get
