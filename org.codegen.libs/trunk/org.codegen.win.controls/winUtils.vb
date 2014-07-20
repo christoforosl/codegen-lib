@@ -3,9 +3,11 @@ Imports System.Text
 Imports System.Globalization
 
 Public Interface IMessageBoxHandler
+
     Sub showInformationMessageBox(ByVal msg As String)
     Sub showErrorBox(ByVal msg As String)
     Function showQuestionBox(ByVal msg As String) As MsgBoxResult
+
 End Interface
 
 Public NotInheritable Class DefaultMessageBoxHandler
@@ -19,7 +21,8 @@ Public NotInheritable Class DefaultMessageBoxHandler
         Call MsgBox(msg, MsgBoxStyle.Information, FormsApplicationContext.current.ApplicationTitle)
     End Sub
 
-    Public Function showQuestionBox(msg As String) As MsgBoxResult Implements IMessageBoxHandler.showQuestionBox
+    Public Function showQuestionBox(msg As String) As MsgBoxResult _
+            Implements IMessageBoxHandler.showQuestionBox
 
         Return MsgBox(msg, _
             CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), _

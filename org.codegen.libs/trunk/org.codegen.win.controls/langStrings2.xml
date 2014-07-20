@@ -190,4 +190,16 @@
     <langValueEL>Παρακαλώ Περιμένετε...</langValueEL>
   </langString>
 
+  <langString>
+    <langKey>yes</langKey>
+    <langValueEN>Yes</langValueEN>
+    <langValueEL>NAI</langValueEL>
+  </langString>
+
+  <langString>
+    <langKey>no</langKey>
+    <langValueEN>NO</langValueEN>
+    <langValueEL>OXI</langValueEL>
+  </langString>
+  
 </DslangStrings>
