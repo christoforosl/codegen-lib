@@ -22,6 +22,7 @@ Partial Class frmBaseEdit
         Me.UcEditToolar = New org.codegen.win.controls.ucEditToolar()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.lblEditStatus = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.panelControlArea = New System.Windows.Forms.Panel()
         Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -57,12 +58,21 @@ Partial Class frmBaseEdit
         Me.lblEditStatus.Text = "OK"
         Me.lblEditStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'panelControlArea
+        '
+        Me.panelControlArea.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.panelControlArea.Location = New System.Drawing.Point(0, 30)
+        Me.panelControlArea.Name = "panelControlArea"
+        Me.panelControlArea.Size = New System.Drawing.Size(804, 450)
+        Me.panelControlArea.TabIndex = 2
+        '
         'frmBaseEdit
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(804, 502)
+        Me.Controls.Add(Me.panelControlArea)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.UcEditToolar)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
@@ -79,5 +89,6 @@ Partial Class frmBaseEdit
     Protected WithEvents UcEditToolar As org.codegen.win.controls.ucEditToolar
     Protected WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Protected WithEvents lblEditStatus As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents panelControlArea As System.Windows.Forms.Panel
 
 End Class
