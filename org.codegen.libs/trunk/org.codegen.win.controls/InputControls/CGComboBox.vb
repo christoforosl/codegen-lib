@@ -372,6 +372,7 @@ Public Class CGComboBox
 
             AddHandler _AssociatedLabel.TextChanged, AddressOf CGTextBox.addAsteriskToLabel
             Call CGTextBox.addAsteriskToLabel(_AssociatedLabel, New EventArgs)
+            _AssociatedLabel.ForeColor = FormsApplicationContext.current.requiredLabelsColor()
         End If
     End Sub
 
