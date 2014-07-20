@@ -518,7 +518,7 @@ Public Class frmBaseEdit
             Dim dirty As Boolean = Me.dataChanged
             If dirty Then
                 Dim mresd As MsgBoxResult = winUtils.MsgboxQuestion(confirMsg)
-                MsgBox(mresd.ToString)
+                'MsgBox(mresd.ToString)
                 If mresd = MsgBoxResult.No Then
                     Return False
                 End If
