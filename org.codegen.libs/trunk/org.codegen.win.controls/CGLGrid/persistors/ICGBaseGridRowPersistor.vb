@@ -4,7 +4,7 @@ Namespace Grid
 
     Public Interface ICGGridRowPersistor
 
-        Sub SaveRowToStore(ByVal cgGrid As CGBaseGrid, ByVal dataRow As DataGridViewRow)
+        Sub SaveRowToStore(ByVal cgGrid As CGBaseGrid)
 
     End Interface
 

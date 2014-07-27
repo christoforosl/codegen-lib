@@ -71,8 +71,7 @@ Namespace Grid
             Get
 
                 If _gridRowPersistor Is Nothing Then
-                    _gridRowPersistor = New CGGridSingleCellPersistor
-                    CType(_gridRowPersistor, CGGridSingleCellPersistor).DBMapper = Me.DBMapper
+                    Throw New ApplicationException("GridRow Persistor not set!")
                 End If
 
                 Return _gridRowPersistor
@@ -333,12 +332,12 @@ Namespace Grid
 #End Region
 
 
-        Public Sub SaveRowToStore(ByVal dataRow As DataGridViewRow)
+        'Public Sub SaveRowToStore(ByVal dataRow As DataGridViewRow)
 
-            _traceSrc.TraceInformation("Calling SaveRowToStore")
-            Me.GridRowPersistor.SaveRowToStore(Me, Me.CurrentRow)
+        '    _traceSrc.TraceInformation("Calling SaveRowToStore")
+        '    Me.GridRowPersistor.SaveRowToStore(Me, Me.CurrentRow)
 
-        End Sub
+        'End Sub
 
         Protected MustOverride Sub bindToData()
 
@@ -412,20 +411,6 @@ Namespace Grid
             Handles BindingSource.ListChanged
 
             RaiseEvent GridDataLoaded(Me)
-
-        End Sub
-
-
-        Private Sub CGBaseGrid_CellValidated(ByVal sender As Object, _
-                                             ByVal e As DataGridViewCellEventArgs) _
-                                         Handles Me.CellValidated
-            If Me.DataLoading Then Return
-            If Me.ReadOnly Then Return
-
-            If Me.IsCurrentRowDirty = False Then Return
-
-            _traceSrc.TraceInformation("Save Row from CellValidated")
-            Me.GridRowPersistor.SaveRowToStore(Me, Me.CurrentRow)
 
         End Sub
 

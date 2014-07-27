@@ -12,6 +12,20 @@ Namespace Grid
 
         Property DBMapper As DBMapper
 
+        Public Shared Sub CGBaseGrid_CellValidated(ByVal sender As Object, _
+                                             ByVal e As DataGridViewCellEventArgs)
+
+            Dim grd As CGBaseGrid = CType(sender, CGBaseGrid)
+
+            If grd.DataLoading Then Return
+            If grd.ReadOnly Then Return
+
+            If grd.IsCurrentRowDirty = False Then Return
+
+            grd.GridRowPersistor.SaveRowToStore(grd)
+
+        End Sub
+
         Protected Overridable Function canSaveRow(ByVal cgGrid As CGBaseGrid, _
                                   ByVal dataRow As DataGridViewRow) As Boolean
 
@@ -33,9 +47,10 @@ Namespace Grid
         End Function
 
 
-        Public Sub SaveRowToStore(ByVal cgGrid As CGBaseGrid, _
-                                  ByVal dataRow As DataGridViewRow) _
+        Public Sub SaveRowToStore(ByVal cgGrid As CGBaseGrid ) _
                                         Implements ICGGridRowPersistor.SaveRowToStore
+
+            Dim dataRow As DataGridViewRow = cgGrid.CurrentRow()
 
             If Not canSaveRow(cgGrid, dataRow) Then Return
 
