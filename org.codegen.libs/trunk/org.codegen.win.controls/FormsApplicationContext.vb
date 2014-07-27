@@ -15,6 +15,7 @@ Public Class FormsApplicationContext
 
     End Sub
 
+    
     Public Shared Function current() As FormsApplicationContext
         If context Is Nothing Then
             context = New FormsApplicationContext
@@ -24,6 +25,15 @@ Public Class FormsApplicationContext
     End Function
 
 #End Region
+
+    ''' <summary>
+    ''' Affects CGComboBox controls behavior when checking for valid values.  
+    ''' If true, 0 values are assumed to be nothing selected in combox boxes
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Property ZerosInComboBoxesAreNull As Boolean = False
 
 
     ''' <summary>

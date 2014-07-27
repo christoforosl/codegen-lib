@@ -314,7 +314,7 @@ Public Class CGComboBox
 
 
     <Browsable(False), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), _
-  Description("Returns the Value of selected Item. Note: empty Strings and 0 values are ignored and nothing is returned instead.")> _
+        Description("Returns the Value of selected Item. Note: empty Strings and 0 values are ignored and nothing is returned instead.")> _
     Public Property Value() As Object Implements ICGBaseControl.Value
 
         Get
@@ -328,9 +328,11 @@ Public Class CGComboBox
                 'In case of a boolean value 1/0 we need the 0 to be a legitimate value.
                 'If you need to add a "Please Select", give it an string empty value and not 0
                 '
-
-                Return Me.SelectedValue
-
+                If CStr(Me.SelectedValue) = "0" AndAlso FormsApplicationContext.current.ZerosInComboBoxesAreNull Then
+                    Return Nothing
+                Else
+                    Return Me.SelectedValue
+                End If
             Else
                 Return Nothing
             End If
@@ -401,7 +403,7 @@ Public Class CGComboBox
         End If
     End Function
 
-   
+
 
     Public Sub makeReadOnly() Implements IReadOnlyEnabled.setReadOnly
         Me.ReadOnly = True
