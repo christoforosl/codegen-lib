@@ -171,7 +171,7 @@
     <Compile Include="CGLGrid\CGBaseGrid.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="CGLGrid\persistors\CGBaseGridRowPersistor.vb" />
+    <Compile Include="CGLGrid\persistors\CGGridSingleCellPersistor.vb" />
     <Compile Include="CGLGrid\DataGridViewAutoFilterBooleanColumnHeaderCell.vb" />
     <Compile Include="CGLGrid\DataGridViewAutoFilterCheckBoxColumn.vb" />
     <Compile Include="CGLGrid\DataGridViewAutoFilterComboColumnHeaderCell.vb" />
