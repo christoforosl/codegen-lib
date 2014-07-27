@@ -41,7 +41,7 @@ Public NotInheritable Class winUtils
             lmsg = msg
         End If
 
-        FormsApplicationContext.current().MessageBoxHandler.showInformationMessageBox(msg)
+        FormsApplicationContext.current().MessageBoxHandler.showInformationMessageBox(lmsg)
     End Sub
 
 
@@ -52,7 +52,7 @@ Public NotInheritable Class winUtils
         Else
             lmsg = msg
         End If
-        FormsApplicationContext.current().MessageBoxHandler.showErrorBox(msg)
+        FormsApplicationContext.current().MessageBoxHandler.showErrorBox(lmsg)
 
     End Sub
 
