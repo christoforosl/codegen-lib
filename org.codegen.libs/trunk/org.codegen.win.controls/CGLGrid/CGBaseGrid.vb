@@ -19,7 +19,7 @@ Namespace Grid
         ''' Object responsible for saving Datarow data to the database
         ''' </summary>
         ''' <remarks></remarks>
-        Private _CGBaseGridRowPersistor As ICGGridRowPersistor
+        Private _gridRowPersistor As ICGGridRowPersistor
 
         ''' <summary>
         ''' the dbmapper responsible for saving a datarow to the database
@@ -67,18 +67,18 @@ Namespace Grid
         ''' <remarks></remarks>
         <Browsable(False), _
         DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)> _
-        Public Property CGBaseGridRowPersistor() As ICGGridRowPersistor
+        Public Property GridRowPersistor() As ICGGridRowPersistor
             Get
 
-                If _CGBaseGridRowPersistor Is Nothing Then
-                    _CGBaseGridRowPersistor = New CGGridRowPersistor
-                    CType(_CGBaseGridRowPersistor, CGGridRowPersistor).DBMapper = Me.DBMapper
+                If _gridRowPersistor Is Nothing Then
+                    _gridRowPersistor = New CGGridSingleCellPersistor
+                    CType(_gridRowPersistor, CGGridSingleCellPersistor).DBMapper = Me.DBMapper
                 End If
 
-                Return _CGBaseGridRowPersistor
+                Return _gridRowPersistor
             End Get
             Set(ByVal value As ICGGridRowPersistor)
-                _CGBaseGridRowPersistor = value
+                _gridRowPersistor = value
             End Set
         End Property
 
@@ -183,7 +183,7 @@ Namespace Grid
 
         End Property
 
-        
+
 
 #End Region
 
@@ -336,7 +336,7 @@ Namespace Grid
         Public Sub SaveRowToStore(ByVal dataRow As DataGridViewRow)
 
             _traceSrc.TraceInformation("Calling SaveRowToStore")
-            Me.CGBaseGridRowPersistor.SaveRowToStore(Me, Me.CurrentRow)
+            Me.GridRowPersistor.SaveRowToStore(Me, Me.CurrentRow)
 
         End Sub
 
@@ -369,7 +369,7 @@ Namespace Grid
                 Next
 
             End If
-            
+
         End Sub
 
         Protected Overridable Sub setSkin()
@@ -415,7 +415,7 @@ Namespace Grid
 
         End Sub
 
-       
+
         Private Sub CGBaseGrid_CellValidated(ByVal sender As Object, _
                                              ByVal e As DataGridViewCellEventArgs) _
                                          Handles Me.CellValidated
@@ -425,7 +425,7 @@ Namespace Grid
             If Me.IsCurrentRowDirty = False Then Return
 
             _traceSrc.TraceInformation("Save Row from CellValidated")
-            Me.CGBaseGridRowPersistor.SaveRowToStore(Me, Me.CurrentRow)
+            Me.GridRowPersistor.SaveRowToStore(Me, Me.CurrentRow)
 
         End Sub
 
