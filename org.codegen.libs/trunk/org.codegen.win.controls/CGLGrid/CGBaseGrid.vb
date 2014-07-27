@@ -356,10 +356,20 @@ Namespace Grid
             Me.EditMode = DataGridViewEditMode.EditOnKeystrokeOrF2
             Me.DBMapper = inDbMapper
 
-            For Each sColName As String In editableColumnNames
-                Me.Columns(sColName).ReadOnly = False
-            Next
+            If editableColumnNames Is Nothing Then
+                For Each c As DataGridViewColumn In Me.Columns
+                    If c.Visible AndAlso c.Width > 0 Then
+                        c.ReadOnly = False
+                    End If
 
+                Next
+            Else
+                For Each sColName As String In editableColumnNames
+                    Me.Columns(sColName).ReadOnly = False
+                Next
+
+            End If
+            
         End Sub
 
         Protected Overridable Sub setSkin()
