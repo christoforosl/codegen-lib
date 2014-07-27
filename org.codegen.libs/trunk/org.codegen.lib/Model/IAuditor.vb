@@ -17,12 +17,12 @@ Public Class Auditor
 
             If mo.isDirty Then
 
-                If ModelContext.CurrentUser Is Nothing OrElse _
-                        String.IsNullOrEmpty(ModelContext.CurrentUser.Identity.Name) Then
+                If ModelContext.Current.CurrentUser Is Nothing OrElse _
+                        String.IsNullOrEmpty(ModelContext.Current.CurrentUserName) Then
                     Throw New ApplicationException("ModelContext.getCurrentUser not set!")
                 End If
 
-                Dim userName As String = ModelContext.CurrentUser.Identity.Name
+                Dim userName As String = ModelContext.Current.CurrentUser.Identity.Name
                 Dim iAudit As IAuditable = DirectCast(mo, IAuditable)
                 If mo.isNew Then
                     iAudit.CreateDate = Date.Now
@@ -50,12 +50,12 @@ Public Class Auditor2
 
             If mo.isDirty Then
 
-                If ModelContext.CurrentUser Is Nothing OrElse _
-                        ModelContext.CurrentUser.Identity.Name = String.Empty Then
+                If ModelContext.Current.CurrentUser Is Nothing OrElse _
+                        ModelContext.Current.CurrentUser.Identity.Name = String.Empty Then
                     Throw New ApplicationException("ModelContext.getCurrentUser not set, or UserId not set!")
                 End If
 
-                Dim userid As Integer = CInt(ModelContext.CurrentUser.Identity.Name)
+                Dim userid As Integer = CInt(ModelContext.Current.CurrentUser.Identity.Name)
                 Dim iAudit As IAuditable2 = DirectCast(mo, IAuditable2)
                 If mo.isNew Then
                     iAudit.CreateDate = Date.Now

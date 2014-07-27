@@ -42,7 +42,10 @@ Namespace Model
             Me.new()
             ' private constructor...
             Me._principal = principal
-            Me._locale = locale
+            If Not locale Is Nothing Then
+                Me._locale = locale
+            End If
+
 
         End Sub
 
@@ -89,6 +92,11 @@ Namespace Model
             setCurrent(New ModelContext(p, locale))
         End Sub
 
+        Public Shared Sub newCurrent(ByVal username As String)
+            Dim p As IPrincipal = New GenericPrincipal(New GenericIdentity(username), Nothing)
+            setCurrent(New ModelContext(p))
+        End Sub
+
         '''    
         '''	<summary>
         ''' Creates a new intance of ModelContext and sets the Principal and Locale objects,
@@ -130,23 +138,42 @@ Namespace Model
 
         End Function
 
-        Public Shared Property Locale() As System.Globalization.CultureInfo
+        Public Property Locale() As System.Globalization.CultureInfo
             Get
-                Return Current._locale
+                Return Me._locale
             End Get
             Set(ByVal value As System.Globalization.CultureInfo)
-                Current._locale = value
+                Me._locale = value
             End Set
         End Property
 
-        Public Shared Property CurrentUser() As IPrincipal
+        Public Property CurrentUser() As IPrincipal
             Get
-                Return Current._principal
+                Return Me._principal
             End Get
             Set(ByVal value As IPrincipal)
-                Current._principal = value
+                Me._principal = value
             End Set
         End Property
+
+        Public Property CurrentUserName() As String
+            Get
+                If (Me._principal Is Nothing) Then
+                    Return String.Empty
+                End If
+                If (Me._principal.Identity Is Nothing) Then
+                    Return String.Empty
+                End If
+
+                Return Me._principal.Identity.Name
+
+            End Get
+            Set(ByVal value As String)
+                Dim p As IPrincipal = New GenericPrincipal(New GenericIdentity(value), Nothing)
+                Me.CurrentUser = p
+            End Set
+        End Property
+
 
         Public Shared Property CurrentDBUtils() As DBUtils
             Get
