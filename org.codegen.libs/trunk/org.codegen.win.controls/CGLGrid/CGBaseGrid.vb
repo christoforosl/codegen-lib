@@ -253,22 +253,16 @@ Namespace Grid
         End Sub
 
 
-        'Private Sub _CellValidated(ByVal sender As Object, ByVal e As EventArgs) _
-        '            Handles Me.CellValidated
-
-        '    ''related to this:http://connect.microsoft.com/VisualStudio/feedback/details/167059/cellendedit-event-of-datagridview-iscurrentrowdirty-false-if-user-clicks-in-new-row
-        '    ''we have moved the code to save data to the grid in the cell validated event
-        '    'If Me.DataLoading Then Return
-        '    'If Me.ReadOnly Then Return
-        '    'Me.SaveRowToStore(Me.CurrentRow)
-
-        'End Sub
-
 
         Public Function IdValue() As Integer
             If Me.SelectedRows.Count = 0 Then Return 0
             Dim keyIdx As Integer = Me.Columns(Me.gpKeyColumnName).Index
-            Return CInt(Me.SelectedRows(0).Cells(keyIdx).Value)
+            If Me.SelectedRows(0).Cells(keyIdx).Value Is DBNull.Value Then
+                Return 0
+            Else
+                Return CInt(Me.SelectedRows(0).Cells(keyIdx).Value)
+            End If
+
         End Function
 
 #End Region
