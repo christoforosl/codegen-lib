@@ -110,7 +110,7 @@ Public MustInherit Class DBMapper
     Public Function findByKey(ByVal IdValue As Integer) As IModelObject
 
         Dim rs As IDataReader = Nothing
-        Dim mo As IModelObject = Me.getModelInstance
+        Dim mo As IModelObject = Nothing
 
         Try
             'no need to hit the database if the IdValue is less than 0
@@ -119,6 +119,7 @@ Public MustInherit Class DBMapper
                 Me.Loader.DataSource = rs
 
                 If rs.Read Then
+                    mo = Me.getModelInstance
                     Me.Loader.load(mo)
                     mo.isDirty = False
                     mo.afterLoad()
