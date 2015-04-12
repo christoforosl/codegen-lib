@@ -153,9 +153,9 @@ Namespace Tokens
 
                 End If
                 If field.RuntimeType Is Type.GetType("System.String") Then
-                    sb.Append("this.getStringHashCode(Me." & field.RuntimeFieldName & ")")
+                    sb.Append("this.getStringHashCode(this." & field.RuntimeFieldName & ")")
                 Else
-                    sb.Append("this." & field.RuntimeFieldName & ".GetHashCode")
+                    sb.Append("this." & field.RuntimeFieldName & ".GetHashCode()")
                 End If
 
                 i = i + 1

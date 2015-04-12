@@ -94,7 +94,7 @@ Namespace Tokens
                 'sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & DBTable.getRuntimeName(field.FieldName()) & " = null;" & vbCrLf)
 
                 If (field.isPrimaryKey) Then
-                    sb.Append(vbTab + vbTab + vbTab + vbTab & "throw new ApplicationExcpetion(""Can't set Primary Key to null"");" & vbCrLf)
+                    sb.Append(vbTab + vbTab + vbTab + vbTab & "throw new ApplicationException(""Can't set Primary Key to null"");" & vbCrLf)
                 Else
                     sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & DBTable.getRuntimeName(field.FieldName()) & " = null;" & vbCrLf)
                 End If
@@ -178,7 +178,7 @@ Namespace Tokens
 
                 sb.Append(vbTab + vbTab + vbTab & "if (val == DBNull.Value || val == null ){" & vbCrLf)
                 If (field.isPrimaryKey) Then
-                    sb.Append(vbTab + vbTab + vbTab + vbTab & "throw new ApplicationExcpetion(""Can't set Primary Key to null"");" & vbCrLf)
+                    sb.Append(vbTab + vbTab + vbTab + vbTab & "throw new ApplicationException(""Can't set Primary Key to null"");" & vbCrLf)
                 Else
                     sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & DBTable.getRuntimeName(field.FieldName()) & " = null;" & vbCrLf)
                 End If

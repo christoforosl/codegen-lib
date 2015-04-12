@@ -133,17 +133,17 @@ Public Class CSharpAssociation
 
             If Me.IsReadOnly Then
                 'in case of readonly association, just append a comment
-                ret += vbTab + vbTab & "'***Readonly Parent Association:" & Me.associationName.ToLower() & " ***!" & vbCrLf
+                ret += vbTab + vbTab & "//***Readonly Parent Association:" & Me.associationName.ToLower() & " ***!" & vbCrLf
             Else
 
                 Dim mapperClassName As String = GetAssociatedMapperClassName()
                 Dim mappervar As String = Me.associationName.ToLower() & "Mapper"
-                ret += vbTab + vbTab & "'*** Parent Association:" & Me.associationName.ToLower() & vbCrLf
-                ret += vbTab + vbTab & "if thisMo._" & Me.getGet() & "Loaded AndAlso thisMo." & Me.getGet() & "().NeedsSave() Then" & vbCrLf
-                ret += vbTab + vbTab + vbTab + "Dim mappervar as " & mapperClassName & "= new " & mapperClassName & "(me.dbConn())" & vbCrLf
-                ret += vbTab + vbTab + vbTab + "mappervar.save(thisMo." & Me.getGet() & ")" & vbCrLf
-                ret += vbTab + vbTab & vbTab + "thisMo." & DBTable.getRuntimeName(Me.ChildFieldName()) & " = thisMo." & Me.getGet() & "." & DBTable.getRuntimeName(Me.ParentFieldName()) & vbCrLf
-                ret += vbTab + vbTab & "end if" & vbCrLf
+                ret += vbTab + vbTab & "//*** Parent Association:" & Me.associationName.ToLower() & vbCrLf
+                ret += vbTab + vbTab & "if (thisMo." & Me.getGet() & "Loaded && thisMo." & Me.getGet() & ".NeedsSave) {" & vbCrLf
+                ret += vbTab + vbTab + vbTab + mapperClassName & " mappervar = new " & mapperClassName & "(this.dbConn);" & vbCrLf
+                ret += vbTab + vbTab + vbTab + "mappervar.save(thisMo." & Me.getGet() & ");" & vbCrLf
+                ret += vbTab + vbTab & vbTab + "thisMo." & DBTable.getRuntimeName(Me.ChildFieldName()) & " = thisMo." & Me.getGet() & "." & DBTable.getRuntimeName(Me.ParentFieldName()) & ";" & vbCrLf
+                ret += vbTab + vbTab & "}" & vbCrLf
                 ret += vbTab + vbTab + vbCrLf
 
             End If
@@ -175,23 +175,23 @@ Public Class CSharpAssociation
 
         Else
             If Me.IsReadOnly Then
-                ret += vbTab + vbTab & "'***Readonly Child Association:" & Me.associationName.ToLower() & " ***!" & vbCrLf
+                ret += vbTab + vbTab & "//***Readonly Child Association:" & Me.associationName.ToLower() & " ***!" & vbCrLf
             Else
 
                 Dim mapperClassName As String = GetAssociatedMapperClassName()
                 Dim mappervar As String = Me.associationName.ToLower() & "Mapper"
-                ret = vbTab + vbTab & "'***Child Association:" & Me.associationName.ToLower() & vbCrLf
-                ret &= vbTab & vbTab & "If ret._" & Me.associationName & "Loaded = True then " & vbCrLf
-                ret &= vbTab & vbTab & vbTab & "Dim " & mappervar & " as " & _
-                              mapperClassName & " = new " & mapperClassName & "(me.DBConn())" & vbCrLf
+                ret = vbTab + vbTab & "//***Child Association:" & Me.associationName.ToLower() & vbCrLf
+                ret &= vbTab & vbTab & "if (ret." & Me.associationName & "Loaded) {" & vbCrLf
+                ret &= vbTab & vbTab & vbTab & mapperClassName & " " & mappervar & _
+                                " = new " & mapperClassName & "(this.dbConn);" & vbCrLf
 
                 If Me.isCardinalityMany Then
-                    ret &= vbTab & vbTab & vbTab & mappervar & ".saveList(ret." & Me.getGet() & "())" & vbCrLf
-                    ret &= vbTab & vbTab & vbTab & mappervar & ".deleteList(ret.getDeleted" & Me.associationName() & "())" & vbCrLf
+                    ret &= vbTab & vbTab & vbTab & mappervar & ".saveList(ret." & Me.getGet() & ");" & vbCrLf
+                    ret &= vbTab & vbTab & vbTab & mappervar & ".deleteList(ret.getDeleted" & Me.associationName() & "());" & vbCrLf
                 Else
-                    ret &= vbTab & vbTab & vbTab & mappervar & ".save(ret." & Me.getGet() & "())" & vbCrLf
+                    ret &= vbTab & vbTab & vbTab & mappervar & ".save(ret." & Me.getGet() & ");" & vbCrLf
                 End If
-                ret &= vbTab & vbTab & "End if"
+                ret &= vbTab & vbTab & "}"
                 ret &= vbCrLf
 
             End If
@@ -249,7 +249,7 @@ Public Class CSharpAssociation
         stmpl = stmpl.Replace("<parent_field_runtime>", DBTable.getRuntimeName(Me.ParentFieldName))
         stmpl = stmpl.Replace("<child_field_runtime>", DBTable.getRuntimeName(Me.ChildFieldName))
         stmpl = stmpl.Replace("<child_field_runtime_as_integer>", _
-                              "CInt(Me." & DBTable.getRuntimeName(Me.ChildFieldName) & ")")
+                              "CInt(this." & DBTable.getRuntimeName(Me.ChildFieldName) & ")")
 
         stmpl = stmpl.Replace("<child_field>", Me.ChildFieldName)
         stmpl = stmpl.Replace("<parent_field>", Me.ParentFieldName)

@@ -142,7 +142,7 @@ Public Class Association
                 Dim mappervar As String = Me.associationName.ToLower() & "Mapper"
                 ret += vbTab + vbTab & "'*** Parent Association:" & Me.associationName.ToLower() & vbCrLf
                 ret += vbTab + vbTab & "if thisMo._" & Me.getGet() & "Loaded AndAlso thisMo." & Me.getGet() & "().NeedsSave() Then" & vbCrLf
-                ret += vbTab + vbTab + vbTab + "Dim mappervar as " & mapperClassName & "= new " & mapperClassName & "(me.dbConn())" & vbCrLf
+                ret += vbTab + vbTab + vbTab + "Dim mappervar as " & mapperClassName & "= new " & mapperClassName & "(me.dbConn)" & vbCrLf
                 ret += vbTab + vbTab + vbTab + "mappervar.save(thisMo." & Me.getGet() & ")" & vbCrLf
                 ret += vbTab + vbTab & vbTab + "thisMo." & DBTable.getRuntimeName(Me.ChildFieldName()) & " = thisMo." & Me.getGet() & "." & DBTable.getRuntimeName(Me.ParentFieldName()) & vbCrLf
                 ret += vbTab + vbTab & "end if" & vbCrLf

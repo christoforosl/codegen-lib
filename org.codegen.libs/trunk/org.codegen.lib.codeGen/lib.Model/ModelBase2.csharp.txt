@@ -28,7 +28,7 @@ namespace <NAMESPACE>
 
 	<MODEL_INTERFACE_DEFINITION>
 	
-	[DefaultMapperAttr(typeof(<MODEL_CLASS_NAME>DBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+	[DefaultMapperAttr(typeof(<DBMAPPER_NAMESPACE>.<MODEL_CLASS_NAME>DBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 	public class <MODEL_CLASS_NAME>Base : ModelObject, IEquatable<<MODEL_CLASS_NAME>Base>, System.IComparable<<MODEL_CLASS_NAME>>, I<MODEL_CLASS_NAME>
 	{
 
@@ -131,12 +131,12 @@ namespace <NAMESPACE>
 
 		}
 
-		public override bool Equals(object Obj)
-		{
+		public override bool Equals(object Obj) {
 
-			dynamic temp = Obj as <MODEL_CLASS_NAME>Base;
-			if (temp != null) {
-				return this.Equals(temp);
+			if (Obj != null && Obj is <MODEL_CLASS_NAME>Base) {
+
+				return this.Equals((<MODEL_CLASS_NAME>Base)Obj);
+
 			} else {
 				return false;
 			}
@@ -182,12 +182,7 @@ namespace <NAMESPACE>
 
 		}
 
-		public int CompareTo(<MODEL_CLASS_NAME> other)
-		{
-
-			return this.<MODEL_CLASS_NAME>Name.CompareTo(other.<MODEL_CLASS_NAME>Name);
-		}
-
+		<DEFAULT_SORTER>
 
 		#endregion
 

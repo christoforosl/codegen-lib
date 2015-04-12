@@ -99,7 +99,7 @@ Namespace Tokens
                         If association.isCardinalityMany Then
                             Dim dtype As String = association.ChildDatatype
                             'sb.Append(vbTab & "ret.add(me." & association.getVariableName() & ")" & vbCrLf)
-                            sb.Append(vbTab & "if  (this._" & association.getVariableName() & "Loaded()) { // check if loaded first!" & vbCrLf)
+                            sb.Append(vbTab & "if  (this." & association.getVariableName() & "Loaded) { // check if loaded first!" & vbCrLf)
                             sb.Append(vbTab & vbTab & "List< ModelObject > lp = this._" & association.getVariableName() & ".ConvertAll(" & vbCrLf)
                             sb.Append(vbTab & vbTab & vbTab & vbTab & "new Converter< " & dtype & ", ModelObject>((" & vbCrLf)
                             sb.Append(vbTab & vbTab & vbTab & dtype & " pf )=> {")
@@ -108,7 +108,7 @@ Namespace Tokens
                             sb.Append(vbTab & vbTab & "ret.AddRange(lp);" & vbCrLf)
                             sb.Append(vbTab & "}" & vbCrLf)
                         Else
-                            sb.Append(vbTab & "if  (this._" & association.getVariableName() & "Loaded) {" & vbCrLf)
+                            sb.Append(vbTab & "if  (this." & association.getVariableName() & "Loaded) {" & vbCrLf)
                             sb.Append(vbTab & vbTab & "ret.Add(this." & association.getVariableName() & ");" & vbCrLf)
                             sb.Append(vbTab & "}" & vbCrLf)
                         End If

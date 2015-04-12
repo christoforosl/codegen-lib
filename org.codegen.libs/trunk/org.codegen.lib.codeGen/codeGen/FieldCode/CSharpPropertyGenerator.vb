@@ -28,8 +28,8 @@ Public Class CSharpPropertyGenerator
                                 OrElse field.OriginalRuntimeType Is Type.GetType("System.Int16") _
                                 OrElse field.OriginalRuntimeType Is Type.GetType("System.Int32")) Then
 
-                sproperty &= vbTab & vbTab & "if ( _{0}.hasValue() ) {" & vbCrLf
-                sproperty &= vbTab & vbTab & vbTab & "return  (" & field.FieldDataType & ") _" & runtimeFieldName & ";" & vbCrLf
+                sproperty &= vbTab & vbTab & "if ( _" & runtimeFieldName & ".HasValue ) {" & vbCrLf
+                sproperty &= vbTab & vbTab & vbTab & "return _" & runtimeFieldName & ".GetValueOrDefault()==1;" & vbCrLf
 
                 sproperty &= vbTab & vbTab & "} else {" & vbCrLf
                 sproperty &= vbTab & vbTab & vbTab & "return false;" & vbCrLf
@@ -61,9 +61,9 @@ Public Class CSharpPropertyGenerator
 
         If field.isBoolean Then
             If field.OriginalRuntimeType Is Type.GetType("System.Boolean") Then
-                sproperty &= vbTab & vbTab & vbTab & "this._" & runtimeFieldName & " = value.HasValue() && value.Value;" & vbCrLf
+                sproperty &= vbTab & vbTab & vbTab & "this._" & runtimeFieldName & " = value.HasValue && value.Value;" & vbCrLf
             Else
-                sproperty &= vbTab & vbTab & vbTab & "this._" & runtimeFieldName & " = (int)value.HasValue() && value.Value? 1: 0;" & vbCrLf
+                sproperty &= vbTab & vbTab & vbTab & "this._" & runtimeFieldName & " = value.HasValue && value.Value? 1: 0;" & vbCrLf
             End If
 
 
@@ -76,7 +76,7 @@ Public Class CSharpPropertyGenerator
         End If
 
         sproperty &= vbCrLf & vbTab & vbTab & "}" & vbCrLf & _
-            vbTab & "} //End Set " & vbCrLf & _
+            vbTab & "}  " & vbCrLf & _
             vbTab & "}" & vbCrLf
 
 
@@ -116,15 +116,10 @@ Public Class CSharpPropertyGenerator
 
         If field.isBoolean Then
             ret.Append("public void set").Append(propertyFieldname).Append("(String val ){").Append(vbCrLf)
-            ret.Append("	if (String.IsNullOrEmpty(val) {").Append(vbCrLf)
+            ret.Append("	if (String.IsNullOrEmpty(val)) {").Append(vbCrLf)
             ret.Append("		this.").Append(runtimeFieldName).Append(" = null;").Append(vbCrLf)
             ret.Append("	} else {").Append(vbCrLf)
-            ret.Append("	    bool newval;").Append(vbCrLf)
-            ret.Append("	    bool success = Boolean.TryParse(val, newval);").Append(vbCrLf)
-            ret.Append("	    if (Not success) {").Append(vbCrLf)
-            ret.Append("		    throw new ApplicationException(""Invalid Integer Number, field:").Append(runtimeFieldName). _
-                                        Append(", value:"" + val)").Append(vbCrLf)
-            ret.Append("	    }").Append(vbCrLf)
+            ret.Append("	    bool newval = (""1""==val || ""true""==val.ToLower()) ;").Append(vbCrLf)
             ret.Append("	    this.").Append(runtimeFieldName).Append(" = newval;").Append(vbCrLf)
             ret.Append("	}").Append(vbCrLf)
             ret.Append("} //End Sub").Append(vbCrLf)
@@ -135,7 +130,12 @@ Public Class CSharpPropertyGenerator
             ret.Append("		this.").Append(runtimeFieldName).Append(" = Convert.ToInt32(val);").Append(vbCrLf)
 
             ret.Append("	} else if (String.IsNullOrEmpty(val)) {").Append(vbCrLf)
-            ret.Append("		this.").Append(runtimeFieldName).Append(" = null;").Append(vbCrLf)
+            If (field.isPrimaryKey) Then
+                ret.Append("		throw new ApplicationException(""Cant update Primary Key to Null"");").Append(vbCrLf)
+            Else
+                ret.Append("		this.").Append(runtimeFieldName).Append(" = null;").Append(vbCrLf)
+
+            End If
             ret.Append("	} else {").Append(vbCrLf)
 
             ret.Append("		throw new ApplicationException(""Invalid Integer Number, field:").Append(runtimeFieldName). _
@@ -144,42 +144,42 @@ Public Class CSharpPropertyGenerator
             ret.Append("}").Append(vbCrLf)
 
         ElseIf field.isDecimal Then
-            ret.Append("public void set").Append(propertyFieldname).Append("(String val ){").Append(vbCrLf)
-            ret.Append("	if (Information.IsNumeric(val)) {").Append(vbCrLf)
-            ret.Append("		this.").Append(runtimeFieldName).Append(" =  Convert.ToDecimal(val);").Append(vbCrLf)
-            ret.Append("	} else if ( string.IsNullOrEmpty(val) ) {").Append(vbCrLf)
-            ret.Append("		this.").Append(runtimeFieldName).Append(" = null;").Append(vbCrLf)
-            ret.Append("	} else {").Append(vbCrLf)
-            'ret.Append("		Me.").Append(runtimeFieldName).Append(" = Nothing").Append(vbCrLf)
-            ret.Append("		throw new ApplicationException(""Invalid Decimal Number, field:").Append(runtimeFieldName). _
-                                        Append(", value:"" + val);").Append(vbCrLf)
-            ret.Append("	}").Append(vbCrLf)
-            ret.Append("}").Append(vbCrLf)
+                ret.Append("public void set").Append(propertyFieldname).Append("(String val ){").Append(vbCrLf)
+                ret.Append("	if (Information.IsNumeric(val)) {").Append(vbCrLf)
+                ret.Append("		this.").Append(runtimeFieldName).Append(" =  Convert.ToDecimal(val);").Append(vbCrLf)
+                ret.Append("	} else if ( string.IsNullOrEmpty(val) ) {").Append(vbCrLf)
+                ret.Append("		this.").Append(runtimeFieldName).Append(" = null;").Append(vbCrLf)
+                ret.Append("	} else {").Append(vbCrLf)
+                'ret.Append("		Me.").Append(runtimeFieldName).Append(" = Nothing").Append(vbCrLf)
+                ret.Append("		throw new ApplicationException(""Invalid Decimal Number, field:").Append(runtimeFieldName). _
+                                            Append(", value:"" + val);").Append(vbCrLf)
+                ret.Append("	}").Append(vbCrLf)
+                ret.Append("}").Append(vbCrLf)
 
         ElseIf field.isDate Then
-            ret.Append("public void set").Append(propertyFieldname).Append("( String val ){").Append(vbCrLf)
-            ret.Append("	if (Information.IsDate(val)) {").Append(vbCrLf)
-            ret.Append("		this.").Append(runtimeFieldName).Append(" = Convert.ToDateTime(val);").Append(vbCrLf)
-            ret.Append("	} else if (String.IsNullOrEmpty(val) ) {").Append(vbCrLf)
-            ret.Append("		this.").Append(runtimeFieldName).Append(" = null;").Append(vbCrLf)
-            ret.Append("	} else {").Append(vbCrLf)
-            'ret.Append("		Me.").Append(runtimeFieldName).Append(" = Nothing").Append(vbCrLf)
-            ret.Append("		throw new ApplicationException(""Invalid Date, field:").Append(runtimeFieldName). _
-                                        Append(", value:"" + val);").Append(vbCrLf)
+                ret.Append("public void set").Append(propertyFieldname).Append("( String val ){").Append(vbCrLf)
+                ret.Append("	if (Information.IsDate(val)) {").Append(vbCrLf)
+                ret.Append("		this.").Append(runtimeFieldName).Append(" = Convert.ToDateTime(val);").Append(vbCrLf)
+                ret.Append("	} else if (String.IsNullOrEmpty(val) ) {").Append(vbCrLf)
+                ret.Append("		this.").Append(runtimeFieldName).Append(" = null;").Append(vbCrLf)
+                ret.Append("	} else {").Append(vbCrLf)
+                'ret.Append("		Me.").Append(runtimeFieldName).Append(" = Nothing").Append(vbCrLf)
+                ret.Append("		throw new ApplicationException(""Invalid Date, field:").Append(runtimeFieldName). _
+                                            Append(", value:"" + val);").Append(vbCrLf)
 
-            ret.Append("	}").Append(vbCrLf)
-            ret.Append("}").Append(vbCrLf)
+                ret.Append("	}").Append(vbCrLf)
+                ret.Append("}").Append(vbCrLf)
         ElseIf field.RuntimeTypeStr = "System.String" Then
-            ret.Append("public void set").Append(propertyFieldname).Append("( String val ) {").Append(vbCrLf)
-            ret.Append("	if (! string.IsNullOrEmpty(val)) {").Append(vbCrLf)
-            ret.Append("		this.").Append(runtimeFieldName).Append(" = val;").Append(vbCrLf)
-            ret.Append("	} else {").Append(vbCrLf)
-            ret.Append("		this.").Append(runtimeFieldName).Append(" = null;").Append(vbCrLf)
-            ret.Append("	}").Append(vbCrLf)
-            ret.Append("}").Append(vbCrLf)
-        End If
+                ret.Append("public void set").Append(propertyFieldname).Append("( String val ) {").Append(vbCrLf)
+                ret.Append("	if (! string.IsNullOrEmpty(val)) {").Append(vbCrLf)
+                ret.Append("		this.").Append(runtimeFieldName).Append(" = val;").Append(vbCrLf)
+                ret.Append("	} else {").Append(vbCrLf)
+                ret.Append("		this.").Append(runtimeFieldName).Append(" = null;").Append(vbCrLf)
+                ret.Append("	}").Append(vbCrLf)
+                ret.Append("}").Append(vbCrLf)
+            End If
 
-        Return ret.ToString
+            Return ret.ToString
 
     End Function
 

@@ -112,8 +112,15 @@ Namespace FileComponents
                 Throw New ApplicationException("No Code Template specified for: " & Me.GetType.Name & " :" & Me.Name)
             End If
 
-            Return Utilities.getResourceFileText(Me.templateFileName)
+            Dim ret As String = String.Empty
+            Try
 
+                ret = Utilities.getResourceFileText(Me.templateFileName)
+            Catch er As Exception
+                Throw New ApplicationException("Error getting resource:" & Me.templateFileName)
+            End Try
+
+            Return ret
         End Function
 
         Protected Function saveFile() As Boolean

@@ -7,21 +7,16 @@
                 this._<association_name> = value;
 				if (  this._<association_name> != null) {
 					this._<association_name>.<child_field_runtime> = this.<parent_field_runtime>;
-					//AddHandler this.IDChanged, AddressOf value.handleParentIdChanged;
 					value.IDChanged += this.handleParentIdChanged;
 				}     
             }
-
-
             get {
 			    //LAZY LOADING! Only hit the database to get the child object if we need it
-                if (! this.<association_name>Loaded()) {
+                if (! this.<association_name>Loaded) {
 					this.load<association_name>();
                 } 
-								
                 return this._<association_name>;
-                
-            } //End Get
+            } 
         }
         
         /// <summary>
@@ -35,7 +30,6 @@
 				//call setter here, not the private variable
 				this.<association_name> = 
 					new <db_mapper>().findWhere("<child_field>={0}", this.<parent_field_runtime>);
-				
 				
 			} 
 

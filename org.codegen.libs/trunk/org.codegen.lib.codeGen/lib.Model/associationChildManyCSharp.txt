@@ -18,8 +18,8 @@
 			this.load<association_name>();
 			val.<child_field_runtime> = this.<parent_field_runtime>;
 			//AddHandler this.IDChanged, AddressOf val.handleParentIdChanged;
-			value.IDChanged += this.handleParentIdChanged;
-			this._<association_name>.add(val);
+			val.IDChanged += this.handleParentIdChanged;
+			this._<association_name>.Add(val);
 
         }
 
@@ -34,8 +34,8 @@
 		public virtual void Remove<association_name_singular>( <datatype> val ) {
 			
 			this.load<association_name>();
-			this._deleted<association_name>.add(val);
-			this._<association_name>.remove(val);
+			this._deleted<association_name>.Add(val);
+			this._<association_name>.Remove(val);
 
         }
 		
@@ -52,11 +52,11 @@
 				//'1 to many relation
                 //'LAZY LOADING! Only hit the database to get the child object if we need it
                 if ( this._<association_name> == null ) {
-                    this.load<association_name>;
+                    this.load<association_name>();
                 } 
 				<sort>
                 return this._<association_name>;
-            } //End Get
+            }
             
 			set {
 				if (value == null ) {
@@ -65,9 +65,8 @@
                     this._<association_name> = new List< <datatype> >();
                     this.addTo<association_name>List(value);
                 }
-			} //End Set
-
-        }//End Property
+			}
+        }
 
 		/// <summary>
         /// Private method to add to the <association_name> List. 
