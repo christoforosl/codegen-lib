@@ -49,7 +49,7 @@ Public Class PropertyGenerator
 
         Dim PropertyInterface As String = DirectCast( _
                 ModelGenerator.Current.CurrentObjectBeingGenerated.FileGroup(ModelObjectFileComponent.KEY),  _
-                VBClassFileComponent).ClassInterface
+                DotNetClassFileComponent).ClassInterface
 
         sproperty &= vbTab & "End Get " & vbCrLf & _
             vbTab & "Set{2}" & vbCrLf & "{3}" & _

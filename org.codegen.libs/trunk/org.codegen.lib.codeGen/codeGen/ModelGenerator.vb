@@ -17,12 +17,21 @@ Imports System.Threading
 ''' 
 Public Class ModelGenerator
 
+    Public Enum enumLanguage
+        VB = 1
+        CSHARP = 2
+        JAVA = 3
+    End Enum
+
+
     Public Enum enumVERSION
         ONE = 1
         TWO = 2
     End Enum
 
     Private Const STR_CODE_GEN_ASSEMBLY As String = "org.codegen.lib.codeGen"
+
+    Public Property dotNetLanguage As enumLanguage = enumLanguage.CSHARP
 
     Private _GeneratorVersion As Integer
     Private _vbNetProjectFile As String
@@ -221,9 +230,13 @@ Public Class ModelGenerator
     Public ReadOnly Property IPropertyGenerator() As IPropertyGenerator
         Get
             If _IPropertyGenerator Is Nothing Then
-                _IPropertyGenerator = New PropertyGenerator
+                If Me.dotNetLanguage = enumLanguage.CSHARP Then
+                    _IPropertyGenerator = New CSharpPropertyGenerator
+                Else
+                    _IPropertyGenerator = New PropertyGenerator
+                End If
             End If
-            Return _IPropertyGenerator
+                Return _IPropertyGenerator
         End Get
     End Property
 
@@ -241,5 +254,14 @@ Public Class ModelGenerator
 
 
     End Sub
+
+    Function getAssociationInstance() As IAssociation
+        If Me.dotNetLanguage = enumLanguage.CSHARP Then
+            Return New CSharpAssociation
+        Else
+            Return New Association
+        End If
+
+    End Function
 
 End Class

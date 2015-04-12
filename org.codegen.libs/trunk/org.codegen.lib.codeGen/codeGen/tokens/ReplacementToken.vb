@@ -1,6 +1,22 @@
 ﻿
 Namespace Tokens
 
+    Public MustInherit Class MultiLingualReplacementToken
+        Inherits ReplacementToken
+
+        Public MustOverride Function getReplacementCodeVB(ByVal t As IObjectToGenerate) As String
+        Public MustOverride Function getReplacementCodeCSharp(ByVal t As IObjectToGenerate) As String
+
+        Public Overrides Function getReplacementCode(t As dotnet.IObjectToGenerate) As String
+            If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
+                Return Me.getReplacementCodeVB(t)
+            Else
+                Return Me.getReplacementCodeCSharp(t)
+            End If
+        End Function
+
+    End Class
+
     Public MustInherit Class ReplacementToken
         Implements IReplacementToken
 

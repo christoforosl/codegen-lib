@@ -226,7 +226,7 @@ Public Class XMLClassGenerator
                 Dim childTableLinkField As String = getRowValue(assRow, XML_ASS_CHILD_FIELD, parentTableLinkField)
                 Dim accLevel As String = getRowValue(assRow, XML_FIELD_ATTR_ACCESS_LEVEL, STR_PUBLIC)
 
-                Dim n As New Association()
+                Dim n As IAssociation = ModelGenerator.Current.getAssociationInstance()
                 n.DataType = associationDatatype
                 n.associationName = assname
                 n.associationNameSingular = assnameSingle
@@ -234,7 +234,7 @@ Public Class XMLClassGenerator
                 n.RelationType = relType
                 n.ParentFieldName = parentTableLinkField
                 n.ChildFieldName = childTableLinkField
-                n.AccessLevel = accLevel
+                'n.AccessLevel = accLevel
                 n.IsReadOnly = CBool(getRowValue(assRow, XML_ASS_READ_ONLY, "0"))
                 n.isSortAsc = CBool(getRowValue(assRow, XML_ATTR_SORT_ASC, "1"))
                 n.SortField = getRowValue(assRow, XML_ATTR_SORT_FIELD, "")

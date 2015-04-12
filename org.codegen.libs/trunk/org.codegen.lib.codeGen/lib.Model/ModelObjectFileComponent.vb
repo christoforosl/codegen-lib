@@ -16,7 +16,7 @@ Namespace FileComponents
         GetType(ModelObjectClassNameToken), _
         GetType(IfaceNameToken), GetType(ClassAccessLevelToken))> _
     Public Class ModelObjectFileComponent
-        Inherits VBClassFileComponent
+        Inherits DotNetClassFileComponent
 
         Private Shared _modelObjectDefaultNamespace As String = Nothing
 

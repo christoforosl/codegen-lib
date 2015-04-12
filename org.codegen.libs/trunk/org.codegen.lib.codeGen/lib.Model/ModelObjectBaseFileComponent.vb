@@ -19,7 +19,7 @@ Namespace FileComponents
                 GetType(ClassFieldStringConstantsToken), _
                 GetType(FieldListToken), _
                 GetType(ClassFieldDeclarationsToken), _
-                GetType(GeneratedInterfaceToken), _
+                GetType(CSharpGeneratedInterfaceToken), _
                 GetType(ClassFieldDeclarationsToken), _
                 GetType(GetAttrStrToken), _
                 GetType(SetAttrStrToken), _

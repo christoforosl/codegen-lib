@@ -61,12 +61,19 @@ Public Class DBField
                     Optional ByVal withInitialiser As Boolean = True) As String Implements IDBField.getClassVariableDeclaration
 
         Dim fname As String = Me.RuntimeFieldName()
+        Dim ret As String = String.Empty
 
-        Dim ret As String = vbTab & accessLevel & " _" & _
-                        fname & " as " & _
-                        getFieldDataType()
+        If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
+            ret = vbTab & accessLevel & " _" & _
+                            fname & " as " & _
+                            getFieldDataType()
 
-        If withInitialiser AndAlso Me.isPrimaryKey = False Then ret &= " = Nothing"
+            If withInitialiser AndAlso Me.isPrimaryKey = False Then ret &= " = Nothing"
+        Else
+            ret = vbTab & accessLevel & " " & getFieldDataType() & " _" & fname
+            If withInitialiser AndAlso Me.isPrimaryKey = False Then ret &= " = null"
+            ret &= ";"
+        End If
 
 
         Return ret & vbCrLf
@@ -76,7 +83,11 @@ Public Class DBField
     Public Overridable Function getFieldDataType() As String Implements IDBField.getFieldDataType
 
         If Me.isNullableDataType Then
-            Return "Nullable (of " & Me._RuntimeTypeStr & ")"
+            If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
+                Return "Nullable (of " & Me._RuntimeTypeStr & ")"
+            Else
+                Return Me._RuntimeTypeStr & "?"
+            End If
         Else
             Return Me._RuntimeTypeStr
         End If
@@ -109,7 +120,13 @@ Public Class DBField
             ret = Me.FieldDataType
 
         ElseIf Me.isNullableDataType Then
-            ret = "Nullable (of " & Me.FieldDataType & ")"
+            If (ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP) Then
+                ret = Me.FieldDataType & "?"
+            Else
+                ret = "Nullable (of " & Me.FieldDataType & ")"
+            End If
+
+
         Else
             ret = Me.FieldDataType
         End If
@@ -120,12 +137,9 @@ Public Class DBField
 
     Public Overridable Function getProperty() As String Implements IDBField.getProperty
 
-        Return New PropertyGenerator().generateCode(Me)
+        Return ModelGenerator.Current.IPropertyGenerator.generateCode(Me)
 
     End Function
-
-
-
 
     Private Function getOLEDBParameterType() As String
 

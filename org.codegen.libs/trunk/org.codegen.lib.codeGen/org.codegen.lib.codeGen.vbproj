@@ -141,8 +141,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="codeGen\Association.vb" />
+    <Compile Include="codeGen\CSharpAssociation.vb" />
     <Compile Include="codeGen\DBField.vb" />
     <Compile Include="codeGen\DBTable.vb" />
+    <Compile Include="codeGen\FieldCode\CSharpPropertyGenerator.vb" />
     <Compile Include="codeGen\FieldCode\PropertyGenerator.vb" />
     <Compile Include="codeGen\FileGroupLoader.vb" />
     <Compile Include="codeGen\ModelGenerator.vb" />
@@ -276,20 +278,15 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="templates\classTemplateDBase.txt" />
-  </ItemGroup>
-  <ItemGroup>
+    <EmbeddedResource Include="lib.Model\associationChildOne.txt" />
+    <EmbeddedResource Include="lib.Model\associationParent.txt" />
     <EmbeddedResource Include="templates\DBMapperBase.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="SqlGen\SqlTemplate.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="lib.Model\associationChildOne.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="lib.Model\associationChildMany.txt" />
-    <EmbeddedResource Include="lib.Model\associationParent.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="templates\getList.txt" />
@@ -305,7 +302,12 @@
     <EmbeddedResource Include="lib.test\TestTemplate.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="codeGen\FieldCode\property.txt" />
+    <Content Include="codeGen\FieldCode\property.cs.txt" />
+    <Content Include="codeGen\FieldCode\property.vb.txt" />
+    <EmbeddedResource Include="lib.Model\associationChildManyCSharp.txt" />
+    <EmbeddedResource Include="lib.Model\associationChildOneCSharp.txt" />
+    <EmbeddedResource Include="lib.Model\associationParentCSharp.txt" />
+    <Content Include="templates\cSharp.txt" />
     <EmbeddedResource Include="ui.winforms\edit\EditFormTemplate.txt" />
     <EmbeddedResource Include="ui.winforms\edit\EditControlTemplate.txt" />
     <EmbeddedResource Include="ui.winforms\List\ListControlTemplate.txt" />

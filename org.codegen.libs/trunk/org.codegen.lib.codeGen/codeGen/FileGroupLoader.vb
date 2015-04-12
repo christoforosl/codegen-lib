@@ -36,8 +36,6 @@ Public Class FileGroupLoader
             mapperBaseClass.WriteFileIf = enumWriteFileIf.IF_CODE_CHANGED
             fg.Add(MapperBaseFileComponent.KEY, mapperBaseClass)
 
-
-
             Dim sqlFile As SQLStatementsFileComponent = New SQLStatementsFileComponent(obj)
             sqlFile.templateFileName = "org.codegen.lib.codeGen.SqlTemplate.txt"
             sqlFile.WriteFileIf = enumWriteFileIf.IF_CODE_CHANGED

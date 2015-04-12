@@ -7,7 +7,7 @@ Imports System.Xml
 
 Namespace FileComponents
 
-    Public MustInherit Class VBClassFileComponent
+    Public MustInherit Class DotNetClassFileComponent
         Inherits GeneratedFileComponent
         Implements IVBProjectIncludedFile
 
@@ -62,7 +62,15 @@ Namespace FileComponents
         Public Overrides Function generatedFilename() As String _
                         Implements IVBProjectIncludedFile.FileName
 
-            Return Me.ClassName & ".vb"
+            If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP Then
+                Return Me.ClassName & ".cs"
+            ElseIf ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.JAVA Then
+                Return Me.ClassName & ".java"
+            Else
+                Return Me.ClassName & ".vb"
+            End If
+
+
 
         End Function
 

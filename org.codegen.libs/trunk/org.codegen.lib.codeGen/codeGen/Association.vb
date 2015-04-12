@@ -93,7 +93,7 @@ Public Class Association
         Return ret
 
     End Function
-    Public Overridable Function getVariableName() As String
+    Public Overridable Function getVariableName() As String Implements IAssociation.getVariableName
         Return Me.associationName
     End Function
     Public Overridable Function getVariable() As String Implements IAssociation.getVariable
@@ -231,7 +231,7 @@ Public Class Association
         Dim fieldName As String = Me.associationName
         Dim PropertyInterface As String = DirectCast( _
                 ModelGenerator.Current.CurrentObjectBeingGenerated.FileGroup(ModelObjectFileComponent.KEY),  _
-                VBClassFileComponent).ClassInterface
+                DotNetClassFileComponent).ClassInterface
 
         If Me.isCardinalityMany And Me.RelationType = STR_RELATION_PARENT Then
             Throw New ApplicationException("PARENT relationship with cardinality ""MANY"" not allowed!")

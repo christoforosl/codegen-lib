@@ -20,7 +20,7 @@ Namespace Tokens
 
             Dim vec As List(Of IAssociation) = t.DbTable.Associations()
 
-            For Each association As Association In vec
+            For Each association As IAssociation In vec
                 If association.isParent() Then
                     ret &= association.getSaveParentCode(CType(t, ObjectToGenerate).ClassName())
                 End If
@@ -55,7 +55,7 @@ Namespace Tokens
 
             Dim vec As List(Of IAssociation) = t.DbTable.Associations()
 
-            For Each association As Association In vec
+            For Each association As IAssociation In vec
 
                 If association.isParent() = False Then
                     ret += association.getSaveChildrenCode()

@@ -38,13 +38,18 @@ Namespace Tokens
     End Class
 
     Public Class SetAttrStrToken
-        Inherits ReplacementToken
+        Inherits MultiLingualReplacementToken
 
         Sub New()
             Me.StringToReplace = "SET_ATTRS_STR"
         End Sub
 
-        Public Overrides Function getReplacementCode(ByVal og As IObjectToGenerate) As String
+        Public Overrides Function getReplacementCodeCSharp(t As dotnet.IObjectToGenerate) As String
+
+        
+        End Function
+
+        Public Overrides Function getReplacementCodeVB(ByVal og As IObjectToGenerate) As String
 
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
             Dim vec As Dictionary(Of String, IDBField) = og.DbTable.Fields()
@@ -70,7 +75,7 @@ Namespace Tokens
                 sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & DBTable.getRuntimeName(field.FieldName()) & "=")
 
                 sb.Append("CType(val,").Append(field.FieldDataType).Append(")").Append(vbCrLf)
-                
+
 
                 sb.Append(vbTab + vbTab + vbTab & "End If" & vbCrLf)
                 sb.Append(vbTab + vbTab + vbTab & "return" & vbCrLf)
