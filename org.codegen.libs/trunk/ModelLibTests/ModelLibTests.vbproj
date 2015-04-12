@@ -91,7 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="dbscript.sql" />
-    <Content Include="CSharpModelGenerator.xml">
+    <Content Include="ModelGenerator.xml">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
