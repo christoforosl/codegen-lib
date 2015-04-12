@@ -280,7 +280,7 @@
   <ItemGroup>
     <EmbeddedResource Include="lib.Model\associationChildOne.txt" />
     <EmbeddedResource Include="lib.Model\associationParent.txt" />
-    <EmbeddedResource Include="lib.Model\ModelBase2.vb.txt" />
+    <EmbeddedResource Include="lib.Model\ModelBase2.visualBasic.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="SqlGen\SqlTemplate.txt" />

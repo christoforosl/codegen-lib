@@ -22,7 +22,7 @@ Public Class FileGroupLoader
 
         Dim moClassBase As ModelObjectBaseFileComponent = New ModelObjectBaseFileComponent(obj)
         If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
-            moClassBase.templateFileName = "org.codegen.lib.codeGen.ModelBase2.vb.txt"
+            moClassBase.templateFileName = "org.codegen.lib.codeGen.ModelBase2.visualBasic.txt"
         Else
             moClassBase.templateFileName = "org.codegen.lib.codeGen.ModelBase2.csharp.txt"
 
