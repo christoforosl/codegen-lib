@@ -283,6 +283,8 @@
     <EmbeddedResource Include="lib.Model\ModelBase2.visualBasic.txt" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="lib.Model\ModelBaseExtender2.visualBasic.txt" />
+    <EmbeddedResource Include="lib.test\TestTemplate.visualbasic.txt" />
     <EmbeddedResource Include="SqlGen\SqlTemplate.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -294,14 +296,10 @@
     <EmbeddedResource Include="templates\getListStatic.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="lib.Model\ModelBaseExtender2.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="lib.test\TestTemplate.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="codeGen\FieldCode\property.cs.txt" />
     <Content Include="codeGen\FieldCode\property.vb.txt" />
+    <EmbeddedResource Include="lib.test\TestTemplate.csharp.txt" />
+    <EmbeddedResource Include="lib.Model\ModelBaseExtender2.csharp.txt" />
     <EmbeddedResource Include="templates\DBMapperBase.csharp.txt" />
     <EmbeddedResource Include="lib.Model\associationChildManyCSharp.txt" />
     <EmbeddedResource Include="lib.Model\associationChildOneCSharp.txt" />

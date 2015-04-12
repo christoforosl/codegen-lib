@@ -33,7 +33,12 @@ Public Class FileGroupLoader
         fg.Add(ModelObjectBaseFileComponent.KEY, moClassBase)
 
         Dim moClass As ModelObjectFileComponent = New ModelObjectFileComponent(obj)
-        moClass.templateFileName = "org.codegen.lib.codeGen.ModelBaseExtender2.txt"
+        If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
+            moClass.templateFileName = "org.codegen.lib.codeGen.ModelBaseExtender2.visualBasic.txt"
+        Else
+            moClass.templateFileName = "org.codegen.lib.codeGen.ModelBaseExtender2.csharp.txt"
+        End If
+
         moClass.WriteFileIf = enumWriteFileIf.IF_NOT_EXISTS
         fg.Add(ModelObjectFileComponent.KEY, moClass)
 
@@ -54,12 +59,17 @@ Public Class FileGroupLoader
 
         End If
 
-            If String.IsNullOrEmpty(ModelGenerator.Current.ProjectOutputDirTest) = False Then
-                Dim testClass As TestFileComponent = New TestFileComponent(obj)
-                testClass.templateFileName = "org.codegen.lib.codeGen.TestTemplate.txt"
-                testClass.WriteFileIf = enumWriteFileIf.IF_CODE_CHANGED
-                fg.Add(TestFileComponent.KEY, testClass)
+        If String.IsNullOrEmpty(ModelGenerator.Current.ProjectOutputDirTest) = False Then
+            Dim testClass As TestFileComponent = New TestFileComponent(obj)
+            If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
+                testClass.templateFileName = "org.codegen.lib.codeGen.TestTemplate.visualBasic.txt"
+            Else
+                testClass.templateFileName = "org.codegen.lib.codeGen.TestTemplate.csharp.txt"
             End If
+
+            testClass.WriteFileIf = enumWriteFileIf.IF_CODE_CHANGED
+            fg.Add(TestFileComponent.KEY, testClass)
+        End If
 
             If String.IsNullOrEmpty(ModelGenerator.Current.ProjectOutputDirUI) = False AndAlso _
                                     obj.GenerateUI Then

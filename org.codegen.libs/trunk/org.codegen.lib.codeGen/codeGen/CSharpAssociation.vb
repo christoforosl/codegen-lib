@@ -82,10 +82,10 @@ Public Class CSharpAssociation
 
         Dim ret As String = "Assert."
         If Me._cardinality.Equals("*") Then
-            ret &= "isTrue(p." & Me.getGet & " isNot Nothing)"
+            ret &= "IsTrue(p." & Me.getGet & " != null);"
 
         Else
-            ret &= "isTrue(p." & Me.getGet & " isNot Nothing)"
+            ret &= "IsTrue(p." & Me.getGet & " != null);"
         End If
 
         Return ret

@@ -9,11 +9,13 @@ Imports System.IO
             GetType(TestAssertEqualToken), _
             GetType(ClassAccessLevelToken), _
             GetType(PKFieldTableNameToken), _
+            GetType(ClassNameSpaceToken), _
+            GetType(DBMapperClassNameSpaceToken), _
             GetType(ModelObjectClassNameToken), _
             GetType(ClassAccessLevelToken))> _
 Public Class TestFileComponent
     Inherits ModelObjectFileComponent
-
+    '
     Private Const STR_TEST As String = "Test"
 
     Public Sub New(ByVal inobjGen As IObjectToGenerate)
