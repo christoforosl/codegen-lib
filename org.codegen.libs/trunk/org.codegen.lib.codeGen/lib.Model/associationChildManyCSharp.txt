@@ -1,0 +1,102 @@
+﻿		
+		#region "Association <association_name>"
+
+		public bool _<association_name>Loaded  {get;set;}
+
+		public virtual <datatype> get<association_name_singular>( int i ) 
+
+            this.load<association_name>();
+            if( this._<association_name>.Count >= (i - 1)) {
+                return this._<association_name>.Item(i);
+            }
+            return null;
+
+        } //End Function        
+		
+		public virtual void Add<association_name_singular> ( <datatype> val )  {
+			//1-Many , add a single item!
+			this.load<association_name>();
+			val.<child_field_runtime> = this.<parent_field_runtime>;
+			AddHandler this.IDChanged, AddressOf val.handleParentIdChanged;
+			this._<association_name>.add(val);
+
+        }
+
+		public virtual void Clear<association_name>() {
+
+            this.load<association_name>();
+            this._deleted<association_name>.AddRange(this._<association_name>);
+            this._<association_name>.Clear();
+
+        }
+
+		public virtual void Remove<association_name_singular>( <datatype> val ) 
+			
+			this.load<association_name>;
+			this._deleted<association_name>.add(val);
+			this._<association_name>.remove(val);
+
+        }
+		
+		public virtual IEnumerable< <datatype> > getDeleted<association_name>() 
+			
+			return this._deleted<association_name>;
+
+        }
+
+        public virtual IEnumerable< <datatype> > <association_name>() {
+					
+
+            get {
+				//'1 to many relation
+                //'LAZY LOADING! Only hit the database to get the child object if we need it
+                if ( this._<association_name> == null ) {
+                    this.load<association_name>;
+                } 
+				<sort>
+                return this._<association_name>;
+            } //End Get
+            
+			set {
+				if (value == null ) {
+					this._<association_name> = null;
+                } else {
+                    this._<association_name> = new List< <datatype> >();
+                    this.addTo<association_name>List(value);
+                }
+			} //End Set
+
+        }//End Property
+
+		/// <summary>
+        /// Private method to add to the <association_name> List. 
+		/// The list must have aldready been initialized
+        /// </summary>
+		private void addTo<association_name>List( IEnumerable< <datatype>> value ))
+
+			IEnumerator< <datatype>> enumtor = value.GetEnumerator();
+        
+		    while (enumtor.MoveNext) {
+                <datatype> v = enumtor.Current;
+                AddHandler this.IDChanged, AddressOf v.handleParentIdChanged;
+                this._<association_name>.Add(v);
+            }
+
+        } //End Sub
+        
+        /// <summary>
+        /// Loads child objects from dabatabase, if not loaded already
+        /// </summary>
+        public virtual void load<association_name>() {
+			
+			if this._<association_name>Loaded then return;
+			//init list
+			this._<association_name> = New List< <datatype>>();
+
+			if (! this.isNew ) {
+                this.addTo<association_name>List( new <db_mapper>().findList("<child_field>={0}", this.<parent_field_runtime>))
+            }
+            
+			this._<association_name>Loaded = true;
+        } //End Sub
+		#endregion

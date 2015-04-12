@@ -1,0 +1,15 @@
+﻿	public virtual {1} {0}  _
+                    implements {2}.{0} {
+        get {
+            return _{0};
+        }
+
+        set({1} value) {
+            if (ModelObject.valueChanged(_{0}, value) {
+                this.isDirty = true;
+                this._{0} = value;
+                {3}
+            }
+        }
+
+    }

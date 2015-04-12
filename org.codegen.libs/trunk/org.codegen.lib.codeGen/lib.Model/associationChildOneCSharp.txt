@@ -1,0 +1,48 @@
+﻿        
+        public bool _<association_name>Loaded {get;set;}
+
+		public virtual Property <association_name>() As <datatype>
+			//1-1 child association
+            set {
+                this._<association_name> = value
+				if (  this._<association_name> != null) {
+					this._<association_name>.<child_field_runtime> = this.<parent_field_runtime>;
+					AddHandler this.IDChanged, AddressOf value.handleParentIdChanged;
+				
+				}     
+            }
+
+
+            get {
+			    //LAZY LOADING! Only hit the database to get the child object if we need it
+                if (! this._<association_name>Loaded()) {
+					Call this.load<association_name>();
+                } 
+								
+                return this._<association_name>;
+                
+            } //End Get
+        }
+        
+        /// <summary>
+        /// Loads child object from dabatabase, if not loaded already
+        /// <//summary>
+        private void load<association_name> {
+						
+			if ( this._<association_name>Loaded { return; }
+
+			if ( this.<parent_field_runtime> > 0)  {
+				//call setter here, not the private variable
+				this.<association_name> = 
+					new <db_mapper>().findWhere( _ 
+					   "<child_field>={0}", this.<parent_field_runtime>);
+				
+				
+			} 
+
+			//set the loaded flag here
+			this._<association_name>Loaded = true;
+            
+        } //End Sub
+
+		
