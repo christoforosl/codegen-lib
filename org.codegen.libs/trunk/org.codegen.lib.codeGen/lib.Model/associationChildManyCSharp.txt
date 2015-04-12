@@ -1,13 +1,13 @@
-﻿		
+﻿		//associationChildManyCSharp.txt
 		#region "Association <association_name>"
 
-		public bool _<association_name>Loaded  {get;set;}
+		public bool <association_name>Loaded  {get;set;}
 
-		public virtual <datatype> get<association_name_singular>( int i ) 
+		public virtual <datatype> get<association_name_singular>( int i ) {
 
             this.load<association_name>();
             if( this._<association_name>.Count >= (i - 1)) {
-                return this._<association_name>.Item(i);
+                return this._<association_name>[i];
             }
             return null;
 
@@ -17,7 +17,8 @@
 			//1-Many , add a single item!
 			this.load<association_name>();
 			val.<child_field_runtime> = this.<parent_field_runtime>;
-			AddHandler this.IDChanged, AddressOf val.handleParentIdChanged;
+			//AddHandler this.IDChanged, AddressOf val.handleParentIdChanged;
+			value.IDChanged += this.handleParentIdChanged;
 			this._<association_name>.add(val);
 
         }
@@ -30,21 +31,21 @@
 
         }
 
-		public virtual void Remove<association_name_singular>( <datatype> val ) 
+		public virtual void Remove<association_name_singular>( <datatype> val ) {
 			
-			this.load<association_name>;
+			this.load<association_name>();
 			this._deleted<association_name>.add(val);
 			this._<association_name>.remove(val);
 
         }
 		
-		public virtual IEnumerable< <datatype> > getDeleted<association_name>() 
+		public virtual IEnumerable< <datatype> > getDeleted<association_name>() {
 			
 			return this._deleted<association_name>;
 
         }
 
-        public virtual IEnumerable< <datatype> > <association_name>() {
+        public virtual IEnumerable< <datatype> > <association_name> {
 					
 
             get {
@@ -72,13 +73,13 @@
         /// Private method to add to the <association_name> List. 
 		/// The list must have aldready been initialized
         /// </summary>
-		private void addTo<association_name>List( IEnumerable< <datatype>> value ))
+		private void addTo<association_name>List( IEnumerable< <datatype>> value ) {
 
 			IEnumerator< <datatype>> enumtor = value.GetEnumerator();
         
-		    while (enumtor.MoveNext) {
+		    while (enumtor.MoveNext()) {
                 <datatype> v = enumtor.Current;
-                AddHandler this.IDChanged, AddressOf v.handleParentIdChanged;
+                v.IDChanged += this.handleParentIdChanged;
                 this._<association_name>.Add(v);
             }
 
@@ -89,14 +90,14 @@
         /// </summary>
         public virtual void load<association_name>() {
 			
-			if this._<association_name>Loaded then return;
+			if (this.<association_name>Loaded)return;
 			//init list
-			this._<association_name> = New List< <datatype>>();
+			this._<association_name> = new List< <datatype>>();
 
 			if (! this.isNew ) {
-                this.addTo<association_name>List( new <db_mapper>().findList("<child_field>={0}", this.<parent_field_runtime>))
+                this.addTo<association_name>List( new <db_mapper>().findList("<child_field>={0}", this.<parent_field_runtime>));
             }
             
-			this._<association_name>Loaded = true;
+			this.<association_name>Loaded = true;
         } //End Sub
 		#endregion

@@ -16,10 +16,7 @@ Public Class CSharpPropertyGenerator
         Dim runtimeFieldName As String = field.RuntimeFieldName()
         Dim propertyFieldname As String = field.RuntimeFieldName
 
-        If field.XMLSerializationIgnore Then
-            xmlIgnore = "<XmlIgnore()> _" & vbCrLf
-        End If
-
+       
         Dim sproperty As String = xmlIgnore & _
                 vbTab & field.AccessLevel.ToLower & " virtual " & field.getPropertyDataType & " " & runtimeFieldName & "  {" & vbCrLf & _
                 vbTab & "get {" & vbCrLf
@@ -80,7 +77,7 @@ Public Class CSharpPropertyGenerator
 
         sproperty &= vbCrLf & vbTab & vbTab & "}" & vbCrLf & _
             vbTab & "} //End Set " & vbCrLf & _
-            vbTab & "} //End Property " & vbCrLf
+            vbTab & "}" & vbCrLf
 
 
         If field.RuntimeTypeStr = "System.String" Then
@@ -118,7 +115,7 @@ Public Class CSharpPropertyGenerator
 
 
         If field.isBoolean Then
-            ret.Append("public void set").Append(propertyFieldname).Append("(String val )").Append(vbCrLf)
+            ret.Append("public void set").Append(propertyFieldname).Append("(String val ){").Append(vbCrLf)
             ret.Append("	if (String.IsNullOrEmpty(val) {").Append(vbCrLf)
             ret.Append("		this.").Append(runtimeFieldName).Append(" = null;").Append(vbCrLf)
             ret.Append("	} else {").Append(vbCrLf)
@@ -149,7 +146,7 @@ Public Class CSharpPropertyGenerator
         ElseIf field.isDecimal Then
             ret.Append("public void set").Append(propertyFieldname).Append("(String val ){").Append(vbCrLf)
             ret.Append("	if (Information.IsNumeric(val)) {").Append(vbCrLf)
-            ret.Append("		this.").Append(runtimeFieldName).Append(" = (System.Decimal)val;").Append(vbCrLf)
+            ret.Append("		this.").Append(runtimeFieldName).Append(" =  Convert.ToDecimal(val);").Append(vbCrLf)
             ret.Append("	} else if ( string.IsNullOrEmpty(val) ) {").Append(vbCrLf)
             ret.Append("		this.").Append(runtimeFieldName).Append(" = null;").Append(vbCrLf)
             ret.Append("	} else {").Append(vbCrLf)
@@ -158,9 +155,10 @@ Public Class CSharpPropertyGenerator
                                         Append(", value:"" + val);").Append(vbCrLf)
             ret.Append("	}").Append(vbCrLf)
             ret.Append("}").Append(vbCrLf)
+
         ElseIf field.isDate Then
-            ret.Append("public void set").Append(propertyFieldname).Append("( String val )").Append(vbCrLf)
-            ret.Append("	If (Information.IsDate(val)) {").Append(vbCrLf)
+            ret.Append("public void set").Append(propertyFieldname).Append("( String val ){").Append(vbCrLf)
+            ret.Append("	if (Information.IsDate(val)) {").Append(vbCrLf)
             ret.Append("		this.").Append(runtimeFieldName).Append(" = (Date)val;").Append(vbCrLf)
             ret.Append("	} else if (String.IsNullOrEmpty(val) ) {").Append(vbCrLf)
             ret.Append("		this.").Append(runtimeFieldName).Append(" = null;").Append(vbCrLf)
@@ -173,7 +171,7 @@ Public Class CSharpPropertyGenerator
             ret.Append("}").Append(vbCrLf)
         ElseIf field.RuntimeTypeStr = "System.String" Then
             ret.Append("public void set").Append(propertyFieldname).Append("( String val ) {").Append(vbCrLf)
-            ret.Append("	If (! string.isNullOrEmpty(val)) {").Append(vbCrLf)
+            ret.Append("	if (! string.IsNullOrEmpty(val)) {").Append(vbCrLf)
             ret.Append("		this.").Append(runtimeFieldName).Append(" = val;").Append(vbCrLf)
             ret.Append("	} else {").Append(vbCrLf)
             ret.Append("		this.").Append(runtimeFieldName).Append(" = null;").Append(vbCrLf)

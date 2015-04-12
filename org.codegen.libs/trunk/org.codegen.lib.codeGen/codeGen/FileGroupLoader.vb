@@ -21,7 +21,13 @@ Public Class FileGroupLoader
         Dim fg As Dictionary(Of String, IGeneratedFileComponent) = New Dictionary(Of String, IGeneratedFileComponent)
 
         Dim moClassBase As ModelObjectBaseFileComponent = New ModelObjectBaseFileComponent(obj)
-        moClassBase.templateFileName = "org.codegen.lib.codeGen.ModelBase2.txt"
+        If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
+            moClassBase.templateFileName = "org.codegen.lib.codeGen.ModelBase2.vb.txt"
+        Else
+            moClassBase.templateFileName = "org.codegen.lib.codeGen.ModelBase2.csharp.txt"
+        End If
+
+
         moClassBase.WriteFileIf = enumWriteFileIf.IF_CODE_CHANGED
         fg.Add(ModelObjectBaseFileComponent.KEY, moClassBase)
 

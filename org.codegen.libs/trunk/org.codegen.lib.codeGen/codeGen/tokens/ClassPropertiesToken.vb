@@ -82,20 +82,13 @@ Namespace Tokens
     End Class
 
     Public Class ModelObjectChildArrayToken
-        Inherits ReplacementToken
+        Inherits MultiLingualReplacementToken
         Sub New()
             Me.StringToReplace = "SETUP_CHILDREN_ARRAY"
         End Sub
-        Public Overrides Function getReplacementCode(ByVal t As dotnet.IObjectToGenerate) As String
+        
 
-            If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP Then
-                Return getReplacementCodeCSharp(t)
-            Else
-                Return getReplacementCodeVB(t)
-            End If
-        End Function
-
-        Public Function getReplacementCodeCSharp(ByVal t As dotnet.IObjectToGenerate) As String
+        Public Overrides Function getReplacementCodeCSharp(ByVal t As dotnet.IObjectToGenerate) As String
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
 
             If t.DbTable.Associations().Count() > 0 Then
@@ -106,12 +99,12 @@ Namespace Tokens
                         If association.isCardinalityMany Then
                             Dim dtype As String = association.ChildDatatype
                             'sb.Append(vbTab & "ret.add(me." & association.getVariableName() & ")" & vbCrLf)
-                            sb.Append(vbTab & "if  (this._" & association.getVariableName() & "Loaded) { // check if loaded first!" & vbCrLf)
-                            sb.Append(vbTab & vbTab & "List< ModelObject > lp = this._" & association.getVariableName() & ".ConvertAll( _" & vbCrLf)
-                            sb.Append(vbTab & vbTab & vbTab & vbTab & "New Converter< " & dtype & ", ModelObject>(" & vbCrLf)
-                            sb.Append(vbTab & vbTab & vbTab & "Function(pf As " & dtype & ")" & vbCrLf)
-                            sb.Append(vbTab & vbTab & vbTab & vbTab & "Return DirectCast(pf, ModelObject)" & vbCrLf)
-                            sb.Append(vbTab & vbTab & vbTab & "{))" & vbCrLf)
+                            sb.Append(vbTab & "if  (this._" & association.getVariableName() & "Loaded()) { // check if loaded first!" & vbCrLf)
+                            sb.Append(vbTab & vbTab & "List< ModelObject > lp = this._" & association.getVariableName() & ".ConvertAll(" & vbCrLf)
+                            sb.Append(vbTab & vbTab & vbTab & vbTab & "new Converter< " & dtype & ", ModelObject>((" & vbCrLf)
+                            sb.Append(vbTab & vbTab & vbTab & dtype & " pf )=> {")
+                            sb.Append(vbTab & vbTab & vbTab & vbTab & "return (ModelObject)pf;}));" & vbCrLf)
+
                             sb.Append(vbTab & vbTab & "ret.AddRange(lp);" & vbCrLf)
                             sb.Append(vbTab & "}" & vbCrLf)
                         Else
@@ -127,7 +120,7 @@ Namespace Tokens
 
             Return sb.ToString()
         End Function
-        Public Function getReplacementCodeVB(ByVal t As dotnet.IObjectToGenerate) As String
+        Public Overrides Function getReplacementCodeVB(ByVal t As dotnet.IObjectToGenerate) As String
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
 
             If t.DbTable.Associations().Count() > 0 Then
@@ -295,7 +288,7 @@ Namespace Tokens
 
                     Else
                         'If sb.Length > 0 Then sb.Append(" _").Append(vbCrLf & vbTab & vbTab).Append(" orElse ")
-                        sb.Append("if (string.isNullOrEmpty( mo.").Append(field.RuntimeFieldName).Append(")) {")
+                        sb.Append("if (string.IsNullOrEmpty( mo.").Append(field.RuntimeFieldName).Append(")) {")
 
                     End If
                     sb.Append(vbCrLf)

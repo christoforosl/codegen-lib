@@ -7,6 +7,7 @@ using System.Diagnostics;
 using org.model.lib.Model;
 using org.model.lib;
 
+using Microsoft.VisualBasic;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 
@@ -89,13 +90,10 @@ namespace <NAMESPACE>
 		#region "Getters/Setters of values by field index/name"
 		public override object getAttribute(int fieldKey){
 <GET_ATTRS>
-			}
-
-
 		}
 
 		public override object getAttribute(string fieldKey) {
-			fieldKey = fieldKey.ToLower;
+			fieldKey = fieldKey.ToLower();
 <GET_ATTRS_STR>
 		}
 
@@ -103,14 +101,9 @@ namespace <NAMESPACE>
 <SET_ATTRS>
 		}
 
-
-		public override void setAttribute(string fieldKey, object val)
-		{
-
-			fieldKey = fieldKey.ToLower;
-
-			<SET_ATTRS_STR>
-
+		public override void setAttribute(string fieldKey, object val) {
+			fieldKey = fieldKey.ToLower();
+<SET_ATTRS_STR>
 		}
 
 		#endregion

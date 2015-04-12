@@ -2,20 +2,14 @@ Imports System.Collections.Generic
 
 Namespace Tokens
     Public Class UpdateChildrenFieldCodeToken
-        Inherits ReplacementToken
+        Inherits MultiLingualReplacementToken
 
         Sub New()
             Me.StringToReplace = "UPDATE_CHILDREN_LINK_FIELD"
         End Sub
 
-        Public Overrides Function getReplacementCode(ByVal t As IObjectToGenerate) As String
-            If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
-                Return getReplacementCodeVB(t)
-            Else
-                Return getReplacementCodeCSharp(t)
-            End If
-        End Function
-        Public Function getReplacementCodeCSharp(ByVal t As IObjectToGenerate) As String
+       
+        Public Overrides Function getReplacementCodeCSharp(ByVal t As IObjectToGenerate) As String
             'this code is executed if this class is acting as a child of another object
             'the updateAssociationEndsIds contain keys that are in the form of:
             ' <PARENT_OBJECT>.<ThisClassName>
@@ -36,9 +30,9 @@ Namespace Tokens
                     Dim relField As String = DBTable.getRuntimeName(association.ParentFieldName)
 
                     sAssociationsCode.Append(TWO_TABS & "// Assocations from " & parentMoObjType & vbCrLf)
-                    sAssociationsCode.Append(TWO_TABS & "if (typeof parentMo is " & parentMoObjType & ") {" & vbCrLf)
+                    sAssociationsCode.Append(TWO_TABS & "if ( parentMo is " & parentMoObjType & ") {" & vbCrLf)
                     sAssociationsCode.Append(TWO_TABS & vbTab & "this." & meField & _
-                                             "= (" & parentMoObjType & ")parentMo)." & relField & ";" & vbCrLf)
+                                             "= ((" & parentMoObjType & ")parentMo)." & relField & ";" & vbCrLf)
                     sAssociationsCode.Append(TWO_TABS & "}" & vbCrLf)
 
                 End If
@@ -60,7 +54,7 @@ Namespace Tokens
                 Return String.Empty
             End If
         End Function
-        Public Function getReplacementCodeVB(ByVal t As IObjectToGenerate) As String
+        Public Overrides Function getReplacementCodeVB(ByVal t As IObjectToGenerate) As String
 
             'this code is executed if this class is acting as a child of another object
             'the updateAssociationEndsIds contain keys that are in the form of:

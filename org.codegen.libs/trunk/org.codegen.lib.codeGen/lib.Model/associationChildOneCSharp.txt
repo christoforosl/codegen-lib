@@ -1,22 +1,22 @@
-﻿        
-        public bool _<association_name>Loaded {get;set;}
+﻿        //associationChildOneCSharp.txt
+        public bool <association_name>Loaded {get;set;}
 
-		public virtual Property <association_name>() As <datatype>
+		public virtual <datatype> <association_name> {
 			//1-1 child association
             set {
-                this._<association_name> = value
+                this._<association_name> = value;
 				if (  this._<association_name> != null) {
 					this._<association_name>.<child_field_runtime> = this.<parent_field_runtime>;
-					AddHandler this.IDChanged, AddressOf value.handleParentIdChanged;
-				
+					//AddHandler this.IDChanged, AddressOf value.handleParentIdChanged;
+					value.IDChanged += this.handleParentIdChanged;
 				}     
             }
 
 
             get {
 			    //LAZY LOADING! Only hit the database to get the child object if we need it
-                if (! this._<association_name>Loaded()) {
-					Call this.load<association_name>();
+                if (! this.<association_name>Loaded()) {
+					this.load<association_name>();
                 } 
 								
                 return this._<association_name>;
@@ -27,21 +27,20 @@
         /// <summary>
         /// Loads child object from dabatabase, if not loaded already
         /// <//summary>
-        private void load<association_name> {
+        private void load<association_name>() {
 						
-			if ( this._<association_name>Loaded { return; }
+			if ( this.<association_name>Loaded) { return; }
 
 			if ( this.<parent_field_runtime> > 0)  {
 				//call setter here, not the private variable
 				this.<association_name> = 
-					new <db_mapper>().findWhere( _ 
-					   "<child_field>={0}", this.<parent_field_runtime>);
+					new <db_mapper>().findWhere("<child_field>={0}", this.<parent_field_runtime>);
 				
 				
 			} 
 
 			//set the loaded flag here
-			this._<association_name>Loaded = true;
+			this.<association_name>Loaded = true;
             
         } //End Sub
 
