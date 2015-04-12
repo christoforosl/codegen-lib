@@ -280,6 +280,7 @@
   <ItemGroup>
     <EmbeddedResource Include="lib.Model\associationChildOne.txt" />
     <EmbeddedResource Include="lib.Model\associationParent.txt" />
+    <EmbeddedResource Include="lib.Model\ModelBase2.vb.txt" />
     <EmbeddedResource Include="templates\DBMapperBase.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -293,9 +294,6 @@
     <EmbeddedResource Include="templates\getListStatic.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="lib.Model\ModelBase2.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="lib.Model\ModelBaseExtender2.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -307,6 +305,7 @@
     <EmbeddedResource Include="lib.Model\associationChildManyCSharp.txt" />
     <EmbeddedResource Include="lib.Model\associationChildOneCSharp.txt" />
     <EmbeddedResource Include="lib.Model\associationParentCSharp.txt" />
+    <EmbeddedResource Include="lib.Model\ModelBase2.csharp.txt" />
     <Content Include="templates\cSharp.txt" />
     <EmbeddedResource Include="ui.winforms\edit\EditFormTemplate.txt" />
     <EmbeddedResource Include="ui.winforms\edit\EditControlTemplate.txt" />

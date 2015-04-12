@@ -40,7 +40,7 @@ Namespace Tokens
 
                 For Each association As IAssociation In vec
                     If association.isParent Then
-                        sb.Append("if  (this._" & association.getVariableName() & "Loaded) {" & vbCrLf)
+                        sb.Append("if  (this." & association.getVariableName() & "Loaded) {" & vbCrLf)
                         sb.Append("ret.Add(this." & association.getVariableName() & ");" & vbCrLf)
                         sb.Append("}" & vbCrLf)
 

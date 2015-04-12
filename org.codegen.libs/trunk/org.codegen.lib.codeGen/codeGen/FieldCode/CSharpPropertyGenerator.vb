@@ -131,8 +131,8 @@ Public Class CSharpPropertyGenerator
 
         ElseIf field.isInteger Then
             ret.Append("public void set").Append(propertyFieldname).Append("(String val){").Append(vbCrLf)
-            ret.Append("	if (Microsoft.VisualBasic.Information.IsNumeric(val)) {").Append(vbCrLf)
-            ret.Append("		this.").Append(runtimeFieldName).Append(" = (").Append(field.FieldDataType).Append(")val;").Append(vbCrLf)
+            ret.Append("	if (Information.IsNumeric(val)) {").Append(vbCrLf)
+            ret.Append("		this.").Append(runtimeFieldName).Append(" = Convert.ToInt32(val);").Append(vbCrLf)
 
             ret.Append("	} else if (String.IsNullOrEmpty(val)) {").Append(vbCrLf)
             ret.Append("		this.").Append(runtimeFieldName).Append(" = null;").Append(vbCrLf)
@@ -159,7 +159,7 @@ Public Class CSharpPropertyGenerator
         ElseIf field.isDate Then
             ret.Append("public void set").Append(propertyFieldname).Append("( String val ){").Append(vbCrLf)
             ret.Append("	if (Information.IsDate(val)) {").Append(vbCrLf)
-            ret.Append("		this.").Append(runtimeFieldName).Append(" = (Date)val;").Append(vbCrLf)
+            ret.Append("		this.").Append(runtimeFieldName).Append(" = Convert.ToDateTime(val);").Append(vbCrLf)
             ret.Append("	} else if (String.IsNullOrEmpty(val) ) {").Append(vbCrLf)
             ret.Append("		this.").Append(runtimeFieldName).Append(" = null;").Append(vbCrLf)
             ret.Append("	} else {").Append(vbCrLf)
