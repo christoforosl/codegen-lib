@@ -83,7 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="My Project\AssemblyInfo.vb" />
-    <Compile Include="ModelGeneratorTests.vb" />
     <Compile Include="TestParseDateTime.vb" />
     <Compile Include="Tests\EmployeeInfoTestBase.vb" />
     <Compile Include="Tests\EmployeeProjectTestBase.vb" />
@@ -115,6 +114,11 @@
     <Compile Include="VbBusObjects\EmployeeBase.vb">
       <DependentUpon>Employee.vb</DependentUpon>
     </Compile>
+    <Compile Include="VbBusObjects\DBMappers\EmployeeTypeDBMapper.vb" />
+    <Compile Include="VbBusObjects\EmployeeType.vb" />
+    <Compile Include="VbBusObjects\EmployeeTypeBase.vb">
+      <DependentUpon>EmployeeType.vb</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="dbscript.sql" />
@@ -135,6 +139,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VbBusObjects\DBMappers\ProjectDBMapperSql.xml">
       <DependentUpon>ProjectDBMapper.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VbBusObjects\DBMappers\EmployeeTypeDBMapperSql.xml">
+      <DependentUpon>EmployeeTypeDBMapper.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

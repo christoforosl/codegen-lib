@@ -191,7 +191,7 @@ namespace <NAMESPACE>
 		public override object Id {
 			get { return this._<PK_MO_FIELD_NAME>; }
 			set {
-				this._<PK_MO_FIELD_NAME> = <PK_CONVERTER>;
+				this._<PK_MO_FIELD_NAME> = <PK_CONVERTER>
 				this.raiseBroadcastIdChange();
 			}
 		}

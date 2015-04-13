@@ -21,7 +21,7 @@ Namespace Tokens
                               ".GetValueOrDefault() == p2." & field.RuntimeFieldName & ".GetValueOrDefault(),""Expected Field " & field.RuntimeFieldName & " NOT to be equal"");")
 
                 ElseIf field.isAuditField AndAlso field.RuntimeFieldName.ToLower = "updateuser" Then
-                    sb.Append(vbTab + vbTab & "'skip update user!")
+                    sb.Append(vbTab + vbTab & "// skip update user!")
                 Else
                     If field.isNullableDataType Then
                         sb.Append(vbTab + vbTab & "Assert.IsTrue(p." & field.RuntimeFieldName & ".GetValueOrDefault() == p2." & field.RuntimeFieldName & ".GetValueOrDefault(),""Expected Field " & field.RuntimeFieldName & " to be equal"");")

@@ -1,8 +1,6 @@
 Imports Microsoft.VisualBasic
 Imports System.Collections.Generic
 
-
-
 Public Class DBField
     Implements IDBField
 

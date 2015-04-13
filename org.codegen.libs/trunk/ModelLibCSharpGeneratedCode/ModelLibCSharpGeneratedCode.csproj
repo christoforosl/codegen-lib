@@ -63,11 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="tests\EmployeeInfoTestBase.cs" />
-    <Compile Include="tests\EmployeeProjectTestBase.cs" />
-    <Compile Include="tests\EmployeeRankTestBase.cs" />
-    <Compile Include="tests\EmployeeTestBase.cs" />
-    <Compile Include="tests\ProjectTestBase.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -128,6 +123,14 @@
       <DependentUpon>ProjectDBMapper.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="CsModelMappers\ProjectDBMapper.cs" />
+    <EmbeddedResource Include="CsModelMappers\EmployeeTypeDBMapperSql.xml">
+      <DependentUpon>EmployeeTypeDBMapper.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="CsModelMappers\EmployeeTypeDBMapper.cs" />
+    <Compile Include="CsModelObjects\EmployeeType.cs" />
+    <Compile Include="CsModelObjects\EmployeeTypeBase.cs">
+      <DependentUpon>EmployeeType.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="CSharpModelGenerator.xml">

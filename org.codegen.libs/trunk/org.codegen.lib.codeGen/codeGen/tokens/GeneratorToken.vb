@@ -24,9 +24,9 @@ Namespace Tokens
 
         Public Overrides Function getReplacementCodeCSharp(t As dotnet.IObjectToGenerate) As String
             If t.DbTable.getPrimaryKeyField.isInteger Then
-                Return "Convert.ToInt64(value)"
+                Return "Convert.ToInt64(value);"
             ElseIf t.DbTable.getPrimaryKeyField.isString Then
-                Return ""
+                Return "Convert.ToString(value);"
             Else
                 Throw New ApplicationException("Primary Key can be Integer or String")
             End If

@@ -171,3 +171,23 @@ CREATE TABLE [dbo].sysLanguageStrings(
 [langValueEN] nvarchar(500) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 [langValueEL] nvarchar(500) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 CONSTRAINT [PK_sysLanguageStrings] PRIMARY KEY ([langKey])) 
+go
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[EmployeeType]') AND type in (N'U'))
+DROP TABLE [EmployeeType]
+go
+CREATE TABLE [EmployeeType](
+	[EmployeeTypeCode] varchar(10) NOT NULL,
+	[EmployeeType] [nvarchar](50) NOT NULL,
+ CONSTRAINT [EmployeeType_PK] PRIMARY KEY ( [EmployeeTypeCode] )
+)
+go
+ALTER TABLE dbo.Employee ADD
+	[EmployeeTypeCode]  varchar(10) NULL
+go
+ALTER TABLE Employee  WITH CHECK ADD  CONSTRAINT EmployeeR01 FOREIGN KEY([EmployeeTypeCode])
+REFERENCES [EmployeeType] ([EmployeeTypeCode])
+go
+ALTER TABLE dbo.Employee ADD
+createDate datetime,updateDate datetime,createUser varchar(50),updateUser varchar(50)
+go
+-------------------->>>>>>>

@@ -1,0 +1,34 @@
+﻿<SQLStatements>
+  <stmt>
+    <key>key</key>
+    <MSSQL />
+    <ORACLE />
+    <COMMON />
+    <JET />
+  </stmt>
+  <stmt>
+    <key>selectall</key>
+    <MSSQL>SELECT EmployeeTypeCode,EmployeeType FROM EmployeeType</MSSQL>
+    <JET>SELECT EmployeeTypeCode,EmployeeType FROM EmployeeType</JET>
+  </stmt>
+  <stmt>
+    <key>selectone</key>
+    <MSSQL>SELECT EmployeeTypeCode,EmployeeType FROM EmployeeType WHERE EmployeeTypeCode=@0</MSSQL>
+    <JET>SELECT EmployeeTypeCode,EmployeeType FROM EmployeeType WHERE EmployeeTypeCode=@0</JET>
+  </stmt>
+  <stmt>
+    <key>delete</key>
+    <MSSQL>DELETE FROM EmployeeType WHERE EmployeeTypeCode=@0</MSSQL>
+    <JET>DELETE FROM EmployeeType WHERE EmployeeTypeCode=@0</JET>
+  </stmt>
+  <stmt>
+    <key>insert</key>
+    <MSSQL>insert into EmployeeType (EmployeeType) values (@EmployeeType)</MSSQL>
+    <JET>insert into EmployeeType (EmployeeType) values (@EmployeeType)</JET>
+  </stmt>
+  <stmt>
+    <key>update</key>
+    <MSSQL>UPDATE [EmployeeType] SET EmployeeType=@EmployeeType WHERE EmployeeTypeCode=@EmployeeTypeCode</MSSQL>
+    <JET>UPDATE [EmployeeType] SET EmployeeType=@EmployeeType WHERE EmployeeTypeCode=@EmployeeTypeCode</JET>
+  </stmt>
+</SQLStatements>

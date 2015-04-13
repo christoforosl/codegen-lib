@@ -213,8 +213,7 @@ namespace <DBMAPPER_NAMESPACE> {
 		/// use this method when you want to relad the <MODEL_CLASS_NAME> 
 		/// from the database, discarding any changes
 		/// </remarks>
-		public static void reload(ref <MODEL_CLASS_NAME> mo)
-		{
+		public static void reload(ref <MODEL_CLASS_NAME> mo) {
 
 			if (mo == null) {
 				throw new System.ArgumentNullException("null object past to reload function");

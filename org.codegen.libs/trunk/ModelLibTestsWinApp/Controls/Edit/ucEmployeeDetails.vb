@@ -57,6 +57,8 @@ Public Class ucEmployeeDetails
 	Me.HireDate = New CGDateTextBox
 	Me.NumDependentslbl = New System.Windows.Forms.Label
 	Me.NumDependents = New CGIntTextBox
+	Me.EmployeeTypeCodelbl = New System.Windows.Forms.Label
+	Me.EmployeeTypeCode = New CGTextBox
 
 
         Me.SuspendLayout()
@@ -253,6 +255,25 @@ Public Class ucEmployeeDetails
 	Me.NumDependents.visible = True
 	Me.NumDependents.AssociatedLabel = me.NumDependentslbl
 
+	'EmployeeTypeCodelbl.
+	Me.EmployeeTypeCodelbl.AutoSize = False
+	Me.EmployeeTypeCodelbl.Location = New System.Drawing.Point(5, 315)
+	Me.EmployeeTypeCodelbl.Name = "EmployeeTypeCodelbl"
+	Me.EmployeeTypeCodelbl.Size = New System.Drawing.Size(120, 20)
+	Me.EmployeeTypeCodelbl.TabIndex = 10
+	Me.EmployeeTypeCodelbl.Text = "EmployeeTypeCode"
+	Me.EmployeeTypeCodelbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+
+	'EmployeeTypeCode
+	Me.EmployeeTypeCode.AutoSize = True
+	Me.EmployeeTypeCode.Location = New System.Drawing.Point(135, 315)
+	Me.EmployeeTypeCode.Name ="EmployeeTypeCode"
+	Me.EmployeeTypeCode.Size = New System.Drawing.Size(200, 20)
+	Me.EmployeeTypeCode.MaxLength = 255
+	Me.EmployeeTypeCode.TabIndex = 10
+	Me.EmployeeTypeCode.visible = True
+	Me.EmployeeTypeCode.AssociatedLabel = me.EmployeeTypeCodelbl
+
 
 		
         'ucEmployee
@@ -279,6 +300,8 @@ Public Class ucEmployeeDetails
 	me.Controls.add(me.HireDate)
 	me.Controls.add(me.NumDependentslbl)
 	me.Controls.add(me.NumDependents)
+	me.Controls.add(me.EmployeeTypeCodelbl)
+	me.Controls.add(me.EmployeeTypeCode)
 
 		
 		Me.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
@@ -312,6 +335,8 @@ Public Class ucEmployeeDetails
 	Friend WithEvents HireDate As CGDateTextBox
 	Friend WithEvents NumDependentslbl As System.Windows.Forms.Label
 	Friend WithEvents NumDependents As CGIntTextBox
+	Friend WithEvents EmployeeTypeCodelbl As System.Windows.Forms.Label
+	Friend WithEvents EmployeeTypeCode As CGTextBox
 
 
 #End Region
@@ -335,6 +360,7 @@ Public Class ucEmployeeDetails
 	Me.SSINumber.value = mo.SSINumber
 	Me.HireDate.value = mo.HireDate
 	Me.NumDependents.value = mo.NumDependents
+	Me.EmployeeTypeCode.value = mo.EmployeeTypeCode
 
 
 		me.resetLastLoadedValues()
@@ -361,6 +387,7 @@ Public Class ucEmployeeDetails
 	mo.setSSINumber(Me.SSINumber.text)
 	mo.setHireDate(Me.HireDate.text)
 	mo.setNumDependents(Me.NumDependents.text)
+	mo.setEmployeeTypeCode(Me.EmployeeTypeCode.text)
 
 
     End Sub
