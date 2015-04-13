@@ -83,8 +83,7 @@
              Also, the sql files are also placed in the same directory as the DBMappers
         -->
         <xs:element name="TestClassNameSpace"  minOccurs="0" type="xs:string" default="" />
-        UIProjectOutputDir
-
+        
         <xs:element name="dbConnectionString" type="xs:string" minOccurs="1" />
         <xs:element name="dbConnectionDialect" minOccurs="1">
             <xs:simpleType>
