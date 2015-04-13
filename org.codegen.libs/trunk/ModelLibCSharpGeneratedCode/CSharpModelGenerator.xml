@@ -2,11 +2,11 @@
 <project xmlns="ClassGenerator3">
 
   <GeneratorVersion>2</GeneratorVersion>
-  <projectFile>C:\VSProjects\codegen-lib-CSharpCode\org.codegen.libs\trunk\ModelLibCSharpTests\ModelLibCSharpTests.csproj</projectFile>
+  <projectFile>.\ModelLibCSharpGeneratedCode.csproj</projectFile>
   <projectName>ModelLibCSharpTests</projectName>
-  <outputDir>C:\VSProjects\codegen-lib-CSharpCode\org.codegen.libs\trunk\ModelLibCSharpTests\</outputDir>
+  <outputDir>.\</outputDir>
   <dotNetLanguage>CSHARP</dotNetLanguage>
-  <testProjectOutputDir>C:\VSProjects\codegen-lib-CSharpCode\org.codegen.libs\trunk\ModelLibCSharpTests\tests</testProjectOutputDir>
+  <testProjectOutputDir>.\tests</testProjectOutputDir>
   
   <defaultNamespace>CsModelObjects</defaultNamespace>
   <defaultDBMapperNameSpace>CsModelMappers</defaultDBMapperNameSpace>
