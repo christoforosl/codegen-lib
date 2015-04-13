@@ -74,16 +74,16 @@
         
         -->
         
-       <xs:element name="defaultDBMapperNameSpace"  minOccurs="0" type="xs:string" default="ModelObjects.DBMappers" />
+       <xs:element name="defaultDBMapperNameSpace"  minOccurs="0" type="xs:string" />
         <!-- Default Namespace of DBMappers
-             Default value is "defaultNamespace" above
+             If not specified, value is "defaultNamespace" above
              Important Note: The name space drives the output path of the DBMapper Files.
              Every dot "." is replaced by "\" and the default output dir as inserted
              
              Also, the sql files are also placed in the same directory as the DBMappers
         -->
         <xs:element name="TestClassNameSpace"  minOccurs="0" type="xs:string" default="" />
-        
+        UIProjectOutputDir
 
         <xs:element name="dbConnectionString" type="xs:string" minOccurs="1" />
         <xs:element name="dbConnectionDialect" minOccurs="1">
