@@ -137,6 +137,9 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\org.codegen.lib\db\DBMapperStatementsFile.vb">
+      <Link>SqlGen\DBMapperStatementsFile.vb</Link>
+    </Compile>
     <Compile Include="AssemblyInfo.vb">
       <SubType>Code</SubType>
     </Compile>

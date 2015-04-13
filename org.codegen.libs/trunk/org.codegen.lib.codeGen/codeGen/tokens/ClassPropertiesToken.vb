@@ -108,7 +108,7 @@ Namespace Tokens
                             sb.Append(vbTab & vbTab & "ret.AddRange(lp);" & vbCrLf)
                             sb.Append(vbTab & "}" & vbCrLf)
                         Else
-                            sb.Append(vbTab & "if  (this." & association.getVariableName() & "Loaded) {" & vbCrLf)
+							sb.Append(vbTab & "if  (this." & association.getVariableName() & "!=null) {" & vbCrLf)
                             sb.Append(vbTab & vbTab & "ret.Add(this." & association.getVariableName() & ");" & vbCrLf)
                             sb.Append(vbTab & "}" & vbCrLf)
                         End If
@@ -140,7 +140,7 @@ Namespace Tokens
                             sb.Append(vbTab & vbTab & "ret.AddRange(lp)" & vbCrLf)
                             sb.Append(vbTab & "End If" & vbCrLf)
                         Else
-                            sb.Append(vbTab & "if  Me._" & association.getVariableName() & "Loaded then" & vbCrLf)
+							sb.Append(vbTab & "if  Me._" & association.getVariableName() & " isNot Nothing then" & vbCrLf)
                             sb.Append(vbTab & vbTab & "ret.Add(me." & association.getVariableName() & ")" & vbCrLf)
                             sb.Append(vbTab & "End If" & vbCrLf)
                         End If

@@ -30,13 +30,13 @@ namespace GeneratorTests {
 		[TestMethod]
 		public void createCsRecords() {
 
-			Employee e = EmployeeFactory.Create();
-			e.EmployeeName = "test employee";
-			e.Salary = 100m;
-			e.SSINumber = "1030045";
-			e.Telephone = "2234455";
-			e.EmployeeRankId = 1;
-			EmployeeDataUtils.saveEmployee(e);
+			//Employee e = EmployeeFactory.Create();
+			//e.EmployeeName = "test employee";
+			//e.Salary = 100m;
+			//e.SSINumber = "1030045";
+			//e.Telephone = "2234455";
+			//e.EmployeeRankId = 1;
+			//EmployeeDataUtils.saveEmployee(e);
 
 		}
 	}

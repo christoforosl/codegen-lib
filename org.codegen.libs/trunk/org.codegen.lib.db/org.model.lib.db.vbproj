@@ -104,8 +104,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="NullChecker.vb" />
-    <Compile Include="SQLStmts.vb" />
-    <Compile Include="SQLStmtsRegistry.vb" />
     <Compile Include="TypeConverter.vb" />
   </ItemGroup>
   <ItemGroup>

@@ -230,9 +230,7 @@ Public Class DBField
 
         Return Me.UserSpecifiedDataType IsNot Nothing AndAlso
                 Me.UserSpecifiedDataType = "System.Boolean"
-        'AndAlso (field.OriginalRuntimeType Is Type.GetType("System.Byte") _
-        '                OrElse field.OriginalRuntimeType Is Type.GetType("System.Int16") _
-        '                OrElse field.OriginalRuntimeType Is Type.GetType("System.Int32"))
+
     End Function
 
     Public Function isInteger() As Boolean Implements IDBField.isInteger

@@ -75,7 +75,7 @@ namespace CsModelObjects
 		public override List<ModelObject> getChildren()
 		{
 			List<ModelObject> ret = new List<ModelObject>();
-				if  (this.EmployeeInfoLoaded) {
+				if  (this.EmployeeInfo!=null) {
 		ret.Add(this.EmployeeInfo);
 	}
 	if  (this.EmployeeProjectsLoaded) { // check if loaded first!

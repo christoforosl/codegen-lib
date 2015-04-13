@@ -363,7 +363,9 @@ Namespace Model
 
         End Function
 
-    End Class
+		Public Property doCascadeDeletes() As Boolean
+			
+	End Class
 
     
 End Namespace

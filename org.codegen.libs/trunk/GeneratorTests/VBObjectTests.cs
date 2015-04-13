@@ -30,51 +30,72 @@ namespace GeneratorTests {
 		[TestMethod]
 		public void createVbRecords() {
 
-			Employee e = EmployeeFactory.Create();
-			e.EmployeeName = "test employee";
-			e.Salary = 100m;
-			e.SSINumber = "1030045";
-			e.Telephone = "2234455";
-			e.EmployeeRankId = 1;
-			e.HireDate = new DateTime(2015, 1, 1);
-			EmployeeDataUtils.saveEmployee(e);
-			long x = e.EmployeeId;
+			ModelContext.Current().doCascadeDeletes = true;
+			ModelContext.beginTrans();
 
-			e = EmployeeDataUtils.findByKey(x);
-			Assert.IsNotNull(e, "New employee not found");
-			Assert.AreEqual(e.Salary, 100m);
-			Assert.AreEqual(e.EmployeeName, "test employee");
-			Assert.AreEqual(e.SSINumber, "1030045");
-			Assert.AreEqual(e.HireDate, new DateTime(2015, 1, 1));
+			try {
+				EmployeeRank er = EmployeeRankFactory.Create();
+				er.Rank = "My New Rank";
 
-			e.SSINumber = "XXXXX";
-			EmployeeDataUtils.saveEmployee(e);
-			e = EmployeeDataUtils.findByKey(x);
-			Assert.AreEqual(e.SSINumber, "XXXXX");
+				Employee e = EmployeeFactory.Create();
+				e.Rank = er;
+				e.EmployeeName = "test employee";
+				e.Salary = 100m;
+				e.SSINumber = "1030045";
+				e.Telephone = "2234455";
+				e.AddEmployeeProject(EmployeeProjectFactory.Create());
+				e.getEmployeeProject(0).AssignDate = new DateTime(DateTime.Now.Year, 3, 1);
+				e.getEmployeeProject(0).EndDate = new DateTime(DateTime.Now.Year, 6, 1);
+				e.getEmployeeProject(0).EPProjectId = 1;
 
-			EmployeeDataUtils.deleteEmployee(e);
-			e = EmployeeDataUtils.findByKey(x);
-			Assert.IsNull(e, "New employee must have been deleted!");
+				e.HireDate = new DateTime(DateTime.Now.Year, 1, 1);
+				EmployeeDataUtils.saveEmployee(e);
+				long x = e.EmployeeId;
 
-			// now let's test string primary key
-			EmployeeType et = EmployeeTypeFactory.Create();
-			et.EmployeeType = "A Description";
-			et.EmployeeTypeCode = "XX";
+				e = EmployeeDataUtils.findByKey(x);
+				Assert.IsNotNull(e, "New employee not found");
+				Assert.AreEqual(e.Rank.Rank, "My New Rank");
+				Assert.AreEqual(e.Salary, 100m);
+				Assert.AreEqual(e.EmployeeName, "test employee");
+				Assert.AreEqual(e.SSINumber, "1030045");
+				Assert.AreEqual(e.HireDate, new DateTime(2015, 1, 1));
+				Assert.AreEqual(e.EmployeeProjects.ToList().Count,1);
 
-			EmployeeType et1 = EmployeeTypeFactory.Create();
-			et1.EmployeeType = "A Description 1";
-			et1.EmployeeTypeCode = "XX1";
+				e.SSINumber = "XXXXX";
+				e.getEmployeeProject(0).EndDate = new DateTime(DateTime.Now.Year, 6, 1);
+				EmployeeDataUtils.saveEmployee(e);
+				e = EmployeeDataUtils.findByKey(x);
+				Assert.AreEqual(e.SSINumber, "XXXXX");
+				Assert.AreEqual(e.getEmployeeProject(0).EndDate , new DateTime(DateTime.Now.Year, 6, 1));
 
-			EmployeeType et2 = EmployeeTypeFactory.Create();
-			et2.EmployeeType = "A Description 2";
-			et2.EmployeeTypeCode = "XX2";
+				e.ClearEmployeeProjects();
+				EmployeeDataUtils.deleteEmployee(e);
+				e = EmployeeDataUtils.findByKey(x);
+				Assert.IsNull(e, "New employee must have been deleted!");
 
-			EmployeeTypeDataUtils.saveEmployeeType(et, et1, et2);
+				// now let's test string primary key
+				EmployeeType et = EmployeeTypeFactory.Create();
+				et.EmployeeType = "A Description";
+				et.EmployeeTypeCode = "XX";
 
-			et2 = EmployeeTypeDataUtils.findByKey("XX2");
-			Assert.IsNotNull(et2, "New employeetype must have been created!");
-			et1 = EmployeeTypeDataUtils.findByKey("XX1");
-			Assert.IsNotNull(et1, "New employeetype must have been created!");
+				EmployeeType et1 = EmployeeTypeFactory.Create();
+				et1.EmployeeType = "A Description 1";
+				et1.EmployeeTypeCode = "XX1";
+
+				EmployeeType et2 = EmployeeTypeFactory.Create();
+				et2.EmployeeType = "A Description 2";
+				et2.EmployeeTypeCode = "XX2";
+
+				EmployeeTypeDataUtils.saveEmployeeType(et, et1, et2);
+
+				et2 = EmployeeTypeDataUtils.findByKey("XX2");
+				Assert.IsNotNull(et2, "New employeetype must have been created!");
+				et1 = EmployeeTypeDataUtils.findByKey("XX1");
+				Assert.IsNotNull(et1, "New employeetype must have been created!");
+
+			} finally {
+				ModelContext.rollbackTrans();
+			}
 
 		}
 	}

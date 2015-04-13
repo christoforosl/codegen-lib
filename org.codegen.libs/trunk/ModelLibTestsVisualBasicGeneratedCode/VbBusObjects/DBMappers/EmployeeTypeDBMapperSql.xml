@@ -23,12 +23,12 @@
   </stmt>
   <stmt>
     <key>insert</key>
-    <MSSQL>insert into EmployeeType (EmployeeType) values (@EmployeeType)</MSSQL>
-    <JET>insert into EmployeeType (EmployeeType) values (@EmployeeType)</JET>
+    <MSSQL>insert into EmployeeType (EmployeeTypeCode,EmployeeType) values (@EmployeeTypeCode,@EmployeeType)</MSSQL>
+    <JET>insert into EmployeeType (EmployeeTypeCode,EmployeeType) values (@EmployeeTypeCode,@EmployeeType)</JET>
   </stmt>
   <stmt>
     <key>update</key>
-    <MSSQL>UPDATE [EmployeeType] SET EmployeeType=@EmployeeType WHERE EmployeeTypeCode=@EmployeeTypeCode</MSSQL>
-    <JET>UPDATE [EmployeeType] SET EmployeeType=@EmployeeType WHERE EmployeeTypeCode=@EmployeeTypeCode</JET>
+    <MSSQL>UPDATE [EmployeeType] SET EmployeeTypeCode=@EmployeeTypeCode,EmployeeType=@EmployeeType WHERE EmployeeTypeCode=@EmployeeTypeCode</MSSQL>
+    <JET>UPDATE [EmployeeType] SET EmployeeTypeCode=@EmployeeTypeCode,EmployeeType=@EmployeeType WHERE EmployeeTypeCode=@EmployeeTypeCode</JET>
   </stmt>
 </SQLStatements>

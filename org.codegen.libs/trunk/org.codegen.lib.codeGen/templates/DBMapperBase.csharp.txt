@@ -26,7 +26,7 @@ using <NAMESPACE>;
 
 namespace <DBMAPPER_NAMESPACE> {
 
-	[System.Runtime.InteropServices.ComVisible(false)]
+	[System.Runtime.InteropServices.ComVisible(false)]<IS_PRIMARY_KEY_AUOGEN_FALSE>
 	public class <MODEL_CLASS_NAME>DBMapper : DBMapper {
 
 		#region "Constructors "
@@ -66,23 +66,7 @@ namespace <DBMAPPER_NAMESPACE> {
 <FILL_STATEMENT>
 			return stmt;
 		}
-
 		#endregion
-
-		#region "SQL Statements in files"
-
-		public override string getSQLStatement(string skey)
-		{
-			//because the <MODEL_CLASS_NAME>Sql.xml file is stored as an Embedded resource under
-			//<MODEL_CLASS_NAME>DBMapper file (DependentUpon in the project file), 
-			//its resource name is the same as the DBMapper file.
-			return SQLStmtsRegistry.getStatement(this.GetType().FullName, skey, this.dbConn.sqldialect);
-
-		}
-
-
-		#endregion
-
 <SAVE_CHILDREN_CODE>
 <SAVE_PARENT_CODE>
 

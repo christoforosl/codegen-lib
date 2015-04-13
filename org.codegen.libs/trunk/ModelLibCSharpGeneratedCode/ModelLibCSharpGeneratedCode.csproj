@@ -103,9 +103,6 @@
     <Compile Include="CsModelObjects\ProjectBase.cs">
       <DependentUpon>Project.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="CsModelMappers\EmployeeDBMapperSql.xml">
-      <DependentUpon>EmployeeDBMapper.cs</DependentUpon>
-    </EmbeddedResource>
     <Compile Include="CsModelMappers\EmployeeDBMapper.cs" />
     <EmbeddedResource Include="CsModelMappers\EmployeeProjectDBMapperSql.xml">
       <DependentUpon>EmployeeProjectDBMapper.cs</DependentUpon>
@@ -115,9 +112,6 @@
       <DependentUpon>EmployeeRankDBMapper.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="CsModelMappers\EmployeeRankDBMapper.cs" />
-    <EmbeddedResource Include="CsModelMappers\EmployeeInfoDBMapperSql.xml">
-      <DependentUpon>EmployeeInfoDBMapper.cs</DependentUpon>
-    </EmbeddedResource>
     <Compile Include="CsModelMappers\EmployeeInfoDBMapper.cs" />
     <EmbeddedResource Include="CsModelMappers\ProjectDBMapperSql.xml">
       <DependentUpon>ProjectDBMapper.cs</DependentUpon>
@@ -131,6 +125,20 @@
     <Compile Include="CsModelObjects\EmployeeTypeBase.cs">
       <DependentUpon>EmployeeType.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="VbBusObjects\DBMappers\EmployeeTypeDBMapperSql.xml">
+      <DependentUpon>EmployeeTypeDBMapper.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="VbBusObjects\DBMappers\EmployeeTypeDBMapper.cs" />
+    <Compile Include="VbBusObjects\EmployeeType.cs" />
+    <Compile Include="VbBusObjects\EmployeeTypeBase.cs">
+      <DependentUpon>EmployeeType.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="CsModelMappers\EmployeeDBMapperSql.xml">
+      <DependentUpon>EmployeeDBMapper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CsModelMappers\EmployeeInfoDBMapperSql.xml">
+      <DependentUpon>EmployeeInfoDBMapper.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="CSharpModelGenerator.xml">

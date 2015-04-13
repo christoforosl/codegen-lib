@@ -27,7 +27,7 @@ Namespace FileComponents
             Dim ogen As IObjectToGenerate = Me.objectToGenerate
 
             Dim sqlGen As SQLStmtsGenerator = New SQLStmtsGenerator(ogen.DbTable)
-            Dim cSQLStmts As SQLStmts = SQLStmts.getStmtsFromResource("org.codegen.lib.codeGen.SqlTemplate.txt")
+			Dim cSQLStmts As DBMapperStatementsFile = DBMapperStatementsFile.getStmtsFromResource("org.codegen.lib.codeGen.SqlTemplate.txt")
 
             Call cSQLStmts.setStatement("selectall", sqlGen.getSelectStatement(False, "@"), DBUtils.enumSqlDialect.MSSQL)
             Call cSQLStmts.setStatement("selectone", sqlGen.getSelectStatement(True, "@"), DBUtils.enumSqlDialect.MSSQL)
