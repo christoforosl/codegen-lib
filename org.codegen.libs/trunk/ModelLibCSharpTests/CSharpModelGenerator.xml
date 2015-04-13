@@ -5,16 +5,18 @@
   <projectFile>C:\VSProjects\codegen-lib-CSharpCode\org.codegen.libs\trunk\ModelLibCSharpTests\ModelLibCSharpTests.csproj</projectFile>
   <projectName>ModelLibCSharpTests</projectName>
   <outputDir>C:\VSProjects\codegen-lib-CSharpCode\org.codegen.libs\trunk\ModelLibCSharpTests\</outputDir>
+  <dotNetLanguage>CSHARP</dotNetLanguage>
   <testProjectOutputDir>C:\VSProjects\codegen-lib-CSharpCode\org.codegen.libs\trunk\ModelLibCSharpTests\tests</testProjectOutputDir>
+  
   <defaultNamespace>CsModelObjects</defaultNamespace>
   <defaultDBMapperNameSpace>CsModelMappers</defaultDBMapperNameSpace>
+  
   <dbConnectionString>
     Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=modelTest;Data Source=.\SQLEXPRESS
   </dbConnectionString>
   <dbConnectionDialect>MSSQL</dbConnectionDialect>
   <dbConnectionType>CONN_MSSQL</dbConnectionType>
-  <UIProjectOutputDir>C:\VSProjects\codegen-lib-CSharpCode\org.codegen.libs\trunk\ModelLibCSharpTests\</UIProjectOutputDir>
-
+  
   <table>
 
     <TableName>Employee</TableName>
