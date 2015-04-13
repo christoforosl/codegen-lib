@@ -13,13 +13,14 @@ Namespace FileComponents
                 GetType(SorterToken), _
                 GetType(IdFieldImplementedInterfaceToken), _
                 GetType(UpdateChildrenFieldCodeToken), _
+                GetType(PKConverter), _
                 GetType(PKFieldRuntimeNameToken), _
                 GetType(ClassPropertiesToken), _
                 GetType(ClassFieldIntConstantsToken), _
                 GetType(ClassFieldStringConstantsToken), _
                 GetType(FieldListToken), _
                 GetType(ClassFieldDeclarationsToken), _
-                GetType(CSharpGeneratedInterfaceToken), _
+                GetType(GeneratedInterfaceToken), _
                 GetType(ClassFieldDeclarationsToken), _
                 GetType(GetAttrStrToken), _
                 GetType(SetAttrStrToken), _

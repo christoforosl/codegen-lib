@@ -3,16 +3,7 @@ Imports System.Runtime.InteropServices
 
 Namespace Model
 
-    '''
-    ''' <summary> 
-    ''' Base Interface for Data Mapper Pattern 
-    ''' <a href="http://martinfowler.com/eaaCatalog/dataMapper.html">http://martinfowler.com/eaaCatalog/dataMapper.html</a>
-    ''' These classes have the responsibility of loading 
-    ''' data into Model Objects, and saving them back to 
-    ''' the persistance medium (Database,XML, TextFiles, etc)
-    ''' IMPORTANT NOTE: This interface does not, AND SHOULD NOT know of any 
-    ''' Database or XML or any other persistence medium  </summary>
-    ''' 
+   
     Public Interface IDataMapper
 
         '''	<summary>
@@ -25,8 +16,6 @@ Namespace Model
         ''' Deletes a Domain Object from the persistence medium </summary>
         ''' <param name="mobj"> The ModelObject to delete </param>
         Sub delete(ByVal mobj As IModelObject)
-
-        Sub deleteByKey(ByVal id As Integer)
 
         ''' <summary>Saves any **Parent** ModelObjects associated with the ModelObject to the persistence medium.
         ''' Clients should override this for any Parent objects that the Model Object mo carries

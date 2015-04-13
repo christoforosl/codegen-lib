@@ -239,7 +239,10 @@ Public Class DBField
 
     Public Function isInteger() As Boolean Implements IDBField.isInteger
 
-        Return Me.RuntimeType Is Type.GetType("System.Int32")
+        Return Me.RuntimeType Is Type.GetType("System.Int32") OrElse _
+                Me.RuntimeType Is Type.GetType("System.Byte") OrElse _
+                Me.RuntimeType Is Type.GetType("System.Int64") OrElse _
+                        Me.RuntimeType Is Type.GetType("System.Int16")
 
     End Function
 
@@ -266,13 +269,13 @@ Public Class DBField
             _OriginalRuntimeType = value
             If value Is Type.GetType("System.Single") OrElse _
                 value Is Type.GetType("System.Float") Then
-
                 _RuntimeType = Type.GetType("System.Decimal")
 
             ElseIf value Is Type.GetType("System.Int16") OrElse _
+                    value Is Type.GetType("System.Int32") OrElse _
                     value Is Type.GetType("System.Byte") Then
 
-                _RuntimeType = Type.GetType("System.Int32")
+                _RuntimeType = Type.GetType("System.Int64")
 
             Else
                 _RuntimeType = value

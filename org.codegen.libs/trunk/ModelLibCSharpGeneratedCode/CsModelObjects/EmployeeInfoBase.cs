@@ -29,8 +29,8 @@ namespace CsModelObjects
 	#region "Interface"
 [System.Runtime.InteropServices.ComVisible(false)] 
 	public interface IEmployeeInfo: IModelObject {
-	System.Int32 EmployeeInfoId {get;set;} 
-	System.Int32? EIEmployeeId {get;set;} 
+	System.Int64 EmployeeInfoId {get;set;} 
+	System.Int64? EIEmployeeId {get;set;} 
 	System.Decimal? Salary {get;set;} 
 	System.String Address {get;set;} 
 }
@@ -98,8 +98,8 @@ namespace CsModelObjects
 
 		#region "Field Declarations"
 
-	private System.Int32 _EmployeeInfoId;
-	private System.Int32? _EIEmployeeId = null;
+	private System.Int64 _EmployeeInfoId;
+	private System.Int64? _EIEmployeeId = null;
 	private System.Decimal? _Salary = null;
 	private System.String _Address = null;
 
@@ -107,7 +107,7 @@ namespace CsModelObjects
 
 		#region "Field Properties"
 
-	public virtual System.Int32 EmployeeInfoId  {
+	public virtual System.Int64 EmployeeInfoId  {
 	get {
 		return _EmployeeInfoId;
 	} 
@@ -133,7 +133,7 @@ public void setEmployeeInfoId(String val){
 		throw new ApplicationException("Invalid Integer Number, field:EmployeeInfoId, value:" + val);
 	}
 }
-	public virtual System.Int32? EIEmployeeId  {
+	public virtual System.Int64? EIEmployeeId  {
 	get {
 		return _EIEmployeeId;
 	} 
@@ -246,14 +246,14 @@ public void setAddress( String val ) {
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			}else{
-				this.EmployeeInfoId=(System.Int32)val;
+				this.EmployeeInfoId=(System.Int64)val;
 			} //
 			return;
 		case FLD_EIEMPLOYEEID:
 			if (val == DBNull.Value || val == null ){
 				this.EIEmployeeId = null;
 			}else{
-				this.EIEmployeeId=(System.Int32)val;
+				this.EIEmployeeId=(System.Int64)val;
 			} //
 			return;
 		case FLD_SALARY:
@@ -282,14 +282,14 @@ public void setAddress( String val ) {
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.EmployeeInfoId=(System.Int32)val;
+				this.EmployeeInfoId=(System.Int64)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_EIEMPLOYEEID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.EIEmployeeId = null;
 			} else {
-				this.EIEmployeeId=(System.Int32)val;
+				this.EIEmployeeId=(System.Int64)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_SALARY.ToLower()){
@@ -310,10 +310,7 @@ public void setAddress( String val ) {
 		}
 
 		#endregion
-
-
 		#region "Overrides of GetHashCode and Equals "
-
 		public bool Equals(EmployeeInfoBase other)
 		{
 
@@ -413,7 +410,7 @@ if (! string.IsNullOrEmpty(o.Address) &&
 
 #region "parentIdChanged"
 	//below sub is called when parentIdChanged
-	public override void handleParentIdChanged(IModelObject parentMo) {
+	public override void handleParentIdChanged(IModelObject parentMo ){
 		// Assocations from CsModelObjects.Employee
 		if ( parentMo is CsModelObjects.Employee) {
 			this.EIEmployeeId= ((CsModelObjects.Employee)parentMo).EmployeeId;
@@ -425,10 +422,10 @@ if (! string.IsNullOrEmpty(o.Address) &&
 
 		#region "ID Property"
 
-		public override int Id {
+		public override object Id {
 			get { return this._EmployeeInfoId; }
 			set {
-				this._EmployeeInfoId = value;
+				this._EmployeeInfoId = Convert.ToInt64(value);
 				this.raiseBroadcastIdChange();
 			}
 		}

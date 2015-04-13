@@ -8,8 +8,8 @@
     <ProjectGuid>{BC8EB514-1139-458E-8AD9-B8D674845C60}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ModelLibCSharpTests</RootNamespace>
-    <AssemblyName>ModelLibCSharpTests</AssemblyName>
+    <RootNamespace>ModelLibCSharpGenCode</RootNamespace>
+    <AssemblyName>ModelLibCSharpGenCode</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

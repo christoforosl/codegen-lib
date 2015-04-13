@@ -5,7 +5,7 @@ Namespace Model
 
     Public Interface IModelObject
 
-        Property Id() As Integer
+        Property Id As Object
 
         ''' <summary>
         ''' Event fired when ID (primary key) of model object has changed

@@ -345,7 +345,7 @@ Namespace Model
         End Sub
 
 
-        Public Function loadModelObject(Of T As ModelObject)(id As Integer) As T
+        Public Function loadModelObject(Of T As ModelObject)(id As Object) As T
             ''Public Function Blah(Of T As {IImplementedByT})(Foo As T)
             Dim sattr As DefaultMapperAttr = CType(Attribute.GetCustomAttribute(GetType(T), _
                                                         GetType(DefaultMapperAttr)), DefaultMapperAttr)
@@ -359,7 +359,7 @@ Namespace Model
             Dim tmp As DBMapper = CType(Activator.CreateInstance(sattr.defaultMapper),  _
                                             DBMapper)
 
-            Return CType(CType(tmp.findByKey(CInt(id)), ModelObject), T)
+            Return CType(CType(tmp.findByKey(id), ModelObject), T)
 
         End Function
 

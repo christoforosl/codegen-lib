@@ -164,8 +164,8 @@ Public Class MDIParent
     End Sub
 
     Private Sub ShowEmployeeEditTest(sender As Object, e As EventArgs)
-        Dim f As New frmEmployeeDetails2
-        f.Show()
+        'Dim f As New frmEmployeeDetails2
+        'f.Show()
 
     End Sub
 

@@ -32,7 +32,7 @@ Public NotInheritable Class DataRowLoader
         Next
 
         mo.IsObjectLoading = False
-        mo.isNew = mo.Id <= 0
+
 
     End Sub
 

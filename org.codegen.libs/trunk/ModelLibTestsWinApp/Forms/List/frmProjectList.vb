@@ -1,4 +1,5 @@
 ﻿Namespace Forms.List
+'ListControlTemplate.txt
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Public Class frmProjectList
     Inherits frmBaseGrid

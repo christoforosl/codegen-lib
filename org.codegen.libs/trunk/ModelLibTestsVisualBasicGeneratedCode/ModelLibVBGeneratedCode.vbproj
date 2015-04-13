@@ -9,8 +9,8 @@
     </SchemaVersion>
     <ProjectGuid>{1B56DDD9-DF71-49B7-A97E-E65C0185781C}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>ModelLibTests</RootNamespace>
-    <AssemblyName>ModelLibTests</AssemblyName>
+    <RootNamespace>ModelLibVBGenCode</RootNamespace>
+    <AssemblyName>ModelLibVBGenCode</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -23,7 +23,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>ModelLibTests.xml</DocumentationFile>
+    <DocumentationFile>ModelLibVBGenCode.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -32,7 +32,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>ModelLibTests.xml</DocumentationFile>
+    <DocumentationFile>ModelLibVBGenCode.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -61,6 +61,8 @@
   <ItemGroup>
     <Import Include="ModelLibTestsWinApp.BusObjects" />
     <Import Include="ModelLibTestsWinApp.BusObjects.Mappers" />
+    <Import Include="ModelLibVBGenCode.VbBusObjects" />
+    <Import Include="ModelLibVBGenCode.VbBusObjects.DBMappers" />
     <Import Include="org.model.lib" />
     <Import Include="org.model.lib.db" />
     <Import Include="org.model.lib.Model" />
@@ -88,18 +90,54 @@
     <Compile Include="Tests\EmployeeRankTestBase.vb" />
     <Compile Include="Tests\EmployeeTestBase.vb" />
     <Compile Include="Tests\ProjectTestBase.vb" />
+    <Compile Include="VbBusObjects\DBMappers\EmployeeDBMapper.vb" />
+    <Compile Include="VbBusObjects\DBMappers\EmployeeProjectDBMapper.vb" />
+    <Compile Include="VbBusObjects\EmployeeProject.vb" />
+    <Compile Include="VbBusObjects\EmployeeProjectBase.vb">
+      <DependentUpon>EmployeeProject.vb</DependentUpon>
+    </Compile>
+    <Compile Include="VbBusObjects\DBMappers\EmployeeRankDBMapper.vb" />
+    <Compile Include="VbBusObjects\EmployeeRank.vb" />
+    <Compile Include="VbBusObjects\EmployeeRankBase.vb">
+      <DependentUpon>EmployeeRank.vb</DependentUpon>
+    </Compile>
+    <Compile Include="VbBusObjects\DBMappers\EmployeeInfoDBMapper.vb" />
+    <Compile Include="VbBusObjects\EmployeeInfo.vb" />
+    <Compile Include="VbBusObjects\EmployeeInfoBase.vb">
+      <DependentUpon>EmployeeInfo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="VbBusObjects\DBMappers\ProjectDBMapper.vb" />
+    <Compile Include="VbBusObjects\Project.vb" />
+    <Compile Include="VbBusObjects\ProjectBase.vb">
+      <DependentUpon>Project.vb</DependentUpon>
+    </Compile>
+    <Compile Include="VbBusObjects\Employee.vb" />
+    <Compile Include="VbBusObjects\EmployeeBase.vb">
+      <DependentUpon>Employee.vb</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="dbscript.sql" />
-    <Content Include="ModelGenerator.xml">
+    <Content Include="VisualBasicModelGenerator.xml">
       <SubType>Designer</SubType>
     </Content>
+    <EmbeddedResource Include="VbBusObjects\DBMappers\EmployeeDBMapperSql.xml">
+      <DependentUpon>EmployeeDBMapper.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VbBusObjects\DBMappers\EmployeeProjectDBMapperSql.xml">
+      <DependentUpon>EmployeeProjectDBMapper.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VbBusObjects\DBMappers\EmployeeRankDBMapperSql.xml">
+      <DependentUpon>EmployeeRankDBMapper.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VbBusObjects\DBMappers\EmployeeInfoDBMapperSql.xml">
+      <DependentUpon>EmployeeInfoDBMapper.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VbBusObjects\DBMappers\ProjectDBMapperSql.xml">
+      <DependentUpon>ProjectDBMapper.vb</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ModelLibTestsWinApp\ModelLibTestsWinApp.vbproj">
-      <Project>{C74737DF-2306-4605-9D15-C4BF4ED6788C}</Project>
-      <Name>ModelLibTestsWinApp</Name>
-    </ProjectReference>
     <ProjectReference Include="..\org.codegen.lib.db\org.model.lib.db.vbproj">
       <Project>{C744D17D-3132-4365-8C44-9D295D942597}</Project>
       <Name>org.model.lib.db</Name>
@@ -116,6 +154,7 @@
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

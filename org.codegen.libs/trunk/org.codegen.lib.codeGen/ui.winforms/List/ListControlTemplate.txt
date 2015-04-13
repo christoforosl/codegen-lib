@@ -1,5 +1,5 @@
 ﻿Imports System.ComponentModel
-
+'ListControlTemplate.txt
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Public Class uc<MODEL_CLASS_NAME>List
     Inherits System.Windows.Forms.UserControl

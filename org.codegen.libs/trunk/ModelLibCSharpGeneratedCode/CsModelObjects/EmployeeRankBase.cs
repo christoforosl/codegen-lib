@@ -29,7 +29,7 @@ namespace CsModelObjects
 	#region "Interface"
 [System.Runtime.InteropServices.ComVisible(false)] 
 	public interface IEmployeeRank: IModelObject {
-	System.Int32 RankId {get;set;} 
+	System.Int64 RankId {get;set;} 
 	System.String Rank {get;set;} 
 }
 #endregion
@@ -92,14 +92,14 @@ namespace CsModelObjects
 
 		#region "Field Declarations"
 
-	private System.Int32 _RankId;
+	private System.Int64 _RankId;
 	private System.String _Rank = null;
 
 		#endregion
 
 		#region "Field Properties"
 
-	public virtual System.Int32 RankId  {
+	public virtual System.Int64 RankId  {
 	get {
 		return _RankId;
 	} 
@@ -182,7 +182,7 @@ public void setRank( String val ) {
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			}else{
-				this.RankId=(System.Int32)val;
+				this.RankId=(System.Int64)val;
 			} //
 			return;
 		case FLD_RANK:
@@ -204,7 +204,7 @@ public void setRank( String val ) {
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.RankId=(System.Int32)val;
+				this.RankId=(System.Int64)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_RANK.ToLower()){
@@ -218,10 +218,7 @@ public void setRank( String val ) {
 		}
 
 		#endregion
-
-
 		#region "Overrides of GetHashCode and Equals "
-
 		public bool Equals(EmployeeRankBase other)
 		{
 
@@ -310,10 +307,10 @@ if (! string.IsNullOrEmpty(o.Rank) &&
 
 		#region "ID Property"
 
-		public override int Id {
+		public override object Id {
 			get { return this._RankId; }
 			set {
-				this._RankId = value;
+				this._RankId = Convert.ToInt64(value);
 				this.raiseBroadcastIdChange();
 			}
 		}

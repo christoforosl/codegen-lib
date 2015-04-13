@@ -29,7 +29,7 @@ namespace CsModelObjects
 	#region "Interface"
 [System.Runtime.InteropServices.ComVisible(false)] 
 	public interface IProject: IModelObject {
-	System.Int32 ProjectId {get;set;} 
+	System.Int64 ProjectId {get;set;} 
 	System.String ProjectName {get;set;} 
 	System.Boolean? IsActive {get;set;} 
 	IEnumerable< CsModelObjects.EmployeeProject>EmployeeProjects {get; set;}
@@ -107,9 +107,9 @@ namespace CsModelObjects
 
 		#region "Field Declarations"
 
-	private System.Int32 _ProjectId;
+	private System.Int64 _ProjectId;
 	private System.String _ProjectName = null;
-	private System.Int32? _IsActive = null;
+	private System.Int64? _IsActive = null;
 	// ****** CHILD OBJECTS ********************
 	private List< CsModelObjects.EmployeeProject> _EmployeeProjects = null;  // initialize to nothing, for lazy load logic below !!!
 	 private List< CsModelObjects.EmployeeProject> _deletedEmployeeProjects = new List< CsModelObjects.EmployeeProject>();// initialize to empty list !!!
@@ -121,7 +121,7 @@ namespace CsModelObjects
 
 		#region "Field Properties"
 
-	public virtual System.Int32 ProjectId  {
+	public virtual System.Int64 ProjectId  {
 	get {
 		return _ProjectId;
 	} 
@@ -195,7 +195,7 @@ public void setIsActive(String val ){
 	    bool newval = ("1"==val || "true"==val.ToLower()) ;
 	    this.IsActive = newval;
 	}
-} //End Sub
+}
 
 		// ASSOCIATIONS GETTERS/SETTERS BELOW!
 		//associationChildManyCSharp.txt
@@ -340,7 +340,7 @@ public void setIsActive(String val ){
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			}else{
-				this.ProjectId=(System.Int32)val;
+				this.ProjectId=(System.Int64)val;
 			} //
 			return;
 		case FLD_PROJECTNAME:
@@ -369,7 +369,7 @@ public void setIsActive(String val ){
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.ProjectId=(System.Int32)val;
+				this.ProjectId=(System.Int64)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_PROJECTNAME.ToLower()){
@@ -390,10 +390,7 @@ public void setIsActive(String val ){
 		}
 
 		#endregion
-
-
 		#region "Overrides of GetHashCode and Equals "
-
 		public bool Equals(ProjectBase other)
 		{
 
@@ -489,10 +486,10 @@ if ( o.IsActive != null &&
 
 		#region "ID Property"
 
-		public override int Id {
+		public override object Id {
 			get { return this._ProjectId; }
 			set {
-				this._ProjectId = value;
+				this._ProjectId = Convert.ToInt64(value);
 				this.raiseBroadcastIdChange();
 			}
 		}

@@ -41,7 +41,7 @@ Namespace Model
 
         '''<summary> Gets/Sets the Id of the object  </summary>
         ''' <returns> an int value stored in the Key object </returns>	 
-        Public MustOverride Property Id() As Integer Implements IModelObject.Id
+        Public MustOverride Property Id() As Object Implements IModelObject.Id
 
         Public Event IDChanged(ByVal mo As ModelObject) Implements IModelObject.IDChanged
 
@@ -331,7 +331,7 @@ Namespace Model
                 Dim err As String = "****Error: handleParentIdChanged not Overriden" & vbCrLf & _
                           " Parent type:" & TypeName(parentMo) & vbCrLf & _
                           " Me type:" & TypeName(Me) & vbCrLf & _
-                          " New ID:" & parentMo.Id & vbCrLf & " ****" & vbCrLf
+                          " New ID:" & CStr(parentMo.Id) & vbCrLf & " ****" & vbCrLf
 
                 Throw New ApplicationException(err)
             End If
@@ -343,21 +343,6 @@ Namespace Model
         Public Sub raiseBroadcastIdChange() Implements IModelObject.raiseBroadcastIdChange
             RaiseEvent IDChanged(Me)
         End Sub
-
-        'Public Overridable Sub setupIDChangeListeners() Implements IModelObject.setupIDChangeListeners
-
-        '    Dim children As List(Of ModelObject) = Me.getChildren
-        '    For Each obj As ModelObject In children
-        '        AddHandler Me.IDChanged, AddressOf obj.handleParentIdChanged
-        '    Next
-
-        '    Dim pars As List(Of ModelObject) = Me.getParents
-        '    For Each obj As ModelObject In pars
-        '        AddHandler obj.IDChanged, AddressOf Me.handleParentIdChanged
-        '    Next
-
-        'End Sub
-
 
 #End Region
 

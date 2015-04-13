@@ -107,14 +107,14 @@ Public MustInherit Class DBMapper
     ''' <param name="IdValue">Primary Key value</param>
     ''' <returns>loaded ModelObject class instance</returns>
     ''' <remarks></remarks>
-    Public Function findByKey(ByVal IdValue As Integer) As IModelObject
+    Public Function findByKey(ByVal IdValue As Object) As IModelObject
 
         Dim rs As IDataReader = Nothing
         Dim mo As IModelObject = Nothing
 
         Try
             'no need to hit the database if the IdValue is less than 0
-            If IdValue > 0 Then
+            If IdValue IsNot Nothing Then
                 rs = dbConn.getDataReaderWithParams(Me.getSQLStatement(SQL_SELECT_ONE), IdValue)
                 Me.Loader.DataSource = rs
 
@@ -434,8 +434,7 @@ Public MustInherit Class DBMapper
     '''    
     '''<summary>  Performs an <b>delete</b> operation to the database </summary>
     '''<param name="Id"> Id of modelobject to delete from database </param>
-    Public Overridable Sub deleteByKey(ByVal id As Integer) _
-            Implements IDataMapper.deleteByKey
+    Public Overridable Sub deleteByKey(ByVal id As Object)
 
         Dim pstmt As IDbCommand = Nothing
 
@@ -444,12 +443,17 @@ Public MustInherit Class DBMapper
             Me.beginTrans()
 
             pstmt = Me.dbConn().getCommand(Me.getSQLStatement(SQL_DELETE))
-            pstmt.Parameters.Add(Me.dbConn.getParameter("0", id))
+            If IsNumeric(id) Then
+                pstmt.Parameters.Add(Me.dbConn.getParameter("0", CLng(id)))
+            Else
+                pstmt.Parameters.Add(Me.dbConn.getParameter("0", CStr(id)))
+            End If
+
             pstmt.ExecuteNonQuery()
 
             Me.commitTrans()
 
-       
+
         Finally
 
             Me.rollbackTrans()

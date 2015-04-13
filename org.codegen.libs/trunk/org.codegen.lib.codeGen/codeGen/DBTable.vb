@@ -146,7 +146,7 @@ Public Class DBTable
             dr = rsMetaData.Rows(i)
             dbField = New DBField()
             dbField.FieldName = CStr(dr.Item("ColumnName"))
-            dbField.RuntimeType = CType(dr.Item("DataType"), System.Type)
+
             dbField.Scale = CInt(dr.Item("NumericScale"))
             dbField.Precision = CInt(dr.Item("NumericPrecision"))
             dbField.Size = CInt(dr.Item("ColumnSize"))
@@ -154,7 +154,11 @@ Public Class DBTable
             'dbField.SQLType = CInt(dr.Item("ProviderType"))
             dbField.isPrimaryKey = dbField.FieldName.ToUpper = Me.getPrimaryKeyName.ToUpper
             'note: this does not work: CBool(NullChecker.intNull(dr.Item("IsKey"))) '
-
+            If (dbField.isPrimaryKey) Then
+                dbField.RuntimeType = Type.GetType("System.Int64")
+            Else
+                dbField.RuntimeType = CType(dr.Item("DataType"), System.Type)
+            End If
             dbField.ParentTable = Me
             If _exludedFields.Contains(dbField.FieldName.ToLower) = True Then
                 'skip this field!

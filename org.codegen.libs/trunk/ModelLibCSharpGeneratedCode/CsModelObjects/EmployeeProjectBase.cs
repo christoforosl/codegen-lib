@@ -29,9 +29,9 @@ namespace CsModelObjects
 	#region "Interface"
 [System.Runtime.InteropServices.ComVisible(false)] 
 	public interface IEmployeeProject: IModelObject {
-	System.Int32 EmployeeProjectId {get;set;} 
-	System.Int32? EPEmployeeId {get;set;} 
-	System.Int32? EPProjectId {get;set;} 
+	System.Int64 EmployeeProjectId {get;set;} 
+	System.Int64? EPEmployeeId {get;set;} 
+	System.Int64? EPProjectId {get;set;} 
 	System.DateTime? AssignDate {get;set;} 
 	System.DateTime? EndDate {get;set;} 
 	System.Decimal? Rate {get;set;} 
@@ -104,9 +104,9 @@ namespace CsModelObjects
 
 		#region "Field Declarations"
 
-	private System.Int32 _EmployeeProjectId;
-	private System.Int32? _EPEmployeeId = null;
-	private System.Int32? _EPProjectId = null;
+	private System.Int64 _EmployeeProjectId;
+	private System.Int64? _EPEmployeeId = null;
+	private System.Int64? _EPProjectId = null;
 	private System.DateTime? _AssignDate = null;
 	private System.DateTime? _EndDate = null;
 	private System.Decimal? _Rate = null;
@@ -115,7 +115,7 @@ namespace CsModelObjects
 
 		#region "Field Properties"
 
-	public virtual System.Int32 EmployeeProjectId  {
+	public virtual System.Int64 EmployeeProjectId  {
 	get {
 		return _EmployeeProjectId;
 	} 
@@ -141,7 +141,7 @@ public void setEmployeeProjectId(String val){
 		throw new ApplicationException("Invalid Integer Number, field:EmployeeProjectId, value:" + val);
 	}
 }
-	public virtual System.Int32? EPEmployeeId  {
+	public virtual System.Int64? EPEmployeeId  {
 	get {
 		return _EPEmployeeId;
 	} 
@@ -165,7 +165,7 @@ public void setEPEmployeeId(String val){
 		throw new ApplicationException("Invalid Integer Number, field:EPEmployeeId, value:" + val);
 	}
 }
-	public virtual System.Int32? EPProjectId  {
+	public virtual System.Int64? EPProjectId  {
 	get {
 		return _EPProjectId;
 	} 
@@ -312,21 +312,21 @@ public void setRate(String val ){
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			}else{
-				this.EmployeeProjectId=(System.Int32)val;
+				this.EmployeeProjectId=(System.Int64)val;
 			} //
 			return;
 		case FLD_EPEMPLOYEEID:
 			if (val == DBNull.Value || val == null ){
 				this.EPEmployeeId = null;
 			}else{
-				this.EPEmployeeId=(System.Int32)val;
+				this.EPEmployeeId=(System.Int64)val;
 			} //
 			return;
 		case FLD_EPPROJECTID:
 			if (val == DBNull.Value || val == null ){
 				this.EPProjectId = null;
 			}else{
-				this.EPProjectId=(System.Int32)val;
+				this.EPProjectId=(System.Int64)val;
 			} //
 			return;
 		case FLD_ASSIGNDATE:
@@ -362,21 +362,21 @@ public void setRate(String val ){
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.EmployeeProjectId=(System.Int32)val;
+				this.EmployeeProjectId=(System.Int64)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_EPEMPLOYEEID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.EPEmployeeId = null;
 			} else {
-				this.EPEmployeeId=(System.Int32)val;
+				this.EPEmployeeId=(System.Int64)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_EPPROJECTID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.EPProjectId = null;
 			} else {
-				this.EPProjectId=(System.Int32)val;
+				this.EPProjectId=(System.Int64)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_ASSIGNDATE.ToLower()){
@@ -404,10 +404,7 @@ public void setRate(String val ){
 		}
 
 		#endregion
-
-
 		#region "Overrides of GetHashCode and Equals "
-
 		public bool Equals(EmployeeProjectBase other)
 		{
 
@@ -537,10 +534,10 @@ if ( o.Rate != null &&
 
 		#region "ID Property"
 
-		public override int Id {
+		public override object Id {
 			get { return this._EmployeeProjectId; }
 			set {
-				this._EmployeeProjectId = value;
+				this._EmployeeProjectId = Convert.ToInt64(value);
 				this.raiseBroadcastIdChange();
 			}
 		}

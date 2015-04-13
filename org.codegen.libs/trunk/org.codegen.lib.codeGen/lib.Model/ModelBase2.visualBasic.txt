@@ -102,10 +102,7 @@ Namespace <NAMESPACE>
     End Sub
 
 #End Region
-
-
 #Region "Overrides of GetHashCode and Equals "
-	
 	Public Overloads Function Equals(ByVal other As <MODEL_CLASS_NAME>Base) As Boolean _     
 		Implements System.IEquatable(Of <MODEL_CLASS_NAME>Base).Equals       
 		
@@ -175,12 +172,12 @@ Namespace <NAMESPACE>
 
 #Region "ID Property"
 	
-    Public Overrides Property Id() As Long <ID_IMPLEMENTS>
+    Public Overrides Property Id() As object <ID_IMPLEMENTS>
         Get
             return me._<PK_MO_FIELD_NAME>
         End Get
-        Set(ByVal value As Long)
-             me._<PK_MO_FIELD_NAME> = value
+        Set(ByVal value As object)
+             me._<PK_MO_FIELD_NAME> = <PK_CONVERTER>
              me.raiseBroadcastIdChange()
         End Set
     End Property

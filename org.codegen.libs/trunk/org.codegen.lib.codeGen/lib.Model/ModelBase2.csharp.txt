@@ -107,10 +107,7 @@ namespace <NAMESPACE>
 		}
 
 		#endregion
-
-
 		#region "Overrides of GetHashCode and Equals "
-
 		public bool Equals(<MODEL_CLASS_NAME>Base other)
 		{
 
@@ -191,10 +188,10 @@ namespace <NAMESPACE>
 
 		#region "ID Property"
 
-		public override int Id {
+		public override object Id {
 			get { return this._<PK_MO_FIELD_NAME>; }
 			set {
-				this._<PK_MO_FIELD_NAME> = value;
+				this._<PK_MO_FIELD_NAME> = <PK_CONVERTER>;
 				this.raiseBroadcastIdChange();
 			}
 		}

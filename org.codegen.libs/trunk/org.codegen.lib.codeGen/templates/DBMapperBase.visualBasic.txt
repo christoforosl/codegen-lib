@@ -43,7 +43,7 @@ Namespace <DBMAPPER_NAMESPACE>
             MyBase.save(mo)
         End Sub
         
-        Public Shadows Function findByKey(ByVal keyval As Long) As <MODEL_CLASS_NAME>
+        Public Shadows Function findByKey(ByVal keyval As object) As <MODEL_CLASS_NAME>
 
             Return DirectCast(MyBase.findByKey(keyval), <MODEL_CLASS_NAME>)
 

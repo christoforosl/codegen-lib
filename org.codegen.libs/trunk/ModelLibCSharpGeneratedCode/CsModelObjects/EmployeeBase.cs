@@ -29,9 +29,9 @@ namespace CsModelObjects
 	#region "Interface"
 [System.Runtime.InteropServices.ComVisible(false)] 
 	public interface IEmployee: IModelObject {
-	System.Int32 EmployeeId {get;set;} 
+	System.Int64 EmployeeId {get;set;} 
 	System.String EmployeeName {get;set;} 
-	System.Int32? EmployeeRankId {get;set;} 
+	System.Int64? EmployeeRankId {get;set;} 
 	System.Decimal? Salary {get;set;} 
 	System.String Address {get;set;} 
 	System.String Telephone {get;set;} 
@@ -39,7 +39,7 @@ namespace CsModelObjects
 	System.String IdNumber {get;set;} 
 	System.String SSINumber {get;set;} 
 	System.DateTime? HireDate {get;set;} 
-	System.Int32? NumDependents {get;set;} 
+	System.Int64? NumDependents {get;set;} 
 	CsModelObjects.EmployeeRank Rank {get;set;} //association
 	CsModelObjects.EmployeeInfo EmployeeInfo {get;set;} //association
 	IEnumerable< CsModelObjects.EmployeeProject>EmployeeProjects {get; set;}
@@ -139,9 +139,9 @@ ret.Add(this.Rank);
 
 		#region "Field Declarations"
 
-	private System.Int32 _EmployeeId;
+	private System.Int64 _EmployeeId;
 	private System.String _EmployeeName = null;
-	private System.Int32? _EmployeeRankId = null;
+	private System.Int64? _EmployeeRankId = null;
 	private System.Decimal? _Salary = null;
 	private System.String _Address = null;
 	private System.String _Telephone = null;
@@ -149,7 +149,7 @@ ret.Add(this.Rank);
 	private System.String _IdNumber = null;
 	private System.String _SSINumber = null;
 	private System.DateTime? _HireDate = null;
-	private System.Int32? _NumDependents = null;
+	private System.Int64? _NumDependents = null;
 	// ****** CHILD OBJECTS ********************
 	private CsModelObjects.EmployeeRank _Rank = null;  // initialize to nothing, for lazy load logic below !!!
 	private CsModelObjects.EmployeeInfo _EmployeeInfo = null;  // initialize to nothing, for lazy load logic below !!!
@@ -163,7 +163,7 @@ ret.Add(this.Rank);
 
 		#region "Field Properties"
 
-	public virtual System.Int32 EmployeeId  {
+	public virtual System.Int64 EmployeeId  {
 	get {
 		return _EmployeeId;
 	} 
@@ -211,7 +211,7 @@ public void setEmployeeName( String val ) {
 		this.EmployeeName = null;
 	}
 }
-	public virtual System.Int32? EmployeeRankId  {
+	public virtual System.Int64? EmployeeRankId  {
 	get {
 		return _EmployeeRankId;
 	} 
@@ -393,7 +393,7 @@ public void setHireDate( String val ){
 		throw new ApplicationException("Invalid Date, field:HireDate, value:" + val);
 	}
 }
-	public virtual System.Int32? NumDependents  {
+	public virtual System.Int64? NumDependents  {
 	get {
 		return _NumDependents;
 	} 
@@ -687,7 +687,7 @@ public void setNumDependents(String val){
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			}else{
-				this.EmployeeId=(System.Int32)val;
+				this.EmployeeId=(System.Int64)val;
 			} //
 			return;
 		case FLD_EMPLOYEENAME:
@@ -701,7 +701,7 @@ public void setNumDependents(String val){
 			if (val == DBNull.Value || val == null ){
 				this.EmployeeRankId = null;
 			}else{
-				this.EmployeeRankId=(System.Int32)val;
+				this.EmployeeRankId=(System.Int64)val;
 			} //
 			return;
 		case FLD_SALARY:
@@ -757,7 +757,7 @@ public void setNumDependents(String val){
 			if (val == DBNull.Value || val == null ){
 				this.NumDependents = null;
 			}else{
-				this.NumDependents=(System.Int32)val;
+				this.NumDependents=(System.Int64)val;
 			} //
 			return;
 		default:
@@ -772,7 +772,7 @@ public void setNumDependents(String val){
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.EmployeeId=(System.Int32)val;
+				this.EmployeeId=(System.Int64)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_EMPLOYEENAME.ToLower()){
@@ -786,7 +786,7 @@ public void setNumDependents(String val){
 			if (val == DBNull.Value || val ==null ){
 				this.EmployeeRankId = null;
 			} else {
-				this.EmployeeRankId=(System.Int32)val;
+				this.EmployeeRankId=(System.Int64)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_SALARY.ToLower()){
@@ -842,17 +842,14 @@ public void setNumDependents(String val){
 			if (val == DBNull.Value || val ==null ){
 				this.NumDependents = null;
 			} else {
-				this.NumDependents=(System.Int32)val;
+				this.NumDependents=(System.Int64)val;
 			}
 			return;
 		}
 		}
 
 		#endregion
-
-
 		#region "Overrides of GetHashCode and Equals "
-
 		public bool Equals(EmployeeBase other)
 		{
 
@@ -1016,10 +1013,10 @@ if ( o.NumDependents != null &&
 
 		#region "ID Property"
 
-		public override int Id {
+		public override object Id {
 			get { return this._EmployeeId; }
 			set {
-				this._EmployeeId = value;
+				this._EmployeeId = Convert.ToInt64(value);
 				this.raiseBroadcastIdChange();
 			}
 		}

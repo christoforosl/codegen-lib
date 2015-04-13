@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ModelLibCSharpTests.Properties {
+namespace ModelLibCSharpGenCode.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

@@ -101,18 +101,9 @@ Public Class CSharpPropertyGenerator
         Dim ret As StringBuilder = New StringBuilder
 
         ret.Append(sproperty)
-        'If field.RuntimeTypeStr = "System.String" OrElse field.isPrimaryKey Then
-        '    ret.Append(String.Format(sproperty, runtimeFieldName, _
-        '                        field.getPropertyDataType, "", sLengthChecker))
-        'Else
-        '    ret.Append(String.Format(sproperty, runtimeFieldName, _
-        '                        field.getPropertyDataType, _
-        '                        "(" & field.getPropertyDataType & " value)", sLengthChecker))
-        'End If
 
         If runtimeFieldName.ToLower = "readonly" Then runtimeFieldName = "[ReadOnly]"
         If runtimeFieldName.ToLower = "new" Then runtimeFieldName = "[new]"
-
 
         If field.isBoolean Then
             ret.Append("public void set").Append(propertyFieldname).Append("(String val ){").Append(vbCrLf)
@@ -122,7 +113,7 @@ Public Class CSharpPropertyGenerator
             ret.Append("	    bool newval = (""1""==val || ""true""==val.ToLower()) ;").Append(vbCrLf)
             ret.Append("	    this.").Append(runtimeFieldName).Append(" = newval;").Append(vbCrLf)
             ret.Append("	}").Append(vbCrLf)
-            ret.Append("} //End Sub").Append(vbCrLf)
+            ret.Append("}").Append(vbCrLf)
 
         ElseIf field.isInteger Then
             ret.Append("public void set").Append(propertyFieldname).Append("(String val){").Append(vbCrLf)

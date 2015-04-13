@@ -50,7 +50,7 @@ namespace <DBMAPPER_NAMESPACE> {
 			base.save(mo);
 		}
 
-		public new <MODEL_CLASS_NAME> findByKey(int keyval) {
+		public new <MODEL_CLASS_NAME> findByKey(object keyval) {
 
 			return (<MODEL_CLASS_NAME>)base.findByKey(keyval);
 
@@ -84,7 +84,6 @@ namespace <DBMAPPER_NAMESPACE> {
 		#endregion
 
 <SAVE_CHILDREN_CODE>
-
 <SAVE_PARENT_CODE>
 
 		#region "Find functions"
@@ -152,8 +151,6 @@ namespace <DBMAPPER_NAMESPACE> {
 	#region " <MODEL_CLASS_NAME> Loader "
 	[System.Runtime.InteropServices.ComVisible(false)]
 	public class <MODEL_CLASS_NAME>DataReaderLoader : DataReaderLoader {
-
-
 		public override void load(IModelObject mo) {
 <DATA_READER_CONSTANTS>
 			<MODEL_CLASS_NAME> obj = (<MODEL_CLASS_NAME>)mo;
@@ -179,37 +176,31 @@ namespace <DBMAPPER_NAMESPACE> {
 	/// Final Class with convinience shared methods for loading/saving the <MODEL_CLASS_NAME>Rank ModelObject. 
 	///</summary>
 	[System.Runtime.InteropServices.ComVisible(false)]
-	public sealed class <MODEL_CLASS_NAME>DataUtils
-	{
+	public sealed class <MODEL_CLASS_NAME>DataUtils {
 
 		#region "Shared ""get"" Functions "
 
-		public static List<<MODEL_CLASS_NAME>> findList(string @where, params object[] @params)
-		{
+		public static List<<MODEL_CLASS_NAME>> findList(string @where, params object[] @params){
 
 			<MODEL_CLASS_NAME>DBMapper dbm = new <MODEL_CLASS_NAME>DBMapper();
 			return dbm.findList(@where, @params);
 
 		}
 
-		public static <MODEL_CLASS_NAME> findOne(string @where, params object[] @params)
-		{
+		public static <MODEL_CLASS_NAME> findOne(string @where, params object[] @params) {
 
 			<MODEL_CLASS_NAME>DBMapper dbm = new <MODEL_CLASS_NAME>DBMapper();
 			return (<MODEL_CLASS_NAME>)dbm.findWhere(@where, @params);
 
 		}
 
-
-		public static List<<MODEL_CLASS_NAME>> findList()
-		{
+		public static List<<MODEL_CLASS_NAME>> findList(){
 
 			return new <MODEL_CLASS_NAME>DBMapper().findAll();
 
 		}
 
-		public static <MODEL_CLASS_NAME> findByKey(int id)
-		{
+		public static <MODEL_CLASS_NAME> findByKey(object id) {
 
 			return (<MODEL_CLASS_NAME>)new <MODEL_CLASS_NAME>DBMapper().findByKey(id);
 

@@ -1,5 +1,5 @@
 ﻿Imports System.ComponentModel
-
+'ListControlTemplate.txt
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Public Class ucEmployeeList
     Inherits System.Windows.Forms.UserControl
@@ -273,7 +273,7 @@ Public Class ucEmployeeList
     protected sub setColumnDataSources
 		if me.DesignMode then exit sub
 			Me.EmployeeRankId.HeaderCell =  New DataGridViewAutoFilterComboColumnHeaderCell()
-	me.EmployeeRankId.DataSource = new BusObjects.Mappers.EmployeeRankDBMapper().findAll()
+	me.EmployeeRankId.DataSource = new VbBusObjects.DBMappers.EmployeeRankDBMapper().findAll()
 	me.EmployeeRankId.DisplayMember = "Rank"
 	me.EmployeeRankId.ValueMember = "RankId"
 	me.EmployeeRankId.FlatStyle = FlatStyle.Flat

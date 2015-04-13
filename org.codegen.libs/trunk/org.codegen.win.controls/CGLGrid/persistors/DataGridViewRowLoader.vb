@@ -34,8 +34,6 @@ Namespace Grid
 
             Next
 
-            mo.isNew = mo.Id <= 0
-
         End Sub
     End Class
 
@@ -73,8 +71,6 @@ Namespace Grid
 
 
             Next
-
-            mo.isNew = mo.Id <= 0
 
         End Sub
     End Class
