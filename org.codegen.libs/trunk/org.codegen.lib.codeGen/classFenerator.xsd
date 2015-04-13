@@ -33,7 +33,7 @@
           </xs:annotation>
         </xs:element>
 
-        <xs:element name="dotNetLanguage" minOccurs="1" default="VB">
+        <xs:element name="dotNetLanguage" minOccurs="0" default="VB">
           <xs:simpleType>
             <xs:restriction base="xs:string">
               <xs:enumeration value="VB" />
