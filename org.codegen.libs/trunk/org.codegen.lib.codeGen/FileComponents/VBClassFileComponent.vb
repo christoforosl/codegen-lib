@@ -64,8 +64,7 @@ Namespace FileComponents
 
             If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP Then
                 Return Me.ClassName & ".cs"
-            ElseIf ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.JAVA Then
-                Return Me.ClassName & ".java"
+            
             Else
                 Return Me.ClassName & ".vb"
             End If

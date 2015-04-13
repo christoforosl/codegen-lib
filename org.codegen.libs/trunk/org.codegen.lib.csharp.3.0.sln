@@ -26,8 +26,6 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "org.codegen.win.controls", 
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "org.codegen.codeGen.Win", "org.codegen.codeGen.Win\org.codegen.codeGen.Win.vbproj", "{C042F97C-0904-46AB-B37C-51AC6A5BA5F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelLibCSharpTests", "ModelLibCSharpTests\ModelLibCSharpTests.csproj", "{BC8EB514-1139-458E-8AD9-B8D674845C60}"
-EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -146,16 +144,6 @@ Global
 		{C042F97C-0904-46AB-B37C-51AC6A5BA5F2}.Release|Mixed Platforms.Build.0 = Release|x86
 		{C042F97C-0904-46AB-B37C-51AC6A5BA5F2}.Release|x86.ActiveCfg = Release|x86
 		{C042F97C-0904-46AB-B37C-51AC6A5BA5F2}.Release|x86.Build.0 = Release|x86
-		{BC8EB514-1139-458E-8AD9-B8D674845C60}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{BC8EB514-1139-458E-8AD9-B8D674845C60}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{BC8EB514-1139-458E-8AD9-B8D674845C60}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{BC8EB514-1139-458E-8AD9-B8D674845C60}.Debug|x86.ActiveCfg = Debug|x86
-		{BC8EB514-1139-458E-8AD9-B8D674845C60}.Debug|x86.Build.0 = Debug|x86
-		{BC8EB514-1139-458E-8AD9-B8D674845C60}.Release|Any CPU.ActiveCfg = Release|x86
-		{BC8EB514-1139-458E-8AD9-B8D674845C60}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{BC8EB514-1139-458E-8AD9-B8D674845C60}.Release|Mixed Platforms.Build.0 = Release|x86
-		{BC8EB514-1139-458E-8AD9-B8D674845C60}.Release|x86.ActiveCfg = Release|x86
-		{BC8EB514-1139-458E-8AD9-B8D674845C60}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

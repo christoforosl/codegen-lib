@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="windows-1253"?>
-<!--xs:schema xmlns:ns1="ModelClassGeneratorInfo"
-           attributeFormDefault="unqualified"
-           elementFormDefault="qualified"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"-->
 
-
-  <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
              xmlns:xs="http://www.w3.org/2001/XMLSchema"
              targetNamespace="ClassGenerator3">  
   
@@ -17,7 +12,7 @@
             <xs:restriction base="xs:string">
               <xs:enumeration value="1" />
               <xs:enumeration value="2" />
-              
+              <xs:enumeration value="4" />
             </xs:restriction>
           </xs:simpleType>
         </xs:element>
@@ -38,6 +33,15 @@
           </xs:annotation>
         </xs:element>
 
+        <xs:element name="dotNetLanguage" minOccurs="1" default="VB">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="VB" />
+              <xs:enumeration value="CSHARP" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+        
         <xs:element name="testProjectOutputDir" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:documentation>Root Directory Where to save generated Test files. If omitted, test files are not generated.</xs:documentation>
@@ -57,7 +61,7 @@
             <xs:restriction base="xs:string">
               <xs:enumeration value="ASP.NET" />
               <xs:enumeration value="WINDOWS FORMS" />
-              <xs:enumeration value="JSP" />
+              
             </xs:restriction>
           </xs:simpleType>
           

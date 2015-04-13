@@ -20,7 +20,6 @@ Public Class ModelGenerator
     Public Enum enumLanguage
         VB = 1
         CSHARP = 2
-        JAVA = 3
     End Enum
 
 

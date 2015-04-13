@@ -5,6 +5,7 @@ Public Class ModelGeneratorTests
 
     <TestMethod()>
     Public Sub TestModelGeneration()
+
     End Sub
 
 End Class

@@ -281,6 +281,11 @@ Public Class XMLClassGenerator
         t.ProjectOutputDirModel = getRowValue(projectInfo.Rows(0), XML_PROJECT_ATTR_OUTPUT_DIR, True)
         t.ProjectOutputDirTest = getRowValue(projectInfo.Rows(0), XML_ATTR_PROJECT_TEST_OUT_DIR, False)
         t.ProjectOutputDirUI = getRowValue(projectInfo.Rows(0), XML_ATTR_UI_TEST_OUT_DIR, False)
+        If getRowValue(projectInfo.Rows(0), "dotNetLanguage", "VB") = "VB" Then
+            t.dotNetLanguage = ModelGenerator.enumLanguage.VB
+        Else
+            t.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP
+        End If
 
         For tblName As Integer = 0 To totalTables - 1
 
