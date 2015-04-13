@@ -178,51 +178,7 @@ Namespace Tokens
             Return sb.ToString()
         End Function
 
-        'Public Function getVBTypeConverter(ByVal f As IDBField) As String
-
-        '    Return LoadFromDataRowToken.getVBTypeConverter(f.RuntimeTypeStr)
-
-        'End Function
-
-        '    Public Shared Function getVBTypeConverter(ByVal sysType As String) As _
-        '                String
-
-        '        'If sysType = ("System.Date") OrElse _
-        '        '      sysType = ("System.DateTime") Then
-        '        '    Return "CDate"
-
-        '        'ElseIf sysType = "System.Int16" Then
-        '        '    Return "CInt"
-
-        '        'ElseIf sysType = ("System.Int32") Then
-        '        '    Return "CInt"
-
-        '        'ElseIf sysType = ("System.Int64") Then
-        '        '    Return "CLng"
-
-        '        'ElseIf sysType = ("System.Decimal") Then
-        '        '    Return "CDec"
-
-        '        'ElseIf sysType = ("System.Double") Then
-        '        '    Return "CDec"
-
-        '        'ElseIf sysType = ("System.Single") Then
-        '        '    Return "CDec"
-
-        '        'ElseIf sysType = ("System.String") Then
-        '        '    Return "Cstr"
-
-        '        'ElseIf sysType = ("System.Boolean") Then
-        '        '    Return "CBool"
-
-        '        'ElseIf sysType = ("System.Byte") Then
-        '        '    Return "CInt"
-        '        'Else
-        '        Return STR_CType
-        '        'End If
-
-
-        '    End Function
+       
 
     End Class
 
@@ -450,7 +406,7 @@ Namespace Tokens
 			  AndAlso field.UserSpecifiedDataType <> field.OriginalRuntimeType.ToString Then
 				If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP Then
 					If (field.UserSpecifiedDataType = "System.Boolean") Then
-						sString = meMarker & ".reader.GetInt64" & "(DATAREADER_" & skey & ")==1;"
+						sString = meMarker & ".reader.GetInt32" & "(DATAREADER_" & skey & ")==1;"
 					End If
 				Else
 					sString = "CType(" & sString & "," & field.UserSpecifiedDataType & ")"

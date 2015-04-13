@@ -49,20 +49,30 @@ namespace CsModelObjects
 		#endregion
 
 		#region "Children and Parents"
+		
+		public override void loadObjectHierarchy() {
+			
+		}
 
-		public override List<ModelObject> getChildren()
-		{
+		/// <summary>
+		/// Returns the **loaded** children of this model object.
+		/// Any records that are not loaded (ie the getter method was not called) are not returned.
+		/// To get all child records tied to this object, call loadObjectHierarchy() method
+		/// </summary>
+		public override List<ModelObject> getChildren() {
 			List<ModelObject> ret = new List<ModelObject>();
 			
-
 			return ret;
 		}
 
-		public override List<ModelObject> getParents()
-		{
+		/// <summary>
+		/// Returns the **loaded** parent objects of this model object.
+		/// Any records are not loaded (ie the getter method was not called) are not returned.
+		/// To get all parent records tied to this object, call loadObjectHierarchy() method
+		/// </summary>
+		public override List<ModelObject> getParents() {
 			List<ModelObject> ret = new List<ModelObject>();
 			
-
 			return ret;
 		}
 
@@ -308,7 +318,7 @@ if (! string.IsNullOrEmpty(o.EmployeeType) &&
 		public override object Id {
 			get { return this._EmployeeTypeCode; }
 			set {
-				this._EmployeeTypeCode = Convert.ToString(value) ;
+				this._EmployeeTypeCode = Convert.ToString(value);
 				this.raiseBroadcastIdChange();
 			}
 		}

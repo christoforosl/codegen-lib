@@ -35,37 +35,50 @@ namespace CsModelObjects
 	System.DateTime? AssignDate {get;set;} 
 	System.DateTime? EndDate {get;set;} 
 	System.Decimal? Rate {get;set;} 
+	CsModelObjects.Project Project {get;set;} //association
 }
 #endregion
 
 	
 	[DefaultMapperAttr(typeof(CsModelMappers.EmployeeProjectDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class EmployeeProjectBase : ModelObject, IEquatable<EmployeeProjectBase>, IEmployeeProject
-	{
+	public class EmployeeProjectBase : ModelObject, IEquatable<EmployeeProjectBase>, IEmployeeProject {
 
 		#region "Constructor"
 
-		public EmployeeProjectBase()
-		{
+		public EmployeeProjectBase() {
 			this.addValidator(new EmployeeProjectRequiredFieldsValidator());
 		}
 
 		#endregion
 
 		#region "Children and Parents"
+		
+		public override void loadObjectHierarchy() {
+		loadProject();
 
-		public override List<ModelObject> getChildren()
-		{
+		}
+
+		/// <summary>
+		/// Returns the **loaded** children of this model object.
+		/// Any records that are not loaded (ie the getter method was not called) are not returned.
+		/// To get all child records tied to this object, call loadObjectHierarchy() method
+		/// </summary>
+		public override List<ModelObject> getChildren() {
 			List<ModelObject> ret = new List<ModelObject>();
 			
-
 			return ret;
 		}
 
-		public override List<ModelObject> getParents()
-		{
+		/// <summary>
+		/// Returns the **loaded** parent objects of this model object.
+		/// Any records are not loaded (ie the getter method was not called) are not returned.
+		/// To get all parent records tied to this object, call loadObjectHierarchy() method
+		/// </summary>
+		public override List<ModelObject> getParents() {
 			List<ModelObject> ret = new List<ModelObject>();
-			
+			if  (this.ProjectLoaded) {
+ret.Add(this.Project);
+}
 
 			return ret;
 		}
@@ -110,6 +123,11 @@ namespace CsModelObjects
 	private System.DateTime? _AssignDate = null;
 	private System.DateTime? _EndDate = null;
 	private System.Decimal? _Rate = null;
+	// ****** CHILD OBJECTS ********************
+	private CsModelObjects.Project _Project = null;  // initialize to nothing, for lazy load logic below !!!
+
+	// *****************************************
+	// ****** END CHILD OBJECTS ********************
 
 		#endregion
 
@@ -261,6 +279,60 @@ public void setRate(String val ){
 		throw new ApplicationException("Invalid Decimal Number, field:Rate, value:" + val);
 	}
 }
+
+		// ASSOCIATIONS GETTERS/SETTERS BELOW!
+		//associationParentCSharp.txt
+		#region "Association Project"
+
+		public bool ProjectLoaded {get;set;}
+
+		/// <summary>
+        /// Gets/Sets parent object
+        /// </summary>
+		public virtual CsModelObjects.Project Project {
+		    //1-1 parent association
+            set {
+                this._Project = value;
+				if ( value != null ) {
+					this.EPProjectId = value.ProjectId;
+					//AddHandler value.IDChanged, AddressOf this.handleParentIdChanged;
+					value.IDChanged += this.handleParentIdChanged;
+                } else {
+					this.EPProjectId = null;
+				}
+
+            }
+
+
+            get {
+                //LAZY LOADING! Only hit the database to get the child object if we need it
+                if ( this._Project == null ) {
+					this.loadProject();
+                }
+				
+                return this._Project;
+            }
+        }
+        
+        /// <summary>
+        /// Loads parent object and sets the appropriate properties
+        /// </summary>
+        public virtual void loadProject() {
+			
+			if (this.ProjectLoaded) return;
+			
+			if ( this._Project == null && this.EPProjectId > 0 ) {
+                
+				//call the setter here, not the private variable!
+                this.Project = new CsModelMappers.ProjectDBMapper().findByKey(this.EPProjectId.Value);
+                
+            }
+
+            this.ProjectLoaded=true;
+			            
+       }
+		#endregion
+
 
 		#endregion
 
@@ -522,6 +594,10 @@ if ( o.Rate != null &&
 		// Assocations from CsModelObjects.Employee
 		if ( parentMo is CsModelObjects.Employee) {
 			this.EPEmployeeId= ((CsModelObjects.Employee)parentMo).EmployeeId;
+		}
+		// Assocations from CsModelObjects.Project
+		if ( parentMo is CsModelObjects.Project) {
+			this.EPProjectId= ((CsModelObjects.Project)parentMo).ProjectId;
 		}
 		// Assocations from CsModelObjects.Project
 		if ( parentMo is CsModelObjects.Project) {

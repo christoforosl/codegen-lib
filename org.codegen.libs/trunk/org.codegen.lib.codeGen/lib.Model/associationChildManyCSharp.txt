@@ -18,7 +18,7 @@
 			this.load<association_name>();
 			val.<child_field_runtime> = this.<parent_field_runtime>;
 			//AddHandler this.IDChanged, AddressOf val.handleParentIdChanged;
-			val.IDChanged += this.handleParentIdChanged;
+			this.IDChanged += val.handleParentIdChanged;
 			this._<association_name>.Add(val);
 
         }

@@ -43,12 +43,16 @@ namespace GeneratorTests {
 				e.Salary = 100m;
 				e.SSINumber = "1030045";
 				e.Telephone = "2234455";
-				e.AddEmployeeProject(EmployeeProjectFactory.Create());
-				e.getEmployeeProject(0).AssignDate = new DateTime(DateTime.Now.Year, 3, 1);
-				e.getEmployeeProject(0).EndDate = new DateTime(DateTime.Now.Year, 6, 1);
-				e.getEmployeeProject(0).EPProjectId = 1;
-
 				e.HireDate = new DateTime(DateTime.Now.Year, 1, 1);
+
+				e.AddEmployeeProject(EmployeeProjectFactory.Create());
+				EmployeeProject emplProj = e.getEmployeeProject(0);
+				emplProj.AssignDate = new DateTime(DateTime.Now.Year, 3, 1);
+				emplProj.EndDate = new DateTime(DateTime.Now.Year, 6, 1);
+				emplProj.EPProjectId = 1;
+				emplProj.Project = ProjectFactory.Create();
+				emplProj.Project.ProjectName = "MyProject";
+
 				EmployeeDataUtils.saveEmployee(e);
 				long x = e.EmployeeId;
 
@@ -59,16 +63,25 @@ namespace GeneratorTests {
 				Assert.AreEqual(e.EmployeeName, "test employee");
 				Assert.AreEqual(e.SSINumber, "1030045");
 				Assert.AreEqual(e.HireDate, new DateTime(2015, 1, 1));
-				Assert.AreEqual(e.EmployeeProjects.ToList().Count,1);
+				Assert.AreEqual(e.EmployeeProjects.ToList().Count, 1);
+				Assert.AreEqual(e.getEmployeeProject(0).Project.ProjectName, "MyProject");
 
 				e.SSINumber = "XXXXX";
 				e.getEmployeeProject(0).EndDate = new DateTime(DateTime.Now.Year, 6, 1);
+				e.getEmployeeProject(0).Project.ProjectName = "MyProject Updated"; // here we are creating parent record of child object of employee!
 				EmployeeDataUtils.saveEmployee(e);
 				e = EmployeeDataUtils.findByKey(x);
 				Assert.AreEqual(e.SSINumber, "XXXXX");
-				Assert.AreEqual(e.getEmployeeProject(0).EndDate , new DateTime(DateTime.Now.Year, 6, 1));
+				Assert.AreEqual(e.getEmployeeProject(0).EndDate, new DateTime(DateTime.Now.Year, 6, 1));
+				Assert.AreEqual(e.getEmployeeProject(0).Project.ProjectName, "MyProject Updated", "Expected to have parent record of child updated!");
 
 				e.ClearEmployeeProjects();
+				Assert.AreEqual(e.EmployeeProjects.ToList().Count, 0, "Expected to have no Projects linked after call to clear");
+				EmployeeDataUtils.saveEmployee(e);
+				
+				e = EmployeeDataUtils.findByKey(x);
+				Assert.AreEqual(e.EmployeeProjects.ToList().Count, 0, "Expected to have no Projects linked, after reloading from db");
+
 				EmployeeDataUtils.deleteEmployee(e);
 				e = EmployeeDataUtils.findByKey(x);
 				Assert.IsNull(e, "New employee must have been deleted!");

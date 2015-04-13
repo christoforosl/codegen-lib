@@ -473,6 +473,16 @@ Namespace Model
 
         End Function
 
+		''' <summary>
+		''' Call method to load all object Hierarchy.
+		''' Effectively, calling this method causes the model object 
+		''' to load all parents and children model objects
+		''' </summary>
+		''' <remarks></remarks>
+		Public Overridable Sub loadObjectHierarchy() Implements IModelObject.loadObjectHierarchy
+			'empty stub
+		End Sub
+
     End Class
 
 End Namespace

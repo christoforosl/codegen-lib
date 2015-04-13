@@ -440,12 +440,12 @@ Public MustInherit Class DBMapper
 	'''    
 	'''<summary>  Performs an <b>delete</b> operation to the database </summary>
 	'''<param name="mo"> ModelObject to save to database </param> 
-	Public Overridable Sub delete(ByVal mo As IModelObject) _
-	   Implements IDataMapper.delete
+	Public Overridable Sub delete(ByVal mo As IModelObject) Implements IDataMapper.delete
 
 		mo.validateDelete()
 
 		If ModelContext.Current.doCascadeDeletes Then
+			CType(mo, ModelObject).loadObjectHierarchy()
 			For Each imof As IModelObject In mo.getChildren()
 				ModelContext.GetModelDefaultMapper(imof).delete(imof)
 			Next

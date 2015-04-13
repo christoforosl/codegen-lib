@@ -36,6 +36,10 @@ Namespace <NAMESPACE>
 
 #Region "Children and Parents"
 	
+	public Overrides sub loadObjectHierarchy()
+		<loadObjectHierarchy>
+	End Sub
+
 	Public Overrides Function getChildren() As List(Of ModelObject) 
 		Dim ret as New List(Of ModelObject)()
 		<SETUP_CHILDREN_ARRAY>

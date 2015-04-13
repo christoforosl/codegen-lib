@@ -119,6 +119,8 @@ Namespace Model
 
         Function getAuditor() As IAuditor
 
+		Sub loadObjectHierarchy()
+
     End Interface
 
 End Namespace

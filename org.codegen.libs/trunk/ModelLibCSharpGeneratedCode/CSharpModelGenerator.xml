@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project xmlns="ClassGenerator3">
+<project xmlns="ClassGenerator3"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="ClassGenerator3 https://raw.githubusercontent.com/christoforosl/codegen-lib/CSharpCode/org.codegen.libs/trunk/org.codegen.lib.codeGen/classFenerator.xsd" >
+
 
   <GeneratorVersion>2</GeneratorVersion>
   <projectFile>.\ModelLibCSharpGeneratedCode.csproj</projectFile>
@@ -20,10 +23,10 @@
   <table>
 
     <TableName>Employee</TableName>
-    <Namespace>CsModelObjects</Namespace>
+    
     <SortField>EmployeeName</SortField>
     <SortAscending>true</SortAscending>
-    <DBMapperNameSpace>CsModelMappers</DBMapperNameSpace>
+    
     <GenerateUI>1</GenerateUI>
 
     <Lookups>
@@ -71,53 +74,53 @@
   <table>
     <TableName>EmployeeProject</TableName>
     <ClassName>EmployeeProject</ClassName>
-    <Namespace>CsModelObjects</Namespace>
-    <DBMapperNameSpace>CsModelMappers</DBMapperNameSpace>
     <GenerateUI>1</GenerateUI>
+	<association>
+	  <relationType>PARENT</relationType>
+	  <DataType>CsModelObjects.Project</DataType>
+	  <AssociationName>Project</AssociationName>
+	  <AssociationSingular>Project</AssociationSingular>
+	  <cardinality>1</cardinality>
+
+	  <parentFieldName>ProjectId</parentFieldName>
+	  <childFieldName>EPProjectId</childFieldName>
+
+	</association>
+	
   </table>
 
   <table>
     <TableName>EmployeeRank</TableName>
     <ClassName>EmployeeRank</ClassName>
-    <Namespace>CsModelObjects</Namespace>
-    <DBMapperNameSpace>CsModelMappers</DBMapperNameSpace>
     <GenerateUI>1</GenerateUI>
   </table>
   <table>
     <TableName>EmployeeInfo</TableName>
-    <Namespace>CsModelObjects</Namespace>
-    <DBMapperNameSpace>CsModelMappers</DBMapperNameSpace>
     <GenerateUI>1</GenerateUI>
   </table>
 
   <table>
     <TableName>Project</TableName>
     <ClassName>Project</ClassName>
-    <Namespace>CsModelObjects</Namespace>
-    <DBMapperNameSpace>CsModelMappers</DBMapperNameSpace>
-
     <GenerateUI>1</GenerateUI>
-
     <Field>
       <FieldName>isActive</FieldName>
       <DataType>System.Boolean</DataType>
     </Field>
-
-
     <association>
       <relationType>CHILD</relationType>
       <DataType>CsModelObjects.EmployeeProject</DataType>
       <AssociationName>EmployeeProjects</AssociationName>
       <AssociationSingular>EmployeeProject</AssociationSingular>
       <cardinality>*</cardinality>
-
       <parentFieldName>ProjectId</parentFieldName>
       <childFieldName>EPProjectId</childFieldName>
-
     </association>
 
   </table>
+  
   <table>
     <TableName>EmployeeType</TableName>
   </table>
+  
 </project>

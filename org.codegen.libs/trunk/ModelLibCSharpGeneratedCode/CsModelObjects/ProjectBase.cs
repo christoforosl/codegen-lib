@@ -43,22 +43,29 @@ namespace CsModelObjects
 
 	
 	[DefaultMapperAttr(typeof(CsModelMappers.ProjectDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class ProjectBase : ModelObject, IEquatable<ProjectBase>, IProject
-	{
+	public class ProjectBase : ModelObject, IEquatable<ProjectBase>, IProject {
 
 		#region "Constructor"
 
-		public ProjectBase()
-		{
+		public ProjectBase() {
 			this.addValidator(new ProjectRequiredFieldsValidator());
 		}
 
 		#endregion
 
 		#region "Children and Parents"
+		
+		public override void loadObjectHierarchy() {
+		loadEmployeeProjects();
 
-		public override List<ModelObject> getChildren()
-		{
+		}
+
+		/// <summary>
+		/// Returns the **loaded** children of this model object.
+		/// Any records that are not loaded (ie the getter method was not called) are not returned.
+		/// To get all child records tied to this object, call loadObjectHierarchy() method
+		/// </summary>
+		public override List<ModelObject> getChildren() {
 			List<ModelObject> ret = new List<ModelObject>();
 				if  (this.EmployeeProjectsLoaded) { // check if loaded first!
 		List< ModelObject > lp = this._EmployeeProjects.ConvertAll(
@@ -67,15 +74,17 @@ namespace CsModelObjects
 		ret.AddRange(lp);
 	}
 
-
 			return ret;
 		}
 
-		public override List<ModelObject> getParents()
-		{
+		/// <summary>
+		/// Returns the **loaded** parent objects of this model object.
+		/// Any records are not loaded (ie the getter method was not called) are not returned.
+		/// To get all parent records tied to this object, call loadObjectHierarchy() method
+		/// </summary>
+		public override List<ModelObject> getParents() {
 			List<ModelObject> ret = new List<ModelObject>();
 			
-
 			return ret;
 		}
 
@@ -218,7 +227,7 @@ public void setIsActive(String val ){
 			this.loadEmployeeProjects();
 			val.EPProjectId = this.ProjectId;
 			//AddHandler this.IDChanged, AddressOf val.handleParentIdChanged;
-			val.IDChanged += this.handleParentIdChanged;
+			this.IDChanged += val.handleParentIdChanged;
 			this._EmployeeProjects.Add(val);
 
         }
