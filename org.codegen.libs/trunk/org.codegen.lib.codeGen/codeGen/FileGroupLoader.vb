@@ -62,7 +62,7 @@ Public Class FileGroupLoader
         If String.IsNullOrEmpty(ModelGenerator.Current.ProjectOutputDirTest) = False Then
             Dim testClass As TestFileComponent = New TestFileComponent(obj)
             If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
-                testClass.templateFileName = "org.codegen.lib.codeGen.TestTemplate.visualBasic.txt"
+                testClass.templateFileName = "org.codegen.lib.codeGen.TestTemplate.visualbasic.txt"
             Else
                 testClass.templateFileName = "org.codegen.lib.codeGen.TestTemplate.csharp.txt"
             End If
