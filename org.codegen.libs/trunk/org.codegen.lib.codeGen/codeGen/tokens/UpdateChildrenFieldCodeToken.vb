@@ -44,7 +44,7 @@ Namespace Tokens
                 Dim s As System.Text.StringBuilder = New System.Text.StringBuilder()
                 s.Append("#region ""parentIdChanged""" & vbCrLf)
                 s.Append(vbTab & "//below sub is called when parentIdChanged" & vbCrLf)
-                s.Append(vbTab & "public virtual void handleParentIdChanged(IModelObject parentMo ){" & vbCrLf)
+                s.Append(vbTab & "public override void handleParentIdChanged(IModelObject parentMo ){" & vbCrLf)
                 s.Append(sAssociationsCode.ToString)
                 s.Append(vbTab & "}" & vbCrLf)
                 s.Append("#endregion" & vbCrLf)

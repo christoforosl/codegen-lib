@@ -3,3 +3,7 @@
 **/CodeGenLibs
 **/TestResults
 **/*.suo
+/org.codegen.libs/trunk/org.codegen.lib.codeGen/*.user
+/org.codegen.libs/trunk/*.vsmdi
+/org.codegen.libs/trunk/ModelLibTests/*.user
+/org.codegen.libs/trunk/ModelLibCSharpTests/*.user

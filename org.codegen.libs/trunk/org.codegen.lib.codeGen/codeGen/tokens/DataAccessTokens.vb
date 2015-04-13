@@ -13,7 +13,7 @@ Namespace Tokens
                 Return String.Empty
             End If
 
-            Dim ret As String = vbTab & "public void saveParents(IModelObject mo ){" & vbCrLf + vbCrLf
+            Dim ret As String = vbTab & "public override void saveParents(IModelObject mo ){" & vbCrLf + vbCrLf
             Dim cname As String = CType(t, ObjectToGenerate).ClassName
             ret &= vbTab & vbTab & cname & " thisMo " & " = ( " & cname & ")mo;" & vbCrLf
 
@@ -68,7 +68,7 @@ Namespace Tokens
             Dim ret As String = ""
 
             ret &= "#region ""Save Children Code""" & vbCrLf
-            ret &= vbTab & "public void saveChildren(IModelObject mo) {" & vbCrLf & vbCrLf
+            ret &= vbTab & "public override void saveChildren(IModelObject mo) {" & vbCrLf & vbCrLf
 
             ret &= vbTab & vbTab & CType(t, ObjectToGenerate).ClassName & _
                         " ret = (" & CType(t, ObjectToGenerate).ClassName & ")mo;" & vbCrLf

@@ -12,7 +12,7 @@ Public Class CSharpAssociation
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Overrides Function getInterfaceDeclaration() As String Implements IAssociation.getInterfaceDeclaration
+    Public Overrides Function getInterfaceDeclaration() As String
         Dim sbdr As StringBuilder = New StringBuilder()
 
         If Me.isCardinalityMany Then
@@ -36,7 +36,7 @@ Public Class CSharpAssociation
         Return sbdr.ToString
     End Function
 
-    Public Overrides Function getDataTypeVariable() As String Implements IAssociation.getDataTypeVariable
+    Public Overrides Function getDataTypeVariable() As String
 
         If Me.isCardinalityMany Then
             Return "List< " & Me.DataType & ">"
@@ -46,7 +46,7 @@ Public Class CSharpAssociation
 
     End Function
 
-    Public Overrides Function getTestCode() As String Implements IAssociation.getTestCode
+    Public Overrides Function getTestCode() As String
 
         Dim ret As String = "Assert."
         If Me._cardinality.Equals("*") Then
@@ -61,7 +61,7 @@ Public Class CSharpAssociation
     End Function
    
 
-    Public Overrides Function getVariable() As String Implements IAssociation.getVariable
+    Public Overrides Function getVariable() As String
 
         Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder() ' TODO type initialisation here
         sb.Append(vbTab & "private ")
@@ -73,7 +73,7 @@ Public Class CSharpAssociation
         Return sb.ToString()
     End Function
 
-    Public Overrides Function getDeletedVariable() As String Implements IAssociation.getDeletedVariable
+    Public Overrides Function getDeletedVariable() As String
 
         If Me.isCardinalityMany Then
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder() ' TODO type initialisation here
@@ -88,7 +88,7 @@ Public Class CSharpAssociation
 
     End Function
 
-    Public Overrides Function getSaveParentCode(ByVal parentMoObjType As String) As String Implements IAssociation.getSaveParentCode
+    Public Overrides Function getSaveParentCode(ByVal parentMoObjType As String) As String
         Dim ret As String = ""
         If isParent() Then
             ' parent relationship!
@@ -119,7 +119,7 @@ Public Class CSharpAssociation
 
     End Function
 
-    Public Overrides Function getSaveChildrenCode() As String Implements IAssociation.getSaveChildrenCode
+    Public Overrides Function getSaveChildrenCode() As String
 
         Dim ret As String = ""
         If isParent() Then
@@ -158,7 +158,7 @@ Public Class CSharpAssociation
     End Function
 
   
-    Public Overrides Function getSetterGetter() As String Implements IAssociation.getSetterGetter
+    Public Overrides Function getSetterGetter() As String
 
         Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
         Dim fieldName As String = Me.associationName

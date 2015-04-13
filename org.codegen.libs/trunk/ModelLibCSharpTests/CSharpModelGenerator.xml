@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="ClassGenerator3">
+
+  <GeneratorVersion>2</GeneratorVersion>
+  <projectFile>C:\VSProjects\codegen-lib-CSharpCode\org.codegen.libs\trunk\ModelLibCSharpTests\ModelLibCSharpTests.csproj</projectFile>
+  <projectName>ModelLibCSharpTests</projectName>
+  <outputDir>C:\VSProjects\codegen-lib-CSharpCode\org.codegen.libs\trunk\ModelLibCSharpTests\</outputDir>
+  <testProjectOutputDir>C:\VSProjects\codegen-lib-CSharpCode\org.codegen.libs\trunk\ModelLibCSharpTests\tests</testProjectOutputDir>
+  <defaultNamespace>CsModelObjects</defaultNamespace>
+  <defaultDBMapperNameSpace>CsModelMappers</defaultDBMapperNameSpace>
+  <dbConnectionString>
+    Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=modelTest;Data Source=.\SQLEXPRESS
+  </dbConnectionString>
+  <dbConnectionDialect>MSSQL</dbConnectionDialect>
+  <dbConnectionType>CONN_MSSQL</dbConnectionType>
+  <UIProjectOutputDir>C:\VSProjects\codegen-lib-CSharpCode\org.codegen.libs\trunk\ModelLibCSharpTests\</UIProjectOutputDir>
+
+  <table>
+
+    <TableName>Employee</TableName>
+    <Namespace>CsModelObjects</Namespace>
+    <SortField>EmployeeName</SortField>
+    <SortAscending>true</SortAscending>
+    <DBMapperNameSpace>CsModelMappers</DBMapperNameSpace>
+    <GenerateUI>1</GenerateUI>
+
+    <Lookups>
+      <FieldName>EmployeeRankId</FieldName>
+      <DataSource>CsModelObjects.EmployeeRank</DataSource>
+      <ValueMember>RankId</ValueMember>
+      <DisplayMember>Rank</DisplayMember>
+    </Lookups>
+
+    <association>
+      <relationType>PARENT</relationType>
+      <DataType>CsModelObjects.EmployeeRank</DataType>
+      <AssociationName>Rank</AssociationName>
+      <cardinality>1</cardinality>
+
+      <parentFieldName>RankId</parentFieldName>
+      <childFieldName>EmployeeRankId</childFieldName>
+
+    </association>
+    <association>
+      <relationType>CHILD</relationType>
+      <DataType>CsModelObjects.EmployeeInfo</DataType>
+      <AssociationName>EmployeeInfo</AssociationName>
+      <cardinality>1</cardinality>
+
+      <parentFieldName>EmployeeId</parentFieldName>
+      <childFieldName>EIEmployeeId</childFieldName>
+
+    </association>
+
+    <association>
+      <relationType>CHILD</relationType>
+      <DataType>CsModelObjects.EmployeeProject</DataType>
+      <AssociationName>EmployeeProjects</AssociationName>
+      <AssociationSingular>EmployeeProject</AssociationSingular>
+      <cardinality>*</cardinality>
+
+      <parentFieldName>EmployeeId</parentFieldName>
+      <childFieldName>EPEmployeeId</childFieldName>
+
+    </association>
+
+  </table>
+
+  <table>
+    <TableName>EmployeeProject</TableName>
+    <ClassName>EmployeeProject</ClassName>
+    <Namespace>CsModelObjects</Namespace>
+    <DBMapperNameSpace>CsModelMappers</DBMapperNameSpace>
+    <GenerateUI>1</GenerateUI>
+  </table>
+
+  <table>
+    <TableName>EmployeeRank</TableName>
+    <ClassName>EmployeeRank</ClassName>
+    <Namespace>CsModelObjects</Namespace>
+    <DBMapperNameSpace>CsModelMappers</DBMapperNameSpace>
+    <GenerateUI>1</GenerateUI>
+  </table>
+  <table>
+    <TableName>EmployeeInfo</TableName>
+    <Namespace>CsModelObjects</Namespace>
+    <DBMapperNameSpace>CsModelMappers</DBMapperNameSpace>
+    <GenerateUI>1</GenerateUI>
+  </table>
+
+  <table>
+    <TableName>Project</TableName>
+    <ClassName>Project</ClassName>
+    <Namespace>CsModelObjects</Namespace>
+    <DBMapperNameSpace>CsModelMappers</DBMapperNameSpace>
+
+    <GenerateUI>1</GenerateUI>
+
+    <Field>
+      <FieldName>isActive</FieldName>
+      <DataType>System.Boolean</DataType>
+    </Field>
+
+
+    <association>
+      <relationType>CHILD</relationType>
+      <DataType>CsModelObjects.EmployeeProject</DataType>
+      <AssociationName>EmployeeProjects</AssociationName>
+      <AssociationSingular>EmployeeProject</AssociationSingular>
+      <cardinality>*</cardinality>
+
+      <parentFieldName>ProjectId</parentFieldName>
+      <childFieldName>EPProjectId</childFieldName>
+
+    </association>
+
+  </table>
+
+</project>
