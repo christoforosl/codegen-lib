@@ -1,6 +1,6 @@
 ﻿		
 		#Region "Association <association_name>"
-
+		'associationChildMany.txt
 		friend _<association_name>Loaded as Boolean
 
 		Public Overridable Function get<association_name_singular>(ByVal i As Integer) As <datatype> _

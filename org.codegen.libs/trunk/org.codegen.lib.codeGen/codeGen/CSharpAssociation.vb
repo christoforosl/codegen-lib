@@ -3,48 +3,16 @@ Imports System.Text
 Imports org.codegen.lib.codeGen.FileComponents
 
 Public Class CSharpAssociation
+    Inherits Association
     Implements IAssociation
 
-    Private Const STR_RELATION_PARENT As String = "PARENT"
-    Private Const STR_RELATION_CLIENT As String = "CLIENT"
-
-    Public Property ParentDatatype As String Implements IAssociation.ParentDatatype
-    Public Property ChildDatatype As String Implements IAssociation.ChildDatatype
-    Public Property DataType As String Implements IAssociation.DataType
-
-    Private _dbMapperClass As String
-    Private _relationType As String = "CHILD"
-    Private _cardinality As String = ""
-    Private _sortAsc As Boolean = True
-
-    Private Shared _childManyTemplate As String
-    Private Shared _childOneTemplate As String
-    Private Shared _parentTemplate As String
-
-    Public Property parentDBTable As IDBTable Implements IAssociation.ParentDBTable
-    Public Property AccessLevel() As String = "public"
-
-    Public Property associationNameSingular As String Implements IAssociation.associationNameSingular
-    Public Overridable Property associationName() As String Implements IAssociation.associationName
-    Public Property ChildFieldIsPK() As Boolean Implements IAssociation.ChildFieldIsPK
-
-    Public Sub setCardinality(ByVal val As String) Implements IAssociation.setCardinality
-        If (Not String.IsNullOrEmpty(val) AndAlso (val = "*" OrElse val = "1")) Then
-            Me._cardinality = val
-        Else
-            Throw New System.ArgumentException("cardinality must be 1 or *")
-        End If
-
-    End Sub
-
-
-
+    
     ''' <summary>
     ''' declartation of this in the properties of the interface
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function getInterfaceDeclaration() As String Implements IAssociation.getInterfaceDeclaration
+    Public Overrides Function getInterfaceDeclaration() As String Implements IAssociation.getInterfaceDeclaration
         Dim sbdr As StringBuilder = New StringBuilder()
 
         If Me.isCardinalityMany Then
@@ -68,7 +36,7 @@ Public Class CSharpAssociation
         Return sbdr.ToString
     End Function
 
-    Public Overridable Function getDataTypeVariable() As String Implements IAssociation.getDataTypeVariable
+    Public Overrides Function getDataTypeVariable() As String Implements IAssociation.getDataTypeVariable
 
         If Me.isCardinalityMany Then
             Return "List< " & Me.DataType & ">"
@@ -78,7 +46,7 @@ Public Class CSharpAssociation
 
     End Function
 
-    Public Overridable Function getTestCode() As String Implements IAssociation.getTestCode
+    Public Overrides Function getTestCode() As String Implements IAssociation.getTestCode
 
         Dim ret As String = "Assert."
         If Me._cardinality.Equals("*") Then
@@ -91,10 +59,9 @@ Public Class CSharpAssociation
         Return ret
 
     End Function
-    Public Overridable Function getVariableName() As String Implements IAssociation.getVariableName
-        Return Me.associationName
-    End Function
-    Public Overridable Function getVariable() As String Implements IAssociation.getVariable
+   
+
+    Public Overrides Function getVariable() As String Implements IAssociation.getVariable
 
         Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder() ' TODO type initialisation here
         sb.Append(vbTab & "private ")
@@ -106,7 +73,7 @@ Public Class CSharpAssociation
         Return sb.ToString()
     End Function
 
-    Public Overridable Function getDeletedVariable() As String Implements IAssociation.getDeletedVariable
+    Public Overrides Function getDeletedVariable() As String Implements IAssociation.getDeletedVariable
 
         If Me.isCardinalityMany Then
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder() ' TODO type initialisation here
@@ -121,7 +88,7 @@ Public Class CSharpAssociation
 
     End Function
 
-    Public Overridable Function getSaveParentCode(ByVal parentMoObjType As String) As String Implements IAssociation.getSaveParentCode
+    Public Overrides Function getSaveParentCode(ByVal parentMoObjType As String) As String Implements IAssociation.getSaveParentCode
         Dim ret As String = ""
         If isParent() Then
             ' parent relationship!
@@ -152,19 +119,7 @@ Public Class CSharpAssociation
 
     End Function
 
-    ''' <summary>
-    ''' Returns the mapper of the parent object of this association
-    ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Private Function GetAssociatedMapperClassName() As String
-
-        Dim mapperClassName As String = ModelGenerator.Current.getObjectOfDataType(Me.DataType).FullyQualifiedMapperClassName
-        Return mapperClassName
-
-    End Function
-
-    Public Overridable Function getSaveChildrenCode() As String Implements IAssociation.getSaveChildrenCode
+    Public Overrides Function getSaveChildrenCode() As String Implements IAssociation.getSaveChildrenCode
 
         Dim ret As String = ""
         If isParent() Then
@@ -202,28 +157,8 @@ Public Class CSharpAssociation
 
     End Function
 
-    Public Overridable Function isParent() As Boolean Implements IAssociation.isParent
-        Return Me.RelationType().Equals(STR_RELATION_PARENT)
-    End Function
-
-    Public Overridable Function getCanonicalName() As String Implements IAssociation.getCanonicalName
-
-        Return Me.associationName.Substring(0, 1).ToUpper() + Me.associationName.Substring(1)
-
-    End Function
-
-    Public Overridable Function getSet() As String Implements IAssociation.getSet
-        Return "" & getCanonicalName()
-    End Function
-
-
-    Public Overridable Function getGet() As String Implements IAssociation.getGet
-        Return "" & getCanonicalName()
-    End Function
-
-    Public Property PropertiesImplementInterface() As String Implements IAssociation.PropertiesImplementInterface
-
-    Public Overridable Function getSetterGetter() As String Implements IAssociation.getSetterGetter
+  
+    Public Overrides Function getSetterGetter() As String Implements IAssociation.getSetterGetter
 
         Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
         Dim fieldName As String = Me.associationName
@@ -261,97 +196,8 @@ Public Class CSharpAssociation
 
     End Function
 
-    Public Property IsReadOnly() As Boolean Implements IAssociation.IsReadOnly
+  
+    
+    
 
-    Public Property ChildFieldName() As String Implements IAssociation.ChildFieldName
-
-    Public Property ParentFieldName() As String Implements IAssociation.ParentFieldName
-
-    Public Property RelationType() As String Implements IAssociation.RelationType
-        Get
-            If Not (Me._relationType.Equals(STR_RELATION_PARENT)) Then
-                Return STR_RELATION_CLIENT
-            Else
-                Return STR_RELATION_PARENT
-            End If
-        End Get
-        Set(ByVal value As String)
-            If Not (value.Equals(STR_RELATION_PARENT)) Then
-                Me._relationType = STR_RELATION_CLIENT
-            Else
-                Me._relationType = STR_RELATION_PARENT
-            End If
-        End Set
-    End Property
-    Public Property isSortAsc() As Boolean Implements IAssociation.isSortAsc
-    Public Property SortField() As String Implements IAssociation.SortField
-
-    Public ReadOnly Property templateText() As String Implements IAssociation.templateText
-        Get
-            If Me._relationType = STR_RELATION_CLIENT Then
-                If Me.isCardinalityMany Then
-                    Return ChildManyTemplate
-                Else
-                    Return ChildOneTemplate
-                End If
-            Else
-                Return ParentTemplate
-            End If
-        End Get
-
-    End Property
-
-    Public Shared Property ChildManyTemplate() As String
-        Get
-            If _childManyTemplate Is Nothing Then
-                If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
-                    _childManyTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationChildMany.txt")
-                Else
-                    _childManyTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationChildManyCSharp.txt")
-                End If
-            End If
-
-            Return _childManyTemplate
-        End Get
-        Set(ByVal value As String)
-            _childManyTemplate = value
-        End Set
-    End Property
-    Public Shared Property ChildOneTemplate() As String
-        Get
-            If _childOneTemplate Is Nothing Then
-                If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
-                    _childOneTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationChildOne.txt")
-                Else
-                    _childOneTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationChildOneCSharp.txt")
-                End If
-
-            End If
-                Return _childOneTemplate
-        End Get
-        Set(ByVal value As String)
-            _childOneTemplate = value
-        End Set
-    End Property
-    Public Shared Property ParentTemplate() As String
-        Get
-            If _parentTemplate Is Nothing Then
-                If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
-                    _parentTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationParent.txt")
-                Else
-                    _parentTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationParentCSharp.txt")
-                End If
-
-
-            End If
-                Return _parentTemplate
-        End Get
-        Set(ByVal value As String)
-            _parentTemplate = value
-        End Set
-    End Property
-
-    Public Function isCardinalityMany() As Boolean Implements dotnet.IAssociation.isCardinalityMany
-        Return Not String.IsNullOrEmpty(Me._cardinality) AndAlso Me._cardinality = "*"
-    End Function
 End Class

@@ -5,21 +5,21 @@ Imports org.codegen.lib.codeGen.FileComponents
 Public Class Association
     Implements IAssociation
 
-    Private Const STR_RELATION_PARENT As String = "PARENT"
-    Private Const STR_RELATION_CLIENT As String = "CLIENT"
+    Protected Const STR_RELATION_PARENT As String = "PARENT"
+    Protected Const STR_RELATION_CLIENT As String = "CLIENT"
 
     Public Property ParentDatatype As String Implements IAssociation.ParentDatatype
     Public Property ChildDatatype As String Implements IAssociation.ChildDatatype
     Public Property DataType As String Implements IAssociation.DataType
 
-    Private _dbMapperClass As String
-    Private _relationType As String = "CHILD"
-    Private _cardinality As String = ""
-    Private _sortAsc As Boolean = True
+    Protected _dbMapperClass As String
+    Protected _relationType As String = "CHILD"
+    Protected _cardinality As String = ""
+    Protected _sortAsc As Boolean = True
 
-    Private Shared _childManyTemplate As String
-    Private Shared _childOneTemplate As String
-    Private Shared _parentTemplate As String
+    Protected Shared _childManyTemplate As String
+    Protected Shared _childOneTemplate As String
+    Protected Shared _parentTemplate As String
 
     Public Property parentDBTable As IDBTable Implements IAssociation.ParentDBTable
     Public Property AccessLevel() As String = "Public"
@@ -44,7 +44,7 @@ Public Class Association
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function getInterfaceDeclaration() As String Implements IAssociation.getInterfaceDeclaration
+    Public Overridable Function getInterfaceDeclaration() As String Implements IAssociation.getInterfaceDeclaration
         Dim sbdr As StringBuilder = New StringBuilder()
 
         If Me.isCardinalityMany Then
@@ -159,9 +159,13 @@ Public Class Association
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Function GetAssociatedMapperClassName() As String
+    Protected Function GetAssociatedMapperClassName() As String
 
-        Dim mapperClassName As String = ModelGenerator.Current.getObjectOfDataType(Me.DataType).FullyQualifiedMapperClassName
+        Dim otog As ObjectToGenerate = ModelGenerator.Current.getObjectOfDataType(Me.DataType)
+        If (otog Is Nothing) Then
+            Throw New ApplicationException("Could not find object to gerenarate from type:" & Me.DataType)
+        End If
+        Dim mapperClassName As String = otog.FullyQualifiedMapperClassName
         Return mapperClassName
 
     End Function
@@ -306,7 +310,11 @@ Public Class Association
     Public Shared Property ChildManyTemplate() As String
         Get
             If _childManyTemplate Is Nothing Then
-                _childManyTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationChildMany.txt")
+                If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
+                    _childManyTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationChildMany.txt")
+                Else
+                    _childManyTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationChildManyCSharp.txt")
+                End If
             End If
             Return _childManyTemplate
         End Get
@@ -317,7 +325,12 @@ Public Class Association
     Public Shared Property ChildOneTemplate() As String
         Get
             If _childOneTemplate Is Nothing Then
-                _childOneTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationChildOne.txt")
+                If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
+                    _childOneTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationChildOne.txt")
+                Else
+                    _childOneTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationChildOneCSharp.txt")
+                End If
+
             End If
             Return _childOneTemplate
         End Get
@@ -328,7 +341,13 @@ Public Class Association
     Public Shared Property ParentTemplate() As String
         Get
             If _parentTemplate Is Nothing Then
-                _parentTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationParent.txt")
+                If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
+                    _parentTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationParent.txt")
+                Else
+                    _parentTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationParentCSharp.txt")
+                End If
+
+
             End If
             Return _parentTemplate
         End Get

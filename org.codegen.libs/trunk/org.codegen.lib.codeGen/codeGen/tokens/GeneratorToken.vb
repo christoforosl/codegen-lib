@@ -29,7 +29,7 @@ Namespace Tokens
 
     Public Class ClassNameSpaceToken
         Inherits ReplacementToken
-        'sJcode = sJcode.Replace("<NAMESPACE>", Me.ClassNameSpace())
+
         Sub New()
             Me.StringToReplace = "NAMESPACE"
         End Sub

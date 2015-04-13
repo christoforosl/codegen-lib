@@ -296,8 +296,6 @@
     <EmbeddedResource Include="templates\getListStatic.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="codeGen\FieldCode\property.cs.txt" />
-    <Content Include="codeGen\FieldCode\property.vb.txt" />
     <EmbeddedResource Include="lib.test\TestTemplate.csharp.txt" />
     <EmbeddedResource Include="lib.Model\ModelBaseExtender2.csharp.txt" />
     <EmbeddedResource Include="templates\DBMapperBase.csharp.txt" />
@@ -309,7 +307,6 @@
     <EmbeddedResource Include="ui.winforms\edit\EditControlTemplate.txt" />
     <EmbeddedResource Include="ui.winforms\List\ListControlTemplate.txt" />
     <EmbeddedResource Include="ui.winforms\List\ListFormTemplate.txt" />
-    <EmbeddedResource Include="templates\DBMapperBaseSingleton.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ui.asp.net\" />
