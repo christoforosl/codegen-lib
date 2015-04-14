@@ -8,7 +8,7 @@
     <ProjectGuid>{BF9890A4-769A-406D-9AD0-0D9F5A7376A0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>org.model.lib</RootNamespace>
-    <AssemblyName>org.model.lib.3.0</AssemblyName>
+    <AssemblyName>org.model.lib.4.0</AssemblyName>
     <MyType>Windows</MyType>
     <OptionStrict>On</OptionStrict>
     <FileUpgradeFlags>
@@ -25,7 +25,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>..\..\codeGenLibs\</OutputPath>
-    <DocumentationFile>org.model.lib.3.0.xml</DocumentationFile>
+    <DocumentationFile>org.model.lib.4.0.xml</DocumentationFile>
     <NoWarn>42353,42354,42355</NoWarn>
     <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42024,42032,42036</WarningsAsErrors>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,7 +36,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>..\..\codeGen\</OutputPath>
-    <DocumentationFile>org.model.lib.3.0.xml</DocumentationFile>
+    <DocumentationFile>org.model.lib.4.0.xml</DocumentationFile>
     <NoWarn>42353,42354,42355</NoWarn>
     <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42024,42032,42036</WarningsAsErrors>
     <DebugSymbols>true</DebugSymbols>

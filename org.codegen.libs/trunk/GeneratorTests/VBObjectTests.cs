@@ -7,6 +7,8 @@ using ModelLibVBGenCode.VbBusObjects;
 using ModelLibVBGenCode.VbBusObjects.DBMappers;
 using org.model.lib.Model;
 using org.model.lib;
+using System.Threading;
+using System.Globalization;
 
 
 namespace GeneratorTests {
@@ -22,7 +24,6 @@ namespace GeneratorTests {
 			}
 		}
 	}
-
 
 	[TestClass]
 	public class VBObjectTests {
@@ -40,6 +41,49 @@ namespace GeneratorTests {
 		[ClassCleanup()]
 		public static void MyClassCleanup() {
 			ModelContext.release();
+		}
+
+
+		[TestMethod]
+		public void createRecordsUsingStringSetters() {
+			Employee e = EmployeeFactory.Create();
+
+			e.PrEmployeeName = "test employee";
+			e.setSalary("100.12");
+			Assert.IsTrue(e.PrSalary == 100.12m);
+
+			Thread.CurrentThread.CurrentCulture = new CultureInfo("el-GR");
+			e.setSalary("89,2111");
+			Assert.IsTrue(e.PrSalary == 89.2111m);
+
+			e.setSalary("1.290,34");
+			Assert.IsTrue(e.PrSalary == 1290.34m);
+
+			e.setSalary("");
+			Assert.IsTrue(e.PrSalary == null);
+
+			e.setSalary(null);
+			Assert.IsTrue(e.PrSalary == null);
+
+			e.setHireDate("31-Jan-2017");
+			Assert.IsTrue(e.PrHireDate == new DateTime(2017, 1, 31));
+			e.setHireDate("31-01-2017");
+			Assert.IsTrue(e.PrHireDate == new DateTime(2017, 1, 31));
+			e.setHireDate("31/01/2017");
+			Assert.IsTrue(e.PrHireDate == new DateTime(2017, 1, 31));
+
+			Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+			e.setHireDate("01-31-2017");
+			Assert.IsTrue(e.PrHireDate == new DateTime(2017, 1, 31));
+
+			e.setHireDate("01/31/2017");
+			Assert.IsTrue(e.PrHireDate == new DateTime(2017, 1, 31));
+
+			e.setHireDate("31-Jan-2017");
+			Assert.IsTrue(e.PrHireDate == new DateTime(2017, 1, 31));
+
+			e.setHireDate("");
+			Assert.IsTrue(e.PrHireDate == null);
 		}
 
 		[TestMethod]

@@ -278,6 +278,8 @@ Public MustInherit Class DBMapper
 	'''	<param name="o">ModelObject to save </param>
 	Public Overridable Sub save(ByVal o As IModelObject) Implements IDataMapper.save
 
+		If (o Is Nothing) Then Exit Sub
+
 		Try
 
 			Me.beginTrans()
@@ -298,7 +300,6 @@ Public MustInherit Class DBMapper
 			Me.saveChildren(o)
 
 			Me.commitTrans()
-
 
 		Finally
 			Me.rollbackTrans()

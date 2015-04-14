@@ -112,8 +112,7 @@ Namespace Model
         ''' Sub to set the audit fields CreateDate, UpdateDate, CreateUser, UpdateUser
         ''' </summary>
         ''' <remarks></remarks>
-        Sub setAuditFields()
-
+		Sub setAuditFields()
 
         Function copy() As IModelObject
 

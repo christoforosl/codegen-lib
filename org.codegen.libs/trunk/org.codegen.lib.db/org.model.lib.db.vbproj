@@ -8,7 +8,7 @@
     <ProjectGuid>{C744D17D-3132-4365-8C44-9D295D942597}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>org.model.lib.db</RootNamespace>
-    <AssemblyName>org.model.lib.db.3.0</AssemblyName>
+    <AssemblyName>org.model.lib.db.4.0</AssemblyName>
     <MyType>Windows</MyType>
     <OptionStrict>On</OptionStrict>
     <FileUpgradeFlags>
@@ -40,7 +40,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>..\..\codeGenLibs\</OutputPath>
-    <DocumentationFile>org.model.lib.db.3.0.xml</DocumentationFile>
+    <DocumentationFile>org.model.lib.db.4.0.xml</DocumentationFile>
     <NoWarn>42030,42104,42108,42109,42353,42354,42355</NoWarn>
     <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42024,42032,42036</WarningsAsErrors>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -51,7 +51,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>..\..\codeGen\</OutputPath>
-    <DocumentationFile>org.model.lib.db.3.0.xml</DocumentationFile>
+    <DocumentationFile>org.model.lib.db.4.0.xml</DocumentationFile>
     <NoWarn>42030,42104,42108,42109,42353,42354,42355</NoWarn>
     <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42024,42032,42036</WarningsAsErrors>
     <DebugSymbols>true</DebugSymbols>

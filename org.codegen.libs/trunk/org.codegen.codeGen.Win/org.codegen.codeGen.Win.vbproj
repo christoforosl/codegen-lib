@@ -10,7 +10,7 @@
     <OutputType>WinExe</OutputType>
     <StartupObject>org.codegen.codeGen.Win.My.MyApplication</StartupObject>
     <RootNamespace>org.codegen.codeGen.Win</RootNamespace>
-    <AssemblyName>org.codegen.codeGen.Win</AssemblyName>
+    <AssemblyName>codeGenWin4</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -23,7 +23,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>..\..\codeGenLibs\</OutputPath>
-    <DocumentationFile>org.codegen.codeGen.Win.xml</DocumentationFile>
+    <DocumentationFile>codeGenWin4.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
@@ -33,7 +33,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>org.codegen.codeGen.Win.xml</DocumentationFile>
+    <DocumentationFile>codeGenWin4.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -53,7 +53,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>..\..\codeGenLibs\</OutputPath>
-    <DocumentationFile>org.codegen.codeGen.Win.xml</DocumentationFile>
+    <DocumentationFile>codeGenWin4.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -61,7 +61,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>org.codegen.codeGen.Win.xml</DocumentationFile>
+    <DocumentationFile>codeGenWin4.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <DebugType>pdbonly</DebugType>
