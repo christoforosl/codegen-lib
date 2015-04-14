@@ -8,8 +8,8 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyProduct("org.model.lib.3.0")> 
-<Assembly: AssemblyTitle("org.model.lib.3.0")> 
+<Assembly: AssemblyProduct("org.model.lib.4.0")> 
+<Assembly: AssemblyTitle("org.model.lib.4.0")> 
 <Assembly: AssemblyDescription("Model Objects library")> 
 <Assembly: AssemblyCompany("CodeGen.org")> 
 <Assembly: AssemblyCopyright("Copyright © CodeGen.org 2011")> 
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("3.0.1")> 
+<Assembly: AssemblyVersion("4.0.1")> 
 <Assembly: AssemblyFileVersion("2.0.0.1")> 
