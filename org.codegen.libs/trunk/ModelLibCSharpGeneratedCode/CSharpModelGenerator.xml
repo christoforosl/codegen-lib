@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project xmlns="ClassGenerator3"
+<project xmlns="ClassGenerator4"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	   xsi:schemaLocation="ClassGenerator3 https://raw.githubusercontent.com/christoforosl/codegen-lib/CSharpCode/org.codegen.libs/trunk/org.codegen.lib.codeGen/classFenerator.xsd" >
+	   xsi:schemaLocation="ClassGenerator4 https://raw.githubusercontent.com/christoforosl/codegen-lib/CSharpCode/org.codegen.libs/trunk/org.codegen.lib.codeGen/classGenerator.4.xsd" >
 
 
-  <GeneratorVersion>2</GeneratorVersion>
+  <GeneratorVersion>4</GeneratorVersion>
   <projectFile>.\ModelLibCSharpGeneratedCode.csproj</projectFile>
   <projectName>ModelLibCSharpTests</projectName>
   <outputDir>.\</outputDir>

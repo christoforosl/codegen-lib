@@ -107,7 +107,7 @@ Public Class XMLClassGenerator
         gen = New XMLClassGenerator(xmlConfFile)
         cds = New DataSet
         cds.Namespace = "ClassGenerator4"
-        cds.ReadXmlSchema(Utilities.getResourceStream("org.codegen.lib.codeGen.classFenerator.4.xsd"))
+        cds.ReadXmlSchema(Utilities.getResourceStream("org.codegen.lib.codeGen.classGenerator.4.xsd"))
         cds.ReadXml(xmlConfFile)
         gen.parseConfFile(cds)
         gen.genClasses()
