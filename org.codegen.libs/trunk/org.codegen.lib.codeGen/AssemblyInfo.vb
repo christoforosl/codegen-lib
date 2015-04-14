@@ -8,10 +8,10 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("Payroll Generator")> 
-<Assembly: AssemblyDescription("Generates class objects from database objects")> 
-<Assembly: AssemblyCompany("NETU Consultants Ltd")> 
-<Assembly: AssemblyProduct("NETU Class Generator")> 
+<Assembly: AssemblyTitle("Code Generator")> 
+<Assembly: AssemblyDescription("Generates classes from database objects")> 
+<Assembly: AssemblyCompany("CodeGen")> 
+<Assembly: AssemblyProduct("CodeGen Code Generator")> 
 <Assembly: AssemblyCopyright("CGL 2008")> 
 <Assembly: AssemblyTrademark("")> 
 <Assembly: CLSCompliant(False)> 
@@ -29,6 +29,6 @@ Imports System.Runtime.InteropServices
 ' You can specify all the values or you can default the Build and Revision Numbers 
 ' by using the '*' as shown below:
 
-<Assembly: AssemblyVersion("2.0.*")> 
+<Assembly: AssemblyVersion("4.0.*")> 
 
 <Assembly: ComVisibleAttribute(False)> 

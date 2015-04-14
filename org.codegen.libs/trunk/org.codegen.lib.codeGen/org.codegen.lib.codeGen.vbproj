@@ -194,13 +194,12 @@
     <Compile Include="XMLClassGenerator.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="classFenerator.xsd">
-      <SubType>
-      </SubType>
+    <EmbeddedResource Include="classFenerator.4.xsd">
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <None Include="classFenerator.xsx">
-      <DependentUpon>classFenerator.xsd</DependentUpon>
+    <None Include="classFenerator.4.xsx">
+      <DependentUpon>classFenerator.4.xsd</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <BaseApplicationManifest Include="My Project\app.manifest" />
@@ -328,6 +327,7 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>copy "$(TargetDir)classFenerator.xsd" "$(DevEnvDir)..\..\XML\Schemas"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>
