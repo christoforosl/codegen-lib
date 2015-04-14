@@ -15,11 +15,12 @@ Imports System.IO
             GetType(ClassAccessLevelToken))> _
 Public Class TestFileComponent
     Inherits ModelObjectFileComponent
-    '
+
     Private Const STR_TEST As String = "Test"
 
     Public Sub New(ByVal inobjGen As IObjectToGenerate)
         MyBase.New(inobjGen)
+
     End Sub
 
     Public Overloads Shared Function KEY() As String

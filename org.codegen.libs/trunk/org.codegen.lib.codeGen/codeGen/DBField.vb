@@ -183,20 +183,16 @@ Public Class DBField
 
         Const paramPrefix As String = "@"
         Dim ret As String
+        Dim param As String = vbTab & vbTab & vbTab & _
+                           "stmt.Parameters.Add( Me.dbConn.getParameter(""" & paramPrefix & "{0}"",obj.{1}))"
+
         If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
-            Dim dbtype As String = TypeConvertor.ToDbType(Me._OriginalRuntimeType).ToString
-            Dim param As String = vbTab & vbTab & vbTab & _
-                            "stmt.Parameters.Add( Me.dbConn.getParameter(""" & paramPrefix & "{0}"",obj.{1}))" & vbCrLf
-			ret = String.Format(param, Me.FieldName, Me.PropertyName)
         Else
-            Dim dbtype As String = TypeConvertor.ToDbType(Me._OriginalRuntimeType).ToString
-            Dim param As String = vbTab & vbTab & vbTab & _
-                            "stmt.Parameters.Add( this.dbConn.getParameter(""" & paramPrefix & "{0}"",obj.{1}));" & vbCrLf
-			ret = String.Format(param, Me.FieldName, Me.PropertyName)
+            param = param & ";"
         End If
+        ret = String.Format(param, Me.FieldName, Me.PropertyName)
 
-
-        Return ret
+        Return ret & vbCrLf
 
     End Function
 

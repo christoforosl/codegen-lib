@@ -15,18 +15,18 @@ Namespace Tokens
             Dim i As Integer = 0
 
             For Each field As DBField In vec.Values
-                If field.isAuditField AndAlso field.RuntimeFieldName.ToLower = "updatedate" Then
-					sb.Append(vbTab + vbTab & _
-						"Assert.IsFalse(p." & field.PropertyName & _
-						".GetValueOrDefault() == p2." & field.PropertyName & ".GetValueOrDefault(),""Expected Field " & field.RuntimeFieldName & " NOT to be equal"");")
+               If field.isAuditField AndAlso field.RuntimeFieldName.ToLower = "updatedate" Then
+                    sb.Append(vbTab + vbTab & _
+                        "Assert.IsFalse(p." & field.PropertyName & _
+                        ".GetValueOrDefault() == p2." & field.PropertyName & ".GetValueOrDefault(),""Expected Field " & field.RuntimeFieldName & " NOT to be equal"");")
 
                 ElseIf field.isAuditField AndAlso field.RuntimeFieldName.ToLower = "updateuser" Then
                     sb.Append(vbTab + vbTab & "// skip update user!")
                 Else
                     If field.isNullableDataType Then
-						sb.Append(vbTab + vbTab & "Assert.IsTrue(p." & field.PropertyName & ".GetValueOrDefault() == p2." & field.PropertyName & ".GetValueOrDefault(),""Expected Field " & field.RuntimeFieldName & " to be equal"");")
+                        sb.Append(vbTab + vbTab & "Assert.IsTrue(p." & field.PropertyName & ".GetValueOrDefault() == p2." & field.PropertyName & ".GetValueOrDefault(),""Expected Field " & field.RuntimeFieldName & " to be equal"");")
                     Else
-						sb.Append(vbTab + vbTab & "Assert.IsTrue(p." & field.PropertyName & " == p2." & field.PropertyName & ",""Expected Field " & field.RuntimeFieldName & " to be equal"");")
+                        sb.Append(vbTab + vbTab & "Assert.IsTrue(p." & field.PropertyName & " == p2." & field.PropertyName & ",""Expected Field " & field.RuntimeFieldName & " to be equal"");")
                     End If
                 End If
                 sb.Append(vbCrLf)
@@ -42,7 +42,10 @@ Namespace Tokens
             Dim i As Integer = 0
 
             For Each field As DBField In vec.Values
-                If field.isAuditField AndAlso field.RuntimeFieldName.ToLower = "updatedate" Then
+                If field.FieldName.ToLower = "id" Then
+                    sb.Append(vbTab + vbTab & "Assert.IsTrue(p.id.equals(p2.id),""Expected id Field to be equal"")")
+
+                ElseIf field.isAuditField AndAlso field.RuntimeFieldName.ToLower = "updatedate" Then
                     sb.Append(vbTab + vbTab & _
                               "Assert.IsFalse(p." & field.RuntimeFieldName & _
                               ".GetValueOrDefault = p2." & field.RuntimeFieldName & ".GetValueOrDefault,""Expected Field " & field.RuntimeFieldName & " NOT to be equal"")")

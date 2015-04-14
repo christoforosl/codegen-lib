@@ -194,12 +194,12 @@
     <Compile Include="XMLClassGenerator.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="classFenerator.4.xsd">
+    <EmbeddedResource Include="classGenerator.4.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <None Include="classFenerator.4.xsx">
-      <DependentUpon>classFenerator.4.xsd</DependentUpon>
+    <None Include="classGenerator.4.xsx">
+      <DependentUpon>classGenerator.4.xsd</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <BaseApplicationManifest Include="My Project\app.manifest" />

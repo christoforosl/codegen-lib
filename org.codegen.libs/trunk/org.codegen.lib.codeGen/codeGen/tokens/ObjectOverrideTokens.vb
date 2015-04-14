@@ -236,11 +236,13 @@ Namespace Tokens
                     sb.Append("AndAlso ")
 
                 End If
-
-                If field.isNullableDataType Then
-					sb.Append("me." & field.PropertyName & ".GetValueOrDefault = other." & field.PropertyName & ".GetValueOrDefault")
+                If field.FieldName.ToLower = "id" Then
+                    'case when the table has a field named "id"
+                    sb.Append("me.Id Is other.Id")
+                ElseIf field.isNullableDataType Then
+                    sb.Append("me." & field.PropertyName & ".GetValueOrDefault = other." & field.PropertyName & ".GetValueOrDefault")
                 Else
-					sb.Append("me." & field.PropertyName & "= other." & field.PropertyName)
+                    sb.Append("me." & field.PropertyName & "= other." & field.PropertyName)
                 End If
 
 

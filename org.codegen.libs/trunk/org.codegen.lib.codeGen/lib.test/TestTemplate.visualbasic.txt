@@ -75,9 +75,7 @@ Imports <NAMESPACE>
             
 				'test fields to be equal before and after save
 				<ASSERT_EQUAL_FIELDS>
-            
 				<ASSERT_ASSOCIATIONS>
-            
 				<TEST_CHANGE_RANDOM_FIELDS>
 				p.isDirty = True 'to force save
 				ModelContext.Current.saveModelObject(p)

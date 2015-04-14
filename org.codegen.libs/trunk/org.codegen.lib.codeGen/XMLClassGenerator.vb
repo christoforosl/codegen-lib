@@ -15,7 +15,7 @@ Public Class XMLClassGenerator
     Public Const XML_TABLE_ATTR_MOBJ_NAMESPACE As String = "Namespace"
     Public Const XML_TABLE_ATTR_TEST_CLASS_NAMESPACE As String = "TestClassNameSpace"
     Public Const XML_TABLE_ATTR_GENERATE_UI As String = "GenerateUI"
-    Public Const XML_TABLE_ATTR_GENERATE_MAPPER As String = "GenerateMapper"
+    'Public Const XML_TABLE_ATTR_GENERATE_MAPPER As String = "GenerateMapper"
     Public Const XML_ATTR_PROJECT_TEST_OUT_DIR As String = "testProjectOutputDir"
     Public Const XML_ATTR_UI_TEST_OUT_DIR As String = "UIProjectOutputDir"
     Public Const XML_FIELD_ATTR_DATATYPE As String = "DataType"
@@ -303,8 +303,8 @@ Public Class XMLClassGenerator
             ogen.XMLDefinition = thisRow
             ogen.setTableName(table, pkField)
             ogen.GenerateUI = getBooleanRowValue(thisRow, XML_TABLE_ATTR_GENERATE_UI, False)
-            ogen.GenerateMapper = getBooleanRowValue(thisRow, XML_TABLE_ATTR_GENERATE_MAPPER, True)
-
+            ogen.GenerateMapper = True
+            
             If xmlReadonly.Equals("1") Then
                 ogen.DbTable().isReadOnly = True
             End If
