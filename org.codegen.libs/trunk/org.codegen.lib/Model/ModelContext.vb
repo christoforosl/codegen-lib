@@ -264,35 +264,35 @@ Namespace Model
                 Throw New ApplicationException("modelObjectType param must implement IModelObject")
             End If
 
-            If Not GetType(IModelObjectValidator).IsAssignableFrom(validatorType) Then
-                Throw New ApplicationException("validatorType param must implement IModelObjectValidator")
-            End If
+			If Not GetType(IModelObjectValidator).IsAssignableFrom(validatorType) Then
+				Throw New ApplicationException("validatorType param must implement IModelObjectValidator")
+			End If
 
 
-            Me.globalModelValidators.Add(modelObjectType, validatorType)
+			Me.globalModelValidators.Add(modelObjectType, validatorType)
 
-        End Sub
+		End Sub
 
-        ''' <summary>
-        ''' Returns a validator, if any, configured for the specified model object type
-        ''' </summary>
-        ''' <param name="modelObjectType">The type of the model object.  
-        ''' Use GetType(x) where x is the class (not instance) of the model object
-        ''' </param>
-        ''' <returns>
-        ''' Returns a validator, if any, configured for the specified model object type. 
-        ''' If not validator is configured, it returns null(nothing)
-        ''' </returns>
-        ''' <remarks></remarks>
-        Public Function getModelValidator(ByVal modelObjectType As Type) As IModelObjectValidator
+		''' <summary>
+		''' Returns a validator, if any, configured for the specified model object type
+		''' </summary>
+		''' <param name="modelObjectType">The type of the model object.  
+		''' Use GetType(x) where x is the class (not instance) of the model object
+		''' </param>
+		''' <returns>
+		''' Returns a validator, if any, configured for the specified model object type. 
+		''' If not validator is configured, it returns null(nothing)
+		''' </returns>
+		''' <remarks></remarks>
+		Public Function getModelValidator(ByVal modelObjectType As Type) As IModelObjectValidator
 
-            If Me.globalModelValidators.ContainsKey(modelObjectType) Then
-                Return CType(Activator.CreateInstance(Me.globalModelValidators.Item(modelObjectType)),  _
-                                IModelObjectValidator)
-            End If
-            Return Nothing
+			If Me.globalModelValidators.ContainsKey(modelObjectType) Then
+				Return CType(Activator.CreateInstance(Me.globalModelValidators.Item(modelObjectType)),  _
+					IModelObjectValidator)
+			End If
+			Return Nothing
 
-        End Function
+		End Function
 
         Public Shared Function GetModelDefaultMapper(ByVal modelType As Type) _
                        As DBMapper

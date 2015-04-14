@@ -350,7 +350,7 @@ Public Class DBTable
             javaName.Append(first + name.Substring(1))
         End If
 
-        Return javaName.ToString()
+		Return javaName.ToString()
 
     End Function
 

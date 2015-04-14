@@ -29,42 +29,40 @@ namespace CsModelObjects
 	#region "Interface"
 [System.Runtime.InteropServices.ComVisible(false)] 
 	public interface IEmployee: IModelObject {
-	System.Int64 EmployeeId {get;set;} 
-	System.String EmployeeName {get;set;} 
-	System.Int64? EmployeeRankId {get;set;} 
-	System.Decimal? Salary {get;set;} 
-	System.String Address {get;set;} 
-	System.String Telephone {get;set;} 
-	System.String Mobile {get;set;} 
-	System.String IdNumber {get;set;} 
-	System.String SSINumber {get;set;} 
-	System.DateTime? HireDate {get;set;} 
-	System.Int64? NumDependents {get;set;} 
+	System.Int64 PrEmployeeId {get;set;} 
+	System.String PrEmployeeName {get;set;} 
+	System.Int64? PrEmployeeRankId {get;set;} 
+	System.Decimal? PrSalary {get;set;} 
+	System.String PrAddress {get;set;} 
+	System.String PrTelephone {get;set;} 
+	System.String PrMobile {get;set;} 
+	System.String PrIdNumber {get;set;} 
+	System.String PrSSINumber {get;set;} 
+	System.DateTime? PrHireDate {get;set;} 
+	System.Int64? PrNumDependents {get;set;} 
 	System.DateTime? CreateDate {get;set;} 
 	System.DateTime? UpdateDate {get;set;} 
 	System.String UpdateUser {get;set;} 
 	System.String CreateUser {get;set;} 
-	System.String EmployeeTypeCode {get;set;} 
-	CsModelObjects.EmployeeRank Rank {get;set;} //association
-	CsModelObjects.EmployeeInfo EmployeeInfo {get;set;} //association
-	IEnumerable< CsModelObjects.EmployeeProject>EmployeeProjects {get; set;}
-		void AddEmployeeProject(CsModelObjects.EmployeeProject val);
-		void RemoveEmployeeProject(CsModelObjects.EmployeeProject val);
-		IEnumerable<CsModelObjects.EmployeeProject>getDeletedEmployeeProjects();
-		CsModelObjects.EmployeeProject getEmployeeProject( int i ) ;
+	System.String PrEmployeeTypeCode {get;set;} 
+	CsModelObjects.EmployeeRank PrRank {get;set;} //association
+	CsModelObjects.EmployeeInfo PrEmployeeInfo {get;set;} //association
+	IEnumerable< CsModelObjects.EmployeeProject>PrEmployeeProjects {get; set;}
+		void EmployeeProjectAdd(CsModelObjects.EmployeeProject val);
+		void EmployeeProjectRemove(CsModelObjects.EmployeeProject val);
+		IEnumerable<CsModelObjects.EmployeeProject>EmployeeProjectsGetDeleted();
+		CsModelObjects.EmployeeProject EmployeeProjectGetAt( int i ) ;
 
 }
 #endregion
 
 	
 	[DefaultMapperAttr(typeof(CsModelMappers.EmployeeDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class EmployeeBase : ModelObject, IEquatable<EmployeeBase>, IAuditable,System.IComparable< Employee>,IEmployee
-	{
+	public class EmployeeBase : ModelObject, IEquatable<EmployeeBase>, IAuditable,System.IComparable< Employee>,IEmployee {
 
 		#region "Constructor"
 
-		public EmployeeBase()
-		{
+		public EmployeeBase() {
 			this.addValidator(new EmployeeRequiredFieldsValidator());
 		}
 
@@ -73,7 +71,7 @@ namespace CsModelObjects
 		#region "Children and Parents"
 		
 		public override void loadObjectHierarchy() {
-					loadRank();
+		loadRank();
 		loadEmployeeInfo();
 		loadEmployeeProjects();
 
@@ -86,8 +84,8 @@ namespace CsModelObjects
 		/// </summary>
 		public override List<ModelObject> getChildren() {
 			List<ModelObject> ret = new List<ModelObject>();
-				if  (this.EmployeeInfo!=null) {
-		ret.Add(this.EmployeeInfo);
+				if  (this.PrEmployeeInfo!=null) {
+		ret.Add(this.PrEmployeeInfo);
 	}
 	if  (this.EmployeeProjectsLoaded) { // check if loaded first!
 		List< ModelObject > lp = this._EmployeeProjects.ConvertAll(
@@ -107,7 +105,7 @@ namespace CsModelObjects
 		public override List<ModelObject> getParents() {
 			List<ModelObject> ret = new List<ModelObject>();
 			if  (this.RankLoaded) {
-ret.Add(this.Rank);
+ret.Add(this.PrRank);
 }
 
 			return ret;
@@ -196,7 +194,7 @@ ret.Add(this.Rank);
 
 		#region "Field Properties"
 
-	public virtual System.Int64 EmployeeId  {
+	public virtual System.Int64 PrEmployeeId  {
 	get {
 		return _EmployeeId;
 	} 
@@ -215,14 +213,14 @@ ret.Add(this.Rank);
 	}
 public void setEmployeeId(String val){
 	if (Information.IsNumeric(val)) {
-		this.EmployeeId = Convert.ToInt32(val);
+		this.PrEmployeeId = Convert.ToInt32(val);
 	} else if (String.IsNullOrEmpty(val)) {
 		throw new ApplicationException("Cant update Primary Key to Null");
 	} else {
 		throw new ApplicationException("Invalid Integer Number, field:EmployeeId, value:" + val);
 	}
 }
-	public virtual System.String EmployeeName  {
+	public virtual System.String PrEmployeeName  {
 	get {
 		return _EmployeeName;
 	} 
@@ -239,12 +237,12 @@ public void setEmployeeId(String val){
 	}
 public void setEmployeeName( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
-		this.EmployeeName = val;
+		this.PrEmployeeName = val;
 	} else {
-		this.EmployeeName = null;
+		this.PrEmployeeName = null;
 	}
 }
-	public virtual System.Int64? EmployeeRankId  {
+	public virtual System.Int64? PrEmployeeRankId  {
 	get {
 		return _EmployeeRankId;
 	} 
@@ -261,14 +259,14 @@ public void setEmployeeName( String val ) {
 	}
 public void setEmployeeRankId(String val){
 	if (Information.IsNumeric(val)) {
-		this.EmployeeRankId = Convert.ToInt32(val);
+		this.PrEmployeeRankId = Convert.ToInt32(val);
 	} else if (String.IsNullOrEmpty(val)) {
-		this.EmployeeRankId = null;
+		this.PrEmployeeRankId = null;
 	} else {
 		throw new ApplicationException("Invalid Integer Number, field:EmployeeRankId, value:" + val);
 	}
 }
-	public virtual System.Decimal? Salary  {
+	public virtual System.Decimal? PrSalary  {
 	get {
 		return _Salary;
 	} 
@@ -285,14 +283,14 @@ public void setEmployeeRankId(String val){
 	}
 public void setSalary(String val ){
 	if (Information.IsNumeric(val)) {
-		this.Salary =  Convert.ToDecimal(val);
+		this.PrSalary =  Convert.ToDecimal(val);
 	} else if ( string.IsNullOrEmpty(val) ) {
-		this.Salary = null;
+		this.PrSalary = null;
 	} else {
 		throw new ApplicationException("Invalid Decimal Number, field:Salary, value:" + val);
 	}
 }
-	public virtual System.String Address  {
+	public virtual System.String PrAddress  {
 	get {
 		return _Address;
 	} 
@@ -309,12 +307,12 @@ public void setSalary(String val ){
 	}
 public void setAddress( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
-		this.Address = val;
+		this.PrAddress = val;
 	} else {
-		this.Address = null;
+		this.PrAddress = null;
 	}
 }
-	public virtual System.String Telephone  {
+	public virtual System.String PrTelephone  {
 	get {
 		return _Telephone;
 	} 
@@ -331,12 +329,12 @@ public void setAddress( String val ) {
 	}
 public void setTelephone( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
-		this.Telephone = val;
+		this.PrTelephone = val;
 	} else {
-		this.Telephone = null;
+		this.PrTelephone = null;
 	}
 }
-	public virtual System.String Mobile  {
+	public virtual System.String PrMobile  {
 	get {
 		return _Mobile;
 	} 
@@ -353,12 +351,12 @@ public void setTelephone( String val ) {
 	}
 public void setMobile( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
-		this.Mobile = val;
+		this.PrMobile = val;
 	} else {
-		this.Mobile = null;
+		this.PrMobile = null;
 	}
 }
-	public virtual System.String IdNumber  {
+	public virtual System.String PrIdNumber  {
 	get {
 		return _IdNumber;
 	} 
@@ -375,12 +373,12 @@ public void setMobile( String val ) {
 	}
 public void setIdNumber( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
-		this.IdNumber = val;
+		this.PrIdNumber = val;
 	} else {
-		this.IdNumber = null;
+		this.PrIdNumber = null;
 	}
 }
-	public virtual System.String SSINumber  {
+	public virtual System.String PrSSINumber  {
 	get {
 		return _SSINumber;
 	} 
@@ -397,12 +395,12 @@ public void setIdNumber( String val ) {
 	}
 public void setSSINumber( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
-		this.SSINumber = val;
+		this.PrSSINumber = val;
 	} else {
-		this.SSINumber = null;
+		this.PrSSINumber = null;
 	}
 }
-	public virtual System.DateTime? HireDate  {
+	public virtual System.DateTime? PrHireDate  {
 	get {
 		return _HireDate;
 	} 
@@ -419,14 +417,14 @@ public void setSSINumber( String val ) {
 	}
 public void setHireDate( String val ){
 	if (Information.IsDate(val)) {
-		this.HireDate = Convert.ToDateTime(val);
+		this.PrHireDate = Convert.ToDateTime(val);
 	} else if (String.IsNullOrEmpty(val) ) {
-		this.HireDate = null;
+		this.PrHireDate = null;
 	} else {
 		throw new ApplicationException("Invalid Date, field:HireDate, value:" + val);
 	}
 }
-	public virtual System.Int64? NumDependents  {
+	public virtual System.Int64? PrNumDependents  {
 	get {
 		return _NumDependents;
 	} 
@@ -443,9 +441,9 @@ public void setHireDate( String val ){
 	}
 public void setNumDependents(String val){
 	if (Information.IsNumeric(val)) {
-		this.NumDependents = Convert.ToInt32(val);
+		this.PrNumDependents = Convert.ToInt32(val);
 	} else if (String.IsNullOrEmpty(val)) {
-		this.NumDependents = null;
+		this.PrNumDependents = null;
 	} else {
 		throw new ApplicationException("Invalid Integer Number, field:NumDependents, value:" + val);
 	}
@@ -542,7 +540,7 @@ public void setCreateUser( String val ) {
 		this.CreateUser = null;
 	}
 }
-	public virtual System.String EmployeeTypeCode  {
+	public virtual System.String PrEmployeeTypeCode  {
 	get {
 		return _EmployeeTypeCode;
 	} 
@@ -559,9 +557,9 @@ public void setCreateUser( String val ) {
 	}
 public void setEmployeeTypeCode( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
-		this.EmployeeTypeCode = val;
+		this.PrEmployeeTypeCode = val;
 	} else {
-		this.EmployeeTypeCode = null;
+		this.PrEmployeeTypeCode = null;
 	}
 }
 
@@ -574,16 +572,16 @@ public void setEmployeeTypeCode( String val ) {
 		/// <summary>
         /// Gets/Sets parent object
         /// </summary>
-		public virtual CsModelObjects.EmployeeRank Rank {
+		public virtual CsModelObjects.EmployeeRank PrRank {
 		    //1-1 parent association
             set {
                 this._Rank = value;
 				if ( value != null ) {
-					this.EmployeeRankId = value.RankId;
+					this.PrEmployeeRankId = value.PrRankId;
 					//AddHandler value.IDChanged, AddressOf this.handleParentIdChanged;
 					value.IDChanged += this.handleParentIdChanged;
                 } else {
-					this.EmployeeRankId = null;
+					this.PrEmployeeRankId = null;
 				}
 
             }
@@ -606,10 +604,10 @@ public void setEmployeeTypeCode( String val ) {
 			
 			if (this.RankLoaded) return;
 			
-			if ( this._Rank == null && this.EmployeeRankId > 0 ) {
+			if ( this._Rank == null && this.PrEmployeeRankId > 0 ) {
                 
 				//call the setter here, not the private variable!
-                this.Rank = new CsModelMappers.EmployeeRankDBMapper().findByKey(this.EmployeeRankId.Value);
+                this.PrRank = new CsModelMappers.EmployeeRankDBMapper().findByKey(this.PrEmployeeRankId.Value);
                 
             }
 
@@ -621,12 +619,12 @@ public void setEmployeeTypeCode( String val ) {
         //associationChildOneCSharp.txt
         public bool EmployeeInfoLoaded {get;set;}
 
-		public virtual CsModelObjects.EmployeeInfo EmployeeInfo {
+		public virtual CsModelObjects.EmployeeInfo PrEmployeeInfo {
 			//1-1 child association
             set {
                 this._EmployeeInfo = value;
 				if (  this._EmployeeInfo != null) {
-					this._EmployeeInfo.EIEmployeeId = this.EmployeeId;
+					this._EmployeeInfo.PrEIEmployeeId = this.PrEmployeeId;
 					value.IDChanged += this.handleParentIdChanged;
 				}     
             }
@@ -646,10 +644,10 @@ public void setEmployeeTypeCode( String val ) {
 						
 			if ( this.EmployeeInfoLoaded) { return; }
 
-			if ( this.EmployeeId > 0)  {
+			if ( this.PrEmployeeId > 0)  {
 				//call setter here, not the private variable
-				this.EmployeeInfo = 
-					new CsModelMappers.EmployeeInfoDBMapper().findWhere("EIEmployeeId={0}", this.EmployeeId);
+				this.PrEmployeeInfo = 
+					new CsModelMappers.EmployeeInfoDBMapper().findWhere("EIEmployeeId={0}", this.PrEmployeeId);
 				
 			} 
 
@@ -665,7 +663,7 @@ public void setEmployeeTypeCode( String val ) {
 
 		public bool EmployeeProjectsLoaded  {get;set;}
 
-		public virtual CsModelObjects.EmployeeProject getEmployeeProject( int i ) {
+		public virtual CsModelObjects.EmployeeProject EmployeeProjectGetAt( int i ) {
 
             this.loadEmployeeProjects();
             if( this._EmployeeProjects.Count >= (i - 1)) {
@@ -675,17 +673,17 @@ public void setEmployeeTypeCode( String val ) {
 
         } //End Function        
 		
-		public virtual void AddEmployeeProject ( CsModelObjects.EmployeeProject val )  {
+		public virtual void EmployeeProjectAdd( CsModelObjects.EmployeeProject val )  {
 			//1-Many , add a single item!
 			this.loadEmployeeProjects();
-			val.EPEmployeeId = this.EmployeeId;
+			val.PrEPEmployeeId = this.PrEmployeeId;
 			//AddHandler this.IDChanged, AddressOf val.handleParentIdChanged;
 			this.IDChanged += val.handleParentIdChanged;
 			this._EmployeeProjects.Add(val);
 
         }
 
-		public virtual void ClearEmployeeProjects() {
+		public virtual void EmployeeProjectsClear() {
 
             this.loadEmployeeProjects();
             this._deletedEmployeeProjects.AddRange(this._EmployeeProjects);
@@ -693,7 +691,7 @@ public void setEmployeeTypeCode( String val ) {
 
         }
 
-		public virtual void RemoveEmployeeProject( CsModelObjects.EmployeeProject val ) {
+		public virtual void EmployeeProjectRemove( CsModelObjects.EmployeeProject val ) {
 			
 			this.loadEmployeeProjects();
 			this._deletedEmployeeProjects.Add(val);
@@ -701,14 +699,13 @@ public void setEmployeeTypeCode( String val ) {
 
         }
 		
-		public virtual IEnumerable< CsModelObjects.EmployeeProject > getDeletedEmployeeProjects() {
+		public virtual IEnumerable< CsModelObjects.EmployeeProject >EmployeeProjectsGetDeleted() {
 			
 			return this._deletedEmployeeProjects;
 
         }
 
-        public virtual IEnumerable< CsModelObjects.EmployeeProject > EmployeeProjects {
-					
+        public virtual IEnumerable< CsModelObjects.EmployeeProject > PrEmployeeProjects {
 
             get {
 				//'1 to many relation
@@ -756,11 +753,11 @@ public void setEmployeeTypeCode( String val ) {
 			this._EmployeeProjects = new List< CsModelObjects.EmployeeProject>();
 
 			if (! this.isNew ) {
-                this.addToEmployeeProjectsList( new CsModelMappers.EmployeeProjectDBMapper().findList("EPEmployeeId={0}", this.EmployeeId));
+                this.addToEmployeeProjectsList( new CsModelMappers.EmployeeProjectDBMapper().findList("EPEmployeeId={0}", this.PrEmployeeId));
             }
             
 			this.EmployeeProjectsLoaded = true;
-        } //End Sub
+        } 
 		#endregion
 
 
@@ -771,27 +768,27 @@ public void setEmployeeTypeCode( String val ) {
 
 		switch (fieldKey) {
 		case FLD_EMPLOYEEID:
-			return this.EmployeeId;
+			return this.PrEmployeeId;
 		case FLD_EMPLOYEENAME:
-			return this.EmployeeName;
+			return this.PrEmployeeName;
 		case FLD_EMPLOYEERANKID:
-			return this.EmployeeRankId;
+			return this.PrEmployeeRankId;
 		case FLD_SALARY:
-			return this.Salary;
+			return this.PrSalary;
 		case FLD_ADDRESS:
-			return this.Address;
+			return this.PrAddress;
 		case FLD_TELEPHONE:
-			return this.Telephone;
+			return this.PrTelephone;
 		case FLD_MOBILE:
-			return this.Mobile;
+			return this.PrMobile;
 		case FLD_IDNUMBER:
-			return this.IdNumber;
+			return this.PrIdNumber;
 		case FLD_SSINUMBER:
-			return this.SSINumber;
+			return this.PrSSINumber;
 		case FLD_HIREDATE:
-			return this.HireDate;
+			return this.PrHireDate;
 		case FLD_NUMDEPENDENTS:
-			return this.NumDependents;
+			return this.PrNumDependents;
 		case FLD_CREATEDATE:
 			return this.CreateDate;
 		case FLD_UPDATEDATE:
@@ -801,7 +798,7 @@ public void setEmployeeTypeCode( String val ) {
 		case FLD_CREATEUSER:
 			return this.CreateUser;
 		case FLD_EMPLOYEETYPECODE:
-			return this.EmployeeTypeCode;
+			return this.PrEmployeeTypeCode;
 		default:
 			return null;
 		} //end switch
@@ -812,27 +809,27 @@ public void setEmployeeTypeCode( String val ) {
 			fieldKey = fieldKey.ToLower();
 
 		if (fieldKey==STR_FLD_EMPLOYEEID.ToLower() ) {
-			return this.EmployeeId;
+			return this.PrEmployeeId;
 		} else if (fieldKey==STR_FLD_EMPLOYEENAME.ToLower() ) {
-			return this.EmployeeName;
+			return this.PrEmployeeName;
 		} else if (fieldKey==STR_FLD_EMPLOYEERANKID.ToLower() ) {
-			return this.EmployeeRankId;
+			return this.PrEmployeeRankId;
 		} else if (fieldKey==STR_FLD_SALARY.ToLower() ) {
-			return this.Salary;
+			return this.PrSalary;
 		} else if (fieldKey==STR_FLD_ADDRESS.ToLower() ) {
-			return this.Address;
+			return this.PrAddress;
 		} else if (fieldKey==STR_FLD_TELEPHONE.ToLower() ) {
-			return this.Telephone;
+			return this.PrTelephone;
 		} else if (fieldKey==STR_FLD_MOBILE.ToLower() ) {
-			return this.Mobile;
+			return this.PrMobile;
 		} else if (fieldKey==STR_FLD_IDNUMBER.ToLower() ) {
-			return this.IdNumber;
+			return this.PrIdNumber;
 		} else if (fieldKey==STR_FLD_SSINUMBER.ToLower() ) {
-			return this.SSINumber;
+			return this.PrSSINumber;
 		} else if (fieldKey==STR_FLD_HIREDATE.ToLower() ) {
-			return this.HireDate;
+			return this.PrHireDate;
 		} else if (fieldKey==STR_FLD_NUMDEPENDENTS.ToLower() ) {
-			return this.NumDependents;
+			return this.PrNumDependents;
 		} else if (fieldKey==STR_FLD_CREATEDATE.ToLower() ) {
 			return this.CreateDate;
 		} else if (fieldKey==STR_FLD_UPDATEDATE.ToLower() ) {
@@ -842,7 +839,7 @@ public void setEmployeeTypeCode( String val ) {
 		} else if (fieldKey==STR_FLD_CREATEUSER.ToLower() ) {
 			return this.CreateUser;
 		} else if (fieldKey==STR_FLD_EMPLOYEETYPECODE.ToLower() ) {
-			return this.EmployeeTypeCode;
+			return this.PrEmployeeTypeCode;
 		} else {
 			return null;
 		}
@@ -854,77 +851,77 @@ public void setEmployeeTypeCode( String val ) {
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			}else{
-				this.EmployeeId=(System.Int64)val;
+				this.PrEmployeeId=(System.Int64)val;
 			} //
 			return;
 		case FLD_EMPLOYEENAME:
 			if (val == DBNull.Value || val == null ){
-				this.EmployeeName = null;
+				this.PrEmployeeName = null;
 			}else{
-				this.EmployeeName=(System.String)val;
+				this.PrEmployeeName=(System.String)val;
 			} //
 			return;
 		case FLD_EMPLOYEERANKID:
 			if (val == DBNull.Value || val == null ){
-				this.EmployeeRankId = null;
+				this.PrEmployeeRankId = null;
 			}else{
-				this.EmployeeRankId=(System.Int64)val;
+				this.PrEmployeeRankId=(System.Int64)val;
 			} //
 			return;
 		case FLD_SALARY:
 			if (val == DBNull.Value || val == null ){
-				this.Salary = null;
+				this.PrSalary = null;
 			}else{
-				this.Salary=(System.Decimal)val;
+				this.PrSalary=(System.Decimal)val;
 			} //
 			return;
 		case FLD_ADDRESS:
 			if (val == DBNull.Value || val == null ){
-				this.Address = null;
+				this.PrAddress = null;
 			}else{
-				this.Address=(System.String)val;
+				this.PrAddress=(System.String)val;
 			} //
 			return;
 		case FLD_TELEPHONE:
 			if (val == DBNull.Value || val == null ){
-				this.Telephone = null;
+				this.PrTelephone = null;
 			}else{
-				this.Telephone=(System.String)val;
+				this.PrTelephone=(System.String)val;
 			} //
 			return;
 		case FLD_MOBILE:
 			if (val == DBNull.Value || val == null ){
-				this.Mobile = null;
+				this.PrMobile = null;
 			}else{
-				this.Mobile=(System.String)val;
+				this.PrMobile=(System.String)val;
 			} //
 			return;
 		case FLD_IDNUMBER:
 			if (val == DBNull.Value || val == null ){
-				this.IdNumber = null;
+				this.PrIdNumber = null;
 			}else{
-				this.IdNumber=(System.String)val;
+				this.PrIdNumber=(System.String)val;
 			} //
 			return;
 		case FLD_SSINUMBER:
 			if (val == DBNull.Value || val == null ){
-				this.SSINumber = null;
+				this.PrSSINumber = null;
 			}else{
-				this.SSINumber=(System.String)val;
+				this.PrSSINumber=(System.String)val;
 			} //
 			return;
 		case FLD_HIREDATE:
 			if (val == DBNull.Value || val == null ){
-				this.HireDate = null;
+				this.PrHireDate = null;
 			}else{
-				this.HireDate=(System.DateTime)val;
+				this.PrHireDate=(System.DateTime)val;
 			} //
 			return;
 		case FLD_NUMDEPENDENTS:
 			if (val == DBNull.Value || val == null ){
-				this.NumDependents = null;
+				this.PrNumDependents = null;
 			}else{
-				this.NumDependents=(System.Int64)val;
+				this.PrNumDependents=(System.Int64)val;
 			} //
 			return;
 		case FLD_CREATEDATE:
@@ -957,9 +954,9 @@ public void setEmployeeTypeCode( String val ) {
 			return;
 		case FLD_EMPLOYEETYPECODE:
 			if (val == DBNull.Value || val == null ){
-				this.EmployeeTypeCode = null;
+				this.PrEmployeeTypeCode = null;
 			}else{
-				this.EmployeeTypeCode=(System.String)val;
+				this.PrEmployeeTypeCode=(System.String)val;
 			} //
 			return;
 		default:
@@ -974,77 +971,77 @@ public void setEmployeeTypeCode( String val ) {
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.EmployeeId=(System.Int64)val;
+				this.PrEmployeeId=(System.Int64)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_EMPLOYEENAME.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.EmployeeName = null;
+				this.PrEmployeeName = null;
 			} else {
-				this.EmployeeName=(System.String)val;
+				this.PrEmployeeName=(System.String)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_EMPLOYEERANKID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.EmployeeRankId = null;
+				this.PrEmployeeRankId = null;
 			} else {
-				this.EmployeeRankId=(System.Int64)val;
+				this.PrEmployeeRankId=(System.Int64)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_SALARY.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.Salary = null;
+				this.PrSalary = null;
 			} else {
-				this.Salary=(System.Decimal)val;
+				this.PrSalary=(System.Decimal)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_ADDRESS.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.Address = null;
+				this.PrAddress = null;
 			} else {
-				this.Address=(System.String)val;
+				this.PrAddress=(System.String)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_TELEPHONE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.Telephone = null;
+				this.PrTelephone = null;
 			} else {
-				this.Telephone=(System.String)val;
+				this.PrTelephone=(System.String)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_MOBILE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.Mobile = null;
+				this.PrMobile = null;
 			} else {
-				this.Mobile=(System.String)val;
+				this.PrMobile=(System.String)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_IDNUMBER.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.IdNumber = null;
+				this.PrIdNumber = null;
 			} else {
-				this.IdNumber=(System.String)val;
+				this.PrIdNumber=(System.String)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_SSINUMBER.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.SSINumber = null;
+				this.PrSSINumber = null;
 			} else {
-				this.SSINumber=(System.String)val;
+				this.PrSSINumber=(System.String)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_HIREDATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.HireDate = null;
+				this.PrHireDate = null;
 			} else {
-				this.HireDate=(System.DateTime)val;
+				this.PrHireDate=(System.DateTime)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_NUMDEPENDENTS.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.NumDependents = null;
+				this.PrNumDependents = null;
 			} else {
-				this.NumDependents=(System.Int64)val;
+				this.PrNumDependents=(System.Int64)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_CREATEDATE.ToLower()){
@@ -1077,9 +1074,9 @@ public void setEmployeeTypeCode( String val ) {
 			return;
 		} else if ( fieldKey==STR_FLD_EMPLOYEETYPECODE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.EmployeeTypeCode = null;
+				this.PrEmployeeTypeCode = null;
 			} else {
-				this.EmployeeTypeCode=(System.String)val;
+				this.PrEmployeeTypeCode=(System.String)val;
 			}
 			return;
 		}
@@ -1096,44 +1093,44 @@ public void setEmployeeTypeCode( String val ) {
 			if (object.ReferenceEquals(other, this))
 				return true;
 
-			return this.EmployeeId == other.EmployeeId
-				&& this.EmployeeName == other.EmployeeName
-				&& this.EmployeeRankId.GetValueOrDefault() == other.EmployeeRankId.GetValueOrDefault()
-				&& this.Salary.GetValueOrDefault() == other.Salary.GetValueOrDefault()
-				&& this.Address == other.Address
-				&& this.Telephone == other.Telephone
-				&& this.Mobile == other.Mobile
-				&& this.IdNumber == other.IdNumber
-				&& this.SSINumber == other.SSINumber
-				&& this.HireDate.GetValueOrDefault() == other.HireDate.GetValueOrDefault()
-				&& this.NumDependents.GetValueOrDefault() == other.NumDependents.GetValueOrDefault()
+			return this.PrEmployeeId == other.PrEmployeeId
+				&& this.PrEmployeeName == other.PrEmployeeName
+				&& this.PrEmployeeRankId.GetValueOrDefault() == other.PrEmployeeRankId.GetValueOrDefault()
+				&& this.PrSalary.GetValueOrDefault() == other.PrSalary.GetValueOrDefault()
+				&& this.PrAddress == other.PrAddress
+				&& this.PrTelephone == other.PrTelephone
+				&& this.PrMobile == other.PrMobile
+				&& this.PrIdNumber == other.PrIdNumber
+				&& this.PrSSINumber == other.PrSSINumber
+				&& this.PrHireDate.GetValueOrDefault() == other.PrHireDate.GetValueOrDefault()
+				&& this.PrNumDependents.GetValueOrDefault() == other.PrNumDependents.GetValueOrDefault()
 				&& this.CreateDate.GetValueOrDefault() == other.CreateDate.GetValueOrDefault()
 				&& this.UpdateDate.GetValueOrDefault() == other.UpdateDate.GetValueOrDefault()
 				&& this.UpdateUser == other.UpdateUser
 				&& this.CreateUser == other.CreateUser
-				&& this.EmployeeTypeCode == other.EmployeeTypeCode;;
+				&& this.PrEmployeeTypeCode == other.PrEmployeeTypeCode;;
 
 		}
 
 		public override int GetHashCode()
 		{
 			//using Xor has the advantage of not overflowing the integer.
-			return this.EmployeeId.GetHashCode()
-				 ^ this.getStringHashCode(this.EmployeeName)
-				 ^ this.EmployeeRankId.GetHashCode()
-				 ^ this.Salary.GetHashCode()
-				 ^ this.getStringHashCode(this.Address)
-				 ^ this.getStringHashCode(this.Telephone)
-				 ^ this.getStringHashCode(this.Mobile)
-				 ^ this.getStringHashCode(this.IdNumber)
-				 ^ this.getStringHashCode(this.SSINumber)
-				 ^ this.HireDate.GetHashCode()
-				 ^ this.NumDependents.GetHashCode()
+			return this.PrEmployeeId.GetHashCode()
+				 ^ this.getStringHashCode(this.PrEmployeeName)
+				 ^ this.PrEmployeeRankId.GetHashCode()
+				 ^ this.PrSalary.GetHashCode()
+				 ^ this.getStringHashCode(this.PrAddress)
+				 ^ this.getStringHashCode(this.PrTelephone)
+				 ^ this.getStringHashCode(this.PrMobile)
+				 ^ this.getStringHashCode(this.PrIdNumber)
+				 ^ this.getStringHashCode(this.PrSSINumber)
+				 ^ this.PrHireDate.GetHashCode()
+				 ^ this.PrNumDependents.GetHashCode()
 				 ^ this.CreateDate.GetHashCode()
 				 ^ this.UpdateDate.GetHashCode()
 				 ^ this.getStringHashCode(this.UpdateUser)
 				 ^ this.getStringHashCode(this.CreateUser)
-				 ^ this.getStringHashCode(this.EmployeeTypeCode);;
+				 ^ this.getStringHashCode(this.PrEmployeeTypeCode);;
 
 		}
 
@@ -1171,22 +1168,22 @@ public void setEmployeeTypeCode( String val ) {
 			//instantiate a Employee, NOT a EmployeeBase object
 			Employee ret = EmployeeFactory.Create();
 
-		ret.EmployeeId = this.EmployeeId;
-		ret.EmployeeName = this.EmployeeName;
-		ret.EmployeeRankId = this.EmployeeRankId;
-		ret.Salary = this.Salary;
-		ret.Address = this.Address;
-		ret.Telephone = this.Telephone;
-		ret.Mobile = this.Mobile;
-		ret.IdNumber = this.IdNumber;
-		ret.SSINumber = this.SSINumber;
-		ret.HireDate = this.HireDate;
-		ret.NumDependents = this.NumDependents;
+		ret.PrEmployeeId = this.PrEmployeeId;
+		ret.PrEmployeeName = this.PrEmployeeName;
+		ret.PrEmployeeRankId = this.PrEmployeeRankId;
+		ret.PrSalary = this.PrSalary;
+		ret.PrAddress = this.PrAddress;
+		ret.PrTelephone = this.PrTelephone;
+		ret.PrMobile = this.PrMobile;
+		ret.PrIdNumber = this.PrIdNumber;
+		ret.PrSSINumber = this.PrSSINumber;
+		ret.PrHireDate = this.PrHireDate;
+		ret.PrNumDependents = this.PrNumDependents;
 		ret.CreateDate = this.CreateDate;
 		ret.UpdateDate = this.UpdateDate;
 		ret.UpdateUser = this.UpdateUser;
 		ret.CreateUser = this.CreateUser;
-		ret.EmployeeTypeCode = this.EmployeeTypeCode;
+		ret.PrEmployeeTypeCode = this.PrEmployeeTypeCode;
 
 
 
@@ -1200,45 +1197,45 @@ public void setEmployeeTypeCode( String val ) {
 
 			Employee o = (Employee)other;
 
-if (! string.IsNullOrEmpty(o.EmployeeName) && 
-		 string.IsNullOrEmpty(this.EmployeeName)){
-		this.EmployeeName = o.EmployeeName;
+if (! string.IsNullOrEmpty(o.PrEmployeeName) && 
+		 string.IsNullOrEmpty(this.PrEmployeeName)){
+		this.PrEmployeeName = o.PrEmployeeName;
 }
-if ( o.EmployeeRankId != null && 
-		 this.EmployeeRankId == null){
-		this.EmployeeRankId = o.EmployeeRankId;
+if ( o.PrEmployeeRankId != null && 
+		 this.PrEmployeeRankId == null){
+		this.PrEmployeeRankId = o.PrEmployeeRankId;
 }
-if ( o.Salary != null && 
-		 this.Salary == null){
-		this.Salary = o.Salary;
+if ( o.PrSalary != null && 
+		 this.PrSalary == null){
+		this.PrSalary = o.PrSalary;
 }
-if (! string.IsNullOrEmpty(o.Address) && 
-		 string.IsNullOrEmpty(this.Address)){
-		this.Address = o.Address;
+if (! string.IsNullOrEmpty(o.PrAddress) && 
+		 string.IsNullOrEmpty(this.PrAddress)){
+		this.PrAddress = o.PrAddress;
 }
-if (! string.IsNullOrEmpty(o.Telephone) && 
-		 string.IsNullOrEmpty(this.Telephone)){
-		this.Telephone = o.Telephone;
+if (! string.IsNullOrEmpty(o.PrTelephone) && 
+		 string.IsNullOrEmpty(this.PrTelephone)){
+		this.PrTelephone = o.PrTelephone;
 }
-if (! string.IsNullOrEmpty(o.Mobile) && 
-		 string.IsNullOrEmpty(this.Mobile)){
-		this.Mobile = o.Mobile;
+if (! string.IsNullOrEmpty(o.PrMobile) && 
+		 string.IsNullOrEmpty(this.PrMobile)){
+		this.PrMobile = o.PrMobile;
 }
-if (! string.IsNullOrEmpty(o.IdNumber) && 
-		 string.IsNullOrEmpty(this.IdNumber)){
-		this.IdNumber = o.IdNumber;
+if (! string.IsNullOrEmpty(o.PrIdNumber) && 
+		 string.IsNullOrEmpty(this.PrIdNumber)){
+		this.PrIdNumber = o.PrIdNumber;
 }
-if (! string.IsNullOrEmpty(o.SSINumber) && 
-		 string.IsNullOrEmpty(this.SSINumber)){
-		this.SSINumber = o.SSINumber;
+if (! string.IsNullOrEmpty(o.PrSSINumber) && 
+		 string.IsNullOrEmpty(this.PrSSINumber)){
+		this.PrSSINumber = o.PrSSINumber;
 }
-if ( o.HireDate != null && 
-		 this.HireDate == null){
-		this.HireDate = o.HireDate;
+if ( o.PrHireDate != null && 
+		 this.PrHireDate == null){
+		this.PrHireDate = o.PrHireDate;
 }
-if ( o.NumDependents != null && 
-		 this.NumDependents == null){
-		this.NumDependents = o.NumDependents;
+if ( o.PrNumDependents != null && 
+		 this.PrNumDependents == null){
+		this.PrNumDependents = o.PrNumDependents;
 }
 if ( o.CreateDate != null && 
 		 this.CreateDate == null){
@@ -1256,16 +1253,16 @@ if (! string.IsNullOrEmpty(o.CreateUser) &&
 		 string.IsNullOrEmpty(this.CreateUser)){
 		this.CreateUser = o.CreateUser;
 }
-if (! string.IsNullOrEmpty(o.EmployeeTypeCode) && 
-		 string.IsNullOrEmpty(this.EmployeeTypeCode)){
-		this.EmployeeTypeCode = o.EmployeeTypeCode;
+if (! string.IsNullOrEmpty(o.PrEmployeeTypeCode) && 
+		 string.IsNullOrEmpty(this.PrEmployeeTypeCode)){
+		this.PrEmployeeTypeCode = o.PrEmployeeTypeCode;
 }
 
 
 		}
 
 		public int CompareTo(Employee other ) {
-		return  this.EmployeeName.CompareTo(other.EmployeeName);
+		return  this.PrEmployeeName.CompareTo(other.PrEmployeeName);
 	}
 
 
@@ -1276,7 +1273,7 @@ if (! string.IsNullOrEmpty(o.EmployeeTypeCode) &&
 	public override void handleParentIdChanged(IModelObject parentMo ){
 		// Assocations from CsModelObjects.EmployeeRank
 		if ( parentMo is CsModelObjects.EmployeeRank) {
-			this.EmployeeRankId= ((CsModelObjects.EmployeeRank)parentMo).RankId;
+			this.PrEmployeeRankId= ((CsModelObjects.EmployeeRank)parentMo).PrRankId;
 		}
 	}
 #endregion
@@ -1308,10 +1305,10 @@ if (! string.IsNullOrEmpty(o.EmployeeTypeCode) &&
 
 		public void validate(org.model.lib.Model.IModelObject imo) {
 			Employee mo = (Employee)imo;
-if (string.IsNullOrEmpty( mo.EmployeeName)) {
+if (string.IsNullOrEmpty( mo.PrEmployeeName)) {
 		throw new ModelObjectRequiredFieldException("EmployeeName");
 }
-if (mo.EmployeeRankId == null ) {
+if (mo.PrEmployeeRankId == null ) {
 		throw new ModelObjectRequiredFieldException("EmployeeRankId");
 }
 

@@ -29,20 +29,18 @@ namespace CsModelObjects
 	#region "Interface"
 [System.Runtime.InteropServices.ComVisible(false)] 
 	public interface IEmployeeRank: IModelObject {
-	System.Int64 RankId {get;set;} 
-	System.String Rank {get;set;} 
+	System.Int64 PrRankId {get;set;} 
+	System.String PrRank {get;set;} 
 }
 #endregion
 
 	
 	[DefaultMapperAttr(typeof(CsModelMappers.EmployeeRankDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class EmployeeRankBase : ModelObject, IEquatable<EmployeeRankBase>, IEmployeeRank
-	{
+	public class EmployeeRankBase : ModelObject, IEquatable<EmployeeRankBase>, IEmployeeRank {
 
 		#region "Constructor"
 
-		public EmployeeRankBase()
-		{
+		public EmployeeRankBase() {
 			this.addValidator(new EmployeeRankRequiredFieldsValidator());
 		}
 
@@ -51,7 +49,7 @@ namespace CsModelObjects
 		#region "Children and Parents"
 		
 		public override void loadObjectHierarchy() {
-			
+
 		}
 
 		/// <summary>
@@ -109,7 +107,7 @@ namespace CsModelObjects
 
 		#region "Field Properties"
 
-	public virtual System.Int64 RankId  {
+	public virtual System.Int64 PrRankId  {
 	get {
 		return _RankId;
 	} 
@@ -128,14 +126,14 @@ namespace CsModelObjects
 	}
 public void setRankId(String val){
 	if (Information.IsNumeric(val)) {
-		this.RankId = Convert.ToInt32(val);
+		this.PrRankId = Convert.ToInt32(val);
 	} else if (String.IsNullOrEmpty(val)) {
 		throw new ApplicationException("Cant update Primary Key to Null");
 	} else {
 		throw new ApplicationException("Invalid Integer Number, field:RankId, value:" + val);
 	}
 }
-	public virtual System.String Rank  {
+	public virtual System.String PrRank  {
 	get {
 		return _Rank;
 	} 
@@ -152,9 +150,9 @@ public void setRankId(String val){
 	}
 public void setRank( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
-		this.Rank = val;
+		this.PrRank = val;
 	} else {
-		this.Rank = null;
+		this.PrRank = null;
 	}
 }
 
@@ -165,9 +163,9 @@ public void setRank( String val ) {
 
 		switch (fieldKey) {
 		case FLD_RANKID:
-			return this.RankId;
+			return this.PrRankId;
 		case FLD_RANK:
-			return this.Rank;
+			return this.PrRank;
 		default:
 			return null;
 		} //end switch
@@ -178,9 +176,9 @@ public void setRank( String val ) {
 			fieldKey = fieldKey.ToLower();
 
 		if (fieldKey==STR_FLD_RANKID.ToLower() ) {
-			return this.RankId;
+			return this.PrRankId;
 		} else if (fieldKey==STR_FLD_RANK.ToLower() ) {
-			return this.Rank;
+			return this.PrRank;
 		} else {
 			return null;
 		}
@@ -192,14 +190,14 @@ public void setRank( String val ) {
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			}else{
-				this.RankId=(System.Int64)val;
+				this.PrRankId=(System.Int64)val;
 			} //
 			return;
 		case FLD_RANK:
 			if (val == DBNull.Value || val == null ){
-				this.Rank = null;
+				this.PrRank = null;
 			}else{
-				this.Rank=(System.String)val;
+				this.PrRank=(System.String)val;
 			} //
 			return;
 		default:
@@ -214,14 +212,14 @@ public void setRank( String val ) {
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.RankId=(System.Int64)val;
+				this.PrRankId=(System.Int64)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_RANK.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.Rank = null;
+				this.PrRank = null;
 			} else {
-				this.Rank=(System.String)val;
+				this.PrRank=(System.String)val;
 			}
 			return;
 		}
@@ -238,16 +236,16 @@ public void setRank( String val ) {
 			if (object.ReferenceEquals(other, this))
 				return true;
 
-			return this.RankId == other.RankId
-				&& this.Rank == other.Rank;;
+			return this.PrRankId == other.PrRankId
+				&& this.PrRank == other.PrRank;;
 
 		}
 
 		public override int GetHashCode()
 		{
 			//using Xor has the advantage of not overflowing the integer.
-			return this.RankId.GetHashCode()
-				 ^ this.getStringHashCode(this.Rank);;
+			return this.PrRankId.GetHashCode()
+				 ^ this.getStringHashCode(this.PrRank);;
 
 		}
 
@@ -285,8 +283,8 @@ public void setRank( String val ) {
 			//instantiate a EmployeeRank, NOT a EmployeeRankBase object
 			EmployeeRank ret = EmployeeRankFactory.Create();
 
-		ret.RankId = this.RankId;
-		ret.Rank = this.Rank;
+		ret.PrRankId = this.PrRankId;
+		ret.PrRank = this.PrRank;
 
 
 
@@ -300,9 +298,9 @@ public void setRank( String val ) {
 
 			EmployeeRank o = (EmployeeRank)other;
 
-if (! string.IsNullOrEmpty(o.Rank) && 
-		 string.IsNullOrEmpty(this.Rank)){
-		this.Rank = o.Rank;
+if (! string.IsNullOrEmpty(o.PrRank) && 
+		 string.IsNullOrEmpty(this.PrRank)){
+		this.PrRank = o.PrRank;
 }
 
 
@@ -340,7 +338,7 @@ if (! string.IsNullOrEmpty(o.Rank) &&
 
 		public void validate(org.model.lib.Model.IModelObject imo) {
 			EmployeeRank mo = (EmployeeRank)imo;
-if (string.IsNullOrEmpty( mo.Rank)) {
+if (string.IsNullOrEmpty( mo.PrRank)) {
 		throw new ModelObjectRequiredFieldException("Rank");
 }
 

@@ -1,7 +1,7 @@
 ﻿        //associationChildOneCSharp.txt
         public bool <association_name>Loaded {get;set;}
 
-		public virtual <datatype> <association_name> {
+		public virtual <datatype> <prop_prefix><association_name> {
 			//1-1 child association
             set {
                 this._<association_name> = value;
@@ -28,7 +28,7 @@
 
 			if ( this.<parent_field_runtime> > 0)  {
 				//call setter here, not the private variable
-				this.<association_name> = 
+				this.<prop_prefix><association_name> = 
 					new <db_mapper>().findWhere("<child_field>={0}", this.<parent_field_runtime>);
 				
 			} 

@@ -73,7 +73,6 @@
     <Compile Include="IGeneratedFileComponent.vb" />
     <Compile Include="IObjectToGenerate.vb" />
     <Compile Include="IPropertyGenerator.vb" />
-    <Compile Include="ModelGenerator.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

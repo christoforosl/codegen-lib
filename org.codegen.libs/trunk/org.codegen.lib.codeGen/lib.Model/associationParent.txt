@@ -1,21 +1,21 @@
 ﻿		
 		#Region "Association <association_name>"
-
+		'associationParent.txt
 		friend _<association_name>Loaded as Boolean
 
 		''' <summary>
         ''' Gets/Sets parent object
         ''' </summary>
-		Public Overridable Property <association_name>() As <datatype> _
-			implements <implements>.<association_name>
+		Public Overridable Property <prop_prefix><association_name>() As <datatype> _
+			implements <implements>.<prop_prefix><association_name>
 		    '1-1 parent association
             Set(ByVal value As <datatype>)
                 Me._<association_name> = value
 				If value isnot Nothing then
-					me.<child_field_runtime> = value.<parent_field_runtime>
+					me.<prop_prefix><child_field_runtime> = value.<prop_prefix><parent_field_runtime>
 					AddHandler value.IDChanged, AddressOf Me.handleParentIdChanged
                 Else
-					me.<child_field_runtime> = Nothing
+					me.<prop_prefix><child_field_runtime> = Nothing
 				End If
 
             End Set
@@ -39,13 +39,13 @@
 			If me._<association_name>Loaded then return
 			
 			If Me._<association_name> Is Nothing AndAlso _
-                   Me.<child_field_runtime> > 0 Then
+                   Me.<prop_prefix><child_field_runtime> > 0 Then
                 
 				'call the setter here, not the private variable!
-                Me.<association_name> = new <db_mapper>().FindByKey( _ 
-				                 Me.<child_field_runtime>.Value)
+                Me.<prop_prefix><association_name> = new <db_mapper>().FindByKey( _ 
+				                 Me.<prop_prefix><child_field_runtime>.Value)
                 
-            End If ' me._<association_name> is Nothing
+            End If
 
             me._<association_name>Loaded=true
 			            

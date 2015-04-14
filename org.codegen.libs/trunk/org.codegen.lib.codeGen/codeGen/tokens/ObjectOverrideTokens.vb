@@ -2,7 +2,6 @@
 
 Namespace Tokens
 
-
     Public Class ObjectMergeToken
         Inherits MultiLingualReplacementToken
 
@@ -21,21 +20,21 @@ Namespace Tokens
 
                     sb.Append("if (")
                     If field.RuntimeType Is Type.GetType("System.String") Then
-                        sb.Append("! string.IsNullOrEmpty(o." & field.RuntimeFieldName & ")")
+						sb.Append("! string.IsNullOrEmpty(o." & field.PropertyName & ")")
                     Else
-                        sb.Append(" o." & field.RuntimeFieldName & " != null")
+						sb.Append(" o." & field.PropertyName & " != null")
                     End If
                     sb.Append(" && ").Append(vbCrLf).Append(vbTab).Append(vbTab)
 
                     If field.RuntimeType Is Type.GetType("System.String") Then
-                        sb.Append(" string.IsNullOrEmpty(this." & field.RuntimeFieldName & ")")
+						sb.Append(" string.IsNullOrEmpty(this." & field.PropertyName & ")")
                     Else
-                        sb.Append(" this." & field.RuntimeFieldName & " == null")
+						sb.Append(" this." & field.PropertyName & " == null")
                     End If
                     sb.Append("){").Append(vbCrLf)
 
-                    sb.Append(vbTab + vbTab & "this." & field.RuntimeFieldName & " = o." & _
-                                        field.RuntimeFieldName)
+					sb.Append(vbTab + vbTab & "this." & field.PropertyName & " = o." & _
+						 field.PropertyName)
                     sb.Append(";")
                     sb.Append(vbCrLf)
                     sb.Append("}")
@@ -59,22 +58,22 @@ Namespace Tokens
 
                     sb.Append("If ")
                     If field.RuntimeType Is Type.GetType("System.String") Then
-                        sb.Append("not String.isNullOrEmpty(o." & field.RuntimeFieldName & ")")
+						sb.Append("not String.isNullOrEmpty(o." & field.PropertyName & ")")
                     Else
-                        sb.Append("not o." & field.RuntimeFieldName & " is Nothing")
+						sb.Append("not o." & field.PropertyName & " is Nothing")
                     End If
                     sb.Append(" AndAlso _").Append(vbCrLf).Append(vbTab).Append(vbTab)
 
                     If field.RuntimeType Is Type.GetType("System.String") Then
-                        sb.Append(" String.isNullOrEmpty(me." & field.RuntimeFieldName & ")")
+						sb.Append(" String.isNullOrEmpty(me." & field.PropertyName & ")")
                     Else
-                        sb.Append(" me." & field.RuntimeFieldName & " is Nothing")
+						sb.Append(" me." & field.PropertyName & " is Nothing")
                     End If
                     sb.Append(" Then ").Append(vbCrLf)
 
-                    sb.Append(vbTab + vbTab & "me." & field.RuntimeFieldName & " = o." & _
-                                        field.RuntimeFieldName & _
-                                vbCrLf)
+					sb.Append(vbTab + vbTab & "me." & field.PropertyName & " = o." & _
+						 field.PropertyName & _
+					   vbCrLf)
 
                     sb.Append("End If")
                     sb.Append(vbCrLf)
@@ -101,8 +100,8 @@ Namespace Tokens
             For Each field As DBField In vec.Values
 
                 'If field.isPrimaryKey = False Then
-                sb.Append(vbTab + vbTab).Append("ret.").Append(field.RuntimeFieldName)
-                sb.Append(" = this.").Append(DBTable.getRuntimeName(field.FieldName())).Append(";").Append(vbCrLf)
+				sb.Append(vbTab + vbTab).Append("ret.").Append(field.PropertyName)
+				sb.Append(" = this.").Append(field.PropertyName).Append(";").Append(vbCrLf)
                 'End If
 
                 i = i + 1
@@ -119,9 +118,9 @@ Namespace Tokens
             For Each field As DBField In vec.Values
 
                 'If field.isPrimaryKey = False Then
-                sb.Append(vbTab + vbTab & "ret." & field.RuntimeFieldName & " = me." & _
-                                    DBTable.getRuntimeName(field.FieldName()) & _
-                            vbCrLf)
+				sb.Append(vbTab + vbTab & "ret." & field.PropertyName & " = me." & _
+					 field.PropertyName & _
+				   vbCrLf)
                 'End If
 
                 i = i + 1
@@ -153,9 +152,9 @@ Namespace Tokens
 
                 End If
                 If field.RuntimeType Is Type.GetType("System.String") Then
-                    sb.Append("this.getStringHashCode(this." & field.RuntimeFieldName & ")")
+					sb.Append("this.getStringHashCode(this." & field.PropertyName & ")")
                 Else
-                    sb.Append("this." & field.RuntimeFieldName & ".GetHashCode()")
+					sb.Append("this." & field.PropertyName & ".GetHashCode()")
                 End If
 
                 i = i + 1
@@ -180,9 +179,9 @@ Namespace Tokens
 
                 End If
                 If field.RuntimeType Is Type.GetType("System.String") Then
-                    sb.Append("me.getStringHashCode(Me." & field.RuntimeFieldName & ")")
+					sb.Append("me.getStringHashCode(Me." & field.PropertyName & ")")
                 Else
-                    sb.Append("me." & field.RuntimeFieldName & ".GetHashCode")
+					sb.Append("me." & field.PropertyName & ".GetHashCode")
                 End If
 
                 i = i + 1
@@ -213,9 +212,9 @@ Namespace Tokens
                 End If
 
                 If field.isNullableDataType Then
-                    sb.Append("this." & field.RuntimeFieldName & ".GetValueOrDefault() == other." & field.RuntimeFieldName & ".GetValueOrDefault()")
+					sb.Append("this." & field.PropertyName & ".GetValueOrDefault() == other." & field.PropertyName & ".GetValueOrDefault()")
                 Else
-                    sb.Append("this." & field.RuntimeFieldName & " == other." & field.RuntimeFieldName)
+					sb.Append("this." & field.PropertyName & " == other." & field.PropertyName)
                 End If
                 i = i + 1
             Next
@@ -239,9 +238,9 @@ Namespace Tokens
                 End If
 
                 If field.isNullableDataType Then
-                    sb.Append("me." & field.RuntimeFieldName & ".GetValueOrDefault = other." & field.RuntimeFieldName & ".GetValueOrDefault")
+					sb.Append("me." & field.PropertyName & ".GetValueOrDefault = other." & field.PropertyName & ".GetValueOrDefault")
                 Else
-                    sb.Append("me." & field.RuntimeFieldName & "= other." & field.RuntimeFieldName)
+					sb.Append("me." & field.PropertyName & "= other." & field.PropertyName)
                 End If
 
 

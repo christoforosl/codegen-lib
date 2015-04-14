@@ -29,14 +29,14 @@ namespace CsModelObjects
 	#region "Interface"
 [System.Runtime.InteropServices.ComVisible(false)] 
 	public interface IProject: IModelObject {
-	System.Int64 ProjectId {get;set;} 
-	System.String ProjectName {get;set;} 
-	System.Boolean? IsActive {get;set;} 
-	IEnumerable< CsModelObjects.EmployeeProject>EmployeeProjects {get; set;}
-		void AddEmployeeProject(CsModelObjects.EmployeeProject val);
-		void RemoveEmployeeProject(CsModelObjects.EmployeeProject val);
-		IEnumerable<CsModelObjects.EmployeeProject>getDeletedEmployeeProjects();
-		CsModelObjects.EmployeeProject getEmployeeProject( int i ) ;
+	System.Int64 PrProjectId {get;set;} 
+	System.String PrProjectName {get;set;} 
+	System.Boolean? PrIsActive {get;set;} 
+	IEnumerable< CsModelObjects.EmployeeProject>PrEmployeeProjects {get; set;}
+		void EmployeeProjectAdd(CsModelObjects.EmployeeProject val);
+		void EmployeeProjectRemove(CsModelObjects.EmployeeProject val);
+		IEnumerable<CsModelObjects.EmployeeProject>EmployeeProjectsGetDeleted();
+		CsModelObjects.EmployeeProject EmployeeProjectGetAt( int i ) ;
 
 }
 #endregion
@@ -130,7 +130,7 @@ namespace CsModelObjects
 
 		#region "Field Properties"
 
-	public virtual System.Int64 ProjectId  {
+	public virtual System.Int64 PrProjectId  {
 	get {
 		return _ProjectId;
 	} 
@@ -149,14 +149,14 @@ namespace CsModelObjects
 	}
 public void setProjectId(String val){
 	if (Information.IsNumeric(val)) {
-		this.ProjectId = Convert.ToInt32(val);
+		this.PrProjectId = Convert.ToInt32(val);
 	} else if (String.IsNullOrEmpty(val)) {
 		throw new ApplicationException("Cant update Primary Key to Null");
 	} else {
 		throw new ApplicationException("Invalid Integer Number, field:ProjectId, value:" + val);
 	}
 }
-	public virtual System.String ProjectName  {
+	public virtual System.String PrProjectName  {
 	get {
 		return _ProjectName;
 	} 
@@ -173,12 +173,12 @@ public void setProjectId(String val){
 	}
 public void setProjectName( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
-		this.ProjectName = val;
+		this.PrProjectName = val;
 	} else {
-		this.ProjectName = null;
+		this.PrProjectName = null;
 	}
 }
-	public virtual System.Boolean? IsActive  {
+	public virtual System.Boolean? PrIsActive  {
 	get {
 		if ( _IsActive.HasValue ) {
 			return _IsActive.GetValueOrDefault()==1;
@@ -199,10 +199,10 @@ public void setProjectName( String val ) {
 	}
 public void setIsActive(String val ){
 	if (String.IsNullOrEmpty(val)) {
-		this.IsActive = null;
+		this.PrIsActive = null;
 	} else {
 	    bool newval = ("1"==val || "true"==val.ToLower()) ;
-	    this.IsActive = newval;
+	    this.PrIsActive = newval;
 	}
 }
 
@@ -212,7 +212,7 @@ public void setIsActive(String val ){
 
 		public bool EmployeeProjectsLoaded  {get;set;}
 
-		public virtual CsModelObjects.EmployeeProject getEmployeeProject( int i ) {
+		public virtual CsModelObjects.EmployeeProject EmployeeProjectGetAt( int i ) {
 
             this.loadEmployeeProjects();
             if( this._EmployeeProjects.Count >= (i - 1)) {
@@ -222,17 +222,17 @@ public void setIsActive(String val ){
 
         } //End Function        
 		
-		public virtual void AddEmployeeProject ( CsModelObjects.EmployeeProject val )  {
+		public virtual void EmployeeProjectAdd( CsModelObjects.EmployeeProject val )  {
 			//1-Many , add a single item!
 			this.loadEmployeeProjects();
-			val.EPProjectId = this.ProjectId;
+			val.PrEPProjectId = this.PrProjectId;
 			//AddHandler this.IDChanged, AddressOf val.handleParentIdChanged;
 			this.IDChanged += val.handleParentIdChanged;
 			this._EmployeeProjects.Add(val);
 
         }
 
-		public virtual void ClearEmployeeProjects() {
+		public virtual void EmployeeProjectsClear() {
 
             this.loadEmployeeProjects();
             this._deletedEmployeeProjects.AddRange(this._EmployeeProjects);
@@ -240,7 +240,7 @@ public void setIsActive(String val ){
 
         }
 
-		public virtual void RemoveEmployeeProject( CsModelObjects.EmployeeProject val ) {
+		public virtual void EmployeeProjectRemove( CsModelObjects.EmployeeProject val ) {
 			
 			this.loadEmployeeProjects();
 			this._deletedEmployeeProjects.Add(val);
@@ -248,14 +248,13 @@ public void setIsActive(String val ){
 
         }
 		
-		public virtual IEnumerable< CsModelObjects.EmployeeProject > getDeletedEmployeeProjects() {
+		public virtual IEnumerable< CsModelObjects.EmployeeProject >EmployeeProjectsGetDeleted() {
 			
 			return this._deletedEmployeeProjects;
 
         }
 
-        public virtual IEnumerable< CsModelObjects.EmployeeProject > EmployeeProjects {
-					
+        public virtual IEnumerable< CsModelObjects.EmployeeProject > PrEmployeeProjects {
 
             get {
 				//'1 to many relation
@@ -303,11 +302,11 @@ public void setIsActive(String val ){
 			this._EmployeeProjects = new List< CsModelObjects.EmployeeProject>();
 
 			if (! this.isNew ) {
-                this.addToEmployeeProjectsList( new CsModelMappers.EmployeeProjectDBMapper().findList("EPProjectId={0}", this.ProjectId));
+                this.addToEmployeeProjectsList( new CsModelMappers.EmployeeProjectDBMapper().findList("EPProjectId={0}", this.PrProjectId));
             }
             
 			this.EmployeeProjectsLoaded = true;
-        } //End Sub
+        } 
 		#endregion
 
 
@@ -318,11 +317,11 @@ public void setIsActive(String val ){
 
 		switch (fieldKey) {
 		case FLD_PROJECTID:
-			return this.ProjectId;
+			return this.PrProjectId;
 		case FLD_PROJECTNAME:
-			return this.ProjectName;
+			return this.PrProjectName;
 		case FLD_ISACTIVE:
-			return this.IsActive;
+			return this.PrIsActive;
 		default:
 			return null;
 		} //end switch
@@ -333,11 +332,11 @@ public void setIsActive(String val ){
 			fieldKey = fieldKey.ToLower();
 
 		if (fieldKey==STR_FLD_PROJECTID.ToLower() ) {
-			return this.ProjectId;
+			return this.PrProjectId;
 		} else if (fieldKey==STR_FLD_PROJECTNAME.ToLower() ) {
-			return this.ProjectName;
+			return this.PrProjectName;
 		} else if (fieldKey==STR_FLD_ISACTIVE.ToLower() ) {
-			return this.IsActive;
+			return this.PrIsActive;
 		} else {
 			return null;
 		}
@@ -349,21 +348,21 @@ public void setIsActive(String val ){
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			}else{
-				this.ProjectId=(System.Int64)val;
+				this.PrProjectId=(System.Int64)val;
 			} //
 			return;
 		case FLD_PROJECTNAME:
 			if (val == DBNull.Value || val == null ){
-				this.ProjectName = null;
+				this.PrProjectName = null;
 			}else{
-				this.ProjectName=(System.String)val;
+				this.PrProjectName=(System.String)val;
 			} //
 			return;
 		case FLD_ISACTIVE:
 			if (val == DBNull.Value || val == null ){
-				this.IsActive = null;
+				this.PrIsActive = null;
 			}else{
-				this.IsActive=(System.Boolean)val;
+				this.PrIsActive=(System.Boolean)val;
 			} //
 			return;
 		default:
@@ -378,21 +377,21 @@ public void setIsActive(String val ){
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.ProjectId=(System.Int64)val;
+				this.PrProjectId=(System.Int64)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_PROJECTNAME.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.ProjectName = null;
+				this.PrProjectName = null;
 			} else {
-				this.ProjectName=(System.String)val;
+				this.PrProjectName=(System.String)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_ISACTIVE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.IsActive = null;
+				this.PrIsActive = null;
 			} else {
-				this.IsActive=(System.Boolean)val;
+				this.PrIsActive=(System.Boolean)val;
 			}
 			return;
 		}
@@ -409,18 +408,18 @@ public void setIsActive(String val ){
 			if (object.ReferenceEquals(other, this))
 				return true;
 
-			return this.ProjectId == other.ProjectId
-				&& this.ProjectName == other.ProjectName
-				&& this.IsActive.GetValueOrDefault() == other.IsActive.GetValueOrDefault();;
+			return this.PrProjectId == other.PrProjectId
+				&& this.PrProjectName == other.PrProjectName
+				&& this.PrIsActive.GetValueOrDefault() == other.PrIsActive.GetValueOrDefault();;
 
 		}
 
 		public override int GetHashCode()
 		{
 			//using Xor has the advantage of not overflowing the integer.
-			return this.ProjectId.GetHashCode()
-				 ^ this.getStringHashCode(this.ProjectName)
-				 ^ this.IsActive.GetHashCode();;
+			return this.PrProjectId.GetHashCode()
+				 ^ this.getStringHashCode(this.PrProjectName)
+				 ^ this.PrIsActive.GetHashCode();;
 
 		}
 
@@ -458,9 +457,9 @@ public void setIsActive(String val ){
 			//instantiate a Project, NOT a ProjectBase object
 			Project ret = ProjectFactory.Create();
 
-		ret.ProjectId = this.ProjectId;
-		ret.ProjectName = this.ProjectName;
-		ret.IsActive = this.IsActive;
+		ret.PrProjectId = this.PrProjectId;
+		ret.PrProjectName = this.PrProjectName;
+		ret.PrIsActive = this.PrIsActive;
 
 
 
@@ -474,13 +473,13 @@ public void setIsActive(String val ){
 
 			Project o = (Project)other;
 
-if (! string.IsNullOrEmpty(o.ProjectName) && 
-		 string.IsNullOrEmpty(this.ProjectName)){
-		this.ProjectName = o.ProjectName;
+if (! string.IsNullOrEmpty(o.PrProjectName) && 
+		 string.IsNullOrEmpty(this.PrProjectName)){
+		this.PrProjectName = o.PrProjectName;
 }
-if ( o.IsActive != null && 
-		 this.IsActive == null){
-		this.IsActive = o.IsActive;
+if ( o.PrIsActive != null && 
+		 this.PrIsActive == null){
+		this.PrIsActive = o.PrIsActive;
 }
 
 
@@ -518,10 +517,10 @@ if ( o.IsActive != null &&
 
 		public void validate(org.model.lib.Model.IModelObject imo) {
 			Project mo = (Project)imo;
-if (string.IsNullOrEmpty( mo.ProjectName)) {
+if (string.IsNullOrEmpty( mo.PrProjectName)) {
 		throw new ModelObjectRequiredFieldException("ProjectName");
 }
-if (mo.IsActive == null ) {
+if (mo.PrIsActive == null ) {
 		throw new ModelObjectRequiredFieldException("IsActive");
 }
 

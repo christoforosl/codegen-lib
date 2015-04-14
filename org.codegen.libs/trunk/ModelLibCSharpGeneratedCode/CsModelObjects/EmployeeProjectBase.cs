@@ -29,13 +29,13 @@ namespace CsModelObjects
 	#region "Interface"
 [System.Runtime.InteropServices.ComVisible(false)] 
 	public interface IEmployeeProject: IModelObject {
-	System.Int64 EmployeeProjectId {get;set;} 
-	System.Int64? EPEmployeeId {get;set;} 
-	System.Int64? EPProjectId {get;set;} 
-	System.DateTime? AssignDate {get;set;} 
-	System.DateTime? EndDate {get;set;} 
-	System.Decimal? Rate {get;set;} 
-	CsModelObjects.Project Project {get;set;} //association
+	System.Int64 PrEmployeeProjectId {get;set;} 
+	System.Int64? PrEPEmployeeId {get;set;} 
+	System.Int64? PrEPProjectId {get;set;} 
+	System.DateTime? PrAssignDate {get;set;} 
+	System.DateTime? PrEndDate {get;set;} 
+	System.Decimal? PrRate {get;set;} 
+	CsModelObjects.Project PrProject {get;set;} //association
 }
 #endregion
 
@@ -77,7 +77,7 @@ namespace CsModelObjects
 		public override List<ModelObject> getParents() {
 			List<ModelObject> ret = new List<ModelObject>();
 			if  (this.ProjectLoaded) {
-ret.Add(this.Project);
+ret.Add(this.PrProject);
 }
 
 			return ret;
@@ -133,7 +133,7 @@ ret.Add(this.Project);
 
 		#region "Field Properties"
 
-	public virtual System.Int64 EmployeeProjectId  {
+	public virtual System.Int64 PrEmployeeProjectId  {
 	get {
 		return _EmployeeProjectId;
 	} 
@@ -152,14 +152,14 @@ ret.Add(this.Project);
 	}
 public void setEmployeeProjectId(String val){
 	if (Information.IsNumeric(val)) {
-		this.EmployeeProjectId = Convert.ToInt32(val);
+		this.PrEmployeeProjectId = Convert.ToInt32(val);
 	} else if (String.IsNullOrEmpty(val)) {
 		throw new ApplicationException("Cant update Primary Key to Null");
 	} else {
 		throw new ApplicationException("Invalid Integer Number, field:EmployeeProjectId, value:" + val);
 	}
 }
-	public virtual System.Int64? EPEmployeeId  {
+	public virtual System.Int64? PrEPEmployeeId  {
 	get {
 		return _EPEmployeeId;
 	} 
@@ -176,14 +176,14 @@ public void setEmployeeProjectId(String val){
 	}
 public void setEPEmployeeId(String val){
 	if (Information.IsNumeric(val)) {
-		this.EPEmployeeId = Convert.ToInt32(val);
+		this.PrEPEmployeeId = Convert.ToInt32(val);
 	} else if (String.IsNullOrEmpty(val)) {
-		this.EPEmployeeId = null;
+		this.PrEPEmployeeId = null;
 	} else {
 		throw new ApplicationException("Invalid Integer Number, field:EPEmployeeId, value:" + val);
 	}
 }
-	public virtual System.Int64? EPProjectId  {
+	public virtual System.Int64? PrEPProjectId  {
 	get {
 		return _EPProjectId;
 	} 
@@ -200,14 +200,14 @@ public void setEPEmployeeId(String val){
 	}
 public void setEPProjectId(String val){
 	if (Information.IsNumeric(val)) {
-		this.EPProjectId = Convert.ToInt32(val);
+		this.PrEPProjectId = Convert.ToInt32(val);
 	} else if (String.IsNullOrEmpty(val)) {
-		this.EPProjectId = null;
+		this.PrEPProjectId = null;
 	} else {
 		throw new ApplicationException("Invalid Integer Number, field:EPProjectId, value:" + val);
 	}
 }
-	public virtual System.DateTime? AssignDate  {
+	public virtual System.DateTime? PrAssignDate  {
 	get {
 		return _AssignDate;
 	} 
@@ -224,14 +224,14 @@ public void setEPProjectId(String val){
 	}
 public void setAssignDate( String val ){
 	if (Information.IsDate(val)) {
-		this.AssignDate = Convert.ToDateTime(val);
+		this.PrAssignDate = Convert.ToDateTime(val);
 	} else if (String.IsNullOrEmpty(val) ) {
-		this.AssignDate = null;
+		this.PrAssignDate = null;
 	} else {
 		throw new ApplicationException("Invalid Date, field:AssignDate, value:" + val);
 	}
 }
-	public virtual System.DateTime? EndDate  {
+	public virtual System.DateTime? PrEndDate  {
 	get {
 		return _EndDate;
 	} 
@@ -248,14 +248,14 @@ public void setAssignDate( String val ){
 	}
 public void setEndDate( String val ){
 	if (Information.IsDate(val)) {
-		this.EndDate = Convert.ToDateTime(val);
+		this.PrEndDate = Convert.ToDateTime(val);
 	} else if (String.IsNullOrEmpty(val) ) {
-		this.EndDate = null;
+		this.PrEndDate = null;
 	} else {
 		throw new ApplicationException("Invalid Date, field:EndDate, value:" + val);
 	}
 }
-	public virtual System.Decimal? Rate  {
+	public virtual System.Decimal? PrRate  {
 	get {
 		return _Rate;
 	} 
@@ -272,9 +272,9 @@ public void setEndDate( String val ){
 	}
 public void setRate(String val ){
 	if (Information.IsNumeric(val)) {
-		this.Rate =  Convert.ToDecimal(val);
+		this.PrRate =  Convert.ToDecimal(val);
 	} else if ( string.IsNullOrEmpty(val) ) {
-		this.Rate = null;
+		this.PrRate = null;
 	} else {
 		throw new ApplicationException("Invalid Decimal Number, field:Rate, value:" + val);
 	}
@@ -289,16 +289,16 @@ public void setRate(String val ){
 		/// <summary>
         /// Gets/Sets parent object
         /// </summary>
-		public virtual CsModelObjects.Project Project {
+		public virtual CsModelObjects.Project PrProject {
 		    //1-1 parent association
             set {
                 this._Project = value;
 				if ( value != null ) {
-					this.EPProjectId = value.ProjectId;
+					this.PrEPProjectId = value.PrProjectId;
 					//AddHandler value.IDChanged, AddressOf this.handleParentIdChanged;
 					value.IDChanged += this.handleParentIdChanged;
                 } else {
-					this.EPProjectId = null;
+					this.PrEPProjectId = null;
 				}
 
             }
@@ -321,10 +321,10 @@ public void setRate(String val ){
 			
 			if (this.ProjectLoaded) return;
 			
-			if ( this._Project == null && this.EPProjectId > 0 ) {
+			if ( this._Project == null && this.PrEPProjectId > 0 ) {
                 
 				//call the setter here, not the private variable!
-                this.Project = new CsModelMappers.ProjectDBMapper().findByKey(this.EPProjectId.Value);
+                this.PrProject = new CsModelMappers.ProjectDBMapper().findByKey(this.PrEPProjectId.Value);
                 
             }
 
@@ -341,17 +341,17 @@ public void setRate(String val ){
 
 		switch (fieldKey) {
 		case FLD_EMPLOYEEPROJECTID:
-			return this.EmployeeProjectId;
+			return this.PrEmployeeProjectId;
 		case FLD_EPEMPLOYEEID:
-			return this.EPEmployeeId;
+			return this.PrEPEmployeeId;
 		case FLD_EPPROJECTID:
-			return this.EPProjectId;
+			return this.PrEPProjectId;
 		case FLD_ASSIGNDATE:
-			return this.AssignDate;
+			return this.PrAssignDate;
 		case FLD_ENDDATE:
-			return this.EndDate;
+			return this.PrEndDate;
 		case FLD_RATE:
-			return this.Rate;
+			return this.PrRate;
 		default:
 			return null;
 		} //end switch
@@ -362,17 +362,17 @@ public void setRate(String val ){
 			fieldKey = fieldKey.ToLower();
 
 		if (fieldKey==STR_FLD_EMPLOYEEPROJECTID.ToLower() ) {
-			return this.EmployeeProjectId;
+			return this.PrEmployeeProjectId;
 		} else if (fieldKey==STR_FLD_EPEMPLOYEEID.ToLower() ) {
-			return this.EPEmployeeId;
+			return this.PrEPEmployeeId;
 		} else if (fieldKey==STR_FLD_EPPROJECTID.ToLower() ) {
-			return this.EPProjectId;
+			return this.PrEPProjectId;
 		} else if (fieldKey==STR_FLD_ASSIGNDATE.ToLower() ) {
-			return this.AssignDate;
+			return this.PrAssignDate;
 		} else if (fieldKey==STR_FLD_ENDDATE.ToLower() ) {
-			return this.EndDate;
+			return this.PrEndDate;
 		} else if (fieldKey==STR_FLD_RATE.ToLower() ) {
-			return this.Rate;
+			return this.PrRate;
 		} else {
 			return null;
 		}
@@ -384,42 +384,42 @@ public void setRate(String val ){
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			}else{
-				this.EmployeeProjectId=(System.Int64)val;
+				this.PrEmployeeProjectId=(System.Int64)val;
 			} //
 			return;
 		case FLD_EPEMPLOYEEID:
 			if (val == DBNull.Value || val == null ){
-				this.EPEmployeeId = null;
+				this.PrEPEmployeeId = null;
 			}else{
-				this.EPEmployeeId=(System.Int64)val;
+				this.PrEPEmployeeId=(System.Int64)val;
 			} //
 			return;
 		case FLD_EPPROJECTID:
 			if (val == DBNull.Value || val == null ){
-				this.EPProjectId = null;
+				this.PrEPProjectId = null;
 			}else{
-				this.EPProjectId=(System.Int64)val;
+				this.PrEPProjectId=(System.Int64)val;
 			} //
 			return;
 		case FLD_ASSIGNDATE:
 			if (val == DBNull.Value || val == null ){
-				this.AssignDate = null;
+				this.PrAssignDate = null;
 			}else{
-				this.AssignDate=(System.DateTime)val;
+				this.PrAssignDate=(System.DateTime)val;
 			} //
 			return;
 		case FLD_ENDDATE:
 			if (val == DBNull.Value || val == null ){
-				this.EndDate = null;
+				this.PrEndDate = null;
 			}else{
-				this.EndDate=(System.DateTime)val;
+				this.PrEndDate=(System.DateTime)val;
 			} //
 			return;
 		case FLD_RATE:
 			if (val == DBNull.Value || val == null ){
-				this.Rate = null;
+				this.PrRate = null;
 			}else{
-				this.Rate=(System.Decimal)val;
+				this.PrRate=(System.Decimal)val;
 			} //
 			return;
 		default:
@@ -434,42 +434,42 @@ public void setRate(String val ){
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.EmployeeProjectId=(System.Int64)val;
+				this.PrEmployeeProjectId=(System.Int64)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_EPEMPLOYEEID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.EPEmployeeId = null;
+				this.PrEPEmployeeId = null;
 			} else {
-				this.EPEmployeeId=(System.Int64)val;
+				this.PrEPEmployeeId=(System.Int64)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_EPPROJECTID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.EPProjectId = null;
+				this.PrEPProjectId = null;
 			} else {
-				this.EPProjectId=(System.Int64)val;
+				this.PrEPProjectId=(System.Int64)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_ASSIGNDATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.AssignDate = null;
+				this.PrAssignDate = null;
 			} else {
-				this.AssignDate=(System.DateTime)val;
+				this.PrAssignDate=(System.DateTime)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_ENDDATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.EndDate = null;
+				this.PrEndDate = null;
 			} else {
-				this.EndDate=(System.DateTime)val;
+				this.PrEndDate=(System.DateTime)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_RATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.Rate = null;
+				this.PrRate = null;
 			} else {
-				this.Rate=(System.Decimal)val;
+				this.PrRate=(System.Decimal)val;
 			}
 			return;
 		}
@@ -486,24 +486,24 @@ public void setRate(String val ){
 			if (object.ReferenceEquals(other, this))
 				return true;
 
-			return this.EmployeeProjectId == other.EmployeeProjectId
-				&& this.EPEmployeeId.GetValueOrDefault() == other.EPEmployeeId.GetValueOrDefault()
-				&& this.EPProjectId.GetValueOrDefault() == other.EPProjectId.GetValueOrDefault()
-				&& this.AssignDate.GetValueOrDefault() == other.AssignDate.GetValueOrDefault()
-				&& this.EndDate.GetValueOrDefault() == other.EndDate.GetValueOrDefault()
-				&& this.Rate.GetValueOrDefault() == other.Rate.GetValueOrDefault();;
+			return this.PrEmployeeProjectId == other.PrEmployeeProjectId
+				&& this.PrEPEmployeeId.GetValueOrDefault() == other.PrEPEmployeeId.GetValueOrDefault()
+				&& this.PrEPProjectId.GetValueOrDefault() == other.PrEPProjectId.GetValueOrDefault()
+				&& this.PrAssignDate.GetValueOrDefault() == other.PrAssignDate.GetValueOrDefault()
+				&& this.PrEndDate.GetValueOrDefault() == other.PrEndDate.GetValueOrDefault()
+				&& this.PrRate.GetValueOrDefault() == other.PrRate.GetValueOrDefault();;
 
 		}
 
 		public override int GetHashCode()
 		{
 			//using Xor has the advantage of not overflowing the integer.
-			return this.EmployeeProjectId.GetHashCode()
-				 ^ this.EPEmployeeId.GetHashCode()
-				 ^ this.EPProjectId.GetHashCode()
-				 ^ this.AssignDate.GetHashCode()
-				 ^ this.EndDate.GetHashCode()
-				 ^ this.Rate.GetHashCode();;
+			return this.PrEmployeeProjectId.GetHashCode()
+				 ^ this.PrEPEmployeeId.GetHashCode()
+				 ^ this.PrEPProjectId.GetHashCode()
+				 ^ this.PrAssignDate.GetHashCode()
+				 ^ this.PrEndDate.GetHashCode()
+				 ^ this.PrRate.GetHashCode();;
 
 		}
 
@@ -541,12 +541,12 @@ public void setRate(String val ){
 			//instantiate a EmployeeProject, NOT a EmployeeProjectBase object
 			EmployeeProject ret = EmployeeProjectFactory.Create();
 
-		ret.EmployeeProjectId = this.EmployeeProjectId;
-		ret.EPEmployeeId = this.EPEmployeeId;
-		ret.EPProjectId = this.EPProjectId;
-		ret.AssignDate = this.AssignDate;
-		ret.EndDate = this.EndDate;
-		ret.Rate = this.Rate;
+		ret.PrEmployeeProjectId = this.PrEmployeeProjectId;
+		ret.PrEPEmployeeId = this.PrEPEmployeeId;
+		ret.PrEPProjectId = this.PrEPProjectId;
+		ret.PrAssignDate = this.PrAssignDate;
+		ret.PrEndDate = this.PrEndDate;
+		ret.PrRate = this.PrRate;
 
 
 
@@ -560,25 +560,25 @@ public void setRate(String val ){
 
 			EmployeeProject o = (EmployeeProject)other;
 
-if ( o.EPEmployeeId != null && 
-		 this.EPEmployeeId == null){
-		this.EPEmployeeId = o.EPEmployeeId;
+if ( o.PrEPEmployeeId != null && 
+		 this.PrEPEmployeeId == null){
+		this.PrEPEmployeeId = o.PrEPEmployeeId;
 }
-if ( o.EPProjectId != null && 
-		 this.EPProjectId == null){
-		this.EPProjectId = o.EPProjectId;
+if ( o.PrEPProjectId != null && 
+		 this.PrEPProjectId == null){
+		this.PrEPProjectId = o.PrEPProjectId;
 }
-if ( o.AssignDate != null && 
-		 this.AssignDate == null){
-		this.AssignDate = o.AssignDate;
+if ( o.PrAssignDate != null && 
+		 this.PrAssignDate == null){
+		this.PrAssignDate = o.PrAssignDate;
 }
-if ( o.EndDate != null && 
-		 this.EndDate == null){
-		this.EndDate = o.EndDate;
+if ( o.PrEndDate != null && 
+		 this.PrEndDate == null){
+		this.PrEndDate = o.PrEndDate;
 }
-if ( o.Rate != null && 
-		 this.Rate == null){
-		this.Rate = o.Rate;
+if ( o.PrRate != null && 
+		 this.PrRate == null){
+		this.PrRate = o.PrRate;
 }
 
 
@@ -593,15 +593,15 @@ if ( o.Rate != null &&
 	public override void handleParentIdChanged(IModelObject parentMo ){
 		// Assocations from CsModelObjects.Employee
 		if ( parentMo is CsModelObjects.Employee) {
-			this.EPEmployeeId= ((CsModelObjects.Employee)parentMo).EmployeeId;
+			this.PrEPEmployeeId= ((CsModelObjects.Employee)parentMo).PrEmployeeId;
 		}
 		// Assocations from CsModelObjects.Project
 		if ( parentMo is CsModelObjects.Project) {
-			this.EPProjectId= ((CsModelObjects.Project)parentMo).ProjectId;
+			this.PrEPProjectId= ((CsModelObjects.Project)parentMo).PrProjectId;
 		}
 		// Assocations from CsModelObjects.Project
 		if ( parentMo is CsModelObjects.Project) {
-			this.EPProjectId= ((CsModelObjects.Project)parentMo).ProjectId;
+			this.PrEPProjectId= ((CsModelObjects.Project)parentMo).PrProjectId;
 		}
 	}
 #endregion
@@ -633,10 +633,10 @@ if ( o.Rate != null &&
 
 		public void validate(org.model.lib.Model.IModelObject imo) {
 			EmployeeProject mo = (EmployeeProject)imo;
-if (mo.EPEmployeeId == null ) {
+if (mo.PrEPEmployeeId == null ) {
 		throw new ModelObjectRequiredFieldException("EPEmployeeId");
 }
-if (mo.EPProjectId == null ) {
+if (mo.PrEPProjectId == null ) {
 		throw new ModelObjectRequiredFieldException("EPProjectId");
 }
 

@@ -29,22 +29,20 @@ namespace CsModelObjects
 	#region "Interface"
 [System.Runtime.InteropServices.ComVisible(false)] 
 	public interface IEmployeeInfo: IModelObject {
-	System.Int64 EmployeeInfoId {get;set;} 
-	System.Int64? EIEmployeeId {get;set;} 
-	System.Decimal? Salary {get;set;} 
-	System.String Address {get;set;} 
+	System.Int64 PrEmployeeInfoId {get;set;} 
+	System.Int64? PrEIEmployeeId {get;set;} 
+	System.Decimal? PrSalary {get;set;} 
+	System.String PrAddress {get;set;} 
 }
 #endregion
 
 	
 	[DefaultMapperAttr(typeof(CsModelMappers.EmployeeInfoDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class EmployeeInfoBase : ModelObject, IEquatable<EmployeeInfoBase>, IEmployeeInfo
-	{
+	public class EmployeeInfoBase : ModelObject, IEquatable<EmployeeInfoBase>, IEmployeeInfo {
 
 		#region "Constructor"
 
-		public EmployeeInfoBase()
-		{
+		public EmployeeInfoBase() {
 			this.addValidator(new EmployeeInfoRequiredFieldsValidator());
 		}
 
@@ -53,7 +51,7 @@ namespace CsModelObjects
 		#region "Children and Parents"
 		
 		public override void loadObjectHierarchy() {
-			
+
 		}
 
 		/// <summary>
@@ -117,7 +115,7 @@ namespace CsModelObjects
 
 		#region "Field Properties"
 
-	public virtual System.Int64 EmployeeInfoId  {
+	public virtual System.Int64 PrEmployeeInfoId  {
 	get {
 		return _EmployeeInfoId;
 	} 
@@ -136,14 +134,14 @@ namespace CsModelObjects
 	}
 public void setEmployeeInfoId(String val){
 	if (Information.IsNumeric(val)) {
-		this.EmployeeInfoId = Convert.ToInt32(val);
+		this.PrEmployeeInfoId = Convert.ToInt32(val);
 	} else if (String.IsNullOrEmpty(val)) {
 		throw new ApplicationException("Cant update Primary Key to Null");
 	} else {
 		throw new ApplicationException("Invalid Integer Number, field:EmployeeInfoId, value:" + val);
 	}
 }
-	public virtual System.Int64? EIEmployeeId  {
+	public virtual System.Int64? PrEIEmployeeId  {
 	get {
 		return _EIEmployeeId;
 	} 
@@ -160,14 +158,14 @@ public void setEmployeeInfoId(String val){
 	}
 public void setEIEmployeeId(String val){
 	if (Information.IsNumeric(val)) {
-		this.EIEmployeeId = Convert.ToInt32(val);
+		this.PrEIEmployeeId = Convert.ToInt32(val);
 	} else if (String.IsNullOrEmpty(val)) {
-		this.EIEmployeeId = null;
+		this.PrEIEmployeeId = null;
 	} else {
 		throw new ApplicationException("Invalid Integer Number, field:EIEmployeeId, value:" + val);
 	}
 }
-	public virtual System.Decimal? Salary  {
+	public virtual System.Decimal? PrSalary  {
 	get {
 		return _Salary;
 	} 
@@ -184,14 +182,14 @@ public void setEIEmployeeId(String val){
 	}
 public void setSalary(String val ){
 	if (Information.IsNumeric(val)) {
-		this.Salary =  Convert.ToDecimal(val);
+		this.PrSalary =  Convert.ToDecimal(val);
 	} else if ( string.IsNullOrEmpty(val) ) {
-		this.Salary = null;
+		this.PrSalary = null;
 	} else {
 		throw new ApplicationException("Invalid Decimal Number, field:Salary, value:" + val);
 	}
 }
-	public virtual System.String Address  {
+	public virtual System.String PrAddress  {
 	get {
 		return _Address;
 	} 
@@ -208,9 +206,9 @@ public void setSalary(String val ){
 	}
 public void setAddress( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
-		this.Address = val;
+		this.PrAddress = val;
 	} else {
-		this.Address = null;
+		this.PrAddress = null;
 	}
 }
 
@@ -221,13 +219,13 @@ public void setAddress( String val ) {
 
 		switch (fieldKey) {
 		case FLD_EMPLOYEEINFOID:
-			return this.EmployeeInfoId;
+			return this.PrEmployeeInfoId;
 		case FLD_EIEMPLOYEEID:
-			return this.EIEmployeeId;
+			return this.PrEIEmployeeId;
 		case FLD_SALARY:
-			return this.Salary;
+			return this.PrSalary;
 		case FLD_ADDRESS:
-			return this.Address;
+			return this.PrAddress;
 		default:
 			return null;
 		} //end switch
@@ -238,13 +236,13 @@ public void setAddress( String val ) {
 			fieldKey = fieldKey.ToLower();
 
 		if (fieldKey==STR_FLD_EMPLOYEEINFOID.ToLower() ) {
-			return this.EmployeeInfoId;
+			return this.PrEmployeeInfoId;
 		} else if (fieldKey==STR_FLD_EIEMPLOYEEID.ToLower() ) {
-			return this.EIEmployeeId;
+			return this.PrEIEmployeeId;
 		} else if (fieldKey==STR_FLD_SALARY.ToLower() ) {
-			return this.Salary;
+			return this.PrSalary;
 		} else if (fieldKey==STR_FLD_ADDRESS.ToLower() ) {
-			return this.Address;
+			return this.PrAddress;
 		} else {
 			return null;
 		}
@@ -256,28 +254,28 @@ public void setAddress( String val ) {
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			}else{
-				this.EmployeeInfoId=(System.Int64)val;
+				this.PrEmployeeInfoId=(System.Int64)val;
 			} //
 			return;
 		case FLD_EIEMPLOYEEID:
 			if (val == DBNull.Value || val == null ){
-				this.EIEmployeeId = null;
+				this.PrEIEmployeeId = null;
 			}else{
-				this.EIEmployeeId=(System.Int64)val;
+				this.PrEIEmployeeId=(System.Int64)val;
 			} //
 			return;
 		case FLD_SALARY:
 			if (val == DBNull.Value || val == null ){
-				this.Salary = null;
+				this.PrSalary = null;
 			}else{
-				this.Salary=(System.Decimal)val;
+				this.PrSalary=(System.Decimal)val;
 			} //
 			return;
 		case FLD_ADDRESS:
 			if (val == DBNull.Value || val == null ){
-				this.Address = null;
+				this.PrAddress = null;
 			}else{
-				this.Address=(System.String)val;
+				this.PrAddress=(System.String)val;
 			} //
 			return;
 		default:
@@ -292,28 +290,28 @@ public void setAddress( String val ) {
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.EmployeeInfoId=(System.Int64)val;
+				this.PrEmployeeInfoId=(System.Int64)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_EIEMPLOYEEID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.EIEmployeeId = null;
+				this.PrEIEmployeeId = null;
 			} else {
-				this.EIEmployeeId=(System.Int64)val;
+				this.PrEIEmployeeId=(System.Int64)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_SALARY.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.Salary = null;
+				this.PrSalary = null;
 			} else {
-				this.Salary=(System.Decimal)val;
+				this.PrSalary=(System.Decimal)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_ADDRESS.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.Address = null;
+				this.PrAddress = null;
 			} else {
-				this.Address=(System.String)val;
+				this.PrAddress=(System.String)val;
 			}
 			return;
 		}
@@ -330,20 +328,20 @@ public void setAddress( String val ) {
 			if (object.ReferenceEquals(other, this))
 				return true;
 
-			return this.EmployeeInfoId == other.EmployeeInfoId
-				&& this.EIEmployeeId.GetValueOrDefault() == other.EIEmployeeId.GetValueOrDefault()
-				&& this.Salary.GetValueOrDefault() == other.Salary.GetValueOrDefault()
-				&& this.Address == other.Address;;
+			return this.PrEmployeeInfoId == other.PrEmployeeInfoId
+				&& this.PrEIEmployeeId.GetValueOrDefault() == other.PrEIEmployeeId.GetValueOrDefault()
+				&& this.PrSalary.GetValueOrDefault() == other.PrSalary.GetValueOrDefault()
+				&& this.PrAddress == other.PrAddress;;
 
 		}
 
 		public override int GetHashCode()
 		{
 			//using Xor has the advantage of not overflowing the integer.
-			return this.EmployeeInfoId.GetHashCode()
-				 ^ this.EIEmployeeId.GetHashCode()
-				 ^ this.Salary.GetHashCode()
-				 ^ this.getStringHashCode(this.Address);;
+			return this.PrEmployeeInfoId.GetHashCode()
+				 ^ this.PrEIEmployeeId.GetHashCode()
+				 ^ this.PrSalary.GetHashCode()
+				 ^ this.getStringHashCode(this.PrAddress);;
 
 		}
 
@@ -381,10 +379,10 @@ public void setAddress( String val ) {
 			//instantiate a EmployeeInfo, NOT a EmployeeInfoBase object
 			EmployeeInfo ret = EmployeeInfoFactory.Create();
 
-		ret.EmployeeInfoId = this.EmployeeInfoId;
-		ret.EIEmployeeId = this.EIEmployeeId;
-		ret.Salary = this.Salary;
-		ret.Address = this.Address;
+		ret.PrEmployeeInfoId = this.PrEmployeeInfoId;
+		ret.PrEIEmployeeId = this.PrEIEmployeeId;
+		ret.PrSalary = this.PrSalary;
+		ret.PrAddress = this.PrAddress;
 
 
 
@@ -398,17 +396,17 @@ public void setAddress( String val ) {
 
 			EmployeeInfo o = (EmployeeInfo)other;
 
-if ( o.EIEmployeeId != null && 
-		 this.EIEmployeeId == null){
-		this.EIEmployeeId = o.EIEmployeeId;
+if ( o.PrEIEmployeeId != null && 
+		 this.PrEIEmployeeId == null){
+		this.PrEIEmployeeId = o.PrEIEmployeeId;
 }
-if ( o.Salary != null && 
-		 this.Salary == null){
-		this.Salary = o.Salary;
+if ( o.PrSalary != null && 
+		 this.PrSalary == null){
+		this.PrSalary = o.PrSalary;
 }
-if (! string.IsNullOrEmpty(o.Address) && 
-		 string.IsNullOrEmpty(this.Address)){
-		this.Address = o.Address;
+if (! string.IsNullOrEmpty(o.PrAddress) && 
+		 string.IsNullOrEmpty(this.PrAddress)){
+		this.PrAddress = o.PrAddress;
 }
 
 
@@ -423,7 +421,7 @@ if (! string.IsNullOrEmpty(o.Address) &&
 	public override void handleParentIdChanged(IModelObject parentMo ){
 		// Assocations from CsModelObjects.Employee
 		if ( parentMo is CsModelObjects.Employee) {
-			this.EIEmployeeId= ((CsModelObjects.Employee)parentMo).EmployeeId;
+			this.PrEIEmployeeId= ((CsModelObjects.Employee)parentMo).PrEmployeeId;
 		}
 	}
 #endregion
@@ -455,7 +453,7 @@ if (! string.IsNullOrEmpty(o.Address) &&
 
 		public void validate(org.model.lib.Model.IModelObject imo) {
 			EmployeeInfo mo = (EmployeeInfo)imo;
-if (mo.EIEmployeeId == null ) {
+if (mo.PrEIEmployeeId == null ) {
 		throw new ModelObjectRequiredFieldException("EIEmployeeId");
 }
 

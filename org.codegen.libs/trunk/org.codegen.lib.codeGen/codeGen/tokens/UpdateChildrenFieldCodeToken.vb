@@ -31,8 +31,8 @@ Namespace Tokens
 
                     sAssociationsCode.Append(TWO_TABS & "// Assocations from " & parentMoObjType & vbCrLf)
                     sAssociationsCode.Append(TWO_TABS & "if ( parentMo is " & parentMoObjType & ") {" & vbCrLf)
-                    sAssociationsCode.Append(TWO_TABS & vbTab & "this." & meField & _
-                                             "= ((" & parentMoObjType & ")parentMo)." & relField & ";" & vbCrLf)
+					sAssociationsCode.Append(TWO_TABS & vbTab & "this." & ModelGenerator.Current.FieldPropertyPrefix & meField & _
+			"= ((" & parentMoObjType & ")parentMo)." & ModelGenerator.Current.FieldPropertyPrefix & relField & ";" & vbCrLf)
                     sAssociationsCode.Append(TWO_TABS & "}" & vbCrLf)
 
                 End If
@@ -72,13 +72,13 @@ Namespace Tokens
                 If (dtype.Equals(sClassKey)) Then
 
                     Dim parentMoObjType As String = association.ParentDatatype()
-                    Dim meField As String = DBTable.getRuntimeName(association.ChildFieldName)
+					Dim meField As String = DBTable.getRuntimeName(association.ChildFieldName)
                     Dim relField As String = DBTable.getRuntimeName(association.ParentFieldName)
 
                     sAssociationsCode.Append(TWO_TABS & "' Assocations from " & parentMoObjType & vbCrLf)
                     sAssociationsCode.Append(TWO_TABS & "if (typeof parentMo is " & parentMoObjType & ") Then" & vbCrLf)
-                    sAssociationsCode.Append(TWO_TABS & vbTab & "me." & meField & _
-                                             "= DirectCast(parentMo, " & parentMoObjType & ")." & relField & vbCrLf)
+					sAssociationsCode.Append(TWO_TABS & vbTab & "me." & ModelGenerator.Current.FieldPropertyPrefix & meField & _
+						   "= DirectCast(parentMo, " & parentMoObjType & ")." & ModelGenerator.Current.FieldPropertyPrefix & relField & vbCrLf)
                     sAssociationsCode.Append(TWO_TABS & "End If" & vbCrLf)
 
                 End If

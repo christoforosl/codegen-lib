@@ -35,9 +35,7 @@ Public Class Association
             Throw New System.ArgumentException("cardinality must be 1 or *")
         End If
 
-    End Sub
-
-
+	End Sub
 
     ''' <summary>
     ''' declartation of this in the properties of the interface
@@ -48,24 +46,24 @@ Public Class Association
         Dim sbdr As StringBuilder = New StringBuilder()
 
         If Me.isCardinalityMany Then
-            sbdr.Append("Property " & Me.associationName & " as "). _
-               Append("IEnumerable(Of " & Me.DataType & ")")
+			sbdr.Append("Property " & ModelGenerator.Current.FieldPropertyPrefix & Me.associationName & " as "). _
+			   Append("IEnumerable(Of " & Me.DataType & ")")
 
             sbdr.Append(vbCrLf)
-            sbdr.Append(vbTab & vbTab & "Sub Add").Append(Me.associationNameSingular).Append("(val as "). _
-                                Append(Me.DataType).Append(")").Append(vbCrLf)
-            sbdr.Append(vbTab & vbTab & "Sub Remove").Append(Me.associationNameSingular).Append("(val as "). _
-                                Append(Me.DataType).Append(")").Append(vbCrLf)
+			sbdr.Append(vbTab & vbTab & "Sub ").Append(Me.associationNameSingular).Append("Add(val as "). _
+								Append(Me.DataType).Append(")").Append(vbCrLf)
+			sbdr.Append(vbTab & vbTab & "Sub ").Append(Me.associationNameSingular).Append("Remove(val as "). _
+								Append(Me.DataType).Append(")").Append(vbCrLf)
 
-            sbdr.Append(vbTab & vbTab & "Function getDeleted").Append(Me.associationName).Append("() as IEnumerable(Of "). _
-                                Append(Me.DataType).Append(")").Append(vbCrLf)
+			sbdr.Append(vbTab & vbTab & "Function ").Append(Me.associationName).Append("GetDeleted() as IEnumerable(Of "). _
+		Append(Me.DataType).Append(")").Append(vbCrLf)
 
-            sbdr.Append(vbTab & vbTab & "Function get").Append(Me.associationNameSingular).Append("(ByVal i As Integer) as "). _
-                                Append(Me.DataType).Append(vbCrLf)
+			sbdr.Append(vbTab & vbTab & "Function ").Append(Me.associationNameSingular).Append("GetAt(ByVal i As Integer) as "). _
+								Append(Me.DataType).Append(vbCrLf)
             '
         Else
-            sbdr.Append("Property " & Me.associationName & " as "). _
-                                Append(Me.getDataTypeVariable)
+			sbdr.Append("Property " & ModelGenerator.Current.FieldPropertyPrefix & Me.associationName & " as "). _
+								Append(Me.getDataTypeVariable)
         End If
         Return sbdr.ToString
     End Function
@@ -149,7 +147,7 @@ Public Class Association
 
 				ret += vbTab + vbTab + vbTab + "Dim mappervar as " & mapperClassName & "= new " & mapperClassName & "(me.dbConn)" & vbCrLf
 				ret += vbTab + vbTab + vbTab + "mappervar.save(thisMo." & Me.getGet() & ")" & vbCrLf
-				ret += vbTab + vbTab & vbTab + "thisMo." & DBTable.getRuntimeName(Me.ChildFieldName()) & " = thisMo." & Me.getGet() & "." & DBTable.getRuntimeName(Me.ParentFieldName()) & vbCrLf
+				ret += vbTab + vbTab & vbTab + "thisMo." & ModelGenerator.Current.FieldPropertyPrefix & DBTable.getRuntimeName(Me.ChildFieldName()) & " = thisMo." & Me.getGet() & "." & ModelGenerator.Current.FieldPropertyPrefix & DBTable.getRuntimeName(Me.ParentFieldName()) & vbCrLf
 				ret += vbTab + vbTab & "end if" & vbCrLf
 				ret += vbTab + vbTab + vbCrLf
 
@@ -198,7 +196,7 @@ Public Class Association
 
                 If Me.isCardinalityMany Then
                     ret &= vbTab & vbTab & vbTab & mappervar & ".saveList(ret." & Me.getGet() & "())" & vbCrLf
-                    ret &= vbTab & vbTab & vbTab & mappervar & ".deleteList(ret.getDeleted" & Me.associationName() & "())" & vbCrLf
+					ret &= vbTab & vbTab & vbTab & mappervar & ".deleteList(ret." & Me.associationName() & "GetDeleted())" & vbCrLf
                 Else
                     ret &= vbTab & vbTab & vbTab & mappervar & ".save(ret." & Me.getGet() & "())" & vbCrLf
                 End If
@@ -224,12 +222,12 @@ Public Class Association
     End Function
 
     Public Overridable Function getSet() As String Implements IAssociation.getSet
-        Return "" & getCanonicalName()
+		Return ModelGenerator.Current.FieldPropertyPrefix & getCanonicalName()
     End Function
 
 
     Public Overridable Function getGet() As String Implements IAssociation.getGet
-        Return "" & getCanonicalName()
+		Return ModelGenerator.Current.FieldPropertyPrefix & getCanonicalName()
     End Function
 
     Public Property PropertiesImplementInterface() As String Implements IAssociation.PropertiesImplementInterface
@@ -251,7 +249,7 @@ Public Class Association
 
         stmpl = stmpl.Replace("<sort>", CStr(IIf(String.IsNullOrEmpty(Me.SortField) = False, _
                                                  "Me._<association_name>.Sort()", "")))
-
+		stmpl = stmpl.Replace("<prop_prefix>", ModelGenerator.Current.FieldPropertyPrefix)
         stmpl = stmpl.Replace("<association_name_singular>", Me.associationNameSingular)
         stmpl = stmpl.Replace("<association_name>", fieldName)
         stmpl = stmpl.Replace("<db_mapper>", _
@@ -297,20 +295,20 @@ Public Class Association
     Public Property isSortAsc() As Boolean Implements IAssociation.isSortAsc
     Public Property SortField() As String Implements IAssociation.SortField
 
-    Public ReadOnly Property templateText() As String Implements IAssociation.templateText
-        Get
-            If Me._relationType = STR_RELATION_CLIENT Then
-                If Me.isCardinalityMany Then
-                    Return ChildManyTemplate
-                Else
-                    Return ChildOneTemplate
-                End If
-            Else
-                Return ParentTemplate
-            End If
-        End Get
+	Public ReadOnly Property templateText() As String Implements IAssociation.templateText
+		Get
+			If Me._relationType = STR_RELATION_CLIENT Then
+				If Me.isCardinalityMany Then
+					Return ChildManyTemplate
+				Else
+					Return ChildOneTemplate
+				End If
+			Else
+				Return ParentTemplate
+			End If
+		End Get
 
-    End Property
+	End Property
 
     Public Shared Property ChildManyTemplate() As String
         Get

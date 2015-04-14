@@ -14,7 +14,7 @@ Namespace Tokens
             Dim SortAsc As Boolean = CBool(XMLClassGenerator.getRowValue(t.XMLDefinition, XMLClassGenerator.XML_ATTR_SORT_ASC, "1"))
 
             If String.IsNullOrEmpty(SortField) Then Return String.Empty
-            Dim sortExpression As String = String.Empty
+			Dim sortExpression As String = ModelGenerator.Current.FieldPropertyPrefix
 
             If t.DbTable.hasFieldName(SortField.ToLower) Then
                 If t.DbTable.Fields(SortField.ToLower).isNullableDataType Then
@@ -30,8 +30,8 @@ Namespace Tokens
             Dim ret As String = "public int CompareTo(" & CType(t, ObjectToGenerate).ClassName & " other ) {" & vbCrLf 
 
             Dim sortAscDesc As String = CStr(IIf(SortAsc = False, "-1 * ", ""))
-            ret += vbTab & vbTab & "return " & sortAscDesc & " this." & _
-                      sortExpression & ".CompareTo(other." & sortExpression & ");" & vbCrLf
+			ret += vbTab & vbTab & "return " & sortAscDesc & " this." & ModelGenerator.Current.FieldPropertyPrefix & _
+				sortExpression & ".CompareTo(other." & ModelGenerator.Current.FieldPropertyPrefix & sortExpression & ");" & vbCrLf
 
             ret += vbTab & "}" & vbCrLf
             Return ret
@@ -43,7 +43,7 @@ Namespace Tokens
             Dim SortAsc As Boolean = CBool(XMLClassGenerator.getRowValue(t.XMLDefinition, XMLClassGenerator.XML_ATTR_SORT_ASC, "1"))
 
             If String.IsNullOrEmpty(SortField) Then Return String.Empty
-            Dim sortExpression As String = String.Empty
+			Dim sortExpression As String
 
             If t.DbTable.hasFieldName(SortField.ToLower) Then
                 If t.DbTable.Fields(SortField.ToLower).isNullableDataType Then
@@ -60,8 +60,8 @@ Namespace Tokens
                                vbTab & vbTab & " Implements System.IComparable(Of " & CType(t, ObjectToGenerate).ClassName & ").CompareTo" & vbCrLf & vbCrLf
 
             Dim sortAscDesc As String = CStr(IIf(SortAsc = False, "-1 * ", ""))
-            ret += vbTab & vbTab & "Return " & sortAscDesc & " Me." & _
-                      sortExpression & ".CompareTo(other." & sortExpression & ")" & vbCrLf
+			ret += vbTab & vbTab & "Return " & sortAscDesc & " Me." & ModelGenerator.Current.FieldPropertyPrefix & _
+			 sortExpression & ".CompareTo(other." & ModelGenerator.Current.FieldPropertyPrefix & sortExpression & ")" & vbCrLf
 
             ret += vbTab & "End Function" & vbCrLf
             Return ret

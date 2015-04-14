@@ -209,8 +209,6 @@ Namespace Tokens
 		End Function
 	End Class
 
-
-
 	Public Class FillStatementToken
 		Inherits MultiLingualReplacementToken
 
@@ -316,8 +314,8 @@ Namespace Tokens
 			For Each field As DBField In vec.Values
 				'field.OriginalRuntimeType
 				Dim fldsetter As String = String.Format(setFromRs, _
-						DBTable.getRuntimeName(field.FieldName()), _
-						Me.getDataReaderGetter(field), field.getConstant())
+				  field.PropertyName, _
+				  Me.getDataReaderGetter(field), field.getConstant())
 				sb.Append(fldsetter)
 
 				sb.Append(vbCrLf)
@@ -332,16 +330,16 @@ Namespace Tokens
 			Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
 
 			Dim setFromRs As String = vbTab & vbTab & vbTab & "if me.reader.IsDBNull(DATAREADER_{2}) = false Then" & vbCrLf & _
-					vbTab & vbTab & vbTab & vbTab & "obj.{0} = {1}" & vbCrLf & _
-					vbTab & vbTab & vbTab & "End if"
+			  vbTab & vbTab & vbTab & vbTab & "obj.{0} = {1}" & vbCrLf & _
+			  vbTab & vbTab & vbTab & "End if"
 
 			'me.setFields(rs.getString(FIELD));
 
 			For Each field As DBField In vec.Values
 				'field.OriginalRuntimeType
 				Dim fldsetter As String = String.Format(setFromRs, _
-						DBTable.getRuntimeName(field.FieldName()), _
-						Me.getDataReaderGetter(field), field.getConstant())
+				  field.PropertyName, _
+				  Me.getDataReaderGetter(field), field.getConstant())
 				sb.Append(fldsetter)
 				sb.Append(vbCrLf)
 			Next

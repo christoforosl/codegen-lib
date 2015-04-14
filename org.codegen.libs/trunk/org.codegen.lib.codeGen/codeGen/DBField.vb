@@ -187,12 +187,12 @@ Public Class DBField
             Dim dbtype As String = TypeConvertor.ToDbType(Me._OriginalRuntimeType).ToString
             Dim param As String = vbTab & vbTab & vbTab & _
                             "stmt.Parameters.Add( Me.dbConn.getParameter(""" & paramPrefix & "{0}"",obj.{1}))" & vbCrLf
-            ret = String.Format(param, Me.FieldName, Me.RuntimeFieldName)
+			ret = String.Format(param, Me.FieldName, Me.PropertyName)
         Else
             Dim dbtype As String = TypeConvertor.ToDbType(Me._OriginalRuntimeType).ToString
             Dim param As String = vbTab & vbTab & vbTab & _
                             "stmt.Parameters.Add( this.dbConn.getParameter(""" & paramPrefix & "{0}"",obj.{1}));" & vbCrLf
-            ret = String.Format(param, Me.FieldName, Me.RuntimeFieldName)
+			ret = String.Format(param, Me.FieldName, Me.PropertyName)
         End If
 
 
@@ -200,6 +200,16 @@ Public Class DBField
 
     End Function
 
+	Public Overridable ReadOnly Property PropertyName() As String Implements IDBField.PropertyName
+		Get
+			If Me.isAuditField Then
+				Return DBTable.getRuntimeName(Me.FieldName())
+			Else
+				Return ModelGenerator.Current.FieldPropertyPrefix & DBTable.getRuntimeName(Me.FieldName())
+			End If
+
+		End Get
+	End Property
 
     Public Overridable ReadOnly Property RuntimeFieldName() As String Implements IDBField.RuntimeFieldName
         Get

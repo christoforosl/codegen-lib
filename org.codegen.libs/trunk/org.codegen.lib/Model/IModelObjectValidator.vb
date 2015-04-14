@@ -6,5 +6,14 @@
 ''' </summary>
 ''' <remarks></remarks>
 Public Interface IModelObjectValidator
-    Sub validate(ByVal mo As IModelObject)
+	Sub validate(ByVal mo As IModelObject)
 End Interface
+
+Public Interface IModelObjectPersistenceService
+
+	Sub beforeSave(ByVal mo As IModelObject)
+	Sub afterSave(ByVal mo As IModelObject)
+
+End Interface
+
+

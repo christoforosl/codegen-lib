@@ -41,7 +41,7 @@ Namespace Tokens
                 For Each association As IAssociation In vec
                     If association.isParent Then
                         sb.Append("if  (this." & association.getVariableName() & "Loaded) {" & vbCrLf)
-                        sb.Append("ret.Add(this." & association.getVariableName() & ");" & vbCrLf)
+						sb.Append("ret.Add(this.").Append(ModelGenerator.Current.FieldPropertyPrefix).Append(association.getVariableName()).Append(");").Append(vbCrLf)
                         sb.Append("}" & vbCrLf)
 
                     End If
@@ -66,7 +66,7 @@ Namespace Tokens
                 For Each association As IAssociation In vec
                     If association.isParent Then
                         sb.Append("if  Me._" & association.getVariableName() & "Loaded Then" & vbCrLf)
-                        sb.Append("ret.Add(me." & association.getVariableName() & ")" & vbCrLf)
+						sb.Append("ret.Add(me." & ModelGenerator.Current.FieldPropertyPrefix & association.getVariableName() & ")" & vbCrLf)
                         sb.Append("End If" & vbCrLf)
 
                     End If
@@ -91,7 +91,7 @@ Namespace Tokens
 
 		Public Overrides Function getReplacementCode(t As dotnet.IObjectToGenerate) As String
 			Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
-			Dim endOfLine As String = ""
+			Dim endOfLine As String = "()"
 			If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP Then
 				endOfLine = "();"
 			End If
@@ -100,7 +100,7 @@ Namespace Tokens
 				Dim vec As List(Of IAssociation) = t.DbTable.Associations()
 
 				For Each association As IAssociation In vec
-					sb.Append(vbTab).Append(vbTab).Append("load").Append(association.getGet()).Append(endOfLine).Append(vbCrLf)
+					sb.Append(vbTab).Append(vbTab).Append("load").Append(association.associationName()).Append(endOfLine).Append(vbCrLf)
 				Next
 			End If
 
@@ -136,8 +136,8 @@ Namespace Tokens
 							sb.Append(vbTab & vbTab & "ret.AddRange(lp);" & vbCrLf)
 							sb.Append(vbTab & "}" & vbCrLf)
 						Else
-							sb.Append(vbTab & "if  (this." & association.getVariableName() & "!=null) {" & vbCrLf)
-							sb.Append(vbTab & vbTab & "ret.Add(this." & association.getVariableName() & ");" & vbCrLf)
+							sb.Append(vbTab & "if  (this." & ModelGenerator.Current.FieldPropertyPrefix & association.getVariableName() & "!=null) {" & vbCrLf)
+							sb.Append(vbTab & vbTab & "ret.Add(this." & ModelGenerator.Current.FieldPropertyPrefix & association.getVariableName() & ");" & vbCrLf)
 							sb.Append(vbTab & "}" & vbCrLf)
 						End If
 
@@ -169,7 +169,7 @@ Namespace Tokens
 							sb.Append(vbTab & "End If" & vbCrLf)
 						Else
 							sb.Append(vbTab & "if  Me._" & association.getVariableName() & " isNot Nothing then" & vbCrLf)
-							sb.Append(vbTab & vbTab & "ret.Add(me." & association.getVariableName() & ")" & vbCrLf)
+							sb.Append(vbTab & vbTab & "ret.Add(me." & ModelGenerator.Current.FieldPropertyPrefix & association.getVariableName() & ")" & vbCrLf)
 							sb.Append(vbTab & "End If" & vbCrLf)
 						End If
 
@@ -256,16 +256,12 @@ Namespace Tokens
 				Dim proGen As IPropertyGenerator = ModelGenerator.Current.IPropertyGenerator
 
 				For Each field As DBField In vec.Values
-
 					sb.Append(proGen.generateInterfaceDeclaration(field))
-
-
 				Next
 
 				For Each ass As IAssociation In t.DbTable.Associations
 					sb.Append(vbTab & ass.getInterfaceDeclaration)
 					sb.Append(vbCrLf)
-
 				Next
 
 				sb.Append("End Interface")
@@ -280,53 +276,6 @@ Namespace Tokens
 
 	End Class
 
-	'Public Class CSharpGeneratedInterfaceToken
-	'    Inherits ReplacementToken
-
-	'    Sub New()
-	'        Me.StringToReplace = "MODEL_INTERFACE_DEFINITION"
-	'    End Sub
-
-	'    Public Overrides Function getReplacementCode(ByVal t As IObjectToGenerate) As String
-
-	'        Dim sb As StringBuilder = New StringBuilder()
-	'        Dim PropertyInterface As String = _
-	'            DirectCast(t.FileGroup(ModelObjectFileComponent.KEY), DotNetClassFileComponent).ClassInterface
-
-	'        If String.IsNullOrEmpty(PropertyInterface) = False Then
-	'            t.DbTable.addImplemetedInterface(PropertyInterface)
-
-	'            sb.Append("#region ""Interface""")
-	'            sb.Append(vbCrLf)
-	'            sb.Append("[System.Runtime.InteropServices.ComVisible(false)] " & vbCrLf)
-	'            sb.Append(vbTab & "public interface " & PropertyInterface & ":" & _
-	'                                    " IModelObject {")
-	'            sb.Append(vbCrLf)
-
-	'            Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
-	'            Dim proGen As IPropertyGenerator = ModelGenerator.Current.IPropertyGenerator
-
-	'            For Each field As DBField In vec.Values
-	'                sb.Append(proGen.generateInterfaceDeclaration(field))
-	'            Next
-
-	'            For Each ass As IAssociation In t.DbTable.Associations
-	'                sb.Append(vbTab & ass.getInterfaceDeclaration)
-	'                sb.Append(vbCrLf)
-
-	'            Next
-
-	'            sb.Append("}")
-	'            sb.Append(vbCrLf)
-	'            sb.Append("#endregion")
-	'            sb.Append(vbCrLf)
-
-	'        End If
-	'        Return sb.ToString
-	'    End Function
-
-
-	'End Class
 	Public Class RequiredFieldValidatorToken
 		Inherits MultiLingualReplacementToken
 
@@ -347,11 +296,11 @@ Namespace Tokens
 					If field.isNullableDataType Then
 
 						'If sb.Length > 0 Then sb.Append(" _").Append(vbCrLf & vbTab & vbTab).Append(" orElse ")
-						sb.Append("if (mo.").Append(field.RuntimeFieldName).Append(" == null ) {")
+						sb.Append("if (mo.").Append(field.PropertyName).Append(" == null ) {")
 
 					Else
 						'If sb.Length > 0 Then sb.Append(" _").Append(vbCrLf & vbTab & vbTab).Append(" orElse ")
-						sb.Append("if (string.IsNullOrEmpty( mo.").Append(field.RuntimeFieldName).Append(")) {")
+						sb.Append("if (string.IsNullOrEmpty( mo.").Append(field.PropertyName).Append(")) {")
 
 					End If
 					sb.Append(vbCrLf)
@@ -382,11 +331,11 @@ Namespace Tokens
 					If field.isNullableDataType Then
 
 						'If sb.Length > 0 Then sb.Append(" _").Append(vbCrLf & vbTab & vbTab).Append(" orElse ")
-						sb.Append("if mo.").Append(field.RuntimeFieldName).Append(" is Nothing then")
+						sb.Append("if mo.").Append(field.PropertyName).Append(" is Nothing then")
 
 					Else
 						'If sb.Length > 0 Then sb.Append(" _").Append(vbCrLf & vbTab & vbTab).Append(" orElse ")
-						sb.Append("if String.isNullOrEmpty( mo.").Append(field.RuntimeFieldName).Append(") Then")
+						sb.Append("if String.isNullOrEmpty( mo.").Append(field.PropertyName).Append(") Then")
 
 					End If
 					sb.Append(vbCrLf)

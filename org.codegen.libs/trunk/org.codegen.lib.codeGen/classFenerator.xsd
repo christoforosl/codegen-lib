@@ -60,31 +60,48 @@
           <xs:simpleType>
             <xs:restriction base="xs:string">
               <xs:enumeration value="ASP.NET" />
+			  <xs:enumeration value="MVC.NET" />
               <xs:enumeration value="WINDOWS FORMS" />
               
             </xs:restriction>
           </xs:simpleType>
           
         </xs:element>
-        
-        <xs:element name="defaultNamespace" minOccurs="1" type="xs:string"  
-                      default="ModelObjects" />
-        <!-- Default namespace. Important Note: The name space drives the output path of the Files.
-             Every dot "." is replaced by "\" and the default output dir as inserted
-        
-        -->
-        
-       <xs:element name="defaultDBMapperNameSpace"  minOccurs="0" type="xs:string" />
-        <!-- Default Namespace of DBMappers
-             If not specified, value is "defaultNamespace" above
-             Important Note: The name space drives the output path of the DBMapper Files.
-             Every dot "." is replaced by "\" and the default output dir as inserted
-             
-             Also, the sql files are also placed in the same directory as the DBMappers
-        -->
+
+		<xs:element name="defaultNamespace" minOccurs="1" type="xs:string">
+		  <xs:annotation>
+			<xs:documentation>
+			  Default namespace. Important Note: The name space drives the output path of the Files.
+			  Every dot "." is replaced by "\" and the default output dir as inserted
+			</xs:documentation>
+		  </xs:annotation>
+		</xs:element>
+		
+       <xs:element name="defaultDBMapperNameSpace"  minOccurs="0" type="xs:string">
+         <xs:annotation>
+		   <xs:documentation>
+			 Default Namespace of DBMappers
+			 If not specified, value is "defaultNamespace" above
+			 Important Note: The name space drives the output path of the DBMapper Files.
+			 Every dot "." is replaced by "\" and the default output dir as inserted
+
+			 Also, the sql files are also placed in the same directory as the DBMappers
+		   </xs:documentation>
+		 </xs:annotation>
+
+	   </xs:element>
+		
         <xs:element name="TestClassNameSpace"  minOccurs="0" type="xs:string" default="" />
-        
-        <xs:element name="dbConnectionString" type="xs:string" minOccurs="1" />
+
+		<xs:element name="propertiesPrefix"  minOccurs="0" type="xs:string" default="Fld">
+		  <xs:annotation>
+			<xs:documentation>
+			  If this is specified, all field properties will be prefixed with the supplied string
+			</xs:documentation>
+		  </xs:annotation>
+		</xs:element>
+		
+		<xs:element name="dbConnectionString" type="xs:string" minOccurs="1" />
         <xs:element name="dbConnectionDialect" minOccurs="1">
             <xs:simpleType>
             <xs:restriction base="xs:string">
@@ -107,16 +124,7 @@
         </xs:simpleType>
         </xs:element>
 
-        <xs:element name="IPropertyGeneratorClassName" minOccurs="0" type="xs:string">
-          <xs:annotation>
-            <xs:documentation>
-              Fully qualifield assembly and name of class used to generate the properties of the model objects.
-              If present, the system will call Type.GetType( IPropertyGenerator string ) and instantiate the type
-              returned
-            </xs:documentation>
-          </xs:annotation>
-        </xs:element>
-        
+                
         <xs:element maxOccurs="unbounded" minOccurs="1" name="table">
           
           <xs:complexType>
@@ -141,42 +149,6 @@
 
               </xs:element>
               
-              <xs:element name="isSingleton"  minOccurs="0" type="xs:boolean" default="false">
-                <xs:annotation>
-                  <xs:documentation>
-                    if isSingleton = true, then all objects of this type are loaded from the database once and
-                    kept in memory.  To be used with tables that have few rows and not change frequently
-                  </xs:documentation>
-                </xs:annotation>
-              </xs:element>
-              
-              <xs:element name="PropertiesInterface"  minOccurs="0" type="xs:string" default="false">
-                <xs:annotation>
-                  <xs:documentation>
-                    The generator always generates an interface for the class, named
-                    I+ClassName.  You can specify a name for the interface here to 
-                    customize the interface name
-                  </xs:documentation>
-                </xs:annotation>
-              </xs:element>
-              
-              <xs:element name="AccessLevel" minOccurs="0" default="Public">
-                <xs:annotation>
-                  <xs:documentation>
-                    Class access level, default Public
-                  </xs:documentation>
-                </xs:annotation>
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:enumeration value="Public" />
-                    <xs:enumeration value="Private" />
-                    <xs:enumeration value="Protected" />
-                    <xs:enumeration value="Friend" />
-                  </xs:restriction>
-                </xs:simpleType>
-                
-              </xs:element>
-
               <xs:element name="Namespace" minOccurs="0" type="xs:string" >
                 <xs:annotation>
                   <xs:documentation>
@@ -184,8 +156,7 @@
                   </xs:documentation>
                 </xs:annotation>
               </xs:element>
-              
-              
+                            
               <xs:element name="SelectObject" minOccurs="0" type="xs:string">
                 <xs:annotation>
                   <xs:documentation>
@@ -201,29 +172,20 @@
                 <xs:annotation>
                   <xs:documentation>
                     Primary key field name of selectObject.
-                    Leave blank to auto-get, fill it for views
+                    If this is not specified, the generator will autometically generate it.
+					You must specify it if select object is a view.
                   </xs:documentation>
                 </xs:annotation>
               </xs:element>
-              
-              <xs:element name="isReadOnly" minOccurs="0" default="false" type="xs:boolean">
-                <!-- readonly:  -->
-                <xs:annotation>
-                  <xs:documentation>
-                    1=Model Object is Readonly, ie it will not have any insert/update/delete functionality
-                    0=Model Object is Read/Write
-                  </xs:documentation>
-                </xs:annotation>
-               </xs:element>
               
               <xs:element name="SortField" minOccurs="0" default="" type="xs:string">
                 <xs:annotation>
                   <xs:documentation>
                     if sort field is specified, the class will implement IComparable(Of &lt;class name&gt;)
-                    
                   </xs:documentation>
                 </xs:annotation>
               </xs:element>
+			  
               <xs:element name="SortAscending" minOccurs="0"
                           default="true" type="xs:boolean">
                 <xs:annotation>
@@ -268,16 +230,6 @@
                 </xs:annotation>
               </xs:element>
               
-
-              <xs:element name="MapperImplementedInterfaces"  minOccurs="0" type="xs:string">
-                <xs:annotation>
-                  <xs:documentation>
-                    Comma separated interface(s) implemented by the DBMapper
-                  </xs:documentation>
-                </xs:annotation>
-              </xs:element>
-
-
               <xs:element name="Lookups" minOccurs="0" maxOccurs="unbounded">
                 <xs:complexType>
                   <xs:sequence>
@@ -322,6 +274,7 @@
                 </xs:documentation>
                 </xs:annotation>
               </xs:element>
+			  
               <xs:element name="association" minOccurs="0" maxOccurs="unbounded">
                 <xs:complexType>
                   <xs:sequence>
@@ -394,22 +347,7 @@
                       </xs:annotation>
                     </xs:element>
 
-                    <xs:element name="AccessLevel" minOccurs="0" default="Public">
-                      <xs:annotation>
-                        <xs:documentation>
-                          Association access level, default Public
-                        </xs:documentation>
-                      </xs:annotation>
-                      <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                          <xs:enumeration value="Public" />
-                          <xs:enumeration value="Private" />
-                          <xs:enumeration value="Protected" />
-                          <xs:enumeration value="Friend" />
-                        </xs:restriction>
-                      </xs:simpleType>
-                     
-                    </xs:element>
+                    
 
                     <xs:element name="parentFieldName" minOccurs="0" type="xs:string">
                       <xs:annotation>

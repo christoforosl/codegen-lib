@@ -29,20 +29,18 @@ namespace CsModelObjects
 	#region "Interface"
 [System.Runtime.InteropServices.ComVisible(false)] 
 	public interface IEmployeeType: IModelObject {
-	System.String EmployeeTypeCode {get;set;} 
-	System.String EmployeeType {get;set;} 
+	System.String PrEmployeeTypeCode {get;set;} 
+	System.String PrEmployeeType {get;set;} 
 }
 #endregion
 
 	
 	[DefaultMapperAttr(typeof(CsModelMappers.EmployeeTypeDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class EmployeeTypeBase : ModelObject, IEquatable<EmployeeTypeBase>, IEmployeeType
-	{
+	public class EmployeeTypeBase : ModelObject, IEquatable<EmployeeTypeBase>, IEmployeeType {
 
 		#region "Constructor"
 
-		public EmployeeTypeBase()
-		{
+		public EmployeeTypeBase() {
 			this.addValidator(new EmployeeTypeRequiredFieldsValidator());
 		}
 
@@ -51,7 +49,7 @@ namespace CsModelObjects
 		#region "Children and Parents"
 		
 		public override void loadObjectHierarchy() {
-			
+
 		}
 
 		/// <summary>
@@ -109,7 +107,7 @@ namespace CsModelObjects
 
 		#region "Field Properties"
 
-	public virtual System.String EmployeeTypeCode  {
+	public virtual System.String PrEmployeeTypeCode  {
 	get {
 		return _EmployeeTypeCode;
 	} 
@@ -128,12 +126,12 @@ namespace CsModelObjects
 	}
 public void setEmployeeTypeCode( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
-		this.EmployeeTypeCode = val;
+		this.PrEmployeeTypeCode = val;
 	} else {
-		this.EmployeeTypeCode = null;
+		this.PrEmployeeTypeCode = null;
 	}
 }
-	public virtual System.String EmployeeType  {
+	public virtual System.String PrEmployeeType  {
 	get {
 		return _EmployeeType;
 	} 
@@ -150,9 +148,9 @@ public void setEmployeeTypeCode( String val ) {
 	}
 public void setEmployeeType( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
-		this.EmployeeType = val;
+		this.PrEmployeeType = val;
 	} else {
-		this.EmployeeType = null;
+		this.PrEmployeeType = null;
 	}
 }
 
@@ -163,9 +161,9 @@ public void setEmployeeType( String val ) {
 
 		switch (fieldKey) {
 		case FLD_EMPLOYEETYPECODE:
-			return this.EmployeeTypeCode;
+			return this.PrEmployeeTypeCode;
 		case FLD_EMPLOYEETYPE:
-			return this.EmployeeType;
+			return this.PrEmployeeType;
 		default:
 			return null;
 		} //end switch
@@ -176,9 +174,9 @@ public void setEmployeeType( String val ) {
 			fieldKey = fieldKey.ToLower();
 
 		if (fieldKey==STR_FLD_EMPLOYEETYPECODE.ToLower() ) {
-			return this.EmployeeTypeCode;
+			return this.PrEmployeeTypeCode;
 		} else if (fieldKey==STR_FLD_EMPLOYEETYPE.ToLower() ) {
-			return this.EmployeeType;
+			return this.PrEmployeeType;
 		} else {
 			return null;
 		}
@@ -190,14 +188,14 @@ public void setEmployeeType( String val ) {
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			}else{
-				this.EmployeeTypeCode=(System.String)val;
+				this.PrEmployeeTypeCode=(System.String)val;
 			} //
 			return;
 		case FLD_EMPLOYEETYPE:
 			if (val == DBNull.Value || val == null ){
-				this.EmployeeType = null;
+				this.PrEmployeeType = null;
 			}else{
-				this.EmployeeType=(System.String)val;
+				this.PrEmployeeType=(System.String)val;
 			} //
 			return;
 		default:
@@ -212,14 +210,14 @@ public void setEmployeeType( String val ) {
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.EmployeeTypeCode=(System.String)val;
+				this.PrEmployeeTypeCode=(System.String)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_EMPLOYEETYPE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.EmployeeType = null;
+				this.PrEmployeeType = null;
 			} else {
-				this.EmployeeType=(System.String)val;
+				this.PrEmployeeType=(System.String)val;
 			}
 			return;
 		}
@@ -236,16 +234,16 @@ public void setEmployeeType( String val ) {
 			if (object.ReferenceEquals(other, this))
 				return true;
 
-			return this.EmployeeTypeCode == other.EmployeeTypeCode
-				&& this.EmployeeType == other.EmployeeType;;
+			return this.PrEmployeeTypeCode == other.PrEmployeeTypeCode
+				&& this.PrEmployeeType == other.PrEmployeeType;;
 
 		}
 
 		public override int GetHashCode()
 		{
 			//using Xor has the advantage of not overflowing the integer.
-			return this.getStringHashCode(this.EmployeeTypeCode)
-				 ^ this.getStringHashCode(this.EmployeeType);;
+			return this.getStringHashCode(this.PrEmployeeTypeCode)
+				 ^ this.getStringHashCode(this.PrEmployeeType);;
 
 		}
 
@@ -283,8 +281,8 @@ public void setEmployeeType( String val ) {
 			//instantiate a EmployeeType, NOT a EmployeeTypeBase object
 			EmployeeType ret = EmployeeTypeFactory.Create();
 
-		ret.EmployeeTypeCode = this.EmployeeTypeCode;
-		ret.EmployeeType = this.EmployeeType;
+		ret.PrEmployeeTypeCode = this.PrEmployeeTypeCode;
+		ret.PrEmployeeType = this.PrEmployeeType;
 
 
 
@@ -298,9 +296,9 @@ public void setEmployeeType( String val ) {
 
 			EmployeeType o = (EmployeeType)other;
 
-if (! string.IsNullOrEmpty(o.EmployeeType) && 
-		 string.IsNullOrEmpty(this.EmployeeType)){
-		this.EmployeeType = o.EmployeeType;
+if (! string.IsNullOrEmpty(o.PrEmployeeType) && 
+		 string.IsNullOrEmpty(this.PrEmployeeType)){
+		this.PrEmployeeType = o.PrEmployeeType;
 }
 
 
@@ -338,7 +336,7 @@ if (! string.IsNullOrEmpty(o.EmployeeType) &&
 
 		public void validate(org.model.lib.Model.IModelObject imo) {
 			EmployeeType mo = (EmployeeType)imo;
-if (string.IsNullOrEmpty( mo.EmployeeType)) {
+if (string.IsNullOrEmpty( mo.PrEmployeeType)) {
 		throw new ModelObjectRequiredFieldException("EmployeeType");
 }
 

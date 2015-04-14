@@ -16,23 +16,24 @@ Public Class CSharpAssociation
         Dim sbdr As StringBuilder = New StringBuilder()
 
         If Me.isCardinalityMany Then
-            sbdr.Append("IEnumerable< " & Me.DataType & ">"). _
-               Append(Me.associationName & " {get; set;}")
+			sbdr.Append("IEnumerable< " & Me.DataType & ">"). _
+			   Append(ModelGenerator.Current.FieldPropertyPrefix & Me.associationName & " {get; set;}")
 
             sbdr.Append(vbCrLf)
-            sbdr.Append(vbTab & vbTab & "void Add").Append(Me.associationNameSingular).Append("(").Append(Me.DataType).Append(" val);").Append(vbCrLf)
-            sbdr.Append(vbTab & vbTab & "void Remove").Append(Me.associationNameSingular).Append("("). _
-                                Append(Me.DataType).Append(" val);").Append(vbCrLf)
+			sbdr.Append(vbTab & vbTab & "void ").Append(Me.associationNameSingular).Append("Add(").Append(Me.DataType).Append(" val);").Append(vbCrLf)
+			sbdr.Append(vbTab & vbTab & "void ").Append(Me.associationNameSingular).Append("Remove("). _
+								Append(Me.DataType).Append(" val);").Append(vbCrLf)
 
-            sbdr.Append(vbTab & vbTab & "IEnumerable<").Append(Me.DataType).Append(">") _
-                        .Append("getDeleted").Append(Me.associationName).Append("();").Append(vbCrLf)
+			sbdr.Append(vbTab & vbTab & "IEnumerable<").Append(Me.DataType).Append(">") _
+			   .Append(Me.associationName).Append("GetDeleted();").Append(vbCrLf)
 
-            sbdr.Append(vbTab & vbTab & Me.DataType & " get").Append(Me.associationNameSingular).Append("( int i ) "). _
-                                Append(";").Append(vbCrLf)
+			sbdr.Append(vbTab & vbTab & Me.DataType & " ").Append(Me.associationNameSingular).Append("GetAt( int i ) "). _
+								Append(";").Append(vbCrLf)
             '
         Else
-            sbdr.Append(Me.getDataTypeVariable).Append(" ").Append(Me.associationName).Append(" {get;set;} //association")
-        End If
+			sbdr.Append(Me.getDataTypeVariable).Append(" ").Append(ModelGenerator.Current.FieldPropertyPrefix).Append(Me.associationName).Append(" {get;set;} //association")
+		End If
+
         Return sbdr.ToString
     End Function
 
@@ -102,7 +103,7 @@ Public Class CSharpAssociation
                 'in case of readonly association, just append a comment
                 ret += vbTab + vbTab & "//***Readonly Parent Association:" & Me.associationName.ToLower() & " ***!" & vbCrLf
             Else
-
+				Dim pfx As String = ModelGenerator.Current.FieldPropertyPrefix
                 Dim mapperClassName As String = GetAssociatedMapperClassName()
                 Dim mappervar As String = Me.associationName.ToLower() & "Mapper"
 				ret += vbTab + vbTab & "//*** Parent Association:" & Me.associationName.ToLower() & vbCrLf
@@ -114,7 +115,7 @@ Public Class CSharpAssociation
 
 				ret += vbTab + vbTab + vbTab + mapperClassName & " mappervar = new " & mapperClassName & "(this.dbConn);" & vbCrLf
 				ret += vbTab + vbTab + vbTab + "mappervar.save(thisMo." & Me.getGet() & ");" & vbCrLf
-				ret += vbTab + vbTab & vbTab + "thisMo." & DBTable.getRuntimeName(Me.ChildFieldName()) & " = thisMo." & Me.getGet() & "." & DBTable.getRuntimeName(Me.ParentFieldName()) & ";" & vbCrLf
+				ret += vbTab + vbTab & vbTab + "thisMo." & pfx & DBTable.getRuntimeName(Me.ChildFieldName()) & " = thisMo." & Me.getGet() & "." & pfx & DBTable.getRuntimeName(Me.ParentFieldName()) & ";" & vbCrLf
 				ret += vbTab + vbTab & "}" & vbCrLf
 				ret += vbTab + vbTab + vbCrLf
 
@@ -147,7 +148,7 @@ Public Class CSharpAssociation
 
                 If Me.isCardinalityMany Then
                     ret &= vbTab & vbTab & vbTab & mappervar & ".saveList(ret." & Me.getGet() & ");" & vbCrLf
-                    ret &= vbTab & vbTab & vbTab & mappervar & ".deleteList(ret.getDeleted" & Me.associationName() & "());" & vbCrLf
+					ret &= vbTab & vbTab & vbTab & mappervar & ".deleteList(ret." & Me.associationName() & "GetDeleted());" & vbCrLf
                 Else
                     ret &= vbTab & vbTab & vbTab & mappervar & ".save(ret." & Me.getGet() & ");" & vbCrLf
                 End If
@@ -181,15 +182,16 @@ Public Class CSharpAssociation
         stmpl = stmpl.Replace("<sort>", CStr(IIf(String.IsNullOrEmpty(Me.SortField) = False, _
                                                  "this._<association_name>.Sort()", "")))
 
-        stmpl = stmpl.Replace("<association_name_singular>", Me.associationNameSingular)
+		stmpl = stmpl.Replace("<association_name_singular>", Me.associationNameSingular)
+		stmpl = stmpl.Replace("<prop_prefix>", ModelGenerator.Current.FieldPropertyPrefix)
         stmpl = stmpl.Replace("<association_name>", fieldName)
         stmpl = stmpl.Replace("<db_mapper>", _
                 Me.GetAssociatedMapperClassName)
         stmpl = stmpl.Replace("<datatype>", Me.DataType)
-        stmpl = stmpl.Replace("<parent_field_runtime>", DBTable.getRuntimeName(Me.ParentFieldName))
-        stmpl = stmpl.Replace("<child_field_runtime>", DBTable.getRuntimeName(Me.ChildFieldName))
-        stmpl = stmpl.Replace("<child_field_runtime_as_integer>", _
-                              "CInt(this." & DBTable.getRuntimeName(Me.ChildFieldName) & ")")
+		stmpl = stmpl.Replace("<parent_field_runtime>", ModelGenerator.Current.FieldPropertyPrefix & DBTable.getRuntimeName(Me.ParentFieldName))
+		stmpl = stmpl.Replace("<child_field_runtime>", ModelGenerator.Current.FieldPropertyPrefix & DBTable.getRuntimeName(Me.ChildFieldName))
+		stmpl = stmpl.Replace("<child_field_runtime_as_integer>", _
+							  "CInt(this." & ModelGenerator.Current.FieldPropertyPrefix & DBTable.getRuntimeName(Me.ChildFieldName) & ")")
 
         stmpl = stmpl.Replace("<child_field>", Me.ChildFieldName)
         stmpl = stmpl.Replace("<parent_field>", Me.ParentFieldName)

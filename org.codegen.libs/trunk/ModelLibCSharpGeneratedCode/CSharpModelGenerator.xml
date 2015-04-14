@@ -13,7 +13,7 @@
   
   <defaultNamespace>CsModelObjects</defaultNamespace>
   <defaultDBMapperNameSpace>CsModelMappers</defaultDBMapperNameSpace>
-  
+  <propertiesPrefix>Pr</propertiesPrefix>
   <dbConnectionString>
     Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=modelTest;Data Source=.\SQLEXPRESS
   </dbConnectionString>

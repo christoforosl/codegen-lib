@@ -3,7 +3,7 @@
 
 		public bool <association_name>Loaded  {get;set;}
 
-		public virtual <datatype> get<association_name_singular>( int i ) {
+		public virtual <datatype> <association_name_singular>GetAt( int i ) {
 
             this.load<association_name>();
             if( this._<association_name>.Count >= (i - 1)) {
@@ -13,7 +13,7 @@
 
         } //End Function        
 		
-		public virtual void Add<association_name_singular> ( <datatype> val )  {
+		public virtual void <association_name_singular>Add( <datatype> val )  {
 			//1-Many , add a single item!
 			this.load<association_name>();
 			val.<child_field_runtime> = this.<parent_field_runtime>;
@@ -23,7 +23,7 @@
 
         }
 
-		public virtual void Clear<association_name>() {
+		public virtual void <association_name>Clear() {
 
             this.load<association_name>();
             this._deleted<association_name>.AddRange(this._<association_name>);
@@ -31,7 +31,7 @@
 
         }
 
-		public virtual void Remove<association_name_singular>( <datatype> val ) {
+		public virtual void <association_name_singular>Remove( <datatype> val ) {
 			
 			this.load<association_name>();
 			this._deleted<association_name>.Add(val);
@@ -39,14 +39,13 @@
 
         }
 		
-		public virtual IEnumerable< <datatype> > getDeleted<association_name>() {
+		public virtual IEnumerable< <datatype> ><association_name>GetDeleted() {
 			
 			return this._deleted<association_name>;
 
         }
 
-        public virtual IEnumerable< <datatype> > <association_name> {
-					
+        public virtual IEnumerable< <datatype> > <prop_prefix><association_name> {
 
             get {
 				//'1 to many relation
@@ -98,5 +97,5 @@
             }
             
 			this.<association_name>Loaded = true;
-        } //End Sub
+        } 
 		#endregion

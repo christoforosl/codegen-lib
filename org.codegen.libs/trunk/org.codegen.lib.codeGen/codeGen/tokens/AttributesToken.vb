@@ -24,7 +24,7 @@ Namespace Tokens
 
                 sb.Append("fieldKey==" & field.getConstantStr() & ".ToLower() ) {")
                 sb.Append(vbCrLf)
-                sb.Append(vbTab + vbTab + vbTab & "return this." & DBTable.getRuntimeName(field.FieldName()) & ";" & vbCrLf)
+				sb.Append(vbTab + vbTab + vbTab & "return this." & field.PropertyName & ";" & vbCrLf)
                 i += 1
 
             Next
@@ -52,7 +52,7 @@ Namespace Tokens
 
                 sb.Append("fieldKey=" & field.getConstantStr() & ".ToLower() Then")
                 sb.Append(vbCrLf)
-                sb.Append(vbTab + vbTab + vbTab & "return me." & DBTable.getRuntimeName(field.FieldName()) & "" & vbCrLf)
+				sb.Append(vbTab + vbTab + vbTab & "return me." & field.PropertyName & "" & vbCrLf)
                 i += 1
 
             Next
@@ -96,12 +96,12 @@ Namespace Tokens
                 If (field.isPrimaryKey) Then
                     sb.Append(vbTab + vbTab + vbTab + vbTab & "throw new ApplicationException(""Can't set Primary Key to null"");" & vbCrLf)
                 Else
-                    sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & DBTable.getRuntimeName(field.FieldName()) & " = null;" & vbCrLf)
+					sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & field.PropertyName & " = null;" & vbCrLf)
                 End If
 
                 sb.Append(vbTab + vbTab + vbTab & "} else {" & vbCrLf)
 
-                sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & DBTable.getRuntimeName(field.FieldName()) & "=")
+				sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & field.PropertyName & "=")
 
                 sb.Append("(").Append(field.FieldDataType).Append(")val;").Append(vbCrLf)
 
@@ -136,10 +136,10 @@ Namespace Tokens
                 sb.Append(vbCrLf)
 
                 sb.Append(vbTab + vbTab + vbTab & "If Val Is DBNull.Value OrElse Val Is Nothing Then" & vbCrLf)
-                sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & DBTable.getRuntimeName(field.FieldName()) & " = Nothing" & vbCrLf)
+				sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & " = Nothing" & vbCrLf)
                 sb.Append(vbTab + vbTab + vbTab & "Else" & vbCrLf)
 
-                sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & DBTable.getRuntimeName(field.FieldName()) & "=")
+				sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & "=")
 
                 sb.Append("CType(val,").Append(field.FieldDataType).Append(")").Append(vbCrLf)
 
@@ -180,12 +180,12 @@ Namespace Tokens
                 If (field.isPrimaryKey) Then
                     sb.Append(vbTab + vbTab + vbTab + vbTab & "throw new ApplicationException(""Can't set Primary Key to null"");" & vbCrLf)
                 Else
-                    sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & DBTable.getRuntimeName(field.FieldName()) & " = null;" & vbCrLf)
+					sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & field.PropertyName & " = null;" & vbCrLf)
                 End If
 
                 sb.Append(vbTab + vbTab + vbTab & "}else{" & vbCrLf)
 
-                sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & DBTable.getRuntimeName(field.FieldName()) & "=")
+				sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & field.PropertyName & "=")
                 sb.Append("(" & field.FieldDataType).Append(")val;").Append(vbCrLf)
 
                 sb.Append(vbTab + vbTab + vbTab & "} //" & vbCrLf)
@@ -214,10 +214,10 @@ Namespace Tokens
                 sb.Append(vbCrLf)
 
                 sb.Append(vbTab + vbTab + vbTab & "If Val Is DBNull.Value OrElse Val Is Nothing Then" & vbCrLf)
-                sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & DBTable.getRuntimeName(field.FieldName()) & " = Nothing" & vbCrLf)
+				sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & " = Nothing" & vbCrLf)
                 sb.Append(vbTab + vbTab + vbTab & "Else" & vbCrLf)
 
-                sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & DBTable.getRuntimeName(field.FieldName()) & "=")
+				sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & "=")
                 sb.Append("CType(val,").Append(field.FieldDataType).Append(")").Append(vbCrLf)
 
                 sb.Append(vbTab + vbTab + vbTab & "End If" & vbCrLf)
@@ -254,7 +254,7 @@ Namespace Tokens
                 sb.Append(field.getConstant()).Append(":")
 
                 sb.Append(vbCrLf)
-                sb.Append(vbTab + vbTab + vbTab & "return this." & DBTable.getRuntimeName(field.FieldName()) & ";" & vbCrLf)
+				sb.Append(vbTab + vbTab + vbTab & "return this." & field.PropertyName & ";" & vbCrLf)
 
             Next
             sb.Append(vbTab + vbTab + "default:" & vbCrLf)
@@ -279,7 +279,7 @@ Namespace Tokens
                 sb.Append(field.getConstant())
 
                 sb.Append(vbCrLf)
-                sb.Append(vbTab + vbTab + vbTab & "return me." & DBTable.getRuntimeName(field.FieldName()) & "" & vbCrLf)
+				sb.Append(vbTab + vbTab + vbTab & "return me." & field.PropertyName & "" & vbCrLf)
 
             Next
             sb.Append(vbTab + vbTab + "case else" & vbCrLf)

@@ -6,7 +6,7 @@
 		/// <summary>
         /// Gets/Sets parent object
         /// </summary>
-		public virtual <datatype> <association_name> {
+		public virtual <datatype> <prop_prefix><association_name> {
 		    //1-1 parent association
             set {
                 this._<association_name> = value;
@@ -41,7 +41,7 @@
 			if ( this._<association_name> == null && this.<child_field_runtime> > 0 ) {
                 
 				//call the setter here, not the private variable!
-                this.<association_name> = new <db_mapper>().findByKey(this.<child_field_runtime>.Value);
+                this.<prop_prefix><association_name> = new <db_mapper>().findByKey(this.<child_field_runtime>.Value);
                 
             }
 
