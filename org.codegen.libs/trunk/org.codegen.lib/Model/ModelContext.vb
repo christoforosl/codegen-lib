@@ -132,14 +132,14 @@ Namespace Model
         '''    
         '''	 <summary>Retrieves the current intance of ModelContext </summary>
         '''
-        Public Shared Function Current() As ModelContext
-
-            If _current Is Nothing Then
-                newCurrent()
-            End If
-            Return _current
-
-        End Function
+        Public Shared ReadOnly Property Current As ModelContext
+            Get
+                If _current Is Nothing Then
+                    newCurrent()
+                End If
+                Return _current
+            End Get
+        End Property
 
         Public Property Locale() As System.Globalization.CultureInfo
             Get

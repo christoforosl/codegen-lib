@@ -85,9 +85,9 @@ namespace GeneratorTests {
 		[TestMethod]
 		public void createCsRecords() {
 
-			ModelContext.Current().config.DoCascadeDeletes = true;
+			ModelContext.Current.config.DoCascadeDeletes = true;
 			ModelContext.beginTrans();
-			ModelContext.Current().addGlobalModelValidator(typeof(Employee), typeof(CsharpEmployeeValidator));
+			ModelContext.Current.addGlobalModelValidator(typeof(Employee), typeof(CsharpEmployeeValidator));
 
 			try {
 
@@ -119,7 +119,9 @@ namespace GeneratorTests {
 
 				Assert.IsTrue(employee.CreateDate == null, "Before save, created date is null");
 				Assert.IsTrue(employee.UpdateDate == null, "Before save, UpdateDate is not null");
-				ModelContext.Current().saveModelObject(employee);
+				
+                ModelContext.Current.saveModelObject(employee);
+
 				Assert.IsTrue(employee.PrSSINumber == "12345XX", "12345XX value in PrSSINumber is Proof that validator was called");
 				Assert.IsTrue(employee.CreateDate != null, "Before save, created date is not null");
 				Assert.IsTrue(employee.UpdateDate != null, "Before save, UpdateDate is not null");

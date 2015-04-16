@@ -79,9 +79,9 @@ using <NAMESPACE>;
 				<ASSERT_ASSOCIATIONS>
 				<TEST_CHANGE_RANDOM_FIELDS>
 				p.isDirty = true; //to force save
-				ModelContext.Current().saveModelObject(p);
+				ModelContext.Current.saveModelObject(p);
 
-				p = ModelContext.Current().loadModelObject< <MODEL_CLASS_NAME> >(p.Id);
+				p = ModelContext.Current.loadModelObject< <MODEL_CLASS_NAME> >(p.Id);
 				<TEST_ASSERT_RANDOM_FIELDS>
 			}
 
