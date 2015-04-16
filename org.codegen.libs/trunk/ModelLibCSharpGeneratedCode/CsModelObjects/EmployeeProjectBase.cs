@@ -152,7 +152,7 @@ ret.Add(this.PrProject);
 	}
 public void setEmployeeProjectId(String val){
 	if (Information.IsNumeric(val)) {
-		this.PrEmployeeProjectId = Convert.ToInt32(val);
+		this.PrEmployeeProjectId = Convert.ToInt64(val);
 	} else if (String.IsNullOrEmpty(val)) {
 		throw new ApplicationException("Cant update Primary Key to Null");
 	} else {
@@ -176,7 +176,7 @@ public void setEmployeeProjectId(String val){
 	}
 public void setEPEmployeeId(String val){
 	if (Information.IsNumeric(val)) {
-		this.PrEPEmployeeId = Convert.ToInt32(val);
+		this.PrEPEmployeeId = Convert.ToInt64(val);
 	} else if (String.IsNullOrEmpty(val)) {
 		this.PrEPEmployeeId = null;
 	} else {
@@ -200,7 +200,7 @@ public void setEPEmployeeId(String val){
 	}
 public void setEPProjectId(String val){
 	if (Information.IsNumeric(val)) {
-		this.PrEPProjectId = Convert.ToInt32(val);
+		this.PrEPProjectId = Convert.ToInt64(val);
 	} else if (String.IsNullOrEmpty(val)) {
 		this.PrEPProjectId = null;
 	} else {

@@ -183,14 +183,18 @@ Public Class DBField
 
         Const paramPrefix As String = "@"
         Dim ret As String
+
+        Dim MeOrThis As String = "Me"
+
         Dim param As String = vbTab & vbTab & vbTab & _
-                           "stmt.Parameters.Add( Me.dbConn.getParameter(""" & paramPrefix & "{0}"",obj.{1}))"
+                           "stmt.Parameters.Add( {2}.dbConn.getParameter(""" & paramPrefix & "{0}"",obj.{1}))"
 
         If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
         Else
+            MeOrThis = "this"
             param = param & ";"
         End If
-        ret = String.Format(param, Me.FieldName, Me.PropertyName)
+        ret = String.Format(param, Me.FieldName, Me.PropertyName, MeOrThis)
 
         Return ret & vbCrLf
 

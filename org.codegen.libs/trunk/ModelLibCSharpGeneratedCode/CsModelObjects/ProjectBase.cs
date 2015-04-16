@@ -149,7 +149,7 @@ namespace CsModelObjects
 	}
 public void setProjectId(String val){
 	if (Information.IsNumeric(val)) {
-		this.PrProjectId = Convert.ToInt32(val);
+		this.PrProjectId = Convert.ToInt64(val);
 	} else if (String.IsNullOrEmpty(val)) {
 		throw new ApplicationException("Cant update Primary Key to Null");
 	} else {

@@ -120,9 +120,8 @@ Public Class CSharpPropertyGenerator
 		ElseIf field.isInteger Then
 			ret.Append("public void set").Append(propertyFieldname).Append("(String val){").Append(vbCrLf)
 			ret.Append("	if (Information.IsNumeric(val)) {").Append(vbCrLf)
-			ret.Append("		this.").Append(field.PropertyName).Append(" = Convert.ToInt32(val);").Append(vbCrLf)
-
-			ret.Append("	} else if (String.IsNullOrEmpty(val)) {").Append(vbCrLf)
+            ret.Append("		this.").Append(field.PropertyName).Append(" = Convert.ToInt64(val);").Append(vbCrLf)
+            ret.Append("	} else if (String.IsNullOrEmpty(val)) {").Append(vbCrLf)
 			If (field.isPrimaryKey) Then
 				ret.Append("		throw new ApplicationException(""Cant update Primary Key to Null"");").Append(vbCrLf)
 			Else

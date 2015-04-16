@@ -24,7 +24,10 @@ namespace CsModelObjects {
 		//you can create other shared functions to return a new 
 		//instance with parameters
 		public static Employee Create() {
-			return new Employee();
+			
+            
+            
+            return new Employee();
 		}
 
 	}

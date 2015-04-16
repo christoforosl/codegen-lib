@@ -8,13 +8,13 @@
   </stmt>
   <stmt>
     <key>selectall</key>
-    <MSSQL>SELECT EmployeeId,EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,createDate,updateDate,updateUser,createUser,EmployeeTypeCode FROM Employee</MSSQL>
-    <JET>SELECT EmployeeId,EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,createDate,updateDate,updateUser,createUser,EmployeeTypeCode FROM Employee</JET>
+    <MSSQL>SELECT EmployeeId,EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,EmployeeTypeCode,createDate,updateDate,createUser,updateUser FROM Employee</MSSQL>
+    <JET>SELECT EmployeeId,EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,EmployeeTypeCode,createDate,updateDate,createUser,updateUser FROM Employee</JET>
   </stmt>
   <stmt>
     <key>selectone</key>
-    <MSSQL>SELECT EmployeeId,EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,createDate,updateDate,updateUser,createUser,EmployeeTypeCode FROM Employee WHERE EmployeeId=@0</MSSQL>
-    <JET>SELECT EmployeeId,EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,createDate,updateDate,updateUser,createUser,EmployeeTypeCode FROM Employee WHERE EmployeeId=@0</JET>
+    <MSSQL>SELECT EmployeeId,EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,EmployeeTypeCode,createDate,updateDate,createUser,updateUser FROM Employee WHERE EmployeeId=@0</MSSQL>
+    <JET>SELECT EmployeeId,EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,EmployeeTypeCode,createDate,updateDate,createUser,updateUser FROM Employee WHERE EmployeeId=@0</JET>
   </stmt>
   <stmt>
     <key>delete</key>
@@ -23,12 +23,12 @@
   </stmt>
   <stmt>
     <key>insert</key>
-    <MSSQL>insert into Employee (EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,createDate,updateDate,updateUser,createUser,EmployeeTypeCode) values (@EmployeeName,@EmployeeRankId,@Salary,@Address,@Telephone,@Mobile,@IdNumber,@SSINumber,@HireDate,@NumDependents,@createDate,@updateDate,@updateUser,@createUser,@EmployeeTypeCode)</MSSQL>
-    <JET>insert into Employee (EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,createDate,updateDate,updateUser,createUser,EmployeeTypeCode) values (@EmployeeName,@EmployeeRankId,@Salary,@Address,@Telephone,@Mobile,@IdNumber,@SSINumber,@HireDate,@NumDependents,@createDate,@updateDate,@updateUser,@createUser,@EmployeeTypeCode)</JET>
+    <MSSQL>insert into Employee (EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,EmployeeTypeCode,createDate,updateDate,createUser,updateUser) values (@EmployeeName,@EmployeeRankId,@Salary,@Address,@Telephone,@Mobile,@IdNumber,@SSINumber,@HireDate,@NumDependents,@EmployeeTypeCode,@createDate,@updateDate,@createUser,@updateUser)</MSSQL>
+    <JET>insert into Employee (EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,EmployeeTypeCode,createDate,updateDate,createUser,updateUser) values (@EmployeeName,@EmployeeRankId,@Salary,@Address,@Telephone,@Mobile,@IdNumber,@SSINumber,@HireDate,@NumDependents,@EmployeeTypeCode,@createDate,@updateDate,@createUser,@updateUser)</JET>
   </stmt>
   <stmt>
     <key>update</key>
-    <MSSQL>UPDATE [Employee] SET EmployeeName=@EmployeeName,EmployeeRankId=@EmployeeRankId,Salary=@Salary,Address=@Address,Telephone=@Telephone,Mobile=@Mobile,IdNumber=@IdNumber,SSINumber=@SSINumber,HireDate=@HireDate,NumDependents=@NumDependents,createDate=@createDate,updateDate=@updateDate,updateUser=@updateUser,createUser=@createUser,EmployeeTypeCode=@EmployeeTypeCode WHERE EmployeeId=@EmployeeId</MSSQL>
-    <JET>UPDATE [Employee] SET EmployeeName=@EmployeeName,EmployeeRankId=@EmployeeRankId,Salary=@Salary,Address=@Address,Telephone=@Telephone,Mobile=@Mobile,IdNumber=@IdNumber,SSINumber=@SSINumber,HireDate=@HireDate,NumDependents=@NumDependents,createDate=@createDate,updateDate=@updateDate,updateUser=@updateUser,createUser=@createUser,EmployeeTypeCode=@EmployeeTypeCode WHERE EmployeeId=@EmployeeId</JET>
+    <MSSQL>UPDATE [Employee] SET EmployeeName=@EmployeeName,EmployeeRankId=@EmployeeRankId,Salary=@Salary,Address=@Address,Telephone=@Telephone,Mobile=@Mobile,IdNumber=@IdNumber,SSINumber=@SSINumber,HireDate=@HireDate,NumDependents=@NumDependents,EmployeeTypeCode=@EmployeeTypeCode,createDate=@createDate,updateDate=@updateDate,createUser=@createUser,updateUser=@updateUser WHERE EmployeeId=@EmployeeId</MSSQL>
+    <JET>UPDATE [Employee] SET EmployeeName=@EmployeeName,EmployeeRankId=@EmployeeRankId,Salary=@Salary,Address=@Address,Telephone=@Telephone,Mobile=@Mobile,IdNumber=@IdNumber,SSINumber=@SSINumber,HireDate=@HireDate,NumDependents=@NumDependents,EmployeeTypeCode=@EmployeeTypeCode,createDate=@createDate,updateDate=@updateDate,createUser=@createUser,updateUser=@updateUser WHERE EmployeeId=@EmployeeId</JET>
   </stmt>
 </SQLStatements>

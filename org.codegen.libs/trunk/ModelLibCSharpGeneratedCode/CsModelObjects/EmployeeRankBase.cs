@@ -126,7 +126,7 @@ namespace CsModelObjects
 	}
 public void setRankId(String val){
 	if (Information.IsNumeric(val)) {
-		this.PrRankId = Convert.ToInt32(val);
+		this.PrRankId = Convert.ToInt64(val);
 	} else if (String.IsNullOrEmpty(val)) {
 		throw new ApplicationException("Cant update Primary Key to Null");
 	} else {

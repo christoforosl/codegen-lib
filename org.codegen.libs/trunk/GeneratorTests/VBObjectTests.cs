@@ -73,6 +73,7 @@ namespace GeneratorTests {
 			Assert.IsTrue(e.PrHireDate == new DateTime(2017, 1, 31));
 
 			Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
 			e.setHireDate("01-31-2017");
 			Assert.IsTrue(e.PrHireDate == new DateTime(2017, 1, 31));
 
@@ -89,7 +90,7 @@ namespace GeneratorTests {
 		[TestMethod]
 		public void createVbRecords() {
 
-			ModelContext.Current().doCascadeDeletes = true;
+            ModelContext.Current().config.DoCascadeDeletes = true;
 			ModelContext.beginTrans();
 			ModelContext.Current().addGlobalModelValidator(typeof(Employee), typeof(EmployeeValidator));
 
@@ -129,7 +130,7 @@ namespace GeneratorTests {
 				Assert.IsTrue(e.UpdateDate != null, "Before save, UpdateDate is not null");
 				Assert.IsTrue(e.CreateUser != null, "Before save, CreateUser date is not null");
 				Assert.IsTrue(e.UpdateUser != null, "Before save, UpdateUser is not null");
-				Assert.IsTrue(e.UpdateDate == e.CreateDate, "update date = create date after saving new");
+				Assert.IsTrue(e.UpdateDate.Value.Ticks == e.CreateDate.Value.Ticks, "update date = create date after saving new");
 				Assert.IsTrue(e.UpdateUser == e.CreateUser, "update date = create date after saving new");
 
 				long x = e.PrEmployeeId;

@@ -1,5 +1,6 @@
 Imports System.Threading
 Imports System.Security.Principal
+Imports System.Globalization
 
 Namespace Model
     '''
@@ -33,13 +34,15 @@ Namespace Model
         Private _attributes As Hashtable = Nothing
         Private _dbUtils As DBUtils
 
+        Public Property config As ModelConfig = New ModelConfig
+
         <ThreadStatic()> _
         Private Shared _current As ModelContext = Nothing
 
         Private Sub New(ByVal principal As IPrincipal, _
                         ByVal locale As System.Globalization.CultureInfo)
 
-            Me.new()
+            Me.New()
             ' private constructor...
             Me._principal = principal
             If Not locale Is Nothing Then
@@ -264,57 +267,58 @@ Namespace Model
                 Throw New ApplicationException("modelObjectType param must implement IModelObject")
             End If
 
-			If Not GetType(IModelObjectValidator).IsAssignableFrom(validatorType) Then
-				Throw New ApplicationException("validatorType param must implement IModelObjectValidator")
-			End If
+            If Not GetType(IModelObjectValidator).IsAssignableFrom(validatorType) Then
+                Throw New ApplicationException("validatorType param must implement IModelObjectValidator")
+            End If
 
 
-			Me.globalModelValidators.Add(modelObjectType, validatorType)
+            Me.globalModelValidators.Add(modelObjectType, validatorType)
 
-		End Sub
+        End Sub
 
-		''' <summary>
-		''' Returns a validator, if any, configured for the specified model object type
-		''' </summary>
-		''' <param name="modelObjectType">The type of the model object.  
-		''' Use GetType(x) where x is the class (not instance) of the model object
-		''' </param>
-		''' <returns>
-		''' Returns a validator, if any, configured for the specified model object type. 
-		''' If not validator is configured, it returns null(nothing)
-		''' </returns>
-		''' <remarks></remarks>
-		Public Function getModelValidator(ByVal modelObjectType As Type) As IModelObjectValidator
+        ''' <summary>
+        ''' Returns a validator, if any, configured for the specified model object type
+        ''' </summary>
+        ''' <param name="modelObjectType">The type of the model object.  
+        ''' Use GetType(x) where x is the class (not instance) of the model object
+        ''' </param>
+        ''' <returns>
+        ''' Returns a validator, if any, configured for the specified model object type. 
+        ''' If not validator is configured, it returns null(nothing)
+        ''' </returns>
+        ''' <remarks></remarks>
+        Public Function getModelValidator(ByVal modelObjectType As Type) As IModelObjectValidator
 
-			If Me.globalModelValidators.ContainsKey(modelObjectType) Then
-				Return CType(Activator.CreateInstance(Me.globalModelValidators.Item(modelObjectType)),  _
-					IModelObjectValidator)
-			End If
-			Return Nothing
+            If Me.globalModelValidators.ContainsKey(modelObjectType) Then
+                Return CType(Activator.CreateInstance(Me.globalModelValidators.Item(modelObjectType)),  _
+                    IModelObjectValidator)
+            End If
+            Return Nothing
 
-		End Function
+        End Function
 
         Public Shared Function GetModelDefaultMapper(ByVal modelType As Type) _
                        As DBMapper
 
             'get default dbMapper
-            Dim sattr As DefaultMapperAttr = CType(Attribute.GetCustomAttribute(modelType, _
-                                                        GetType(DefaultMapperAttr)), DefaultMapperAttr)
+            Dim sattr As DefaultMapperAttr = CType(Attribute.GetCustomAttribute(modelType, GetType(DefaultMapperAttr)), DefaultMapperAttr)
 
             If sattr Is Nothing Then
                 Throw New ApplicationException( _
                     String.Format("Call to ModelContext.Save/Load Model Object must pass a model object with attribute DefaultMapperAttr set. ""{0}"" does not have the attribute set.", _
                     modelType.ToString))
             End If
-            Dim mapper As DBMapper = CType(Activator.CreateInstance(sattr.defaultMapper),  _
-                                            DBMapper)
-
+            Dim mapper As DBMapper = CType(Activator.CreateInstance(sattr.defaultMapper), DBMapper)
             Return mapper
 
         End Function
 
-        Public Shared Function GetModelDefaultMapper(ByVal modelObjectInstance As IModelObject) _
-                        As DBMapper
+        ''' <summary>
+        ''' Returns the default mapper for the mode object
+        ''' </summary>
+        ''' <param name="modelObjectInstance">Ab instance of IModelObject</param>
+        ''' <returns>DBMapper instance</returns>
+        Public Shared Function GetModelDefaultMapper(ByVal modelObjectInstance As IModelObject) As DBMapper
 
             Return GetModelDefaultMapper(modelObjectInstance.GetType)
 
@@ -346,26 +350,59 @@ Namespace Model
 
 
         Public Function loadModelObject(Of T As ModelObject)(id As Object) As T
-            ''Public Function Blah(Of T As {IImplementedByT})(Foo As T)
-            Dim sattr As DefaultMapperAttr = CType(Attribute.GetCustomAttribute(GetType(T), _
-                                                        GetType(DefaultMapperAttr)), DefaultMapperAttr)
+
+            Dim sattr As DefaultMapperAttr = CType(Attribute.GetCustomAttribute(GetType(T), GetType(DefaultMapperAttr)), DefaultMapperAttr)
 
             If sattr Is Nothing Then
+
                 Throw New ApplicationException( _
                     String.Format("Call to ModelContext.Save must pass a model object with attribute DefaultMapperAttr set. ""{0}"" does not have the attribute set.", _
                     GetType(T).ToString))
+
             End If
 
-            Dim tmp As DBMapper = CType(Activator.CreateInstance(sattr.defaultMapper),  _
-                                            DBMapper)
+            Dim tmp As DBMapper = CType(Activator.CreateInstance(sattr.defaultMapper), DBMapper)
 
             Return CType(CType(tmp.findByKey(id), ModelObject), T)
 
         End Function
 
-		Public Property doCascadeDeletes() As Boolean
-			
-	End Class
 
-    
+
+    End Class
+
+    Public Class ModelConfig
+
+        Public Property DateFormat As String = "dd/MM/yyyy"
+        Public Property TimeFormat As String = "HH:mm"
+        Public Property DoCascadeDeletes() As Boolean
+
+    End Class
+
+    Public Class ModelParsers
+
+        Public Shared Function parseDate(val As String) As Date?
+            If IsDate(val) Then
+                Return CDate(val)
+            Else
+                Return Nothing
+            End If
+
+        End Function
+
+        Public Shared Function parseDecimal(val As String) As Decimal?
+
+            Dim priceValue As Decimal
+            Dim allowedStyles As NumberStyles = CType(NumberStyles.AllowDecimalPoint & NumberStyles.AllowThousands, NumberStyles)
+
+            If (Decimal.TryParse(val, allowedStyles, CultureInfo.InvariantCulture, priceValue)) Then
+                Return priceValue
+            Else
+                Return Nothing
+            End If
+
+        End Function
+
+    End Class
+
 End Namespace

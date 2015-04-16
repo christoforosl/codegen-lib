@@ -134,7 +134,7 @@ namespace CsModelObjects
 	}
 public void setEmployeeInfoId(String val){
 	if (Information.IsNumeric(val)) {
-		this.PrEmployeeInfoId = Convert.ToInt32(val);
+		this.PrEmployeeInfoId = Convert.ToInt64(val);
 	} else if (String.IsNullOrEmpty(val)) {
 		throw new ApplicationException("Cant update Primary Key to Null");
 	} else {
@@ -158,7 +158,7 @@ public void setEmployeeInfoId(String val){
 	}
 public void setEIEmployeeId(String val){
 	if (Information.IsNumeric(val)) {
-		this.PrEIEmployeeId = Convert.ToInt32(val);
+		this.PrEIEmployeeId = Convert.ToInt64(val);
 	} else if (String.IsNullOrEmpty(val)) {
 		this.PrEIEmployeeId = null;
 	} else {

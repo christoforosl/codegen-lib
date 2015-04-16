@@ -445,14 +445,14 @@ Public MustInherit Class DBMapper
 
 		mo.validateDelete()
 
-		If ModelContext.Current.doCascadeDeletes Then
-			CType(mo, ModelObject).loadObjectHierarchy()
-			For Each imof As IModelObject In mo.getChildren()
-				ModelContext.GetModelDefaultMapper(imof).delete(imof)
-			Next
-		End If
+        'If ModelContext.Current.doCascadeDeletes Then
+        CType(mo, ModelObject).loadObjectHierarchy()
+        For Each imof As IModelObject In mo.getChildren()
+            ModelContext.GetModelDefaultMapper(imof).delete(imof)
+        Next
+        'End If
 
-		Me.deleteByKey(mo.Id)
+        Me.deleteByKey(mo.Id)
 
 	End Sub
 

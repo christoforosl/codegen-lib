@@ -40,11 +40,11 @@ namespace CsModelObjects
 	System.String PrSSINumber {get;set;} 
 	System.DateTime? PrHireDate {get;set;} 
 	System.Int64? PrNumDependents {get;set;} 
+	System.String PrEmployeeTypeCode {get;set;} 
 	System.DateTime? CreateDate {get;set;} 
 	System.DateTime? UpdateDate {get;set;} 
-	System.String UpdateUser {get;set;} 
 	System.String CreateUser {get;set;} 
-	System.String PrEmployeeTypeCode {get;set;} 
+	System.String UpdateUser {get;set;} 
 	CsModelObjects.EmployeeRank PrRank {get;set;} //association
 	CsModelObjects.EmployeeInfo PrEmployeeInfo {get;set;} //association
 	IEnumerable< CsModelObjects.EmployeeProject>PrEmployeeProjects {get; set;}
@@ -125,11 +125,11 @@ ret.Add(this.PrRank);
 			public const String STR_FLD_SSINUMBER = "SSINumber";
 			public const String STR_FLD_HIREDATE = "HireDate";
 			public const String STR_FLD_NUMDEPENDENTS = "NumDependents";
+			public const String STR_FLD_EMPLOYEETYPECODE = "EmployeeTypeCode";
 			public const String STR_FLD_CREATEDATE = "CreateDate";
 			public const String STR_FLD_UPDATEDATE = "UpdateDate";
-			public const String STR_FLD_UPDATEUSER = "UpdateUser";
 			public const String STR_FLD_CREATEUSER = "CreateUser";
-			public const String STR_FLD_EMPLOYEETYPECODE = "EmployeeTypeCode";
+			public const String STR_FLD_UPDATEUSER = "UpdateUser";
 
 
 				public const int FLD_EMPLOYEEID = 0;
@@ -143,11 +143,11 @@ ret.Add(this.PrRank);
 		public const int FLD_SSINUMBER = 8;
 		public const int FLD_HIREDATE = 9;
 		public const int FLD_NUMDEPENDENTS = 10;
-		public const int FLD_CREATEDATE = 11;
-		public const int FLD_UPDATEDATE = 12;
-		public const int FLD_UPDATEUSER = 13;
+		public const int FLD_EMPLOYEETYPECODE = 11;
+		public const int FLD_CREATEDATE = 12;
+		public const int FLD_UPDATEDATE = 13;
 		public const int FLD_CREATEUSER = 14;
-		public const int FLD_EMPLOYEETYPECODE = 15;
+		public const int FLD_UPDATEUSER = 15;
 
 
 
@@ -157,7 +157,7 @@ ret.Add(this.PrRank);
 		public override string[] getFieldList()
 		{
 			return new string[] {
-				STR_FLD_EMPLOYEEID,STR_FLD_EMPLOYEENAME,STR_FLD_EMPLOYEERANKID,STR_FLD_SALARY,STR_FLD_ADDRESS,STR_FLD_TELEPHONE,STR_FLD_MOBILE,STR_FLD_IDNUMBER,STR_FLD_SSINUMBER,STR_FLD_HIREDATE,STR_FLD_NUMDEPENDENTS,STR_FLD_CREATEDATE,STR_FLD_UPDATEDATE,STR_FLD_UPDATEUSER,STR_FLD_CREATEUSER,STR_FLD_EMPLOYEETYPECODE
+				STR_FLD_EMPLOYEEID,STR_FLD_EMPLOYEENAME,STR_FLD_EMPLOYEERANKID,STR_FLD_SALARY,STR_FLD_ADDRESS,STR_FLD_TELEPHONE,STR_FLD_MOBILE,STR_FLD_IDNUMBER,STR_FLD_SSINUMBER,STR_FLD_HIREDATE,STR_FLD_NUMDEPENDENTS,STR_FLD_EMPLOYEETYPECODE,STR_FLD_CREATEDATE,STR_FLD_UPDATEDATE,STR_FLD_CREATEUSER,STR_FLD_UPDATEUSER
 			};
 		}
 
@@ -176,11 +176,11 @@ ret.Add(this.PrRank);
 	private System.String _SSINumber = null;
 	private System.DateTime? _HireDate = null;
 	private System.Int64? _NumDependents = null;
+	private System.String _EmployeeTypeCode = null;
 	private System.DateTime? _CreateDate = null;
 	private System.DateTime? _UpdateDate = null;
-	private System.String _UpdateUser = null;
 	private System.String _CreateUser = null;
-	private System.String _EmployeeTypeCode = null;
+	private System.String _UpdateUser = null;
 	// ****** CHILD OBJECTS ********************
 	private CsModelObjects.EmployeeRank _Rank = null;  // initialize to nothing, for lazy load logic below !!!
 	private CsModelObjects.EmployeeInfo _EmployeeInfo = null;  // initialize to nothing, for lazy load logic below !!!
@@ -213,7 +213,7 @@ ret.Add(this.PrRank);
 	}
 public void setEmployeeId(String val){
 	if (Information.IsNumeric(val)) {
-		this.PrEmployeeId = Convert.ToInt32(val);
+		this.PrEmployeeId = Convert.ToInt64(val);
 	} else if (String.IsNullOrEmpty(val)) {
 		throw new ApplicationException("Cant update Primary Key to Null");
 	} else {
@@ -259,7 +259,7 @@ public void setEmployeeName( String val ) {
 	}
 public void setEmployeeRankId(String val){
 	if (Information.IsNumeric(val)) {
-		this.PrEmployeeRankId = Convert.ToInt32(val);
+		this.PrEmployeeRankId = Convert.ToInt64(val);
 	} else if (String.IsNullOrEmpty(val)) {
 		this.PrEmployeeRankId = null;
 	} else {
@@ -441,11 +441,33 @@ public void setHireDate( String val ){
 	}
 public void setNumDependents(String val){
 	if (Information.IsNumeric(val)) {
-		this.PrNumDependents = Convert.ToInt32(val);
+		this.PrNumDependents = Convert.ToInt64(val);
 	} else if (String.IsNullOrEmpty(val)) {
 		this.PrNumDependents = null;
 	} else {
 		throw new ApplicationException("Invalid Integer Number, field:NumDependents, value:" + val);
+	}
+}
+	public virtual System.String PrEmployeeTypeCode  {
+	get {
+		return _EmployeeTypeCode;
+	} 
+	set {
+		if (ModelObject.valueChanged(_EmployeeTypeCode, value)) {
+			if (!this.IsObjectLoading ) {
+				this.isDirty = true;
+				this.setFieldChanged(STR_FLD_EMPLOYEETYPECODE);
+			}
+			this._EmployeeTypeCode = value;
+
+		}
+	}  
+	}
+public void setEmployeeTypeCode( String val ) {
+	if (! string.IsNullOrEmpty(val)) {
+		this.PrEmployeeTypeCode = val;
+	} else {
+		this.PrEmployeeTypeCode = null;
 	}
 }
 	public virtual System.DateTime? CreateDate  {
@@ -496,28 +518,6 @@ public void setUpdateDate( String val ){
 		throw new ApplicationException("Invalid Date, field:UpdateDate, value:" + val);
 	}
 }
-	public virtual System.String UpdateUser  {
-	get {
-		return _UpdateUser;
-	} 
-	set {
-		if (ModelObject.valueChanged(_UpdateUser, value)) {
-			if (!this.IsObjectLoading ) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_UPDATEUSER);
-			}
-			this._UpdateUser = value;
-
-		}
-	}  
-	}
-public void setUpdateUser( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.UpdateUser = val;
-	} else {
-		this.UpdateUser = null;
-	}
-}
 	public virtual System.String CreateUser  {
 	get {
 		return _CreateUser;
@@ -540,26 +540,26 @@ public void setCreateUser( String val ) {
 		this.CreateUser = null;
 	}
 }
-	public virtual System.String PrEmployeeTypeCode  {
+	public virtual System.String UpdateUser  {
 	get {
-		return _EmployeeTypeCode;
+		return _UpdateUser;
 	} 
 	set {
-		if (ModelObject.valueChanged(_EmployeeTypeCode, value)) {
+		if (ModelObject.valueChanged(_UpdateUser, value)) {
 			if (!this.IsObjectLoading ) {
 				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_EMPLOYEETYPECODE);
+				this.setFieldChanged(STR_FLD_UPDATEUSER);
 			}
-			this._EmployeeTypeCode = value;
+			this._UpdateUser = value;
 
 		}
 	}  
 	}
-public void setEmployeeTypeCode( String val ) {
+public void setUpdateUser( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
-		this.PrEmployeeTypeCode = val;
+		this.UpdateUser = val;
 	} else {
-		this.PrEmployeeTypeCode = null;
+		this.UpdateUser = null;
 	}
 }
 
@@ -789,16 +789,16 @@ public void setEmployeeTypeCode( String val ) {
 			return this.PrHireDate;
 		case FLD_NUMDEPENDENTS:
 			return this.PrNumDependents;
+		case FLD_EMPLOYEETYPECODE:
+			return this.PrEmployeeTypeCode;
 		case FLD_CREATEDATE:
 			return this.CreateDate;
 		case FLD_UPDATEDATE:
 			return this.UpdateDate;
-		case FLD_UPDATEUSER:
-			return this.UpdateUser;
 		case FLD_CREATEUSER:
 			return this.CreateUser;
-		case FLD_EMPLOYEETYPECODE:
-			return this.PrEmployeeTypeCode;
+		case FLD_UPDATEUSER:
+			return this.UpdateUser;
 		default:
 			return null;
 		} //end switch
@@ -830,16 +830,16 @@ public void setEmployeeTypeCode( String val ) {
 			return this.PrHireDate;
 		} else if (fieldKey==STR_FLD_NUMDEPENDENTS.ToLower() ) {
 			return this.PrNumDependents;
+		} else if (fieldKey==STR_FLD_EMPLOYEETYPECODE.ToLower() ) {
+			return this.PrEmployeeTypeCode;
 		} else if (fieldKey==STR_FLD_CREATEDATE.ToLower() ) {
 			return this.CreateDate;
 		} else if (fieldKey==STR_FLD_UPDATEDATE.ToLower() ) {
 			return this.UpdateDate;
-		} else if (fieldKey==STR_FLD_UPDATEUSER.ToLower() ) {
-			return this.UpdateUser;
 		} else if (fieldKey==STR_FLD_CREATEUSER.ToLower() ) {
 			return this.CreateUser;
-		} else if (fieldKey==STR_FLD_EMPLOYEETYPECODE.ToLower() ) {
-			return this.PrEmployeeTypeCode;
+		} else if (fieldKey==STR_FLD_UPDATEUSER.ToLower() ) {
+			return this.UpdateUser;
 		} else {
 			return null;
 		}
@@ -924,6 +924,13 @@ public void setEmployeeTypeCode( String val ) {
 				this.PrNumDependents=(System.Int64)val;
 			} //
 			return;
+		case FLD_EMPLOYEETYPECODE:
+			if (val == DBNull.Value || val == null ){
+				this.PrEmployeeTypeCode = null;
+			}else{
+				this.PrEmployeeTypeCode=(System.String)val;
+			} //
+			return;
 		case FLD_CREATEDATE:
 			if (val == DBNull.Value || val == null ){
 				this.CreateDate = null;
@@ -938,13 +945,6 @@ public void setEmployeeTypeCode( String val ) {
 				this.UpdateDate=(System.DateTime)val;
 			} //
 			return;
-		case FLD_UPDATEUSER:
-			if (val == DBNull.Value || val == null ){
-				this.UpdateUser = null;
-			}else{
-				this.UpdateUser=(System.String)val;
-			} //
-			return;
 		case FLD_CREATEUSER:
 			if (val == DBNull.Value || val == null ){
 				this.CreateUser = null;
@@ -952,11 +952,11 @@ public void setEmployeeTypeCode( String val ) {
 				this.CreateUser=(System.String)val;
 			} //
 			return;
-		case FLD_EMPLOYEETYPECODE:
+		case FLD_UPDATEUSER:
 			if (val == DBNull.Value || val == null ){
-				this.PrEmployeeTypeCode = null;
+				this.UpdateUser = null;
 			}else{
-				this.PrEmployeeTypeCode=(System.String)val;
+				this.UpdateUser=(System.String)val;
 			} //
 			return;
 		default:
@@ -1044,6 +1044,13 @@ public void setEmployeeTypeCode( String val ) {
 				this.PrNumDependents=(System.Int64)val;
 			}
 			return;
+		} else if ( fieldKey==STR_FLD_EMPLOYEETYPECODE.ToLower()){
+			if (val == DBNull.Value || val ==null ){
+				this.PrEmployeeTypeCode = null;
+			} else {
+				this.PrEmployeeTypeCode=(System.String)val;
+			}
+			return;
 		} else if ( fieldKey==STR_FLD_CREATEDATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.CreateDate = null;
@@ -1058,13 +1065,6 @@ public void setEmployeeTypeCode( String val ) {
 				this.UpdateDate=(System.DateTime)val;
 			}
 			return;
-		} else if ( fieldKey==STR_FLD_UPDATEUSER.ToLower()){
-			if (val == DBNull.Value || val ==null ){
-				this.UpdateUser = null;
-			} else {
-				this.UpdateUser=(System.String)val;
-			}
-			return;
 		} else if ( fieldKey==STR_FLD_CREATEUSER.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.CreateUser = null;
@@ -1072,11 +1072,11 @@ public void setEmployeeTypeCode( String val ) {
 				this.CreateUser=(System.String)val;
 			}
 			return;
-		} else if ( fieldKey==STR_FLD_EMPLOYEETYPECODE.ToLower()){
+		} else if ( fieldKey==STR_FLD_UPDATEUSER.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.PrEmployeeTypeCode = null;
+				this.UpdateUser = null;
 			} else {
-				this.PrEmployeeTypeCode=(System.String)val;
+				this.UpdateUser=(System.String)val;
 			}
 			return;
 		}
@@ -1104,11 +1104,11 @@ public void setEmployeeTypeCode( String val ) {
 				&& this.PrSSINumber == other.PrSSINumber
 				&& this.PrHireDate.GetValueOrDefault() == other.PrHireDate.GetValueOrDefault()
 				&& this.PrNumDependents.GetValueOrDefault() == other.PrNumDependents.GetValueOrDefault()
+				&& this.PrEmployeeTypeCode == other.PrEmployeeTypeCode
 				&& this.CreateDate.GetValueOrDefault() == other.CreateDate.GetValueOrDefault()
 				&& this.UpdateDate.GetValueOrDefault() == other.UpdateDate.GetValueOrDefault()
-				&& this.UpdateUser == other.UpdateUser
 				&& this.CreateUser == other.CreateUser
-				&& this.PrEmployeeTypeCode == other.PrEmployeeTypeCode;;
+				&& this.UpdateUser == other.UpdateUser;;
 
 		}
 
@@ -1126,11 +1126,11 @@ public void setEmployeeTypeCode( String val ) {
 				 ^ this.getStringHashCode(this.PrSSINumber)
 				 ^ this.PrHireDate.GetHashCode()
 				 ^ this.PrNumDependents.GetHashCode()
+				 ^ this.getStringHashCode(this.PrEmployeeTypeCode)
 				 ^ this.CreateDate.GetHashCode()
 				 ^ this.UpdateDate.GetHashCode()
-				 ^ this.getStringHashCode(this.UpdateUser)
 				 ^ this.getStringHashCode(this.CreateUser)
-				 ^ this.getStringHashCode(this.PrEmployeeTypeCode);;
+				 ^ this.getStringHashCode(this.UpdateUser);;
 
 		}
 
@@ -1179,11 +1179,11 @@ public void setEmployeeTypeCode( String val ) {
 		ret.PrSSINumber = this.PrSSINumber;
 		ret.PrHireDate = this.PrHireDate;
 		ret.PrNumDependents = this.PrNumDependents;
+		ret.PrEmployeeTypeCode = this.PrEmployeeTypeCode;
 		ret.CreateDate = this.CreateDate;
 		ret.UpdateDate = this.UpdateDate;
-		ret.UpdateUser = this.UpdateUser;
 		ret.CreateUser = this.CreateUser;
-		ret.PrEmployeeTypeCode = this.PrEmployeeTypeCode;
+		ret.UpdateUser = this.UpdateUser;
 
 
 
@@ -1237,6 +1237,10 @@ if ( o.PrNumDependents != null &&
 		 this.PrNumDependents == null){
 		this.PrNumDependents = o.PrNumDependents;
 }
+if (! string.IsNullOrEmpty(o.PrEmployeeTypeCode) && 
+		 string.IsNullOrEmpty(this.PrEmployeeTypeCode)){
+		this.PrEmployeeTypeCode = o.PrEmployeeTypeCode;
+}
 if ( o.CreateDate != null && 
 		 this.CreateDate == null){
 		this.CreateDate = o.CreateDate;
@@ -1245,17 +1249,13 @@ if ( o.UpdateDate != null &&
 		 this.UpdateDate == null){
 		this.UpdateDate = o.UpdateDate;
 }
-if (! string.IsNullOrEmpty(o.UpdateUser) && 
-		 string.IsNullOrEmpty(this.UpdateUser)){
-		this.UpdateUser = o.UpdateUser;
-}
 if (! string.IsNullOrEmpty(o.CreateUser) && 
 		 string.IsNullOrEmpty(this.CreateUser)){
 		this.CreateUser = o.CreateUser;
 }
-if (! string.IsNullOrEmpty(o.PrEmployeeTypeCode) && 
-		 string.IsNullOrEmpty(this.PrEmployeeTypeCode)){
-		this.PrEmployeeTypeCode = o.PrEmployeeTypeCode;
+if (! string.IsNullOrEmpty(o.UpdateUser) && 
+		 string.IsNullOrEmpty(this.UpdateUser)){
+		this.UpdateUser = o.UpdateUser;
 }
 
 

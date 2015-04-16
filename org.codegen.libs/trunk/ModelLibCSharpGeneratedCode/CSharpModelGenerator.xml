@@ -9,8 +9,9 @@
   <projectName>ModelLibCSharpTests</projectName>
   <outputDir>.\</outputDir>
   <dotNetLanguage>CSHARP</dotNetLanguage>
-  <testProjectOutputDir>..\GeneratorTests\cstests</testProjectOutputDir>
   
+  <testProjectOutputDir>..\GeneratorTests\cstests</testProjectOutputDir>
+ 
   <defaultNamespace>CsModelObjects</defaultNamespace>
   <defaultDBMapperNameSpace>CsModelMappers</defaultDBMapperNameSpace>
   <propertiesPrefix>Pr</propertiesPrefix>

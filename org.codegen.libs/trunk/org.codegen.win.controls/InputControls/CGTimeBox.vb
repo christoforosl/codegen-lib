@@ -14,7 +14,7 @@ Public Class CGTimeBox
     Private Const STR_9 As String = "9"
 
     <Browsable(False), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)> _
-    Public Overrides Property FormatPattern As String = "HH:mm"
+    Public Overrides Property FormatPattern As String = ModelContext.Current.config.TimeFormat
 
     <Browsable(False), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)> _
     Protected Overrides Property errMsgCode As String = "invalid_time"
@@ -78,8 +78,6 @@ Public Class CGTimeBox
         Dim c As String = String.Empty
 
         If String.IsNullOrEmpty(tm) Then Return Nothing
-
-
 
         If (tm.Length = 4 AndAlso tm.IndexOf(STR_SEMI_COLON) = -1 AndAlso _
                     tm.IndexOf(STR_SPACE) = -1 AndAlso _

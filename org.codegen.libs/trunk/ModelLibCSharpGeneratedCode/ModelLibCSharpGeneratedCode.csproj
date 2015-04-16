@@ -125,14 +125,6 @@
     <Compile Include="CsModelObjects\EmployeeTypeBase.cs">
       <DependentUpon>EmployeeType.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="VbBusObjects\DBMappers\EmployeeTypeDBMapperSql.xml">
-      <DependentUpon>EmployeeTypeDBMapper.cs</DependentUpon>
-    </EmbeddedResource>
-    <Compile Include="VbBusObjects\DBMappers\EmployeeTypeDBMapper.cs" />
-    <Compile Include="VbBusObjects\EmployeeType.cs" />
-    <Compile Include="VbBusObjects\EmployeeTypeBase.cs">
-      <DependentUpon>EmployeeType.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="CsModelMappers\EmployeeDBMapperSql.xml">
       <DependentUpon>EmployeeDBMapper.cs</DependentUpon>
     </EmbeddedResource>
