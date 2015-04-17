@@ -19,7 +19,7 @@
     </ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>org.codegen.win.controls</AssemblyName>
+    <AssemblyName>org.codegen.win.controls.4.0</AssemblyName>
     <AssemblyOriginatorKeyFile>org.codegen.win.controls.snk</AssemblyOriginatorKeyFile>
     <AssemblyOriginatorKeyMode>None</AssemblyOriginatorKeyMode>
     <DefaultClientScript>JScript</DefaultClientScript>
@@ -46,7 +46,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>..\..\codeGenLibs\</OutputPath>
-    <DocumentationFile>org.codegen.win.controls.xml</DocumentationFile>
+    <DocumentationFile>org.codegen.win.controls.4.0.xml</DocumentationFile>
     <BaseAddress>285212672</BaseAddress>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
@@ -67,7 +67,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>org.codegen.win.controls.xml</DocumentationFile>
+    <DocumentationFile>org.codegen.win.controls.4.0.xml</DocumentationFile>
     <BaseAddress>285212672</BaseAddress>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
