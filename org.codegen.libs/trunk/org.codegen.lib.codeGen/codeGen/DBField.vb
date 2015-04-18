@@ -1,5 +1,6 @@
 Imports Microsoft.VisualBasic
 Imports System.Collections.Generic
+Imports System.Text
 
 Public Class DBField
     Implements IDBField
@@ -182,34 +183,46 @@ Public Class DBField
     Public Overridable Function getSQLParameter() As String Implements IDBField.getSQLParameter
 
         Const paramPrefix As String = "@"
-        Dim ret As String
+
 
         Dim MeOrThis As String = "Me"
-
-        Dim param As String = vbTab & vbTab & vbTab & _
-                           "stmt.Parameters.Add( {2}.dbConn.getParameter(""" & paramPrefix & "{0}"",obj.{1}))"
-
         If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
         Else
             MeOrThis = "this"
-            param = param & ";"
         End If
-        ret = String.Format(param, Me.FieldName, Me.PropertyName, MeOrThis)
 
-        Return ret & vbCrLf
+        Dim param As StringBuilder = New StringBuilder(vbTab).Append(vbTab).Append(vbTab).Append(vbTab)
+        param.Append("stmt.Parameters.Add(").Append(MeOrThis).Append(".dbConn.getParameter(""")
+        param.Append(paramPrefix).Append(Me.FieldName).Append(""",")
+        If Me.FieldName.ToLower = "id" Then
+            If Me.isString Then
+                param.Append("Convert.ToString(obj.").Append(Me.PropertyName).Append(")))")
+            ElseIf Me.isInteger Then
+                param.Append("Convert.ToInt64(obj.").Append(Me.PropertyName).Append(")))")
+            End If
+        Else
+            param.Append("obj.").Append(Me.PropertyName).Append("))")
+        End If
+
+        If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP Then
+            param.Append(";")
+        End If
+
+        param.Append(vbCrLf)
+        Return param.ToString
 
     End Function
 
-	Public Overridable ReadOnly Property PropertyName() As String Implements IDBField.PropertyName
-		Get
-			If Me.isAuditField Then
-				Return DBTable.getRuntimeName(Me.FieldName())
-			Else
-				Return ModelGenerator.Current.FieldPropertyPrefix & DBTable.getRuntimeName(Me.FieldName())
-			End If
+    Public Overridable ReadOnly Property PropertyName() As String Implements IDBField.PropertyName
+        Get
+            If Me.isAuditField Then
+                Return DBTable.getRuntimeName(Me.FieldName())
+            Else
+                Return ModelGenerator.Current.FieldPropertyPrefix & DBTable.getRuntimeName(Me.FieldName())
+            End If
 
-		End Get
-	End Property
+        End Get
+    End Property
 
     Public Overridable ReadOnly Property RuntimeFieldName() As String Implements IDBField.RuntimeFieldName
         Get

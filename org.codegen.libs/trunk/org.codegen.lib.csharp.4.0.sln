@@ -1,5 +1,7 @@
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D812F799-E78F-4778-84B3-C70E6E14735A}"
 	ProjectSection(SolutionItems) = preProject
 		Local.testsettings = Local.testsettings
@@ -30,13 +32,12 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ModelLibVBGeneratedCode", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneratorTests", "GeneratorTests\GeneratorTests.csproj", "{12D3D3B3-4176-4FA8-BA6E-502FFF896341}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelLibCSharpOracleGenCode", "ModelLibCSharpOracleGenCode\ModelLibCSharpOracleGenCode.csproj", "{891F585A-35B8-4BB9-8B40-33DCA98F055E}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
 		Manager = AnkhSVN - Subversion Support for Visual Studio
-	EndGlobalSection
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = org.codegen.lib.csharp.3.0.vsmdi
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -167,8 +168,21 @@ Global
 		{12D3D3B3-4176-4FA8-BA6E-502FFF896341}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{12D3D3B3-4176-4FA8-BA6E-502FFF896341}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{12D3D3B3-4176-4FA8-BA6E-502FFF896341}.Release|x86.ActiveCfg = Release|Any CPU
+		{891F585A-35B8-4BB9-8B40-33DCA98F055E}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{891F585A-35B8-4BB9-8B40-33DCA98F055E}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{891F585A-35B8-4BB9-8B40-33DCA98F055E}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{891F585A-35B8-4BB9-8B40-33DCA98F055E}.Debug|x86.ActiveCfg = Debug|x86
+		{891F585A-35B8-4BB9-8B40-33DCA98F055E}.Debug|x86.Build.0 = Debug|x86
+		{891F585A-35B8-4BB9-8B40-33DCA98F055E}.Release|Any CPU.ActiveCfg = Release|x86
+		{891F585A-35B8-4BB9-8B40-33DCA98F055E}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{891F585A-35B8-4BB9-8B40-33DCA98F055E}.Release|Mixed Platforms.Build.0 = Release|x86
+		{891F585A-35B8-4BB9-8B40-33DCA98F055E}.Release|x86.ActiveCfg = Release|x86
+		{891F585A-35B8-4BB9-8B40-33DCA98F055E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = org.codegen.lib.csharp.3.0.vsmdi
 	EndGlobalSection
 EndGlobal

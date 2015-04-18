@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="ClassGenerator4"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="ClassGenerator4 https://raw.githubusercontent.com/christoforosl/codegen-lib/CSharpCode/org.codegen.libs/trunk/org.codegen.lib.codeGen/classGenerator.4.xsd" >
+
+
+  <GeneratorVersion>4</GeneratorVersion>
+  <projectFile>.\ModelLibCSharpGeneratedCode.csproj</projectFile>
+  <projectName>ModelLibCSharpTests</projectName>
+  <outputDir>.\</outputDir>
+  <dotNetLanguage>CSHARP</dotNetLanguage>
+  
+  <testProjectOutputDir>..\GeneratorTests\cstests</testProjectOutputDir>
+ 
+  <defaultNamespace>OCSharp</defaultNamespace>
+  <propertiesPrefix>Pr</propertiesPrefix>
+  <dbConnectionString>
+    Provider=MSDAORA;Data Source=polnewdbsrv0;Persist Security Info=True;User ID=hrnuf;password=hr
+  </dbConnectionString>
+  <dbConnectionDialect>ORACLE</dbConnectionDialect>
+  <dbConnectionType>CONN_OLEDB</dbConnectionType>
+  <tables>
+  <table>
+    <TableName>COUNTRIES</TableName>
+    <ClassName>Country</ClassName>    
+  </table>
+  <table>
+    <TableName>DEPARTMENTS</TableName>
+    <ClassName>Department</ClassName>
+  </table>
+<!--
+  <table>
+    <TableName>XML_TYPE_TEST</TableName>
+    <ClassName>XmlTypeTest</ClassName>
+  </table>
+
+
+  <table>
+    <TableName>EMPLOYEES</TableName>
+    <ClassName>Employee</ClassName>
+    <SelectObject>EMP_DETAILS_VIEW</SelectObject>
+  
+    <association>
+      <relationType>CHILD</relationType>
+      <DataType>OCSharp.JobHistory</DataType>
+      
+      <AssociationName>JobHistory</AssociationName>
+      <cardinality>*</cardinality>
+
+      <parentFieldName>employee_id</parentFieldName>
+      <childFieldName>employee_id</childFieldName>
+      
+    </association>
+
+    <association>
+      <AssociationName>Department</AssociationName>
+      <cardinality>1</cardinality>
+      <relationType>PARENT</relationType>
+      <childFieldName>Department_id</childFieldName>
+      <parentFieldName>Department_id</parentFieldName>
+      <datatype>OCSharp.Department</datatype>
+     
+    </association>
+    <association>
+      <AssociationName>Courses</AssociationName>
+      <cardinality>*</cardinality>
+      <relationType>CHILD</relationType>
+      <childFieldName>employee_id</childFieldName>
+      <parentFieldName>employee_id</parentFieldName>
+      <datatype>OCSharp.EmployeeTrainingHistory</datatype>
+    </association>
+
+    <association>
+      <AssociationName>TrainingHistory</AssociationName>
+      <cardinality>*</cardinality>
+      <relationType>CHILD</relationType>
+      <childFieldName>employee_id</childFieldName>
+      <parentFieldName>employee_id</parentFieldName>
+      <datatype>OCSharp.EmployeeTrainingHistory</datatype>
+      
+    </association>
+
+  </table>
+  <table>
+    <TableName>JOBS</TableName>
+    <ClassName>Job</ClassName>
+  
+  </table>
+  <table>
+    <TableName>JOB_HISTORY</TableName>
+    <ClassName>JobHistory</ClassName>
+  </table>
+  <table>
+    <TableName>LOCATIONS</TableName>
+    <ClassName>Location</ClassName>
+  
+  </table>
+  <table>
+    <TableName>REGIONS</TableName>
+    <ClassName>Region</ClassName>
+  </table>
+
+
+  <table>
+    <TableName>employee_training_history</TableName>
+    </table>
+  <table>
+    <TableName>training_courses</TableName>
+  </table>
+  
+-->
+</tables>
+</project>
