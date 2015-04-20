@@ -17,9 +17,9 @@ Public Class Association
     Protected _cardinality As String = ""
     Protected _sortAsc As Boolean = True
 
-    Protected Shared _childManyTemplate As String
-    Protected Shared _childOneTemplate As String
-    Protected Shared _parentTemplate As String
+	Protected _childManyTemplate As String
+	Protected _childOneTemplate As String
+	Protected _parentTemplate As String
 
     Public Property parentDBTable As IDBTable Implements IAssociation.ParentDBTable
     Public Property AccessLevel() As String = "Public"
@@ -164,7 +164,8 @@ Public Class Association
     ''' <remarks></remarks>
     Protected Function GetAssociatedMapperClassName() As String
 
-        Dim otog As ObjectToGenerate = ModelGenerator.Current.getObjectOfDataType(Me.DataType)
+		Dim otog As ObjectToGenerate = ModelGenerator.Current.getObjectOfDataType(Me.DataType)
+
         If (otog Is Nothing) Then
             Throw New ApplicationException("Could not find object to gerenarate from type:" & Me.DataType)
         End If
@@ -310,54 +311,56 @@ Public Class Association
 
 	End Property
 
-    Public Shared Property ChildManyTemplate() As String
-        Get
-            If _childManyTemplate Is Nothing Then
-                If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
-                    _childManyTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationChildMany.txt")
-                Else
-                    _childManyTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationChildManyCSharp.txt")
-                End If
-            End If
-            Return _childManyTemplate
-        End Get
-        Set(ByVal value As String)
-            _childManyTemplate = value
-        End Set
-    End Property
-    Public Shared Property ChildOneTemplate() As String
-        Get
-            If _childOneTemplate Is Nothing Then
-                If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
-                    _childOneTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationChildOne.txt")
-                Else
-                    _childOneTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationChildOneCSharp.txt")
-                End If
+	Public Property ChildManyTemplate() As String
+		Get
+			If _childManyTemplate Is Nothing Then
+				If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
+					_childManyTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationChildMany.txt")
+				Else
+					_childManyTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationChildManyCSharp.txt")
+				End If
+			End If
+			Return _childManyTemplate
+		End Get
+		Set(ByVal value As String)
+			_childManyTemplate = value
+		End Set
+	End Property
 
-            End If
-            Return _childOneTemplate
-        End Get
-        Set(ByVal value As String)
-            _childOneTemplate = value
-        End Set
-    End Property
-    Public Shared Property ParentTemplate() As String
-        Get
-            If _parentTemplate Is Nothing Then
-                If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
-                    _parentTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationParent.txt")
-                Else
-                    _parentTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationParentCSharp.txt")
-                End If
+	Public Property ChildOneTemplate() As String
+		Get
+			If _childOneTemplate Is Nothing Then
+				If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
+					_childOneTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationChildOne.txt")
+				Else
+					_childOneTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationChildOneCSharp.txt")
+				End If
+
+			End If
+			Return _childOneTemplate
+		End Get
+		Set(ByVal value As String)
+			_childOneTemplate = value
+		End Set
+	End Property
+
+	Public Property ParentTemplate() As String
+		Get
+			If _parentTemplate Is Nothing Then
+				If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
+					_parentTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationParent.txt")
+				Else
+					_parentTemplate = Utilities.getResourceFileText("org.codegen.lib.codeGen.associationParentCSharp.txt")
+				End If
 
 
-            End If
-            Return _parentTemplate
-        End Get
-        Set(ByVal value As String)
-            _parentTemplate = value
-        End Set
-    End Property
+			End If
+			Return _parentTemplate
+		End Get
+		Set(ByVal value As String)
+			_parentTemplate = value
+		End Set
+	End Property
 
     Public Function isCardinalityMany() As Boolean Implements dotnet.IAssociation.isCardinalityMany
         Return Not String.IsNullOrEmpty(Me._cardinality) AndAlso Me._cardinality = "*"

@@ -55,7 +55,7 @@
     <SccAuxPath />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>..\..\codeGenLibs\</OutputPath>
+    <OutputPath>..\..\..\..\codeGenLibs\</OutputPath>
     <DocumentationFile>org.codegen.common.4.0.xml</DocumentationFile>
     <BaseAddress>285212672</BaseAddress>
     <ConfigurationOverrideFile>

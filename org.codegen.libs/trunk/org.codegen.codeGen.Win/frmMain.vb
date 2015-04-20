@@ -53,7 +53,7 @@ Public Class frmMain
                 prg = New ProgressIndicator
                 gen = New XMLClassGenerator(CStr(Me.cboXMLConfFile.Text))
                 cds = New DataSet
-                cds.ReadXmlSchema(common.CommonUtils.getResourceStream("org.codegen.lib.codeGen.classFenerator.xsd"))
+                cds.ReadXmlSchema(common.CommonUtils.getResourceStream("org.codegen.lib.codeGen.classFenerator.xsd", GetType(XMLClassGenerator)))
 
                 cds.ReadXml(CStr(Me.cboXMLConfFile.Text))
                 gen.parseConfFile(cds)

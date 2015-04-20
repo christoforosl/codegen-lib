@@ -1,9 +1,11 @@
 
 Public Class WinControlsLocalizer
 
+
     ' Methods
     Shared Sub New()
-        WinControlsLocalizer.clang.ResourceName = "org.codegen.win.controls.langStrings2.xml"
+        WinControlsLocalizer.clang.setResourceName("org.codegen.win.controls.langStrings2.xml", _
+                                                   GetType(WinControlsLocalizer))
     End Sub
 
     Public Shared Function getString(ByVal skey As String) As String

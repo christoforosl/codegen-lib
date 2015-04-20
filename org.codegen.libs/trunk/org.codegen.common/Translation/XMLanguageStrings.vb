@@ -65,17 +65,16 @@ Namespace TranslationServices
         End Sub
 
 
-        Public WriteOnly Property ResourceName() As String
-            Set(ByVal value As String)
+        Public Sub setResourceName(ByVal value As String, stype As Type)
 
-                Me.setXMLDataView(CommonUtils.getResourceStream(value))
+            Me.setXMLDataView(CommonUtils.getResourceStream(value, stype))
 
-            End Set
-        End Property
+        End Sub
 
 
         Public WriteOnly Property XMLStream() As System.IO.Stream
             Set(ByVal value As System.IO.Stream)
+                Validate.isNotNull(value, "XMLStream PROP: XML STREAM IS NULL!!")
                 Call setXMLDataView(value)
             End Set
         End Property
@@ -84,6 +83,7 @@ Namespace TranslationServices
 
             Dim _dsLang As New DataSet
             Try
+                Validate.isNotNull(inxmlStream, "setXMLDataView: XML TREAM IS NULL!!")
                 _dsLang.ReadXml(inxmlStream)
 
                 Dim keys(0) As DataColumn

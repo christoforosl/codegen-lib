@@ -2,7 +2,7 @@
 Imports System.Text
 Imports System.Collections.Generic
 Imports Microsoft.VisualStudio.TestTools.UnitTesting
-Imports <NAMESPACE>
+
 
 '<comments>
 'Template: TestTemplate.visualbasic.txt
@@ -22,9 +22,7 @@ Imports <NAMESPACE>
     Public Property TestContext() As TestContext
 
 #Region "Additional test attributes"
-    '
     ' You can use the following additional attributes as you write your tests:
-    '
     ' Use ClassInitialize to run code before running the first test in the class
     <ClassInitialize()> Public Shared Sub MyClassInitialize(ByVal testContext As TestContext)
         ModelContext.newForUnitTests()
@@ -34,7 +32,6 @@ Imports <NAMESPACE>
     <ClassCleanup()> Public Shared Sub MyClassCleanup()
         ModelContext.release()
     End Sub
-
 
     'Use TestInitialize to run code before running each test
     '<TestInitialize()> _
@@ -46,7 +43,6 @@ Imports <NAMESPACE>
     End Sub
     '
 #End Region
-
 
     <TestMethod()> Public Sub TestLoadAndSave<MODEL_CLASS_NAME>()
 		
@@ -79,10 +75,8 @@ Imports <NAMESPACE>
 				<TEST_CHANGE_RANDOM_FIELDS>
 				p.isDirty = True 'to force save
 				ModelContext.Current.saveModelObject(p)
-
 				p = ModelContext.Current.loadModelObject(Of <MODEL_CLASS_NAME>)(p.Id)
 				<TEST_ASSERT_RANDOM_FIELDS>
-
 			End If
 
 		Finally

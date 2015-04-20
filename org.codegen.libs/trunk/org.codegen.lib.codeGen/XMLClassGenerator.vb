@@ -112,6 +112,12 @@ Public Class XMLClassGenerator
         gen.parseConfFile(cds)
         gen.genClasses()
 
+		System.Diagnostics.Debug.WriteLine("Completed: " & vbCrLf & _
+		"Objects:" & ModelGenerator.Current.ObjectsToGenerate.Count & vbCrLf & _
+		"New Gen Files:" & ModelGenerator.Current.NumOfNewGeneratedFiles & vbCrLf & _
+		"Updated Files:" & ModelGenerator.Current.NumOfGeneratedFiles & vbCrLf & _
+		"Skipped Files:" & ModelGenerator.Current.NumOfUnchangedFiles, MsgBoxStyle.Information)
+
     End Sub
 
 

@@ -19,7 +19,7 @@
     </ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>org.codegen.lib.codeGen</AssemblyName>
+    <AssemblyName>org.codegen.lib.codeGen.4.0</AssemblyName>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
     <AssemblyOriginatorKeyMode>None</AssemblyOriginatorKeyMode>
@@ -64,8 +64,8 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>..\..\codeGenLibs\</OutputPath>
-    <DocumentationFile>org.codegen.lib.codeGen.xml</DocumentationFile>
+    <OutputPath>..\..\..\..\codeGenLibs\</OutputPath>
+    <DocumentationFile>org.codegen.lib.codeGen.4.0.xml</DocumentationFile>
     <BaseAddress>285212672</BaseAddress>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
@@ -86,7 +86,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>..\..\codeGen\</OutputPath>
-    <DocumentationFile>org.codegen.lib.codeGen.xml</DocumentationFile>
+    <DocumentationFile>org.codegen.lib.codeGen.4.0.xml</DocumentationFile>
     <BaseAddress>285212672</BaseAddress>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
