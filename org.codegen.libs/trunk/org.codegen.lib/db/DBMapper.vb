@@ -36,8 +36,10 @@ Public MustInherit Class DBMapper
 		Me.determineConf()
 	End Sub
 
-	'''    
-	'''	 <summary>Instantiation without a Connection </summary>
+	'''	<summary>
+	''' Instantiation without a Connection. Connection is assigned by calling 
+	''' ModelContext.CurrentDBUtils 
+	''' </summary>
 	'''	 
 	Public Sub New()
 		Me.dbConn = ModelContext.CurrentDBUtils

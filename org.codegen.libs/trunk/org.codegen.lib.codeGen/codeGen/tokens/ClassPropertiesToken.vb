@@ -40,8 +40,8 @@ Namespace Tokens
 
                 For Each association As IAssociation In vec
                     If association.isParent Then
-                        sb.Append("if  (this." & association.getVariableName() & "Loaded) {" & vbCrLf)
-						sb.Append("ret.Add(this.").Append(ModelGenerator.Current.FieldPropertyPrefix).Append(association.getVariableName()).Append(");").Append(vbCrLf)
+						sb.Append("if  ( this._" & association.getVariableName() & "!=null && this." & association.getVariableName() & "Loaded) {" & vbCrLf)
+                        sb.Append(vbTab).Append("ret.Add(this.").Append(ModelGenerator.Current.FieldPropertyPrefix).Append(association.getVariableName()).Append(");").Append(vbCrLf)
                         sb.Append("}" & vbCrLf)
 
                     End If
@@ -65,8 +65,8 @@ Namespace Tokens
 
                 For Each association As IAssociation In vec
                     If association.isParent Then
-                        sb.Append("if  Me._" & association.getVariableName() & "Loaded Then" & vbCrLf)
-						sb.Append("ret.Add(me." & ModelGenerator.Current.FieldPropertyPrefix & association.getVariableName() & ")" & vbCrLf)
+                        sb.Append("if  Me._" & association.getVariableName() & " isNot Nothing AndAlso Me._" & association.getVariableName() & "Loaded Then" & vbCrLf)
+                        sb.Append(vbTab).Append("ret.Add(me." & ModelGenerator.Current.FieldPropertyPrefix & association.getVariableName() & ")" & vbCrLf)
                         sb.Append("End If" & vbCrLf)
 
                     End If
