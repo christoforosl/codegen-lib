@@ -1,7 +1,7 @@
 
 This is an .net ORM project, capable of generating c# or vb plain old objects from database tables. 
 The project is a Visual Studio 10 solution. The solution consits of the following projects:
-<ol>
+<ul>
 
 <li>org.codegen.lib: A class library project containing classes, interfaces and templates for generating code.</li>
 
@@ -15,4 +15,4 @@ The project is a Visual Studio 10 solution. The solution consits of the followin
 
 <li>4 test projects: GeneratorTests, ModelLibCSharpGeneratedCode, ModelLibCSharpOracleGenCode, ModelLibTestsVisualBasicGeneratedCode </li>
 
-</ol>
+</ul>
