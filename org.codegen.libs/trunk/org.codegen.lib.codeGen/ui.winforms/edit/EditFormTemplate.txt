@@ -1,5 +1,5 @@
 ﻿Namespace Forms.Edit
-
+'EditFormTemplate.txt
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Public Class frm<MODEL_CLASS_NAME>Details
     Inherits org.codegen.win.controls.frmBaseEdit

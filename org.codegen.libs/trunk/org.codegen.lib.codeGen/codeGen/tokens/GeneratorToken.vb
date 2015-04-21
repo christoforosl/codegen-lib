@@ -15,6 +15,36 @@ Namespace Tokens
         End Function
     End Class
 
+    Public Class PKConverter
+        Inherits MultiLingualReplacementToken
+
+        Sub New()
+            Me.StringToReplace = "PK_CONVERTER"
+        End Sub
+
+        Public Overrides Function getReplacementCodeCSharp(t As dotnet.IObjectToGenerate) As String
+            If t.DbTable.getPrimaryKeyField.isInteger Then
+                Return "Convert.ToInt64(value);"
+            ElseIf t.DbTable.getPrimaryKeyField.isString Then
+                Return "Convert.ToString(value);"
+            Else
+                Throw New ApplicationException("Primary Key can be Integer or String")
+            End If
+        End Function
+
+        Public Overrides Function getReplacementCodeVB(t As dotnet.IObjectToGenerate) As String
+            If t.DbTable.getPrimaryKeyField.isInteger Then
+                Return "Clng(value)"
+            ElseIf t.DbTable.getPrimaryKeyField.isString Then
+                Return "CStr(value)"
+            Else
+                Throw New ApplicationException("Primary Key can be Integer or String")
+            End If
+        End Function
+    End Class
+
+
+
     Public Class PKFieldRuntimeNameToken
         Inherits ReplacementToken
 
@@ -29,7 +59,7 @@ Namespace Tokens
 
     Public Class ClassNameSpaceToken
         Inherits ReplacementToken
-        'sJcode = sJcode.Replace("<NAMESPACE>", Me.ClassNameSpace())
+
         Sub New()
             Me.StringToReplace = "NAMESPACE"
         End Sub

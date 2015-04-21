@@ -15,7 +15,7 @@ Public Class XMLClassGenerator
     Public Const XML_TABLE_ATTR_MOBJ_NAMESPACE As String = "Namespace"
     Public Const XML_TABLE_ATTR_TEST_CLASS_NAMESPACE As String = "TestClassNameSpace"
     Public Const XML_TABLE_ATTR_GENERATE_UI As String = "GenerateUI"
-    Public Const XML_TABLE_ATTR_GENERATE_MAPPER As String = "GenerateMapper"
+    'Public Const XML_TABLE_ATTR_GENERATE_MAPPER As String = "GenerateMapper"
     Public Const XML_ATTR_PROJECT_TEST_OUT_DIR As String = "testProjectOutputDir"
     Public Const XML_ATTR_UI_TEST_OUT_DIR As String = "UIProjectOutputDir"
     Public Const XML_FIELD_ATTR_DATATYPE As String = "DataType"
@@ -31,6 +31,7 @@ Public Class XMLClassGenerator
     Public Const XML_TABLE_ATTR_READONLY As String = "isReadOnly"
     Public Const XML_ATTR_REL_TYPE As String = "relationType"
 
+	Public Const XML_PROP_PERFIX As String = "propertiesPrefix"
     Public Const XML_PROJECT_ATTR_DEFAULT_NAMESPACE As String = "defaultNamespace"
     Public Const XML_ATTR_DEFAULT_MAPPER_NAMESPACE As String = "defaultDBMapperNameSpace"
     Public Const XML_PROJECT_ATTR_CONN_STRING As String = "dbConnectionString"
@@ -68,7 +69,8 @@ Public Class XMLClassGenerator
 
     Private _xmlConfFile As String
     Private _VbNetProjectFile As String
-    Private relativeDirectory As String
+	Private relativeDirectory As String
+
 #End Region
 
 #Region "Properties"
@@ -104,23 +106,24 @@ Public Class XMLClassGenerator
 
         gen = New XMLClassGenerator(xmlConfFile)
         cds = New DataSet
-        cds.Namespace = "ClassGenerator3"
-        cds.ReadXmlSchema(Utilities.getResourceStream("org.codegen.lib.codeGen.classFenerator.xsd"))
+        cds.Namespace = "ClassGenerator4"
+        cds.ReadXmlSchema(Utilities.getResourceStream("org.codegen.lib.codeGen.classGenerator.4.xsd"))
         cds.ReadXml(xmlConfFile)
         gen.parseConfFile(cds)
         gen.genClasses()
 
+		System.Diagnostics.Debug.WriteLine("Completed: " & vbCrLf & _
+		"Objects:" & ModelGenerator.Current.ObjectsToGenerate.Count & vbCrLf & _
+		"New Gen Files:" & ModelGenerator.Current.NumOfNewGeneratedFiles & vbCrLf & _
+		"Updated Files:" & ModelGenerator.Current.NumOfGeneratedFiles & vbCrLf & _
+		"Skipped Files:" & ModelGenerator.Current.NumOfUnchangedFiles, MsgBoxStyle.Information)
 
     End Sub
 
 
-
-
     Public Sub genClasses()
 
-        ' first run: enumerate thru all tables to setup 
-        ' associations
-        'ModelGenerator.Current.UpdateAssociationEndsIds = New Dictionary(Of String, String())
+
         Dim objectCount As Integer = ModelGenerator.Current.ObjectsToGenerate.Values.Count
 
         If Progress Is Nothing = False Then
@@ -226,7 +229,7 @@ Public Class XMLClassGenerator
                 Dim childTableLinkField As String = getRowValue(assRow, XML_ASS_CHILD_FIELD, parentTableLinkField)
                 Dim accLevel As String = getRowValue(assRow, XML_FIELD_ATTR_ACCESS_LEVEL, STR_PUBLIC)
 
-                Dim n As New Association()
+                Dim n As IAssociation = ModelGenerator.Current.getAssociationInstance()
                 n.DataType = associationDatatype
                 n.associationName = assname
                 n.associationNameSingular = assnameSingle
@@ -234,7 +237,7 @@ Public Class XMLClassGenerator
                 n.RelationType = relType
                 n.ParentFieldName = parentTableLinkField
                 n.ChildFieldName = childTableLinkField
-                n.AccessLevel = accLevel
+                'n.AccessLevel = accLevel
                 n.IsReadOnly = CBool(getRowValue(assRow, XML_ASS_READ_ONLY, "0"))
                 n.isSortAsc = CBool(getRowValue(assRow, XML_ATTR_SORT_ASC, "1"))
                 n.SortField = getRowValue(assRow, XML_ATTR_SORT_FIELD, "")
@@ -265,13 +268,14 @@ Public Class XMLClassGenerator
         Dim fieldDt As DataTable = cds.Tables(XML_ATTR_FIELD)
 
         Dim generatorVersion As Integer = CInt(getRowValue(projectInfo.Rows(0), "GeneratorVersion", True))
-        Dim defaultNamespace As String = getRowValue(projectInfo.Rows(0), XML_PROJECT_ATTR_DEFAULT_NAMESPACE)
+		Dim defaultNamespace As String = getRowValue(projectInfo.Rows(0), XML_PROJECT_ATTR_DEFAULT_NAMESPACE)
 
         Dim propertyGeneratorClassName As String = getRowValue(projectInfo.Rows(0), XML_PROJECT_ATTR_IPROP_GEN_CLASS_NAME, False)
 
         Me.VbNetProjectFile = getRowValue(projectInfo.Rows(0), XML_PROJECT_ATTR_VB_NET_PROJECT_FILE, "")
 
-        Dim t As ModelGenerator = ModelGenerator.create(CType(generatorVersion, ModelGenerator.enumVERSION))
+		Dim t As ModelGenerator = ModelGenerator.create(CType(generatorVersion, ModelGenerator.enumVERSION))
+
         t.relativeDirectory = Me.relativeDirectory
         t.XmlFileDataSet = cds
         t.DbConnString = getRowValue(projectInfo.Rows(0), XML_PROJECT_ATTR_CONN_STRING, True)
@@ -280,7 +284,15 @@ Public Class XMLClassGenerator
 
         t.ProjectOutputDirModel = getRowValue(projectInfo.Rows(0), XML_PROJECT_ATTR_OUTPUT_DIR, True)
         t.ProjectOutputDirTest = getRowValue(projectInfo.Rows(0), XML_ATTR_PROJECT_TEST_OUT_DIR, False)
-        t.ProjectOutputDirUI = getRowValue(projectInfo.Rows(0), XML_ATTR_UI_TEST_OUT_DIR, False)
+		t.ProjectOutputDirUI = getRowValue(projectInfo.Rows(0), XML_ATTR_UI_TEST_OUT_DIR, False)
+		t.FieldPropertyPrefix = getRowValue(projectInfo.Rows(0), XML_PROP_PERFIX, False)
+		t.DefaultMapperNameSpace = getRowValue(projectInfo.Rows(0), XML_ATTR_DEFAULT_MAPPER_NAMESPACE, False)
+
+		If getRowValue(projectInfo.Rows(0), "dotNetLanguage", "VB") = "VB" Then
+            t.dotNetLanguage = ModelGenerator.enumLanguage.VB
+        Else
+            t.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP
+        End If
 
         For tblName As Integer = 0 To totalTables - 1
 
@@ -297,12 +309,8 @@ Public Class XMLClassGenerator
             ogen.XMLDefinition = thisRow
             ogen.setTableName(table, pkField)
             ogen.GenerateUI = getBooleanRowValue(thisRow, XML_TABLE_ATTR_GENERATE_UI, False)
-            ogen.GenerateMapper = getBooleanRowValue(thisRow, XML_TABLE_ATTR_GENERATE_MAPPER, True)
-
-            If getBooleanRowValue(thisRow, XML_TABLE_ATTR_IS_SINGLETON) Then
-                'ogen.DbTable = True
-            End If
-
+            ogen.GenerateMapper = True
+            
             If xmlReadonly.Equals("1") Then
                 ogen.DbTable().isReadOnly = True
             End If
@@ -340,14 +348,9 @@ Public Class XMLClassGenerator
 
                     Dim xmltype As String = getRowValue(FieldRow, XML_FIELD_ATTR_DATATYPE, String.Empty)
                     If String.IsNullOrEmpty(xmltype) = False Then
-                        'If Type.GetType(xmltype) Is Nothing Then
-                        '    Throw New ApplicationException("Unknown System Type:" & xmltype)
-                        'End If
-                        f.UserSpecifiedDataType = xmltype
+						f.UserSpecifiedDataType = xmltype
                     End If
 
-                    f.AccessLevel = getRowValue(FieldRow, XML_FIELD_ATTR_ACCESS_LEVEL, String.Empty)
-                    f.XMLSerializationIgnore = CBool(getRowValue(FieldRow, XML_FIELD_ATTR_SERIALIZATION_IGNORE, "0"))
 
                     Dim exclude As Boolean = CBool(getRowValue(FieldRow, XML_FIELD_ATTR_EXCLUDE, "0"))
                     If exclude Then

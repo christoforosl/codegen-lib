@@ -1,7 +1,6 @@
 Imports Microsoft.VisualBasic
 Imports System.Collections.Generic
-
-
+Imports System.Text
 
 Public Class DBField
     Implements IDBField
@@ -61,12 +60,19 @@ Public Class DBField
                     Optional ByVal withInitialiser As Boolean = True) As String Implements IDBField.getClassVariableDeclaration
 
         Dim fname As String = Me.RuntimeFieldName()
+        Dim ret As String = String.Empty
 
-        Dim ret As String = vbTab & accessLevel & " _" & _
-                        fname & " as " & _
-                        getFieldDataType()
+        If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
+            ret = vbTab & accessLevel & " _" & _
+                            fname & " as " & _
+                            getFieldDataType()
 
-        If withInitialiser AndAlso Me.isPrimaryKey = False Then ret &= " = Nothing"
+            If withInitialiser AndAlso Me.isPrimaryKey = False Then ret &= " = Nothing"
+        Else
+            ret = vbTab & accessLevel & " " & getFieldDataType() & " _" & fname
+            If withInitialiser AndAlso Me.isPrimaryKey = False Then ret &= " = null"
+            ret &= ";"
+        End If
 
 
         Return ret & vbCrLf
@@ -76,7 +82,11 @@ Public Class DBField
     Public Overridable Function getFieldDataType() As String Implements IDBField.getFieldDataType
 
         If Me.isNullableDataType Then
-            Return "Nullable (of " & Me._RuntimeTypeStr & ")"
+            If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
+                Return "Nullable (of " & Me._RuntimeTypeStr & ")"
+            Else
+                Return Me._RuntimeTypeStr & "?"
+            End If
         Else
             Return Me._RuntimeTypeStr
         End If
@@ -109,7 +119,13 @@ Public Class DBField
             ret = Me.FieldDataType
 
         ElseIf Me.isNullableDataType Then
-            ret = "Nullable (of " & Me.FieldDataType & ")"
+            If (ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP) Then
+                ret = Me.FieldDataType & "?"
+            Else
+                ret = "Nullable (of " & Me.FieldDataType & ")"
+            End If
+
+
         Else
             ret = Me.FieldDataType
         End If
@@ -120,12 +136,9 @@ Public Class DBField
 
     Public Overridable Function getProperty() As String Implements IDBField.getProperty
 
-        Return New PropertyGenerator().generateCode(Me)
+        Return ModelGenerator.Current.IPropertyGenerator.generateCode(Me)
 
     End Function
-
-
-
 
     Private Function getOLEDBParameterType() As String
 
@@ -170,17 +183,46 @@ Public Class DBField
     Public Overridable Function getSQLParameter() As String Implements IDBField.getSQLParameter
 
         Const paramPrefix As String = "@"
-        Dim ret As String
-        Dim dbtype As String = TypeConvertor.ToDbType(Me._OriginalRuntimeType).ToString
-        Dim param As String = vbTab & vbTab & vbTab & _
-                        "stmt.Parameters.Add( Me.dbConn.getParameter(""" & paramPrefix & "{0}"",obj.{1}))" & vbCrLf
-        ret = String.Format(param, Me.FieldName, Me.RuntimeFieldName)
 
 
-        Return ret
+        Dim MeOrThis As String = "Me"
+        If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
+        Else
+            MeOrThis = "this"
+        End If
+
+        Dim param As StringBuilder = New StringBuilder(vbTab).Append(vbTab).Append(vbTab).Append(vbTab)
+        param.Append("stmt.Parameters.Add(").Append(MeOrThis).Append(".dbConn.getParameter(""")
+        param.Append(paramPrefix).Append(Me.FieldName).Append(""",")
+        If Me.FieldName.ToLower = "id" Then
+            If Me.isString Then
+                param.Append("Convert.ToString(obj.").Append(Me.PropertyName).Append(")))")
+            ElseIf Me.isInteger Then
+                param.Append("Convert.ToInt64(obj.").Append(Me.PropertyName).Append(")))")
+            End If
+        Else
+            param.Append("obj.").Append(Me.PropertyName).Append("))")
+        End If
+
+        If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP Then
+            param.Append(";")
+        End If
+
+        param.Append(vbCrLf)
+        Return param.ToString
 
     End Function
 
+    Public Overridable ReadOnly Property PropertyName() As String Implements IDBField.PropertyName
+        Get
+            If Me.isAuditField Then
+                Return DBTable.getRuntimeName(Me.FieldName())
+            Else
+                Return ModelGenerator.Current.FieldPropertyPrefix & DBTable.getRuntimeName(Me.FieldName())
+            End If
+
+        End Get
+    End Property
 
     Public Overridable ReadOnly Property RuntimeFieldName() As String Implements IDBField.RuntimeFieldName
         Get
@@ -211,14 +253,15 @@ Public Class DBField
 
         Return Me.UserSpecifiedDataType IsNot Nothing AndAlso
                 Me.UserSpecifiedDataType = "System.Boolean"
-        'AndAlso (field.OriginalRuntimeType Is Type.GetType("System.Byte") _
-        '                OrElse field.OriginalRuntimeType Is Type.GetType("System.Int16") _
-        '                OrElse field.OriginalRuntimeType Is Type.GetType("System.Int32"))
+
     End Function
 
     Public Function isInteger() As Boolean Implements IDBField.isInteger
 
-        Return Me.RuntimeType Is Type.GetType("System.Int32")
+        Return Me.RuntimeType Is Type.GetType("System.Int32") OrElse _
+                Me.RuntimeType Is Type.GetType("System.Byte") OrElse _
+                Me.RuntimeType Is Type.GetType("System.Int64") OrElse _
+                        Me.RuntimeType Is Type.GetType("System.Int16")
 
     End Function
 
@@ -245,13 +288,13 @@ Public Class DBField
             _OriginalRuntimeType = value
             If value Is Type.GetType("System.Single") OrElse _
                 value Is Type.GetType("System.Float") Then
-
                 _RuntimeType = Type.GetType("System.Decimal")
 
             ElseIf value Is Type.GetType("System.Int16") OrElse _
+                    value Is Type.GetType("System.Int32") OrElse _
                     value Is Type.GetType("System.Byte") Then
 
-                _RuntimeType = Type.GetType("System.Int32")
+                _RuntimeType = Type.GetType("System.Int64")
 
             Else
                 _RuntimeType = value

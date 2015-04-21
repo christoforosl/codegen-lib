@@ -16,10 +16,12 @@ Public Class PropertyGenerator
         If field.XMLSerializationIgnore Then
             xmlIgnore = "<XmlIgnore()> _" & vbCrLf
         End If
+		Dim pfx As String = ModelGenerator.Current.FieldPropertyPrefix
+		If (field.isAuditField) Then pfx = String.Empty
 
-        Dim sproperty As String = xmlIgnore & _
-                vbTab & field.AccessLevel & " Overridable Property <0> as {1}<IMPL>" & vbCrLf & _
-                vbTab & "Get " & vbCrLf
+		Dim sproperty As String = xmlIgnore & _
+		  vbTab & field.AccessLevel & " Overridable Property " & pfx & "<0> as {1}<IMPL>" & vbCrLf & _
+		  vbTab & "Get " & vbCrLf
 
         If String.IsNullOrEmpty(field.UserSpecifiedDataType) = False Then
 
@@ -49,7 +51,7 @@ Public Class PropertyGenerator
 
         Dim PropertyInterface As String = DirectCast( _
                 ModelGenerator.Current.CurrentObjectBeingGenerated.FileGroup(ModelObjectFileComponent.KEY),  _
-                VBClassFileComponent).ClassInterface
+                DotNetClassFileComponent).ClassInterface
 
         sproperty &= vbTab & "End Get " & vbCrLf & _
             vbTab & "Set{2}" & vbCrLf & "{3}" & _
@@ -89,11 +91,11 @@ Public Class PropertyGenerator
 
         Dim iimplements As List(Of String) = New List(Of String)
         If field.isAuditField Then
-            iimplements.Add(field.ParentTable.getAuditInterface & "." & field.RuntimeFieldName)
+			iimplements.Add(field.ParentTable.getAuditInterface & "." & field.PropertyName)
         End If
 
         If String.IsNullOrEmpty(PropertyInterface) = False Then
-            iimplements.Add(PropertyInterface & "." & field.RuntimeFieldName)
+			iimplements.Add(PropertyInterface & "." & field.PropertyName)
 
         End If
 
@@ -127,7 +129,7 @@ Public Class PropertyGenerator
         If field.isBoolean Then
             ret.Append("Public Sub set").Append(propertyFieldname).Append("(ByVal val As String)").Append(vbCrLf)
             ret.Append("	If String.IsNullOrEmpty(val) Then").Append(vbCrLf)
-            ret.Append("		Me.").Append(runtimeFieldName).Append(" = Nothing").Append(vbCrLf)
+			ret.Append("		Me.").Append(field.PropertyName).Append(" = Nothing").Append(vbCrLf)
             ret.Append("	Else").Append(vbCrLf)
             ret.Append("	    Dim newval As Boolean").Append(vbCrLf)
             ret.Append("	    Dim success As Boolean = Boolean.TryParse(val, newval)").Append(vbCrLf)
@@ -135,17 +137,17 @@ Public Class PropertyGenerator
             ret.Append("		    Throw new ApplicationException(""Invalid Integer Number, field:").Append(runtimeFieldName). _
                                         Append(", value:"" & val)").Append(vbCrLf)
             ret.Append("	    End If").Append(vbCrLf)
-            ret.Append("	    Me.").Append(runtimeFieldName).Append(" = newval").Append(vbCrLf)
+			ret.Append("	    Me.").Append(field.PropertyName).Append(" = newval").Append(vbCrLf)
             ret.Append("	End If").Append(vbCrLf)
             ret.Append("End Sub").Append(vbCrLf)
 
         ElseIf field.isInteger Then
             ret.Append("Public Sub set").Append(propertyFieldname).Append("(ByVal val As String)").Append(vbCrLf)
             ret.Append("	If IsNumeric(val) Then").Append(vbCrLf)
-            ret.Append("		Me.").Append(runtimeFieldName).Append(" = CType(val, ").Append(field.FieldDataType).Append(")").Append(vbCrLf)
+			ret.Append("		Me.").Append(field.PropertyName).Append(" = CType(val, ").Append(field.FieldDataType).Append(")").Append(vbCrLf)
 
             ret.Append("	ElseIf String.IsNullOrEmpty(val) Then").Append(vbCrLf)
-            ret.Append("		Me.").Append(runtimeFieldName).Append(" = Nothing").Append(vbCrLf)
+			ret.Append("		Me.").Append(field.PropertyName).Append(" = Nothing").Append(vbCrLf)
             ret.Append("	Else").Append(vbCrLf)
             'ret.Append("		Me.").Append(runtimeFieldName).Append(" = Nothing").Append(vbCrLf)
             ret.Append("		Throw new ApplicationException(""Invalid Integer Number, field:").Append(runtimeFieldName). _
@@ -154,11 +156,11 @@ Public Class PropertyGenerator
             ret.Append("End Sub").Append(vbCrLf)
 
         ElseIf field.isDecimal Then
-            ret.Append("Public Sub set").Append(propertyFieldname).Append("(ByVal val As String)").Append(vbCrLf)
+			ret.Append("Public Sub set").Append(propertyFieldname).Append("(ByVal val As String)").Append(vbCrLf)
             ret.Append("	If IsNumeric(val) Then").Append(vbCrLf)
-            ret.Append("		Me.").Append(runtimeFieldName).Append(" = CDec(val)").Append(vbCrLf)
+			ret.Append("		Me.").Append(field.PropertyName).Append(" = CDec(val)").Append(vbCrLf)
             ret.Append("	ElseIf String.IsNullOrEmpty(val) Then").Append(vbCrLf)
-            ret.Append("		Me.").Append(runtimeFieldName).Append(" = Nothing").Append(vbCrLf)
+			ret.Append("		Me.").Append(field.PropertyName).Append(" = Nothing").Append(vbCrLf)
             ret.Append("	Else").Append(vbCrLf)
             'ret.Append("		Me.").Append(runtimeFieldName).Append(" = Nothing").Append(vbCrLf)
             ret.Append("		Throw new ApplicationException(""Invalid Decimal Number, field:").Append(runtimeFieldName). _
@@ -168,9 +170,9 @@ Public Class PropertyGenerator
         ElseIf field.isDate Then
             ret.Append("Public Sub set").Append(propertyFieldname).Append("(ByVal val As String)").Append(vbCrLf)
             ret.Append("	If IsDate(val) Then").Append(vbCrLf)
-            ret.Append("		Me.").Append(runtimeFieldName).Append(" = CDate(val)").Append(vbCrLf)
+			ret.Append("		Me.").Append(field.PropertyName).Append(" = CDate(val)").Append(vbCrLf)
             ret.Append("	ElseIf String.IsNullOrEmpty(val) Then").Append(vbCrLf)
-            ret.Append("		Me.").Append(runtimeFieldName).Append(" = Nothing").Append(vbCrLf)
+			ret.Append("		Me.").Append(field.PropertyName).Append(" = Nothing").Append(vbCrLf)
             ret.Append("	Else").Append(vbCrLf)
             'ret.Append("		Me.").Append(runtimeFieldName).Append(" = Nothing").Append(vbCrLf)
             ret.Append("		Throw new ApplicationException(""Invalid Date, field:").Append(runtimeFieldName). _
@@ -181,9 +183,9 @@ Public Class PropertyGenerator
         ElseIf field.RuntimeTypeStr = "System.String" Then
             ret.Append("Public Sub set").Append(propertyFieldname).Append("(ByVal val As String)").Append(vbCrLf)
             ret.Append("	If not String.isNullOrEmpty(val) Then").Append(vbCrLf)
-            ret.Append("		Me.").Append(runtimeFieldName).Append(" = val").Append(vbCrLf)
+			ret.Append("		Me.").Append(field.PropertyName).Append(" = val").Append(vbCrLf)
             ret.Append("	Else").Append(vbCrLf)
-            ret.Append("		Me.").Append(runtimeFieldName).Append(" = Nothing").Append(vbCrLf)
+			ret.Append("		Me.").Append(field.PropertyName).Append(" = Nothing").Append(vbCrLf)
             ret.Append("	End If").Append(vbCrLf)
             ret.Append("End Sub").Append(vbCrLf)
         End If
@@ -196,7 +198,7 @@ Public Class PropertyGenerator
                     Implements IPropertyGenerator.generateInterfaceDeclaration
 
         Dim sb As StringBuilder = New StringBuilder()
-        Dim fname As String = field.RuntimeFieldName()
+		Dim fname As String = field.PropertyName()
         If fname.ToLower = "readonly" OrElse fname.ToLower = "new" Then
             fname = "[" & fname & "]"
         End If

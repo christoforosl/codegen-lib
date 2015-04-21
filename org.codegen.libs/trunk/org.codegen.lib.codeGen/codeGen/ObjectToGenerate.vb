@@ -33,11 +33,11 @@ Public Class ObjectToGenerate
 #End Region
 
     Public Function ClassName() As String
-        Return DirectCast(Me.FileGroup(ModelObjectFileComponent.KEY), VBClassFileComponent).ClassName
+        Return DirectCast(Me.FileGroup(ModelObjectFileComponent.KEY), DotNetClassFileComponent).ClassName
     End Function
 
     Public Function ClassNameSpace() As String
-        Return DirectCast(Me.FileGroup(ModelObjectFileComponent.KEY), VBClassFileComponent).ClassNamespace
+        Return DirectCast(Me.FileGroup(ModelObjectFileComponent.KEY), DotNetClassFileComponent).ClassNamespace
     End Function
 
     Public Function MapperClassNameSpace() As String

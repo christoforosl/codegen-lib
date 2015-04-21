@@ -86,6 +86,8 @@
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="ModelLibTestsWinApp.BusObjects" />
     <Import Include="ModelLibTestsWinApp.BusObjects.Mappers" />
+    <Import Include="ModelLibVBGenCode.VbBusObjects" />
+    <Import Include="ModelLibVBGenCode.VbBusObjects.DBMappers" />
     <Import Include="org.codegen.win.controls" />
     <Import Include="org.model.lib" />
     <Import Include="org.model.lib.db" />
@@ -100,84 +102,6 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\Edit\ucEmployeeDetails.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\Edit\ucEmployeeInfoDetails.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\Edit\ucEmployeeProjectDetails.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\Edit\ucEmployeeRankDetails.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\Edit\ucProjectDetails.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\List\ucEmployeeInfoList.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\List\ucEmployeeList.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\List\ucEmployeeProjectList.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\List\ucEmployeeRankList.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\List\ucProjectList.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\frmEditableProjectList.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Edit\frmEmployeeDetails.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Edit\frmEmployeeInfoDetails.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Edit\frmEmployeeProjectDetails.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Edit\frmEmployeeRankDetails.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Edit\frmProjectDetails.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmEditableProjectListSingleRow.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmReadOnlyProjectDetails.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmTimeControlTest.Designer.vb">
-      <DependentUpon>frmTimeControlTest.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmTimeControlTest.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\List\frmEmployeeInfoList.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\List\frmEmployeeList.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\List\frmEmployeeProjectList.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\List\frmEmployeeRankList.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\List\frmProjectList.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmEmployeeDetails2.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="MDIParent.Designer.vb">
       <DependentUpon>MDIParent.vb</DependentUpon>
     </Compile>
@@ -199,97 +123,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="BusObjects\Mappers\EmployeeDBMapper.vb" />
-    <Compile Include="BusObjects\Employee.vb" />
-    <Compile Include="BusObjects\EmployeeBase.vb">
-      <DependentUpon>Employee.vb</DependentUpon>
-    </Compile>
-    <Compile Include="BusObjects\Mappers\EmployeeProjectDBMapper.vb" />
-    <Compile Include="BusObjects\EmployeeProject.vb" />
-    <Compile Include="BusObjects\EmployeeProjectBase.vb">
-      <DependentUpon>EmployeeProject.vb</DependentUpon>
-    </Compile>
-    <Compile Include="BusObjects\Mappers\EmployeeRankDBMapper.vb" />
-    <Compile Include="BusObjects\EmployeeRank.vb" />
-    <Compile Include="BusObjects\EmployeeRankBase.vb">
-      <DependentUpon>EmployeeRank.vb</DependentUpon>
-    </Compile>
-    <Compile Include="BusObjects\Mappers\EmployeeInfoDBMapper.vb" />
-    <Compile Include="BusObjects\EmployeeInfo.vb" />
-    <Compile Include="BusObjects\EmployeeInfoBase.vb">
-      <DependentUpon>EmployeeInfo.vb</DependentUpon>
-    </Compile>
-    <Compile Include="BusObjects\Mappers\ProjectDBMapper.vb" />
-    <Compile Include="BusObjects\Project.vb" />
-    <Compile Include="BusObjects\ProjectBase.vb">
-      <DependentUpon>Project.vb</DependentUpon>
-    </Compile>
     <Compile Include="SampleGlobalValidator.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controls\Edit\ucEmployeeDetails.resx">
-      <DependentUpon>ucEmployeeDetails.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Edit\ucEmployeeInfoDetails.resx">
-      <DependentUpon>ucEmployeeInfoDetails.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Edit\ucEmployeeProjectDetails.resx">
-      <DependentUpon>ucEmployeeProjectDetails.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Edit\ucEmployeeRankDetails.resx">
-      <DependentUpon>ucEmployeeRankDetails.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Edit\ucProjectDetails.resx">
-      <DependentUpon>ucProjectDetails.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\List\ucEmployeeInfoList.resx">
-      <DependentUpon>ucEmployeeInfoList.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\List\ucEmployeeList.resx">
-      <DependentUpon>ucEmployeeList.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\List\ucEmployeeProjectList.resx">
-      <DependentUpon>ucEmployeeProjectList.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\List\ucEmployeeRankList.resx">
-      <DependentUpon>ucEmployeeRankList.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\List\ucProjectList.resx">
-      <DependentUpon>ucProjectList.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Edit\frmEmployeeDetails.resx">
-      <DependentUpon>frmEmployeeDetails.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Edit\frmEmployeeInfoDetails.resx">
-      <DependentUpon>frmEmployeeInfoDetails.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Edit\frmEmployeeProjectDetails.resx">
-      <DependentUpon>frmEmployeeProjectDetails.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Edit\frmProjectDetails.resx">
-      <DependentUpon>frmProjectDetails.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmEditableProjectList.resx">
-      <DependentUpon>frmEditableProjectList.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmEditableProjectListSingleRow.resx">
-      <DependentUpon>frmEditableProjectListSingleRow.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmReadOnlyProjectDetails.resx">
-      <DependentUpon>frmReadOnlyProjectDetails.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmTimeControlTest.resx">
-      <DependentUpon>frmTimeControlTest.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\List\frmEmployeeInfoList.resx">
-      <DependentUpon>frmEmployeeInfoList.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\List\frmEmployeeList.resx">
-      <DependentUpon>frmEmployeeList.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmEmployeeDetails2.resx">
-      <DependentUpon>frmEmployeeDetails2.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MDIParent.resx">
       <DependentUpon>MDIParent.vb</DependentUpon>
     </EmbeddedResource>
@@ -298,21 +134,6 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BusObjects\Mappers\EmployeeDBMapperSql.xml">
-      <DependentUpon>EmployeeDBMapper.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BusObjects\Mappers\EmployeeProjectDBMapperSql.xml">
-      <DependentUpon>EmployeeProjectDBMapper.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BusObjects\Mappers\EmployeeRankDBMapperSql.xml">
-      <DependentUpon>EmployeeRankDBMapper.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BusObjects\Mappers\EmployeeInfoDBMapperSql.xml">
-      <DependentUpon>EmployeeInfoDBMapper.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BusObjects\Mappers\ProjectDBMapperSql.xml">
-      <DependentUpon>ProjectDBMapper.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -331,6 +152,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ModelLibTestsVisualBasicGeneratedCode\ModelLibVBGeneratedCode.vbproj">
+      <Project>{1B56DDD9-DF71-49B7-A97E-E65C0185781C}</Project>
+      <Name>ModelLibVBGeneratedCode</Name>
+    </ProjectReference>
     <ProjectReference Include="..\org.codegen.common\org.codegen.common.vbproj">
       <Project>{C367EAE9-FDEA-468D-9A91-C5075F927D39}</Project>
       <Name>org.codegen.common</Name>

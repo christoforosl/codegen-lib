@@ -21,22 +21,36 @@ Public Class FileGroupLoader
         Dim fg As Dictionary(Of String, IGeneratedFileComponent) = New Dictionary(Of String, IGeneratedFileComponent)
 
         Dim moClassBase As ModelObjectBaseFileComponent = New ModelObjectBaseFileComponent(obj)
-        moClassBase.templateFileName = "org.codegen.lib.codeGen.ModelBase2.txt"
+        If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
+            moClassBase.templateFileName = "org.codegen.lib.codeGen.ModelBase2.visualBasic.txt"
+        Else
+            moClassBase.templateFileName = "org.codegen.lib.codeGen.ModelBase2.csharp.txt"
+
+        End If
+
+
         moClassBase.WriteFileIf = enumWriteFileIf.IF_CODE_CHANGED
         fg.Add(ModelObjectBaseFileComponent.KEY, moClassBase)
 
         Dim moClass As ModelObjectFileComponent = New ModelObjectFileComponent(obj)
-        moClass.templateFileName = "org.codegen.lib.codeGen.ModelBaseExtender2.txt"
+        If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
+            moClass.templateFileName = "org.codegen.lib.codeGen.ModelBaseExtender2.visualBasic.txt"
+        Else
+            moClass.templateFileName = "org.codegen.lib.codeGen.ModelBaseExtender2.csharp.txt"
+        End If
+
         moClass.WriteFileIf = enumWriteFileIf.IF_NOT_EXISTS
         fg.Add(ModelObjectFileComponent.KEY, moClass)
 
         If obj.GenerateMapper Then
             Dim mapperBaseClass As MapperBaseFileComponent = New MapperBaseFileComponent(obj)
-            mapperBaseClass.templateFileName = "org.codegen.lib.codeGen.DBMapperBase.txt"
+            If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
+                mapperBaseClass.templateFileName = "org.codegen.lib.codeGen.DBMapperBase.visualBasic.txt"
+            Else
+                mapperBaseClass.templateFileName = "org.codegen.lib.codeGen.DBMapperBase.csharp.txt"
+            End If
             mapperBaseClass.WriteFileIf = enumWriteFileIf.IF_CODE_CHANGED
             fg.Add(MapperBaseFileComponent.KEY, mapperBaseClass)
-
-
 
             Dim sqlFile As SQLStatementsFileComponent = New SQLStatementsFileComponent(obj)
             sqlFile.templateFileName = "org.codegen.lib.codeGen.SqlTemplate.txt"
@@ -47,33 +61,38 @@ Public Class FileGroupLoader
 
         If String.IsNullOrEmpty(ModelGenerator.Current.ProjectOutputDirTest) = False Then
             Dim testClass As TestFileComponent = New TestFileComponent(obj)
-            testClass.templateFileName = "org.codegen.lib.codeGen.TestTemplate.txt"
+            If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
+                testClass.templateFileName = "org.codegen.lib.codeGen.TestTemplate.visualbasic.txt"
+            Else
+                testClass.templateFileName = "org.codegen.lib.codeGen.TestTemplate.csharp.txt"
+            End If
+
             testClass.WriteFileIf = enumWriteFileIf.IF_CODE_CHANGED
             fg.Add(TestFileComponent.KEY, testClass)
         End If
 
-        If String.IsNullOrEmpty(ModelGenerator.Current.ProjectOutputDirUI) = False AndAlso _
-                                obj.GenerateUI Then
+            If String.IsNullOrEmpty(ModelGenerator.Current.ProjectOutputDirUI) = False AndAlso _
+                                    obj.GenerateUI Then
 
-            Dim lstForm As New ListWinFormFileComponent(obj)
-            lstForm.WriteFileIf = enumWriteFileIf.IF_CODE_CHANGED
-            fg.Add(ListWinFormFileComponent.KEY, lstForm)
+                Dim lstForm As New ListWinFormFileComponent(obj)
+                lstForm.WriteFileIf = enumWriteFileIf.IF_CODE_CHANGED
+                fg.Add(ListWinFormFileComponent.KEY, lstForm)
 
-            Dim editFrm As New EditWinFormFileComponent(obj)
-            editFrm.WriteFileIf = enumWriteFileIf.IF_CODE_CHANGED
-            fg.Add(EditWinFormFileComponent.KEY, editFrm)
+                Dim editFrm As New EditWinFormFileComponent(obj)
+                editFrm.WriteFileIf = enumWriteFileIf.IF_CODE_CHANGED
+                fg.Add(EditWinFormFileComponent.KEY, editFrm)
 
-            Dim lstControl As New ListWinCtlFileComponent(obj)
-            lstControl.WriteFileIf = enumWriteFileIf.IF_CODE_CHANGED
-            fg.Add(ListWinCtlFileComponent.KEY, lstControl)
+                Dim lstControl As New ListWinCtlFileComponent(obj)
+                lstControl.WriteFileIf = enumWriteFileIf.IF_CODE_CHANGED
+                fg.Add(ListWinCtlFileComponent.KEY, lstControl)
 
-            Dim editControl As New EditWinCtlFileComponent(obj)
-            editControl.WriteFileIf = enumWriteFileIf.IF_CODE_CHANGED
-            fg.Add(EditWinCtlFileComponent.KEY, editControl)
+                Dim editControl As New EditWinCtlFileComponent(obj)
+                editControl.WriteFileIf = enumWriteFileIf.IF_CODE_CHANGED
+                fg.Add(EditWinCtlFileComponent.KEY, editControl)
 
-        End If
+            End If
 
-        Return fg
+            Return fg
 
     End Function
 

@@ -1,5 +1,5 @@
 ﻿Imports System.ComponentModel
-
+'ListControlTemplate.txt
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Public Class ucEmployeeList
     Inherits System.Windows.Forms.UserControl
@@ -37,6 +37,11 @@ Public Class ucEmployeeList
 	me.SSINumber = new DataGridViewTextBoxColumn
 	me.HireDate = new DataGridViewCalendarColumn
 	me.NumDependents = new DataGridViewTextBoxColumn
+	me.CreateDate = new DataGridViewCalendarColumn
+	me.UpdateDate = new DataGridViewCalendarColumn
+	me.UpdateUser = new DataGridViewTextBoxColumn
+	me.CreateUser = new DataGridViewTextBoxColumn
+	me.EmployeeTypeCode = new DataGridViewTextBoxColumn
 
         Me.grdEmployee = New org.codegen.win.controls.Grid.CGSQLGrid()
         Me.SuspendLayout()
@@ -212,6 +217,78 @@ Public Class ucEmployeeList
 	'**** End Setup of column: NumDependents
 
 
+	' column: CreateDate
+	CreateDate.CellTemplate = New CalendarCell
+	CreateDate.Name = "CreateDate"
+	CreateDate.DataPropertyName = "createDate"
+	CreateDate.ReadOnly = True
+	CreateDate.HeaderText = "CreateDate"
+	CreateDate.HeaderCell.value = "CreateDate"
+	CreateDate.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft
+	CreateDate.HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopLeft
+	CreateDate.Width = 100
+	CreateDate.Visible = True
+	CreateDate.CellTemplate.Style.Format = "d"
+	'**** End Setup of column: CreateDate
+
+
+	' column: UpdateDate
+	UpdateDate.CellTemplate = New CalendarCell
+	UpdateDate.Name = "UpdateDate"
+	UpdateDate.DataPropertyName = "updateDate"
+	UpdateDate.ReadOnly = True
+	UpdateDate.HeaderText = "UpdateDate"
+	UpdateDate.HeaderCell.value = "UpdateDate"
+	UpdateDate.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft
+	UpdateDate.HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopLeft
+	UpdateDate.Width = 100
+	UpdateDate.Visible = True
+	UpdateDate.CellTemplate.Style.Format = "d"
+	'**** End Setup of column: UpdateDate
+
+
+	' column: UpdateUser
+	UpdateUser.CellTemplate = New DataGridViewTextBoxCell
+	UpdateUser.Name = "UpdateUser"
+	UpdateUser.DataPropertyName = "updateUser"
+	UpdateUser.ReadOnly = True
+	UpdateUser.HeaderText = "UpdateUser"
+	UpdateUser.HeaderCell.value = "UpdateUser"
+	UpdateUser.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft
+	UpdateUser.HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopLeft
+	UpdateUser.Width = 100
+	UpdateUser.Visible = True
+	'**** End Setup of column: UpdateUser
+
+
+	' column: CreateUser
+	CreateUser.CellTemplate = New DataGridViewTextBoxCell
+	CreateUser.Name = "CreateUser"
+	CreateUser.DataPropertyName = "createUser"
+	CreateUser.ReadOnly = True
+	CreateUser.HeaderText = "CreateUser"
+	CreateUser.HeaderCell.value = "CreateUser"
+	CreateUser.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft
+	CreateUser.HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopLeft
+	CreateUser.Width = 100
+	CreateUser.Visible = True
+	'**** End Setup of column: CreateUser
+
+
+	' column: EmployeeTypeCode
+	EmployeeTypeCode.CellTemplate = New DataGridViewTextBoxCell
+	EmployeeTypeCode.Name = "EmployeeTypeCode"
+	EmployeeTypeCode.DataPropertyName = "EmployeeTypeCode"
+	EmployeeTypeCode.ReadOnly = True
+	EmployeeTypeCode.HeaderText = "EmployeeTypeCode"
+	EmployeeTypeCode.HeaderCell.value = "EmployeeTypeCode"
+	EmployeeTypeCode.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft
+	EmployeeTypeCode.HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopLeft
+	EmployeeTypeCode.Width = 100
+	EmployeeTypeCode.Visible = True
+	'**** End Setup of column: EmployeeTypeCode
+
+
 
 
         '
@@ -233,6 +310,11 @@ Public Class ucEmployeeList
 	me.grdEmployee.Columns.Add(SSINumber)
 	me.grdEmployee.Columns.Add(HireDate)
 	me.grdEmployee.Columns.Add(NumDependents)
+	me.grdEmployee.Columns.Add(CreateDate)
+	me.grdEmployee.Columns.Add(UpdateDate)
+	me.grdEmployee.Columns.Add(UpdateUser)
+	me.grdEmployee.Columns.Add(CreateUser)
+	me.grdEmployee.Columns.Add(EmployeeTypeCode)
 
         Me.Name = "ucEmployeeList"
         Me.Text = "ucEmployeeList"
@@ -252,6 +334,11 @@ Public Class ucEmployeeList
 	Private WithEvents SSINumber As DataGridViewTextBoxColumn
 	Private WithEvents HireDate As DataGridViewCalendarColumn
 	Private WithEvents NumDependents As DataGridViewTextBoxColumn
+	Private WithEvents CreateDate As DataGridViewCalendarColumn
+	Private WithEvents UpdateDate As DataGridViewCalendarColumn
+	Private WithEvents UpdateUser As DataGridViewTextBoxColumn
+	Private WithEvents CreateUser As DataGridViewTextBoxColumn
+	Private WithEvents EmployeeTypeCode As DataGridViewTextBoxColumn
 
 
 #End Region
@@ -273,7 +360,7 @@ Public Class ucEmployeeList
     protected sub setColumnDataSources
 		if me.DesignMode then exit sub
 			Me.EmployeeRankId.HeaderCell =  New DataGridViewAutoFilterComboColumnHeaderCell()
-	me.EmployeeRankId.DataSource = new BusObjects.Mappers.EmployeeRankDBMapper().findAll()
+	me.EmployeeRankId.DataSource = new VbBusObjects.DBMappers.EmployeeRankDBMapper().findAll()
 	me.EmployeeRankId.DisplayMember = "Rank"
 	me.EmployeeRankId.ValueMember = "RankId"
 	me.EmployeeRankId.FlatStyle = FlatStyle.Flat

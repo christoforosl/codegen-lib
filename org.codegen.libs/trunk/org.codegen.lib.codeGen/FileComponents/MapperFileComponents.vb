@@ -16,8 +16,9 @@ Namespace FileComponents
                     GetType(PKFieldRuntimeNameToken), _
                     GetType(DataReaderConstantsToken), _
                     GetType(LoadFromRSToken), _
-                    GetType(FillStatementToken), _
+                    GetType(GetUpdateDBCommandToken), _
                     GetType(LoadFromDataRowToken), _
+                    GetType(PrimaryKeyAutogenAttr), _
                     GetType(SaveChildrenCodeToken), _
                     GetType(SaveParentCodeToken), _
                     GetType(CurentDateToken))> _
@@ -38,27 +39,13 @@ Namespace FileComponents
 
             Dim thisRow As DataRow = Me.objectToGenerate.XMLDefinition
             Return XMLClassGenerator.getRowValue(thisRow, _
-                                        XMLClassGenerator.XML_TABLE_ATTR_DBMAPPER_NAMESPACE, _
-                                        getDefaultMapperNameSpace())
+                   XMLClassGenerator.XML_TABLE_ATTR_DBMAPPER_NAMESPACE, _
+                   ModelGenerator.Current.DefaultMapperNameSpace())
 
         End Function
 
-        Private Shared _defaultDBMapperNameSpace As String = Nothing
-
-        Public Shared Function getDefaultMapperNameSpace() As String
-
-            If _defaultDBMapperNameSpace Is Nothing Then
 
 
-                Dim projectInfo As DataTable = ModelGenerator.Current.XmlFileDataSet.Tables(XMLClassGenerator.XML_ATTR_PROJECT)
-                _defaultDBMapperNameSpace = XMLClassGenerator.getRowValue(projectInfo.Rows(0), _
-                                             XMLClassGenerator.XML_ATTR_DEFAULT_MAPPER_NAMESPACE, True)
-
-            End If
-
-            Return _defaultDBMapperNameSpace
-
-        End Function
 
         Public Overloads Shared Function KEY() As String
             Return "Mapper"

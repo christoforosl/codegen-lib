@@ -1,5 +1,5 @@
 ﻿Imports System.ComponentModel
-
+'EditControlTemplate.txt
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Public Class ucEmployeeProjectDetails
     Inherits UcBaseEditControl

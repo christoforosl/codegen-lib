@@ -30,7 +30,8 @@ Public Interface IDBField
     Function getProperty() As String
     Function getSQLParameter() As String
 
-    Property ParentTable() As IDBTable
+	Property ParentTable() As IDBTable
+	ReadOnly Property PropertyName() As String
     ReadOnly Property RuntimeFieldName() As String
     Property IsTableField() As Boolean
     Property FieldName() As String

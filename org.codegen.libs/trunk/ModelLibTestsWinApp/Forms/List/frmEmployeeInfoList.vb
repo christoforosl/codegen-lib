@@ -1,4 +1,5 @@
 ﻿Namespace Forms.List
+'ListControlTemplate.txt
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Public Class frmEmployeeInfoList
     Inherits frmBaseGrid
@@ -89,8 +90,7 @@ Public Class frmEmployeeInfoList
           Dim mo As EmployeeInfo = m.findByKey(Me.grdData.IdValue)
           Call m.delete(mo)
 
-        End Sub
-
+    End Sub
 
 #End Region
 

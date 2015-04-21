@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DslangStrings>
+
   <langString>
     <langKey>cmdAdd</langKey>
     <langValueEN>&amp;Add</langValueEN>
@@ -115,7 +116,6 @@
     <langValueEN>Are you sure you want to cancel this operation?</langValueEN>
     <langValueEL>Είστε σίγουρος/η ότι θέλετε να ακυρώσετε την διαδικασία;</langValueEL>
   </langString>
-
 
   <langString>
     <langKey>confirm_close_and_loose_changes</langKey>

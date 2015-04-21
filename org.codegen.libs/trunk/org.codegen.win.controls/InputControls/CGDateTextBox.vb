@@ -9,7 +9,7 @@ Public Class CGDateTextBox
     Protected Overridable Property errMsgCode As String = "invalid_date"
 
     <Browsable(False), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)> _
-    Public Overrides Property FormatPattern As String = "dd/MM/yyyy"
+    Public Overrides Property FormatPattern As String = ModelContext.Current.config.DateFormat
 
 #Region " Component Designer generated code "
 

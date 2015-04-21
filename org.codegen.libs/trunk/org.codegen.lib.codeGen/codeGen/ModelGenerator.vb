@@ -17,6 +17,12 @@ Imports System.Threading
 ''' 
 Public Class ModelGenerator
 
+    Public Enum enumLanguage
+        VB = 1
+        CSHARP = 2
+    End Enum
+
+
     Public Enum enumVERSION
         ONE = 1
         TWO = 2
@@ -24,222 +30,239 @@ Public Class ModelGenerator
 
     Private Const STR_CODE_GEN_ASSEMBLY As String = "org.codegen.lib.codeGen"
 
-    Private _GeneratorVersion As Integer
-    Private _vbNetProjectFile As String
+    Public Property dotNetLanguage As enumLanguage = enumLanguage.CSHARP
+	Public Property FieldPropertyPrefix As String
 
-    Private _template As String
-    Private _ProjectOutputDirModel As String
-    Private _projectOutputDirTest As String
-    Private _ProjectOutputDirUI As String
+	Public Property DefaultMapperNameSpace() As String
 
-    Private _dbconn As DBUtils
+	Private _GeneratorVersion As Integer
+	Private _vbNetProjectFile As String
 
-    Private _IPropertyGenerator As IPropertyGenerator
-    Private _xmlFile As DataSet
+	Private _template As String
+	Private _ProjectOutputDirModel As String
+	Private _projectOutputDirTest As String
+	Private _ProjectOutputDirUI As String
 
-    Private Shared modelGentor As ModelGenerator ' implement singleton pattern
+	Private _dbconn As DBUtils
 
+	Private _IPropertyGenerator As IPropertyGenerator
+	Private _xmlFile As DataSet
 
-    Public Property ObjectsToGenerate() As Dictionary(Of String, ObjectToGenerate)
-    Public Property XmlFileDataSet() As DataSet
-    Public Property NumOfGeneratedFiles() As Integer
+	Private Shared modelGentor As ModelGenerator ' implement singleton pattern
 
-    Property NumOfNewGeneratedFiles As Integer
-    Property CurrentObjectBeingGenerated As ObjectToGenerate
+	Public Property ObjectsToGenerate() As Dictionary(Of String, ObjectToGenerate)
+	Public Property XmlFileDataSet() As DataSet
+	Public Property NumOfGeneratedFiles() As Integer
 
-    Private _systemAssociations As List(Of IAssociation) = New List(Of IAssociation)
+	Property NumOfNewGeneratedFiles As Integer
+	Property CurrentObjectBeingGenerated As ObjectToGenerate
 
-    ''' <summary>
-    ''' relative directory to decide paths when using . and .. in output directories
-    ''' </summary>
-    Property relativeDirectory As String
+	Private _systemAssociations As List(Of IAssociation) = New List(Of IAssociation)
 
-    Public Sub addAssociation(ByVal ass As IAssociation)
-        Me._systemAssociations.Add(ass)
-    End Sub
+	''' <summary>
+	''' relative directory to decide paths when using . and .. in output directories
+	''' </summary>
+	Property relativeDirectory As String
 
-    Public Property SystemAssociations() As List(Of IAssociation)
-        Get
-            Return _systemAssociations
-        End Get
-        Private Set(ByVal value As List(Of IAssociation))
-            _systemAssociations = value
-        End Set
-    End Property
+	Public Sub addAssociation(ByVal ass As IAssociation)
+		Me._systemAssociations.Add(ass)
+	End Sub
 
-    Public Function getObjectOfDataType(ByVal stableName As String) As ObjectToGenerate
+	Public Property SystemAssociations() As List(Of IAssociation)
+		Get
+			Return _systemAssociations
+		End Get
+		Private Set(ByVal value As List(Of IAssociation))
+			_systemAssociations = value
+		End Set
+	End Property
 
-        If Me.ObjectsToGenerate.ContainsKey(stableName) Then
-            Return Me.ObjectsToGenerate.Item(stableName)
-        End If
+	Public Function getObjectOfDataType(ByVal stableName As String) As ObjectToGenerate
 
-        Return Nothing
+		If Me.ObjectsToGenerate.ContainsKey(stableName) Then
+			Return Me.ObjectsToGenerate.Item(stableName)
+		End If
 
-    End Function
+		Return Nothing
 
-    Public Shared Function Current() As ModelGenerator
+	End Function
 
-        If (modelGentor Is Nothing) Then
-            modelGentor = New ModelGenerator
-            modelGentor._GeneratorVersion = 2
-        End If
+	Public Shared Function Current() As ModelGenerator
 
-        Return modelGentor
+		If (modelGentor Is Nothing) Then
+			modelGentor = New ModelGenerator
+			modelGentor._GeneratorVersion = 2
+		End If
 
-    End Function
+		Return modelGentor
 
-    Public Shared Function create(ByVal iversion As enumVERSION) As ModelGenerator
+	End Function
 
-        modelGentor = New ModelGenerator
-        modelGentor._GeneratorVersion = iversion
+	Public Shared Function create(ByVal iversion As enumVERSION) As ModelGenerator
 
-        Return modelGentor
+		modelGentor = New ModelGenerator
+		modelGentor._GeneratorVersion = iversion
 
-    End Function
+		Return modelGentor
+
+	End Function
 
 #Region "properties"
 
-    Public Property dbConn() As DBUtils
-        Get
+	Public Property dbConn() As DBUtils
+		Get
 
-            If _dbconn Is Nothing Then
-                _dbconn = DBUtils.getFromConnString(Me.DbConnString, _
-                        DirectCast([Enum].Parse(GetType(DBUtils.enumConnType), Me.DbConnStringType), DBUtils.enumConnType), _
-                        DirectCast([Enum].Parse(GetType(DBUtils.enumSqlDialect), Me.DbConnStringDialect), DBUtils.enumSqlDialect))
-
-
-            End If
-
-            Return _dbconn
-        End Get
-        Set(ByVal value As DBUtils)
-            _dbconn = value
-        End Set
-    End Property
+			If _dbconn Is Nothing Then
+				_dbconn = DBUtils.getFromConnString(Me.DbConnString, _
+						DirectCast([Enum].Parse(GetType(DBUtils.enumConnType), Me.DbConnStringType), DBUtils.enumConnType), _
+						DirectCast([Enum].Parse(GetType(DBUtils.enumSqlDialect), Me.DbConnStringDialect), DBUtils.enumSqlDialect))
 
 
-    Public Property DbConnStringDialect() As String
-    Public Property NumOfUnchangedFiles() As Integer
-    Public Property DbConnString() As String
-    Public Property DbConnStringType() As String
+			End If
+
+			Return _dbconn
+		End Get
+		Set(ByVal value As DBUtils)
+			_dbconn = value
+		End Set
+	End Property
+
+
+	Public Property DbConnStringDialect() As String
+	Public Property NumOfUnchangedFiles() As Integer
+	Public Property DbConnString() As String
+	Public Property DbConnStringType() As String
 
 #End Region
 
 
 
-    Private Sub New()
-        'empty contructor
-    End Sub
+	Private Sub New()
+		'empty contructor
+	End Sub
 
-    Protected Overridable Sub genClassDirectory(ByVal ret As String)
-        ' Create a directory; all non-existent ancestor directories are
-        ' automatically created
-        Dim f As New FileInfo(ret)
-        If (Not f.Exists() AndAlso Not Directory.Exists(f.DirectoryName)) Then
-            Call System.IO.Directory.CreateDirectory(f.DirectoryName)
-        End If
-    End Sub
+	Protected Overridable Sub genClassDirectory(ByVal ret As String)
+		' Create a directory; all non-existent ancestor directories are
+		' automatically created
+		Dim f As New FileInfo(ret)
+		If (Not f.Exists() AndAlso Not Directory.Exists(f.DirectoryName)) Then
+			Call System.IO.Directory.CreateDirectory(f.DirectoryName)
+		End If
+	End Sub
 
-    Public Shared Function resolveRelativePathsAndCheck(ByVal inPath As String, ByVal relativeDirectory As String) As String
+	Public Shared Function resolveRelativePathsAndCheck(ByVal inPath As String, ByVal relativeDirectory As String) As String
 
-        Dim ret As String = inPath
-        If String.IsNullOrEmpty(inPath) = False Then
-            '**NOTE :must check for .. BEFORE .
-            If inPath.StartsWith("..") Then
-                Dim dr As New DirectoryInfo(relativeDirectory)
-                Dim tmp As String = inPath.Substring(2)
-                If tmp.StartsWith("\") = False Then tmp = "\" & tmp
-                'dr.Parent.FullName does not return a "\" at the end
-                'so make sure that tmp starts with a \
-                ret = dr.Parent.FullName & inPath.Substring(2)
+		Dim ret As String = inPath
+		If String.IsNullOrEmpty(inPath) = False Then
+			'**NOTE :must check for .. BEFORE .
+			If inPath.StartsWith("..") Then
+				Dim dr As New DirectoryInfo(relativeDirectory)
+				Dim tmp As String = inPath.Substring(2)
+				If tmp.StartsWith("\") = False Then tmp = "\" & tmp
+				'dr.Parent.FullName does not return a "\" at the end
+				'so make sure that tmp starts with a \
+				ret = dr.Parent.FullName & inPath.Substring(2)
 
-            ElseIf inPath.StartsWith(".") Then
-                Dim dr As New DirectoryInfo(relativeDirectory)
-                ret = dr.FullName & inPath.Substring(1)
+			ElseIf inPath.StartsWith(".") Then
+				Dim dr As New DirectoryInfo(relativeDirectory)
+				ret = dr.FullName & inPath.Substring(1)
 
-            End If
+			End If
 
-            Dim f As New FileInfo(ret) 'just to make sure that this is a valid path, not if it exists, but it is a valid windows path
-        End If
+			Dim f As New FileInfo(ret) 'just to make sure that this is a valid path, not if it exists, but it is a valid windows path
+		End If
 
-        Return ret
+		Return ret
 
-    End Function
+	End Function
 
-    Public Property ProjectOutputDirTest() As String
-        Set(ByVal val As String)
+	Public Property ProjectOutputDirTest() As String
+		Set(ByVal val As String)
 
-            If Not String.IsNullOrEmpty(val) Then
-                val = resolveRelativePathsAndCheck(val, Me.relativeDirectory)
-                If val.EndsWith("\") = False Then
-                    val &= "\"
-                End If
-            End If
+			If Not String.IsNullOrEmpty(val) Then
+				val = resolveRelativePathsAndCheck(val, Me.relativeDirectory)
+				If val.EndsWith("\") = False Then
+					val &= "\"
+				End If
+			End If
 
-            Me._projectOutputDirTest = val
+			Me._projectOutputDirTest = val
 
-        End Set
-        Get
-            Return _projectOutputDirTest
-        End Get
-    End Property
+		End Set
+		Get
+			Return _projectOutputDirTest
+		End Get
+	End Property
 
-    Public Property ProjectOutputDirUI As String
-        Set(ByVal val As String)
-            If Not String.IsNullOrEmpty(val) Then
-                val = resolveRelativePathsAndCheck(val, Me.relativeDirectory)
-                If val.EndsWith("\") = False Then
-                    val &= "\"
-                End If
-            End If
+	Public Property ProjectOutputDirUI As String
+		Set(ByVal val As String)
+			If Not String.IsNullOrEmpty(val) Then
+				val = resolveRelativePathsAndCheck(val, Me.relativeDirectory)
+				If val.EndsWith("\") = False Then
+					val &= "\"
+				End If
+			End If
 
-            Me._ProjectOutputDirUI = val
+			Me._ProjectOutputDirUI = val
 
-        End Set
-        Get
-            Return _ProjectOutputDirUI
-        End Get
-    End Property
+		End Set
+		Get
+			Return _ProjectOutputDirUI
+		End Get
+	End Property
 
-    Public Property ProjectOutputDirModel() As String
-        Set(ByVal val As String)
-            If Not String.IsNullOrEmpty(val) Then
-                val = resolveRelativePathsAndCheck(val, Me.relativeDirectory)
-                If val.EndsWith("\") = False Then
-                    val &= "\"
-                End If
-            End If
+	Public Property ProjectOutputDirModel() As String
+		Set(ByVal val As String)
+			If Not String.IsNullOrEmpty(val) Then
+				val = resolveRelativePathsAndCheck(val, Me.relativeDirectory)
+				If val.EndsWith("\") = False Then
+					val &= "\"
+				End If
+			End If
 
-            Me._ProjectOutputDirModel = val
+			Me._ProjectOutputDirModel = val
 
-        End Set
-        Get
-            Return _ProjectOutputDirModel
-        End Get
-    End Property
+		End Set
+		Get
+			Return _ProjectOutputDirModel
+		End Get
+	End Property
 
-    Public ReadOnly Property IPropertyGenerator() As IPropertyGenerator
-        Get
-            If _IPropertyGenerator Is Nothing Then
-                _IPropertyGenerator = New PropertyGenerator
-            End If
-            Return _IPropertyGenerator
-        End Get
-    End Property
+	Public ReadOnly Property IPropertyGenerator() As IPropertyGenerator
+		Get
+			If _IPropertyGenerator Is Nothing Then
+				If Me.dotNetLanguage = enumLanguage.CSHARP Then
+					_IPropertyGenerator = New CSharpPropertyGenerator
+				Else
+					_IPropertyGenerator = New PropertyGenerator
+				End If
+			End If
+			Return _IPropertyGenerator
+		End Get
+	End Property
 
-    Public Sub addObjectForGeneration(ByVal n As ObjectToGenerate)
+	Public Sub addObjectForGeneration(ByVal n As ObjectToGenerate)
 
-        If (Me._ObjectsToGenerate Is Nothing) Then
-            Me._ObjectsToGenerate = New Dictionary(Of String, ObjectToGenerate)
-        End If
-        Dim cphg As String = n.FullyQualifiedClassName
-        If Me._ObjectsToGenerate.ContainsKey(cphg) Then
-            Throw New ApplicationException(cphg & " already exists!  Class names must be unique in the XML file.")
-        Else
-            Me._ObjectsToGenerate.Add(cphg, n)
-        End If
+		If (Me._ObjectsToGenerate Is Nothing) Then
+			Me._ObjectsToGenerate = New Dictionary(Of String, ObjectToGenerate)
+		End If
+		Dim cphg As String = n.FullyQualifiedClassName
+		If Me._ObjectsToGenerate.ContainsKey(cphg) Then
+			Throw New ApplicationException(cphg & " already exists!  Class names must be unique in the XML file.")
+		Else
+			Me._ObjectsToGenerate.Add(cphg, n)
+		End If
 
 
-    End Sub
+	End Sub
+
+	Function getAssociationInstance() As IAssociation
+		If Me.dotNetLanguage = enumLanguage.CSHARP Then
+			Return New CSharpAssociation
+		Else
+			Return New Association
+		End If
+
+	End Function
 
 End Class

@@ -105,32 +105,7 @@ Public Class CommonUtils
 
     End Function
 
-    ''' <summary>
-    ''' Returns a resource in an assembly as a Stream
-    ''' </summary>
-    ''' <param name="resname">Fully qualified file name in the assembly</param>
-    ''' <returns></returns>
-    ''' <remarks>The file must be marked as "Embedded Resource"</remarks>
-    Public Shared Function getResourceStream(ByVal resname As String) As Stream
-        'can be used for embedded resources that do not have a dot in their name
-        Dim loadAsembly As [Assembly] = Nothing
-
-        Dim i As Integer
-
-        For i = 0 To Thread.GetDomain.GetAssemblies.Length - 1
-            'Debug.WriteLine(Thread.GetDomain.GetAssemblies(i).FullName)
-            If resname.ToUpper.StartsWith(Thread.GetDomain.GetAssemblies(i).GetName.Name.ToUpper) Then
-                loadAsembly = Thread.GetDomain.GetAssemblies(i)
-                Exit For
-            End If
-        Next
-        If loadAsembly Is Nothing Then
-            Throw New ApplicationException("Could not load resource file " & resname)
-        End If
-
-        Return loadAsembly.GetManifestResourceStream(resname)
-
-    End Function
+   
     ''' <summary>
     '''  Returns a resource in an assembly as a String
     ''' </summary>

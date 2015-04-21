@@ -5,7 +5,7 @@ Namespace Model
 
     Public Interface IModelObject
 
-        Property Id() As Integer
+        Property Id As Object
 
         ''' <summary>
         ''' Event fired when ID (primary key) of model object has changed
@@ -112,12 +112,13 @@ Namespace Model
         ''' Sub to set the audit fields CreateDate, UpdateDate, CreateUser, UpdateUser
         ''' </summary>
         ''' <remarks></remarks>
-        Sub setAuditFields()
-
+		Sub setAuditFields()
 
         Function copy() As IModelObject
 
         Function getAuditor() As IAuditor
+
+		Sub loadObjectHierarchy()
 
     End Interface
 

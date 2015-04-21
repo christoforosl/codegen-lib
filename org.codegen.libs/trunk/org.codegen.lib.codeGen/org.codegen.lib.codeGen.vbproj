@@ -19,7 +19,7 @@
     </ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>org.codegen.lib.codeGen</AssemblyName>
+    <AssemblyName>org.codegen.lib.codeGen.4.0</AssemblyName>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
     <AssemblyOriginatorKeyMode>None</AssemblyOriginatorKeyMode>
@@ -64,8 +64,8 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>..\..\codeGenLibs\</OutputPath>
-    <DocumentationFile>org.codegen.lib.codeGen.xml</DocumentationFile>
+    <OutputPath>..\..\..\..\codeGenLibs\</OutputPath>
+    <DocumentationFile>org.codegen.lib.codeGen.4.0.xml</DocumentationFile>
     <BaseAddress>285212672</BaseAddress>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
@@ -86,7 +86,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>..\..\codeGen\</OutputPath>
-    <DocumentationFile>org.codegen.lib.codeGen.xml</DocumentationFile>
+    <DocumentationFile>org.codegen.lib.codeGen.4.0.xml</DocumentationFile>
     <BaseAddress>285212672</BaseAddress>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
@@ -137,12 +137,17 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\org.codegen.lib\db\DBMapperStatementsFile.vb">
+      <Link>SqlGen\DBMapperStatementsFile.vb</Link>
+    </Compile>
     <Compile Include="AssemblyInfo.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="codeGen\Association.vb" />
+    <Compile Include="codeGen\CSharpAssociation.vb" />
     <Compile Include="codeGen\DBField.vb" />
     <Compile Include="codeGen\DBTable.vb" />
+    <Compile Include="codeGen\FieldCode\CSharpPropertyGenerator.vb" />
     <Compile Include="codeGen\FieldCode\PropertyGenerator.vb" />
     <Compile Include="codeGen\FileGroupLoader.vb" />
     <Compile Include="codeGen\ModelGenerator.vb" />
@@ -189,13 +194,12 @@
     <Compile Include="XMLClassGenerator.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="classFenerator.xsd">
-      <SubType>
-      </SubType>
+    <EmbeddedResource Include="classGenerator.4.xsd">
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <None Include="classFenerator.xsx">
-      <DependentUpon>classFenerator.xsd</DependentUpon>
+    <None Include="classGenerator.4.xsx">
+      <DependentUpon>classGenerator.4.xsd</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <BaseApplicationManifest Include="My Project\app.manifest" />
@@ -276,41 +280,35 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="templates\classTemplateDBase.txt" />
+    <EmbeddedResource Include="lib.Model\associationChildOne.txt" />
+    <EmbeddedResource Include="lib.Model\associationParent.txt" />
+    <EmbeddedResource Include="lib.Model\ModelBase2.visualBasic.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="templates\DBMapperBase.txt" />
-  </ItemGroup>
-  <ItemGroup>
+    <EmbeddedResource Include="lib.Model\ModelBaseExtender2.visualBasic.txt" />
+    <EmbeddedResource Include="lib.test\TestTemplate.visualbasic.txt" />
     <EmbeddedResource Include="SqlGen\SqlTemplate.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="lib.Model\associationChildOne.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="lib.Model\associationChildMany.txt" />
-    <EmbeddedResource Include="lib.Model\associationParent.txt" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="templates\DBMapperBase.visualBasic.txt" />
     <EmbeddedResource Include="templates\getList.txt" />
     <EmbeddedResource Include="templates\getListStatic.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="lib.Model\ModelBase2.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="lib.Model\ModelBaseExtender2.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="lib.test\TestTemplate.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="codeGen\FieldCode\property.txt" />
+    <EmbeddedResource Include="lib.test\TestTemplate.csharp.txt" />
+    <EmbeddedResource Include="lib.Model\ModelBaseExtender2.csharp.txt" />
+    <EmbeddedResource Include="templates\DBMapperBase.csharp.txt" />
+    <EmbeddedResource Include="lib.Model\associationChildManyCSharp.txt" />
+    <EmbeddedResource Include="lib.Model\associationChildOneCSharp.txt" />
+    <EmbeddedResource Include="lib.Model\associationParentCSharp.txt" />
+    <EmbeddedResource Include="lib.Model\ModelBase2.csharp.txt" />
     <EmbeddedResource Include="ui.winforms\edit\EditFormTemplate.txt" />
     <EmbeddedResource Include="ui.winforms\edit\EditControlTemplate.txt" />
     <EmbeddedResource Include="ui.winforms\List\ListControlTemplate.txt" />
     <EmbeddedResource Include="ui.winforms\List\ListFormTemplate.txt" />
-    <EmbeddedResource Include="templates\DBMapperBaseSingleton.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ui.asp.net\" />
@@ -329,6 +327,7 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>copy "$(TargetDir)classFenerator.xsd" "$(DevEnvDir)..\..\XML\Schemas"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

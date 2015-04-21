@@ -1,5 +1,5 @@
 ﻿Imports System.ComponentModel
-
+'ListControlTemplate.txt
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Public Class ucProjectList
     Inherits System.Windows.Forms.UserControl

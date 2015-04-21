@@ -1,0 +1,7 @@
+**/obj
+**/bin
+**/CodeGenLibs
+**/TestResults
+**/*.suo
+**/*.vsmdi
+**/*.user

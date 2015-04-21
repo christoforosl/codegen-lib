@@ -1,10 +1,10 @@
 ﻿		
 		#Region "Association <association_name>"
-
+		'associationChildMany.txt
 		friend _<association_name>Loaded as Boolean
 
-		Public Overridable Function get<association_name_singular>(ByVal i As Integer) As <datatype> _
-				implements <iface>.get<association_name_singular>
+		Public Overridable Function <association_name_singular>GetAt(ByVal i As Integer) As <datatype> _
+				implements <iface>.<association_name_singular>GetAt
 
             me.load<association_name>
             If Me._<association_name>.Count >= (i - 1) Then
@@ -14,18 +14,17 @@
 
         End Function        
 		
-		Public Overridable Sub Add<association_name_singular> _
-				(val As <datatype>) _
-				implements <iface>.Add<association_name_singular>
+		Public Overridable Sub <association_name_singular>Add(val As <datatype>) _
+				implements <iface>.<association_name_singular>Add
 			'1-Many , add a single item!
 			me.load<association_name>
-			val.<child_field_runtime> = me.<parent_field_runtime>
+			val.<prop_prefix><child_field_runtime> = me.<prop_prefix><parent_field_runtime>
 			AddHandler Me.IDChanged, AddressOf val.handleParentIdChanged
 			me._<association_name>.add(val)
 
         End Sub
 
-		 Public Overridable Sub Clear<association_name>()
+		 Public Overridable Sub <association_name>Clear()
 
             Me.load<association_name>()
             Me._deleted<association_name>.AddRange(Me._<association_name>)
@@ -33,9 +32,9 @@
 
         End Sub
 
-		Public Overridable Sub Remove<association_name_singular>( _ 
+		Public Overridable Sub <association_name_singular>Remove( _ 
 					val As <datatype>) _
-					implements <iface>.Remove<association_name_singular>
+					implements <iface>.<association_name_singular>Remove
 			
 			me.load<association_name>
 			me._deleted<association_name>.add(val)
@@ -44,16 +43,16 @@
         End Sub
 
 		
-		Public Overridable Function getDeleted<association_name>() As IEnumerable(Of <datatype>) _
-					implements <iface>.getDeleted<association_name>
+		Public Overridable Function <association_name>GetDeleted() As IEnumerable(Of <datatype>) _
+					implements <iface>.<association_name>GetDeleted
 			
 			return me._deleted<association_name>
 
         End Function
 
-        Public Overridable Property <association_name>() _ 
+        Public Overridable Property <prop_prefix><association_name>() _ 
 					As IEnumerable(Of <datatype>) _
-					implements <implements>.<association_name>
+					implements <implements>.<prop_prefix><association_name>
 
             Get
 				'1 to many relation
@@ -104,7 +103,7 @@
 			If Not Me.isNew Then
                 
                 Me.addTo<association_name>List( new <db_mapper>().findList( _ 
-																		"<child_field>={0}", Me.<parent_field_runtime>))
+																		"<child_field>={0}", Me.<prop_prefix><parent_field_runtime>))
             End If
             
 			me._<association_name>Loaded = true

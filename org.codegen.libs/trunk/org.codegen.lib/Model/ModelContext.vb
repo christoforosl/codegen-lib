@@ -1,5 +1,6 @@
 Imports System.Threading
 Imports System.Security.Principal
+Imports System.Globalization
 
 Namespace Model
     '''
@@ -33,13 +34,15 @@ Namespace Model
         Private _attributes As Hashtable = Nothing
         Private _dbUtils As DBUtils
 
+        Public Property config As ModelConfig = New ModelConfig
+
         <ThreadStatic()> _
         Private Shared _current As ModelContext = Nothing
 
         Private Sub New(ByVal principal As IPrincipal, _
                         ByVal locale As System.Globalization.CultureInfo)
 
-            Me.new()
+            Me.New()
             ' private constructor...
             Me._principal = principal
             If Not locale Is Nothing Then
@@ -129,14 +132,14 @@ Namespace Model
         '''    
         '''	 <summary>Retrieves the current intance of ModelContext </summary>
         '''
-        Public Shared Function Current() As ModelContext
-
-            If _current Is Nothing Then
-                newCurrent()
-            End If
-            Return _current
-
-        End Function
+        Public Shared ReadOnly Property Current As ModelContext
+            Get
+                If _current Is Nothing Then
+                    newCurrent()
+                End If
+                Return _current
+            End Get
+        End Property
 
         Public Property Locale() As System.Globalization.CultureInfo
             Get
@@ -288,7 +291,7 @@ Namespace Model
 
             If Me.globalModelValidators.ContainsKey(modelObjectType) Then
                 Return CType(Activator.CreateInstance(Me.globalModelValidators.Item(modelObjectType)),  _
-                                IModelObjectValidator)
+                    IModelObjectValidator)
             End If
             Return Nothing
 
@@ -298,23 +301,24 @@ Namespace Model
                        As DBMapper
 
             'get default dbMapper
-            Dim sattr As DefaultMapperAttr = CType(Attribute.GetCustomAttribute(modelType, _
-                                                        GetType(DefaultMapperAttr)), DefaultMapperAttr)
+            Dim sattr As DefaultMapperAttr = CType(Attribute.GetCustomAttribute(modelType, GetType(DefaultMapperAttr)), DefaultMapperAttr)
 
             If sattr Is Nothing Then
                 Throw New ApplicationException( _
                     String.Format("Call to ModelContext.Save/Load Model Object must pass a model object with attribute DefaultMapperAttr set. ""{0}"" does not have the attribute set.", _
                     modelType.ToString))
             End If
-            Dim mapper As DBMapper = CType(Activator.CreateInstance(sattr.defaultMapper),  _
-                                            DBMapper)
-
+            Dim mapper As DBMapper = CType(Activator.CreateInstance(sattr.defaultMapper), DBMapper)
             Return mapper
 
         End Function
 
-        Public Shared Function GetModelDefaultMapper(ByVal modelObjectInstance As IModelObject) _
-                        As DBMapper
+        ''' <summary>
+        ''' Returns the default mapper for the mode object
+        ''' </summary>
+        ''' <param name="modelObjectInstance">Ab instance of IModelObject</param>
+        ''' <returns>DBMapper instance</returns>
+        Public Shared Function GetModelDefaultMapper(ByVal modelObjectInstance As IModelObject) As DBMapper
 
             Return GetModelDefaultMapper(modelObjectInstance.GetType)
 
@@ -345,25 +349,60 @@ Namespace Model
         End Sub
 
 
-        Public Function loadModelObject(Of T As ModelObject)(id As Integer) As T
-            ''Public Function Blah(Of T As {IImplementedByT})(Foo As T)
-            Dim sattr As DefaultMapperAttr = CType(Attribute.GetCustomAttribute(GetType(T), _
-                                                        GetType(DefaultMapperAttr)), DefaultMapperAttr)
+        Public Function loadModelObject(Of T As ModelObject)(id As Object) As T
+
+            Dim sattr As DefaultMapperAttr = CType(Attribute.GetCustomAttribute(GetType(T), GetType(DefaultMapperAttr)), DefaultMapperAttr)
 
             If sattr Is Nothing Then
+
                 Throw New ApplicationException( _
                     String.Format("Call to ModelContext.Save must pass a model object with attribute DefaultMapperAttr set. ""{0}"" does not have the attribute set.", _
                     GetType(T).ToString))
+
             End If
 
-            Dim tmp As DBMapper = CType(Activator.CreateInstance(sattr.defaultMapper),  _
-                                            DBMapper)
+            Dim tmp As DBMapper = CType(Activator.CreateInstance(sattr.defaultMapper), DBMapper)
 
-            Return CType(CType(tmp.findByKey(CInt(id)), ModelObject), T)
+            Return CType(CType(tmp.findByKey(id), ModelObject), T)
+
+        End Function
+
+
+
+    End Class
+
+    Public Class ModelConfig
+
+        Public Property DateFormat As String = "dd/MM/yyyy"
+        Public Property TimeFormat As String = "HH:mm"
+        Public Property DoCascadeDeletes() As Boolean
+
+    End Class
+
+    Public Class ModelParsers
+
+        Public Shared Function parseDate(val As String) As Date?
+            If IsDate(val) Then
+                Return CDate(val)
+            Else
+                Return Nothing
+            End If
+
+        End Function
+
+        Public Shared Function parseDecimal(val As String) As Decimal?
+
+            Dim priceValue As Decimal
+            Dim allowedStyles As NumberStyles = CType(NumberStyles.AllowDecimalPoint & NumberStyles.AllowThousands, NumberStyles)
+
+            If (Decimal.TryParse(val, allowedStyles, CultureInfo.InvariantCulture, priceValue)) Then
+                Return priceValue
+            Else
+                Return Nothing
+            End If
 
         End Function
 
     End Class
 
-    
 End Namespace

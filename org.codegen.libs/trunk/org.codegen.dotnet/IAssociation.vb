@@ -35,6 +35,7 @@ Public Interface IAssociation
     Property RelationType() As String
     Property isSortAsc() As Boolean
     Property SortField() As String
+    Function getVariableName() As String
 
     Sub setCardinality(ByVal val As String)
 

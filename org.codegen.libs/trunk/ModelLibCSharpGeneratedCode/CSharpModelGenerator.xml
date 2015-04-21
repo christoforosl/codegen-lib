@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="ClassGenerator4"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="ClassGenerator4 https://raw.githubusercontent.com/christoforosl/codegen-lib/CSharpCode/org.codegen.libs/trunk/org.codegen.lib.codeGen/classGenerator.4.xsd" >
+
+
+  <GeneratorVersion>4</GeneratorVersion>
+  <projectFile>.\ModelLibCSharpGeneratedCode.csproj</projectFile>
+  <projectName>ModelLibCSharpTests</projectName>
+  <outputDir>.\</outputDir>
+  <dotNetLanguage>CSHARP</dotNetLanguage>
+  
+  <testProjectOutputDir>..\GeneratorTests\cstests</testProjectOutputDir>
+ 
+  <defaultNamespace>CsModelObjects</defaultNamespace>
+  <defaultDBMapperNameSpace>CsModelMappers</defaultDBMapperNameSpace>
+  <propertiesPrefix>Pr</propertiesPrefix>
+  <dbConnectionString>
+    Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=modelTest;Data Source=.\SQLEXPRESS
+  </dbConnectionString>
+  <dbConnectionDialect>MSSQL</dbConnectionDialect>
+  <dbConnectionType>CONN_MSSQL</dbConnectionType>
+  
+  <table>
+
+    <TableName>Employee</TableName>
+    
+    <SortField>EmployeeName</SortField>
+    <SortAscending>true</SortAscending>
+    
+    <GenerateUI>1</GenerateUI>
+
+    <Lookups>
+      <FieldName>EmployeeRankId</FieldName>
+      <DataSource>CsModelObjects.EmployeeRank</DataSource>
+      <ValueMember>RankId</ValueMember>
+      <DisplayMember>Rank</DisplayMember>
+    </Lookups>
+
+    <association>
+      <relationType>PARENT</relationType>
+      <DataType>CsModelObjects.EmployeeRank</DataType>
+      <AssociationName>Rank</AssociationName>
+      <cardinality>1</cardinality>
+
+      <parentFieldName>RankId</parentFieldName>
+      <childFieldName>EmployeeRankId</childFieldName>
+
+    </association>
+    <association>
+      <relationType>CHILD</relationType>
+      <DataType>CsModelObjects.EmployeeInfo</DataType>
+      <AssociationName>EmployeeInfo</AssociationName>
+      <cardinality>1</cardinality>
+
+      <parentFieldName>EmployeeId</parentFieldName>
+      <childFieldName>EIEmployeeId</childFieldName>
+
+    </association>
+
+    <association>
+      <relationType>CHILD</relationType>
+      <DataType>CsModelObjects.EmployeeProject</DataType>
+      <AssociationName>EmployeeProjects</AssociationName>
+      <AssociationSingular>EmployeeProject</AssociationSingular>
+      <cardinality>*</cardinality>
+
+      <parentFieldName>EmployeeId</parentFieldName>
+      <childFieldName>EPEmployeeId</childFieldName>
+
+    </association>
+
+  </table>
+
+  <table>
+    <TableName>EmployeeProject</TableName>
+    <ClassName>EmployeeProject</ClassName>
+    <GenerateUI>1</GenerateUI>
+	<association>
+	  <relationType>PARENT</relationType>
+	  <DataType>CsModelObjects.Project</DataType>
+	  <AssociationName>Project</AssociationName>
+	  <AssociationSingular>Project</AssociationSingular>
+	  <cardinality>1</cardinality>
+
+	  <parentFieldName>ProjectId</parentFieldName>
+	  <childFieldName>EPProjectId</childFieldName>
+
+	</association>
+	
+  </table>
+
+  <table>
+    <TableName>EmployeeRank</TableName>
+    <ClassName>EmployeeRank</ClassName>
+    <GenerateUI>1</GenerateUI>
+  </table>
+  <table>
+    <TableName>EmployeeInfo</TableName>
+    <GenerateUI>1</GenerateUI>
+  </table>
+
+  <table>
+    <TableName>Project</TableName>
+    <ClassName>Project</ClassName>
+    <GenerateUI>1</GenerateUI>
+    <Field>
+      <FieldName>isActive</FieldName>
+      <DataType>System.Boolean</DataType>
+    </Field>
+    <association>
+      <relationType>CHILD</relationType>
+      <DataType>CsModelObjects.EmployeeProject</DataType>
+      <AssociationName>EmployeeProjects</AssociationName>
+      <AssociationSingular>EmployeeProject</AssociationSingular>
+      <cardinality>*</cardinality>
+      <parentFieldName>ProjectId</parentFieldName>
+      <childFieldName>EPProjectId</childFieldName>
+    </association>
+
+  </table>
+  
+  <table>
+    <TableName>EmployeeType</TableName>
+  </table>
+  
+</project>

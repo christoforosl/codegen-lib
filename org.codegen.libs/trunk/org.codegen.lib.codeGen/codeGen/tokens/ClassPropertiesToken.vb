@@ -11,7 +11,7 @@ Namespace Tokens
         Public Overrides Function getReplacementCode(ByVal t As IObjectToGenerate) As String
 
             Dim PropertyInterface As String = _
-                DirectCast(t.FileGroup(ModelObjectFileComponent.KEY), VBClassFileComponent).ClassInterface
+                DirectCast(t.FileGroup(ModelObjectFileComponent.KEY), DotNetClassFileComponent).ClassInterface
             Return PropertyInterface
 
         End Function
@@ -23,6 +23,14 @@ Namespace Tokens
             Me.StringToReplace = "SETUP_PARENTS_ARRAY"
         End Sub
         Public Overrides Function getReplacementCode(ByVal t As dotnet.IObjectToGenerate) As String
+            If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP Then
+                Return getReplacementCodeCSharp(t)
+            Else
+                Return getReplacementCodeVB(t)
+            End If
+        End Function
+
+        Public Function getReplacementCodeCSharp(ByVal t As dotnet.IObjectToGenerate) As String
 
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
 
@@ -30,10 +38,35 @@ Namespace Tokens
 
                 Dim vec As List(Of IAssociation) = t.DbTable.Associations()
 
-                For Each association As Association In vec
+                For Each association As IAssociation In vec
                     If association.isParent Then
-                        sb.Append("if  Me._" & association.getVariableName() & "Loaded then" & vbCrLf)
-                        sb.Append("ret.Add(me." & association.getVariableName() & ")" & vbCrLf)
+						sb.Append("if  ( this._" & association.getVariableName() & "!=null && this." & association.getVariableName() & "Loaded) {" & vbCrLf)
+                        sb.Append(vbTab).Append("ret.Add(this.").Append(ModelGenerator.Current.FieldPropertyPrefix).Append(association.getVariableName()).Append(");").Append(vbCrLf)
+                        sb.Append("}" & vbCrLf)
+
+                    End If
+
+                Next
+
+
+            End If
+
+            Return sb.ToString()
+
+        End Function
+
+        Public Function getReplacementCodeVB(ByVal t As dotnet.IObjectToGenerate) As String
+
+            Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+
+            If t.DbTable.Associations().Count() > 0 Then
+
+                Dim vec As List(Of IAssociation) = t.DbTable.Associations()
+
+                For Each association As IAssociation In vec
+                    If association.isParent Then
+                        sb.Append("if  Me._" & association.getVariableName() & " isNot Nothing AndAlso Me._" & association.getVariableName() & "Loaded Then" & vbCrLf)
+                        sb.Append(vbTab).Append("ret.Add(me." & ModelGenerator.Current.FieldPropertyPrefix & association.getVariableName() & ")" & vbCrLf)
                         sb.Append("End If" & vbCrLf)
 
                     End If
@@ -48,293 +81,504 @@ Namespace Tokens
         End Function
     End Class
 
-    Public Class ModelObjectChildArrayToken
-        Inherits ReplacementToken
-        Sub New()
-            Me.StringToReplace = "SETUP_CHILDREN_ARRAY"
-        End Sub
-        Public Overrides Function getReplacementCode(ByVal t As dotnet.IObjectToGenerate) As String
-            Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
-
-            If t.DbTable.Associations().Count() > 0 Then
-                Dim vec As List(Of IAssociation) = t.DbTable.Associations()
-
-                For Each association As Association In vec
-                    If Not association.isParent Then
-                        If association.isCardinalityMany Then
-                            Dim dtype As String = association.ChildDatatype
-                            'sb.Append(vbTab & "ret.add(me." & association.getVariableName() & ")" & vbCrLf)
-                            sb.Append(vbTab & "if  Me._" & association.getVariableName() & "Loaded Then ' check if loaded first!" & vbCrLf)
-                            sb.Append(vbTab & vbTab & "Dim lp As List(Of ModelObject) = Me._" & association.getVariableName() & ".ConvertAll( _" & vbCrLf)
-                            sb.Append(vbTab & vbTab & vbTab & vbTab & "New Converter(Of " & dtype & ", ModelObject)(" & vbCrLf)
-                            sb.Append(vbTab & vbTab & vbTab & "Function(pf As " & dtype & ")" & vbCrLf)
-                            sb.Append(vbTab & vbTab & vbTab & vbTab & "Return DirectCast(pf, ModelObject)" & vbCrLf)
-                            sb.Append(vbTab & vbTab & vbTab & "End Function))" & vbCrLf)
-                            sb.Append(vbTab & vbTab & "ret.AddRange(lp)" & vbCrLf)
-                            sb.Append(vbTab & "End If" & vbCrLf)
-                        Else
-                            sb.Append(vbTab & "if  Me._" & association.getVariableName() & "Loaded then" & vbCrLf)
-                            sb.Append(vbTab & vbTab & "ret.Add(me." & association.getVariableName() & ")" & vbCrLf)
-                            sb.Append(vbTab & "End If" & vbCrLf)
-                        End If
-
-                    End If
-
-                Next
-            End If
-
-            Return sb.ToString()
-        End Function
-    End Class
-
-    Public Class ClassAccessLevelToken
-        Inherits ReplacementToken
-        Sub New()
-            Me.StringToReplace = "CLASS_ACCESS_LEVEL"
-        End Sub
-
-        Public Overrides Function getReplacementCode(ByVal t As IObjectToGenerate) As String
-            Return "Public"
-        End Function
-
-    End Class
-
-    Public Class GeneratedInterfaceToken
-        Inherits ReplacementToken
-
-        Sub New()
-            Me.StringToReplace = "MODEL_INTERFACE_DEFINITION"
-        End Sub
-
-        Public Overrides Function getReplacementCode(ByVal t As IObjectToGenerate) As String
-
-            Dim sb As StringBuilder = New StringBuilder()
-            Dim PropertyInterface As String = _
-                DirectCast(t.FileGroup(ModelObjectFileComponent.KEY), VBClassFileComponent).ClassInterface
 
-            If String.IsNullOrEmpty(PropertyInterface) = False Then
-                t.DbTable.addImplemetedInterface(PropertyInterface)
+	Public Class LoadObjectHierarchyToken
+		Inherits ReplacementToken
+
+		Sub New()
+			Me.StringToReplace = "loadObjectHierarchy"
+		End Sub
+
+		Public Overrides Function getReplacementCode(t As dotnet.IObjectToGenerate) As String
+			Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+			Dim endOfLine As String = "()"
+			If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP Then
+				endOfLine = "();"
+			End If
+
+			If t.DbTable.Associations().Count() > 0 Then
+				Dim vec As List(Of IAssociation) = t.DbTable.Associations()
+
+				For Each association As IAssociation In vec
+					sb.Append(vbTab).Append(vbTab).Append("load").Append(association.associationName()).Append(endOfLine).Append(vbCrLf)
+				Next
+			End If
+
+			Return sb.ToString()
+
+		End Function
+
+	End Class
+	Public Class ModelObjectChildArrayToken
+		Inherits MultiLingualReplacementToken
+		Sub New()
+			Me.StringToReplace = "SETUP_CHILDREN_ARRAY"
+		End Sub
+
+
+		Public Overrides Function getReplacementCodeCSharp(ByVal t As dotnet.IObjectToGenerate) As String
+			Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+
+			If t.DbTable.Associations().Count() > 0 Then
+				Dim vec As List(Of IAssociation) = t.DbTable.Associations()
+
+				For Each association As IAssociation In vec
+					If Not association.isParent Then
+						If association.isCardinalityMany Then
+							Dim dtype As String = association.ChildDatatype
+							'sb.Append(vbTab & "ret.add(me." & association.getVariableName() & ")" & vbCrLf)
+							sb.Append(vbTab & "if  (this." & association.getVariableName() & "Loaded) { // check if loaded first!" & vbCrLf)
+							sb.Append(vbTab & vbTab & "List< ModelObject > lp = this._" & association.getVariableName() & ".ConvertAll(" & vbCrLf)
+							sb.Append(vbTab & vbTab & vbTab & vbTab & "new Converter< " & dtype & ", ModelObject>((" & vbCrLf)
+							sb.Append(vbTab & vbTab & vbTab & dtype & " pf )=> {")
+							sb.Append(vbTab & vbTab & vbTab & vbTab & "return (ModelObject)pf;}));" & vbCrLf)
+
+							sb.Append(vbTab & vbTab & "ret.AddRange(lp);" & vbCrLf)
+							sb.Append(vbTab & "}" & vbCrLf)
+						Else
+							sb.Append(vbTab & "if  (this." & ModelGenerator.Current.FieldPropertyPrefix & association.getVariableName() & "!=null) {" & vbCrLf)
+							sb.Append(vbTab & vbTab & "ret.Add(this." & ModelGenerator.Current.FieldPropertyPrefix & association.getVariableName() & ");" & vbCrLf)
+							sb.Append(vbTab & "}" & vbCrLf)
+						End If
+
+					End If
+
+				Next
+			End If
+
+			Return sb.ToString()
+		End Function
+		Public Overrides Function getReplacementCodeVB(ByVal t As dotnet.IObjectToGenerate) As String
+			Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+
+			If t.DbTable.Associations().Count() > 0 Then
+				Dim vec As List(Of IAssociation) = t.DbTable.Associations()
+
+				For Each association As IAssociation In vec
+					If Not association.isParent Then
+						If association.isCardinalityMany Then
+							Dim dtype As String = association.ChildDatatype
+							'sb.Append(vbTab & "ret.add(me." & association.getVariableName() & ")" & vbCrLf)
+							sb.Append(vbTab & "if  Me._" & association.getVariableName() & "Loaded Then ' check if loaded first!" & vbCrLf)
+							sb.Append(vbTab & vbTab & "Dim lp As List(Of ModelObject) = Me._" & association.getVariableName() & ".ConvertAll( _" & vbCrLf)
+							sb.Append(vbTab & vbTab & vbTab & vbTab & "New Converter(Of " & dtype & ", ModelObject)(" & vbCrLf)
+							sb.Append(vbTab & vbTab & vbTab & "Function(pf As " & dtype & ")" & vbCrLf)
+							sb.Append(vbTab & vbTab & vbTab & vbTab & "Return DirectCast(pf, ModelObject)" & vbCrLf)
+							sb.Append(vbTab & vbTab & vbTab & "End Function))" & vbCrLf)
+							sb.Append(vbTab & vbTab & "ret.AddRange(lp)" & vbCrLf)
+							sb.Append(vbTab & "End If" & vbCrLf)
+						Else
+							sb.Append(vbTab & "if  Me._" & association.getVariableName() & " isNot Nothing then" & vbCrLf)
+							sb.Append(vbTab & vbTab & "ret.Add(me." & ModelGenerator.Current.FieldPropertyPrefix & association.getVariableName() & ")" & vbCrLf)
+							sb.Append(vbTab & "End If" & vbCrLf)
+						End If
+
+					End If
+
+				Next
+			End If
+
+			Return sb.ToString()
+		End Function
+	End Class
+
+	Public Class ClassAccessLevelToken
+		Inherits ReplacementToken
+		Sub New()
+			Me.StringToReplace = "CLASS_ACCESS_LEVEL"
+		End Sub
+
+		Public Overrides Function getReplacementCode(ByVal t As IObjectToGenerate) As String
+			Return "Public"
+		End Function
+
+	End Class
 
-                sb.Append("#Region ""Interface""")
-                sb.Append(vbCrLf)
-                sb.Append("<System.Runtime.InteropServices.ComVisible(False)> _" & vbCrLf)
-                sb.Append(vbTab & "Public Interface " & PropertyInterface & ":" & _
-                                        " Inherits IModelObject")
-                sb.Append(vbCrLf)
+	Public Class GeneratedInterfaceToken
+		Inherits MultiLingualReplacementToken
 
-                Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
-                Dim proGen As IPropertyGenerator = ModelGenerator.Current.IPropertyGenerator
+		Sub New()
+			Me.StringToReplace = "MODEL_INTERFACE_DEFINITION"
+		End Sub
+		Public Overrides Function getReplacementCodeCSharp(t As dotnet.IObjectToGenerate) As String
+			Dim sb As StringBuilder = New StringBuilder()
+			Dim PropertyInterface As String = _
+			 DirectCast(t.FileGroup(ModelObjectFileComponent.KEY), DotNetClassFileComponent).ClassInterface
 
-                For Each field As DBField In vec.Values
+			If String.IsNullOrEmpty(PropertyInterface) = False Then
+				t.DbTable.addImplemetedInterface(PropertyInterface)
+
+				sb.Append("#region ""Interface""")
+				sb.Append(vbCrLf)
+				sb.Append("[System.Runtime.InteropServices.ComVisible(false)] " & vbCrLf)
+				sb.Append(vbTab & "public interface " & PropertyInterface & ":" & _
+					  " IModelObject {")
+				sb.Append(vbCrLf)
+
+				Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
+				Dim proGen As IPropertyGenerator = ModelGenerator.Current.IPropertyGenerator
 
-                    sb.Append(proGen.generateInterfaceDeclaration(field))
-                    
+				For Each field As DBField In vec.Values
+					sb.Append(proGen.generateInterfaceDeclaration(field))
+				Next
 
-                Next
+				For Each ass As IAssociation In t.DbTable.Associations
+					sb.Append(vbTab & ass.getInterfaceDeclaration)
+					sb.Append(vbCrLf)
 
-                For Each ass As Association In t.DbTable.Associations
-                    sb.Append(vbTab & ass.getInterfaceDeclaration)
-                    sb.Append(vbCrLf)
+				Next
 
-                Next
+				sb.Append("}")
+				sb.Append(vbCrLf)
+				sb.Append("#endregion")
+				sb.Append(vbCrLf)
 
-                sb.Append("End Interface")
-                sb.Append(vbCrLf)
-                sb.Append("#End region ")
-                sb.Append(vbCrLf)
+			End If
+			Return sb.ToString
+		End Function
+		Public Overrides Function getReplacementCodeVB(ByVal t As IObjectToGenerate) As String
 
-            End If
-            Return sb.ToString
-        End Function
-    End Class
+			Dim sb As StringBuilder = New StringBuilder()
+			Dim PropertyInterface As String = _
+			 DirectCast(t.FileGroup(ModelObjectFileComponent.KEY), DotNetClassFileComponent).ClassInterface
 
-    Public Class RequiredFieldValidatorToken
-        Inherits ReplacementToken
+			If String.IsNullOrEmpty(PropertyInterface) = False Then
+				t.DbTable.addImplemetedInterface(PropertyInterface)
 
-        Sub New()
-            Me.StringToReplace = "REQ_FIELDS_VALIDATOR"
-        End Sub
+				sb.Append("#Region ""Interface""")
+				sb.Append(vbCrLf)
+				sb.Append("<System.Runtime.InteropServices.ComVisible(False)> _" & vbCrLf)
+				sb.Append(vbTab & "Public Interface " & PropertyInterface & ":" & _
+					  " Inherits IModelObject")
+				sb.Append(vbCrLf)
 
-        Public Overrides Function getReplacementCode(ByVal t As IObjectToGenerate) As String
-            Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
-            Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
-            Dim cnt As Integer = 0
+				Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
+				Dim proGen As IPropertyGenerator = ModelGenerator.Current.IPropertyGenerator
 
-            For i As Integer = 0 To vec.Keys.Count - 1
-                'Dim field As DBField = CType(vec(i), DBField)
-                Dim field As IDBField = vec.Item(vec.Keys(i))
+				For Each field As DBField In vec.Values
+					sb.Append(proGen.generateInterfaceDeclaration(field))
+				Next
 
-                If field.IsTableField() AndAlso Not field.isPrimaryKey AndAlso field.Nullable = False Then
-                    If field.isNullableDataType Then
+				For Each ass As IAssociation In t.DbTable.Associations
+					sb.Append(vbTab & ass.getInterfaceDeclaration)
+					sb.Append(vbCrLf)
+				Next
 
-                        'If sb.Length > 0 Then sb.Append(" _").Append(vbCrLf & vbTab & vbTab).Append(" orElse ")
-                        sb.Append("if mo.").Append(field.RuntimeFieldName).Append(" is Nothing then")
+				sb.Append("End Interface")
+				sb.Append(vbCrLf)
+				sb.Append("#End region ")
+				sb.Append(vbCrLf)
 
-                    Else
-                        'If sb.Length > 0 Then sb.Append(" _").Append(vbCrLf & vbTab & vbTab).Append(" orElse ")
-                        sb.Append("if String.isNullOrEmpty( mo.").Append(field.RuntimeFieldName).Append(") Then")
+			End If
+			Return sb.ToString
+		End Function
 
-                    End If
-                    sb.Append(vbCrLf)
-                    sb.Append(vbTab & vbTab)
-                    sb.Append("Throw new ModelObjectRequiredFieldException("""). _
-                                Append(field.RuntimeFieldName).Append(""")"). _
-                                Append(vbCrLf)
-                    sb.Append("End if ").Append(vbCrLf)
-                End If
 
-            Next
+	End Class
 
-            Return sb.ToString()
-        End Function
+	Public Class RequiredFieldValidatorToken
+		Inherits MultiLingualReplacementToken
 
+		Sub New()
+			Me.StringToReplace = "REQ_FIELDS_VALIDATOR"
+		End Sub
+		Public Overrides Function getReplacementCodeCSharp(t As dotnet.IObjectToGenerate) As String
 
-    End Class
+			Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+			Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
+			Dim cnt As Integer = 0
 
-    Public Class FieldListToken
-        Inherits ReplacementToken
+			For i As Integer = 0 To vec.Keys.Count - 1
+				'Dim field As DBField = CType(vec(i), DBField)
+				Dim field As IDBField = vec.Item(vec.Keys(i))
 
-        Sub New()
-            Me.StringToReplace = "STRING_FIELD_LIST"
-        End Sub
+				If field.IsTableField() AndAlso Not field.isPrimaryKey AndAlso field.Nullable = False Then
+					If field.isNullableDataType Then
 
-        Public Overrides Function getReplacementCode(ByVal t As IObjectToGenerate) As String
+						'If sb.Length > 0 Then sb.Append(" _").Append(vbCrLf & vbTab & vbTab).Append(" orElse ")
+						sb.Append("if (mo.").Append(field.PropertyName).Append(" == null ) {")
 
-            Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
-            Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
+					Else
+						'If sb.Length > 0 Then sb.Append(" _").Append(vbCrLf & vbTab & vbTab).Append(" orElse ")
+						sb.Append("if (string.IsNullOrEmpty( mo.").Append(field.PropertyName).Append(")) {")
 
-            For i As Integer = 0 To vec.Keys.Count - 1
-                Dim field As DBField = CType(vec.Item(vec.Keys(i)), DBField)
-                If i > 0 Then sb.Append(",")
-                sb.Append(field.getConstantStr())
+					End If
+					sb.Append(vbCrLf)
+					sb.Append(vbTab & vbTab)
+					sb.Append("throw new ModelObjectRequiredFieldException("""). _
+					   Append(field.RuntimeFieldName).Append(""");"). _
+					   Append(vbCrLf)
+					sb.Append("}").Append(vbCrLf)
+				End If
 
-            Next
+			Next
 
-            Return sb.ToString()
-        End Function
+			Return sb.ToString()
+		End Function
 
 
-    End Class
+		Public Overrides Function getReplacementCodeVb(ByVal t As IObjectToGenerate) As String
 
-    Public Class ClassFieldStringConstantsToken
-        Inherits ReplacementToken
+			Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+			Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
+			Dim cnt As Integer = 0
 
-        Sub New()
-            Me.StringToReplace = "STRCONSTANTS"
-        End Sub
+			For i As Integer = 0 To vec.Keys.Count - 1
+				'Dim field As DBField = CType(vec(i), DBField)
+				Dim field As IDBField = vec.Item(vec.Keys(i))
 
-        Public Overrides Function getReplacementCode(ByVal t As IObjectToGenerate) As String
-            Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
-            Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
+				If field.IsTableField() AndAlso Not field.isPrimaryKey AndAlso field.Nullable = False Then
+					If field.isNullableDataType Then
 
-            For Each field As DBField In vec.Values
+						'If sb.Length > 0 Then sb.Append(" _").Append(vbCrLf & vbTab & vbTab).Append(" orElse ")
+						sb.Append("if mo.").Append(field.PropertyName).Append(" is Nothing then")
 
-                sb.Append(vbTab & vbTab & vbTab & "public Const " & field.getConstantStr() & " as String = """ & DBTable.getRuntimeName(field.FieldName()) & """")
-                sb.Append(vbCrLf)
-            Next
+					Else
+						'If sb.Length > 0 Then sb.Append(" _").Append(vbCrLf & vbTab & vbTab).Append(" orElse ")
+						sb.Append("if String.isNullOrEmpty( mo.").Append(field.PropertyName).Append(") Then")
 
-            Return sb.ToString()
-        End Function
-    End Class
+					End If
+					sb.Append(vbCrLf)
+					sb.Append(vbTab & vbTab)
+					sb.Append("Throw new ModelObjectRequiredFieldException("""). _
+					   Append(field.RuntimeFieldName).Append(""")"). _
+					   Append(vbCrLf)
+					sb.Append("End if ").Append(vbCrLf)
+				End If
 
-    Public Class ClassFieldIntConstantsToken
-        Inherits ReplacementToken
+			Next
 
+			Return sb.ToString()
+		End Function
 
-        Sub New()
-            Me.StringToReplace = "CONSTANTS"
-        End Sub
 
-        Public Overrides Function getReplacementCode(ByVal t As IObjectToGenerate) As String
-            Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
-            Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
+	End Class
 
-            Dim i As Integer = 0
-            For Each field As DBField In vec.Values
+	Public Class FieldListToken
+		Inherits ReplacementToken
 
-                'If field.FieldName.ToUpper <> Me._dbTable.getPrimaryKeyName.ToUpper Then
-                sb.Append(vbTab & vbTab & "public Const " & field.getConstant() & " as Integer = " & (i))
-                i += 1
-                sb.Append(vbCrLf)
-                'End If
+		Sub New()
+			Me.StringToReplace = "STRING_FIELD_LIST"
+		End Sub
 
-            Next
-            ''keep primary key to be the last field 
-            'sb.Append("    public Const " & Me._dbTable.getPrimaryKeyField.getConstant() & " as Integer = " & (i))
-            Return sb.ToString()
-        End Function
-    End Class
+		Public Overrides Function getReplacementCode(ByVal t As IObjectToGenerate) As String
 
-    Public Class ClassPropertiesToken
-        Inherits ReplacementToken
+			Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+			Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
 
-        Sub New()
-            Me.StringToReplace = "CLASS_PROPERTIES"
-        End Sub
+			For i As Integer = 0 To vec.Keys.Count - 1
+				Dim field As DBField = CType(vec.Item(vec.Keys(i)), DBField)
+				If i > 0 Then sb.Append(",")
+				sb.Append(field.getConstantStr())
 
-        Public Overrides Function getReplacementCode(ByVal t As IObjectToGenerate) As String
-            ' sJcode = sJcode.Replace("<>", getProperties())
-            Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder(vbCrLf)
-            Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
+			Next
 
-            Dim i As Integer = 0
-            For Each field As DBField In vec.Values
-                'no need to generate anything for "id" field.  it is overriden
-                If field.FieldName.ToLower.Equals("id") = False Then
-                    'field.PropertiesImplementedInterface = Me.GenerateInterface
-                    sb.Append(field.getProperty())
-                End If
+			Return sb.ToString()
+		End Function
 
-            Next
 
-            sb.Append(Me.getAssociationProperties(CType(t.DbTable, DBTable)))
+	End Class
 
-            Return sb.ToString()
-        End Function
+	Public Class ClassFieldStringConstantsToken
+		Inherits ReplacementToken
 
-        Private Function getAssociationProperties(ByVal t As DBTable) As String
-            Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
-            Dim vec As List(Of IAssociation)
+		Sub New()
+			Me.StringToReplace = "STRCONSTANTS"
+		End Sub
 
-            If t.Associations().Count() > 0 Then
-                sb.Append(vbCrLf & vbTab & vbTab & "' ASSOCIATIONS GETTERS/SETTERS BELOW!" & vbCrLf)
-            End If
+		Public Overrides Function getReplacementCode(ByVal t As IObjectToGenerate) As String
 
-            vec = t.Associations()
+			If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP Then
+				Return Me.getReplacementCodeCSharp(t)
+			Else
+				Return Me.getReplacementCodeVB(t)
+			End If
 
-            For Each association As Association In vec
-                sb.Append(association.getSetterGetter())
-            Next
+		End Function
 
-            Return sb.ToString()
+		Public Function getReplacementCodeCSharp(ByVal t As IObjectToGenerate) As String
+			Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+			Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
 
-        End Function
+			For Each field As DBField In vec.Values
 
-    End Class
+				sb.Append(vbTab & vbTab & vbTab & "public const String " & field.getConstantStr() & " = """ & DBTable.getRuntimeName(field.FieldName()) & """;")
+				sb.Append(vbCrLf)
+			Next
 
-    Public Class IdFieldImplementedInterfaceToken
-        Inherits ReplacementToken
+			Return sb.ToString()
+		End Function
 
-        Sub New()
-            Me.StringToReplace = "ID_IMPLEMENTS"
-        End Sub
+		Public Function getReplacementCodeVB(ByVal t As IObjectToGenerate) As String
+			Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+			Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
 
-        Public Overrides Function getReplacementCode(ByVal t As IObjectToGenerate) As String
+			For Each field As DBField In vec.Values
 
-            Dim PropertyInterface As String = _
-                DirectCast(t.FileGroup(ModelObjectFileComponent.KEY), VBClassFileComponent).ClassInterface
+				sb.Append(vbTab & vbTab & vbTab & "public Const " & field.getConstantStr() & " as String = """ & DBTable.getRuntimeName(field.FieldName()) & """")
+				sb.Append(vbCrLf)
+			Next
 
-            If String.IsNullOrEmpty(PropertyInterface) = False Then
-                If t.DbTable.hasFieldName("id") Then
-                    Return "Implements " & PropertyInterface & ".Id"
-                Else
-                    Return String.Empty
-                End If
-            Else
-                Return String.Empty
-            End If
+			Return sb.ToString()
+		End Function
+	End Class
 
-        End Function
-    End Class
+	Public Class ClassFieldIntConstantsToken
+		Inherits ReplacementToken
+
+
+		Sub New()
+			Me.StringToReplace = "CONSTANTS"
+		End Sub
+
+		Public Overrides Function getReplacementCode(ByVal t As IObjectToGenerate) As String
+
+			If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP Then
+				Return Me.getReplacementCodeCSharp(t)
+			Else
+				Return Me.getReplacementCodeVB(t)
+			End If
+
+		End Function
+		Public Function getReplacementCodeCSharp(ByVal t As IObjectToGenerate) As String
+			Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+			Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
+
+			Dim i As Integer = 0
+			For Each field As DBField In vec.Values
+
+				'If field.FieldName.ToUpper <> Me._dbTable.getPrimaryKeyName.ToUpper Then
+				sb.Append(vbTab & vbTab & "public const int " & field.getConstant() & " = " & (i) & ";")
+				i += 1
+				sb.Append(vbCrLf)
+				'End If
+
+			Next
+			''keep primary key to be the last field 
+			'sb.Append("    public Const " & Me._dbTable.getPrimaryKeyField.getConstant() & " as Integer = " & (i))
+			Return sb.ToString()
+		End Function
+		Public Function getReplacementCodeVB(ByVal t As IObjectToGenerate) As String
+			Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+			Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
+
+			Dim i As Integer = 0
+			For Each field As DBField In vec.Values
+
+				'If field.FieldName.ToUpper <> Me._dbTable.getPrimaryKeyName.ToUpper Then
+				sb.Append(vbTab & vbTab & "public Const " & field.getConstant() & " as Integer = " & (i))
+				i += 1
+				sb.Append(vbCrLf)
+				'End If
+
+			Next
+			''keep primary key to be the last field 
+			'sb.Append("    public Const " & Me._dbTable.getPrimaryKeyField.getConstant() & " as Integer = " & (i))
+			Return sb.ToString()
+		End Function
+	End Class
+
+	Public Class ClassPropertiesToken
+		Inherits ReplacementToken
+
+		Sub New()
+			Me.StringToReplace = "CLASS_PROPERTIES"
+		End Sub
+
+		Public Overrides Function getReplacementCode(ByVal t As IObjectToGenerate) As String
+
+			If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP Then
+				Return Me.getReplacementCodeCSharp(t)
+			Else
+				Return Me.getReplacementCodeVB(t)
+			End If
+
+		End Function
+
+
+		Public Function getReplacementCodeCSharp(ByVal t As IObjectToGenerate) As String
+			' sJcode = sJcode.Replace("<>", getProperties())
+			Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder(vbCrLf)
+			Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
+
+			Dim i As Integer = 0
+			For Each field As DBField In vec.Values
+				'no need to generate anything for "id" field.  it is overriden
+				If field.FieldName.ToLower.Equals("id") = False Then
+					'field.PropertiesImplementedInterface = Me.GenerateInterface
+					sb.Append(field.getProperty())
+				End If
+
+			Next
+
+			sb.Append(Me.getAssociationProperties(CType(t.DbTable, DBTable)))
+
+			Return sb.ToString()
+		End Function
+
+		Public Function getReplacementCodeVB(ByVal t As IObjectToGenerate) As String
+			' sJcode = sJcode.Replace("<>", getProperties())
+			Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder(vbCrLf)
+			Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
+
+			Dim i As Integer = 0
+			For Each field As DBField In vec.Values
+				'no need to generate anything for "id" field.  it is overriden
+				If field.FieldName.ToLower.Equals("id") = False Then
+					'field.PropertiesImplementedInterface = Me.GenerateInterface
+					sb.Append(field.getProperty())
+				End If
+
+			Next
+
+			sb.Append(Me.getAssociationProperties(CType(t.DbTable, DBTable)))
+
+			Return sb.ToString()
+		End Function
+
+		Private Function getAssociationProperties(ByVal t As DBTable) As String
+			Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+			Dim vec As List(Of IAssociation)
+			Dim commentSymbol As String = CStr(IIf(ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB, "'", "//"))
+			If t.Associations().Count() > 0 Then
+				sb.Append(vbCrLf & vbTab & vbTab & commentSymbol & " ASSOCIATIONS GETTERS/SETTERS BELOW!" & vbCrLf)
+			End If
+
+			vec = t.Associations()
+
+			For Each association As IAssociation In vec
+				sb.Append(association.getSetterGetter())
+			Next
+
+			Return sb.ToString()
+
+		End Function
+
+	End Class
+
+	Public Class IdFieldImplementedInterfaceToken
+		Inherits ReplacementToken
+
+		Sub New()
+			Me.StringToReplace = "ID_IMPLEMENTS"
+		End Sub
+
+		Public Overrides Function getReplacementCode(ByVal t As IObjectToGenerate) As String
+
+			Dim PropertyInterface As String = _
+			 DirectCast(t.FileGroup(ModelObjectFileComponent.KEY), DotNetClassFileComponent).ClassInterface
+
+			If String.IsNullOrEmpty(PropertyInterface) = False Then
+				If t.DbTable.hasFieldName("id") Then
+					Return "Implements " & PropertyInterface & ".Id"
+				Else
+					Return String.Empty
+				End If
+			Else
+				Return String.Empty
+			End If
+
+		End Function
+	End Class
 
 End Namespace

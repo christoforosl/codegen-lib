@@ -224,7 +224,6 @@ Public MustInherit Class DBUtils
 
 #Region "Transactions"
 
-
     Public Property Transaction() As IDbTransaction
         Get
             Return p_Trans
