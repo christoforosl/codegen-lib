@@ -85,7 +85,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>..\..\codeGen\</OutputPath>
+    <OutputPath>..\..\..\..\..\..\vsProjects\codeGenLibs\</OutputPath>
     <DocumentationFile>org.codegen.lib.4.0.xml</DocumentationFile>
     <BaseAddress>285212672</BaseAddress>
     <ConfigurationOverrideFile>
