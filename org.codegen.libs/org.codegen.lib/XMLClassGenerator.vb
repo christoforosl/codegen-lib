@@ -187,13 +187,17 @@ Public Class XMLClassGenerator
     Public Shared Function getBooleanRowValue(ByVal r As DataRow, _
                ByVal col As String, ByVal bDefaultIfEmpty As Boolean) As Boolean
 
+        If r.Table.Columns(col) Is Nothing OrElse r.Item(col) Is DBNull.Value Then
+            Return bDefaultIfEmpty
+        End If
+
         If getRowValue(r, col) = String.Empty Then
             Return bDefaultIfEmpty
         Else
-
             Return getRowValue(r, col, STR_False).ToLower = "true" OrElse _
                         getRowValue(r, col, STR_False).ToLower = "1"
         End If
+
     End Function
 
     Public Shared Function getRowValue(ByVal r As DataRow, ByVal col As String, ByVal defaultVal As String) As String
@@ -283,7 +287,6 @@ Public Class XMLClassGenerator
         t.DbConnString = getRowValue(projectInfo.Rows(0), XML_PROJECT_ATTR_CONN_STRING, True)
         t.DbConnStringType = getRowValue(projectInfo.Rows(0), XML_PROJECT_ATTR_DB_CONN_TYPE, True)
         t.DbConnStringDialect = getRowValue(projectInfo.Rows(0), XML_PROJECT_ATTR_DB_CONN_DIALECT, True)
-
         t.ProjectOutputDirModel = getRowValue(projectInfo.Rows(0), XML_PROJECT_ATTR_OUTPUT_DIR, True)
         t.ProjectOutputDirTest = getRowValue(projectInfo.Rows(0), XML_ATTR_PROJECT_TEST_OUT_DIR, False)
 		t.ProjectOutputDirUI = getRowValue(projectInfo.Rows(0), XML_ATTR_UI_TEST_OUT_DIR, False)

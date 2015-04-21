@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project xmlns="ClassGenerator4"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	   xsi:schemaLocation="ClassGenerator4 https://raw.githubusercontent.com/christoforosl/codegen-lib/CSharpCode/org.codegen.libs/trunk/org.codegen.lib.codeGen/classGenerator.4.xsd" >
+	   xsi:schemaLocation="ClassGenerator4 https://raw.githubusercontent.com/christoforosl/codegen-lib/master/org.codegen.libs/org.codegen.lib/classGenerator.4.xsd" >
 
 
   <GeneratorVersion>4</GeneratorVersion>
@@ -19,15 +19,16 @@
   </dbConnectionString>
   <dbConnectionDialect>ORACLE</dbConnectionDialect>
   <dbConnectionType>CONN_OLEDB</dbConnectionType>
-  <tables>
-  <table>
-    <TableName>COUNTRIES</TableName>
-    <ClassName>Country</ClassName>    
-  </table>
+
   <table>
     <TableName>DEPARTMENTS</TableName>
     <ClassName>Department</ClassName>
   </table>
+  <table>
+    <TableName>COUNTRIES</TableName>
+    <ClassName>Country</ClassName>    
+  </table>
+  
 <!--
   <table>
     <TableName>XML_TYPE_TEST</TableName>
@@ -109,5 +110,5 @@
   </table>
   
 -->
-</tables>
+
 </project>

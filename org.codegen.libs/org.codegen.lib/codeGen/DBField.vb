@@ -286,6 +286,7 @@ Public Class DBField
 
         Set(ByVal value As System.Type)
             _OriginalRuntimeType = value
+
             If value Is Type.GetType("System.Single") OrElse _
                 value Is Type.GetType("System.Float") Then
                 _RuntimeType = Type.GetType("System.Decimal")
@@ -295,14 +296,19 @@ Public Class DBField
                     value Is Type.GetType("System.Byte") Then
 
                 _RuntimeType = Type.GetType("System.Int64")
-
             Else
                 _RuntimeType = value
-
             End If
+
+            'for oracle only!!
+            If _RuntimeType Is Type.GetType("System.Decimal") AndAlso Me.Scale = 0 Then
+                _RuntimeType = Type.GetType("System.Int64")
+            End If
+
             If Me._userSpecifiedDataType IsNot Nothing Then
                 _RuntimeTypeStr = _userSpecifiedDataType
             End If
+
             _RuntimeTypeStr = _RuntimeType.ToString
 
         End Set
