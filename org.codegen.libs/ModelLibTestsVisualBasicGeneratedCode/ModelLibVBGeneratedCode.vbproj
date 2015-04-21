@@ -83,7 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="My Project\AssemblyInfo.vb" />
-    <Compile Include="TestParseDateTime.vb" />
     <Compile Include="VbBusObjects\DBMappers\EmployeeDBMapper.vb" />
     <Compile Include="VbBusObjects\DBMappers\EmployeeProjectDBMapper.vb" />
     <Compile Include="VbBusObjects\EmployeeProject.vb" />
@@ -140,24 +139,20 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\org.codegen.lib.db\org.model.lib.db.vbproj">
-      <Project>{C744D17D-3132-4365-8C44-9D295D942597}</Project>
-      <Name>org.model.lib.db</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\org.codegen.lib\org.model.lib.vbproj">
-      <Project>{BF9890A4-769A-406D-9AD0-0D9F5A7376A0}</Project>
-      <Name>org.model.lib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\org.codegen.win.controls\org.codegen.win.controls.vbproj">
-      <Project>{32D6AC6F-ED2F-4210-A3E8-359BE2F9F5C2}</Project>
-      <Name>org.codegen.win.controls</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Tests\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\org.codegen.lib.db\org.model.lib.db.vbproj">
+      <Project>{c744d17d-3132-4365-8c44-9d295d942597}</Project>
+      <Name>org.model.lib.db</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\org.codegen.lib\org.model.lib.vbproj">
+      <Project>{bf9890a4-769a-406d-9ad0-0d9f5a7376a0}</Project>
+      <Name>org.model.lib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
