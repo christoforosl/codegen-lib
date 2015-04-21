@@ -54,6 +54,33 @@ Public Class Utilities
     ''' <param name="resname">Fully qualified resource name, for example, com.neu.lib.File.txt</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
+    Public Shared Function getResourceFileText(stype As Type, ByVal resname As String) As String
+
+        Dim templ As String = String.Empty
+        Dim d As Stream = stype.Assembly.GetManifestResourceStream(resname)
+        Dim ds As StreamReader = New StreamReader(d, System.Text.Encoding.GetEncoding("Windows-1253"))
+        Dim tline As String
+        Try
+
+            Do
+                tline = ds.ReadLine()
+                templ &= tline & vbCrLf
+            Loop Until tline Is Nothing
+            Return templ
+        Finally
+            d.Close()
+            ds.Close()
+
+        End Try
+
+    End Function
+
+    ''' <summary>
+    ''' Loads a file stored in an assembly as "embedded resource"
+    ''' </summary>
+    ''' <param name="resname">Fully qualified resource name, for example, com.neu.lib.File.txt</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Shared Function getResourceFileText(ByVal resname As String) As String
 
         Dim templ As String = String.Empty

@@ -94,14 +94,6 @@
       <Project>{C367EAE9-FDEA-468D-9A91-C5075F927D39}</Project>
       <Name>org.codegen.common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\org.codegen.lib.db\org.model.lib.db.vbproj">
-      <Project>{C744D17D-3132-4365-8C44-9D295D942597}</Project>
-      <Name>org.model.lib.db</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\org.codegen.lib\org.model.lib.vbproj">
-      <Project>{BF9890A4-769A-406D-9AD0-0D9F5A7376A0}</Project>
-      <Name>org.model.lib</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

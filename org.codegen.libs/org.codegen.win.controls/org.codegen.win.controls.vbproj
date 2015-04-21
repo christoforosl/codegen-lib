@@ -435,10 +435,6 @@
       <Project>{c744d17d-3132-4365-8c44-9d295d942597}</Project>
       <Name>org.model.lib.db</Name>
     </ProjectReference>
-    <ProjectReference Include="..\org.codegen.lib\org.model.lib.vbproj">
-      <Project>{bf9890a4-769a-406d-9ad0-0d9f5a7376a0}</Project>
-      <Name>org.model.lib</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>

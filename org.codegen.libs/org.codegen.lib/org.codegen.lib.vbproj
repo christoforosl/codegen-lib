@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EC0BEE2D-5CA9-478C-B5C7-0270FB49207F}</ProjectGuid>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>org.codegen.lib.4.0</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyMode>None</AssemblyOriginatorKeyMode>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <OptionCompare>Binary</OptionCompare>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionStrict>On</OptionStrict>
+    <RootNamespace>org.codegen.lib</RootNamespace>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <MyType>Windows</MyType>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <ManifestCertificateThumbprint>515EBBAFEE3154133686C66C4A0A70A11FBC3D2F</ManifestCertificateThumbprint>
+    <ManifestKeyFile>ClassGenerator_TemporaryKey.pfx</ManifestKeyFile>
+    <GenerateManifests>false</GenerateManifests>
+    <SignManifests>false</SignManifests>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <PublishUrl>http://localhost/org.codegen.lib.codeGen/</PublishUrl>
+    <Install>false</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <TargetCulture>en</TargetCulture>
+    <ProductName>CGL Class Generator</ProductName>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\..\..\..\..\..\vsprojects\codeGenLibs\</OutputPath>
+    <DocumentationFile>org.codegen.lib.4.0.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42024,42032,42036,42099</WarningsAsErrors>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>..\..\codeGen\</OutputPath>
+    <DocumentationFile>org.codegen.lib.4.0.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>42353,42354,42355</NoWarn>
+    <DebugType>none</DebugType>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42024,42032,42036,42099</WarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="org.codegen.dotnet" />
+    <Import Include="org.model.lib.db" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\org.model.lib\db\DBMapperStatementsFile.vb">
+      <Link>DBMapperStatementsFile.vb</Link>
+    </Compile>
+    <Compile Include="AssemblyInfo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="codeGen\Association.vb" />
+    <Compile Include="codeGen\CSharpAssociation.vb" />
+    <Compile Include="codeGen\DBField.vb" />
+    <Compile Include="codeGen\DBTable.vb" />
+    <Compile Include="codeGen\FieldCode\CSharpPropertyGenerator.vb" />
+    <Compile Include="codeGen\FieldCode\PropertyGenerator.vb" />
+    <Compile Include="codeGen\FileGroupLoader.vb" />
+    <Compile Include="codeGen\ModelGenerator.vb" />
+    <Compile Include="codeGen\ObjectToGenerate.vb" />
+    <Compile Include="interfaces\enumWriteFileIf.vb" />
+    <Compile Include="interfaces\IAssociation.vb" />
+    <Compile Include="interfaces\IDBField.vb" />
+    <Compile Include="interfaces\IDBTable.vb" />
+    <Compile Include="interfaces\IGeneratedFileComponent.vb" />
+    <Compile Include="interfaces\IObjectToGenerate.vb" />
+    <Compile Include="interfaces\IPropertyGenerator.vb" />
+    <Compile Include="SqlGen\SQLStmtsGenerator.vb" />
+    <Compile Include="codeGen\tokens\ClassFieldDeclarationsToken.vb" />
+    <Compile Include="codeGen\tokens\ClassPropertiesToken.vb" />
+    <Compile Include="codeGen\tokens\DataAccessTokens.vb" />
+    <Compile Include="codeGen\tokens\GeneratorToken.vb" />
+    <Compile Include="codeGen\tokens\AttributesToken.vb" />
+    <Compile Include="codeGen\tokens\IReplacementToken.vb" />
+    <Compile Include="codeGen\tokens\ModelImplementedInterfacesToken.vb" />
+    <Compile Include="codeGen\tokens\ObjectOverrideTokens.vb" />
+    <Compile Include="codeGen\tokens\ReplacementToken.vb" />
+    <Compile Include="codeGen\tokens\ReplacementTokenAttribute.vb" />
+    <Compile Include="codeGen\tokens\SorterToken.vb" />
+    <Compile Include="codeGen\tokens\TestCodeTokens.vb" />
+    <Compile Include="codeGen\tokens\UpdateChildrenFieldCodeToken.vb" />
+    <Compile Include="FileComponents\IVBProjectIncludedFile.vb" />
+    <Compile Include="FileComponents\MapperFileComponents.vb" />
+    <Compile Include="FileComponents\GeneratedFileComponent.vb" />
+    <Compile Include="FileComponents\ModelObjectBaseFileComponent.vb" />
+    <Compile Include="FileComponents\ModelObjectFileComponent.vb" />
+    <Compile Include="FileComponents\SQLStatementsFileComponent.vb" />
+    <Compile Include="FileComponents\TestFileComponent.vb" />
+    <Compile Include="FileComponents\VBClassFileComponent.vb" />
+    <Compile Include="ProgressIndicator.vb" />
+    <Compile Include="ProjectHandler.vb" />
+    <Compile Include="ui.winforms\ConcatValues.vb" />
+    <Compile Include="ui.winforms\ControlsAdd.vb" />
+    <Compile Include="ui.winforms\ControlsLoadCode.vb" />
+    <Compile Include="ui.winforms\ControlsLayout.vb" />
+    <Compile Include="ui.winforms\edit\EditWinCtlFileComponent.vb" />
+    <Compile Include="ui.winforms\edit\EditWinFormFileComponent.vb" />
+    <Compile Include="ui.winforms\GetControlDeclarations.vb" />
+    <Compile Include="ui.winforms\GetControlInstantiations.vb" />
+    <Compile Include="ui.winforms\List\ListWinCtlFileComponent.vb" />
+    <Compile Include="ui.winforms\List\ListWinFormFileComponent.vb" />
+    <Compile Include="ui.winforms\LoadToControls.vb" />
+    <Compile Include="ui.winforms\LoadToObject.vb" />
+    <Compile Include="ui.winforms\WinEditFormHeight.vb" />
+    <Compile Include="ui.winforms\WinformsGridColumns.vb" />
+    <Compile Include="Utilities.vb" />
+    <Compile Include="XMLClassGenerator.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="classGenerator.4.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <None Include="classGenerator.4.xsx">
+      <DependentUpon>classGenerator.4.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <BaseApplicationManifest Include="My Project\app.manifest" />
+    <None Include="FileComponents\FileComponentsDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="COM.CGL.COMMON">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="COM.CGL.DATAACCESS">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="FreeSMTP.Net">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Oracle.DataAccess">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Data.Access.Components.2.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft Data Access Components 2.8</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="templates\associationChildOne.txt" />
+    <EmbeddedResource Include="templates\associationParent.txt" />
+    <EmbeddedResource Include="templates\ModelBase2.visualBasic.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="templates\ModelBaseExtender2.visualBasic.txt" />
+    <EmbeddedResource Include="templates\TestTemplate.visualbasic.txt" />
+    <EmbeddedResource Include="SqlGen\SqlTemplate.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="templates\associationChildMany.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="templates\DBMapperBase.visualBasic.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="templates\TestTemplate.csharp.txt" />
+    <EmbeddedResource Include="templates\ModelBaseExtender2.csharp.txt" />
+    <EmbeddedResource Include="templates\DBMapperBase.csharp.txt" />
+    <EmbeddedResource Include="templates\associationChildManyCSharp.txt" />
+    <EmbeddedResource Include="templates\associationChildOneCSharp.txt" />
+    <EmbeddedResource Include="templates\associationParentCSharp.txt" />
+    <EmbeddedResource Include="templates\ModelBase2.csharp.txt" />
+    <EmbeddedResource Include="ui.winforms\edit\EditFormTemplate.txt" />
+    <EmbeddedResource Include="ui.winforms\edit\EditControlTemplate.txt" />
+    <EmbeddedResource Include="ui.winforms\List\ListControlTemplate.txt" />
+    <EmbeddedResource Include="ui.winforms\List\ListFormTemplate.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ui.asp.net\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\org.model.lib.db\org.model.lib.db.vbproj">
+      <Project>{C744D17D-3132-4365-8C44-9D295D942597}</Project>
+      <Name>org.model.lib.db</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

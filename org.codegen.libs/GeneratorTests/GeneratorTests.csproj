@@ -69,15 +69,15 @@
       <Project>{1B56DDD9-DF71-49B7-A97E-E65C0185781C}</Project>
       <Name>ModelLibVBGeneratedCode</Name>
     </ProjectReference>
-    <ProjectReference Include="..\org.codegen.lib.codeGen\org.codegen.lib.codeGen.vbproj">
-      <Project>{EC0BEE2D-5CA9-478C-B5C7-0270FB49207F}</Project>
-      <Name>org.codegen.lib.codeGen</Name>
+    <ProjectReference Include="..\org.codegen.lib\org.codegen.lib.vbproj">
+      <Project>{ec0bee2d-5ca9-478c-b5c7-0270fb49207f}</Project>
+      <Name>org.codegen.lib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\org.codegen.lib.db\org.model.lib.db.vbproj">
+    <ProjectReference Include="..\org.model.lib.db\org.model.lib.db.vbproj">
       <Project>{c744d17d-3132-4365-8c44-9d295d942597}</Project>
       <Name>org.model.lib.db</Name>
     </ProjectReference>
-    <ProjectReference Include="..\org.codegen.lib\org.model.lib.vbproj">
+    <ProjectReference Include="..\org.model.lib\org.model.lib.vbproj">
       <Project>{bf9890a4-769a-406d-9ad0-0d9f5a7376a0}</Project>
       <Name>org.model.lib</Name>
     </ProjectReference>
