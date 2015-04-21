@@ -16,7 +16,7 @@ Public Class EditWinCtlFileComponent
 
     Public Sub New(ByRef inObjGen As IObjectToGenerate)
         MyBase.New(inObjGen)
-        Me.templateFileName = "org.codegen.lib.codeGen.EditControlTemplate.txt"
+        Me.templateFileName = "org.codegen.lib.EditControlTemplate.txt"
     End Sub
 
     Public Overrides Function ClassName() As String

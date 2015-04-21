@@ -104,19 +104,21 @@ Public Class XMLClassGenerator
         Dim gen As XMLClassGenerator
         Dim cds As DataSet = Nothing
 
-        gen = New XMLClassGenerator(xmlConfFile)
-        cds = New DataSet
-        cds.Namespace = "ClassGenerator4"
-        cds.ReadXmlSchema(Utilities.getResourceStream("org.codegen.lib.classGenerator.4.xsd"))
-        cds.ReadXml(xmlConfFile)
-        gen.parseConfFile(cds)
-        gen.genClasses()
+        Using strm As Stream = GetType(XMLClassGenerator).Assembly.GetManifestResourceStream("org.codegen.lib.classGenerator.4.xsd")
+            gen = New XMLClassGenerator(xmlConfFile)
+            cds = New DataSet
+            cds.Namespace = "ClassGenerator4"
+            cds.ReadXmlSchema(strm)
+            cds.ReadXml(xmlConfFile)
+            gen.parseConfFile(cds)
+            gen.genClasses()
+        End Using
 
-		System.Diagnostics.Debug.WriteLine("Completed: " & vbCrLf & _
-		"Objects:" & ModelGenerator.Current.ObjectsToGenerate.Count & vbCrLf & _
-		"New Gen Files:" & ModelGenerator.Current.NumOfNewGeneratedFiles & vbCrLf & _
-		"Updated Files:" & ModelGenerator.Current.NumOfGeneratedFiles & vbCrLf & _
-		"Skipped Files:" & ModelGenerator.Current.NumOfUnchangedFiles, MsgBoxStyle.Information)
+        System.Diagnostics.Debug.WriteLine("Completed: " & vbCrLf & _
+        "Objects:" & ModelGenerator.Current.ObjectsToGenerate.Count & vbCrLf & _
+        "New Gen Files:" & ModelGenerator.Current.NumOfNewGeneratedFiles & vbCrLf & _
+        "Updated Files:" & ModelGenerator.Current.NumOfGeneratedFiles & vbCrLf & _
+        "Skipped Files:" & ModelGenerator.Current.NumOfUnchangedFiles, MsgBoxStyle.Information)
 
     End Sub
 

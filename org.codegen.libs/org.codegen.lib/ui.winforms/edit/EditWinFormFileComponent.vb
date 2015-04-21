@@ -12,7 +12,7 @@ Public Class EditWinFormFileComponent
 
     Public Sub New(ByRef inObjGen As IObjectToGenerate)
         MyBase.New(inObjGen)
-        Me.templateFileName = "org.codegen.lib.codeGen.EditFormTemplate.txt"
+        Me.templateFileName = "org.codegen.lib.EditFormTemplate.txt"
     End Sub
 
     Public Overrides Function ClassName() As String

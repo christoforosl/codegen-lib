@@ -37,11 +37,11 @@ Public Class ucEmployeeList
 	me.SSINumber = new DataGridViewTextBoxColumn
 	me.HireDate = new DataGridViewCalendarColumn
 	me.NumDependents = new DataGridViewTextBoxColumn
+	me.EmployeeTypeCode = new DataGridViewTextBoxColumn
 	me.CreateDate = new DataGridViewCalendarColumn
 	me.UpdateDate = new DataGridViewCalendarColumn
-	me.UpdateUser = new DataGridViewTextBoxColumn
 	me.CreateUser = new DataGridViewTextBoxColumn
-	me.EmployeeTypeCode = new DataGridViewTextBoxColumn
+	me.UpdateUser = new DataGridViewTextBoxColumn
 
         Me.grdEmployee = New org.codegen.win.controls.Grid.CGSQLGrid()
         Me.SuspendLayout()
@@ -217,6 +217,20 @@ Public Class ucEmployeeList
 	'**** End Setup of column: NumDependents
 
 
+	' column: EmployeeTypeCode
+	EmployeeTypeCode.CellTemplate = New DataGridViewTextBoxCell
+	EmployeeTypeCode.Name = "EmployeeTypeCode"
+	EmployeeTypeCode.DataPropertyName = "EmployeeTypeCode"
+	EmployeeTypeCode.ReadOnly = True
+	EmployeeTypeCode.HeaderText = "EmployeeTypeCode"
+	EmployeeTypeCode.HeaderCell.value = "EmployeeTypeCode"
+	EmployeeTypeCode.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft
+	EmployeeTypeCode.HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopLeft
+	EmployeeTypeCode.Width = 100
+	EmployeeTypeCode.Visible = True
+	'**** End Setup of column: EmployeeTypeCode
+
+
 	' column: CreateDate
 	CreateDate.CellTemplate = New CalendarCell
 	CreateDate.Name = "CreateDate"
@@ -247,20 +261,6 @@ Public Class ucEmployeeList
 	'**** End Setup of column: UpdateDate
 
 
-	' column: UpdateUser
-	UpdateUser.CellTemplate = New DataGridViewTextBoxCell
-	UpdateUser.Name = "UpdateUser"
-	UpdateUser.DataPropertyName = "updateUser"
-	UpdateUser.ReadOnly = True
-	UpdateUser.HeaderText = "UpdateUser"
-	UpdateUser.HeaderCell.value = "UpdateUser"
-	UpdateUser.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft
-	UpdateUser.HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopLeft
-	UpdateUser.Width = 100
-	UpdateUser.Visible = True
-	'**** End Setup of column: UpdateUser
-
-
 	' column: CreateUser
 	CreateUser.CellTemplate = New DataGridViewTextBoxCell
 	CreateUser.Name = "CreateUser"
@@ -275,18 +275,18 @@ Public Class ucEmployeeList
 	'**** End Setup of column: CreateUser
 
 
-	' column: EmployeeTypeCode
-	EmployeeTypeCode.CellTemplate = New DataGridViewTextBoxCell
-	EmployeeTypeCode.Name = "EmployeeTypeCode"
-	EmployeeTypeCode.DataPropertyName = "EmployeeTypeCode"
-	EmployeeTypeCode.ReadOnly = True
-	EmployeeTypeCode.HeaderText = "EmployeeTypeCode"
-	EmployeeTypeCode.HeaderCell.value = "EmployeeTypeCode"
-	EmployeeTypeCode.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft
-	EmployeeTypeCode.HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopLeft
-	EmployeeTypeCode.Width = 100
-	EmployeeTypeCode.Visible = True
-	'**** End Setup of column: EmployeeTypeCode
+	' column: UpdateUser
+	UpdateUser.CellTemplate = New DataGridViewTextBoxCell
+	UpdateUser.Name = "UpdateUser"
+	UpdateUser.DataPropertyName = "updateUser"
+	UpdateUser.ReadOnly = True
+	UpdateUser.HeaderText = "UpdateUser"
+	UpdateUser.HeaderCell.value = "UpdateUser"
+	UpdateUser.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft
+	UpdateUser.HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopLeft
+	UpdateUser.Width = 100
+	UpdateUser.Visible = True
+	'**** End Setup of column: UpdateUser
 
 
 
@@ -310,11 +310,11 @@ Public Class ucEmployeeList
 	me.grdEmployee.Columns.Add(SSINumber)
 	me.grdEmployee.Columns.Add(HireDate)
 	me.grdEmployee.Columns.Add(NumDependents)
+	me.grdEmployee.Columns.Add(EmployeeTypeCode)
 	me.grdEmployee.Columns.Add(CreateDate)
 	me.grdEmployee.Columns.Add(UpdateDate)
-	me.grdEmployee.Columns.Add(UpdateUser)
 	me.grdEmployee.Columns.Add(CreateUser)
-	me.grdEmployee.Columns.Add(EmployeeTypeCode)
+	me.grdEmployee.Columns.Add(UpdateUser)
 
         Me.Name = "ucEmployeeList"
         Me.Text = "ucEmployeeList"
@@ -334,11 +334,11 @@ Public Class ucEmployeeList
 	Private WithEvents SSINumber As DataGridViewTextBoxColumn
 	Private WithEvents HireDate As DataGridViewCalendarColumn
 	Private WithEvents NumDependents As DataGridViewTextBoxColumn
+	Private WithEvents EmployeeTypeCode As DataGridViewTextBoxColumn
 	Private WithEvents CreateDate As DataGridViewCalendarColumn
 	Private WithEvents UpdateDate As DataGridViewCalendarColumn
-	Private WithEvents UpdateUser As DataGridViewTextBoxColumn
 	Private WithEvents CreateUser As DataGridViewTextBoxColumn
-	Private WithEvents EmployeeTypeCode As DataGridViewTextBoxColumn
+	Private WithEvents UpdateUser As DataGridViewTextBoxColumn
 
 
 #End Region

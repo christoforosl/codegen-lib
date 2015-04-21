@@ -76,8 +76,8 @@ namespace CsModelObjects
 		/// </summary>
 		public override List<ModelObject> getParents() {
 			List<ModelObject> ret = new List<ModelObject>();
-			if  (this.ProjectLoaded) {
-ret.Add(this.PrProject);
+			if  ( this._Project!=null && this.ProjectLoaded) {
+	ret.Add(this.PrProject);
 }
 
 			return ret;

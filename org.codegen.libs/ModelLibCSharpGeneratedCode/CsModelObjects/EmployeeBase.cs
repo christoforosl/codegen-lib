@@ -104,8 +104,8 @@ namespace CsModelObjects
 		/// </summary>
 		public override List<ModelObject> getParents() {
 			List<ModelObject> ret = new List<ModelObject>();
-			if  (this.RankLoaded) {
-ret.Add(this.PrRank);
+			if  ( this._Rank!=null && this.RankLoaded) {
+	ret.Add(this.PrRank);
 }
 
 			return ret;

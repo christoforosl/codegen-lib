@@ -12,7 +12,7 @@ Public Class ListWinFormFileComponent
 
     Public Sub New(ByRef inObjGen As IObjectToGenerate)
         MyBase.New(inObjGen)
-        Me.templateFileName = "org.codegen.lib.codeGen.ListFormTemplate.txt"
+        Me.templateFileName = "org.codegen.lib.ListFormTemplate.txt"
     End Sub
 
     Public Overrides Function ClassName() As String
