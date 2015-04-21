@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application relationType="1" relationTypeString="SELF"
+	AssemblyName="org.etek.lib, Version=1.0.0.35997, Culture=neutral, PublicKeyToken=null" moType="org.etek.lib.BusObjects.Application">
+  <ApplicationId>-1</ApplicationId>
+  <EtekTypeId>1</EtekTypeId>
+  <ApplicationDate>2009-04-19T21:00:59.9647072+03:00</ApplicationDate>
+  <MemberId>12222</MemberId>
+  <ApplicationStatusId>3</ApplicationStatusId>
+  <Comments>TEST comments</Comments>
+  <YearsOfExperience>5</YearsOfExperience>
+  <ElectionMainBranchId>1</ElectionMainBranchId>
+  <CriminalRecordInd>1</CriminalRecordInd>
+  <CriminalRecordDesc>Unit Test criminal record</CriminalRecordDesc>
+  <ExpediteInd>1</ExpediteInd>
+  <CreateDate></CreateDate>
+  <UpdateDate />
+  <CreateUser />
+  <UpdateUser />
+  <ManualReceiptNo />
+  <ApplSourceId>3</ApplSourceId>
+  <CancelReasonId />
+  <CancelDate />
+  <CancelUser />
+  <OnlineApplicationId>999</OnlineApplicationId>
+  <Member relationType="3" relationTypeString="PARENT" AssemblyName="org.etek.lib, Version=1.0.0.35997, Culture=neutral, PublicKeyToken=null" moType="org.etek.lib.BusObjects.Member">
+    <MemberId>-2</MemberId>
+    <EtekNo />
+    <DateOfBirth>1965-07-09T00:00:00</DateOfBirth>
+    <FirstName>First 090059</FirstName>
+    <LastName>manual </LastName>
+    <FatherName>Last 090100</FatherName>
+    <IdNo>0419210100</IdNo>
+    <PassportNo>000011</PassportNo>
+    <NationalityId>60</NationalityId>
+    <GenderId>1</GenderId>
+    <BranchId />
+    <PlaceOfBirth>PlaceOfBirth test</PlaceOfBirth>
+    <HomeAddressId />
+    <HomePhone>00 000000</HomePhone>
+    <HomeFax />
+    <MobilePhone>99 000000</MobilePhone>
+    <PersonalEmail />
+    <EmploymentEmail />
+    <EmploymentPhone>22 000 000</EmploymentPhone>
+    <EmploymentFax>22 000 000</EmploymentFax>
+    <EmploymentAddressId />
+    <ProfessionId>1</ProfessionId>
+    <Position>position</Position>
+    <EmployerId />
+    <Comments />
+    <Elections />
+    <MemberStatusId>1</MemberStatusId>
+    <AllowUseOfPersonalData>1</AllowUseOfPersonalData>
+    <ElectionMainBranchId />
+    <LicenseWaivedInd>1</LicenseWaivedInd>
+    <LawsuitInd />
+    <CreateDate />
+    <UpdateDate />
+    <CreateUser />
+    <UpdateUser />
+    <DeleteReasonId />
+    <DeleteDate />
+    <DeleteUser />
+    <Address relationType="3" relationTypeString="PARENT" AssemblyName="org.etek.lib, Version=1.0.0.35997, Culture=neutral, PublicKeyToken=null" moType="org.etek.lib.BusObjects.Address">
+      <AddressId>-3</AddressId>
+      <AddressLine1>HAddress 1</AddressLine1>
+      <AddressLine2>HAddress 2</AddressLine2>
+      <AddressCity>nicosia</AddressCity>
+      <AddressPostcode>H PC</AddressPostcode>
+      <DistrictId />
+      <CountryId>60</CountryId>
+      <CreateDate />
+      <UpdateDate />
+      <CreateUser />
+      <UpdateUser />
+    </Address>
+  </Member>
+  <ApplicationBranch relationType="2" relationTypeString="CHILD" AssemblyName="org.etek.lib, Version=1.0.0.35997, Culture=neutral, PublicKeyToken=null" moType="org.etek.lib.BusObjects.ApplicationBranch">
+    <ApplicationBranchId>-7</ApplicationBranchId>
+    <BranchDesc />
+    <BranchCode />
+    <MainBranchDesc />
+    <MainBranchCode />
+    <NeededYearsOfExperience />
+    <ApplicationId>-1</ApplicationId>
+    <CommiteeDecisionId />
+    <CommiteeDecisionDate />
+    <CommiteeDecisionComments />
+    <MgmtCommiteeDecisionId />
+    <MgmtCommiteeDecisionDate />
+    <MgmtCommiteeDecisionComments />
+    <BranchId>1</BranchId>
+    <MainBranchId />
+    <CommiteeDecisionDesc />
+    <MgmtCommiteeDecisionDesc />
+    <CreateDate />
+    <UpdateDate />
+    <CreateUser />
+    <UpdateUser />
+    <MemberBranchId />
+    <EducRejectionReasonId />
+  </ApplicationBranch>
+  <ApplicationBranch relationType="2" relationTypeString="CHILD" AssemblyName="org.etek.lib, Version=1.0.0.35997, Culture=neutral, PublicKeyToken=null" moType="org.etek.lib.BusObjects.ApplicationBranch">
+    <ApplicationBranchId>-8</ApplicationBranchId>
+    <BranchDesc />
+    <BranchCode />
+    <MainBranchDesc />
+    <MainBranchCode />
+    <NeededYearsOfExperience />
+    <ApplicationId>-1</ApplicationId>
+    <CommiteeDecisionId />
+    <CommiteeDecisionDate />
+    <CommiteeDecisionComments />
+    <MgmtCommiteeDecisionId />
+    <MgmtCommiteeDecisionDate />
+    <MgmtCommiteeDecisionComments />
+    <BranchId>2</BranchId>
+    <MainBranchId />
+    <CommiteeDecisionDesc />
+    <MgmtCommiteeDecisionDesc />
+    <CreateDate />
+    <UpdateDate />
+    <CreateUser />
+    <UpdateUser />
+    <MemberBranchId />
+    <EducRejectionReasonId />
+  </ApplicationBranch>
+</Application>
