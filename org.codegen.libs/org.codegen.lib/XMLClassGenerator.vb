@@ -1,5 +1,5 @@
 Imports System.Collections.Generic
-Imports org.codegen.lib.codeGen
+
 Imports System.Reflection
 Imports System.IO
 Imports System.Xml
@@ -107,7 +107,7 @@ Public Class XMLClassGenerator
         gen = New XMLClassGenerator(xmlConfFile)
         cds = New DataSet
         cds.Namespace = "ClassGenerator4"
-        cds.ReadXmlSchema(Utilities.getResourceStream("org.codegen.lib.codeGen.classGenerator.4.xsd"))
+        cds.ReadXmlSchema(Utilities.getResourceStream("org.codegen.lib.classGenerator.4.xsd"))
         cds.ReadXml(xmlConfFile)
         gen.parseConfFile(cds)
         gen.genClasses()
