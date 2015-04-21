@@ -7,4 +7,8 @@ The project is a Visual Studio 10 solution. The solution consits of the followin
 
 <li>org.codegen.win: A windows forms application that is the UI for generating code.</li>
 
+<li>org.codegen.model.lib: A class library project containing containing base classes and interfaces used by the generated classes.
+
+<li>org.codegen.lib.db: A class library project containing containing base classes and interfaces used for database access. Used by the generated classes.
+
 </ol>
