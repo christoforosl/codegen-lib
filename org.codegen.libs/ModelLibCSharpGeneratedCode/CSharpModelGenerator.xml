@@ -39,36 +39,49 @@
   all field proprties grouped together in Intellisense prompts--> 
   <propertiesPrefix>Pr</propertiesPrefix>
   
-  <!-- Connection String, Dialect and Conenction Type to database -->
+  <!-- Connection String, Dialect and Connection Type to database -->
   <dbConnectionString>
     Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=modelTest;Data Source=.\SQLEXPRESS
   </dbConnectionString>
   <dbConnectionDialect>MSSQL</dbConnectionDialect>
   <dbConnectionType>CONN_MSSQL</dbConnectionType>
   
+  <!-- Following is the list of tables you want to generate -->
   <table>
-
-    <TableName>Employee</TableName>
+    
+    <TableName>Employee</TableName><!-- Table name as is in the database -->
+    
+    <ClassName>Employee</ClassName>
+    <!-- Optional, the generated POCO class name. If omitted, a name is derived from the database table -->
     
     <SortField>EmployeeName</SortField>
     <SortAscending>true</SortAscending>
     
-    <GenerateUI>1</GenerateUI>
-
+    <!-- Optional, definition of one or more lookup fields, ie fields that have encoded values 
+    corresponding to a description sored in a parent table-->
     <Lookups>
       <FieldName>EmployeeRankId</FieldName>
       <DataSource>CsModelObjects.EmployeeRank</DataSource>
       <ValueMember>RankId</ValueMember>
       <DisplayMember>Rank</DisplayMember>
     </Lookups>
-
+    
+    <!-- Optional, associations between other generated tables -->
     <association>
+      
+      <!-- Can be PARENT or CHILD -->
       <relationType>PARENT</relationType>
+      
+      <!-- fully qualified datatype of associated object -->
       <DataType>CsModelObjects.EmployeeRank</DataType>
+      <!-- an association name -->
       <AssociationName>Rank</AssociationName>
+      <!-- cardinality is either 1 or * (many) -->
       <cardinality>1</cardinality>
-
+      
+      <!-- specify parent table field name that links the 2 tables together and forms the association --> 
       <parentFieldName>RankId</parentFieldName>
+      <!-- specify child table field name that links the 2 tables together and forms the association --> 
       <childFieldName>EmployeeRankId</childFieldName>
 
     </association>
