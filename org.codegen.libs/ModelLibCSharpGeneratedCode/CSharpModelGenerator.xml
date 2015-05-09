@@ -4,17 +4,42 @@
 	   xsi:schemaLocation="ClassGenerator4 https://raw.githubusercontent.com/christoforosl/codegen-lib/master/org.codegen.libs/org.codegen.lib/classGenerator.4.xsd" >
 
 
-  <GeneratorVersion>4</GeneratorVersion>
+  <GeneratorVersion>4</GeneratorVersion><!-- do not change -->
+  
+  <!-- 
+  projectFile: provide the full file path and file name of the .net project that will include the generated ORM Classes 
+  The path can be relative to the path where this xml file exists
+  -->
   <projectFile>.\ModelLibCSharpGeneratedCode.csproj</projectFile>
+  
   <projectName>ModelLibCSharpTests</projectName>
+  
+  <!-- 
+  outputDir: provide the full path where the generated ORM classes will be saved to.  
+  The path can be relative to the path where this xml file exists
+  -->
   <outputDir>.\</outputDir>
+  
+  <!-- dotNetLanguage: Enumaration, VB or CSHARP -->
   <dotNetLanguage>CSHARP</dotNetLanguage>
   
+  <!-- 
+  testProjectOutputDir: provide the full path where the generated unit tests 
+  for the generated ORM classes will be saved to.  
+  The path can be relative to the path where this xml file exists
+  -->
   <testProjectOutputDir>..\GeneratorTests\cstests</testProjectOutputDir>
- 
+  
+  <!-- the namespace of the generated POCOs -->
   <defaultNamespace>CsModelObjects</defaultNamespace>
+  <!-- the namespace of the generated db mapper POCOs. DB mappers save the POCOs to the database -->
   <defaultDBMapperNameSpace>CsModelMappers</defaultDBMapperNameSpace>
+  
+  <!-- Every field in the database will become a property.  Specify a property prefix to have 
+  all field proprties grouped together in Intellisense prompts--> 
   <propertiesPrefix>Pr</propertiesPrefix>
+  
+  <!-- Connection String, Dialect and Conenction Type to database -->
   <dbConnectionString>
     Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=modelTest;Data Source=.\SQLEXPRESS
   </dbConnectionString>
