@@ -18,11 +18,16 @@ The project is a Visual Studio 10 solution. The solution consits of the followin
 </ul>
 
 <p>
-<h2>Configure "Tools" in Visual Studio:</h2>
-1. Download and copy codeGen.win.exe to a folder
-2. Click Tools/External Tools..., and then click Add
-3. Specify the following: 
-4. Title: Generator, Command: C:\vsProjects\IIC\codeGen\org.codegen.lib.codeGen.win.exe, Arguments $(ItemPath)
+<h3>Configure "Tools" in Visual Studio:</h3>
+<ol>
+<li> Download and copy <a href="https://github.com/christoforosl/codegen-lib/releases/download/v4.0.1/codeGenWin4.exe">codeGen.win.exe</a> to a folder
+<li>Click Tools/External Tools..., and then click Add
+<li>Specify the following: 
+<ul><li>Title: Generator
+<li>Command: C:\vsProjects\IIC\codeGen\org.codegen.lib.codeGen.win.exe
+<li>Arguments $(ItemPath)
+</ul>
 This will allow you to run the class generator when you click on the xml generator file 
+</ol>
 
 </p>
