@@ -16,3 +16,13 @@ The project is a Visual Studio 10 solution. The solution consits of the followin
 <li>4 test projects: GeneratorTests, ModelLibCSharpGeneratedCode, ModelLibCSharpOracleGenCode, ModelLibTestsVisualBasicGeneratedCode </li>
 
 </ul>
+
+<p>
+<h2>Configure "Tools" in Visual Studio:</h2>
+1. Download and copy codeGen.win.exe to a folder
+2. Click Tools/External Tools..., and then click Add
+3. Specify the following: 
+4. Title: Generator, Command: C:\vsProjects\IIC\codeGen\org.codegen.lib.codeGen.win.exe, Arguments $(ItemPath)
+This will allow you to run the class generator when you click on the xml generator file 
+
+</p>
