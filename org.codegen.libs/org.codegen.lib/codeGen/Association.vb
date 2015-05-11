@@ -50,16 +50,14 @@ Public Class Association
 			   Append("IEnumerable(Of " & Me.DataType & ")")
 
             sbdr.Append(vbCrLf)
-			sbdr.Append(vbTab & vbTab & "Sub ").Append(Me.associationNameSingular).Append("Add(val as "). _
-								Append(Me.DataType).Append(")").Append(vbCrLf)
-			sbdr.Append(vbTab & vbTab & "Sub ").Append(Me.associationNameSingular).Append("Remove(val as "). _
-								Append(Me.DataType).Append(")").Append(vbCrLf)
+            sbdr.Append(vbTab & vbTab & "Sub ").Append(ModelGenerator.Current.FieldPropertyPrefix).Append(Me.associationNameSingular).Append("Add(val as "). _
+                                Append(Me.DataType).Append(")").Append(vbCrLf)
+            sbdr.Append(vbTab & vbTab & "Sub ").Append(ModelGenerator.Current.FieldPropertyPrefix).Append(Me.associationNameSingular).Append("Remove(val as "). _
+                                Append(Me.DataType).Append(")").Append(vbCrLf)
 
-			sbdr.Append(vbTab & vbTab & "Function ").Append(Me.associationName).Append("GetDeleted() as IEnumerable(Of "). _
-		Append(Me.DataType).Append(")").Append(vbCrLf)
+            sbdr.Append(vbTab & vbTab & "Function ").Append(ModelGenerator.Current.FieldPropertyPrefix).Append(Me.associationName).Append("GetDeleted() as IEnumerable(Of "). _
+        Append(Me.DataType).Append(")").Append(vbCrLf)
 
-			sbdr.Append(vbTab & vbTab & "Function ").Append(Me.associationNameSingular).Append("GetAt(ByVal i As Integer) as "). _
-								Append(Me.DataType).Append(vbCrLf)
             '
         Else
 			sbdr.Append("Property " & ModelGenerator.Current.FieldPropertyPrefix & Me.associationName & " as "). _
@@ -197,7 +195,7 @@ Public Class Association
 
                 If Me.isCardinalityMany Then
                     ret &= vbTab & vbTab & vbTab & mappervar & ".saveList(ret." & Me.getGet() & "())" & vbCrLf
-					ret &= vbTab & vbTab & vbTab & mappervar & ".deleteList(ret." & Me.associationName() & "GetDeleted())" & vbCrLf
+                    ret &= vbTab & vbTab & vbTab & mappervar & ".deleteList(ret." & ModelGenerator.Current.FieldPropertyPrefix & Me.associationName() & "GetDeleted())" & vbCrLf
                 Else
                     ret &= vbTab & vbTab & vbTab & mappervar & ".save(ret." & Me.getGet() & "())" & vbCrLf
                 End If

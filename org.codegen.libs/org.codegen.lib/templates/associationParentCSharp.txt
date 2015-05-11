@@ -1,7 +1,7 @@
 ﻿		//associationParentCSharp.txt
 		#region "Association <association_name>"
 
-		public bool <association_name>Loaded {get;set;}
+		private bool <association_name>Loaded {get;set;}
 
 		/// <summary>
         /// Gets/Sets parent object
@@ -34,14 +34,14 @@
         /// <summary>
         /// Loads parent object and sets the appropriate properties
         /// </summary>
-        public virtual void load<association_name>() {
+        private void load<association_name>() {
 			
 			if (this.<association_name>Loaded) return;
 			
-			if ( this._<association_name> == null && this.<child_field_runtime> > 0 ) {
+			if ( this._<association_name> == null && this.<child_field_runtime> != null ) {
                 
 				//call the setter here, not the private variable!
-                this.<prop_prefix><association_name> = new <db_mapper>().findByKey(this.<child_field_runtime>.Value);
+                this.<prop_prefix><association_name> = new <db_mapper>().findByKey(this.<child_field_runtime>);
                 
             }
 

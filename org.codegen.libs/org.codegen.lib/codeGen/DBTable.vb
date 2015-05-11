@@ -184,7 +184,7 @@ Public Class DBTable
         Try
 
             If ModelGenerator.Current.dbConn.sqldialect = DBUtils.enumSqlDialect.ORACLE Then
-                pkFieldName = ModelGenerator.Current.dbConn.getSValue("SELECT COLUMN_NAME, POSITION FROM user_CONS_COLUMNS a, user_constraints b WHERE a.TABLE_NAME ='" & _TableName & "' AND b.constraint_type = 'P' and a.table_name=b.table_name and a.constraint_name = b.constraint_name")
+                pkFieldName = ModelGenerator.Current.dbConn.getSValue("SELECT COLUMN_NAME, POSITION FROM user_CONS_COLUMNS a, user_constraints b WHERE a.TABLE_NAME ='" & Me.TableName.ToUpper & "' AND b.constraint_type = 'P' and a.table_name=b.table_name and a.constraint_name = b.constraint_name")
 
             ElseIf ModelGenerator.Current.dbConn.sqldialect = DBUtils.enumSqlDialect.MSSQL Then
                 pkFieldName = ModelGenerator.Current.dbConn.getSValue("SELECT a.Column_Name FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS a CROSS JOIN INFORMATION_SCHEMA.TABLE_CONSTRAINTS AS b WHERE (b.constraint_type = 'PRIMARY KEY') AND (a.constraint_name = b.constraint_name) AND a.table_name ='" & _TableName & "'")  'order by a.table_name, a.column_name

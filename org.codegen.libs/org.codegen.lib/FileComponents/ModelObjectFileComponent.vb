@@ -1,5 +1,5 @@
 Imports System.Collections.Generic
-Imports org.codegen.lib.codeGen
+
 Imports System.Reflection
 Imports System.IO
 Imports System.Xml
@@ -41,7 +41,7 @@ Namespace FileComponents
                     tmp = DBTable.getRuntimeName(Me.objectToGenerate.DbTable.TableName)
 
                     If tmp.EndsWith("s") Then
-                        Throw New ApplicationException("Class names cannot end in ""s"" unless explicitely specified in the classname xml attribute")
+                        Throw New ApplicationException(tmp & ": Class names cannot end in ""s"" unless explicitely specified in the classname xml attribute")
                     End If
 
                 End If

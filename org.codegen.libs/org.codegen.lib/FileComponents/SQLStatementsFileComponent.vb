@@ -29,27 +29,13 @@ Namespace FileComponents
             Dim sqlGen As SQLStmtsGenerator = New SQLStmtsGenerator(ogen.DbTable)
             Dim cSQLStmts As DBMapperStatementsFile = DBMapperStatementsFile.getStmtsFromResource("org.codegen.lib.SqlTemplate.txt")
 
-            Call cSQLStmts.setStatement("selectall", sqlGen.getSelectStatement(False, "@"), DBUtils.enumSqlDialect.MSSQL)
-            Call cSQLStmts.setStatement("selectone", sqlGen.getSelectStatement(True, "@"), DBUtils.enumSqlDialect.MSSQL)
-
-            Call cSQLStmts.setStatement("selectall", sqlGen.getSelectStatement(False, "@"), DBUtils.enumSqlDialect.JET)
-            Call cSQLStmts.setStatement("selectone", sqlGen.getSelectStatement(True, "@"), DBUtils.enumSqlDialect.JET)
-
-            'Call cSQLStmts.setStatement("selectall", me.getSelectStatement(False, ":"), DBUtils.enumSqlDialect.ORACLE)
-            'Call cSQLStmts.setStatement("selectone", me.getSelectStatement(True, ":"), DBUtils.enumSqlDialect.ORACLE)
+            Call cSQLStmts.setStatement("selectall", sqlGen.getSelectStatement(False), ModelGenerator.Current.DbConnStringDialect)
+            Call cSQLStmts.setStatement("selectone", sqlGen.getSelectStatement(True), ModelGenerator.Current.DbConnStringDialect)
 
             If (Not ogen.DbTable().isReadOnly()) Then
-                Call cSQLStmts.setStatement("delete", sqlGen.deleteStatement("@"), DBUtils.enumSqlDialect.MSSQL)
-                Call cSQLStmts.setStatement("delete", sqlGen.deleteStatement("@"), DBUtils.enumSqlDialect.JET)
-                'Call cSQLStmts.setStatement("delete", me.deleteStatement(":"), DBUtils.enumSqlDialect.ORACLE)
-
-                Call cSQLStmts.setStatement("insert", sqlGen.insertStatementMSSQL(), DBUtils.enumSqlDialect.MSSQL)
-                Call cSQLStmts.setStatement("insert", sqlGen.insertStatementMSSQL(), DBUtils.enumSqlDialect.JET)
-                'Call cSQLStmts.setStatement("insert", me.insertStatementOracle(), DBUtils.enumSqlDialect.ORACLE)
-
-                Call cSQLStmts.setStatement("update", sqlGen.updateStatement("@"), DBUtils.enumSqlDialect.MSSQL)
-                Call cSQLStmts.setStatement("update", sqlGen.updateStatement("@"), DBUtils.enumSqlDialect.JET)
-                'Call cSQLStmts.setStatement("update", me.updateStatement(":"), DBUtils.enumSqlDialect.ORACLE)
+                Call cSQLStmts.setStatement("delete", sqlGen.deleteStatement(), ModelGenerator.Current.DbConnStringDialect)
+                Call cSQLStmts.setStatement("insert", sqlGen.insertStatement(), ModelGenerator.Current.DbConnStringDialect)
+                Call cSQLStmts.setStatement("update", sqlGen.updateStatement(), ModelGenerator.Current.DbConnStringDialect)
             End If
             Me.generatedCode = cSQLStmts.getXML
 

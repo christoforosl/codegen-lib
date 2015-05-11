@@ -1,9 +1,9 @@
 ﻿		//associationChildManyCSharp.txt
 		#region "Association <association_name>"
 
-		public bool <association_name>Loaded  {get;set;}
+		public bool <association_name>Loaded  {get; private set;}
 
-		public virtual <datatype> <association_name_singular>GetAt( int i ) {
+		public virtual <datatype> <prop_prefix><association_name_singular>GetAt( int i ) {
 
             this.load<association_name>();
             if( this._<association_name>.Count >= (i - 1)) {
@@ -13,7 +13,7 @@
 
         } //End Function        
 		
-		public virtual void <association_name_singular>Add( <datatype> val )  {
+		public virtual void <prop_prefix><association_name_singular>Add( <datatype> val )  {
 			//1-Many , add a single item!
 			this.load<association_name>();
 			val.<child_field_runtime> = this.<parent_field_runtime>;
@@ -23,7 +23,7 @@
 
         }
 
-		public virtual void <association_name>Clear() {
+		public virtual void <prop_prefix><association_name>Clear() {
 
             this.load<association_name>();
             this._deleted<association_name>.AddRange(this._<association_name>);
@@ -31,7 +31,7 @@
 
         }
 
-		public virtual void <association_name_singular>Remove( <datatype> val ) {
+		public virtual void <prop_prefix><association_name_singular>Remove( <datatype> val ) {
 			
 			this.load<association_name>();
 			this._deleted<association_name>.Add(val);
@@ -39,7 +39,7 @@
 
         }
 		
-		public virtual IEnumerable< <datatype> ><association_name>GetDeleted() {
+		public virtual IEnumerable< <datatype> ><prop_prefix><association_name>GetDeleted() {
 			
 			return this._deleted<association_name>;
 
@@ -86,7 +86,7 @@
         /// <summary>
         /// Loads child objects from dabatabase, if not loaded already
         /// </summary>
-        public virtual void load<association_name>() {
+        private void load<association_name>() {
 			
 			if (this.<association_name>Loaded)return;
 			//init list

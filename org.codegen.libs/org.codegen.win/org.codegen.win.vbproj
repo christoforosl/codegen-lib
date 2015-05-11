@@ -83,8 +83,6 @@
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="org.codegen.lib" />
-    <Import Include="org.codegen.lib.codeGen" />
-    <Import Include="org.codegen.lib.FileComponents" />
     <Import Include="System" />
     <Import Include="System.Collections" />
     <Import Include="System.Collections.Generic" />

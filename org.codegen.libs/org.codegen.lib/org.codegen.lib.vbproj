@@ -126,7 +126,6 @@
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
-    <Import Include="org.codegen.dotnet" />
     <Import Include="org.model.lib.db" />
     <Import Include="System" />
     <Import Include="System.Collections" />

@@ -286,7 +286,10 @@ Public Class XMLClassGenerator
         t.XmlFileDataSet = cds
         t.DbConnString = getRowValue(projectInfo.Rows(0), XML_PROJECT_ATTR_CONN_STRING, True)
         t.DbConnStringType = getRowValue(projectInfo.Rows(0), XML_PROJECT_ATTR_DB_CONN_TYPE, True)
-        t.DbConnStringDialect = getRowValue(projectInfo.Rows(0), XML_PROJECT_ATTR_DB_CONN_DIALECT, True)
+        't.DbConnStringDialect = CType(getRowValue(projectInfo.Rows(0), XML_PROJECT_ATTR_DB_CONN_DIALECT, True), DBUtils.enumSqlDialect)
+
+        t.DbConnStringDialect = DirectCast([Enum].Parse(GetType(DBUtils.enumSqlDialect), getRowValue(projectInfo.Rows(0), XML_PROJECT_ATTR_DB_CONN_DIALECT, True)), DBUtils.enumSqlDialect)
+
         t.ProjectOutputDirModel = getRowValue(projectInfo.Rows(0), XML_PROJECT_ATTR_OUTPUT_DIR, True)
         t.ProjectOutputDirTest = getRowValue(projectInfo.Rows(0), XML_ATTR_PROJECT_TEST_OUT_DIR, False)
 		t.ProjectOutputDirUI = getRowValue(projectInfo.Rows(0), XML_ATTR_UI_TEST_OUT_DIR, False)

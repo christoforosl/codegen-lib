@@ -32,7 +32,9 @@
 						
 			If Me._<association_name>Loaded then return
 
-			If Me.<prop_prefix><parent_field_runtime> > 0 Then
+			If Me._<association_name> Is Nothing AndAlso _
+                   Me.<prop_prefix><parent_field_runtime> IsNot Nothing Then
+
 				'call setter here, not the private variable
 				Me.<prop_prefix><association_name> = _ 
 					new <db_mapper>().findWhere( _ 

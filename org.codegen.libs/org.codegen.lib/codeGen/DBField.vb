@@ -303,10 +303,12 @@ Public Class DBField
             'for oracle only!!
             If _RuntimeType Is Type.GetType("System.Decimal") AndAlso Me.Scale = 0 Then
                 _RuntimeType = Type.GetType("System.Int64")
+                _OriginalRuntimeType = Type.GetType("System.Int64")
             End If
 
             If Me._userSpecifiedDataType IsNot Nothing Then
                 _RuntimeTypeStr = _userSpecifiedDataType
+
             End If
 
             _RuntimeTypeStr = _RuntimeType.ToString

@@ -26,8 +26,7 @@ namespace GeneratorTests {
 			System.Diagnostics.Debug.WriteLine(d.FullName);
 
 			XMLClassGenerator.GenerateClassesFromFile(d.FullName + "ModelLibCSharpGeneratedCode\\CSharpModelGenerator.xml");
-			ModelGenerator.create(ModelGenerator.enumVERSION.ONE);
-			
+						
 			CSharpCodeProvider provider = new CSharpCodeProvider();
 			CompilerParameters parameters = new CompilerParameters();
 			parameters.ReferencedAssemblies.Add("Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll");
@@ -38,7 +37,9 @@ namespace GeneratorTests {
 			CompilerResults results = provider.CompileAssemblyFromSource(parameters);
 
 			XMLClassGenerator.GenerateClassesFromFile(d.FullName + "ModelLibTestsVisualBasicGeneratedCode\\VisualBasicModelGenerator.xml");
-			
+
+            XMLClassGenerator.GenerateClassesFromFile(d.FullName + "ModelLibCSharpGeneratedCode\\OracleCSharpModelGenerator.xml");
+
 		}
 		
 	}

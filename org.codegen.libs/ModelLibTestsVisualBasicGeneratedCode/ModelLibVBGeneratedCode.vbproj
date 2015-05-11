@@ -59,8 +59,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Import Include="ModelLibTestsWinApp.BusObjects" />
-    <Import Include="ModelLibTestsWinApp.BusObjects.Mappers" />
     <Import Include="ModelLibVBGenCode.VbBusObjects" />
     <Import Include="ModelLibVBGenCode.VbBusObjects.DBMappers" />
     <Import Include="org.model.lib" />

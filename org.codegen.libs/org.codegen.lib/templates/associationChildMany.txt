@@ -3,8 +3,8 @@
 		'associationChildMany.txt
 		friend _<association_name>Loaded as Boolean
 
-		Public Overridable Function <association_name_singular>GetAt(ByVal i As Integer) As <datatype> _
-				implements <iface>.<association_name_singular>GetAt
+		Public Overridable Function <prop_prefix><association_name_singular>GetAt(ByVal i As Integer) As <datatype> _
+				implements <iface>.<prop_prefix><association_name_singular>GetAt
 
             me.load<association_name>
             If Me._<association_name>.Count >= (i - 1) Then
@@ -14,8 +14,8 @@
 
         End Function        
 		
-		Public Overridable Sub <association_name_singular>Add(val As <datatype>) _
-				implements <iface>.<association_name_singular>Add
+		Public Overridable Sub <prop_prefix><association_name_singular>Add(val As <datatype>) _
+				implements <iface>.<prop_prefix><association_name_singular>Add
 			'1-Many , add a single item!
 			me.load<association_name>
 			val.<prop_prefix><child_field_runtime> = me.<prop_prefix><parent_field_runtime>
@@ -24,7 +24,7 @@
 
         End Sub
 
-		 Public Overridable Sub <association_name>Clear()
+		 Public Overridable Sub <prop_prefix><association_name>Clear()
 
             Me.load<association_name>()
             Me._deleted<association_name>.AddRange(Me._<association_name>)
@@ -32,9 +32,9 @@
 
         End Sub
 
-		Public Overridable Sub <association_name_singular>Remove( _ 
+		Public Overridable Sub <prop_prefix><association_name_singular>Remove( _ 
 					val As <datatype>) _
-					implements <iface>.<association_name_singular>Remove
+					implements <iface>.<prop_prefix><association_name_singular>Remove
 			
 			me.load<association_name>
 			me._deleted<association_name>.add(val)
@@ -43,8 +43,8 @@
         End Sub
 
 		
-		Public Overridable Function <association_name>GetDeleted() As IEnumerable(Of <datatype>) _
-					implements <iface>.<association_name>GetDeleted
+		Public Overridable Function <prop_prefix><association_name>GetDeleted() As IEnumerable(Of <datatype>) _
+					implements <iface>.<prop_prefix><association_name>GetDeleted
 			
 			return me._deleted<association_name>
 
@@ -94,7 +94,7 @@
         ''' <summary>
         ''' Loads child objects from dabatabase, if not loaded already
         ''' </summary>
-        Public Overridable Sub load<association_name>
+        private Sub load<association_name>
 			
 			if me._<association_name>Loaded then return
 			'init list

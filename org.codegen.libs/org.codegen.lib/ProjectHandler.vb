@@ -24,7 +24,7 @@ Public Class VBProjectHandler
     Private Const STR_BASE_VB As String = "Base.vb"
     Private Const STR_SQL_XML As String = "Sql.xml"
 
-    Private VbNetProjectFile As String
+    Private DotNetProjectFile As String
     Private xmlDoc As XmlDocument
 
     Dim _firstEmbeddedResourceNode As XmlNode = Nothing
@@ -33,7 +33,7 @@ Public Class VBProjectHandler
 
     Public Sub New(ByVal inVbNetProject As String)
 
-        Me.VbNetProjectFile = inVbNetProject
+        Me.DotNetProjectFile = inVbNetProject
 
     End Sub
 
@@ -121,12 +121,12 @@ Public Class VBProjectHandler
     Public Sub addNewFilesToProject() Implements IProjectHandler.addFilesToProject
 
         Dim hasMod As Boolean
-        If File.Exists(Me.VbNetProjectFile) = False Then
-            Throw New ApplicationException("vb.net project file does not exist")
+        If File.Exists(Me.DotNetProjectFile) = False Then
+            Throw New ApplicationException("vb/cs .net project file does not exist")
         End If
 
         xmlDoc = New XmlDocument
-        xmlDoc.LoadXml(Utilities.TextFromFileGet(Me.VbNetProjectFile))
+        xmlDoc.LoadXml(Utilities.TextFromFileGet(Me.DotNetProjectFile))
 
         If xmlDoc.GetElementsByTagName(STR_COMPILE).Count > 0 Then
             _firstCompileNode = xmlDoc.GetElementsByTagName(STR_COMPILE)(0)
@@ -214,7 +214,7 @@ Public Class VBProjectHandler
         Next
 
         If hasMod Then
-            xmlDoc.Save(Me.VbNetProjectFile)
+            xmlDoc.Save(Me.DotNetProjectFile)
         End If
 
     End Sub

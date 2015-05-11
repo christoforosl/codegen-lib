@@ -6,22 +6,22 @@ Imports System.Text
 Public Class SQLStmtsGenerator
 
     Private Property dbTable As IDBTable
+    Private paramPrefix As String
 
     Sub New(ByVal dbTable As IDBTable)
         Me._dbTable = dbTable
+        Me.paramPrefix = CStr(IIf(ModelGenerator.Current.DbConnStringDialect = DBUtils.enumSqlDialect.ORACLE, ":", "@"))
     End Sub
 
-    Protected Friend Overridable Function getSelectStatement(ByVal forpkey As Boolean, ByVal prefix As String) As String
+    Protected Friend Overridable Function getSelectStatement(ByVal forpkey As Boolean) As String
+
 
         Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
         Dim vec As Dictionary(Of String, IDBField) = dbTable.Fields()
         Dim fldLineCnt As Integer = 0
         Dim count As Integer = 0
 
-        'Dim tblName As String = "[" & Me.dbTable.SelectObject & "]"
-        'note: do not use above [] to support generation from a foreign schema select * from [dbname.dbo.table] fails!
-        Dim tblName As String = Me.dbTable.SelectObject
-        If prefix = ":" Then tblName = """" & Me.dbTable.SelectObject & """"
+
 
         sb.Append("SELECT ")
 
@@ -42,11 +42,11 @@ Public Class SQLStmtsGenerator
         Next
 
         'sb.Append(vbCrLf & vbTab)
-        sb.Append(" FROM " & tblName)
+        sb.Append(" FROM " & Me.dbTable.quotedTableName())
 
         If forpkey Then
             'sb.Append(vbCrLf & vbTab)
-            sb.Append(" WHERE " & dbTable.getPrimaryKeyName() & "=" & prefix & "0")
+            sb.Append(" WHERE " & dbTable.getPrimaryKeyName() & "=" & paramPrefix & "0")
         End If
 
         'sb.Append(vbCrLf)
@@ -56,20 +56,13 @@ Public Class SQLStmtsGenerator
 
 
 
-    Protected Friend Overridable Function deleteStatement(ByVal paramPrefix As String) As String
+    Protected Friend Overridable Function deleteStatement() As String
         Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
         Dim vec As Dictionary(Of String, IDBField) = dbTable.Fields()
-
-
-        'Dim tblName As String = "[" & Me.dbTable.TableName & "]"
-        'note: do not use above [] to support generation from a foreign schema select * from [dbname.dbo.table] fails!
-        Dim tblName As String = Me.dbTable.TableName
-        If paramPrefix = ":" Then tblName = """" & Me.dbTable.TableName & """"
 
         Dim keyparam As Integer = 0
         sb.Append("DELETE FROM ")
         Dim count As Integer = 1
-
 
         For Each field As DBField In vec.Values
             If Not (field.FieldName().Equals(dbTable.getPrimaryKeyName())) Then
@@ -80,7 +73,7 @@ Public Class SQLStmtsGenerator
             End If
         Next
 
-        sb.Append(tblName)
+        sb.Append(Me.dbTable.quotedTableName())
         sb.Append(" WHERE ")
         sb.Append(dbTable.getPrimaryKeyName())
         sb.Append("=")
@@ -90,7 +83,7 @@ Public Class SQLStmtsGenerator
         Return sb.ToString()
     End Function
 
-    Protected Friend Overridable Function updateStatement(ByVal paramPrefix As String) As String
+    Protected Friend Overridable Function updateStatement() As String
 
         Dim sql As String = "" 'the sql string to be executed for this method.
         Dim sbf As System.Text.StringBuilder = New System.Text.StringBuilder() 'buffre for the parameters numbers
@@ -101,10 +94,8 @@ Public Class SQLStmtsGenerator
         Dim keyparam As Integer = 0
         Dim fldLineCnt As Integer = 0
 
-        'Dim tblName As String = "[" & Me.dbTable.TableName & "]"
-        'note: do not use above [] to support generation from a foreign schema select * from [dbname.dbo.table] fails!
         Dim tblName As String = Me.dbTable.TableName
-        If paramPrefix = ":" Then tblName = """" & Me.dbTable.TableName & """"
+
 
         For Each field As DBField In vec.Values
             If field.IsTableField Then
@@ -153,6 +144,7 @@ Public Class SQLStmtsGenerator
         Dim fldLineCnt As Integer = 0
         Dim parameterCounter As Integer = 1
         Dim keyparam As Integer = 0
+
         'Dim tblName As String = "[" & Me.dbTable.TableName & "]"
         'note: do not use above [] to support generation from a foreign schema select * from [dbname.dbo.table] fails!
         Dim tblName As String = Me.dbTable.TableName
@@ -193,7 +185,6 @@ Public Class SQLStmtsGenerator
         Dim parameterCounter As Integer = 1
         Dim keyparam As Integer = 0
         Dim fldLineCnt As Integer = 0
-        Dim tblName As String = Me.dbTable.TableName
 
         For Each field As DBField In vec.Values
 
@@ -226,9 +217,18 @@ Public Class SQLStmtsGenerator
         sbv.Append(") RETURNING " & Me.dbTable.getPrimaryKeyName() & " INTO :" & Me.dbTable.getPrimaryKeyName() & ";END;")
         sbf.Append(sbv)
 
-        sbf.Insert(0, "BEGIN insert into " & tblName & " (" & vbCrLf)
+        sbf.Insert(0, "BEGIN insert into " & Me.dbTable.quotedTableName() & " (" & vbCrLf)
 
         Return sbf.ToString()
+
+    End Function
+
+    Function insertStatement() As String
+        If ModelGenerator.Current.DbConnStringDialect = DBUtils.enumSqlDialect.ORACLE Then
+            Return insertStatementOracle()
+        Else
+            Return insertStatementMSSQL()
+        End If
 
     End Function
 

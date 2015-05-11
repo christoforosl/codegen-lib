@@ -5,14 +5,16 @@
 
 
   <GeneratorVersion>4</GeneratorVersion>
-  <projectFile>.\ModelLibCSharpGeneratedCode.csproj</projectFile>
+  <projectFile>.\ModelLibCSharpOracleGenCode.csproj</projectFile>
   <projectName>ModelLibCSharpTests</projectName>
   <outputDir>.\</outputDir>
   <dotNetLanguage>CSHARP</dotNetLanguage>
   
   <testProjectOutputDir>..\GeneratorTests\cstests</testProjectOutputDir>
- 
-  <defaultNamespace>OCSharp</defaultNamespace>
+
+  <defaultNamespace>OracleModel</defaultNamespace>
+  <defaultDBMapperNameSpace>OracleMappers</defaultDBMapperNameSpace>
+  
   <propertiesPrefix>Pr</propertiesPrefix>
   <dbConnectionString>
     Provider=MSDAORA;Data Source=polnewdbsrv0;Persist Security Info=True;User ID=hrnuf;password=hr
@@ -20,6 +22,20 @@
   <dbConnectionDialect>ORACLE</dbConnectionDialect>
   <dbConnectionType>CONN_OLEDB</dbConnectionType>
 
+
+  <table>
+    <TableName>EMPLOYEE_TRAINING_HISTORY</TableName>
+   <association>
+      <relationType>PARENT</relationType>
+      <DataType>OracleModel.TrainingCourse</DataType>
+      <AssociationName>TrainingCourse</AssociationName>
+      <cardinality>1</cardinality>
+      <parentFieldName>CODE</parentFieldName>
+      <childFieldName>training_course_code</childFieldName>
+    </association>
+        
+  </table>
+  
   <table>
     <TableName>DEPARTMENTS</TableName>
     <ClassName>Department</ClassName>
@@ -34,7 +50,7 @@
     <TableName>XML_TYPE_TEST</TableName>
     <ClassName>XmlTypeTest</ClassName>
   </table>
-
+-->
 
   <table>
     <TableName>EMPLOYEES</TableName>
@@ -43,7 +59,7 @@
   
     <association>
       <relationType>CHILD</relationType>
-      <DataType>OCSharp.JobHistory</DataType>
+      <DataType>OracleModel.JobHistory</DataType>
       
       <AssociationName>JobHistory</AssociationName>
       <cardinality>*</cardinality>
@@ -54,30 +70,34 @@
     </association>
 
     <association>
+      <relationType>PARENT</relationType>
+      <DataType>OracleModel.Department</DataType>
       <AssociationName>Department</AssociationName>
       <cardinality>1</cardinality>
-      <relationType>PARENT</relationType>
-      <childFieldName>Department_id</childFieldName>
       <parentFieldName>Department_id</parentFieldName>
-      <datatype>OCSharp.Department</datatype>
-     
+      <childFieldName>Department_id</childFieldName>
     </association>
+    
     <association>
+      <relationType>CHILD</relationType>
+      <DataType>OracleModel.EmployeeTrainingHistory</DataType>
       <AssociationName>Courses</AssociationName>
       <cardinality>*</cardinality>
-      <relationType>CHILD</relationType>
-      <childFieldName>employee_id</childFieldName>
       <parentFieldName>employee_id</parentFieldName>
-      <datatype>OCSharp.EmployeeTrainingHistory</datatype>
+      <childFieldName>employee_id</childFieldName>
+      
+      
     </association>
 
     <association>
-      <AssociationName>TrainingHistory</AssociationName>
-      <cardinality>*</cardinality>
       <relationType>CHILD</relationType>
-      <childFieldName>employee_id</childFieldName>
+      <DataType>OracleModel.EmployeeTrainingHistory</DataType>
+      <AssociationName>TrainingHistory</AssociationName>      
+      <cardinality>*</cardinality>
       <parentFieldName>employee_id</parentFieldName>
-      <datatype>OCSharp.EmployeeTrainingHistory</datatype>
+      <childFieldName>employee_id</childFieldName>
+      
+      
       
     </association>
 
@@ -102,13 +122,10 @@
   </table>
 
 
-  <table>
-    <TableName>employee_training_history</TableName>
-    </table>
+ 
   <table>
     <TableName>training_courses</TableName>
+    <ClassName>TrainingCourse</ClassName>
   </table>
-  
--->
 
 </project>

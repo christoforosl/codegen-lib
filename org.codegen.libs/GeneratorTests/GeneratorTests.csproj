@@ -54,20 +54,8 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CSharpObjectTests.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="cstests\EmployeeInfoTestBase.cs" />
-    <Compile Include="cstests\EmployeeProjectTestBase.cs" />
-    <Compile Include="cstests\EmployeeRankTestBase.cs" />
-    <Compile Include="cstests\EmployeeTestBase.cs" />
-    <Compile Include="cstests\EmployeeTypeTestBase.cs" />
-    <Compile Include="cstests\ProjectTestBase.cs" />
     <Compile Include="GenAndRunObjectTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VBObjectTests.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ModelLibCSharpGeneratedCode\ModelLibCSharpGeneratedCode.csproj">

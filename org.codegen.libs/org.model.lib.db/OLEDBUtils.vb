@@ -12,7 +12,13 @@ Public Class OLEDBUtils
     Inherits DBUtils
 
     Public Overrides Function quoteObjectName(ByVal objName As String) As String
-        Return "[" & objName.Trim & "]"
+        If Me.sqldialect = enumSqlDialect.ORACLE Then
+            Return """" & objName.Trim & """"
+        Else
+            Return "[" & objName.Trim & "]"
+        End If
+
+
     End Function
 
     Public Overrides Function fillTypedDataSet(ByVal ds As DataSet, _
@@ -57,12 +63,20 @@ Public Class OLEDBUtils
 
 
     Protected Friend Overrides Sub setSpecialChars()
-
-        MyBase.p_dbNow = "getDate()"
-        MyBase.p_date_pattern = "'{0}'"
-        MyBase.p_like_char = "%"
-        MyBase.p_string_quote_prefix = "N"
-        MyBase.p_paramPrefix = "@"
+        If Me.sqldialect = enumSqlDialect.ORACLE Then
+            MyBase.p_dbNow = "sysdate"
+            MyBase.p_date_pattern = "'{0}'"
+            MyBase.p_like_char = "%"
+            MyBase.p_string_quote_prefix = ""
+            MyBase.p_paramPrefix = ":"
+        Else
+            MyBase.p_dbNow = "getDate()"
+            MyBase.p_date_pattern = "'{0}'"
+            MyBase.p_like_char = "%"
+            MyBase.p_string_quote_prefix = "N"
+            MyBase.p_paramPrefix = "@"
+        End If
+        
 
     End Sub
 

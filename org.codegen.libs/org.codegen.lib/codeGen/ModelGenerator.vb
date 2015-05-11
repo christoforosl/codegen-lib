@@ -113,9 +113,9 @@ Public Class ModelGenerator
 		Get
 
 			If _dbconn Is Nothing Then
-				_dbconn = DBUtils.getFromConnString(Me.DbConnString, _
-						DirectCast([Enum].Parse(GetType(DBUtils.enumConnType), Me.DbConnStringType), DBUtils.enumConnType), _
-						DirectCast([Enum].Parse(GetType(DBUtils.enumSqlDialect), Me.DbConnStringDialect), DBUtils.enumSqlDialect))
+                _dbconn = DBUtils.getFromConnString(Me.DbConnString, _
+                        DirectCast([Enum].Parse(GetType(DBUtils.enumConnType), Me.DbConnStringType), DBUtils.enumConnType), _
+                        Me.DbConnStringDialect)
 
 
 			End If
@@ -128,7 +128,7 @@ Public Class ModelGenerator
 	End Property
 
 
-	Public Property DbConnStringDialect() As String
+    Public Property DbConnStringDialect() As DBUtils.enumSqlDialect
 	Public Property NumOfUnchangedFiles() As Integer
 	Public Property DbConnString() As String
 	Public Property DbConnStringType() As String
