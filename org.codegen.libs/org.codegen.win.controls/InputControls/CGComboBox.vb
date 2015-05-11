@@ -294,6 +294,40 @@ Public Class CGComboBox
 
     End Property
 
+    ''' <summary>
+    ''' Returns the selected value of the control as a Nullable(Of Long)
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    <Browsable(False), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), _
+    Description("Returns the Long value of selected Item.")> _
+    Public ReadOnly Property LongValue() As Long?
+        Get
+            'change, 20/7: only return a number if value is greater than 0
+            If IsNumeric(Me.Value) AndAlso CInt(Me.Value) > 0 Then
+                Return CLng(Me.Value)
+            Else
+                Return Nothing
+            End If
+        End Get
+
+    End Property
+
+    Public Overrides Property Text As String
+        Get
+            If Me.Value IsNot Nothing Then
+                Return MyBase.Text
+            Else
+                Return String.Empty
+            End If
+
+        End Get
+        Set(value As String)
+            MyBase.Text = value
+        End Set
+    End Property
+
 
     ''' <summary>
     ''' Returns the selected value of the combo box as a String
@@ -318,24 +352,24 @@ Public Class CGComboBox
     Public Property Value() As Object Implements ICGBaseControl.Value
 
         Get
-            If IsDBNull(Me.SelectedValue) = False _
-                    AndAlso Me.SelectedValue IsNot Nothing AndAlso _
-                    String.IsNullOrEmpty(CStr(Me.SelectedValue)) = False Then
+			If IsDBNull(Me.SelectedValue) = False _
+					AndAlso Me.SelectedValue IsNot Nothing AndAlso _
+					String.IsNullOrEmpty(CStr(Me.SelectedValue.toString())) = False Then
 
-                'note: we removed AndAlso _
-                '    CStr(Me.SelectedValue) <> "0"
-                'if "0" is selected we want it to be returned. 
-                'In case of a boolean value 1/0 we need the 0 to be a legitimate value.
-                'If you need to add a "Please Select", give it an string empty value and not 0
-                '
-                If CStr(Me.SelectedValue) = "0" AndAlso FormsApplicationContext.current.ZerosInComboBoxesAreNull Then
+				'note: we removed AndAlso _
+				'    CStr(Me.SelectedValue) <> "0"
+				'if "0" is selected we want it to be returned. 
+				'In case of a boolean value 1/0 we need the 0 to be a legitimate value.
+				'If you need to add a "Please Select", give it an string empty value and not 0
+				'
+                If CStr(Me.SelectedValue.ToString()) = "0" AndAlso FormsApplicationContext.current.ZerosInComboBoxesAreNull Then
                     Return Nothing
                 Else
                     Return Me.SelectedValue
                 End If
-            Else
-                Return Nothing
-            End If
+			Else
+				Return Nothing
+			End If
         End Get
 
         Set(ByVal value As Object)

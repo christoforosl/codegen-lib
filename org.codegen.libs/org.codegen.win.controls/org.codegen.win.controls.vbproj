@@ -66,7 +66,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\..\codeGenLibs\</OutputPath>
     <DocumentationFile>org.codegen.win.controls.4.0.xml</DocumentationFile>
     <BaseAddress>285212672</BaseAddress>
     <ConfigurationOverrideFile>
@@ -87,6 +87,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic.Compatibility" />
+    <Reference Include="org.codegen.common.4.0">
+      <HintPath>..\..\..\codeGenLibs\org.codegen.common.4.0.dll</HintPath>
+    </Reference>
+    <Reference Include="org.model.lib.4.0">
+      <HintPath>..\..\..\codeGenLibs\org.model.lib.4.0.dll</HintPath>
+    </Reference>
+    <Reference Include="org.model.lib.db.4.0">
+      <HintPath>..\..\..\codeGenLibs\org.model.lib.db.4.0.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -425,16 +434,6 @@
     <Content Include="Resources\Critical.bmp" />
     <None Include="Resources\doubleDownArrows.bmp" />
     <None Include="Resources\downarraowsRed.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\org.codegen.common\org.codegen.common.vbproj">
-      <Project>{C367EAE9-FDEA-468D-9A91-C5075F927D39}</Project>
-      <Name>org.codegen.common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\org.codegen.lib.db\org.model.lib.db.vbproj">
-      <Project>{c744d17d-3132-4365-8c44-9d295d942597}</Project>
-      <Name>org.model.lib.db</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>

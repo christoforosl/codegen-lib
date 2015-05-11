@@ -72,6 +72,12 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="org.codegen.common.4.0">
+      <HintPath>..\..\..\codeGenLibs\org.codegen.common.4.0.dll</HintPath>
+    </Reference>
+    <Reference Include="org.model.lib.4.0">
+      <HintPath>..\..\..\codeGenLibs\org.model.lib.4.0.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -152,20 +158,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ModelLibTestsVisualBasicGeneratedCode\ModelLibVBGeneratedCode.vbproj">
-      <Project>{1B56DDD9-DF71-49B7-A97E-E65C0185781C}</Project>
-      <Name>ModelLibVBGeneratedCode</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\org.codegen.common\org.codegen.common.vbproj">
-      <Project>{C367EAE9-FDEA-468D-9A91-C5075F927D39}</Project>
-      <Name>org.codegen.common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\org.codegen.lib.db\org.model.lib.db.vbproj">
-      <Project>{C744D17D-3132-4365-8C44-9D295D942597}</Project>
-      <Name>org.model.lib.db</Name>
+    <ProjectReference Include="..\org.codegen.win.controls\org.codegen.win.controls.vbproj">
+      <Project>{32d6ac6f-ed2f-4210-a3e8-359be2f9f5c2}</Project>
+      <Name>org.codegen.win.controls</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
