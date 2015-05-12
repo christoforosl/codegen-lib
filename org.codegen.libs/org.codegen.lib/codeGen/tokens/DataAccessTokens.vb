@@ -363,35 +363,28 @@ Namespace Tokens
 
 			ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Int16") Then
 				sString &= "CInt(" & meMarker & ".reader.GetInt16" & "(DATAREADER_" & skey & "))"
-				'Return "getInt32"
 
 			ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Int32") Then
 				sString &= meMarker & ".reader.GetInt32" & "(DATAREADER_" & skey & ")"
-				'Return "getInt32"
 
 			ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Int64") Then
 				sString &= meMarker & ".reader.GetInt64" & "(DATAREADER_" & skey & ")"
-				'Return "getInt64"
 
 			ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Decimal") Then
 				sString &= meMarker & ".reader.GetDecimal" & "(DATAREADER_" & skey & ")"
-				'Return "getDecimal"
 
 			ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Double") Then
-				'Return "getDouble"
-				sString &= "CDec( " & meMarker & ".reader.GetDouble" & "(DATAREADER_" & skey & "))"
+                sString &= meMarker & ".reader.GetDecimal" & "(DATAREADER_" & skey & ")"
 
 			ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Single") Then
-				'Return "GetFloat"
-				sString &= "CDec(me.reader.GetFloat" & "(DATAREADER_" & skey & "))"
+                sString &= meMarker & ".reader.GetDecimal" & "(DATAREADER_" & skey & ")"
 
 			ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.String") Then
 				sString &= meMarker & ".reader.GetString" & "(DATAREADER_" & skey & ")"
-				'Return "getString"
 
 			ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Boolean") Then
 				sString &= meMarker & ".reader.GetBoolean" & "(DATAREADER_" & skey & ")"
-				'Return "getBoolean"
+
 			ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Byte") Then
                 sString &= meMarker & ".reader.GetByte" & "(DATAREADER_" & skey & ")"
 

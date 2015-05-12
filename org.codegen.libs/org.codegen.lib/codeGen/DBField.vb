@@ -291,6 +291,7 @@ Public Class DBField
             _OriginalRuntimeType = value
 
             If value Is Type.GetType("System.Single") OrElse _
+                value Is Type.GetType("System.Double") OrElse _
                 value Is Type.GetType("System.Float") Then
                 _RuntimeType = Type.GetType("System.Decimal")
 
