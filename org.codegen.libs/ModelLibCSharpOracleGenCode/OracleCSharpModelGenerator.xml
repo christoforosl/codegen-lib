@@ -10,7 +10,7 @@
   <outputDir>.\</outputDir>
   <dotNetLanguage>CSHARP</dotNetLanguage>
   
-  <testProjectOutputDir>..\GeneratorTests\cstests</testProjectOutputDir>
+  <testProjectOutputDir>.\OracleTests</testProjectOutputDir>
 
   <defaultNamespace>OracleModel</defaultNamespace>
   <defaultDBMapperNameSpace>OracleMappers</defaultDBMapperNameSpace>

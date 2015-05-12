@@ -55,6 +55,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CSharpObjectTests.cs" />
+    <Compile Include="cstests\EmployeeInfoTestBase.cs" />
+    <Compile Include="cstests\EmployeeProjectTestBase.cs" />
+    <Compile Include="cstests\EmployeeRankTestBase.cs" />
+    <Compile Include="cstests\EmployeeTestBase.cs" />
+    <Compile Include="cstests\EmployeeTypeTestBase.cs" />
+    <Compile Include="cstests\ProjectTestBase.cs" />
     <Compile Include="GenAndRunObjectTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -84,6 +90,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

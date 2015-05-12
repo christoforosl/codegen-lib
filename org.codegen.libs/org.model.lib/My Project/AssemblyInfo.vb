@@ -10,7 +10,7 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyProduct("org.model.lib.4.0")> 
 <Assembly: AssemblyTitle("org.model.lib.4.0")> 
-<Assembly: AssemblyDescription("Model Objects library")> 
+<Assembly: AssemblyDescription("Simple ORM Model Object Library")> 
 <Assembly: AssemblyCompany("CodeGen.org")> 
 <Assembly: AssemblyCopyright("Copyright © CodeGen.org 2011")> 
 <Assembly: AssemblyTrademark("")> 
