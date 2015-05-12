@@ -8,11 +8,11 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("Model Objects Code Generator")> 
-<Assembly: AssemblyDescription("")> 
-<Assembly: AssemblyCompany("NETU Consultants Ltd")> 
+<Assembly: AssemblyTitle("Simple ORM Code Generator")> 
+<Assembly: AssemblyDescription("Simple ORM Code Generator")> 
+<Assembly: AssemblyCompany("")> 
 <Assembly: AssemblyProduct("org.codegen.lib.CodeGen.win")> 
-<Assembly: AssemblyCopyright("Copyright © NETU Consultants Ltd 2008")> 
+<Assembly: AssemblyCopyright("")> 
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)>
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("4.1.2")> 
+<Assembly: AssemblyVersion("4.1.3")> 
 <Assembly: AssemblyFileVersion("1.0.0.0")> 

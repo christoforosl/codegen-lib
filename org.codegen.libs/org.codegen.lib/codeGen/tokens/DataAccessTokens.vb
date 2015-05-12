@@ -393,11 +393,15 @@ Namespace Tokens
 				sString &= meMarker & ".reader.GetBoolean" & "(DATAREADER_" & skey & ")"
 				'Return "getBoolean"
 			ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Byte") Then
-				sString &= meMarker & ".reader.GetByte" & "(DATAREADER_" & skey & ")"
-			Else
-				Throw New ApplicationException(field.FieldName & _
-						  ":Unhandled DataReader getter for type:" & _
-						  field.RuntimeType.ToString)
+                sString &= meMarker & ".reader.GetByte" & "(DATAREADER_" & skey & ")"
+
+            ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Guid") Then
+                sString &= meMarker & ".reader.GetGuid" & "(DATAREADER_" & skey & ")"
+
+            Else
+                Throw New ApplicationException(field.ParentTable.TableName & "." & field.FieldName & _
+                          ":Unhandled DataReader getter for type:" & _
+                          field.RuntimeType.ToString)
 			End If
 
 			If String.IsNullOrEmpty(field.UserSpecifiedDataType) = False _

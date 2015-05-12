@@ -284,7 +284,7 @@ public void setRate(String val ){
 		//associationParentCSharp.txt
 		#region "Association Project"
 
-		public bool ProjectLoaded {get;set;}
+		private bool ProjectLoaded {get;set;}
 
 		/// <summary>
         /// Gets/Sets parent object
@@ -317,14 +317,14 @@ public void setRate(String val ){
         /// <summary>
         /// Loads parent object and sets the appropriate properties
         /// </summary>
-        public virtual void loadProject() {
+        private void loadProject() {
 			
 			if (this.ProjectLoaded) return;
 			
-			if ( this._Project == null && this.PrEPProjectId > 0 ) {
+			if ( this._Project == null && this.PrEPProjectId != null ) {
                 
 				//call the setter here, not the private variable!
-                this.PrProject = new CsModelMappers.ProjectDBMapper().findByKey(this.PrEPProjectId.Value);
+                this.PrProject = new CsModelMappers.ProjectDBMapper().findByKey(this.PrEPProjectId);
                 
             }
 

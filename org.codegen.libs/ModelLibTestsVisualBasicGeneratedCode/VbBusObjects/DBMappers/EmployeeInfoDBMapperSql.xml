@@ -8,27 +8,22 @@
   </stmt>
   <stmt>
     <key>selectall</key>
-    <MSSQL>SELECT EmployeeInfoId,EIEmployeeId,Salary,Address FROM EmployeeInfo</MSSQL>
-    <JET>SELECT EmployeeInfoId,EIEmployeeId,Salary,Address FROM EmployeeInfo</JET>
+    <MSSQL>SELECT EmployeeInfoId,EIEmployeeId,Salary,Address FROM [EmployeeInfo]</MSSQL>
   </stmt>
   <stmt>
     <key>selectone</key>
-    <MSSQL>SELECT EmployeeInfoId,EIEmployeeId,Salary,Address FROM EmployeeInfo WHERE EmployeeInfoId=@0</MSSQL>
-    <JET>SELECT EmployeeInfoId,EIEmployeeId,Salary,Address FROM EmployeeInfo WHERE EmployeeInfoId=@0</JET>
+    <MSSQL>SELECT EmployeeInfoId,EIEmployeeId,Salary,Address FROM [EmployeeInfo] WHERE EmployeeInfoId=@0</MSSQL>
   </stmt>
   <stmt>
     <key>delete</key>
-    <MSSQL>DELETE FROM EmployeeInfo WHERE EmployeeInfoId=@0</MSSQL>
-    <JET>DELETE FROM EmployeeInfo WHERE EmployeeInfoId=@0</JET>
+    <MSSQL>DELETE FROM [EmployeeInfo] WHERE EmployeeInfoId=@0</MSSQL>
   </stmt>
   <stmt>
     <key>insert</key>
     <MSSQL>insert into EmployeeInfo (EIEmployeeId,Salary,Address) values (@EIEmployeeId,@Salary,@Address)</MSSQL>
-    <JET>insert into EmployeeInfo (EIEmployeeId,Salary,Address) values (@EIEmployeeId,@Salary,@Address)</JET>
   </stmt>
   <stmt>
     <key>update</key>
     <MSSQL>UPDATE [EmployeeInfo] SET EIEmployeeId=@EIEmployeeId,Salary=@Salary,Address=@Address WHERE EmployeeInfoId=@EmployeeInfoId</MSSQL>
-    <JET>UPDATE [EmployeeInfo] SET EIEmployeeId=@EIEmployeeId,Salary=@Salary,Address=@Address WHERE EmployeeInfoId=@EmployeeInfoId</JET>
   </stmt>
 </SQLStatements>

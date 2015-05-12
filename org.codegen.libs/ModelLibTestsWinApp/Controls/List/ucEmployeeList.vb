@@ -42,6 +42,7 @@ Public Class ucEmployeeList
 	me.UpdateDate = new DataGridViewCalendarColumn
 	me.CreateUser = new DataGridViewTextBoxColumn
 	me.UpdateUser = new DataGridViewTextBoxColumn
+	me.SampleGuidField = new DataGridViewTextBoxColumn
 
         Me.grdEmployee = New org.codegen.win.controls.Grid.CGSQLGrid()
         Me.SuspendLayout()
@@ -289,6 +290,20 @@ Public Class ucEmployeeList
 	'**** End Setup of column: UpdateUser
 
 
+	' column: SampleGuidField
+	SampleGuidField.CellTemplate = New DataGridViewTextBoxCell
+	SampleGuidField.Name = "SampleGuidField"
+	SampleGuidField.DataPropertyName = "sampleGuidField"
+	SampleGuidField.ReadOnly = True
+	SampleGuidField.HeaderText = "SampleGuidField"
+	SampleGuidField.HeaderCell.value = "SampleGuidField"
+	SampleGuidField.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft
+	SampleGuidField.HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopLeft
+	SampleGuidField.Width = 100
+	SampleGuidField.Visible = True
+	'**** End Setup of column: SampleGuidField
+
+
 
 
         '
@@ -315,6 +330,7 @@ Public Class ucEmployeeList
 	me.grdEmployee.Columns.Add(UpdateDate)
 	me.grdEmployee.Columns.Add(CreateUser)
 	me.grdEmployee.Columns.Add(UpdateUser)
+	me.grdEmployee.Columns.Add(SampleGuidField)
 
         Me.Name = "ucEmployeeList"
         Me.Text = "ucEmployeeList"
@@ -339,6 +355,7 @@ Public Class ucEmployeeList
 	Private WithEvents UpdateDate As DataGridViewCalendarColumn
 	Private WithEvents CreateUser As DataGridViewTextBoxColumn
 	Private WithEvents UpdateUser As DataGridViewTextBoxColumn
+	Private WithEvents SampleGuidField As DataGridViewTextBoxColumn
 
 
 #End Region

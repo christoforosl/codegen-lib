@@ -45,13 +45,14 @@ namespace CsModelObjects
 	System.DateTime? UpdateDate {get;set;} 
 	System.String CreateUser {get;set;} 
 	System.String UpdateUser {get;set;} 
+	System.Guid? PrSampleGuidField {get;set;} 
 	CsModelObjects.EmployeeRank PrRank {get;set;} //association
 	CsModelObjects.EmployeeInfo PrEmployeeInfo {get;set;} //association
 	IEnumerable< CsModelObjects.EmployeeProject>PrEmployeeProjects {get; set;}
-		void EmployeeProjectAdd(CsModelObjects.EmployeeProject val);
-		void EmployeeProjectRemove(CsModelObjects.EmployeeProject val);
-		IEnumerable<CsModelObjects.EmployeeProject>EmployeeProjectsGetDeleted();
-		CsModelObjects.EmployeeProject EmployeeProjectGetAt( int i ) ;
+		void PrEmployeeProjectAdd(CsModelObjects.EmployeeProject val);
+		void PrEmployeeProjectRemove(CsModelObjects.EmployeeProject val);
+		IEnumerable<CsModelObjects.EmployeeProject> PrEmployeeProjectsGetDeleted();
+		CsModelObjects.EmployeeProject PrEmployeeProjectGetAt( int i ) ;
 
 }
 #endregion
@@ -130,6 +131,7 @@ namespace CsModelObjects
 			public const String STR_FLD_UPDATEDATE = "UpdateDate";
 			public const String STR_FLD_CREATEUSER = "CreateUser";
 			public const String STR_FLD_UPDATEUSER = "UpdateUser";
+			public const String STR_FLD_SAMPLEGUIDFIELD = "SampleGuidField";
 
 
 				public const int FLD_EMPLOYEEID = 0;
@@ -148,6 +150,7 @@ namespace CsModelObjects
 		public const int FLD_UPDATEDATE = 13;
 		public const int FLD_CREATEUSER = 14;
 		public const int FLD_UPDATEUSER = 15;
+		public const int FLD_SAMPLEGUIDFIELD = 16;
 
 
 
@@ -157,7 +160,7 @@ namespace CsModelObjects
 		public override string[] getFieldList()
 		{
 			return new string[] {
-				STR_FLD_EMPLOYEEID,STR_FLD_EMPLOYEENAME,STR_FLD_EMPLOYEERANKID,STR_FLD_SALARY,STR_FLD_ADDRESS,STR_FLD_TELEPHONE,STR_FLD_MOBILE,STR_FLD_IDNUMBER,STR_FLD_SSINUMBER,STR_FLD_HIREDATE,STR_FLD_NUMDEPENDENTS,STR_FLD_EMPLOYEETYPECODE,STR_FLD_CREATEDATE,STR_FLD_UPDATEDATE,STR_FLD_CREATEUSER,STR_FLD_UPDATEUSER
+				STR_FLD_EMPLOYEEID,STR_FLD_EMPLOYEENAME,STR_FLD_EMPLOYEERANKID,STR_FLD_SALARY,STR_FLD_ADDRESS,STR_FLD_TELEPHONE,STR_FLD_MOBILE,STR_FLD_IDNUMBER,STR_FLD_SSINUMBER,STR_FLD_HIREDATE,STR_FLD_NUMDEPENDENTS,STR_FLD_EMPLOYEETYPECODE,STR_FLD_CREATEDATE,STR_FLD_UPDATEDATE,STR_FLD_CREATEUSER,STR_FLD_UPDATEUSER,STR_FLD_SAMPLEGUIDFIELD
 			};
 		}
 
@@ -181,6 +184,7 @@ namespace CsModelObjects
 	private System.DateTime? _UpdateDate = null;
 	private System.String _CreateUser = null;
 	private System.String _UpdateUser = null;
+	private System.Guid? _SampleGuidField = null;
 	// ****** CHILD OBJECTS ********************
 	private CsModelObjects.EmployeeRank _Rank = null;  // initialize to nothing, for lazy load logic below !!!
 	private CsModelObjects.EmployeeInfo _EmployeeInfo = null;  // initialize to nothing, for lazy load logic below !!!
@@ -562,12 +566,27 @@ public void setUpdateUser( String val ) {
 		this.UpdateUser = null;
 	}
 }
+	public virtual System.Guid? PrSampleGuidField  {
+	get {
+		return _SampleGuidField;
+	} 
+	set {
+		if (ModelObject.valueChanged(_SampleGuidField, value)) {
+			if (!this.IsObjectLoading ) {
+				this.isDirty = true;
+				this.setFieldChanged(STR_FLD_SAMPLEGUIDFIELD);
+			}
+			this._SampleGuidField = value;
+
+		}
+	}  
+	}
 
 		// ASSOCIATIONS GETTERS/SETTERS BELOW!
 		//associationParentCSharp.txt
 		#region "Association Rank"
 
-		public bool RankLoaded {get;set;}
+		private bool RankLoaded {get;set;}
 
 		/// <summary>
         /// Gets/Sets parent object
@@ -600,14 +619,14 @@ public void setUpdateUser( String val ) {
         /// <summary>
         /// Loads parent object and sets the appropriate properties
         /// </summary>
-        public virtual void loadRank() {
+        private void loadRank() {
 			
 			if (this.RankLoaded) return;
 			
-			if ( this._Rank == null && this.PrEmployeeRankId > 0 ) {
+			if ( this._Rank == null && this.PrEmployeeRankId != null ) {
                 
 				//call the setter here, not the private variable!
-                this.PrRank = new CsModelMappers.EmployeeRankDBMapper().findByKey(this.PrEmployeeRankId.Value);
+                this.PrRank = new CsModelMappers.EmployeeRankDBMapper().findByKey(this.PrEmployeeRankId);
                 
             }
 
@@ -617,7 +636,7 @@ public void setUpdateUser( String val ) {
 		#endregion
 
         //associationChildOneCSharp.txt
-        public bool EmployeeInfoLoaded {get;set;}
+        public bool EmployeeInfoLoaded {get; private set;}
 
 		public virtual CsModelObjects.EmployeeInfo PrEmployeeInfo {
 			//1-1 child association
@@ -644,8 +663,8 @@ public void setUpdateUser( String val ) {
 						
 			if ( this.EmployeeInfoLoaded) { return; }
 
-			if ( this.PrEmployeeId > 0)  {
-				//call setter here, not the private variable
+			if ( this._EmployeeInfo == null )  {
+				//IMPORTANT: call setter here, not the private variable
 				this.PrEmployeeInfo = 
 					new CsModelMappers.EmployeeInfoDBMapper().findWhere("EIEmployeeId={0}", this.PrEmployeeId);
 				
@@ -661,9 +680,9 @@ public void setUpdateUser( String val ) {
 		//associationChildManyCSharp.txt
 		#region "Association EmployeeProjects"
 
-		public bool EmployeeProjectsLoaded  {get;set;}
+		public bool EmployeeProjectsLoaded  {get; private set;}
 
-		public virtual CsModelObjects.EmployeeProject EmployeeProjectGetAt( int i ) {
+		public virtual CsModelObjects.EmployeeProject PrEmployeeProjectGetAt( int i ) {
 
             this.loadEmployeeProjects();
             if( this._EmployeeProjects.Count >= (i - 1)) {
@@ -673,7 +692,7 @@ public void setUpdateUser( String val ) {
 
         } //End Function        
 		
-		public virtual void EmployeeProjectAdd( CsModelObjects.EmployeeProject val )  {
+		public virtual void PrEmployeeProjectAdd( CsModelObjects.EmployeeProject val )  {
 			//1-Many , add a single item!
 			this.loadEmployeeProjects();
 			val.PrEPEmployeeId = this.PrEmployeeId;
@@ -683,7 +702,7 @@ public void setUpdateUser( String val ) {
 
         }
 
-		public virtual void EmployeeProjectsClear() {
+		public virtual void PrEmployeeProjectsClear() {
 
             this.loadEmployeeProjects();
             this._deletedEmployeeProjects.AddRange(this._EmployeeProjects);
@@ -691,7 +710,7 @@ public void setUpdateUser( String val ) {
 
         }
 
-		public virtual void EmployeeProjectRemove( CsModelObjects.EmployeeProject val ) {
+		public virtual void PrEmployeeProjectRemove( CsModelObjects.EmployeeProject val ) {
 			
 			this.loadEmployeeProjects();
 			this._deletedEmployeeProjects.Add(val);
@@ -699,7 +718,7 @@ public void setUpdateUser( String val ) {
 
         }
 		
-		public virtual IEnumerable< CsModelObjects.EmployeeProject >EmployeeProjectsGetDeleted() {
+		public virtual IEnumerable< CsModelObjects.EmployeeProject >PrEmployeeProjectsGetDeleted() {
 			
 			return this._deletedEmployeeProjects;
 
@@ -746,7 +765,7 @@ public void setUpdateUser( String val ) {
         /// <summary>
         /// Loads child objects from dabatabase, if not loaded already
         /// </summary>
-        public virtual void loadEmployeeProjects() {
+        private void loadEmployeeProjects() {
 			
 			if (this.EmployeeProjectsLoaded)return;
 			//init list
@@ -799,6 +818,8 @@ public void setUpdateUser( String val ) {
 			return this.CreateUser;
 		case FLD_UPDATEUSER:
 			return this.UpdateUser;
+		case FLD_SAMPLEGUIDFIELD:
+			return this.PrSampleGuidField;
 		default:
 			return null;
 		} //end switch
@@ -840,6 +861,8 @@ public void setUpdateUser( String val ) {
 			return this.CreateUser;
 		} else if (fieldKey==STR_FLD_UPDATEUSER.ToLower() ) {
 			return this.UpdateUser;
+		} else if (fieldKey==STR_FLD_SAMPLEGUIDFIELD.ToLower() ) {
+			return this.PrSampleGuidField;
 		} else {
 			return null;
 		}
@@ -957,6 +980,13 @@ public void setUpdateUser( String val ) {
 				this.UpdateUser = null;
 			}else{
 				this.UpdateUser=(System.String)val;
+			} //
+			return;
+		case FLD_SAMPLEGUIDFIELD:
+			if (val == DBNull.Value || val == null ){
+				this.PrSampleGuidField = null;
+			}else{
+				this.PrSampleGuidField=(System.Guid)val;
 			} //
 			return;
 		default:
@@ -1079,6 +1109,13 @@ public void setUpdateUser( String val ) {
 				this.UpdateUser=(System.String)val;
 			}
 			return;
+		} else if ( fieldKey==STR_FLD_SAMPLEGUIDFIELD.ToLower()){
+			if (val == DBNull.Value || val ==null ){
+				this.PrSampleGuidField = null;
+			} else {
+				this.PrSampleGuidField=(System.Guid)val;
+			}
+			return;
 		}
 		}
 
@@ -1108,7 +1145,8 @@ public void setUpdateUser( String val ) {
 				&& this.CreateDate.GetValueOrDefault() == other.CreateDate.GetValueOrDefault()
 				&& this.UpdateDate.GetValueOrDefault() == other.UpdateDate.GetValueOrDefault()
 				&& this.CreateUser == other.CreateUser
-				&& this.UpdateUser == other.UpdateUser;;
+				&& this.UpdateUser == other.UpdateUser
+				&& this.PrSampleGuidField.GetValueOrDefault() == other.PrSampleGuidField.GetValueOrDefault();;
 
 		}
 
@@ -1130,7 +1168,8 @@ public void setUpdateUser( String val ) {
 				 ^ this.CreateDate.GetHashCode()
 				 ^ this.UpdateDate.GetHashCode()
 				 ^ this.getStringHashCode(this.CreateUser)
-				 ^ this.getStringHashCode(this.UpdateUser);;
+				 ^ this.getStringHashCode(this.UpdateUser)
+				 ^ this.PrSampleGuidField.GetHashCode();;
 
 		}
 
@@ -1184,6 +1223,7 @@ public void setUpdateUser( String val ) {
 		ret.UpdateDate = this.UpdateDate;
 		ret.CreateUser = this.CreateUser;
 		ret.UpdateUser = this.UpdateUser;
+		ret.PrSampleGuidField = this.PrSampleGuidField;
 
 
 
@@ -1256,6 +1296,10 @@ if (! string.IsNullOrEmpty(o.CreateUser) &&
 if (! string.IsNullOrEmpty(o.UpdateUser) && 
 		 string.IsNullOrEmpty(this.UpdateUser)){
 		this.UpdateUser = o.UpdateUser;
+}
+if ( o.PrSampleGuidField != null && 
+		 this.PrSampleGuidField == null){
+		this.PrSampleGuidField = o.PrSampleGuidField;
 }
 
 

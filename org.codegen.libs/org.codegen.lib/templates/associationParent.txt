@@ -38,6 +38,7 @@
 			
 			If me._<association_name>Loaded then return
 			
+			'check if object is not loaded
 			If Me._<association_name> Is Nothing AndAlso _
                    Me.<prop_prefix><child_field_runtime> IsNot Nothing Then
                 

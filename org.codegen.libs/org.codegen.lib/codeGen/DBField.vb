@@ -174,8 +174,11 @@ Public Class DBField
 
         ElseIf Me._OriginalRuntimeType Is System.Type.GetType("System.Byte") Then
             Return "OleDbType.Integer"
+
+        ElseIf Me._OriginalRuntimeType Is System.Type.GetType("System.Guid") Then
+            Return "OleDbType.Guid"
         Else
-            Throw New ApplicationException(Me.FieldName & ":Unhandled TypeConverter for type:" & Me.RuntimeType.ToString)
+            Throw New ApplicationException(Me.ParentTable.TableName & "." & Me.FieldName & ":Unhandled TypeConverter for type:" & Me.RuntimeType.ToString)
         End If
 
     End Function

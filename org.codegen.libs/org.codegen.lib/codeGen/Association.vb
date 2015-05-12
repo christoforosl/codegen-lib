@@ -58,6 +58,8 @@ Public Class Association
             sbdr.Append(vbTab & vbTab & "Function ").Append(ModelGenerator.Current.FieldPropertyPrefix).Append(Me.associationName).Append("GetDeleted() as IEnumerable(Of "). _
         Append(Me.DataType).Append(")").Append(vbCrLf)
 
+            sbdr.Append(vbTab & vbTab & "Function ").Append(ModelGenerator.Current.FieldPropertyPrefix).Append(Me.associationNameSingular).Append("GetAt( i as Integer ) "). _
+                                Append(" as ").Append(Me.DataType).Append(vbCrLf)
             '
         Else
 			sbdr.Append("Property " & ModelGenerator.Current.FieldPropertyPrefix & Me.associationName & " as "). _

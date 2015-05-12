@@ -8,27 +8,22 @@
   </stmt>
   <stmt>
     <key>selectall</key>
-    <MSSQL>SELECT EmployeeId,EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,EmployeeTypeCode,createDate,updateDate,createUser,updateUser FROM Employee</MSSQL>
-    <JET>SELECT EmployeeId,EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,EmployeeTypeCode,createDate,updateDate,createUser,updateUser FROM Employee</JET>
+    <MSSQL>SELECT EmployeeId,EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,EmployeeTypeCode,createDate,updateDate,createUser,updateUser,sampleGuidField FROM [Employee]</MSSQL>
   </stmt>
   <stmt>
     <key>selectone</key>
-    <MSSQL>SELECT EmployeeId,EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,EmployeeTypeCode,createDate,updateDate,createUser,updateUser FROM Employee WHERE EmployeeId=@0</MSSQL>
-    <JET>SELECT EmployeeId,EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,EmployeeTypeCode,createDate,updateDate,createUser,updateUser FROM Employee WHERE EmployeeId=@0</JET>
+    <MSSQL>SELECT EmployeeId,EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,EmployeeTypeCode,createDate,updateDate,createUser,updateUser,sampleGuidField FROM [Employee] WHERE EmployeeId=@0</MSSQL>
   </stmt>
   <stmt>
     <key>delete</key>
-    <MSSQL>DELETE FROM Employee WHERE EmployeeId=@0</MSSQL>
-    <JET>DELETE FROM Employee WHERE EmployeeId=@0</JET>
+    <MSSQL>DELETE FROM [Employee] WHERE EmployeeId=@0</MSSQL>
   </stmt>
   <stmt>
     <key>insert</key>
-    <MSSQL>insert into Employee (EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,EmployeeTypeCode,createDate,updateDate,createUser,updateUser) values (@EmployeeName,@EmployeeRankId,@Salary,@Address,@Telephone,@Mobile,@IdNumber,@SSINumber,@HireDate,@NumDependents,@EmployeeTypeCode,@createDate,@updateDate,@createUser,@updateUser)</MSSQL>
-    <JET>insert into Employee (EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,EmployeeTypeCode,createDate,updateDate,createUser,updateUser) values (@EmployeeName,@EmployeeRankId,@Salary,@Address,@Telephone,@Mobile,@IdNumber,@SSINumber,@HireDate,@NumDependents,@EmployeeTypeCode,@createDate,@updateDate,@createUser,@updateUser)</JET>
+    <MSSQL>insert into Employee (EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,EmployeeTypeCode,createDate,updateDate,createUser,updateUser,sampleGuidField) values (@EmployeeName,@EmployeeRankId,@Salary,@Address,@Telephone,@Mobile,@IdNumber,@SSINumber,@HireDate,@NumDependents,@EmployeeTypeCode,@createDate,@updateDate,@createUser,@updateUser,@sampleGuidField)</MSSQL>
   </stmt>
   <stmt>
     <key>update</key>
-    <MSSQL>UPDATE [Employee] SET EmployeeName=@EmployeeName,EmployeeRankId=@EmployeeRankId,Salary=@Salary,Address=@Address,Telephone=@Telephone,Mobile=@Mobile,IdNumber=@IdNumber,SSINumber=@SSINumber,HireDate=@HireDate,NumDependents=@NumDependents,EmployeeTypeCode=@EmployeeTypeCode,createDate=@createDate,updateDate=@updateDate,createUser=@createUser,updateUser=@updateUser WHERE EmployeeId=@EmployeeId</MSSQL>
-    <JET>UPDATE [Employee] SET EmployeeName=@EmployeeName,EmployeeRankId=@EmployeeRankId,Salary=@Salary,Address=@Address,Telephone=@Telephone,Mobile=@Mobile,IdNumber=@IdNumber,SSINumber=@SSINumber,HireDate=@HireDate,NumDependents=@NumDependents,EmployeeTypeCode=@EmployeeTypeCode,createDate=@createDate,updateDate=@updateDate,createUser=@createUser,updateUser=@updateUser WHERE EmployeeId=@EmployeeId</JET>
+    <MSSQL>UPDATE [Employee] SET EmployeeName=@EmployeeName,EmployeeRankId=@EmployeeRankId,Salary=@Salary,Address=@Address,Telephone=@Telephone,Mobile=@Mobile,IdNumber=@IdNumber,SSINumber=@SSINumber,HireDate=@HireDate,NumDependents=@NumDependents,EmployeeTypeCode=@EmployeeTypeCode,createDate=@createDate,updateDate=@updateDate,createUser=@createUser,updateUser=@updateUser,sampleGuidField=@sampleGuidField WHERE EmployeeId=@EmployeeId</MSSQL>
   </stmt>
 </SQLStatements>

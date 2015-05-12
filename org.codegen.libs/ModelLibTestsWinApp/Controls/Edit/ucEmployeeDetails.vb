@@ -59,6 +59,8 @@ Public Class ucEmployeeDetails
 	Me.NumDependents = New CGIntTextBox
 	Me.EmployeeTypeCodelbl = New System.Windows.Forms.Label
 	Me.EmployeeTypeCode = New CGTextBox
+	Me.SampleGuidFieldlbl = New System.Windows.Forms.Label
+	Me.SampleGuidField = New CGTextBox
 
 
         Me.SuspendLayout()
@@ -274,6 +276,25 @@ Public Class ucEmployeeDetails
 	Me.EmployeeTypeCode.visible = True
 	Me.EmployeeTypeCode.AssociatedLabel = me.EmployeeTypeCodelbl
 
+	'SampleGuidFieldlbl.
+	Me.SampleGuidFieldlbl.AutoSize = False
+	Me.SampleGuidFieldlbl.Location = New System.Drawing.Point(5, 345)
+	Me.SampleGuidFieldlbl.Name = "SampleGuidFieldlbl"
+	Me.SampleGuidFieldlbl.Size = New System.Drawing.Size(120, 20)
+	Me.SampleGuidFieldlbl.TabIndex = 11
+	Me.SampleGuidFieldlbl.Text = "SampleGuidField"
+	Me.SampleGuidFieldlbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+
+	'SampleGuidField
+	Me.SampleGuidField.AutoSize = True
+	Me.SampleGuidField.Location = New System.Drawing.Point(135, 345)
+	Me.SampleGuidField.Name ="SampleGuidField"
+	Me.SampleGuidField.Size = New System.Drawing.Size(200, 20)
+	Me.SampleGuidField.MaxLength = 255
+	Me.SampleGuidField.TabIndex = 11
+	Me.SampleGuidField.visible = True
+	Me.SampleGuidField.AssociatedLabel = me.SampleGuidFieldlbl
+
 
 		
         'ucEmployee
@@ -302,6 +323,8 @@ Public Class ucEmployeeDetails
 	me.Controls.add(me.NumDependents)
 	me.Controls.add(me.EmployeeTypeCodelbl)
 	me.Controls.add(me.EmployeeTypeCode)
+	me.Controls.add(me.SampleGuidFieldlbl)
+	me.Controls.add(me.SampleGuidField)
 
 		
 		Me.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
@@ -337,6 +360,8 @@ Public Class ucEmployeeDetails
 	Friend WithEvents NumDependents As CGIntTextBox
 	Friend WithEvents EmployeeTypeCodelbl As System.Windows.Forms.Label
 	Friend WithEvents EmployeeTypeCode As CGTextBox
+	Friend WithEvents SampleGuidFieldlbl As System.Windows.Forms.Label
+	Friend WithEvents SampleGuidField As CGTextBox
 
 
 #End Region
@@ -361,6 +386,7 @@ Public Class ucEmployeeDetails
 	Me.HireDate.value = mo.HireDate
 	Me.NumDependents.value = mo.NumDependents
 	Me.EmployeeTypeCode.value = mo.EmployeeTypeCode
+	Me.SampleGuidField.value = mo.SampleGuidField
 
 
 		me.resetLastLoadedValues()
@@ -388,6 +414,7 @@ Public Class ucEmployeeDetails
 	mo.setHireDate(Me.HireDate.text)
 	mo.setNumDependents(Me.NumDependents.text)
 	mo.setEmployeeTypeCode(Me.EmployeeTypeCode.text)
+	mo.setSampleGuidField(Me.SampleGuidField.text)
 
 
     End Sub

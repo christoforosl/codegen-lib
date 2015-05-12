@@ -33,10 +33,10 @@ namespace CsModelObjects
 	System.String PrProjectName {get;set;} 
 	System.Boolean? PrIsActive {get;set;} 
 	IEnumerable< CsModelObjects.EmployeeProject>PrEmployeeProjects {get; set;}
-		void EmployeeProjectAdd(CsModelObjects.EmployeeProject val);
-		void EmployeeProjectRemove(CsModelObjects.EmployeeProject val);
-		IEnumerable<CsModelObjects.EmployeeProject>EmployeeProjectsGetDeleted();
-		CsModelObjects.EmployeeProject EmployeeProjectGetAt( int i ) ;
+		void PrEmployeeProjectAdd(CsModelObjects.EmployeeProject val);
+		void PrEmployeeProjectRemove(CsModelObjects.EmployeeProject val);
+		IEnumerable<CsModelObjects.EmployeeProject> PrEmployeeProjectsGetDeleted();
+		CsModelObjects.EmployeeProject PrEmployeeProjectGetAt( int i ) ;
 
 }
 #endregion
@@ -210,9 +210,9 @@ public void setIsActive(String val ){
 		//associationChildManyCSharp.txt
 		#region "Association EmployeeProjects"
 
-		public bool EmployeeProjectsLoaded  {get;set;}
+		public bool EmployeeProjectsLoaded  {get; private set;}
 
-		public virtual CsModelObjects.EmployeeProject EmployeeProjectGetAt( int i ) {
+		public virtual CsModelObjects.EmployeeProject PrEmployeeProjectGetAt( int i ) {
 
             this.loadEmployeeProjects();
             if( this._EmployeeProjects.Count >= (i - 1)) {
@@ -222,7 +222,7 @@ public void setIsActive(String val ){
 
         } //End Function        
 		
-		public virtual void EmployeeProjectAdd( CsModelObjects.EmployeeProject val )  {
+		public virtual void PrEmployeeProjectAdd( CsModelObjects.EmployeeProject val )  {
 			//1-Many , add a single item!
 			this.loadEmployeeProjects();
 			val.PrEPProjectId = this.PrProjectId;
@@ -232,7 +232,7 @@ public void setIsActive(String val ){
 
         }
 
-		public virtual void EmployeeProjectsClear() {
+		public virtual void PrEmployeeProjectsClear() {
 
             this.loadEmployeeProjects();
             this._deletedEmployeeProjects.AddRange(this._EmployeeProjects);
@@ -240,7 +240,7 @@ public void setIsActive(String val ){
 
         }
 
-		public virtual void EmployeeProjectRemove( CsModelObjects.EmployeeProject val ) {
+		public virtual void PrEmployeeProjectRemove( CsModelObjects.EmployeeProject val ) {
 			
 			this.loadEmployeeProjects();
 			this._deletedEmployeeProjects.Add(val);
@@ -248,7 +248,7 @@ public void setIsActive(String val ){
 
         }
 		
-		public virtual IEnumerable< CsModelObjects.EmployeeProject >EmployeeProjectsGetDeleted() {
+		public virtual IEnumerable< CsModelObjects.EmployeeProject >PrEmployeeProjectsGetDeleted() {
 			
 			return this._deletedEmployeeProjects;
 
@@ -295,7 +295,7 @@ public void setIsActive(String val ){
         /// <summary>
         /// Loads child objects from dabatabase, if not loaded already
         /// </summary>
-        public virtual void loadEmployeeProjects() {
+        private void loadEmployeeProjects() {
 			
 			if (this.EmployeeProjectsLoaded)return;
 			//init list

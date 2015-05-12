@@ -190,4 +190,7 @@ go
 ALTER TABLE dbo.Employee ADD
 createDate datetime,updateDate datetime,createUser varchar(50),updateUser varchar(50)
 go
+ALTER TABLE dbo.Employee ADD
+	sampleGuidField uniqueidentifier NULL
+go
 -------------------->>>>>>>

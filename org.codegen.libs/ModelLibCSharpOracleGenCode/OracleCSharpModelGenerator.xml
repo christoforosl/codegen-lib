@@ -21,8 +21,6 @@
   </dbConnectionString>
   <dbConnectionDialect>ORACLE</dbConnectionDialect>
   <dbConnectionType>CONN_OLEDB</dbConnectionType>
-
-
   <table>
     <TableName>EMPLOYEE_TRAINING_HISTORY</TableName>
    <association>

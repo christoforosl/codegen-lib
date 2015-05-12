@@ -20,13 +20,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneratorTests", "Generator
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelLibCSharpOracleGenCode", "ModelLibCSharpOracleGenCode\ModelLibCSharpOracleGenCode.csproj", "{891F585A-35B8-4BB9-8B40-33DCA98F055E}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "org.codegen.win", "org.codegen.win\org.codegen.win.vbproj", "{C042F97C-0904-46AB-B37C-51AC6A5BA5F2}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "codeGenWin4", "org.codegen.win\codeGenWin4.vbproj", "{C042F97C-0904-46AB-B37C-51AC6A5BA5F2}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "org.model.lib", "org.model.lib\org.model.lib.vbproj", "{BF9890A4-769A-406D-9AD0-0D9F5A7376A0}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "org.model.lib.db", "org.model.lib.db\org.model.lib.db.vbproj", "{C744D17D-3132-4365-8C44-9D295D942597}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "org.codegen.lib", "org.codegen.lib\org.codegen.lib.vbproj", "{EC0BEE2D-5CA9-478C-B5C7-0270FB49207F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeGenerator", "CodeGenerator", "{E80C18E5-D700-4A25-86F8-1047C5DF52EB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8D5E1231-24B4-45D8-99B3-1118DD5F3D1A}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
@@ -138,6 +142,14 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BC8EB514-1139-458E-8AD9-B8D674845C60} = {8D5E1231-24B4-45D8-99B3-1118DD5F3D1A}
+		{1B56DDD9-DF71-49B7-A97E-E65C0185781C} = {8D5E1231-24B4-45D8-99B3-1118DD5F3D1A}
+		{12D3D3B3-4176-4FA8-BA6E-502FFF896341} = {8D5E1231-24B4-45D8-99B3-1118DD5F3D1A}
+		{891F585A-35B8-4BB9-8B40-33DCA98F055E} = {8D5E1231-24B4-45D8-99B3-1118DD5F3D1A}
+		{C042F97C-0904-46AB-B37C-51AC6A5BA5F2} = {E80C18E5-D700-4A25-86F8-1047C5DF52EB}
+		{EC0BEE2D-5CA9-478C-B5C7-0270FB49207F} = {E80C18E5-D700-4A25-86F8-1047C5DF52EB}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = org.codegen.lib.csharp.4.01.vsmdi

@@ -102,8 +102,10 @@ namespace GeneratorTests {
 				employee.PrTelephone = "2234455";
 				employee.PrHireDate = new DateTime(DateTime.Now.Year, 1, 1);
                 
-				employee.EmployeeProjectAdd(EmployeeProjectFactory.Create());
-				EmployeeProject emplProj = employee.EmployeeProjectGetAt(0);
+                Guid g = Guid.NewGuid();
+                employee.PrSampleGuidField = g;
+                employee.PrEmployeeProjectAdd(EmployeeProjectFactory.Create());
+				EmployeeProject emplProj = employee.PrEmployeeProjectGetAt(0);
 				emplProj.PrAssignDate = new DateTime(DateTime.Now.Year, 3, 1);
 				emplProj.PrEndDate = new DateTime(DateTime.Now.Year, 6, 1);
 				emplProj.PrEPProjectId = 1;
@@ -140,18 +142,18 @@ namespace GeneratorTests {
 
 				Assert.IsFalse(employee.isNew, "After load from db, model object isNew property returns false");
 				Assert.IsFalse(employee.isDirty, "After load from db, model object isDirty property returns false");
-
+                Assert.AreEqual(employee.PrSampleGuidField, g);
 				Assert.AreEqual(employee.PrRank.PrRank, "My New Rank");
 				Assert.AreEqual(employee.PrSalary, 100m);
 				Assert.AreEqual(employee.PrEmployeeName, "test employee");
 				Assert.AreEqual(employee.PrSSINumber, "12345XX");
 				Assert.AreEqual(employee.PrHireDate, new DateTime(2015, 1, 1));
 				Assert.AreEqual(employee.PrEmployeeProjects.ToList().Count, 1);
-				Assert.AreEqual(employee.EmployeeProjectGetAt(0).PrProject.PrProjectName, "MyProject");
+				Assert.AreEqual(employee.PrEmployeeProjectGetAt(0).PrProject.PrProjectName, "MyProject");
 
 				//change some values on child and parent objects
-				employee.EmployeeProjectGetAt(0).PrEndDate = new DateTime(DateTime.Now.Year, 6, 1);
-				employee.EmployeeProjectGetAt(0).PrProject.PrProjectName = "MyProject Updated"; // here we are updating parent record of child object of employee!
+				employee.PrEmployeeProjectGetAt(0).PrEndDate = new DateTime(DateTime.Now.Year, 6, 1);
+                employee.PrEmployeeProjectGetAt(0).PrProject.PrProjectName = "MyProject Updated"; // here we are updating parent record of child object of employee!
 				Assert.IsTrue(employee.NeedsSave, "After changing parent or child obejcts values, e.NeedsSave must be true");
 				Assert.IsFalse(employee.isDirty, "After changing parent or child obejcts values, e.isDirty must be false since we did not change anything on the Model Object");
 
@@ -162,8 +164,8 @@ namespace GeneratorTests {
 				//Assert.IsTrue(e.UpdateDate > e.CreateDate, "after update of record, update must be date > create date ");
 				// note that above test cannot be sucess since save is happening too fast
 
-				Assert.AreEqual(employee.EmployeeProjectGetAt(0).PrEndDate, new DateTime(DateTime.Now.Year, 6, 1));
-				Assert.AreEqual(employee.EmployeeProjectGetAt(0).PrProject.PrProjectName, "MyProject Updated", "Expected to have parent record of child updated!");
+                Assert.AreEqual(employee.PrEmployeeProjectGetAt(0).PrEndDate, new DateTime(DateTime.Now.Year, 6, 1));
+                Assert.AreEqual(employee.PrEmployeeProjectGetAt(0).PrProject.PrProjectName, "MyProject Updated", "Expected to have parent record of child updated!");
 
 				employee.PrSSINumber = "XXXXX";
 				Assert.IsTrue(employee.NeedsSave, "After changing value, e.NeedsSave must be true");
@@ -173,10 +175,10 @@ namespace GeneratorTests {
 				new EmployeeDBMapper().save(employee);
 				employee = EmployeeDataUtils.findByKey(x);
 				Assert.AreEqual(employee.PrSSINumber, "XXXXX");
-				Assert.AreEqual(employee.EmployeeProjectGetAt(0).PrEndDate, new DateTime(DateTime.Now.Year, 6, 1));
-				Assert.AreEqual(employee.EmployeeProjectGetAt(0).PrProject.PrProjectName, "MyProject Updated", "Expected to have parent record of child updated!");
+                Assert.AreEqual(employee.PrEmployeeProjectGetAt(0).PrEndDate, new DateTime(DateTime.Now.Year, 6, 1));
+                Assert.AreEqual(employee.PrEmployeeProjectGetAt(0).PrProject.PrProjectName, "MyProject Updated", "Expected to have parent record of child updated!");
 
-				employee.EmployeeProjectsClear();
+				employee.PrEmployeeProjectsClear();
 				Assert.AreEqual(employee.PrEmployeeProjects.ToList().Count, 0, "Expected to have no Projects linked after call to clear");
 				EmployeeDataUtils.saveEmployee(employee);
 

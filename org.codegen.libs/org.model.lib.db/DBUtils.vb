@@ -1019,6 +1019,29 @@ Public MustInherit Class DBUtils
         Return tmp
     End Function
 
+    ''' <summary>
+    ''' Returns a GUID parameter
+    ''' </summary>
+    ''' <param name="_paramName"></param>
+    ''' <param name="val"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function getParameter(ByVal _paramName As String, ByVal val As Guid?) As IDataParameter
+
+        Dim tmp As IDataParameter = Me.getParameter
+        tmp.ParameterName = _paramName
+        tmp.DbType = DbType.Guid
+
+        If val Is Nothing Then
+            tmp.Value = DBNull.Value
+        Else
+            tmp.Value = val
+        End If
+
+        Return tmp
+    End Function
+
+
     Public Function getParameter(ByVal _paramName As String) As IDataParameter
         Dim tmp As IDataParameter = Me.getParameter
         tmp.ParameterName = _paramName
