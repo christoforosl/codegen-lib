@@ -49,23 +49,26 @@ Public Class frmMain
 
             Try
 
-                Me.tsLabel.Text = "Generating Files..."
-                Me.tsProgress.Maximum = 0 'set it to 0 to trigger it
-                prg = New ProgressIndicator
-                gen = New XMLClassGenerator(CStr(Me.cboXMLConfFile.Text))
-                cds = New DataSet
-                cds.ReadXmlSchema(common.CommonUtils.getResourceStream("org.codegen.lib.codeGen.classFenerator.xsd", GetType(XMLClassGenerator)))
+                Using xsdstream As IO.Stream = GetType(XMLClassGenerator).Assembly.GetManifestResourceStream("org.codegen.lib.codeGen.classFenerator.xsd")
 
-                cds.ReadXml(CStr(Me.cboXMLConfFile.Text))
-                gen.parseConfFile(cds)
+                    Me.tsLabel.Text = "Generating Files..."
+                    Me.tsProgress.Maximum = 0 'set it to 0 to trigger it
+                    prg = New ProgressIndicator
+                    gen = New XMLClassGenerator(CStr(Me.cboXMLConfFile.Text))
+                    cds = New DataSet
+                    cds.ReadXmlSchema(xsdstream)
+                    cds.ReadXml(CStr(Me.cboXMLConfFile.Text))
+                    gen.parseConfFile(cds)
 
-                If System.IO.Directory.Exists(ModelGenerator.Current.ProjectOutputDirModel) = False Then
-                    MsgBox(String.Format(MSG_DIR_NOT_EXISTS, ModelGenerator.Current.ProjectOutputDirModel))
-                    Exit Sub
-                End If
+                    If System.IO.Directory.Exists(ModelGenerator.Current.ProjectOutputDirModel) = False Then
+                        MsgBox(String.Format(MSG_DIR_NOT_EXISTS, ModelGenerator.Current.ProjectOutputDirModel))
+                        Exit Sub
+                    End If
 
-                gen.Progress = prg
-                gen.genClasses()
+                    gen.Progress = prg
+                    gen.genClasses()
+
+                End Using
 
                 MsgBox("Completed: " & vbCrLf & _
                         "Objects:" & ModelGenerator.Current.ObjectsToGenerate.Count & vbCrLf & _

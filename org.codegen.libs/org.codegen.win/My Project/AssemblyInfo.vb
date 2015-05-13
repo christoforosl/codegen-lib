@@ -9,9 +9,9 @@ Imports System.Runtime.InteropServices
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("Simple ORM Code Generator")> 
-<Assembly: AssemblyDescription("Simple ORM Code Generator")> 
-<Assembly: AssemblyCompany("")> 
-<Assembly: AssemblyProduct("org.codegen.lib.CodeGen.win")> 
+<Assembly: AssemblyDescription("Generates VB/C# classes for use with the Simple ORM libraries")> 
+<Assembly: AssemblyCompany("CodeGen.org")> 
+<Assembly: AssemblyProduct("Simple ORM Code Generator")> 
 <Assembly: AssemblyCopyright("")> 
 <Assembly: AssemblyTrademark("")> 
 
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("4.1.3")> 
-<Assembly: AssemblyFileVersion("1.0.0.0")> 
+<Assembly: AssemblyVersion("4.1.3.1")> 
+<Assembly: AssemblyFileVersion("4.1.3.1")> 

@@ -85,7 +85,7 @@
     <DocumentationFile>codeGenWin4.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>None</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
@@ -101,6 +101,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -175,6 +178,7 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -190,10 +194,6 @@
     <Content Include="mp3device.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\org.codegen.common\org.codegen.common.vbproj">
-      <Project>{C367EAE9-FDEA-468D-9A91-C5075F927D39}</Project>
-      <Name>org.codegen.common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\org.codegen.lib\org.codegen.lib.vbproj">
       <Project>{ec0bee2d-5ca9-478c-b5c7-0270fb49207f}</Project>
       <Name>org.codegen.lib</Name>

@@ -8,11 +8,11 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("Code Generator")> 
-<Assembly: AssemblyDescription("Generates classes from database objects")> 
-<Assembly: AssemblyCompany("CodeGen")> 
-<Assembly: AssemblyProduct("CodeGen Code Generator")> 
-<Assembly: AssemblyCopyright("CGL 2008")> 
+<Assembly: AssemblyTitle("Code Generator Classes")> 
+<Assembly: AssemblyDescription("Classes that assist generation of VB/C# ORM classes from database objects")> 
+<Assembly: AssemblyCompany("CodeGen.org")> 
+<Assembly: AssemblyProduct("CodeGen Code Generator Classes")> 
+<Assembly: AssemblyCopyright("CodeGen.org")> 
 <Assembly: AssemblyTrademark("")> 
 <Assembly: CLSCompliant(False)> 
 
@@ -29,6 +29,7 @@ Imports System.Runtime.InteropServices
 ' You can specify all the values or you can default the Build and Revision Numbers 
 ' by using the '*' as shown below:
 
-<Assembly: AssemblyVersion("4.0.*")> 
+<Assembly: AssemblyVersion("4.0.2.1")> 
 
 <Assembly: ComVisibleAttribute(False)> 
+<Assembly: AssemblyFileVersionAttribute("4.0.2.1")> 
