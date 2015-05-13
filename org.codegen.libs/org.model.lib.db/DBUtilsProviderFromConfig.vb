@@ -1,5 +1,5 @@
 Imports org.model.lib.db.DBUtils
-Imports org.codegen.common.Encryption
+Imports org.model.lib.db.Encryption
 
 
 ''' <summary>

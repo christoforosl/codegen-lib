@@ -78,7 +78,9 @@
     <Import Include="System.Diagnostics" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DBTranslator.vb" />
+    <Compile Include="..\org.codegen.common\SimpleEncrypt.vb">
+      <Link>SimpleEncrypt.vb</Link>
+    </Compile>
     <Compile Include="DBUpdater.vb" />
     <Compile Include="DBUtilsProvider.vb" />
     <Compile Include="DBUtilsProviderFromConfig.vb" />
@@ -142,12 +144,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\org.codegen.common\org.codegen.common.vbproj">
-      <Project>{C367EAE9-FDEA-468D-9A91-C5075F927D39}</Project>
-      <Name>org.codegen.common</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
