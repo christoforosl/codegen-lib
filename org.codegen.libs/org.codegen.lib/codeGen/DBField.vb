@@ -93,6 +93,12 @@ Public Class DBField
 
     End Function
 
+
+    Public ReadOnly Property isNullableProperty() As Boolean Implements IDBField.isNullableProperty
+        Get
+            Return Me.isNullableDataType AndAlso Me.UserSpecifiedDataType <> "System.Boolean"
+        End Get
+    End Property
     Public ReadOnly Property isNullableDataType() As Boolean Implements IDBField.isNullableDataType
         Get
             If Me.isPrimaryKey Then
@@ -117,6 +123,9 @@ Public Class DBField
 
         ElseIf Me.FieldDataType = "System.String" Then
             ret = Me.FieldDataType
+
+        ElseIf Not String.IsNullOrEmpty(Me.UserSpecifiedDataType) Then
+            ret = Me.UserSpecifiedDataType
 
         ElseIf Me.isNullableDataType Then
             If (ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP) Then
@@ -329,13 +338,12 @@ Public Class DBField
     Public Property UserSpecifiedDataType() As String Implements IDBField.UserSpecifiedDataType
         Get
             Return _userSpecifiedDataType
-
         End Get
 
         Set(ByVal value As String)
-            _userSpecifiedDataType = value
-
+            Me._userSpecifiedDataType = value
         End Set
+
     End Property
 
     ''' <summary>
@@ -351,7 +359,7 @@ Public Class DBField
             If _userSpecifiedDataType Is Nothing Then
                 Return Me.RuntimeTypeStr
             Else
-                Return _userSpecifiedDataType
+                Return Me._userSpecifiedDataType
             End If
         End Get
 

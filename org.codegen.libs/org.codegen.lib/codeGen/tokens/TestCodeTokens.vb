@@ -23,7 +23,7 @@ Namespace Tokens
                 ElseIf field.isAuditField AndAlso field.RuntimeFieldName.ToLower = "updateuser" Then
                     sb.Append(vbTab + vbTab & "// skip update user!")
                 Else
-                    If field.isNullableDataType Then
+                    If field.isNullableProperty Then
                         sb.Append(vbTab + vbTab & "Assert.IsTrue(p." & field.PropertyName & ".GetValueOrDefault() == p2." & field.PropertyName & ".GetValueOrDefault(),""Expected Field " & field.RuntimeFieldName & " to be equal"");")
                     Else
                         sb.Append(vbTab + vbTab & "Assert.IsTrue(p." & field.PropertyName & " == p2." & field.PropertyName & ",""Expected Field " & field.RuntimeFieldName & " to be equal"");")
@@ -53,7 +53,7 @@ Namespace Tokens
                 ElseIf field.isAuditField AndAlso field.RuntimeFieldName.ToLower = "updateuser" Then
                     sb.Append(vbTab + vbTab & "'skip update user!")
                 Else
-                    If field.isNullableDataType Then
+                    If field.isNullableProperty Then
                         sb.Append(vbTab + vbTab & "Assert.IsTrue(p." & field.RuntimeFieldName & ".GetValueOrDefault = p2." & field.RuntimeFieldName & ".GetValueOrDefault,""Expected Field " & field.RuntimeFieldName & " to be equal"")")
                     Else
                         sb.Append(vbTab + vbTab & "Assert.IsTrue(p." & field.RuntimeFieldName & " = p2." & field.RuntimeFieldName & ",""Expected Field " & field.RuntimeFieldName & " to be equal"")")

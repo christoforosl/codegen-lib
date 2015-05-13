@@ -96,7 +96,12 @@ Namespace Tokens
                 If (field.isPrimaryKey) Then
                     sb.Append(vbTab + vbTab + vbTab + vbTab & "throw new ApplicationException(""Can't set Primary Key to null"");" & vbCrLf)
                 Else
-                    sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & field.PropertyName & " = null;" & vbCrLf)
+                    If field.isBoolean Then
+                        sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & field.PropertyName & " = false;" & vbCrLf)
+                    Else
+                        sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & field.PropertyName & " = null;" & vbCrLf)
+                    End If
+
                 End If
 
                 sb.Append(vbTab + vbTab + vbTab & "} else {" & vbCrLf)
@@ -136,7 +141,11 @@ Namespace Tokens
                 sb.Append(vbCrLf)
 
                 sb.Append(vbTab + vbTab + vbTab & "If Val Is DBNull.Value OrElse Val Is Nothing Then" & vbCrLf)
-				sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & " = Nothing" & vbCrLf)
+                If field.isBoolean Then
+                    sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & " = False" & vbCrLf)
+                Else
+                    sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & " = Nothing" & vbCrLf)
+                End If
                 sb.Append(vbTab + vbTab + vbTab & "Else" & vbCrLf)
 
 				sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & "=")
@@ -180,10 +189,15 @@ Namespace Tokens
                 If (field.isPrimaryKey) Then
                     sb.Append(vbTab + vbTab + vbTab + vbTab & "throw new ApplicationException(""Can't set Primary Key to null"");" & vbCrLf)
                 Else
-                    sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & field.PropertyName & " = null;" & vbCrLf)
+                    If field.isBoolean Then
+                        sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & field.PropertyName & " = false;" & vbCrLf)
+                    Else
+                        sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & field.PropertyName & " = null;" & vbCrLf)
+                    End If
+
                 End If
 
-                sb.Append(vbTab + vbTab + vbTab & "}else{" & vbCrLf)
+                sb.Append(vbTab + vbTab + vbTab & "} else {" & vbCrLf)
 
                 sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & field.PropertyName & "=")
                 sb.Append("(" & field.FieldDataType).Append(")val;").Append(vbCrLf)
@@ -214,7 +228,12 @@ Namespace Tokens
                 sb.Append(vbCrLf)
 
                 sb.Append(vbTab + vbTab + vbTab & "If Val Is DBNull.Value OrElse Val Is Nothing Then" & vbCrLf)
-                sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & " = Nothing" & vbCrLf)
+                If field.isBoolean Then
+                    sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & " = False" & vbCrLf)
+                Else
+                    sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & " = Nothing" & vbCrLf)
+                End If
+
                 sb.Append(vbTab + vbTab + vbTab & "Else" & vbCrLf)
 
                 sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & "=")

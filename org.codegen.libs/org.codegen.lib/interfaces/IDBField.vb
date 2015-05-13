@@ -26,6 +26,10 @@ Public Interface IDBField
     Function getClassVariableDeclaration(Optional ByVal accessLevel As String = "private", Optional ByVal withInitialiser As Boolean = True) As String
     Function getFieldDataType() As String
     ReadOnly Property isNullableDataType() As Boolean
+
+    
+    ReadOnly Property isNullableProperty() As Boolean
+
     Function getPropertyDataType() As String
     Function getProperty() As String
     Function getSQLParameter() As String

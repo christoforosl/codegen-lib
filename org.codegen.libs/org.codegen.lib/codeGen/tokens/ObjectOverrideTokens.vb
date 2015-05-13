@@ -211,10 +211,10 @@ Namespace Tokens
 
                 End If
 
-                If field.isNullableDataType Then
-					sb.Append("this." & field.PropertyName & ".GetValueOrDefault() == other." & field.PropertyName & ".GetValueOrDefault()")
+                If field.isNullableProperty Then
+                    sb.Append("this." & field.PropertyName & ".GetValueOrDefault() == other." & field.PropertyName & ".GetValueOrDefault()")
                 Else
-					sb.Append("this." & field.PropertyName & " == other." & field.PropertyName)
+                    sb.Append("this." & field.PropertyName & " == other." & field.PropertyName)
                 End If
                 i = i + 1
             Next
@@ -239,7 +239,7 @@ Namespace Tokens
                 If field.FieldName.ToLower = "id" Then
                     'case when the table has a field named "id"
                     sb.Append("me.Id Is other.Id")
-                ElseIf field.isNullableDataType Then
+                ElseIf field.isNullableProperty Then
                     sb.Append("me." & field.PropertyName & ".GetValueOrDefault = other." & field.PropertyName & ".GetValueOrDefault")
                 Else
                     sb.Append("me." & field.PropertyName & "= other." & field.PropertyName)
