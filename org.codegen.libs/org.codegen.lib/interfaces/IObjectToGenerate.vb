@@ -9,6 +9,7 @@ Public Interface IObjectToGenerate
     Property GenerateUI As Boolean
     Property XMLDefinition As DataRow
     Property ConstructorCode() As String
+    Property ModelBaseClass() As String
 
     Property DbTable() As IDBTable
 

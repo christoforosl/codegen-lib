@@ -318,7 +318,8 @@ Public Class XMLClassGenerator
             ogen.setTableName(table, pkField)
             ogen.GenerateUI = getBooleanRowValue(thisRow, XML_TABLE_ATTR_GENERATE_UI, False)
             ogen.GenerateMapper = True
-            
+            ogen.ModelBaseClass = getRowValue(thisRow, "ModelBaseClass", "ModelObject")
+
             If xmlReadonly.Equals("1") Then
                 ogen.DbTable().isReadOnly = True
             End If

@@ -220,6 +220,8 @@
                 </xs:annotation>
               </xs:element>
 
+              <xs:element name="ModelBaseClass" type="xs:string" default="ModelObject"/>
+              
               <xs:element name="ModelImplementedInterfaces"  minOccurs="0" type="xs:string">
                 <xs:annotation>
                   <xs:documentation>

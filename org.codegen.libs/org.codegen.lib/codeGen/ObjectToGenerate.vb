@@ -76,4 +76,6 @@ Public Class ObjectToGenerate
 
     End Sub
 
+    Public Property ModelBaseClass As String Implements IObjectToGenerate.ModelBaseClass
+
 End Class

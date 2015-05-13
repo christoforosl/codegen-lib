@@ -22,7 +22,7 @@ Namespace <NAMESPACE>
 	<DefaultMapperAttr(GetType(<MODEL_CLASS_NAME>DBMapper)), _
 	 ComVisible(False),Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)> _
 	<CLASS_ACCESS_LEVEL> class <MODEL_CLASS_NAME>Base
-		Inherits ModelObject
+		Inherits <MODEL_BASE_CLASS>
 		Implements IEquatable(Of <MODEL_CLASS_NAME>Base),
 		<implements> 
 
