@@ -22,23 +22,25 @@ Namespace Tokens
                     If field.RuntimeType Is Type.GetType("System.String") Then
 						sb.Append("! string.IsNullOrEmpty(o." & field.PropertyName & ")")
                     Else
-						sb.Append(" o." & field.PropertyName & " != null")
-                    End If
-                    sb.Append(" && ").Append(vbCrLf).Append(vbTab).Append(vbTab)
+                        If (field.isNullableProperty) Then
+                            sb.Append(" o." & field.PropertyName & " != null")
+                        
+                        End If
+                        sb.Append(" && ").Append(vbCrLf).Append(vbTab).Append(vbTab)
 
-                    If field.RuntimeType Is Type.GetType("System.String") Then
-						sb.Append(" string.IsNullOrEmpty(this." & field.PropertyName & ")")
-                    Else
-						sb.Append(" this." & field.PropertyName & " == null")
-                    End If
-                    sb.Append("){").Append(vbCrLf)
+                        If field.RuntimeType Is Type.GetType("System.String") Then
+                            sb.Append(" string.IsNullOrEmpty(this." & field.PropertyName & ")")
+                        Else
+                            sb.Append(" this." & field.PropertyName & " == null")
+                        End If
+                        sb.Append("){").Append(vbCrLf)
 
-					sb.Append(vbTab + vbTab & "this." & field.PropertyName & " = o." & _
-						 field.PropertyName)
-                    sb.Append(";")
-                    sb.Append(vbCrLf)
-                    sb.Append("}")
-                    sb.Append(vbCrLf)
+                        sb.Append(vbTab + vbTab & "this." & field.PropertyName & " = o." & _
+                             field.PropertyName)
+                        sb.Append(";")
+                        sb.Append(vbCrLf)
+                        sb.Append("}")
+                        sb.Append(vbCrLf)
 
                 End If
             Next
