@@ -45,7 +45,8 @@
     <DefineTrace>true</DefineTrace>
     <OutputPath>..\..\..\..\..\..\vsProjects\codeGenLibs\</OutputPath>
     <DocumentationFile>codeGenWin4.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
+    <WarningsAsErrors>42024,42099</WarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -55,7 +56,8 @@
     <Optimize>true</Optimize>
     <OutputPath>..\..\..\..\..\..\vsProjects\codeGenLibs\</OutputPath>
     <DocumentationFile>codeGenWin4.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
+    <WarningsAsErrors>42024,42099</WarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -75,20 +77,22 @@
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\debug\</OutputPath>
     <DocumentationFile>codeGenWin4.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <WarningsAsErrors>42024,42099</WarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <DefineTrace>true</DefineTrace>
-    <OutputPath>bin\release\</OutputPath>
+    <OutputPath>..\release\</OutputPath>
     <DocumentationFile>codeGenWin4.xml</DocumentationFile>
     <Optimize>true</Optimize>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
     <DebugType>None</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <WarningsAsErrors>42024,42099</WarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>15C57E23A742B09A3C2FFCE47C33952E5B1F010D</ManifestCertificateThumbprint>

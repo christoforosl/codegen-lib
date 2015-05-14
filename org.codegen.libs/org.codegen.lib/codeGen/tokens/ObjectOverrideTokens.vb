@@ -9,22 +9,24 @@ Namespace Tokens
         Sub New()
             Me.StringToReplace = "MERGE_FIELDS"
         End Sub
-        Public Overrides Function getReplacementCodeCSharp(t as IObjectToGenerate) As String
+        Public Overrides Function getReplacementCodeCSharp(t As IObjectToGenerate) As String
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
             Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
 
             For Each field As DBField In vec.Values
                 If field.isPrimaryKey Then
+
+
                 Else
 
 
                     sb.Append("if (")
                     If field.RuntimeType Is Type.GetType("System.String") Then
-						sb.Append("! string.IsNullOrEmpty(o." & field.PropertyName & ")")
+                        sb.Append("! string.IsNullOrEmpty(o." & field.PropertyName & ")")
                     Else
                         If (field.isNullableProperty) Then
                             sb.Append(" o." & field.PropertyName & " != null")
-                        
+
                         End If
                         sb.Append(" && ").Append(vbCrLf).Append(vbTab).Append(vbTab)
 
@@ -42,7 +44,9 @@ Namespace Tokens
                         sb.Append("}")
                         sb.Append(vbCrLf)
 
+                    End If
                 End If
+
             Next
 
             Return sb.ToString()
@@ -60,22 +64,22 @@ Namespace Tokens
 
                     sb.Append("If ")
                     If field.RuntimeType Is Type.GetType("System.String") Then
-						sb.Append("not String.isNullOrEmpty(o." & field.PropertyName & ")")
+                        sb.Append("not String.isNullOrEmpty(o." & field.PropertyName & ")")
                     Else
-						sb.Append("not o." & field.PropertyName & " is Nothing")
+                        sb.Append("not o." & field.PropertyName & " is Nothing")
                     End If
                     sb.Append(" AndAlso _").Append(vbCrLf).Append(vbTab).Append(vbTab)
 
                     If field.RuntimeType Is Type.GetType("System.String") Then
-						sb.Append(" String.isNullOrEmpty(me." & field.PropertyName & ")")
+                        sb.Append(" String.isNullOrEmpty(me." & field.PropertyName & ")")
                     Else
-						sb.Append(" me." & field.PropertyName & " is Nothing")
+                        sb.Append(" me." & field.PropertyName & " is Nothing")
                     End If
                     sb.Append(" Then ").Append(vbCrLf)
 
-					sb.Append(vbTab + vbTab & "me." & field.PropertyName & " = o." & _
-						 field.PropertyName & _
-					   vbCrLf)
+                    sb.Append(vbTab + vbTab & "me." & field.PropertyName & " = o." & _
+                         field.PropertyName & _
+                       vbCrLf)
 
                     sb.Append("End If")
                     sb.Append(vbCrLf)
@@ -93,7 +97,7 @@ Namespace Tokens
         Sub New()
             Me.StringToReplace = "COPY_FIELDS"
         End Sub
-        Public Overrides Function getReplacementCodeCSharp(t as IObjectToGenerate) As String
+        Public Overrides Function getReplacementCodeCSharp(t As IObjectToGenerate) As String
 
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
             Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
@@ -102,8 +106,8 @@ Namespace Tokens
             For Each field As DBField In vec.Values
 
                 'If field.isPrimaryKey = False Then
-				sb.Append(vbTab + vbTab).Append("ret.").Append(field.PropertyName)
-				sb.Append(" = this.").Append(field.PropertyName).Append(";").Append(vbCrLf)
+                sb.Append(vbTab + vbTab).Append("ret.").Append(field.PropertyName)
+                sb.Append(" = this.").Append(field.PropertyName).Append(";").Append(vbCrLf)
                 'End If
 
                 i = i + 1
@@ -120,9 +124,9 @@ Namespace Tokens
             For Each field As DBField In vec.Values
 
                 'If field.isPrimaryKey = False Then
-				sb.Append(vbTab + vbTab & "ret." & field.PropertyName & " = me." & _
-					 field.PropertyName & _
-				   vbCrLf)
+                sb.Append(vbTab + vbTab & "ret." & field.PropertyName & " = me." & _
+                     field.PropertyName & _
+                   vbCrLf)
                 'End If
 
                 i = i + 1
@@ -140,7 +144,7 @@ Namespace Tokens
             Me.StringToReplace = "X_OR_FIELS"
         End Sub
 
-        Public Overrides Function getReplacementCodeCSharp(t as IObjectToGenerate) As String
+        Public Overrides Function getReplacementCodeCSharp(t As IObjectToGenerate) As String
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
             Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
             Dim i As Integer = 0
@@ -154,9 +158,9 @@ Namespace Tokens
 
                 End If
                 If field.RuntimeType Is Type.GetType("System.String") Then
-					sb.Append("this.getStringHashCode(this." & field.PropertyName & ")")
+                    sb.Append("this.getStringHashCode(this." & field.PropertyName & ")")
                 Else
-					sb.Append("this." & field.PropertyName & ".GetHashCode()")
+                    sb.Append("this." & field.PropertyName & ".GetHashCode()")
                 End If
 
                 i = i + 1
@@ -181,9 +185,9 @@ Namespace Tokens
 
                 End If
                 If field.RuntimeType Is Type.GetType("System.String") Then
-					sb.Append("me.getStringHashCode(Me." & field.PropertyName & ")")
+                    sb.Append("me.getStringHashCode(Me." & field.PropertyName & ")")
                 Else
-					sb.Append("me." & field.PropertyName & ".GetHashCode")
+                    sb.Append("me." & field.PropertyName & ".GetHashCode")
                 End If
 
                 i = i + 1
@@ -199,7 +203,7 @@ Namespace Tokens
         Sub New()
             Me.StringToReplace = "EQUALS_FIELDS"
         End Sub
-        Public Overrides Function getReplacementCodeCSharp(t as IObjectToGenerate) As String
+        Public Overrides Function getReplacementCodeCSharp(t As IObjectToGenerate) As String
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
             Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
             Dim i As Integer = 0

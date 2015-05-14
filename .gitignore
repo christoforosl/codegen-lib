@@ -7,3 +7,4 @@
 **/*.user
 **/FluentSharp.CoreLib.5.5.172
 **/FluentSharp.Roslyn.5.3.121
+**/release/*
