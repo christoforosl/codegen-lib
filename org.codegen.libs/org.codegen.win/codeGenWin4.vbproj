@@ -198,12 +198,6 @@
     <Content Include="mp3device.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\org.codegen.lib\org.codegen.lib.vbproj">
-      <Project>{ec0bee2d-5ca9-478c-b5c7-0270fb49207f}</Project>
-      <Name>org.codegen.lib</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
@@ -224,6 +218,12 @@
       <ProductName>Windows Installer 4.5</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\org.codegen.lib\org.codegen.lib.vbproj">
+      <Project>{ec0bee2d-5ca9-478c-b5c7-0270fb49207f}</Project>
+      <Name>org.codegen.lib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

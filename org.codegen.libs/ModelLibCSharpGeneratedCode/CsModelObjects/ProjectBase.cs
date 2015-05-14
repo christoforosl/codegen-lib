@@ -31,7 +31,7 @@ namespace CsModelObjects
 	public interface IProject: IModelObject {
 	System.Int64 PrProjectId {get;set;} 
 	System.String PrProjectName {get;set;} 
-	System.Boolean? PrIsActive {get;set;} 
+	System.Boolean PrIsActive {get;set;} 
 	IEnumerable< CsModelObjects.EmployeeProject>PrEmployeeProjects {get; set;}
 		void PrEmployeeProjectAdd(CsModelObjects.EmployeeProject val);
 		void PrEmployeeProjectRemove(CsModelObjects.EmployeeProject val);
@@ -178,7 +178,7 @@ public void setProjectName( String val ) {
 		this.PrProjectName = null;
 	}
 }
-	public virtual System.Boolean? PrIsActive  {
+	public virtual System.Boolean PrIsActive  {
 	get {
 		if ( _IsActive.HasValue ) {
 			return _IsActive.GetValueOrDefault()==1;
@@ -192,14 +192,14 @@ public void setProjectName( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ISACTIVE);
 			}
-			this._IsActive = value.HasValue && value.Value? 1: 0;
+			this._IsActive = value? 1: 0;
 
 		}
 	}  
 	}
 public void setIsActive(String val ){
 	if (String.IsNullOrEmpty(val)) {
-		this.PrIsActive = null;
+		this.PrIsActive = false;
 	} else {
 	    bool newval = ("1"==val || "true"==val.ToLower()) ;
 	    this.PrIsActive = newval;
@@ -347,21 +347,21 @@ public void setIsActive(String val ){
 		case FLD_PROJECTID:
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
-			}else{
+			} else {
 				this.PrProjectId=(System.Int64)val;
 			} //
 			return;
 		case FLD_PROJECTNAME:
 			if (val == DBNull.Value || val == null ){
 				this.PrProjectName = null;
-			}else{
+			} else {
 				this.PrProjectName=(System.String)val;
 			} //
 			return;
 		case FLD_ISACTIVE:
 			if (val == DBNull.Value || val == null ){
-				this.PrIsActive = null;
-			}else{
+				this.PrIsActive = false;
+			} else {
 				this.PrIsActive=(System.Boolean)val;
 			} //
 			return;
@@ -389,7 +389,7 @@ public void setIsActive(String val ){
 			return;
 		} else if ( fieldKey==STR_FLD_ISACTIVE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.PrIsActive = null;
+				this.PrIsActive = false;
 			} else {
 				this.PrIsActive=(System.Boolean)val;
 			}
@@ -410,7 +410,7 @@ public void setIsActive(String val ){
 
 			return this.PrProjectId == other.PrProjectId
 				&& this.PrProjectName == other.PrProjectName
-				&& this.PrIsActive.GetValueOrDefault() == other.PrIsActive.GetValueOrDefault();;
+				&& this.PrIsActive == other.PrIsActive;;
 
 		}
 
@@ -466,26 +466,6 @@ public void setIsActive(String val ){
 			return ret;
 
 		}
-
-		public override void merge(IModelObject other)
-		{
-			//merges this Project model object (me) with the "other" instance 
-
-			Project o = (Project)other;
-
-if (! string.IsNullOrEmpty(o.PrProjectName) && 
-		 string.IsNullOrEmpty(this.PrProjectName)){
-		this.PrProjectName = o.PrProjectName;
-}
-if ( o.PrIsActive != null && 
-		 this.PrIsActive == null){
-		this.PrIsActive = o.PrIsActive;
-}
-
-
-		}
-
-		
 
 		#endregion
 

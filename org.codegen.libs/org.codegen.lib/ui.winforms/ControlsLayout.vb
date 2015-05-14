@@ -77,7 +77,7 @@ Namespace org.codegen.lib.Tokens
                 sb.Append(vbTab & "Me.").Append(fldName).Append(".visible = ").Append(CStr(Not field.isPrimaryKey)).Append(vbCrLf)
 
 
-                If field.Nullable = False AndAlso field.isBoolean = False Then
+                If field.isDBFieldNullable = False AndAlso field.isBoolean = False Then
 
                     'sb.Append(vbTab & "Me.").Append(fldName).Append(".BackColor = System.Drawing.Color.LightYellow").Append(vbCrLf)
                     sb.Append(vbTab & "Me.").Append(fldName).Append(".isMandatory = True").Append(vbCrLf)

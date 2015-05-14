@@ -153,7 +153,7 @@ Public Class DBTable
             dbField.Scale = CInt(dr.Item("NumericScale"))
             dbField.Precision = CInt(dr.Item("NumericPrecision"))
             dbField.Size = CInt(dr.Item("ColumnSize"))
-            dbField.Nullable = CBool(NullChecker.intNull(dr.Item("AllowDBNull")))
+            dbField.isDBFieldNullable = CBool(NullChecker.intNull(dr.Item("AllowDBNull")))
             'dbField.SQLType = CInt(dr.Item("ProviderType"))
             dbField.isPrimaryKey = dbField.FieldName.ToUpper = Me.getPrimaryKeyName.ToUpper
             'note: this does not work: CBool(NullChecker.intNull(dr.Item("IsKey"))) '

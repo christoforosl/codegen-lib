@@ -873,119 +873,119 @@ public void setUpdateUser( String val ) {
 		case FLD_EMPLOYEEID:
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
-			}else{
+			} else {
 				this.PrEmployeeId=(System.Int64)val;
 			} //
 			return;
 		case FLD_EMPLOYEENAME:
 			if (val == DBNull.Value || val == null ){
 				this.PrEmployeeName = null;
-			}else{
+			} else {
 				this.PrEmployeeName=(System.String)val;
 			} //
 			return;
 		case FLD_EMPLOYEERANKID:
 			if (val == DBNull.Value || val == null ){
 				this.PrEmployeeRankId = null;
-			}else{
+			} else {
 				this.PrEmployeeRankId=(System.Int64)val;
 			} //
 			return;
 		case FLD_SALARY:
 			if (val == DBNull.Value || val == null ){
 				this.PrSalary = null;
-			}else{
+			} else {
 				this.PrSalary=(System.Decimal)val;
 			} //
 			return;
 		case FLD_ADDRESS:
 			if (val == DBNull.Value || val == null ){
 				this.PrAddress = null;
-			}else{
+			} else {
 				this.PrAddress=(System.String)val;
 			} //
 			return;
 		case FLD_TELEPHONE:
 			if (val == DBNull.Value || val == null ){
 				this.PrTelephone = null;
-			}else{
+			} else {
 				this.PrTelephone=(System.String)val;
 			} //
 			return;
 		case FLD_MOBILE:
 			if (val == DBNull.Value || val == null ){
 				this.PrMobile = null;
-			}else{
+			} else {
 				this.PrMobile=(System.String)val;
 			} //
 			return;
 		case FLD_IDNUMBER:
 			if (val == DBNull.Value || val == null ){
 				this.PrIdNumber = null;
-			}else{
+			} else {
 				this.PrIdNumber=(System.String)val;
 			} //
 			return;
 		case FLD_SSINUMBER:
 			if (val == DBNull.Value || val == null ){
 				this.PrSSINumber = null;
-			}else{
+			} else {
 				this.PrSSINumber=(System.String)val;
 			} //
 			return;
 		case FLD_HIREDATE:
 			if (val == DBNull.Value || val == null ){
 				this.PrHireDate = null;
-			}else{
+			} else {
 				this.PrHireDate=(System.DateTime)val;
 			} //
 			return;
 		case FLD_NUMDEPENDENTS:
 			if (val == DBNull.Value || val == null ){
 				this.PrNumDependents = null;
-			}else{
+			} else {
 				this.PrNumDependents=(System.Int64)val;
 			} //
 			return;
 		case FLD_EMPLOYEETYPECODE:
 			if (val == DBNull.Value || val == null ){
 				this.PrEmployeeTypeCode = null;
-			}else{
+			} else {
 				this.PrEmployeeTypeCode=(System.String)val;
 			} //
 			return;
 		case FLD_CREATEDATE:
 			if (val == DBNull.Value || val == null ){
 				this.CreateDate = null;
-			}else{
+			} else {
 				this.CreateDate=(System.DateTime)val;
 			} //
 			return;
 		case FLD_UPDATEDATE:
 			if (val == DBNull.Value || val == null ){
 				this.UpdateDate = null;
-			}else{
+			} else {
 				this.UpdateDate=(System.DateTime)val;
 			} //
 			return;
 		case FLD_CREATEUSER:
 			if (val == DBNull.Value || val == null ){
 				this.CreateUser = null;
-			}else{
+			} else {
 				this.CreateUser=(System.String)val;
 			} //
 			return;
 		case FLD_UPDATEUSER:
 			if (val == DBNull.Value || val == null ){
 				this.UpdateUser = null;
-			}else{
+			} else {
 				this.UpdateUser=(System.String)val;
 			} //
 			return;
 		case FLD_SAMPLEGUIDFIELD:
 			if (val == DBNull.Value || val == null ){
 				this.PrSampleGuidField = null;
-			}else{
+			} else {
 				this.PrSampleGuidField=(System.Guid)val;
 			} //
 			return;
@@ -1231,84 +1231,9 @@ public void setUpdateUser( String val ) {
 
 		}
 
-		public override void merge(IModelObject other)
-		{
-			//merges this Employee model object (me) with the "other" instance 
-
-			Employee o = (Employee)other;
-
-if (! string.IsNullOrEmpty(o.PrEmployeeName) && 
-		 string.IsNullOrEmpty(this.PrEmployeeName)){
-		this.PrEmployeeName = o.PrEmployeeName;
-}
-if ( o.PrEmployeeRankId != null && 
-		 this.PrEmployeeRankId == null){
-		this.PrEmployeeRankId = o.PrEmployeeRankId;
-}
-if ( o.PrSalary != null && 
-		 this.PrSalary == null){
-		this.PrSalary = o.PrSalary;
-}
-if (! string.IsNullOrEmpty(o.PrAddress) && 
-		 string.IsNullOrEmpty(this.PrAddress)){
-		this.PrAddress = o.PrAddress;
-}
-if (! string.IsNullOrEmpty(o.PrTelephone) && 
-		 string.IsNullOrEmpty(this.PrTelephone)){
-		this.PrTelephone = o.PrTelephone;
-}
-if (! string.IsNullOrEmpty(o.PrMobile) && 
-		 string.IsNullOrEmpty(this.PrMobile)){
-		this.PrMobile = o.PrMobile;
-}
-if (! string.IsNullOrEmpty(o.PrIdNumber) && 
-		 string.IsNullOrEmpty(this.PrIdNumber)){
-		this.PrIdNumber = o.PrIdNumber;
-}
-if (! string.IsNullOrEmpty(o.PrSSINumber) && 
-		 string.IsNullOrEmpty(this.PrSSINumber)){
-		this.PrSSINumber = o.PrSSINumber;
-}
-if ( o.PrHireDate != null && 
-		 this.PrHireDate == null){
-		this.PrHireDate = o.PrHireDate;
-}
-if ( o.PrNumDependents != null && 
-		 this.PrNumDependents == null){
-		this.PrNumDependents = o.PrNumDependents;
-}
-if (! string.IsNullOrEmpty(o.PrEmployeeTypeCode) && 
-		 string.IsNullOrEmpty(this.PrEmployeeTypeCode)){
-		this.PrEmployeeTypeCode = o.PrEmployeeTypeCode;
-}
-if ( o.CreateDate != null && 
-		 this.CreateDate == null){
-		this.CreateDate = o.CreateDate;
-}
-if ( o.UpdateDate != null && 
-		 this.UpdateDate == null){
-		this.UpdateDate = o.UpdateDate;
-}
-if (! string.IsNullOrEmpty(o.CreateUser) && 
-		 string.IsNullOrEmpty(this.CreateUser)){
-		this.CreateUser = o.CreateUser;
-}
-if (! string.IsNullOrEmpty(o.UpdateUser) && 
-		 string.IsNullOrEmpty(this.UpdateUser)){
-		this.UpdateUser = o.UpdateUser;
-}
-if ( o.PrSampleGuidField != null && 
-		 this.PrSampleGuidField == null){
-		this.PrSampleGuidField = o.PrSampleGuidField;
-}
-
-
-		}
-
-		public int CompareTo(Employee other ) {
+	public int CompareTo(Employee other ) {
 		return  this.PrEmployeeName.CompareTo(other.PrEmployeeName);
 	}
-
 
 		#endregion
 

@@ -503,32 +503,6 @@ public void setTrainingCourseCode( String val ) {
 
 		}
 
-		public override void merge(IModelObject other)
-		{
-			//merges this EmployeeTrainingHistory model object (me) with the "other" instance 
-
-			EmployeeTrainingHistory o = (EmployeeTrainingHistory)other;
-
-if ( o.PrEmployeeId != null && 
-		 this.PrEmployeeId == null){
-		this.PrEmployeeId = o.PrEmployeeId;
-}
-if ( o.PrDateFrom != null && 
-		 this.PrDateFrom == null){
-		this.PrDateFrom = o.PrDateFrom;
-}
-if ( o.PrDateTo != null && 
-		 this.PrDateTo == null){
-		this.PrDateTo = o.PrDateTo;
-}
-if (! string.IsNullOrEmpty(o.PrTrainingCourseCode) && 
-		 string.IsNullOrEmpty(this.PrTrainingCourseCode)){
-		this.PrTrainingCourseCode = o.PrTrainingCourseCode;
-}
-
-
-		}
-
 		
 
 		#endregion

@@ -189,14 +189,14 @@ public void setRank( String val ) {
 		case FLD_RANKID:
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
-			}else{
+			} else {
 				this.PrRankId=(System.Int64)val;
 			} //
 			return;
 		case FLD_RANK:
 			if (val == DBNull.Value || val == null ){
 				this.PrRank = null;
-			}else{
+			} else {
 				this.PrRank=(System.String)val;
 			} //
 			return;
@@ -291,22 +291,6 @@ public void setRank( String val ) {
 			return ret;
 
 		}
-
-		public override void merge(IModelObject other)
-		{
-			//merges this EmployeeRank model object (me) with the "other" instance 
-
-			EmployeeRank o = (EmployeeRank)other;
-
-if (! string.IsNullOrEmpty(o.PrRank) && 
-		 string.IsNullOrEmpty(this.PrRank)){
-		this.PrRank = o.PrRank;
-}
-
-
-		}
-
-		
 
 		#endregion
 

@@ -176,19 +176,7 @@ namespace <NAMESPACE>
 			return ret;
 
 		}
-
-		public override void merge(IModelObject other)
-		{
-			//merges this <MODEL_CLASS_NAME> model object (me) with the "other" instance 
-
-			<MODEL_CLASS_NAME> o = (<MODEL_CLASS_NAME>)other;
-
-<MERGE_FIELDS>
-
-		}
-
-		<DEFAULT_SORTER>
-
+<DEFAULT_SORTER>
 		#endregion
 
 <UPDATE_CHILDREN_LINK_FIELD>

@@ -383,42 +383,42 @@ public void setRate(String val ){
 		case FLD_EMPLOYEEPROJECTID:
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
-			}else{
+			} else {
 				this.PrEmployeeProjectId=(System.Int64)val;
 			} //
 			return;
 		case FLD_EPEMPLOYEEID:
 			if (val == DBNull.Value || val == null ){
 				this.PrEPEmployeeId = null;
-			}else{
+			} else {
 				this.PrEPEmployeeId=(System.Int64)val;
 			} //
 			return;
 		case FLD_EPPROJECTID:
 			if (val == DBNull.Value || val == null ){
 				this.PrEPProjectId = null;
-			}else{
+			} else {
 				this.PrEPProjectId=(System.Int64)val;
 			} //
 			return;
 		case FLD_ASSIGNDATE:
 			if (val == DBNull.Value || val == null ){
 				this.PrAssignDate = null;
-			}else{
+			} else {
 				this.PrAssignDate=(System.DateTime)val;
 			} //
 			return;
 		case FLD_ENDDATE:
 			if (val == DBNull.Value || val == null ){
 				this.PrEndDate = null;
-			}else{
+			} else {
 				this.PrEndDate=(System.DateTime)val;
 			} //
 			return;
 		case FLD_RATE:
 			if (val == DBNull.Value || val == null ){
 				this.PrRate = null;
-			}else{
+			} else {
 				this.PrRate=(System.Decimal)val;
 			} //
 			return;
@@ -553,38 +553,6 @@ public void setRate(String val ){
 			return ret;
 
 		}
-
-		public override void merge(IModelObject other)
-		{
-			//merges this EmployeeProject model object (me) with the "other" instance 
-
-			EmployeeProject o = (EmployeeProject)other;
-
-if ( o.PrEPEmployeeId != null && 
-		 this.PrEPEmployeeId == null){
-		this.PrEPEmployeeId = o.PrEPEmployeeId;
-}
-if ( o.PrEPProjectId != null && 
-		 this.PrEPProjectId == null){
-		this.PrEPProjectId = o.PrEPProjectId;
-}
-if ( o.PrAssignDate != null && 
-		 this.PrAssignDate == null){
-		this.PrAssignDate = o.PrAssignDate;
-}
-if ( o.PrEndDate != null && 
-		 this.PrEndDate == null){
-		this.PrEndDate = o.PrEndDate;
-}
-if ( o.PrRate != null && 
-		 this.PrRate == null){
-		this.PrRate = o.PrRate;
-}
-
-
-		}
-
-		
 
 		#endregion
 

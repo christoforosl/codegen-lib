@@ -337,23 +337,6 @@ public void setDescrEn( String val ) {
 
 		}
 
-		public override void merge(IModelObject other)
-		{
-			//merges this TrainingCourse model object (me) with the "other" instance 
-
-			TrainingCourse o = (TrainingCourse)other;
-
-if (! string.IsNullOrEmpty(o.PrDescrGr) && 
-		 string.IsNullOrEmpty(this.PrDescrGr)){
-		this.PrDescrGr = o.PrDescrGr;
-}
-if (! string.IsNullOrEmpty(o.PrDescrEn) && 
-		 string.IsNullOrEmpty(this.PrDescrEn)){
-		this.PrDescrEn = o.PrDescrEn;
-}
-
-
-		}
 
 		
 

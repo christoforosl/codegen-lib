@@ -484,36 +484,7 @@ public void setLongFld2(String val){
 
 		}
 
-		public override void merge(IModelObject other)
-		{
-			//merges this Country model object (me) with the "other" instance 
-
-			Country o = (Country)other;
-
-if (! string.IsNullOrEmpty(o.PrCountryName) && 
-		 string.IsNullOrEmpty(this.PrCountryName)){
-		this.PrCountryName = o.PrCountryName;
-}
-if ( o.PrRegionId != null && 
-		 this.PrRegionId == null){
-		this.PrRegionId = o.PrRegionId;
-}
-if (! string.IsNullOrEmpty(o.PrSkipField) && 
-		 string.IsNullOrEmpty(this.PrSkipField)){
-		this.PrSkipField = o.PrSkipField;
-}
-if ( o.PrLongFld != null && 
-		 this.PrLongFld == null){
-		this.PrLongFld = o.PrLongFld;
-}
-if ( o.PrLongFld2 != null && 
-		 this.PrLongFld2 == null){
-		this.PrLongFld2 = o.PrLongFld2;
-}
-
-
-		}
-
+	
 		
 
 		#endregion

@@ -187,14 +187,14 @@ public void setEmployeeType( String val ) {
 		case FLD_EMPLOYEETYPECODE:
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
-			}else{
+			} else {
 				this.PrEmployeeTypeCode=(System.String)val;
 			} //
 			return;
 		case FLD_EMPLOYEETYPE:
 			if (val == DBNull.Value || val == null ){
 				this.PrEmployeeType = null;
-			}else{
+			} else {
 				this.PrEmployeeType=(System.String)val;
 			} //
 			return;
@@ -289,22 +289,6 @@ public void setEmployeeType( String val ) {
 			return ret;
 
 		}
-
-		public override void merge(IModelObject other)
-		{
-			//merges this EmployeeType model object (me) with the "other" instance 
-
-			EmployeeType o = (EmployeeType)other;
-
-if (! string.IsNullOrEmpty(o.PrEmployeeType) && 
-		 string.IsNullOrEmpty(this.PrEmployeeType)){
-		this.PrEmployeeType = o.PrEmployeeType;
-}
-
-
-		}
-
-		
 
 		#endregion
 

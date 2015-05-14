@@ -159,17 +159,7 @@ Namespace <NAMESPACE>
 		return ret
 		
 	End Function
-	
-	Public Overrides Sub merge(other as IModelObject)
-		'merges this <MODEL_CLASS_NAME> model object (me) with the "other" instance 
-		
-		Dim o as <MODEL_CLASS_NAME> = CType(other, <MODEL_CLASS_NAME>)
-		<MERGE_FIELDS>
-		
-	End Sub
-
-	<DEFAULT_SORTER>
-	
+<DEFAULT_SORTER>	
 #End Region
 
 <UPDATE_CHILDREN_LINK_FIELD>

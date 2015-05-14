@@ -580,44 +580,6 @@ public void setUpdateUser( String val ) {
 
 		}
 
-		public override void merge(IModelObject other)
-		{
-			//merges this Job model object (me) with the "other" instance 
-
-			Job o = (Job)other;
-
-if (! string.IsNullOrEmpty(o.PrJobTitle) && 
-		 string.IsNullOrEmpty(this.PrJobTitle)){
-		this.PrJobTitle = o.PrJobTitle;
-}
-if ( o.PrMinSalary != null && 
-		 this.PrMinSalary == null){
-		this.PrMinSalary = o.PrMinSalary;
-}
-if ( o.PrMaxSalary != null && 
-		 this.PrMaxSalary == null){
-		this.PrMaxSalary = o.PrMaxSalary;
-}
-if ( o.CreateDate != null && 
-		 this.CreateDate == null){
-		this.CreateDate = o.CreateDate;
-}
-if ( o.UpdateDate != null && 
-		 this.UpdateDate == null){
-		this.UpdateDate = o.UpdateDate;
-}
-if (! string.IsNullOrEmpty(o.CreateUser) && 
-		 string.IsNullOrEmpty(this.CreateUser)){
-		this.CreateUser = o.CreateUser;
-}
-if (! string.IsNullOrEmpty(o.UpdateUser) && 
-		 string.IsNullOrEmpty(this.UpdateUser)){
-		this.UpdateUser = o.UpdateUser;
-}
-
-
-		}
-
 		
 
 		#endregion

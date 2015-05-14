@@ -21,7 +21,15 @@ Public Class DBField
     Public Property Size() As Integer Implements IDBField.Size
     Public Property Precision() As Integer Implements IDBField.Precision
     Public Property Scale() As Integer Implements IDBField.Scale
-    Public Property Nullable() As Boolean Implements IDBField.Nullable
+
+    ''' <summary>
+    ''' Is the field in the database nullable?
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Property isDBFieldNullable() As Boolean Implements IDBField.isDBFieldNullable
+
     Public Property XMLSerializationIgnore() As Boolean Implements IDBField.XMLSerializationIgnore
 
     Public Function isAuditField() As Boolean Implements IDBField.isAuditField

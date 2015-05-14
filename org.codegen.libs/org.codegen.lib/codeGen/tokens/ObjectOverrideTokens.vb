@@ -16,9 +16,7 @@ Namespace Tokens
             For Each field As DBField In vec.Values
                 If field.isPrimaryKey Then
 
-
                 Else
-
 
                     sb.Append("if (")
                     If field.RuntimeType Is Type.GetType("System.String") Then

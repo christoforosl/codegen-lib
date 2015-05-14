@@ -15,7 +15,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyCopyright("Copyright © CodeGen.org 2011")> 
 <Assembly: AssemblyTrademark("")> 
 
-<Assembly: ComVisible(True)> 
+<Assembly: ComVisible(False)> 
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
 <Assembly: Guid("4836833b-2525-4f48-a3ee-aeaa6ffd2e72")> 
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("4.0.2.2")> 
-<Assembly: AssemblyFileVersion("4.0.2.2")> 
+<Assembly: AssemblyVersion("4.1.3.0")> 
+<Assembly: AssemblyFileVersion("4.1.3.0")> 

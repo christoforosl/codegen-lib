@@ -253,28 +253,28 @@ public void setAddress( String val ) {
 		case FLD_EMPLOYEEINFOID:
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
-			}else{
+			} else {
 				this.PrEmployeeInfoId=(System.Int64)val;
 			} //
 			return;
 		case FLD_EIEMPLOYEEID:
 			if (val == DBNull.Value || val == null ){
 				this.PrEIEmployeeId = null;
-			}else{
+			} else {
 				this.PrEIEmployeeId=(System.Int64)val;
 			} //
 			return;
 		case FLD_SALARY:
 			if (val == DBNull.Value || val == null ){
 				this.PrSalary = null;
-			}else{
+			} else {
 				this.PrSalary=(System.Decimal)val;
 			} //
 			return;
 		case FLD_ADDRESS:
 			if (val == DBNull.Value || val == null ){
 				this.PrAddress = null;
-			}else{
+			} else {
 				this.PrAddress=(System.String)val;
 			} //
 			return;
@@ -389,30 +389,6 @@ public void setAddress( String val ) {
 			return ret;
 
 		}
-
-		public override void merge(IModelObject other)
-		{
-			//merges this EmployeeInfo model object (me) with the "other" instance 
-
-			EmployeeInfo o = (EmployeeInfo)other;
-
-if ( o.PrEIEmployeeId != null && 
-		 this.PrEIEmployeeId == null){
-		this.PrEIEmployeeId = o.PrEIEmployeeId;
-}
-if ( o.PrSalary != null && 
-		 this.PrSalary == null){
-		this.PrSalary = o.PrSalary;
-}
-if (! string.IsNullOrEmpty(o.PrAddress) && 
-		 string.IsNullOrEmpty(this.PrAddress)){
-		this.PrAddress = o.PrAddress;
-}
-
-
-		}
-
-		
 
 		#endregion
 

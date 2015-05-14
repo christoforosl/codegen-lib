@@ -672,54 +672,7 @@ public void setUpdateUser( String val ) {
 
 		}
 
-		public override void merge(IModelObject other)
-		{
-			//merges this Location model object (me) with the "other" instance 
-
-			Location o = (Location)other;
-
-if (! string.IsNullOrEmpty(o.PrStreetAddress) && 
-		 string.IsNullOrEmpty(this.PrStreetAddress)){
-		this.PrStreetAddress = o.PrStreetAddress;
-}
-if (! string.IsNullOrEmpty(o.PrPostalCode) && 
-		 string.IsNullOrEmpty(this.PrPostalCode)){
-		this.PrPostalCode = o.PrPostalCode;
-}
-if (! string.IsNullOrEmpty(o.PrCITY) && 
-		 string.IsNullOrEmpty(this.PrCITY)){
-		this.PrCITY = o.PrCITY;
-}
-if (! string.IsNullOrEmpty(o.PrStateProvince) && 
-		 string.IsNullOrEmpty(this.PrStateProvince)){
-		this.PrStateProvince = o.PrStateProvince;
-}
-if (! string.IsNullOrEmpty(o.PrCountryId) && 
-		 string.IsNullOrEmpty(this.PrCountryId)){
-		this.PrCountryId = o.PrCountryId;
-}
-if ( o.CreateDate != null && 
-		 this.CreateDate == null){
-		this.CreateDate = o.CreateDate;
-}
-if ( o.UpdateDate != null && 
-		 this.UpdateDate == null){
-		this.UpdateDate = o.UpdateDate;
-}
-if (! string.IsNullOrEmpty(o.CreateUser) && 
-		 string.IsNullOrEmpty(this.CreateUser)){
-		this.CreateUser = o.CreateUser;
-}
-if (! string.IsNullOrEmpty(o.UpdateUser) && 
-		 string.IsNullOrEmpty(this.UpdateUser)){
-		this.UpdateUser = o.UpdateUser;
-}
-
-
-		}
-
-		
-
+	
 		#endregion
 
 

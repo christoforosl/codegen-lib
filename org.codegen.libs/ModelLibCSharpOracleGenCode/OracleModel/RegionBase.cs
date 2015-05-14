@@ -292,22 +292,6 @@ public void setRegionName( String val ) {
 
 		}
 
-		public override void merge(IModelObject other)
-		{
-			//merges this Region model object (me) with the "other" instance 
-
-			Region o = (Region)other;
-
-if (! string.IsNullOrEmpty(o.PrRegionName) && 
-		 string.IsNullOrEmpty(this.PrRegionName)){
-		this.PrRegionName = o.PrRegionName;
-}
-
-
-		}
-
-		
-
 		#endregion
 
 

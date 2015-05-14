@@ -582,44 +582,7 @@ public void setUpdateUser( String val ) {
 
 		}
 
-		public override void merge(IModelObject other)
-		{
-			//merges this Department model object (me) with the "other" instance 
-
-			Department o = (Department)other;
-
-if (! string.IsNullOrEmpty(o.PrDepartmentName) && 
-		 string.IsNullOrEmpty(this.PrDepartmentName)){
-		this.PrDepartmentName = o.PrDepartmentName;
-}
-if ( o.PrManagerId != null && 
-		 this.PrManagerId == null){
-		this.PrManagerId = o.PrManagerId;
-}
-if ( o.PrLocationId != null && 
-		 this.PrLocationId == null){
-		this.PrLocationId = o.PrLocationId;
-}
-if ( o.CreateDate != null && 
-		 this.CreateDate == null){
-		this.CreateDate = o.CreateDate;
-}
-if ( o.UpdateDate != null && 
-		 this.UpdateDate == null){
-		this.UpdateDate = o.UpdateDate;
-}
-if (! string.IsNullOrEmpty(o.CreateUser) && 
-		 string.IsNullOrEmpty(this.CreateUser)){
-		this.CreateUser = o.CreateUser;
-}
-if (! string.IsNullOrEmpty(o.UpdateUser) && 
-		 string.IsNullOrEmpty(this.UpdateUser)){
-		this.UpdateUser = o.UpdateUser;
-}
-
-
-		}
-
+	
 		
 
 		#endregion

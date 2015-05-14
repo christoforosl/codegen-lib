@@ -27,7 +27,7 @@ Namespace Tokens
                 sortExpression = SortField
             End If
 
-            Dim ret As String = "public int CompareTo(" & CType(t, ObjectToGenerate).ClassName & " other ) {" & vbCrLf 
+            Dim ret As String = vbCrLf & vbTab & "public int CompareTo(" & CType(t, ObjectToGenerate).ClassName & " other ) {" & vbCrLf
 
             Dim sortAscDesc As String = CStr(IIf(SortAsc = False, "-1 * ", ""))
 			ret += vbTab & vbTab & "return " & sortAscDesc & " this." & ModelGenerator.Current.FieldPropertyPrefix & _
@@ -56,7 +56,7 @@ Namespace Tokens
                 sortExpression = SortField
             End If
 
-            Dim ret As String = "Public Function CompareTo(ByVal other As " & CType(t, ObjectToGenerate).ClassName & ") As Integer _" & vbCrLf & _
+            Dim ret As String = vbCrLf & vbTab & "Public Function CompareTo(ByVal other As " & CType(t, ObjectToGenerate).ClassName & ") As Integer _" & vbCrLf & _
                                vbTab & vbTab & " Implements System.IComparable(Of " & CType(t, ObjectToGenerate).ClassName & ").CompareTo" & vbCrLf & vbCrLf
 
             Dim sortAscDesc As String = CStr(IIf(SortAsc = False, "-1 * ", ""))

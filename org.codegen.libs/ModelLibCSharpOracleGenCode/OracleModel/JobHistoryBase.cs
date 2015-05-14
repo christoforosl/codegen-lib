@@ -680,54 +680,7 @@ public void setUpdateUser( String val ) {
 
 		}
 
-		public override void merge(IModelObject other)
-		{
-			//merges this JobHistory model object (me) with the "other" instance 
-
-			JobHistory o = (JobHistory)other;
-
-if ( o.PrEmployeeId != null && 
-		 this.PrEmployeeId == null){
-		this.PrEmployeeId = o.PrEmployeeId;
-}
-if ( o.PrStartDate != null && 
-		 this.PrStartDate == null){
-		this.PrStartDate = o.PrStartDate;
-}
-if ( o.PrEndDate != null && 
-		 this.PrEndDate == null){
-		this.PrEndDate = o.PrEndDate;
-}
-if (! string.IsNullOrEmpty(o.PrJobId) && 
-		 string.IsNullOrEmpty(this.PrJobId)){
-		this.PrJobId = o.PrJobId;
-}
-if ( o.PrDepartmentId != null && 
-		 this.PrDepartmentId == null){
-		this.PrDepartmentId = o.PrDepartmentId;
-}
-if ( o.CreateDate != null && 
-		 this.CreateDate == null){
-		this.CreateDate = o.CreateDate;
-}
-if ( o.UpdateDate != null && 
-		 this.UpdateDate == null){
-		this.UpdateDate = o.UpdateDate;
-}
-if (! string.IsNullOrEmpty(o.CreateUser) && 
-		 string.IsNullOrEmpty(this.CreateUser)){
-		this.CreateUser = o.CreateUser;
-}
-if (! string.IsNullOrEmpty(o.UpdateUser) && 
-		 string.IsNullOrEmpty(this.UpdateUser)){
-		this.UpdateUser = o.UpdateUser;
-}
-
-
-		}
-
 		
-
 		#endregion
 
 #region "parentIdChanged"

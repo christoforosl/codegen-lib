@@ -292,7 +292,7 @@ Namespace Tokens
                 'Dim field As DBField = CType(vec(i), DBField)
                 Dim field As IDBField = vec.Item(vec.Keys(i))
 
-                If field.IsTableField() AndAlso Not field.isPrimaryKey AndAlso field.Nullable = False Then
+                If field.IsTableField() AndAlso Not field.isPrimaryKey AndAlso field.isDBFieldNullable = False Then
                     If field.isNullableDataType Then
 
                         'If sb.Length > 0 Then sb.Append(" _").Append(vbCrLf & vbTab & vbTab).Append(" orElse ")
@@ -324,11 +324,11 @@ Namespace Tokens
             Dim cnt As Integer = 0
 
             For i As Integer = 0 To vec.Keys.Count - 1
-                'Dim field As DBField = CType(vec(i), DBField)
+
                 Dim field As IDBField = vec.Item(vec.Keys(i))
 
-                If field.IsTableField() AndAlso Not field.isPrimaryKey AndAlso field.Nullable = False Then
-                    If field.isNullableDataType Then
+                If field.IsTableField() AndAlso Not field.isPrimaryKey AndAlso field.isDBFieldNullable = False AndAlso field.isNullableProperty Then
+                    If field.isNullableProperty Then
 
                         'If sb.Length > 0 Then sb.Append(" _").Append(vbCrLf & vbTab & vbTab).Append(" orElse ")
                         sb.Append("if mo.").Append(field.PropertyName).Append(" is Nothing then")

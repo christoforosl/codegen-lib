@@ -44,7 +44,7 @@ Public Interface IDBField
     Property Size() As Integer
     Property Precision() As Integer
     Property Scale() As Integer
-    Property Nullable() As Boolean
+    Property isDBFieldNullable() As Boolean
     Property XMLSerializationIgnore() As Boolean
 
     ''' <summary>

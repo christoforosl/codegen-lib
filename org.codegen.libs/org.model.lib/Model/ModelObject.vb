@@ -433,16 +433,6 @@ Namespace Model
 
         Public MustOverride Function copy() As IModelObject Implements IModelObject.copy
 
-        ''' <summary>
-        ''' Merges the model object with another instance of the model object
-        ''' Any fields in the current model object wither values retain their values
-        ''' Any fields that are null in the current model object and have values in the "other" 
-        ''' are copied over.  The primary key value is not copied.
-        ''' </summary>
-        ''' <param name="other">The other model object, must be the same type as the one we are merging from</param>
-        ''' <remarks></remarks>
-        Public MustOverride Sub merge(ByVal other As IModelObject)
-
         Public Property IsObjectLoading() As Boolean Implements IModelObject.IsObjectLoading
 
         ''' <summary>
