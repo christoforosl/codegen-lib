@@ -31,7 +31,7 @@ namespace CsModelObjects
 	public interface IProject: IModelObject {
 	System.Int64 PrProjectId {get;set;} 
 	System.String PrProjectName {get;set;} 
-	System.Int64? PrIsActive {get;set;} 
+	System.Boolean PrIsActive {get;set;} 
 	IEnumerable< CsModelObjects.EmployeeProject>PrEmployeeProjects {get; set;}
 		void PrEmployeeProjectAdd(CsModelObjects.EmployeeProject val);
 		void PrEmployeeProjectRemove(CsModelObjects.EmployeeProject val);
@@ -118,7 +118,7 @@ namespace CsModelObjects
 
 	private System.Int64 _ProjectId;
 	private System.String _ProjectName;
-	private System.Int64? _IsActive = null;
+	private System.Boolean _IsActive;
 	// ****** CHILD OBJECTS ********************
 	private List< CsModelObjects.EmployeeProject> _EmployeeProjects = null;  // initialize to nothing, for lazy load logic below !!!
 	 private List< CsModelObjects.EmployeeProject> _deletedEmployeeProjects = new List< CsModelObjects.EmployeeProject>();// initialize to empty list !!!
@@ -179,7 +179,7 @@ public void setProjectName( String val ) {
 		this.PrProjectName = null;
 	}
 }
-	public virtual System.Int64? PrIsActive{
+	public virtual System.Boolean PrIsActive{
 	get{
 		return _IsActive;
 	}
@@ -193,13 +193,12 @@ public void setProjectName( String val ) {
 		}
 		}
 	}
-public void setIsActive(String val){
-	if (Information.IsNumeric(val)) {
-		this.PrIsActive = Convert.ToInt64(val);
-	} else if (String.IsNullOrEmpty(val)) {
-		this.PrIsActive = null;
+public void setIsActive(String val ){
+	if (String.IsNullOrEmpty(val)) {
+		this.PrIsActive = false;
 	} else {
-		throw new ApplicationException("Invalid Integer Number, field:IsActive, value:" + val);
+	    bool newval = ("1"==val || "true"==val.ToLower()) ;
+	    this.PrIsActive = newval;
 	}
 }
 
@@ -357,9 +356,9 @@ public void setIsActive(String val){
 			return;
 		case FLD_ISACTIVE:
 			if (val == DBNull.Value || val == null ){
-				this.PrIsActive = null;
+				this.PrIsActive = false;
 			} else {
-				this.PrIsActive=(System.Int64)val;
+				this.PrIsActive=(System.Boolean)val;
 			} //
 			return;
 		default:
@@ -386,9 +385,9 @@ public void setIsActive(String val){
 			return;
 		} else if ( fieldKey==STR_FLD_ISACTIVE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.PrIsActive = null;
+				this.PrIsActive = false;
 			} else {
-				this.PrIsActive=(System.Int64)val;
+				this.PrIsActive=(System.Boolean)val;
 			}
 			return;
 		}
@@ -407,7 +406,7 @@ public void setIsActive(String val){
 
 			return this.PrProjectId == other.PrProjectId
 				&& this.PrProjectName == other.PrProjectName
-				&& this.PrIsActive.GetValueOrDefault() == other.PrIsActive.GetValueOrDefault();;
+				&& this.PrIsActive == other.PrIsActive;;
 
 		}
 

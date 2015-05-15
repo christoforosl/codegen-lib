@@ -211,29 +211,29 @@ namespace OracleModel
 		#region "Field Declarations"
 
 	private System.Int64 _EmployeeId;
-	private System.String _FirstName = null;
-	private System.String _LastName = null;
-	private System.String _EMAIL = null;
-	private System.String _PhoneNumber = null;
+	private System.String _FirstName;
+	private System.String _LastName;
+	private System.String _EMAIL;
+	private System.String _PhoneNumber;
 	private System.DateTime? _HireDate = null;
-	private System.String _JobId = null;
+	private System.String _JobId;
 	private System.Decimal? _SALARY = null;
 	private System.Decimal? _CommissionPct = null;
 	private System.Int64? _ManagerId = null;
 	private System.Int64? _DepartmentId = null;
 	private System.DateTime? _CreateDate = null;
 	private System.DateTime? _UpdateDate = null;
-	private System.String _CreateUser = null;
-	private System.String _UpdateUser = null;
+	private System.String _CreateUser;
+	private System.String _UpdateUser;
 	private System.Int64? _LocationId = null;
-	private System.String _CountryId = null;
-	private System.String _DepartmentName = null;
-	private System.String _JobTitle = null;
-	private System.String _CITY = null;
-	private System.String _StateProvince = null;
-	private System.String _CountryName = null;
-	private System.String _RegionName = null;
-	private System.String _ManagerName = null;
+	private System.String _CountryId;
+	private System.String _DepartmentName;
+	private System.String _JobTitle;
+	private System.String _CITY;
+	private System.String _StateProvince;
+	private System.String _CountryName;
+	private System.String _RegionName;
+	private System.String _ManagerName;
 	// ****** CHILD OBJECTS ********************
 	private List< OracleModel.JobHistory> _JobHistory = null;  // initialize to nothing, for lazy load logic below !!!
 	 private List< OracleModel.JobHistory> _deletedJobHistory = new List< OracleModel.JobHistory>();// initialize to empty list !!!
@@ -250,22 +250,21 @@ namespace OracleModel
 
 		#region "Field Properties"
 
-	public virtual System.Int64 PrEmployeeId  {
-	get {
+	public virtual System.Int64 PrEmployeeId{
+	get{
 		return _EmployeeId;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_EmployeeId, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_EmployeeId, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEE_ID);
 			}
-			this._EmployeeId = value;
 
 			this.raiseBroadcastIdChange();
 
 		}
-	}  
+		}
 	}
 public void setEmployeeId(String val){
 	if (Information.IsNumeric(val)) {
@@ -276,20 +275,22 @@ public void setEmployeeId(String val){
 		throw new ApplicationException("Invalid Integer Number, field:EmployeeId, value:" + val);
 	}
 }
-	public virtual System.String PrFirstName  {
-	get {
+	public virtual System.String PrFirstName{
+	get{
 		return _FirstName;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_FirstName, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_FirstName, value)){
+		if (value != null && value.Length > 20){
+			throw new ModelObjectFieldTooLongException("FIRST_NAME");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_FIRST_NAME);
 			}
-			this._FirstName = value;
 
 		}
-	}  
+		}
 	}
 public void setFirstName( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -298,20 +299,22 @@ public void setFirstName( String val ) {
 		this.PrFirstName = null;
 	}
 }
-	public virtual System.String PrLastName  {
-	get {
+	public virtual System.String PrLastName{
+	get{
 		return _LastName;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_LastName, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_LastName, value)){
+		if (value != null && value.Length > 25){
+			throw new ModelObjectFieldTooLongException("LAST_NAME");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LAST_NAME);
 			}
-			this._LastName = value;
 
 		}
-	}  
+		}
 	}
 public void setLastName( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -320,20 +323,22 @@ public void setLastName( String val ) {
 		this.PrLastName = null;
 	}
 }
-	public virtual System.String PrEMAIL  {
-	get {
+	public virtual System.String PrEMAIL{
+	get{
 		return _EMAIL;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_EMAIL, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_EMAIL, value)){
+		if (value != null && value.Length > 25){
+			throw new ModelObjectFieldTooLongException("EMAIL");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMAIL);
 			}
-			this._EMAIL = value;
 
 		}
-	}  
+		}
 	}
 public void setEMAIL( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -342,20 +347,22 @@ public void setEMAIL( String val ) {
 		this.PrEMAIL = null;
 	}
 }
-	public virtual System.String PrPhoneNumber  {
-	get {
+	public virtual System.String PrPhoneNumber{
+	get{
 		return _PhoneNumber;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_PhoneNumber, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_PhoneNumber, value)){
+		if (value != null && value.Length > 20){
+			throw new ModelObjectFieldTooLongException("PHONE_NUMBER");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_PHONE_NUMBER);
 			}
-			this._PhoneNumber = value;
 
 		}
-	}  
+		}
 	}
 public void setPhoneNumber( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -364,20 +371,19 @@ public void setPhoneNumber( String val ) {
 		this.PrPhoneNumber = null;
 	}
 }
-	public virtual System.DateTime? PrHireDate  {
-	get {
+	public virtual System.DateTime? PrHireDate{
+	get{
 		return _HireDate;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_HireDate, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_HireDate, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_HIRE_DATE);
 			}
-			this._HireDate = value;
 
 		}
-	}  
+		}
 	}
 public void setHireDate( String val ){
 	if (Information.IsDate(val)) {
@@ -388,20 +394,22 @@ public void setHireDate( String val ){
 		throw new ApplicationException("Invalid Date, field:HireDate, value:" + val);
 	}
 }
-	public virtual System.String PrJobId  {
-	get {
+	public virtual System.String PrJobId{
+	get{
 		return _JobId;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_JobId, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_JobId, value)){
+		if (value != null && value.Length > 10){
+			throw new ModelObjectFieldTooLongException("JOB_ID");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_JOB_ID);
 			}
-			this._JobId = value;
 
 		}
-	}  
+		}
 	}
 public void setJobId( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -410,20 +418,19 @@ public void setJobId( String val ) {
 		this.PrJobId = null;
 	}
 }
-	public virtual System.Decimal? PrSALARY  {
-	get {
+	public virtual System.Decimal? PrSALARY{
+	get{
 		return _SALARY;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_SALARY, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_SALARY, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SALARY);
 			}
-			this._SALARY = value;
 
 		}
-	}  
+		}
 	}
 public void setSALARY(String val ){
 	if (Information.IsNumeric(val)) {
@@ -434,20 +441,19 @@ public void setSALARY(String val ){
 		throw new ApplicationException("Invalid Decimal Number, field:SALARY, value:" + val);
 	}
 }
-	public virtual System.Decimal? PrCommissionPct  {
-	get {
+	public virtual System.Decimal? PrCommissionPct{
+	get{
 		return _CommissionPct;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_CommissionPct, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_CommissionPct, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COMMISSION_PCT);
 			}
-			this._CommissionPct = value;
 
 		}
-	}  
+		}
 	}
 public void setCommissionPct(String val ){
 	if (Information.IsNumeric(val)) {
@@ -458,20 +464,19 @@ public void setCommissionPct(String val ){
 		throw new ApplicationException("Invalid Decimal Number, field:CommissionPct, value:" + val);
 	}
 }
-	public virtual System.Int64? PrManagerId  {
-	get {
+	public virtual System.Int64? PrManagerId{
+	get{
 		return _ManagerId;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_ManagerId, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_ManagerId, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_MANAGER_ID);
 			}
-			this._ManagerId = value;
 
 		}
-	}  
+		}
 	}
 public void setManagerId(String val){
 	if (Information.IsNumeric(val)) {
@@ -482,20 +487,19 @@ public void setManagerId(String val){
 		throw new ApplicationException("Invalid Integer Number, field:ManagerId, value:" + val);
 	}
 }
-	public virtual System.Int64? PrDepartmentId  {
-	get {
+	public virtual System.Int64? PrDepartmentId{
+	get{
 		return _DepartmentId;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_DepartmentId, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_DepartmentId, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DEPARTMENT_ID);
 			}
-			this._DepartmentId = value;
 
 		}
-	}  
+		}
 	}
 public void setDepartmentId(String val){
 	if (Information.IsNumeric(val)) {
@@ -506,20 +510,19 @@ public void setDepartmentId(String val){
 		throw new ApplicationException("Invalid Integer Number, field:DepartmentId, value:" + val);
 	}
 }
-	public virtual System.DateTime? CreateDate  {
-	get {
+	public virtual System.DateTime? CreateDate{
+	get{
 		return _CreateDate;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_CreateDate, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_CreateDate, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_DATE);
 			}
-			this._CreateDate = value;
 
 		}
-	}  
+		}
 	}
 public void setCreateDate( String val ){
 	if (Information.IsDate(val)) {
@@ -530,20 +533,19 @@ public void setCreateDate( String val ){
 		throw new ApplicationException("Invalid Date, field:CreateDate, value:" + val);
 	}
 }
-	public virtual System.DateTime? UpdateDate  {
-	get {
+	public virtual System.DateTime? UpdateDate{
+	get{
 		return _UpdateDate;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_UpdateDate, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_UpdateDate, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_DATE);
 			}
-			this._UpdateDate = value;
 
 		}
-	}  
+		}
 	}
 public void setUpdateDate( String val ){
 	if (Information.IsDate(val)) {
@@ -554,20 +556,22 @@ public void setUpdateDate( String val ){
 		throw new ApplicationException("Invalid Date, field:UpdateDate, value:" + val);
 	}
 }
-	public virtual System.String CreateUser  {
-	get {
+	public virtual System.String CreateUser{
+	get{
 		return _CreateUser;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_CreateUser, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_CreateUser, value)){
+		if (value != null && value.Length > 20){
+			throw new ModelObjectFieldTooLongException("CREATE_USER");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_USER);
 			}
-			this._CreateUser = value;
 
 		}
-	}  
+		}
 	}
 public void setCreateUser( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -576,20 +580,22 @@ public void setCreateUser( String val ) {
 		this.CreateUser = null;
 	}
 }
-	public virtual System.String UpdateUser  {
-	get {
+	public virtual System.String UpdateUser{
+	get{
 		return _UpdateUser;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_UpdateUser, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_UpdateUser, value)){
+		if (value != null && value.Length > 20){
+			throw new ModelObjectFieldTooLongException("UPDATE_USER");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_USER);
 			}
-			this._UpdateUser = value;
 
 		}
-	}  
+		}
 	}
 public void setUpdateUser( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -598,20 +604,19 @@ public void setUpdateUser( String val ) {
 		this.UpdateUser = null;
 	}
 }
-	public virtual System.Int64? PrLocationId  {
-	get {
+	public virtual System.Int64? PrLocationId{
+	get{
 		return _LocationId;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_LocationId, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_LocationId, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LOCATION_ID);
 			}
-			this._LocationId = value;
 
 		}
-	}  
+		}
 	}
 public void setLocationId(String val){
 	if (Information.IsNumeric(val)) {
@@ -622,20 +627,22 @@ public void setLocationId(String val){
 		throw new ApplicationException("Invalid Integer Number, field:LocationId, value:" + val);
 	}
 }
-	public virtual System.String PrCountryId  {
-	get {
+	public virtual System.String PrCountryId{
+	get{
 		return _CountryId;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_CountryId, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_CountryId, value)){
+		if (value != null && value.Length > 2){
+			throw new ModelObjectFieldTooLongException("COUNTRY_ID");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COUNTRY_ID);
 			}
-			this._CountryId = value;
 
 		}
-	}  
+		}
 	}
 public void setCountryId( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -644,20 +651,22 @@ public void setCountryId( String val ) {
 		this.PrCountryId = null;
 	}
 }
-	public virtual System.String PrDepartmentName  {
-	get {
+	public virtual System.String PrDepartmentName{
+	get{
 		return _DepartmentName;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_DepartmentName, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_DepartmentName, value)){
+		if (value != null && value.Length > 30){
+			throw new ModelObjectFieldTooLongException("DEPARTMENT_NAME");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DEPARTMENT_NAME);
 			}
-			this._DepartmentName = value;
 
 		}
-	}  
+		}
 	}
 public void setDepartmentName( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -666,20 +675,22 @@ public void setDepartmentName( String val ) {
 		this.PrDepartmentName = null;
 	}
 }
-	public virtual System.String PrJobTitle  {
-	get {
+	public virtual System.String PrJobTitle{
+	get{
 		return _JobTitle;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_JobTitle, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_JobTitle, value)){
+		if (value != null && value.Length > 35){
+			throw new ModelObjectFieldTooLongException("JOB_TITLE");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_JOB_TITLE);
 			}
-			this._JobTitle = value;
 
 		}
-	}  
+		}
 	}
 public void setJobTitle( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -688,20 +699,22 @@ public void setJobTitle( String val ) {
 		this.PrJobTitle = null;
 	}
 }
-	public virtual System.String PrCITY  {
-	get {
+	public virtual System.String PrCITY{
+	get{
 		return _CITY;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_CITY, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_CITY, value)){
+		if (value != null && value.Length > 30){
+			throw new ModelObjectFieldTooLongException("CITY");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CITY);
 			}
-			this._CITY = value;
 
 		}
-	}  
+		}
 	}
 public void setCITY( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -710,20 +723,22 @@ public void setCITY( String val ) {
 		this.PrCITY = null;
 	}
 }
-	public virtual System.String PrStateProvince  {
-	get {
+	public virtual System.String PrStateProvince{
+	get{
 		return _StateProvince;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_StateProvince, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_StateProvince, value)){
+		if (value != null && value.Length > 25){
+			throw new ModelObjectFieldTooLongException("STATE_PROVINCE");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_STATE_PROVINCE);
 			}
-			this._StateProvince = value;
 
 		}
-	}  
+		}
 	}
 public void setStateProvince( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -732,20 +747,22 @@ public void setStateProvince( String val ) {
 		this.PrStateProvince = null;
 	}
 }
-	public virtual System.String PrCountryName  {
-	get {
+	public virtual System.String PrCountryName{
+	get{
 		return _CountryName;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_CountryName, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_CountryName, value)){
+		if (value != null && value.Length > 40){
+			throw new ModelObjectFieldTooLongException("COUNTRY_NAME");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COUNTRY_NAME);
 			}
-			this._CountryName = value;
 
 		}
-	}  
+		}
 	}
 public void setCountryName( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -754,20 +771,22 @@ public void setCountryName( String val ) {
 		this.PrCountryName = null;
 	}
 }
-	public virtual System.String PrRegionName  {
-	get {
+	public virtual System.String PrRegionName{
+	get{
 		return _RegionName;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_RegionName, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_RegionName, value)){
+		if (value != null && value.Length > 25){
+			throw new ModelObjectFieldTooLongException("REGION_NAME");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_REGION_NAME);
 			}
-			this._RegionName = value;
 
 		}
-	}  
+		}
 	}
 public void setRegionName( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -776,20 +795,22 @@ public void setRegionName( String val ) {
 		this.PrRegionName = null;
 	}
 }
-	public virtual System.String PrManagerName  {
-	get {
+	public virtual System.String PrManagerName{
+	get{
 		return _ManagerName;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_ManagerName, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_ManagerName, value)){
+		if (value != null && value.Length > 46){
+			throw new ModelObjectFieldTooLongException("MANAGER_NAME");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_MANAGER_NAME);
 			}
-			this._ManagerName = value;
 
 		}
-	}  
+		}
 	}
 public void setManagerName( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -1280,168 +1301,168 @@ public void setManagerName( String val ) {
 		case FLD_EMPLOYEE_ID:
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
-			}else{
+			} else {
 				this.PrEmployeeId=(System.Int64)val;
 			} //
 			return;
 		case FLD_FIRST_NAME:
 			if (val == DBNull.Value || val == null ){
 				this.PrFirstName = null;
-			}else{
+			} else {
 				this.PrFirstName=(System.String)val;
 			} //
 			return;
 		case FLD_LAST_NAME:
 			if (val == DBNull.Value || val == null ){
 				this.PrLastName = null;
-			}else{
+			} else {
 				this.PrLastName=(System.String)val;
 			} //
 			return;
 		case FLD_EMAIL:
 			if (val == DBNull.Value || val == null ){
 				this.PrEMAIL = null;
-			}else{
+			} else {
 				this.PrEMAIL=(System.String)val;
 			} //
 			return;
 		case FLD_PHONE_NUMBER:
 			if (val == DBNull.Value || val == null ){
 				this.PrPhoneNumber = null;
-			}else{
+			} else {
 				this.PrPhoneNumber=(System.String)val;
 			} //
 			return;
 		case FLD_HIRE_DATE:
 			if (val == DBNull.Value || val == null ){
 				this.PrHireDate = null;
-			}else{
+			} else {
 				this.PrHireDate=(System.DateTime)val;
 			} //
 			return;
 		case FLD_JOB_ID:
 			if (val == DBNull.Value || val == null ){
 				this.PrJobId = null;
-			}else{
+			} else {
 				this.PrJobId=(System.String)val;
 			} //
 			return;
 		case FLD_SALARY:
 			if (val == DBNull.Value || val == null ){
 				this.PrSALARY = null;
-			}else{
+			} else {
 				this.PrSALARY=(System.Decimal)val;
 			} //
 			return;
 		case FLD_COMMISSION_PCT:
 			if (val == DBNull.Value || val == null ){
 				this.PrCommissionPct = null;
-			}else{
+			} else {
 				this.PrCommissionPct=(System.Decimal)val;
 			} //
 			return;
 		case FLD_MANAGER_ID:
 			if (val == DBNull.Value || val == null ){
 				this.PrManagerId = null;
-			}else{
+			} else {
 				this.PrManagerId=(System.Int64)val;
 			} //
 			return;
 		case FLD_DEPARTMENT_ID:
 			if (val == DBNull.Value || val == null ){
 				this.PrDepartmentId = null;
-			}else{
+			} else {
 				this.PrDepartmentId=(System.Int64)val;
 			} //
 			return;
 		case FLD_CREATE_DATE:
 			if (val == DBNull.Value || val == null ){
 				this.CreateDate = null;
-			}else{
+			} else {
 				this.CreateDate=(System.DateTime)val;
 			} //
 			return;
 		case FLD_UPDATE_DATE:
 			if (val == DBNull.Value || val == null ){
 				this.UpdateDate = null;
-			}else{
+			} else {
 				this.UpdateDate=(System.DateTime)val;
 			} //
 			return;
 		case FLD_CREATE_USER:
 			if (val == DBNull.Value || val == null ){
 				this.CreateUser = null;
-			}else{
+			} else {
 				this.CreateUser=(System.String)val;
 			} //
 			return;
 		case FLD_UPDATE_USER:
 			if (val == DBNull.Value || val == null ){
 				this.UpdateUser = null;
-			}else{
+			} else {
 				this.UpdateUser=(System.String)val;
 			} //
 			return;
 		case FLD_LOCATION_ID:
 			if (val == DBNull.Value || val == null ){
 				this.PrLocationId = null;
-			}else{
+			} else {
 				this.PrLocationId=(System.Int64)val;
 			} //
 			return;
 		case FLD_COUNTRY_ID:
 			if (val == DBNull.Value || val == null ){
 				this.PrCountryId = null;
-			}else{
+			} else {
 				this.PrCountryId=(System.String)val;
 			} //
 			return;
 		case FLD_DEPARTMENT_NAME:
 			if (val == DBNull.Value || val == null ){
 				this.PrDepartmentName = null;
-			}else{
+			} else {
 				this.PrDepartmentName=(System.String)val;
 			} //
 			return;
 		case FLD_JOB_TITLE:
 			if (val == DBNull.Value || val == null ){
 				this.PrJobTitle = null;
-			}else{
+			} else {
 				this.PrJobTitle=(System.String)val;
 			} //
 			return;
 		case FLD_CITY:
 			if (val == DBNull.Value || val == null ){
 				this.PrCITY = null;
-			}else{
+			} else {
 				this.PrCITY=(System.String)val;
 			} //
 			return;
 		case FLD_STATE_PROVINCE:
 			if (val == DBNull.Value || val == null ){
 				this.PrStateProvince = null;
-			}else{
+			} else {
 				this.PrStateProvince=(System.String)val;
 			} //
 			return;
 		case FLD_COUNTRY_NAME:
 			if (val == DBNull.Value || val == null ){
 				this.PrCountryName = null;
-			}else{
+			} else {
 				this.PrCountryName=(System.String)val;
 			} //
 			return;
 		case FLD_REGION_NAME:
 			if (val == DBNull.Value || val == null ){
 				this.PrRegionName = null;
-			}else{
+			} else {
 				this.PrRegionName=(System.String)val;
 			} //
 			return;
 		case FLD_MANAGER_NAME:
 			if (val == DBNull.Value || val == null ){
 				this.PrManagerName = null;
-			}else{
+			} else {
 				this.PrManagerName=(System.String)val;
 			} //
 			return;
@@ -1756,9 +1777,6 @@ public void setManagerName( String val ) {
 			return ret;
 
 		}
-
-	
-		
 
 		#endregion
 

@@ -327,7 +327,7 @@ Namespace Tokens
 
                 Dim field As IDBField = vec.Item(vec.Keys(i))
 
-                If field.IsTableField() AndAlso Not field.isPrimaryKey _
+                If field.IsTableField() AndAlso Not field.isBoolean AndAlso Not field.isPrimaryKey _
                         AndAlso field.isDBFieldNullable = False Then
 
                     If field.isString Then

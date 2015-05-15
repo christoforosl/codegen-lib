@@ -118,7 +118,7 @@ namespace OracleModel
 	private System.Int64? _EmployeeId = null;
 	private System.DateTime? _DateFrom = null;
 	private System.DateTime? _DateTo = null;
-	private System.String _TrainingCourseCode = null;
+	private System.String _TrainingCourseCode;
 	// ****** CHILD OBJECTS ********************
 	private OracleModel.TrainingCourse _TrainingCourse = null;  // initialize to nothing, for lazy load logic below !!!
 
@@ -129,22 +129,21 @@ namespace OracleModel
 
 		#region "Field Properties"
 
-	public virtual System.Int64 PrEmployeeTrainingHistoryId  {
-	get {
+	public virtual System.Int64 PrEmployeeTrainingHistoryId{
+	get{
 		return _EmployeeTrainingHistoryId;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_EmployeeTrainingHistoryId, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_EmployeeTrainingHistoryId, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEE_TRAINING_HISTORY_ID);
 			}
-			this._EmployeeTrainingHistoryId = value;
 
 			this.raiseBroadcastIdChange();
 
 		}
-	}  
+		}
 	}
 public void setEmployeeTrainingHistoryId(String val){
 	if (Information.IsNumeric(val)) {
@@ -155,20 +154,19 @@ public void setEmployeeTrainingHistoryId(String val){
 		throw new ApplicationException("Invalid Integer Number, field:EmployeeTrainingHistoryId, value:" + val);
 	}
 }
-	public virtual System.Int64? PrEmployeeId  {
-	get {
+	public virtual System.Int64? PrEmployeeId{
+	get{
 		return _EmployeeId;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_EmployeeId, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_EmployeeId, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEE_ID);
 			}
-			this._EmployeeId = value;
 
 		}
-	}  
+		}
 	}
 public void setEmployeeId(String val){
 	if (Information.IsNumeric(val)) {
@@ -179,20 +177,19 @@ public void setEmployeeId(String val){
 		throw new ApplicationException("Invalid Integer Number, field:EmployeeId, value:" + val);
 	}
 }
-	public virtual System.DateTime? PrDateFrom  {
-	get {
+	public virtual System.DateTime? PrDateFrom{
+	get{
 		return _DateFrom;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_DateFrom, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_DateFrom, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DATE_FROM);
 			}
-			this._DateFrom = value;
 
 		}
-	}  
+		}
 	}
 public void setDateFrom( String val ){
 	if (Information.IsDate(val)) {
@@ -203,20 +200,19 @@ public void setDateFrom( String val ){
 		throw new ApplicationException("Invalid Date, field:DateFrom, value:" + val);
 	}
 }
-	public virtual System.DateTime? PrDateTo  {
-	get {
+	public virtual System.DateTime? PrDateTo{
+	get{
 		return _DateTo;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_DateTo, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_DateTo, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DATE_TO);
 			}
-			this._DateTo = value;
 
 		}
-	}  
+		}
 	}
 public void setDateTo( String val ){
 	if (Information.IsDate(val)) {
@@ -227,20 +223,22 @@ public void setDateTo( String val ){
 		throw new ApplicationException("Invalid Date, field:DateTo, value:" + val);
 	}
 }
-	public virtual System.String PrTrainingCourseCode  {
-	get {
+	public virtual System.String PrTrainingCourseCode{
+	get{
 		return _TrainingCourseCode;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_TrainingCourseCode, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_TrainingCourseCode, value)){
+		if (value != null && value.Length > 5){
+			throw new ModelObjectFieldTooLongException("TRAINING_COURSE_CODE");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_TRAINING_COURSE_CODE);
 			}
-			this._TrainingCourseCode = value;
 
 		}
-	}  
+		}
 	}
 public void setTrainingCourseCode( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -349,35 +347,35 @@ public void setTrainingCourseCode( String val ) {
 		case FLD_EMPLOYEE_TRAINING_HISTORY_ID:
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
-			}else{
+			} else {
 				this.PrEmployeeTrainingHistoryId=(System.Int64)val;
 			} //
 			return;
 		case FLD_EMPLOYEE_ID:
 			if (val == DBNull.Value || val == null ){
 				this.PrEmployeeId = null;
-			}else{
+			} else {
 				this.PrEmployeeId=(System.Int64)val;
 			} //
 			return;
 		case FLD_DATE_FROM:
 			if (val == DBNull.Value || val == null ){
 				this.PrDateFrom = null;
-			}else{
+			} else {
 				this.PrDateFrom=(System.DateTime)val;
 			} //
 			return;
 		case FLD_DATE_TO:
 			if (val == DBNull.Value || val == null ){
 				this.PrDateTo = null;
-			}else{
+			} else {
 				this.PrDateTo=(System.DateTime)val;
 			} //
 			return;
 		case FLD_TRAINING_COURSE_CODE:
 			if (val == DBNull.Value || val == null ){
 				this.PrTrainingCourseCode = null;
-			}else{
+			} else {
 				this.PrTrainingCourseCode=(System.String)val;
 			} //
 			return;
@@ -502,8 +500,6 @@ public void setTrainingCourseCode( String val ) {
 			return ret;
 
 		}
-
-		
 
 		#endregion
 

@@ -98,10 +98,6 @@
       <DependentUpon>EmployeeInfo.vb</DependentUpon>
     </Compile>
     <Compile Include="VbBusObjects\DBMappers\ProjectDBMapper.vb" />
-    <Compile Include="VbBusObjects\Project.vb" />
-    <Compile Include="VbBusObjects\ProjectBase.vb">
-      <DependentUpon>Project.vb</DependentUpon>
-    </Compile>
     <Compile Include="VbBusObjects\Employee.vb" />
     <Compile Include="VbBusObjects\EmployeeBase.vb">
       <DependentUpon>Employee.vb</DependentUpon>
@@ -110,6 +106,10 @@
     <Compile Include="VbBusObjects\EmployeeType.vb" />
     <Compile Include="VbBusObjects\EmployeeTypeBase.vb">
       <DependentUpon>EmployeeType.vb</DependentUpon>
+    </Compile>
+    <Compile Include="VbBusObjects\Project.vb" />
+    <Compile Include="VbBusObjects\ProjectBase.vb">
+      <DependentUpon>Project.vb</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -139,9 +139,7 @@
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Tests\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\org.codegen.common\org.codegen.common.vbproj">
       <Project>{c367eae9-fdea-468d-9a91-c5075f927d39}</Project>

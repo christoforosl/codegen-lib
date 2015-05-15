@@ -359,28 +359,28 @@ Namespace Tokens
 			ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Int16") Then
                 sString &= meMarker & ".reader.GetInt16" & "(DATAREADER_" & skey & ")"
 
-			ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Int32") Then
-				sString &= meMarker & ".reader.GetInt32" & "(DATAREADER_" & skey & ")"
+            ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Int32") Then
+                sString &= meMarker & ".reader.GetInt32" & "(DATAREADER_" & skey & ")"
 
-			ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Int64") Then
-				sString &= meMarker & ".reader.GetInt64" & "(DATAREADER_" & skey & ")"
+            ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Int64") Then
+                sString &= meMarker & ".reader.GetInt64" & "(DATAREADER_" & skey & ")"
 
-			ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Decimal") Then
-				sString &= meMarker & ".reader.GetDecimal" & "(DATAREADER_" & skey & ")"
-
-			ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Double") Then
+            ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Decimal") Then
                 sString &= meMarker & ".reader.GetDecimal" & "(DATAREADER_" & skey & ")"
 
-			ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Single") Then
+            ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Double") Then
                 sString &= meMarker & ".reader.GetDecimal" & "(DATAREADER_" & skey & ")"
 
-			ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.String") Then
-				sString &= meMarker & ".reader.GetString" & "(DATAREADER_" & skey & ")"
+            ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Single") Then
+                sString &= meMarker & ".reader.GetDecimal" & "(DATAREADER_" & skey & ")"
 
-			ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Boolean") Then
-				sString &= meMarker & ".reader.GetBoolean" & "(DATAREADER_" & skey & ")"
+            ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.String") Then
+                sString &= meMarker & ".reader.GetString" & "(DATAREADER_" & skey & ")"
 
-			ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Byte") Then
+            ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Boolean") Then
+                sString &= meMarker & ".reader.GetBoolean" & "(DATAREADER_" & skey & ")"
+
+            ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Byte") Then
                 sString &= meMarker & ".reader.GetByte" & "(DATAREADER_" & skey & ")"
 
             ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Guid") Then
@@ -390,7 +390,7 @@ Namespace Tokens
                 Throw New ApplicationException(field.ParentTable.TableName & "." & field.FieldName & _
                           ":Unhandled DataReader getter for type:" & _
                           field.RuntimeType.ToString)
-			End If
+            End If
 
             If field.isBoolean And field.OriginalRuntimeType IsNot System.Type.GetType("System.Boolean") Then
                 If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP Then

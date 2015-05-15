@@ -125,36 +125,35 @@ namespace OracleModel
 		#region "Field Declarations"
 
 	private System.Int64 _LocationId;
-	private System.String _StreetAddress = null;
-	private System.String _PostalCode = null;
-	private System.String _CITY = null;
-	private System.String _StateProvince = null;
-	private System.String _CountryId = null;
+	private System.String _StreetAddress;
+	private System.String _PostalCode;
+	private System.String _CITY;
+	private System.String _StateProvince;
+	private System.String _CountryId;
 	private System.DateTime? _CreateDate = null;
 	private System.DateTime? _UpdateDate = null;
-	private System.String _CreateUser = null;
-	private System.String _UpdateUser = null;
+	private System.String _CreateUser;
+	private System.String _UpdateUser;
 
 		#endregion
 
 		#region "Field Properties"
 
-	public virtual System.Int64 PrLocationId  {
-	get {
+	public virtual System.Int64 PrLocationId{
+	get{
 		return _LocationId;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_LocationId, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_LocationId, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LOCATION_ID);
 			}
-			this._LocationId = value;
 
 			this.raiseBroadcastIdChange();
 
 		}
-	}  
+		}
 	}
 public void setLocationId(String val){
 	if (Information.IsNumeric(val)) {
@@ -165,20 +164,22 @@ public void setLocationId(String val){
 		throw new ApplicationException("Invalid Integer Number, field:LocationId, value:" + val);
 	}
 }
-	public virtual System.String PrStreetAddress  {
-	get {
+	public virtual System.String PrStreetAddress{
+	get{
 		return _StreetAddress;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_StreetAddress, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_StreetAddress, value)){
+		if (value != null && value.Length > 40){
+			throw new ModelObjectFieldTooLongException("STREET_ADDRESS");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_STREET_ADDRESS);
 			}
-			this._StreetAddress = value;
 
 		}
-	}  
+		}
 	}
 public void setStreetAddress( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -187,20 +188,22 @@ public void setStreetAddress( String val ) {
 		this.PrStreetAddress = null;
 	}
 }
-	public virtual System.String PrPostalCode  {
-	get {
+	public virtual System.String PrPostalCode{
+	get{
 		return _PostalCode;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_PostalCode, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_PostalCode, value)){
+		if (value != null && value.Length > 12){
+			throw new ModelObjectFieldTooLongException("POSTAL_CODE");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_POSTAL_CODE);
 			}
-			this._PostalCode = value;
 
 		}
-	}  
+		}
 	}
 public void setPostalCode( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -209,20 +212,22 @@ public void setPostalCode( String val ) {
 		this.PrPostalCode = null;
 	}
 }
-	public virtual System.String PrCITY  {
-	get {
+	public virtual System.String PrCITY{
+	get{
 		return _CITY;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_CITY, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_CITY, value)){
+		if (value != null && value.Length > 30){
+			throw new ModelObjectFieldTooLongException("CITY");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CITY);
 			}
-			this._CITY = value;
 
 		}
-	}  
+		}
 	}
 public void setCITY( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -231,20 +236,22 @@ public void setCITY( String val ) {
 		this.PrCITY = null;
 	}
 }
-	public virtual System.String PrStateProvince  {
-	get {
+	public virtual System.String PrStateProvince{
+	get{
 		return _StateProvince;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_StateProvince, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_StateProvince, value)){
+		if (value != null && value.Length > 25){
+			throw new ModelObjectFieldTooLongException("STATE_PROVINCE");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_STATE_PROVINCE);
 			}
-			this._StateProvince = value;
 
 		}
-	}  
+		}
 	}
 public void setStateProvince( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -253,20 +260,22 @@ public void setStateProvince( String val ) {
 		this.PrStateProvince = null;
 	}
 }
-	public virtual System.String PrCountryId  {
-	get {
+	public virtual System.String PrCountryId{
+	get{
 		return _CountryId;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_CountryId, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_CountryId, value)){
+		if (value != null && value.Length > 2){
+			throw new ModelObjectFieldTooLongException("COUNTRY_ID");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COUNTRY_ID);
 			}
-			this._CountryId = value;
 
 		}
-	}  
+		}
 	}
 public void setCountryId( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -275,20 +284,19 @@ public void setCountryId( String val ) {
 		this.PrCountryId = null;
 	}
 }
-	public virtual System.DateTime? CreateDate  {
-	get {
+	public virtual System.DateTime? CreateDate{
+	get{
 		return _CreateDate;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_CreateDate, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_CreateDate, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_DATE);
 			}
-			this._CreateDate = value;
 
 		}
-	}  
+		}
 	}
 public void setCreateDate( String val ){
 	if (Information.IsDate(val)) {
@@ -299,20 +307,19 @@ public void setCreateDate( String val ){
 		throw new ApplicationException("Invalid Date, field:CreateDate, value:" + val);
 	}
 }
-	public virtual System.DateTime? UpdateDate  {
-	get {
+	public virtual System.DateTime? UpdateDate{
+	get{
 		return _UpdateDate;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_UpdateDate, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_UpdateDate, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_DATE);
 			}
-			this._UpdateDate = value;
 
 		}
-	}  
+		}
 	}
 public void setUpdateDate( String val ){
 	if (Information.IsDate(val)) {
@@ -323,20 +330,22 @@ public void setUpdateDate( String val ){
 		throw new ApplicationException("Invalid Date, field:UpdateDate, value:" + val);
 	}
 }
-	public virtual System.String CreateUser  {
-	get {
+	public virtual System.String CreateUser{
+	get{
 		return _CreateUser;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_CreateUser, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_CreateUser, value)){
+		if (value != null && value.Length > 20){
+			throw new ModelObjectFieldTooLongException("CREATE_USER");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_USER);
 			}
-			this._CreateUser = value;
 
 		}
-	}  
+		}
 	}
 public void setCreateUser( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -345,20 +354,22 @@ public void setCreateUser( String val ) {
 		this.CreateUser = null;
 	}
 }
-	public virtual System.String UpdateUser  {
-	get {
+	public virtual System.String UpdateUser{
+	get{
 		return _UpdateUser;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_UpdateUser, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_UpdateUser, value)){
+		if (value != null && value.Length > 20){
+			throw new ModelObjectFieldTooLongException("UPDATE_USER");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_USER);
 			}
-			this._UpdateUser = value;
 
 		}
-	}  
+		}
 	}
 public void setUpdateUser( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -433,70 +444,70 @@ public void setUpdateUser( String val ) {
 		case FLD_LOCATION_ID:
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
-			}else{
+			} else {
 				this.PrLocationId=(System.Int64)val;
 			} //
 			return;
 		case FLD_STREET_ADDRESS:
 			if (val == DBNull.Value || val == null ){
 				this.PrStreetAddress = null;
-			}else{
+			} else {
 				this.PrStreetAddress=(System.String)val;
 			} //
 			return;
 		case FLD_POSTAL_CODE:
 			if (val == DBNull.Value || val == null ){
 				this.PrPostalCode = null;
-			}else{
+			} else {
 				this.PrPostalCode=(System.String)val;
 			} //
 			return;
 		case FLD_CITY:
 			if (val == DBNull.Value || val == null ){
 				this.PrCITY = null;
-			}else{
+			} else {
 				this.PrCITY=(System.String)val;
 			} //
 			return;
 		case FLD_STATE_PROVINCE:
 			if (val == DBNull.Value || val == null ){
 				this.PrStateProvince = null;
-			}else{
+			} else {
 				this.PrStateProvince=(System.String)val;
 			} //
 			return;
 		case FLD_COUNTRY_ID:
 			if (val == DBNull.Value || val == null ){
 				this.PrCountryId = null;
-			}else{
+			} else {
 				this.PrCountryId=(System.String)val;
 			} //
 			return;
 		case FLD_CREATE_DATE:
 			if (val == DBNull.Value || val == null ){
 				this.CreateDate = null;
-			}else{
+			} else {
 				this.CreateDate=(System.DateTime)val;
 			} //
 			return;
 		case FLD_UPDATE_DATE:
 			if (val == DBNull.Value || val == null ){
 				this.UpdateDate = null;
-			}else{
+			} else {
 				this.UpdateDate=(System.DateTime)val;
 			} //
 			return;
 		case FLD_CREATE_USER:
 			if (val == DBNull.Value || val == null ){
 				this.CreateUser = null;
-			}else{
+			} else {
 				this.CreateUser=(System.String)val;
 			} //
 			return;
 		case FLD_UPDATE_USER:
 			if (val == DBNull.Value || val == null ){
 				this.UpdateUser = null;
-			}else{
+			} else {
 				this.UpdateUser=(System.String)val;
 			} //
 			return;
@@ -672,7 +683,6 @@ public void setUpdateUser( String val ) {
 
 		}
 
-	
 		#endregion
 
 

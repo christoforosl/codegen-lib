@@ -40,7 +40,7 @@ Public Class ucProjectDetails
 	Me.ProjectNamelbl = New System.Windows.Forms.Label
 	Me.ProjectName = New CGTextBox
 	Me.IsActivelbl = New System.Windows.Forms.Label
-	Me.IsActive = New CGIntTextBox
+	Me.IsActive = New CGCheckBox
 
 
         Me.SuspendLayout()
@@ -77,11 +77,8 @@ Public Class ucProjectDetails
 	Me.IsActive.AutoSize = True
 	Me.IsActive.Location = New System.Drawing.Point(135, 45)
 	Me.IsActive.Name ="IsActive"
-	Me.IsActive.Size = New System.Drawing.Size(200, 20)
-	Me.IsActive.MaxLength = 255
 	Me.IsActive.TabIndex = 1
 	Me.IsActive.visible = True
-	Me.IsActive.isMandatory = True
 	Me.IsActive.AssociatedLabel = me.IsActivelbl
 
 
@@ -110,7 +107,7 @@ Public Class ucProjectDetails
 	Friend WithEvents ProjectNamelbl As System.Windows.Forms.Label
 	Friend WithEvents ProjectName As CGTextBox
 	Friend WithEvents IsActivelbl As System.Windows.Forms.Label
-	Friend WithEvents IsActive As CGIntTextBox
+	Friend WithEvents IsActive As CGCheckBox
 
 
 #End Region

@@ -294,9 +294,9 @@ Public Class XMLClassGenerator
         t.DefaultMapperNameSpace = getRowValue(projectInfo.Rows(0), XML_ATTR_DEFAULT_MAPPER_NAMESPACE, False)
         t.BooleanFieldsDefinition = New BooleanFieldsDefinition()
 
-        If (cds.Tables("BooleanFields") IsNot Nothing) Then
+        If (cds.Tables("BooleanFields") IsNot Nothing AndAlso cds.Tables("BooleanFields").Rows.Count > 0) Then
             Dim dtBooleanFields As DataTable = cds.Tables("BooleanFields")
-            If dtBooleanFields.Rows(0).Item("excludedFieldNames") IsNot Nothing Then
+            If dtBooleanFields.Rows.Count > 0 AndAlso dtBooleanFields.Rows(0).Item("excludedFieldNames") IsNot Nothing Then
                 t.BooleanFieldsDefinition.ExcludedFields = getRowValue(dtBooleanFields.Rows(0), "excludedFieldNames", "")
             End If
 

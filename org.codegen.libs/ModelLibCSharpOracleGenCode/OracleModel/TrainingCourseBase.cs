@@ -104,29 +104,31 @@ namespace OracleModel
 		#region "Field Declarations"
 
 	private System.String _CODE;
-	private System.String _DescrGr = null;
-	private System.String _DescrEn = null;
+	private System.String _DescrGr;
+	private System.String _DescrEn;
 
 		#endregion
 
 		#region "Field Properties"
 
-	public virtual System.String PrCODE  {
-	get {
+	public virtual System.String PrCODE{
+	get{
 		return _CODE;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_CODE, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_CODE, value)){
+		if (value != null && value.Length > 5){
+			throw new ModelObjectFieldTooLongException("CODE");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CODE);
 			}
-			this._CODE = value;
 
 			this.raiseBroadcastIdChange();
 
 		}
-	}  
+		}
 	}
 public void setCODE( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -135,20 +137,22 @@ public void setCODE( String val ) {
 		this.PrCODE = null;
 	}
 }
-	public virtual System.String PrDescrGr  {
-	get {
+	public virtual System.String PrDescrGr{
+	get{
 		return _DescrGr;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_DescrGr, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_DescrGr, value)){
+		if (value != null && value.Length > 100){
+			throw new ModelObjectFieldTooLongException("DESCR_GR");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DESCR_GR);
 			}
-			this._DescrGr = value;
 
 		}
-	}  
+		}
 	}
 public void setDescrGr( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -157,20 +161,22 @@ public void setDescrGr( String val ) {
 		this.PrDescrGr = null;
 	}
 }
-	public virtual System.String PrDescrEn  {
-	get {
+	public virtual System.String PrDescrEn{
+	get{
 		return _DescrEn;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_DescrEn, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_DescrEn, value)){
+		if (value != null && value.Length > 100){
+			throw new ModelObjectFieldTooLongException("DESCR_EN");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DESCR_EN);
 			}
-			this._DescrEn = value;
 
 		}
-	}  
+		}
 	}
 public void setDescrEn( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -217,21 +223,21 @@ public void setDescrEn( String val ) {
 		case FLD_CODE:
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
-			}else{
+			} else {
 				this.PrCODE=(System.String)val;
 			} //
 			return;
 		case FLD_DESCR_GR:
 			if (val == DBNull.Value || val == null ){
 				this.PrDescrGr = null;
-			}else{
+			} else {
 				this.PrDescrGr=(System.String)val;
 			} //
 			return;
 		case FLD_DESCR_EN:
 			if (val == DBNull.Value || val == null ){
 				this.PrDescrEn = null;
-			}else{
+			} else {
 				this.PrDescrEn=(System.String)val;
 			} //
 			return;
@@ -336,9 +342,6 @@ public void setDescrEn( String val ) {
 			return ret;
 
 		}
-
-
-		
 
 		#endregion
 

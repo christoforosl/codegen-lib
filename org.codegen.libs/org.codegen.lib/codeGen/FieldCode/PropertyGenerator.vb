@@ -49,7 +49,7 @@ Public Class PropertyGenerator
         End If
 
         Dim pfx As String = ModelGenerator.Current.FieldPropertyPrefix
-		If (field.isAuditField) Then pfx = String.Empty
+        If (field.isAuditField) Then pfx = String.Empty
 
         Dim sproperty As StringBuilder = New StringBuilder(xmlIgnore).Append(vbTab). _
               Append(field.AccessLevel).Append(" Overridable Property ").Append(pfx).Append(runtimeFieldName). _

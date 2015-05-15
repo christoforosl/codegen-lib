@@ -119,34 +119,36 @@ namespace OracleModel
 		#region "Field Declarations"
 
 	private System.String _JobId;
-	private System.String _JobTitle = null;
+	private System.String _JobTitle;
 	private System.Int64? _MinSalary = null;
 	private System.Int64? _MaxSalary = null;
 	private System.DateTime? _CreateDate = null;
 	private System.DateTime? _UpdateDate = null;
-	private System.String _CreateUser = null;
-	private System.String _UpdateUser = null;
+	private System.String _CreateUser;
+	private System.String _UpdateUser;
 
 		#endregion
 
 		#region "Field Properties"
 
-	public virtual System.String PrJobId  {
-	get {
+	public virtual System.String PrJobId{
+	get{
 		return _JobId;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_JobId, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_JobId, value)){
+		if (value != null && value.Length > 10){
+			throw new ModelObjectFieldTooLongException("JOB_ID");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_JOB_ID);
 			}
-			this._JobId = value;
 
 			this.raiseBroadcastIdChange();
 
 		}
-	}  
+		}
 	}
 public void setJobId( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -155,20 +157,22 @@ public void setJobId( String val ) {
 		this.PrJobId = null;
 	}
 }
-	public virtual System.String PrJobTitle  {
-	get {
+	public virtual System.String PrJobTitle{
+	get{
 		return _JobTitle;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_JobTitle, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_JobTitle, value)){
+		if (value != null && value.Length > 35){
+			throw new ModelObjectFieldTooLongException("JOB_TITLE");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_JOB_TITLE);
 			}
-			this._JobTitle = value;
 
 		}
-	}  
+		}
 	}
 public void setJobTitle( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -177,20 +181,19 @@ public void setJobTitle( String val ) {
 		this.PrJobTitle = null;
 	}
 }
-	public virtual System.Int64? PrMinSalary  {
-	get {
+	public virtual System.Int64? PrMinSalary{
+	get{
 		return _MinSalary;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_MinSalary, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_MinSalary, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_MIN_SALARY);
 			}
-			this._MinSalary = value;
 
 		}
-	}  
+		}
 	}
 public void setMinSalary(String val){
 	if (Information.IsNumeric(val)) {
@@ -201,20 +204,19 @@ public void setMinSalary(String val){
 		throw new ApplicationException("Invalid Integer Number, field:MinSalary, value:" + val);
 	}
 }
-	public virtual System.Int64? PrMaxSalary  {
-	get {
+	public virtual System.Int64? PrMaxSalary{
+	get{
 		return _MaxSalary;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_MaxSalary, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_MaxSalary, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_MAX_SALARY);
 			}
-			this._MaxSalary = value;
 
 		}
-	}  
+		}
 	}
 public void setMaxSalary(String val){
 	if (Information.IsNumeric(val)) {
@@ -225,20 +227,19 @@ public void setMaxSalary(String val){
 		throw new ApplicationException("Invalid Integer Number, field:MaxSalary, value:" + val);
 	}
 }
-	public virtual System.DateTime? CreateDate  {
-	get {
+	public virtual System.DateTime? CreateDate{
+	get{
 		return _CreateDate;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_CreateDate, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_CreateDate, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_DATE);
 			}
-			this._CreateDate = value;
 
 		}
-	}  
+		}
 	}
 public void setCreateDate( String val ){
 	if (Information.IsDate(val)) {
@@ -249,20 +250,19 @@ public void setCreateDate( String val ){
 		throw new ApplicationException("Invalid Date, field:CreateDate, value:" + val);
 	}
 }
-	public virtual System.DateTime? UpdateDate  {
-	get {
+	public virtual System.DateTime? UpdateDate{
+	get{
 		return _UpdateDate;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_UpdateDate, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_UpdateDate, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_DATE);
 			}
-			this._UpdateDate = value;
 
 		}
-	}  
+		}
 	}
 public void setUpdateDate( String val ){
 	if (Information.IsDate(val)) {
@@ -273,20 +273,22 @@ public void setUpdateDate( String val ){
 		throw new ApplicationException("Invalid Date, field:UpdateDate, value:" + val);
 	}
 }
-	public virtual System.String CreateUser  {
-	get {
+	public virtual System.String CreateUser{
+	get{
 		return _CreateUser;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_CreateUser, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_CreateUser, value)){
+		if (value != null && value.Length > 20){
+			throw new ModelObjectFieldTooLongException("CREATE_USER");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_USER);
 			}
-			this._CreateUser = value;
 
 		}
-	}  
+		}
 	}
 public void setCreateUser( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -295,20 +297,22 @@ public void setCreateUser( String val ) {
 		this.CreateUser = null;
 	}
 }
-	public virtual System.String UpdateUser  {
-	get {
+	public virtual System.String UpdateUser{
+	get{
 		return _UpdateUser;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_UpdateUser, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_UpdateUser, value)){
+		if (value != null && value.Length > 20){
+			throw new ModelObjectFieldTooLongException("UPDATE_USER");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_USER);
 			}
-			this._UpdateUser = value;
 
 		}
-	}  
+		}
 	}
 public void setUpdateUser( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -375,56 +379,56 @@ public void setUpdateUser( String val ) {
 		case FLD_JOB_ID:
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
-			}else{
+			} else {
 				this.PrJobId=(System.String)val;
 			} //
 			return;
 		case FLD_JOB_TITLE:
 			if (val == DBNull.Value || val == null ){
 				this.PrJobTitle = null;
-			}else{
+			} else {
 				this.PrJobTitle=(System.String)val;
 			} //
 			return;
 		case FLD_MIN_SALARY:
 			if (val == DBNull.Value || val == null ){
 				this.PrMinSalary = null;
-			}else{
+			} else {
 				this.PrMinSalary=(System.Int64)val;
 			} //
 			return;
 		case FLD_MAX_SALARY:
 			if (val == DBNull.Value || val == null ){
 				this.PrMaxSalary = null;
-			}else{
+			} else {
 				this.PrMaxSalary=(System.Int64)val;
 			} //
 			return;
 		case FLD_CREATE_DATE:
 			if (val == DBNull.Value || val == null ){
 				this.CreateDate = null;
-			}else{
+			} else {
 				this.CreateDate=(System.DateTime)val;
 			} //
 			return;
 		case FLD_UPDATE_DATE:
 			if (val == DBNull.Value || val == null ){
 				this.UpdateDate = null;
-			}else{
+			} else {
 				this.UpdateDate=(System.DateTime)val;
 			} //
 			return;
 		case FLD_CREATE_USER:
 			if (val == DBNull.Value || val == null ){
 				this.CreateUser = null;
-			}else{
+			} else {
 				this.CreateUser=(System.String)val;
 			} //
 			return;
 		case FLD_UPDATE_USER:
 			if (val == DBNull.Value || val == null ){
 				this.UpdateUser = null;
-			}else{
+			} else {
 				this.UpdateUser=(System.String)val;
 			} //
 			return;
@@ -579,8 +583,6 @@ public void setUpdateUser( String val ) {
 			return ret;
 
 		}
-
-		
 
 		#endregion
 

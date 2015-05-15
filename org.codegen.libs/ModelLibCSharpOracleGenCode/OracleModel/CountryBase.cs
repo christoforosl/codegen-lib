@@ -113,9 +113,9 @@ namespace OracleModel
 		#region "Field Declarations"
 
 	private System.String _CountryId;
-	private System.String _CountryName = null;
+	private System.String _CountryName;
 	private System.Int64? _RegionId = null;
-	private System.String _SkipField = null;
+	private System.String _SkipField;
 	private System.Int64? _LongFld = null;
 	private System.Int64? _LongFld2 = null;
 
@@ -123,22 +123,24 @@ namespace OracleModel
 
 		#region "Field Properties"
 
-	public virtual System.String PrCountryId  {
-	get {
+	public virtual System.String PrCountryId{
+	get{
 		return _CountryId;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_CountryId, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_CountryId, value)){
+		if (value != null && value.Length > 2){
+			throw new ModelObjectFieldTooLongException("COUNTRY_ID");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COUNTRY_ID);
 			}
-			this._CountryId = value;
 
 			this.raiseBroadcastIdChange();
 
 		}
-	}  
+		}
 	}
 public void setCountryId( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -147,20 +149,22 @@ public void setCountryId( String val ) {
 		this.PrCountryId = null;
 	}
 }
-	public virtual System.String PrCountryName  {
-	get {
+	public virtual System.String PrCountryName{
+	get{
 		return _CountryName;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_CountryName, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_CountryName, value)){
+		if (value != null && value.Length > 40){
+			throw new ModelObjectFieldTooLongException("COUNTRY_NAME");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COUNTRY_NAME);
 			}
-			this._CountryName = value;
 
 		}
-	}  
+		}
 	}
 public void setCountryName( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -169,20 +173,19 @@ public void setCountryName( String val ) {
 		this.PrCountryName = null;
 	}
 }
-	public virtual System.Int64? PrRegionId  {
-	get {
+	public virtual System.Int64? PrRegionId{
+	get{
 		return _RegionId;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_RegionId, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_RegionId, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_REGION_ID);
 			}
-			this._RegionId = value;
 
 		}
-	}  
+		}
 	}
 public void setRegionId(String val){
 	if (Information.IsNumeric(val)) {
@@ -193,20 +196,22 @@ public void setRegionId(String val){
 		throw new ApplicationException("Invalid Integer Number, field:RegionId, value:" + val);
 	}
 }
-	public virtual System.String PrSkipField  {
-	get {
+	public virtual System.String PrSkipField{
+	get{
 		return _SkipField;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_SkipField, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_SkipField, value)){
+		if (value != null && value.Length > 40){
+			throw new ModelObjectFieldTooLongException("SKIP_FIELD");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SKIP_FIELD);
 			}
-			this._SkipField = value;
 
 		}
-	}  
+		}
 	}
 public void setSkipField( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -215,20 +220,19 @@ public void setSkipField( String val ) {
 		this.PrSkipField = null;
 	}
 }
-	public virtual System.Int64? PrLongFld  {
-	get {
+	public virtual System.Int64? PrLongFld{
+	get{
 		return _LongFld;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_LongFld, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_LongFld, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LONG_FLD);
 			}
-			this._LongFld = value;
 
 		}
-	}  
+		}
 	}
 public void setLongFld(String val){
 	if (Information.IsNumeric(val)) {
@@ -239,20 +243,19 @@ public void setLongFld(String val){
 		throw new ApplicationException("Invalid Integer Number, field:LongFld, value:" + val);
 	}
 }
-	public virtual System.Int64? PrLongFld2  {
-	get {
+	public virtual System.Int64? PrLongFld2{
+	get{
 		return _LongFld2;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_LongFld2, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_LongFld2, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LONG_FLD2);
 			}
-			this._LongFld2 = value;
 
 		}
-	}  
+		}
 	}
 public void setLongFld2(String val){
 	if (Information.IsNumeric(val)) {
@@ -313,42 +316,42 @@ public void setLongFld2(String val){
 		case FLD_COUNTRY_ID:
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
-			}else{
+			} else {
 				this.PrCountryId=(System.String)val;
 			} //
 			return;
 		case FLD_COUNTRY_NAME:
 			if (val == DBNull.Value || val == null ){
 				this.PrCountryName = null;
-			}else{
+			} else {
 				this.PrCountryName=(System.String)val;
 			} //
 			return;
 		case FLD_REGION_ID:
 			if (val == DBNull.Value || val == null ){
 				this.PrRegionId = null;
-			}else{
+			} else {
 				this.PrRegionId=(System.Int64)val;
 			} //
 			return;
 		case FLD_SKIP_FIELD:
 			if (val == DBNull.Value || val == null ){
 				this.PrSkipField = null;
-			}else{
+			} else {
 				this.PrSkipField=(System.String)val;
 			} //
 			return;
 		case FLD_LONG_FLD:
 			if (val == DBNull.Value || val == null ){
 				this.PrLongFld = null;
-			}else{
+			} else {
 				this.PrLongFld=(System.Int64)val;
 			} //
 			return;
 		case FLD_LONG_FLD2:
 			if (val == DBNull.Value || val == null ){
 				this.PrLongFld2 = null;
-			}else{
+			} else {
 				this.PrLongFld2=(System.Int64)val;
 			} //
 			return;
@@ -483,9 +486,6 @@ public void setLongFld2(String val){
 			return ret;
 
 		}
-
-	
-		
 
 		#endregion
 

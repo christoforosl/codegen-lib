@@ -101,28 +101,27 @@ namespace OracleModel
 		#region "Field Declarations"
 
 	private System.Int64 _RegionId;
-	private System.String _RegionName = null;
+	private System.String _RegionName;
 
 		#endregion
 
 		#region "Field Properties"
 
-	public virtual System.Int64 PrRegionId  {
-	get {
+	public virtual System.Int64 PrRegionId{
+	get{
 		return _RegionId;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_RegionId, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_RegionId, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_REGION_ID);
 			}
-			this._RegionId = value;
 
 			this.raiseBroadcastIdChange();
 
 		}
-	}  
+		}
 	}
 public void setRegionId(String val){
 	if (Information.IsNumeric(val)) {
@@ -133,20 +132,22 @@ public void setRegionId(String val){
 		throw new ApplicationException("Invalid Integer Number, field:RegionId, value:" + val);
 	}
 }
-	public virtual System.String PrRegionName  {
-	get {
+	public virtual System.String PrRegionName{
+	get{
 		return _RegionName;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_RegionName, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_RegionName, value)){
+		if (value != null && value.Length > 25){
+			throw new ModelObjectFieldTooLongException("REGION_NAME");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_REGION_NAME);
 			}
-			this._RegionName = value;
 
 		}
-	}  
+		}
 	}
 public void setRegionName( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -189,14 +190,14 @@ public void setRegionName( String val ) {
 		case FLD_REGION_ID:
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
-			}else{
+			} else {
 				this.PrRegionId=(System.Int64)val;
 			} //
 			return;
 		case FLD_REGION_NAME:
 			if (val == DBNull.Value || val == null ){
 				this.PrRegionName = null;
-			}else{
+			} else {
 				this.PrRegionName=(System.String)val;
 			} //
 			return;

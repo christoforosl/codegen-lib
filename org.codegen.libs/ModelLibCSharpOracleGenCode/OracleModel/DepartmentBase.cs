@@ -119,34 +119,33 @@ namespace OracleModel
 		#region "Field Declarations"
 
 	private System.Int64 _DepartmentId;
-	private System.String _DepartmentName = null;
+	private System.String _DepartmentName;
 	private System.Int64? _ManagerId = null;
 	private System.Int64? _LocationId = null;
 	private System.DateTime? _CreateDate = null;
 	private System.DateTime? _UpdateDate = null;
-	private System.String _CreateUser = null;
-	private System.String _UpdateUser = null;
+	private System.String _CreateUser;
+	private System.String _UpdateUser;
 
 		#endregion
 
 		#region "Field Properties"
 
-	public virtual System.Int64 PrDepartmentId  {
-	get {
+	public virtual System.Int64 PrDepartmentId{
+	get{
 		return _DepartmentId;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_DepartmentId, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_DepartmentId, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DEPARTMENT_ID);
 			}
-			this._DepartmentId = value;
 
 			this.raiseBroadcastIdChange();
 
 		}
-	}  
+		}
 	}
 public void setDepartmentId(String val){
 	if (Information.IsNumeric(val)) {
@@ -157,20 +156,22 @@ public void setDepartmentId(String val){
 		throw new ApplicationException("Invalid Integer Number, field:DepartmentId, value:" + val);
 	}
 }
-	public virtual System.String PrDepartmentName  {
-	get {
+	public virtual System.String PrDepartmentName{
+	get{
 		return _DepartmentName;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_DepartmentName, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_DepartmentName, value)){
+		if (value != null && value.Length > 30){
+			throw new ModelObjectFieldTooLongException("DEPARTMENT_NAME");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DEPARTMENT_NAME);
 			}
-			this._DepartmentName = value;
 
 		}
-	}  
+		}
 	}
 public void setDepartmentName( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -179,20 +180,19 @@ public void setDepartmentName( String val ) {
 		this.PrDepartmentName = null;
 	}
 }
-	public virtual System.Int64? PrManagerId  {
-	get {
+	public virtual System.Int64? PrManagerId{
+	get{
 		return _ManagerId;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_ManagerId, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_ManagerId, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_MANAGER_ID);
 			}
-			this._ManagerId = value;
 
 		}
-	}  
+		}
 	}
 public void setManagerId(String val){
 	if (Information.IsNumeric(val)) {
@@ -203,20 +203,19 @@ public void setManagerId(String val){
 		throw new ApplicationException("Invalid Integer Number, field:ManagerId, value:" + val);
 	}
 }
-	public virtual System.Int64? PrLocationId  {
-	get {
+	public virtual System.Int64? PrLocationId{
+	get{
 		return _LocationId;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_LocationId, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_LocationId, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LOCATION_ID);
 			}
-			this._LocationId = value;
 
 		}
-	}  
+		}
 	}
 public void setLocationId(String val){
 	if (Information.IsNumeric(val)) {
@@ -227,20 +226,19 @@ public void setLocationId(String val){
 		throw new ApplicationException("Invalid Integer Number, field:LocationId, value:" + val);
 	}
 }
-	public virtual System.DateTime? CreateDate  {
-	get {
+	public virtual System.DateTime? CreateDate{
+	get{
 		return _CreateDate;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_CreateDate, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_CreateDate, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_DATE);
 			}
-			this._CreateDate = value;
 
 		}
-	}  
+		}
 	}
 public void setCreateDate( String val ){
 	if (Information.IsDate(val)) {
@@ -251,20 +249,19 @@ public void setCreateDate( String val ){
 		throw new ApplicationException("Invalid Date, field:CreateDate, value:" + val);
 	}
 }
-	public virtual System.DateTime? UpdateDate  {
-	get {
+	public virtual System.DateTime? UpdateDate{
+	get{
 		return _UpdateDate;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_UpdateDate, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_UpdateDate, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_DATE);
 			}
-			this._UpdateDate = value;
 
 		}
-	}  
+		}
 	}
 public void setUpdateDate( String val ){
 	if (Information.IsDate(val)) {
@@ -275,20 +272,22 @@ public void setUpdateDate( String val ){
 		throw new ApplicationException("Invalid Date, field:UpdateDate, value:" + val);
 	}
 }
-	public virtual System.String CreateUser  {
-	get {
+	public virtual System.String CreateUser{
+	get{
 		return _CreateUser;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_CreateUser, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_CreateUser, value)){
+		if (value != null && value.Length > 20){
+			throw new ModelObjectFieldTooLongException("CREATE_USER");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_USER);
 			}
-			this._CreateUser = value;
 
 		}
-	}  
+		}
 	}
 public void setCreateUser( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -297,20 +296,22 @@ public void setCreateUser( String val ) {
 		this.CreateUser = null;
 	}
 }
-	public virtual System.String UpdateUser  {
-	get {
+	public virtual System.String UpdateUser{
+	get{
 		return _UpdateUser;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_UpdateUser, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_UpdateUser, value)){
+		if (value != null && value.Length > 20){
+			throw new ModelObjectFieldTooLongException("UPDATE_USER");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_USER);
 			}
-			this._UpdateUser = value;
 
 		}
-	}  
+		}
 	}
 public void setUpdateUser( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -377,56 +378,56 @@ public void setUpdateUser( String val ) {
 		case FLD_DEPARTMENT_ID:
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
-			}else{
+			} else {
 				this.PrDepartmentId=(System.Int64)val;
 			} //
 			return;
 		case FLD_DEPARTMENT_NAME:
 			if (val == DBNull.Value || val == null ){
 				this.PrDepartmentName = null;
-			}else{
+			} else {
 				this.PrDepartmentName=(System.String)val;
 			} //
 			return;
 		case FLD_MANAGER_ID:
 			if (val == DBNull.Value || val == null ){
 				this.PrManagerId = null;
-			}else{
+			} else {
 				this.PrManagerId=(System.Int64)val;
 			} //
 			return;
 		case FLD_LOCATION_ID:
 			if (val == DBNull.Value || val == null ){
 				this.PrLocationId = null;
-			}else{
+			} else {
 				this.PrLocationId=(System.Int64)val;
 			} //
 			return;
 		case FLD_CREATE_DATE:
 			if (val == DBNull.Value || val == null ){
 				this.CreateDate = null;
-			}else{
+			} else {
 				this.CreateDate=(System.DateTime)val;
 			} //
 			return;
 		case FLD_UPDATE_DATE:
 			if (val == DBNull.Value || val == null ){
 				this.UpdateDate = null;
-			}else{
+			} else {
 				this.UpdateDate=(System.DateTime)val;
 			} //
 			return;
 		case FLD_CREATE_USER:
 			if (val == DBNull.Value || val == null ){
 				this.CreateUser = null;
-			}else{
+			} else {
 				this.CreateUser=(System.String)val;
 			} //
 			return;
 		case FLD_UPDATE_USER:
 			if (val == DBNull.Value || val == null ){
 				this.UpdateUser = null;
-			}else{
+			} else {
 				this.UpdateUser=(System.String)val;
 			} //
 			return;
@@ -581,9 +582,6 @@ public void setUpdateUser( String val ) {
 			return ret;
 
 		}
-
-	
-		
 
 		#endregion
 
