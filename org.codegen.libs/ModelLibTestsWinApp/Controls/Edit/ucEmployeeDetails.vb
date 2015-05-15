@@ -62,7 +62,7 @@ Public Class ucEmployeeDetails
 	Me.SampleGuidFieldlbl = New System.Windows.Forms.Label
 	Me.SampleGuidField = New CGTextBox
 	Me.IsActivelbl = New System.Windows.Forms.Label
-	Me.IsActive = New CGTextBox
+	Me.IsActive = New CGCheckBox
 	Me.SampleBigIntlbl = New System.Windows.Forms.Label
 	Me.SampleBigInt = New CGIntTextBox
 	Me.SampleSmallIntlbl = New System.Windows.Forms.Label
@@ -318,8 +318,6 @@ Public Class ucEmployeeDetails
 	Me.IsActive.AutoSize = True
 	Me.IsActive.Location = New System.Drawing.Point(135, 375)
 	Me.IsActive.Name ="IsActive"
-	Me.IsActive.Size = New System.Drawing.Size(200, 20)
-	Me.IsActive.MaxLength = 255
 	Me.IsActive.TabIndex = 12
 	Me.IsActive.visible = True
 	Me.IsActive.AssociatedLabel = me.IsActivelbl
@@ -479,7 +477,7 @@ Public Class ucEmployeeDetails
 	Friend WithEvents SampleGuidFieldlbl As System.Windows.Forms.Label
 	Friend WithEvents SampleGuidField As CGTextBox
 	Friend WithEvents IsActivelbl As System.Windows.Forms.Label
-	Friend WithEvents IsActive As CGTextBox
+	Friend WithEvents IsActive As CGCheckBox
 	Friend WithEvents SampleBigIntlbl As System.Windows.Forms.Label
 	Friend WithEvents SampleBigInt As CGIntTextBox
 	Friend WithEvents SampleSmallIntlbl As System.Windows.Forms.Label

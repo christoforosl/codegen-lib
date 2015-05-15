@@ -25,10 +25,10 @@ Public Interface IDBField
 
     Function getClassVariableDeclaration(Optional ByVal accessLevel As String = "private", Optional ByVal withInitialiser As Boolean = True) As String
     Function getFieldDataType() As String
-    ReadOnly Property isNullableDataType() As Boolean
 
-    
     ReadOnly Property isNullableProperty() As Boolean
+
+    Property isDBFieldNullable() As Boolean
 
     Function getPropertyDataType() As String
     Function getProperty() As String
@@ -44,19 +44,8 @@ Public Interface IDBField
     Property Size() As Integer
     Property Precision() As Integer
     Property Scale() As Integer
-    Property isDBFieldNullable() As Boolean
+
     Property XMLSerializationIgnore() As Boolean
-
-    ' ''' <summary>
-    ' ''' The data type of the field as defined / customized in the xml generator file.
-    ' ''' If no customized data type was defined, then the default data type of the field
-    ' ''' as defined in the database table structure
-    ' ''' </summary>
-    ' ''' <value></value>
-    ' ''' <returns></returns>
-    ' ''' <remarks></remarks>
-    'Property UserSpecifiedDataType() As String
-
 
 
 End Interface

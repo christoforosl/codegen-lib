@@ -292,15 +292,15 @@ Namespace Tokens
                 'Dim field As DBField = CType(vec(i), DBField)
                 Dim field As IDBField = vec.Item(vec.Keys(i))
 
-                If field.IsTableField() AndAlso Not field.isPrimaryKey AndAlso field.isDBFieldNullable = False Then
-                    If field.isNullableDataType Then
+                If field.IsTableField() AndAlso Not field.isPrimaryKey _
+                        AndAlso field.isDBFieldNullable = False Then
 
-                        'If sb.Length > 0 Then sb.Append(" _").Append(vbCrLf & vbTab & vbTab).Append(" orElse ")
+                    If field.isString Then
+
+                        sb.Append("if (string.IsNullOrEmpty( mo.").Append(field.PropertyName).Append(")) {")
+                    Else
                         sb.Append("if (mo.").Append(field.PropertyName).Append(" == null ) {")
 
-                    Else
-                        'If sb.Length > 0 Then sb.Append(" _").Append(vbCrLf & vbTab & vbTab).Append(" orElse ")
-                        sb.Append("if (string.IsNullOrEmpty( mo.").Append(field.PropertyName).Append(")) {")
 
                     End If
                     sb.Append(vbCrLf)
@@ -327,16 +327,13 @@ Namespace Tokens
 
                 Dim field As IDBField = vec.Item(vec.Keys(i))
 
-                If field.IsTableField() AndAlso Not field.isPrimaryKey AndAlso field.isDBFieldNullable = False AndAlso field.isNullableProperty Then
-                    If field.isNullableProperty Then
+                If field.IsTableField() AndAlso Not field.isPrimaryKey _
+                        AndAlso field.isDBFieldNullable = False Then
 
-                        'If sb.Length > 0 Then sb.Append(" _").Append(vbCrLf & vbTab & vbTab).Append(" orElse ")
-                        sb.Append("if mo.").Append(field.PropertyName).Append(" is Nothing then")
-
-                    Else
-                        'If sb.Length > 0 Then sb.Append(" _").Append(vbCrLf & vbTab & vbTab).Append(" orElse ")
+                    If field.isString Then
                         sb.Append("if String.isNullOrEmpty( mo.").Append(field.PropertyName).Append(") Then")
-
+                    Else
+                        sb.Append("if mo.").Append(field.PropertyName).Append(" is Nothing then")
                     End If
                     sb.Append(vbCrLf)
                     sb.Append(vbTab & vbTab)

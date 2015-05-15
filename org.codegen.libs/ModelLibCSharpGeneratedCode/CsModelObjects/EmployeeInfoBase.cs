@@ -109,28 +109,27 @@ namespace CsModelObjects
 	private System.Int64 _EmployeeInfoId;
 	private System.Int64? _EIEmployeeId = null;
 	private System.Decimal? _Salary = null;
-	private System.String _Address = null;
+	private System.String _Address;
 
 		#endregion
 
 		#region "Field Properties"
 
-	public virtual System.Int64 PrEmployeeInfoId  {
-	get {
+	public virtual System.Int64 PrEmployeeInfoId{
+	get{
 		return _EmployeeInfoId;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_EmployeeInfoId, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_EmployeeInfoId, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEEINFOID);
 			}
-			this._EmployeeInfoId = value;
 
 			this.raiseBroadcastIdChange();
 
 		}
-	}  
+		}
 	}
 public void setEmployeeInfoId(String val){
 	if (Information.IsNumeric(val)) {
@@ -141,20 +140,19 @@ public void setEmployeeInfoId(String val){
 		throw new ApplicationException("Invalid Integer Number, field:EmployeeInfoId, value:" + val);
 	}
 }
-	public virtual System.Int64? PrEIEmployeeId  {
-	get {
+	public virtual System.Int64? PrEIEmployeeId{
+	get{
 		return _EIEmployeeId;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_EIEmployeeId, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_EIEmployeeId, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EIEMPLOYEEID);
 			}
-			this._EIEmployeeId = value;
 
 		}
-	}  
+		}
 	}
 public void setEIEmployeeId(String val){
 	if (Information.IsNumeric(val)) {
@@ -165,20 +163,19 @@ public void setEIEmployeeId(String val){
 		throw new ApplicationException("Invalid Integer Number, field:EIEmployeeId, value:" + val);
 	}
 }
-	public virtual System.Decimal? PrSalary  {
-	get {
+	public virtual System.Decimal? PrSalary{
+	get{
 		return _Salary;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_Salary, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_Salary, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SALARY);
 			}
-			this._Salary = value;
 
 		}
-	}  
+		}
 	}
 public void setSalary(String val ){
 	if (Information.IsNumeric(val)) {
@@ -189,20 +186,22 @@ public void setSalary(String val ){
 		throw new ApplicationException("Invalid Decimal Number, field:Salary, value:" + val);
 	}
 }
-	public virtual System.String PrAddress  {
-	get {
+	public virtual System.String PrAddress{
+	get{
 		return _Address;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_Address, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_Address, value)){
+		if (value != null && value.Length > 600){
+			throw new ModelObjectFieldTooLongException("Address");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ADDRESS);
 			}
-			this._Address = value;
 
 		}
-	}  
+		}
 	}
 public void setAddress( String val ) {
 	if (! string.IsNullOrEmpty(val)) {

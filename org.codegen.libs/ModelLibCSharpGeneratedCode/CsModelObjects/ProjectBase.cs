@@ -31,7 +31,7 @@ namespace CsModelObjects
 	public interface IProject: IModelObject {
 	System.Int64 PrProjectId {get;set;} 
 	System.String PrProjectName {get;set;} 
-	System.Boolean PrIsActive {get;set;} 
+	System.Int64? PrIsActive {get;set;} 
 	IEnumerable< CsModelObjects.EmployeeProject>PrEmployeeProjects {get; set;}
 		void PrEmployeeProjectAdd(CsModelObjects.EmployeeProject val);
 		void PrEmployeeProjectRemove(CsModelObjects.EmployeeProject val);
@@ -117,7 +117,7 @@ namespace CsModelObjects
 		#region "Field Declarations"
 
 	private System.Int64 _ProjectId;
-	private System.String _ProjectName = null;
+	private System.String _ProjectName;
 	private System.Int64? _IsActive = null;
 	// ****** CHILD OBJECTS ********************
 	private List< CsModelObjects.EmployeeProject> _EmployeeProjects = null;  // initialize to nothing, for lazy load logic below !!!
@@ -130,22 +130,21 @@ namespace CsModelObjects
 
 		#region "Field Properties"
 
-	public virtual System.Int64 PrProjectId  {
-	get {
+	public virtual System.Int64 PrProjectId{
+	get{
 		return _ProjectId;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_ProjectId, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_ProjectId, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_PROJECTID);
 			}
-			this._ProjectId = value;
 
 			this.raiseBroadcastIdChange();
 
 		}
-	}  
+		}
 	}
 public void setProjectId(String val){
 	if (Information.IsNumeric(val)) {
@@ -156,20 +155,22 @@ public void setProjectId(String val){
 		throw new ApplicationException("Invalid Integer Number, field:ProjectId, value:" + val);
 	}
 }
-	public virtual System.String PrProjectName  {
-	get {
+	public virtual System.String PrProjectName{
+	get{
 		return _ProjectName;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_ProjectName, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_ProjectName, value)){
+		if (value != null && value.Length > 250){
+			throw new ModelObjectFieldTooLongException("ProjectName");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_PROJECTNAME);
 			}
-			this._ProjectName = value;
 
 		}
-	}  
+		}
 	}
 public void setProjectName( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -178,31 +179,27 @@ public void setProjectName( String val ) {
 		this.PrProjectName = null;
 	}
 }
-	public virtual System.Boolean PrIsActive  {
-	get {
-		if ( _IsActive.HasValue ) {
-			return _IsActive.GetValueOrDefault()==1;
-		} else {
-			return false;
-		} //end customized check
-	} 
+	public virtual System.Int64? PrIsActive{
+	get{
+		return _IsActive;
+	}
 	set {
-		if (ModelObject.valueChanged(_IsActive, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_IsActive, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ISACTIVE);
 			}
-			this._IsActive = value? 1: 0;
 
 		}
-	}  
+		}
 	}
-public void setIsActive(String val ){
-	if (String.IsNullOrEmpty(val)) {
-		this.PrIsActive = false;
+public void setIsActive(String val){
+	if (Information.IsNumeric(val)) {
+		this.PrIsActive = Convert.ToInt64(val);
+	} else if (String.IsNullOrEmpty(val)) {
+		this.PrIsActive = null;
 	} else {
-	    bool newval = ("1"==val || "true"==val.ToLower()) ;
-	    this.PrIsActive = newval;
+		throw new ApplicationException("Invalid Integer Number, field:IsActive, value:" + val);
 	}
 }
 
@@ -360,9 +357,9 @@ public void setIsActive(String val ){
 			return;
 		case FLD_ISACTIVE:
 			if (val == DBNull.Value || val == null ){
-				this.PrIsActive = false;
+				this.PrIsActive = null;
 			} else {
-				this.PrIsActive=(System.Boolean)val;
+				this.PrIsActive=(System.Int64)val;
 			} //
 			return;
 		default:
@@ -389,9 +386,9 @@ public void setIsActive(String val ){
 			return;
 		} else if ( fieldKey==STR_FLD_ISACTIVE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.PrIsActive = false;
+				this.PrIsActive = null;
 			} else {
-				this.PrIsActive=(System.Boolean)val;
+				this.PrIsActive=(System.Int64)val;
 			}
 			return;
 		}
@@ -410,7 +407,7 @@ public void setIsActive(String val ){
 
 			return this.PrProjectId == other.PrProjectId
 				&& this.PrProjectName == other.PrProjectName
-				&& this.PrIsActive == other.PrIsActive;;
+				&& this.PrIsActive.GetValueOrDefault() == other.PrIsActive.GetValueOrDefault();;
 
 		}
 

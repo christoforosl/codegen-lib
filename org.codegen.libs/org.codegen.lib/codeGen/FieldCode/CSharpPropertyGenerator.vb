@@ -10,90 +10,55 @@ Public Class CSharpPropertyGenerator
 			Implements IPropertyGenerator.generateCode
 
 		Dim sImplements As String = String.Empty
-		Dim sLengthChecker As String = String.Empty
-		Dim xmlIgnore As String = String.Empty
+        Dim sLengthChecker As String = String.Empty
+        Dim xmlIgnore As String = String.Empty
         Dim runtimeFieldName As String = field.RuntimeFieldName()
+        Dim propertyFieldname As String = field.RuntimeFieldName
 
+        If runtimeFieldName.ToLower = "readonly" Then runtimeFieldName = "[ReadOnly]"
+        If runtimeFieldName.ToLower = "new" Then runtimeFieldName = "[new]"
 
-		Dim pfx As String = ModelGenerator.Current.FieldPropertyPrefix
-		If (field.isAuditField) Then pfx = String.Empty
-
-		Dim sproperty As String = xmlIgnore & _
-		  vbTab & field.AccessLevel.ToLower & " virtual " & field.getPropertyDataType & " " & _
-		  pfx & runtimeFieldName & "  {" & vbCrLf & _
-		  vbTab & "get {" & vbCrLf
-
-        If field.isBoolean Then
-
-          
-                sproperty &= vbTab & vbTab & "if ( _" & runtimeFieldName & ".HasValue ) {" & vbCrLf
-                sproperty &= vbTab & vbTab & vbTab & "return _" & runtimeFieldName & ".GetValueOrDefault()==1;" & vbCrLf
-
-                sproperty &= vbTab & vbTab & "} else {" & vbCrLf
-                sproperty &= vbTab & vbTab & vbTab & "return false;" & vbCrLf
-                sproperty &= vbTab & vbTab & "} //end customized check" & vbCrLf
-
-        Else
-            sproperty &= vbTab & vbTab & "return _" & runtimeFieldName & ";" & _
-                             vbCrLf
+        If field.RuntimeTypeStr = "System.String" Then
+            sLengthChecker = vbTab & vbTab & "if (value != null && value.Length > " & field.Size & "){" & vbCrLf
+            sLengthChecker &= vbTab & vbTab & vbTab & "throw new ModelObjectFieldTooLongException(""" & field.FieldName & """);" & vbCrLf
+            sLengthChecker &= vbTab & vbTab & "}" & vbCrLf
         End If
 
-		Dim PropertyInterface As String = DirectCast( _
-				ModelGenerator.Current.CurrentObjectBeingGenerated.FileGroup(ModelObjectFileComponent.KEY),  _
-				DotNetClassFileComponent).ClassInterface
-
-		sproperty &= vbTab & "} " & vbCrLf & _
-			vbTab & "set {" & vbCrLf & _
-			vbTab & vbTab & "if (ModelObject.valueChanged(_" & runtimeFieldName & ", value)) {" & vbCrLf & _
-			vbTab & vbTab & vbTab & "if (!this.IsObjectLoading ) {" & vbCrLf & _
-			vbTab & vbTab & vbTab & vbTab & "this.isDirty = true;" & vbCrLf & _
-			vbTab & vbTab & vbTab & vbTab & "this.setFieldChanged(" & field.getConstantStr & ");" & vbCrLf & _
-			vbTab & vbTab & vbTab & "}" & vbCrLf
-
-		If field.isBoolean Then
-           
-                    sproperty &= vbTab & vbTab & vbTab & "this._" & runtimeFieldName & " = value? 1: 0;" & vbCrLf
-           
-        Else
-            sproperty &= vbTab & vbTab & vbTab & "this._" & runtimeFieldName & " = value;" & vbCrLf
+        If field.XMLSerializationIgnore Then
+            xmlIgnore = "[XmlIgnore()]" & vbCrLf
         End If
 
-		If field.isPrimaryKey Then
-			sproperty &= vbCrLf & vbTab & vbTab & vbTab & "this.raiseBroadcastIdChange();" & vbCrLf
-		End If
+        Dim pfx As String = ModelGenerator.Current.FieldPropertyPrefix
+        If (field.isAuditField) Then pfx = String.Empty
 
-		sproperty &= vbCrLf & vbTab & vbTab & "}" & vbCrLf & _
-			vbTab & "}  " & vbCrLf & _
-			vbTab & "}" & vbCrLf
+        Dim sproperty As StringBuilder = New StringBuilder(xmlIgnore).Append(vbTab). _
+              Append("public virtual ").Append(field.getPropertyDataType).Append(" "). _
+              Append(pfx).Append(runtimeFieldName).Append("{").Append(vbCrLf). _
+              Append(vbTab).Append("get{").Append(vbCrLf)
 
+        sproperty.Append(vbTab & vbTab & "return _" & runtimeFieldName & ";" & vbCrLf)
 
-		If field.RuntimeTypeStr = "System.String" Then
-			sLengthChecker = vbTab & vbTab & "if ( value != null && value.length() > " & field.Size & " {" & vbCrLf
-			sLengthChecker &= vbTab & vbTab & vbTab & "throw new ModelObjectFieldTooLongException(""" & field.FieldName & """)" & vbCrLf
-			sLengthChecker &= vbTab & vbTab & "}" & vbCrLf
+        sproperty.Append(vbTab & "}" & vbCrLf)
+        sproperty.Append(
+            vbTab).Append("set {").Append(vbCrLf).Append( _
+            vbTab).Append(vbTab).Append("if (ModelObject.valueChanged(_").Append(runtimeFieldName).Append(", value)){").Append(vbCrLf). _
+            Append(sLengthChecker).Append( _
+            vbTab).Append(vbTab).Append(vbTab & "if (this.IsObjectLoading == false) {").Append(vbCrLf).Append( _
+            vbTab).Append(vbTab).Append(vbTab & vbTab).Append("this.isDirty = true;").Append(vbCrLf).Append( _
+            vbTab).Append(vbTab).Append(vbTab & vbTab).Append("this.setFieldChanged(").Append(field.getConstantStr).Append(");").Append(vbCrLf & _
+            vbTab).Append(vbTab).Append(vbTab & "}").Append(vbCrLf)
 
-		End If
+        If field.isPrimaryKey Then
+            sproperty.Append(vbCrLf & vbTab & vbTab & vbTab & "this.raiseBroadcastIdChange();" & vbCrLf)
+        End If
 
-		Dim iimplements As List(Of String) = New List(Of String)
-		If field.isAuditField Then
-			iimplements.Add(field.ParentTable.getAuditInterface & "." & field.RuntimeFieldName)
-		End If
+        sproperty.Append(vbCrLf & vbTab & vbTab & "}" & vbCrLf & _
+           vbTab & vbTab & "}" & vbCrLf & _
+           vbTab & "}" & vbCrLf)
 
-		If String.IsNullOrEmpty(PropertyInterface) = False Then
-			iimplements.Add(PropertyInterface & "." & field.RuntimeFieldName)
+        Me.generateStringSetters(sproperty, field)
 
-		End If
-
-
-		Dim ret As StringBuilder = New StringBuilder
-        ret.Append(sproperty)
-
-		If runtimeFieldName.ToLower = "readonly" Then runtimeFieldName = "[ReadOnly]"
-		If runtimeFieldName.ToLower = "new" Then runtimeFieldName = "[new]"
-
-        Me.generateStringSetters(ret, field)
-
-        Return ret.ToString
+        Return sproperty.ToString
 
     End Function
 

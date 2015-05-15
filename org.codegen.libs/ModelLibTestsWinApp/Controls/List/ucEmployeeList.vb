@@ -43,7 +43,7 @@ Public Class ucEmployeeList
 	me.CreateUser = new DataGridViewTextBoxColumn
 	me.UpdateUser = new DataGridViewTextBoxColumn
 	me.SampleGuidField = new DataGridViewTextBoxColumn
-	me.IsActive = new DataGridViewTextBoxColumn
+	me.IsActive = new DataGridViewCheckBoxColumn
 	me.SampleBigInt = new DataGridViewTextBoxColumn
 	me.SampleSmallInt = new DataGridViewTextBoxColumn
 	me.SampleNumericFieldInt = new DataGridViewTextBoxColumn
@@ -310,14 +310,15 @@ Public Class ucEmployeeList
 
 
 	' column: IsActive
-	IsActive.CellTemplate = New DataGridViewTextBoxCell
+	IsActive.CellTemplate = New DataGridViewCheckBoxCell
+	IsActive.HeaderCell = New DataGridViewAutoFilterBooleanColumnHeaderCell
 	IsActive.Name = "IsActive"
 	IsActive.DataPropertyName = "isActive"
 	IsActive.ReadOnly = True
 	IsActive.HeaderText = "IsActive"
 	IsActive.HeaderCell.value = "IsActive"
-	IsActive.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft
-	IsActive.HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopLeft
+	IsActive.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+	IsActive.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
 	IsActive.Width = 100
 	IsActive.Visible = True
 	'**** End Setup of column: IsActive
@@ -437,7 +438,7 @@ Public Class ucEmployeeList
 	Private WithEvents CreateUser As DataGridViewTextBoxColumn
 	Private WithEvents UpdateUser As DataGridViewTextBoxColumn
 	Private WithEvents SampleGuidField As DataGridViewTextBoxColumn
-	Private WithEvents IsActive As DataGridViewTextBoxColumn
+	Private WithEvents IsActive As DataGridViewCheckBoxColumn
 	Private WithEvents SampleBigInt As DataGridViewTextBoxColumn
 	Private WithEvents SampleSmallInt As DataGridViewTextBoxColumn
 	Private WithEvents SampleNumericFieldInt As DataGridViewTextBoxColumn

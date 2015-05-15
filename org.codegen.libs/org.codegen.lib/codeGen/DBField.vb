@@ -8,7 +8,7 @@ Public Class DBField
     ' Private _userSpecifiedDataType As String
     Private _RuntimeType As System.Type
 
-    Public Property AccessLevel() As String = "Public" Implements IDBField.AccessLevel
+    Public Property AccessLevel() As String Implements IDBField.AccessLevel
     Public Property OriginalRuntimeType() As System.Type Implements IDBField.OriginalRuntimeType
     Public Property RuntimeTypeStr() As System.String Implements IDBField.RuntimeTypeStr
     Public Property ParentTable() As IDBTable Implements IDBField.ParentTable
@@ -75,10 +75,10 @@ Public Class DBField
                             fname & " as " & _
                             getFieldDataType()
 
-            If withInitialiser AndAlso Me.isPrimaryKey = False Then ret &= " = Nothing"
+            If withInitialiser AndAlso Me.isNullableProperty Then ret &= " = Nothing"
         Else
             ret = vbTab & accessLevel & " " & getFieldDataType() & " _" & fname
-            If withInitialiser AndAlso Me.isPrimaryKey = False Then ret &= " = null"
+            If withInitialiser AndAlso Me.isNullableProperty Then ret &= " = null"
             ret &= ";"
         End If
 
@@ -89,7 +89,7 @@ Public Class DBField
 
     Public Overridable Function getFieldDataType() As String Implements IDBField.getFieldDataType
 
-        If Me.isNullableDataType Then
+        If Me.isNullableProperty Then
             If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
                 Return "Nullable (of " & Me._RuntimeTypeStr & ")"
             Else
@@ -104,24 +104,11 @@ Public Class DBField
 
     Public ReadOnly Property isNullableProperty() As Boolean Implements IDBField.isNullableProperty
         Get
-            Return ModelGenerator.Current.BooleanFieldsDefinition.isBooleanField(Me) = False _
-                    AndAlso Me.isNullableDataType
+            Return Me.isPrimaryKey = False AndAlso Me.isString = False AndAlso Me.isBoolean = False
         End Get
     End Property
-    Public ReadOnly Property isNullableDataType() As Boolean Implements IDBField.isNullableDataType
-        Get
-            If Me.isPrimaryKey Then
-                Return False
 
-            ElseIf Me.RuntimeTypeStr = "System.String" Then
-                Return False
 
-            Else
-                Return True
-
-            End If
-        End Get
-    End Property
 
     Public Overridable Function getPropertyDataType() As String Implements IDBField.getPropertyDataType
 
@@ -133,7 +120,7 @@ Public Class DBField
         ElseIf Me.FieldDataType = "System.String" Then
             ret = Me.FieldDataType
 
-        ElseIf Me.isNullableDataType Then
+        ElseIf Me.isNullableProperty Then
             If (ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP) Then
                 ret = Me.FieldDataType & "?"
             Else
@@ -269,7 +256,7 @@ Public Class DBField
 
     Public Function isBoolean() As Boolean Implements IDBField.isBoolean
 
-        Return ModelGenerator.Current.BooleanFieldsDefinition.isBooleanField(Me)
+        Return Me.RuntimeType = Type.GetType("System.Boolean") OrElse ModelGenerator.Current.BooleanFieldsDefinition.isBooleanField(Me)
 
     End Function
 
@@ -323,13 +310,14 @@ Public Class DBField
             'for oracle only!!
             If _RuntimeType Is Type.GetType("System.Decimal") AndAlso Me.Scale = 0 Then
                 _RuntimeType = Type.GetType("System.Int64")
+
                 _OriginalRuntimeType = Type.GetType("System.Int64")
+
             End If
 
-            'If Me._userSpecifiedDataType IsNot Nothing Then
-            '    _RuntimeTypeStr = _userSpecifiedDataType
-
-            'End If
+            If ModelGenerator.Current.BooleanFieldsDefinition.isBooleanField(Me) Then
+                _RuntimeType = Type.GetType("System.Boolean")
+            End If
 
             _RuntimeTypeStr = _RuntimeType.ToString
 
@@ -339,19 +327,6 @@ Public Class DBField
 
 
 
-    ' ''' <summary>
-    ' ''' The data type of the field as defined / customized in the xml generator file.
-    ' ''' </summary>
-    'Public Property UserSpecifiedDataType() As String Implements IDBField.UserSpecifiedDataType
-    '    Get
-    '        Return _userSpecifiedDataType
-    '    End Get
-
-    '    Set(ByVal value As String)
-    '        Me._userSpecifiedDataType = value
-    '    End Set
-
-    'End Property
 
     ''' <summary>
     ''' The data type of the field as defined / customized in the xml generator file.

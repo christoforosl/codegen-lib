@@ -101,28 +101,27 @@ namespace CsModelObjects
 		#region "Field Declarations"
 
 	private System.Int64 _RankId;
-	private System.String _Rank = null;
+	private System.String _Rank;
 
 		#endregion
 
 		#region "Field Properties"
 
-	public virtual System.Int64 PrRankId  {
-	get {
+	public virtual System.Int64 PrRankId{
+	get{
 		return _RankId;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_RankId, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_RankId, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_RANKID);
 			}
-			this._RankId = value;
 
 			this.raiseBroadcastIdChange();
 
 		}
-	}  
+		}
 	}
 public void setRankId(String val){
 	if (Information.IsNumeric(val)) {
@@ -133,20 +132,22 @@ public void setRankId(String val){
 		throw new ApplicationException("Invalid Integer Number, field:RankId, value:" + val);
 	}
 }
-	public virtual System.String PrRank  {
-	get {
+	public virtual System.String PrRank{
+	get{
 		return _Rank;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_Rank, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_Rank, value)){
+		if (value != null && value.Length > 50){
+			throw new ModelObjectFieldTooLongException("Rank");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_RANK);
 			}
-			this._Rank = value;
 
 		}
-	}  
+		}
 	}
 public void setRank( String val ) {
 	if (! string.IsNullOrEmpty(val)) {

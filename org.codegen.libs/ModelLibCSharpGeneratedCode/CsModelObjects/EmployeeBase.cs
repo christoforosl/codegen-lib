@@ -46,6 +46,11 @@ namespace CsModelObjects
 	System.String CreateUser {get;set;} 
 	System.String UpdateUser {get;set;} 
 	System.Guid? PrSampleGuidField {get;set;} 
+	System.Boolean PrIsActive {get;set;} 
+	System.Int64? PrSampleBigInt {get;set;} 
+	System.Int64? PrSampleSmallInt {get;set;} 
+	System.Int64? PrSampleNumericFieldInt {get;set;} 
+	System.Decimal? PrSampleNumericField2Decimals {get;set;} 
 	CsModelObjects.EmployeeRank PrRank {get;set;} //association
 	CsModelObjects.EmployeeInfo PrEmployeeInfo {get;set;} //association
 	IEnumerable< CsModelObjects.EmployeeProject>PrEmployeeProjects {get; set;}
@@ -132,6 +137,11 @@ namespace CsModelObjects
 			public const String STR_FLD_CREATEUSER = "CreateUser";
 			public const String STR_FLD_UPDATEUSER = "UpdateUser";
 			public const String STR_FLD_SAMPLEGUIDFIELD = "SampleGuidField";
+			public const String STR_FLD_ISACTIVE = "IsActive";
+			public const String STR_FLD_SAMPLEBIGINT = "SampleBigInt";
+			public const String STR_FLD_SAMPLESMALLINT = "SampleSmallInt";
+			public const String STR_FLD_SAMPLENUMERICFIELDINT = "SampleNumericFieldInt";
+			public const String STR_FLD_SAMPLENUMERICFIELD2DECIMALS = "SampleNumericField2Decimals";
 
 
 				public const int FLD_EMPLOYEEID = 0;
@@ -151,6 +161,11 @@ namespace CsModelObjects
 		public const int FLD_CREATEUSER = 14;
 		public const int FLD_UPDATEUSER = 15;
 		public const int FLD_SAMPLEGUIDFIELD = 16;
+		public const int FLD_ISACTIVE = 17;
+		public const int FLD_SAMPLEBIGINT = 18;
+		public const int FLD_SAMPLESMALLINT = 19;
+		public const int FLD_SAMPLENUMERICFIELDINT = 20;
+		public const int FLD_SAMPLENUMERICFIELD2DECIMALS = 21;
 
 
 
@@ -160,7 +175,7 @@ namespace CsModelObjects
 		public override string[] getFieldList()
 		{
 			return new string[] {
-				STR_FLD_EMPLOYEEID,STR_FLD_EMPLOYEENAME,STR_FLD_EMPLOYEERANKID,STR_FLD_SALARY,STR_FLD_ADDRESS,STR_FLD_TELEPHONE,STR_FLD_MOBILE,STR_FLD_IDNUMBER,STR_FLD_SSINUMBER,STR_FLD_HIREDATE,STR_FLD_NUMDEPENDENTS,STR_FLD_EMPLOYEETYPECODE,STR_FLD_CREATEDATE,STR_FLD_UPDATEDATE,STR_FLD_CREATEUSER,STR_FLD_UPDATEUSER,STR_FLD_SAMPLEGUIDFIELD
+				STR_FLD_EMPLOYEEID,STR_FLD_EMPLOYEENAME,STR_FLD_EMPLOYEERANKID,STR_FLD_SALARY,STR_FLD_ADDRESS,STR_FLD_TELEPHONE,STR_FLD_MOBILE,STR_FLD_IDNUMBER,STR_FLD_SSINUMBER,STR_FLD_HIREDATE,STR_FLD_NUMDEPENDENTS,STR_FLD_EMPLOYEETYPECODE,STR_FLD_CREATEDATE,STR_FLD_UPDATEDATE,STR_FLD_CREATEUSER,STR_FLD_UPDATEUSER,STR_FLD_SAMPLEGUIDFIELD,STR_FLD_ISACTIVE,STR_FLD_SAMPLEBIGINT,STR_FLD_SAMPLESMALLINT,STR_FLD_SAMPLENUMERICFIELDINT,STR_FLD_SAMPLENUMERICFIELD2DECIMALS
 			};
 		}
 
@@ -169,22 +184,27 @@ namespace CsModelObjects
 		#region "Field Declarations"
 
 	private System.Int64 _EmployeeId;
-	private System.String _EmployeeName = null;
+	private System.String _EmployeeName;
 	private System.Int64? _EmployeeRankId = null;
 	private System.Decimal? _Salary = null;
-	private System.String _Address = null;
-	private System.String _Telephone = null;
-	private System.String _Mobile = null;
-	private System.String _IdNumber = null;
-	private System.String _SSINumber = null;
+	private System.String _Address;
+	private System.String _Telephone;
+	private System.String _Mobile;
+	private System.String _IdNumber;
+	private System.String _SSINumber;
 	private System.DateTime? _HireDate = null;
 	private System.Int64? _NumDependents = null;
-	private System.String _EmployeeTypeCode = null;
+	private System.String _EmployeeTypeCode;
 	private System.DateTime? _CreateDate = null;
 	private System.DateTime? _UpdateDate = null;
-	private System.String _CreateUser = null;
-	private System.String _UpdateUser = null;
+	private System.String _CreateUser;
+	private System.String _UpdateUser;
 	private System.Guid? _SampleGuidField = null;
+	private System.Boolean _IsActive;
+	private System.Int64? _SampleBigInt = null;
+	private System.Int64? _SampleSmallInt = null;
+	private System.Int64? _SampleNumericFieldInt = null;
+	private System.Decimal? _SampleNumericField2Decimals = null;
 	// ****** CHILD OBJECTS ********************
 	private CsModelObjects.EmployeeRank _Rank = null;  // initialize to nothing, for lazy load logic below !!!
 	private CsModelObjects.EmployeeInfo _EmployeeInfo = null;  // initialize to nothing, for lazy load logic below !!!
@@ -198,22 +218,21 @@ namespace CsModelObjects
 
 		#region "Field Properties"
 
-	public virtual System.Int64 PrEmployeeId  {
-	get {
+	public virtual System.Int64 PrEmployeeId{
+	get{
 		return _EmployeeId;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_EmployeeId, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_EmployeeId, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEEID);
 			}
-			this._EmployeeId = value;
 
 			this.raiseBroadcastIdChange();
 
 		}
-	}  
+		}
 	}
 public void setEmployeeId(String val){
 	if (Information.IsNumeric(val)) {
@@ -224,20 +243,22 @@ public void setEmployeeId(String val){
 		throw new ApplicationException("Invalid Integer Number, field:EmployeeId, value:" + val);
 	}
 }
-	public virtual System.String PrEmployeeName  {
-	get {
+	public virtual System.String PrEmployeeName{
+	get{
 		return _EmployeeName;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_EmployeeName, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_EmployeeName, value)){
+		if (value != null && value.Length > 50){
+			throw new ModelObjectFieldTooLongException("EmployeeName");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEENAME);
 			}
-			this._EmployeeName = value;
 
 		}
-	}  
+		}
 	}
 public void setEmployeeName( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -246,20 +267,19 @@ public void setEmployeeName( String val ) {
 		this.PrEmployeeName = null;
 	}
 }
-	public virtual System.Int64? PrEmployeeRankId  {
-	get {
+	public virtual System.Int64? PrEmployeeRankId{
+	get{
 		return _EmployeeRankId;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_EmployeeRankId, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_EmployeeRankId, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEERANKID);
 			}
-			this._EmployeeRankId = value;
 
 		}
-	}  
+		}
 	}
 public void setEmployeeRankId(String val){
 	if (Information.IsNumeric(val)) {
@@ -270,20 +290,19 @@ public void setEmployeeRankId(String val){
 		throw new ApplicationException("Invalid Integer Number, field:EmployeeRankId, value:" + val);
 	}
 }
-	public virtual System.Decimal? PrSalary  {
-	get {
+	public virtual System.Decimal? PrSalary{
+	get{
 		return _Salary;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_Salary, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_Salary, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SALARY);
 			}
-			this._Salary = value;
 
 		}
-	}  
+		}
 	}
 public void setSalary(String val ){
 	if (Information.IsNumeric(val)) {
@@ -294,20 +313,22 @@ public void setSalary(String val ){
 		throw new ApplicationException("Invalid Decimal Number, field:Salary, value:" + val);
 	}
 }
-	public virtual System.String PrAddress  {
-	get {
+	public virtual System.String PrAddress{
+	get{
 		return _Address;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_Address, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_Address, value)){
+		if (value != null && value.Length > 50){
+			throw new ModelObjectFieldTooLongException("Address");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ADDRESS);
 			}
-			this._Address = value;
 
 		}
-	}  
+		}
 	}
 public void setAddress( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -316,20 +337,22 @@ public void setAddress( String val ) {
 		this.PrAddress = null;
 	}
 }
-	public virtual System.String PrTelephone  {
-	get {
+	public virtual System.String PrTelephone{
+	get{
 		return _Telephone;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_Telephone, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_Telephone, value)){
+		if (value != null && value.Length > 10){
+			throw new ModelObjectFieldTooLongException("Telephone");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_TELEPHONE);
 			}
-			this._Telephone = value;
 
 		}
-	}  
+		}
 	}
 public void setTelephone( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -338,20 +361,22 @@ public void setTelephone( String val ) {
 		this.PrTelephone = null;
 	}
 }
-	public virtual System.String PrMobile  {
-	get {
+	public virtual System.String PrMobile{
+	get{
 		return _Mobile;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_Mobile, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_Mobile, value)){
+		if (value != null && value.Length > 10){
+			throw new ModelObjectFieldTooLongException("Mobile");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_MOBILE);
 			}
-			this._Mobile = value;
 
 		}
-	}  
+		}
 	}
 public void setMobile( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -360,20 +385,22 @@ public void setMobile( String val ) {
 		this.PrMobile = null;
 	}
 }
-	public virtual System.String PrIdNumber  {
-	get {
+	public virtual System.String PrIdNumber{
+	get{
 		return _IdNumber;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_IdNumber, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_IdNumber, value)){
+		if (value != null && value.Length > 10){
+			throw new ModelObjectFieldTooLongException("IdNumber");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_IDNUMBER);
 			}
-			this._IdNumber = value;
 
 		}
-	}  
+		}
 	}
 public void setIdNumber( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -382,20 +409,22 @@ public void setIdNumber( String val ) {
 		this.PrIdNumber = null;
 	}
 }
-	public virtual System.String PrSSINumber  {
-	get {
+	public virtual System.String PrSSINumber{
+	get{
 		return _SSINumber;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_SSINumber, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_SSINumber, value)){
+		if (value != null && value.Length > 10){
+			throw new ModelObjectFieldTooLongException("SSINumber");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SSINUMBER);
 			}
-			this._SSINumber = value;
 
 		}
-	}  
+		}
 	}
 public void setSSINumber( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -404,20 +433,19 @@ public void setSSINumber( String val ) {
 		this.PrSSINumber = null;
 	}
 }
-	public virtual System.DateTime? PrHireDate  {
-	get {
+	public virtual System.DateTime? PrHireDate{
+	get{
 		return _HireDate;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_HireDate, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_HireDate, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_HIREDATE);
 			}
-			this._HireDate = value;
 
 		}
-	}  
+		}
 	}
 public void setHireDate( String val ){
 	if (Information.IsDate(val)) {
@@ -428,20 +456,19 @@ public void setHireDate( String val ){
 		throw new ApplicationException("Invalid Date, field:HireDate, value:" + val);
 	}
 }
-	public virtual System.Int64? PrNumDependents  {
-	get {
+	public virtual System.Int64? PrNumDependents{
+	get{
 		return _NumDependents;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_NumDependents, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_NumDependents, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_NUMDEPENDENTS);
 			}
-			this._NumDependents = value;
 
 		}
-	}  
+		}
 	}
 public void setNumDependents(String val){
 	if (Information.IsNumeric(val)) {
@@ -452,20 +479,22 @@ public void setNumDependents(String val){
 		throw new ApplicationException("Invalid Integer Number, field:NumDependents, value:" + val);
 	}
 }
-	public virtual System.String PrEmployeeTypeCode  {
-	get {
+	public virtual System.String PrEmployeeTypeCode{
+	get{
 		return _EmployeeTypeCode;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_EmployeeTypeCode, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_EmployeeTypeCode, value)){
+		if (value != null && value.Length > 10){
+			throw new ModelObjectFieldTooLongException("EmployeeTypeCode");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEETYPECODE);
 			}
-			this._EmployeeTypeCode = value;
 
 		}
-	}  
+		}
 	}
 public void setEmployeeTypeCode( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -474,20 +503,19 @@ public void setEmployeeTypeCode( String val ) {
 		this.PrEmployeeTypeCode = null;
 	}
 }
-	public virtual System.DateTime? CreateDate  {
-	get {
+	public virtual System.DateTime? CreateDate{
+	get{
 		return _CreateDate;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_CreateDate, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_CreateDate, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATEDATE);
 			}
-			this._CreateDate = value;
 
 		}
-	}  
+		}
 	}
 public void setCreateDate( String val ){
 	if (Information.IsDate(val)) {
@@ -498,20 +526,19 @@ public void setCreateDate( String val ){
 		throw new ApplicationException("Invalid Date, field:CreateDate, value:" + val);
 	}
 }
-	public virtual System.DateTime? UpdateDate  {
-	get {
+	public virtual System.DateTime? UpdateDate{
+	get{
 		return _UpdateDate;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_UpdateDate, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_UpdateDate, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATEDATE);
 			}
-			this._UpdateDate = value;
 
 		}
-	}  
+		}
 	}
 public void setUpdateDate( String val ){
 	if (Information.IsDate(val)) {
@@ -522,20 +549,22 @@ public void setUpdateDate( String val ){
 		throw new ApplicationException("Invalid Date, field:UpdateDate, value:" + val);
 	}
 }
-	public virtual System.String CreateUser  {
-	get {
+	public virtual System.String CreateUser{
+	get{
 		return _CreateUser;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_CreateUser, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_CreateUser, value)){
+		if (value != null && value.Length > 50){
+			throw new ModelObjectFieldTooLongException("createUser");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATEUSER);
 			}
-			this._CreateUser = value;
 
 		}
-	}  
+		}
 	}
 public void setCreateUser( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -544,20 +573,22 @@ public void setCreateUser( String val ) {
 		this.CreateUser = null;
 	}
 }
-	public virtual System.String UpdateUser  {
-	get {
+	public virtual System.String UpdateUser{
+	get{
 		return _UpdateUser;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_UpdateUser, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_UpdateUser, value)){
+		if (value != null && value.Length > 50){
+			throw new ModelObjectFieldTooLongException("updateUser");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATEUSER);
 			}
-			this._UpdateUser = value;
 
 		}
-	}  
+		}
 	}
 public void setUpdateUser( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -566,21 +597,134 @@ public void setUpdateUser( String val ) {
 		this.UpdateUser = null;
 	}
 }
-	public virtual System.Guid? PrSampleGuidField  {
-	get {
+	public virtual System.Guid? PrSampleGuidField{
+	get{
 		return _SampleGuidField;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_SampleGuidField, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_SampleGuidField, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SAMPLEGUIDFIELD);
 			}
-			this._SampleGuidField = value;
 
 		}
-	}  
+		}
 	}
+	public virtual System.Boolean PrIsActive{
+	get{
+		return _IsActive;
+	}
+	set {
+		if (ModelObject.valueChanged(_IsActive, value)){
+			if (this.IsObjectLoading == false) {
+				this.isDirty = true;
+				this.setFieldChanged(STR_FLD_ISACTIVE);
+			}
+
+		}
+		}
+	}
+public void setIsActive(String val ){
+	if (String.IsNullOrEmpty(val)) {
+		this.PrIsActive = false;
+	} else {
+	    bool newval = ("1"==val || "true"==val.ToLower()) ;
+	    this.PrIsActive = newval;
+	}
+}
+	public virtual System.Int64? PrSampleBigInt{
+	get{
+		return _SampleBigInt;
+	}
+	set {
+		if (ModelObject.valueChanged(_SampleBigInt, value)){
+			if (this.IsObjectLoading == false) {
+				this.isDirty = true;
+				this.setFieldChanged(STR_FLD_SAMPLEBIGINT);
+			}
+
+		}
+		}
+	}
+public void setSampleBigInt(String val){
+	if (Information.IsNumeric(val)) {
+		this.PrSampleBigInt = Convert.ToInt64(val);
+	} else if (String.IsNullOrEmpty(val)) {
+		this.PrSampleBigInt = null;
+	} else {
+		throw new ApplicationException("Invalid Integer Number, field:SampleBigInt, value:" + val);
+	}
+}
+	public virtual System.Int64? PrSampleSmallInt{
+	get{
+		return _SampleSmallInt;
+	}
+	set {
+		if (ModelObject.valueChanged(_SampleSmallInt, value)){
+			if (this.IsObjectLoading == false) {
+				this.isDirty = true;
+				this.setFieldChanged(STR_FLD_SAMPLESMALLINT);
+			}
+
+		}
+		}
+	}
+public void setSampleSmallInt(String val){
+	if (Information.IsNumeric(val)) {
+		this.PrSampleSmallInt = Convert.ToInt64(val);
+	} else if (String.IsNullOrEmpty(val)) {
+		this.PrSampleSmallInt = null;
+	} else {
+		throw new ApplicationException("Invalid Integer Number, field:SampleSmallInt, value:" + val);
+	}
+}
+	public virtual System.Int64? PrSampleNumericFieldInt{
+	get{
+		return _SampleNumericFieldInt;
+	}
+	set {
+		if (ModelObject.valueChanged(_SampleNumericFieldInt, value)){
+			if (this.IsObjectLoading == false) {
+				this.isDirty = true;
+				this.setFieldChanged(STR_FLD_SAMPLENUMERICFIELDINT);
+			}
+
+		}
+		}
+	}
+public void setSampleNumericFieldInt(String val){
+	if (Information.IsNumeric(val)) {
+		this.PrSampleNumericFieldInt = Convert.ToInt64(val);
+	} else if (String.IsNullOrEmpty(val)) {
+		this.PrSampleNumericFieldInt = null;
+	} else {
+		throw new ApplicationException("Invalid Integer Number, field:SampleNumericFieldInt, value:" + val);
+	}
+}
+	public virtual System.Decimal? PrSampleNumericField2Decimals{
+	get{
+		return _SampleNumericField2Decimals;
+	}
+	set {
+		if (ModelObject.valueChanged(_SampleNumericField2Decimals, value)){
+			if (this.IsObjectLoading == false) {
+				this.isDirty = true;
+				this.setFieldChanged(STR_FLD_SAMPLENUMERICFIELD2DECIMALS);
+			}
+
+		}
+		}
+	}
+public void setSampleNumericField2Decimals(String val ){
+	if (Information.IsNumeric(val)) {
+		this.PrSampleNumericField2Decimals =  Convert.ToDecimal(val);
+	} else if ( string.IsNullOrEmpty(val) ) {
+		this.PrSampleNumericField2Decimals = null;
+	} else {
+		throw new ApplicationException("Invalid Decimal Number, field:SampleNumericField2Decimals, value:" + val);
+	}
+}
 
 		// ASSOCIATIONS GETTERS/SETTERS BELOW!
 		//associationParentCSharp.txt
@@ -820,6 +964,16 @@ public void setUpdateUser( String val ) {
 			return this.UpdateUser;
 		case FLD_SAMPLEGUIDFIELD:
 			return this.PrSampleGuidField;
+		case FLD_ISACTIVE:
+			return this.PrIsActive;
+		case FLD_SAMPLEBIGINT:
+			return this.PrSampleBigInt;
+		case FLD_SAMPLESMALLINT:
+			return this.PrSampleSmallInt;
+		case FLD_SAMPLENUMERICFIELDINT:
+			return this.PrSampleNumericFieldInt;
+		case FLD_SAMPLENUMERICFIELD2DECIMALS:
+			return this.PrSampleNumericField2Decimals;
 		default:
 			return null;
 		} //end switch
@@ -863,6 +1017,16 @@ public void setUpdateUser( String val ) {
 			return this.UpdateUser;
 		} else if (fieldKey==STR_FLD_SAMPLEGUIDFIELD.ToLower() ) {
 			return this.PrSampleGuidField;
+		} else if (fieldKey==STR_FLD_ISACTIVE.ToLower() ) {
+			return this.PrIsActive;
+		} else if (fieldKey==STR_FLD_SAMPLEBIGINT.ToLower() ) {
+			return this.PrSampleBigInt;
+		} else if (fieldKey==STR_FLD_SAMPLESMALLINT.ToLower() ) {
+			return this.PrSampleSmallInt;
+		} else if (fieldKey==STR_FLD_SAMPLENUMERICFIELDINT.ToLower() ) {
+			return this.PrSampleNumericFieldInt;
+		} else if (fieldKey==STR_FLD_SAMPLENUMERICFIELD2DECIMALS.ToLower() ) {
+			return this.PrSampleNumericField2Decimals;
 		} else {
 			return null;
 		}
@@ -987,6 +1151,41 @@ public void setUpdateUser( String val ) {
 				this.PrSampleGuidField = null;
 			} else {
 				this.PrSampleGuidField=(System.Guid)val;
+			} //
+			return;
+		case FLD_ISACTIVE:
+			if (val == DBNull.Value || val == null ){
+				this.PrIsActive = false;
+			} else {
+				this.PrIsActive=(System.Boolean)val;
+			} //
+			return;
+		case FLD_SAMPLEBIGINT:
+			if (val == DBNull.Value || val == null ){
+				this.PrSampleBigInt = null;
+			} else {
+				this.PrSampleBigInt=(System.Int64)val;
+			} //
+			return;
+		case FLD_SAMPLESMALLINT:
+			if (val == DBNull.Value || val == null ){
+				this.PrSampleSmallInt = null;
+			} else {
+				this.PrSampleSmallInt=(System.Int64)val;
+			} //
+			return;
+		case FLD_SAMPLENUMERICFIELDINT:
+			if (val == DBNull.Value || val == null ){
+				this.PrSampleNumericFieldInt = null;
+			} else {
+				this.PrSampleNumericFieldInt=(System.Int64)val;
+			} //
+			return;
+		case FLD_SAMPLENUMERICFIELD2DECIMALS:
+			if (val == DBNull.Value || val == null ){
+				this.PrSampleNumericField2Decimals = null;
+			} else {
+				this.PrSampleNumericField2Decimals=(System.Decimal)val;
 			} //
 			return;
 		default:
@@ -1116,6 +1315,41 @@ public void setUpdateUser( String val ) {
 				this.PrSampleGuidField=(System.Guid)val;
 			}
 			return;
+		} else if ( fieldKey==STR_FLD_ISACTIVE.ToLower()){
+			if (val == DBNull.Value || val ==null ){
+				this.PrIsActive = false;
+			} else {
+				this.PrIsActive=(System.Boolean)val;
+			}
+			return;
+		} else if ( fieldKey==STR_FLD_SAMPLEBIGINT.ToLower()){
+			if (val == DBNull.Value || val ==null ){
+				this.PrSampleBigInt = null;
+			} else {
+				this.PrSampleBigInt=(System.Int64)val;
+			}
+			return;
+		} else if ( fieldKey==STR_FLD_SAMPLESMALLINT.ToLower()){
+			if (val == DBNull.Value || val ==null ){
+				this.PrSampleSmallInt = null;
+			} else {
+				this.PrSampleSmallInt=(System.Int64)val;
+			}
+			return;
+		} else if ( fieldKey==STR_FLD_SAMPLENUMERICFIELDINT.ToLower()){
+			if (val == DBNull.Value || val ==null ){
+				this.PrSampleNumericFieldInt = null;
+			} else {
+				this.PrSampleNumericFieldInt=(System.Int64)val;
+			}
+			return;
+		} else if ( fieldKey==STR_FLD_SAMPLENUMERICFIELD2DECIMALS.ToLower()){
+			if (val == DBNull.Value || val ==null ){
+				this.PrSampleNumericField2Decimals = null;
+			} else {
+				this.PrSampleNumericField2Decimals=(System.Decimal)val;
+			}
+			return;
 		}
 		}
 
@@ -1146,7 +1380,12 @@ public void setUpdateUser( String val ) {
 				&& this.UpdateDate.GetValueOrDefault() == other.UpdateDate.GetValueOrDefault()
 				&& this.CreateUser == other.CreateUser
 				&& this.UpdateUser == other.UpdateUser
-				&& this.PrSampleGuidField.GetValueOrDefault() == other.PrSampleGuidField.GetValueOrDefault();;
+				&& this.PrSampleGuidField.GetValueOrDefault() == other.PrSampleGuidField.GetValueOrDefault()
+				&& this.PrIsActive == other.PrIsActive
+				&& this.PrSampleBigInt.GetValueOrDefault() == other.PrSampleBigInt.GetValueOrDefault()
+				&& this.PrSampleSmallInt.GetValueOrDefault() == other.PrSampleSmallInt.GetValueOrDefault()
+				&& this.PrSampleNumericFieldInt.GetValueOrDefault() == other.PrSampleNumericFieldInt.GetValueOrDefault()
+				&& this.PrSampleNumericField2Decimals.GetValueOrDefault() == other.PrSampleNumericField2Decimals.GetValueOrDefault();;
 
 		}
 
@@ -1169,7 +1408,12 @@ public void setUpdateUser( String val ) {
 				 ^ this.UpdateDate.GetHashCode()
 				 ^ this.getStringHashCode(this.CreateUser)
 				 ^ this.getStringHashCode(this.UpdateUser)
-				 ^ this.PrSampleGuidField.GetHashCode();;
+				 ^ this.PrSampleGuidField.GetHashCode()
+				 ^ this.PrIsActive.GetHashCode()
+				 ^ this.PrSampleBigInt.GetHashCode()
+				 ^ this.PrSampleSmallInt.GetHashCode()
+				 ^ this.PrSampleNumericFieldInt.GetHashCode()
+				 ^ this.PrSampleNumericField2Decimals.GetHashCode();;
 
 		}
 
@@ -1224,6 +1468,11 @@ public void setUpdateUser( String val ) {
 		ret.CreateUser = this.CreateUser;
 		ret.UpdateUser = this.UpdateUser;
 		ret.PrSampleGuidField = this.PrSampleGuidField;
+		ret.PrIsActive = this.PrIsActive;
+		ret.PrSampleBigInt = this.PrSampleBigInt;
+		ret.PrSampleSmallInt = this.PrSampleSmallInt;
+		ret.PrSampleNumericFieldInt = this.PrSampleNumericFieldInt;
+		ret.PrSampleNumericField2Decimals = this.PrSampleNumericField2Decimals;
 
 
 

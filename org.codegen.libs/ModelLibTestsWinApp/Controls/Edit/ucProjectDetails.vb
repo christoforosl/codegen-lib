@@ -40,7 +40,7 @@ Public Class ucProjectDetails
 	Me.ProjectNamelbl = New System.Windows.Forms.Label
 	Me.ProjectName = New CGTextBox
 	Me.IsActivelbl = New System.Windows.Forms.Label
-	Me.IsActive = New CGTextBox
+	Me.IsActive = New CGIntTextBox
 
 
         Me.SuspendLayout()
@@ -110,7 +110,7 @@ Public Class ucProjectDetails
 	Friend WithEvents ProjectNamelbl As System.Windows.Forms.Label
 	Friend WithEvents ProjectName As CGTextBox
 	Friend WithEvents IsActivelbl As System.Windows.Forms.Label
-	Friend WithEvents IsActive As CGTextBox
+	Friend WithEvents IsActive As CGIntTextBox
 
 
 #End Region

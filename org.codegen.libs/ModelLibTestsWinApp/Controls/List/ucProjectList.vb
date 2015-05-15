@@ -82,9 +82,9 @@ Public Class ucProjectList
 	IsActive.ReadOnly = True
 	IsActive.HeaderText = "IsActive"
 	IsActive.HeaderCell.value = "IsActive"
-	IsActive.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft
-	IsActive.HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopLeft
-	IsActive.Width = 100
+	IsActive.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight
+	IsActive.HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopRight
+	IsActive.Width = 50
 	IsActive.Visible = True
 	'**** End Setup of column: IsActive
 

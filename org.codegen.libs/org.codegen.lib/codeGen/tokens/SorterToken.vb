@@ -17,7 +17,7 @@ Namespace Tokens
 			Dim sortExpression As String = ModelGenerator.Current.FieldPropertyPrefix
 
             If t.DbTable.hasFieldName(SortField.ToLower) Then
-                If t.DbTable.Fields(SortField.ToLower).isNullableDataType Then
+                If t.DbTable.Fields(SortField.ToLower).isNullableProperty Then
                     sortExpression = SortField & ".Value"
                 Else
                     sortExpression = SortField
@@ -46,7 +46,7 @@ Namespace Tokens
 			Dim sortExpression As String
 
             If t.DbTable.hasFieldName(SortField.ToLower) Then
-                If t.DbTable.Fields(SortField.ToLower).isNullableDataType Then
+                If t.DbTable.Fields(SortField.ToLower).isNullableProperty Then
                     sortExpression = SortField & ".Value"
                 Else
                     sortExpression = SortField

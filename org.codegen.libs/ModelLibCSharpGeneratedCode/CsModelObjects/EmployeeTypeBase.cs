@@ -101,28 +101,30 @@ namespace CsModelObjects
 		#region "Field Declarations"
 
 	private System.String _EmployeeTypeCode;
-	private System.String _EmployeeType = null;
+	private System.String _EmployeeType;
 
 		#endregion
 
 		#region "Field Properties"
 
-	public virtual System.String PrEmployeeTypeCode  {
-	get {
+	public virtual System.String PrEmployeeTypeCode{
+	get{
 		return _EmployeeTypeCode;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_EmployeeTypeCode, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_EmployeeTypeCode, value)){
+		if (value != null && value.Length > 10){
+			throw new ModelObjectFieldTooLongException("EmployeeTypeCode");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEETYPECODE);
 			}
-			this._EmployeeTypeCode = value;
 
 			this.raiseBroadcastIdChange();
 
 		}
-	}  
+		}
 	}
 public void setEmployeeTypeCode( String val ) {
 	if (! string.IsNullOrEmpty(val)) {
@@ -131,20 +133,22 @@ public void setEmployeeTypeCode( String val ) {
 		this.PrEmployeeTypeCode = null;
 	}
 }
-	public virtual System.String PrEmployeeType  {
-	get {
+	public virtual System.String PrEmployeeType{
+	get{
 		return _EmployeeType;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_EmployeeType, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_EmployeeType, value)){
+		if (value != null && value.Length > 50){
+			throw new ModelObjectFieldTooLongException("EmployeeType");
+		}
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEETYPE);
 			}
-			this._EmployeeType = value;
 
 		}
-	}  
+		}
 	}
 public void setEmployeeType( String val ) {
 	if (! string.IsNullOrEmpty(val)) {

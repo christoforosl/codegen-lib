@@ -357,7 +357,7 @@ Namespace Tokens
 				sString &= meMarker & ".reader.GetDateTime" & "(DATAREADER_" & skey & ")"
 
 			ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Int16") Then
-				sString &= "CInt(" & meMarker & ".reader.GetInt16" & "(DATAREADER_" & skey & "))"
+                sString &= meMarker & ".reader.GetInt16" & "(DATAREADER_" & skey & ")"
 
 			ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Int32") Then
 				sString &= meMarker & ".reader.GetInt32" & "(DATAREADER_" & skey & ")"
@@ -392,7 +392,7 @@ Namespace Tokens
                           field.RuntimeType.ToString)
 			End If
 
-            If field.isBoolean Then
+            If field.isBoolean And field.OriginalRuntimeType IsNot System.Type.GetType("System.Boolean") Then
                 If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP Then
                     sString = sString & "==1;"
                 Else

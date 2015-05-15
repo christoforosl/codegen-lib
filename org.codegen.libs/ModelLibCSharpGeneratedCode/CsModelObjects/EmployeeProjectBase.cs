@@ -133,22 +133,21 @@ namespace CsModelObjects
 
 		#region "Field Properties"
 
-	public virtual System.Int64 PrEmployeeProjectId  {
-	get {
+	public virtual System.Int64 PrEmployeeProjectId{
+	get{
 		return _EmployeeProjectId;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_EmployeeProjectId, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_EmployeeProjectId, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEEPROJECTID);
 			}
-			this._EmployeeProjectId = value;
 
 			this.raiseBroadcastIdChange();
 
 		}
-	}  
+		}
 	}
 public void setEmployeeProjectId(String val){
 	if (Information.IsNumeric(val)) {
@@ -159,20 +158,19 @@ public void setEmployeeProjectId(String val){
 		throw new ApplicationException("Invalid Integer Number, field:EmployeeProjectId, value:" + val);
 	}
 }
-	public virtual System.Int64? PrEPEmployeeId  {
-	get {
+	public virtual System.Int64? PrEPEmployeeId{
+	get{
 		return _EPEmployeeId;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_EPEmployeeId, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_EPEmployeeId, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EPEMPLOYEEID);
 			}
-			this._EPEmployeeId = value;
 
 		}
-	}  
+		}
 	}
 public void setEPEmployeeId(String val){
 	if (Information.IsNumeric(val)) {
@@ -183,20 +181,19 @@ public void setEPEmployeeId(String val){
 		throw new ApplicationException("Invalid Integer Number, field:EPEmployeeId, value:" + val);
 	}
 }
-	public virtual System.Int64? PrEPProjectId  {
-	get {
+	public virtual System.Int64? PrEPProjectId{
+	get{
 		return _EPProjectId;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_EPProjectId, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_EPProjectId, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EPPROJECTID);
 			}
-			this._EPProjectId = value;
 
 		}
-	}  
+		}
 	}
 public void setEPProjectId(String val){
 	if (Information.IsNumeric(val)) {
@@ -207,20 +204,19 @@ public void setEPProjectId(String val){
 		throw new ApplicationException("Invalid Integer Number, field:EPProjectId, value:" + val);
 	}
 }
-	public virtual System.DateTime? PrAssignDate  {
-	get {
+	public virtual System.DateTime? PrAssignDate{
+	get{
 		return _AssignDate;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_AssignDate, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_AssignDate, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ASSIGNDATE);
 			}
-			this._AssignDate = value;
 
 		}
-	}  
+		}
 	}
 public void setAssignDate( String val ){
 	if (Information.IsDate(val)) {
@@ -231,20 +227,19 @@ public void setAssignDate( String val ){
 		throw new ApplicationException("Invalid Date, field:AssignDate, value:" + val);
 	}
 }
-	public virtual System.DateTime? PrEndDate  {
-	get {
+	public virtual System.DateTime? PrEndDate{
+	get{
 		return _EndDate;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_EndDate, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_EndDate, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ENDDATE);
 			}
-			this._EndDate = value;
 
 		}
-	}  
+		}
 	}
 public void setEndDate( String val ){
 	if (Information.IsDate(val)) {
@@ -255,20 +250,19 @@ public void setEndDate( String val ){
 		throw new ApplicationException("Invalid Date, field:EndDate, value:" + val);
 	}
 }
-	public virtual System.Decimal? PrRate  {
-	get {
+	public virtual System.Decimal? PrRate{
+	get{
 		return _Rate;
-	} 
+	}
 	set {
-		if (ModelObject.valueChanged(_Rate, value)) {
-			if (!this.IsObjectLoading ) {
+		if (ModelObject.valueChanged(_Rate, value)){
+			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_RATE);
 			}
-			this._Rate = value;
 
 		}
-	}  
+		}
 	}
 public void setRate(String val ){
 	if (Information.IsNumeric(val)) {
