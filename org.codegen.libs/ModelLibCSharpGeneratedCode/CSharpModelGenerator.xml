@@ -142,10 +142,7 @@
     <TableName>Project</TableName>
     <ClassName>Project</ClassName>
     <GenerateUI>1</GenerateUI>
-    <Field>
-      <FieldName>isActive</FieldName>
-      <DataType>System.Boolean</DataType>
-    </Field>
+    
     <association>
       <relationType>CHILD</relationType>
       <DataType>CsModelObjects.EmployeeProject</DataType>

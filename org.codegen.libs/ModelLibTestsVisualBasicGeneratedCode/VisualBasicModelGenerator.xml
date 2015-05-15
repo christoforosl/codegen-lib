@@ -19,7 +19,9 @@
   <dbConnectionDialect>MSSQL</dbConnectionDialect>
   <dbConnectionType>CONN_MSSQL</dbConnectionType>
   <UIProjectOutputDir>..\ModelLibTestsWinApp\</UIProjectOutputDir>
-
+  
+  <BooleanFields datatype="int" length="1" excludedFieldNames="" />
+  
   <table>
 
 	<TableName>Employee</TableName>
@@ -100,12 +102,6 @@
 	<TableName>Project</TableName>
 	<ClassName>Project</ClassName>
 	<GenerateUI>1</GenerateUI>
-
-	<Field>
-	  <FieldName>isActive</FieldName>
-	  <DataType>System.Boolean</DataType>
-	</Field>
-
 
 	<association>
 	  <relationType>CHILD</relationType>

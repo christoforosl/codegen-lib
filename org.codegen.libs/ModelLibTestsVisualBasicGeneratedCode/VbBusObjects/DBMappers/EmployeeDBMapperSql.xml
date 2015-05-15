@@ -8,11 +8,11 @@
   </stmt>
   <stmt>
     <key>selectall</key>
-    <MSSQL>SELECT EmployeeId,EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,EmployeeTypeCode,createDate,updateDate,createUser,updateUser,sampleGuidField FROM [Employee]</MSSQL>
+    <MSSQL>SELECT EmployeeId,EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,EmployeeTypeCode,createDate,updateDate,createUser,updateUser,sampleGuidField,isActive,sampleBigInt,sampleSmallInt,sampleNumericFieldInt,sampleNumericField2Decimals FROM [Employee]</MSSQL>
   </stmt>
   <stmt>
     <key>selectone</key>
-    <MSSQL>SELECT EmployeeId,EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,EmployeeTypeCode,createDate,updateDate,createUser,updateUser,sampleGuidField FROM [Employee] WHERE EmployeeId=@0</MSSQL>
+    <MSSQL>SELECT EmployeeId,EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,EmployeeTypeCode,createDate,updateDate,createUser,updateUser,sampleGuidField,isActive,sampleBigInt,sampleSmallInt,sampleNumericFieldInt,sampleNumericField2Decimals FROM [Employee] WHERE EmployeeId=@0</MSSQL>
   </stmt>
   <stmt>
     <key>delete</key>
@@ -20,10 +20,10 @@
   </stmt>
   <stmt>
     <key>insert</key>
-    <MSSQL>insert into Employee (EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,EmployeeTypeCode,createDate,updateDate,createUser,updateUser,sampleGuidField) values (@EmployeeName,@EmployeeRankId,@Salary,@Address,@Telephone,@Mobile,@IdNumber,@SSINumber,@HireDate,@NumDependents,@EmployeeTypeCode,@createDate,@updateDate,@createUser,@updateUser,@sampleGuidField)</MSSQL>
+    <MSSQL>insert into Employee (EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,EmployeeTypeCode,createDate,updateDate,createUser,updateUser,sampleGuidField,isActive,sampleBigInt,sampleSmallInt,sampleNumericFieldInt,sampleNumericField2Decimals) values (@EmployeeName,@EmployeeRankId,@Salary,@Address,@Telephone,@Mobile,@IdNumber,@SSINumber,@HireDate,@NumDependents,@EmployeeTypeCode,@createDate,@updateDate,@createUser,@updateUser,@sampleGuidField,@isActive,@sampleBigInt,@sampleSmallInt,@sampleNumericFieldInt,@sampleNumericField2Decimals)</MSSQL>
   </stmt>
   <stmt>
     <key>update</key>
-    <MSSQL>UPDATE [Employee] SET EmployeeName=@EmployeeName,EmployeeRankId=@EmployeeRankId,Salary=@Salary,Address=@Address,Telephone=@Telephone,Mobile=@Mobile,IdNumber=@IdNumber,SSINumber=@SSINumber,HireDate=@HireDate,NumDependents=@NumDependents,EmployeeTypeCode=@EmployeeTypeCode,createDate=@createDate,updateDate=@updateDate,createUser=@createUser,updateUser=@updateUser,sampleGuidField=@sampleGuidField WHERE EmployeeId=@EmployeeId</MSSQL>
+    <MSSQL>UPDATE [Employee] SET EmployeeName=@EmployeeName,EmployeeRankId=@EmployeeRankId,Salary=@Salary,Address=@Address,Telephone=@Telephone,Mobile=@Mobile,IdNumber=@IdNumber,SSINumber=@SSINumber,HireDate=@HireDate,NumDependents=@NumDependents,EmployeeTypeCode=@EmployeeTypeCode,createDate=@createDate,updateDate=@updateDate,createUser=@createUser,updateUser=@updateUser,sampleGuidField=@sampleGuidField,isActive=@isActive,sampleBigInt=@sampleBigInt,sampleSmallInt=@sampleSmallInt,sampleNumericFieldInt=@sampleNumericFieldInt,sampleNumericField2Decimals=@sampleNumericField2Decimals WHERE EmployeeId=@EmployeeId</MSSQL>
   </stmt>
 </SQLStatements>

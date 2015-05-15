@@ -143,6 +143,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="codeGen\Association.vb" />
+    <Compile Include="codeGen\BooleanFieldsDefinition.vb" />
     <Compile Include="codeGen\CSharpAssociation.vb" />
     <Compile Include="codeGen\DBField.vb" />
     <Compile Include="codeGen\DBTable.vb" />

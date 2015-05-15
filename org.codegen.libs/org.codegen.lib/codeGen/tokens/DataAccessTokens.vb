@@ -121,7 +121,7 @@ Namespace Tokens
     Public Class LoadFromDataRowToken
         Inherits MultiLingualReplacementToken
         Private Const STR_CType As String = "CType"
-        'sJcode = sJcode.Replace("<LOADFROM_DATAROW_CODE>", getLoadFromDataRow())
+
         Sub New()
             Me.StringToReplace = "FILL_STATEMENT"
         End Sub
@@ -136,14 +136,11 @@ Namespace Tokens
 
 
             For Each field As DBField In vec.Values
-                Dim customType As String = String.Empty
-                Dim converter As String = "CType"
-                customType = "," & field.UserSpecifiedDataType
-
+                
                 Dim lFormat As String = String.Format(setFromRs, field.FieldName(), _
                                                         field.RuntimeFieldName, _
-                                                        converter, _
-                                                        customType)
+                                                        String.Empty, _
+                                                        String.Empty)
                 sb.Append(lFormat)
                 sb.Append(";")
                 sb.Append(vbCrLf)
@@ -163,14 +160,12 @@ Namespace Tokens
             'me.setFields(rs.getString(FIELD));
 
             For Each field As DBField In vec.Values
-                Dim customType As String = String.Empty
-                Dim converter As String = "CType"
-                customType = "," & field.UserSpecifiedDataType
+                
 
                 Dim lFormat As String = String.Format(setFromRs, field.FieldName(), _
                                                         field.RuntimeFieldName, _
-                                                        converter, _
-                                                        customType)
+                                                        String.Empty, _
+                                                        String.Empty)
                 sb.Append(lFormat)
                 sb.Append(vbCrLf)
             Next
@@ -397,17 +392,14 @@ Namespace Tokens
                           field.RuntimeType.ToString)
 			End If
 
-			If String.IsNullOrEmpty(field.UserSpecifiedDataType) = False _
-			  AndAlso field.UserSpecifiedDataType <> field.OriginalRuntimeType.ToString Then
-				If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP Then
-					If (field.UserSpecifiedDataType = "System.Boolean") Then
-						sString = meMarker & ".reader.GetInt32" & "(DATAREADER_" & skey & ")==1;"
-					End If
-				Else
-					sString = "CType(" & sString & "," & field.UserSpecifiedDataType & ")"
-				End If
-			End If
-			Return sString
+            If field.isBoolean Then
+                If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP Then
+                    sString = sString & "==1;"
+                Else
+                    sString = sString & "=1"
+                End If
+            End If
+            Return sString
 
 		End Function
 

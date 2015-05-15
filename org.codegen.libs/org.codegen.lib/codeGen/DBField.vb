@@ -5,7 +5,7 @@ Imports System.Text
 Public Class DBField
     Implements IDBField
 
-    Private _userSpecifiedDataType As String
+    ' Private _userSpecifiedDataType As String
     Private _RuntimeType As System.Type
 
     Public Property AccessLevel() As String = "Public" Implements IDBField.AccessLevel
@@ -104,7 +104,8 @@ Public Class DBField
 
     Public ReadOnly Property isNullableProperty() As Boolean Implements IDBField.isNullableProperty
         Get
-            Return Me.isNullableDataType AndAlso Me.UserSpecifiedDataType <> "System.Boolean"
+            Return ModelGenerator.Current.BooleanFieldsDefinition.isBooleanField(Me) = False _
+                    AndAlso Me.isNullableDataType
         End Get
     End Property
     Public ReadOnly Property isNullableDataType() As Boolean Implements IDBField.isNullableDataType
@@ -131,9 +132,6 @@ Public Class DBField
 
         ElseIf Me.FieldDataType = "System.String" Then
             ret = Me.FieldDataType
-
-        ElseIf Not String.IsNullOrEmpty(Me.UserSpecifiedDataType) Then
-            ret = Me.UserSpecifiedDataType
 
         ElseIf Me.isNullableDataType Then
             If (ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP) Then
@@ -271,8 +269,7 @@ Public Class DBField
 
     Public Function isBoolean() As Boolean Implements IDBField.isBoolean
 
-        Return Me.UserSpecifiedDataType IsNot Nothing AndAlso
-                Me.UserSpecifiedDataType = "System.Boolean"
+        Return ModelGenerator.Current.BooleanFieldsDefinition.isBooleanField(Me)
 
     End Function
 
@@ -309,7 +306,9 @@ Public Class DBField
 
             If value Is Type.GetType("System.Single") OrElse _
                 value Is Type.GetType("System.Double") OrElse _
+                value Is Type.GetType("System.Byte") OrElse _
                 value Is Type.GetType("System.Float") Then
+
                 _RuntimeType = Type.GetType("System.Decimal")
 
             ElseIf value Is Type.GetType("System.Int16") OrElse _
@@ -327,10 +326,10 @@ Public Class DBField
                 _OriginalRuntimeType = Type.GetType("System.Int64")
             End If
 
-            If Me._userSpecifiedDataType IsNot Nothing Then
-                _RuntimeTypeStr = _userSpecifiedDataType
+            'If Me._userSpecifiedDataType IsNot Nothing Then
+            '    _RuntimeTypeStr = _userSpecifiedDataType
 
-            End If
+            'End If
 
             _RuntimeTypeStr = _RuntimeType.ToString
 
@@ -340,19 +339,19 @@ Public Class DBField
 
 
 
-    ''' <summary>
-    ''' The data type of the field as defined / customized in the xml generator file.
-    ''' </summary>
-    Public Property UserSpecifiedDataType() As String Implements IDBField.UserSpecifiedDataType
-        Get
-            Return _userSpecifiedDataType
-        End Get
+    ' ''' <summary>
+    ' ''' The data type of the field as defined / customized in the xml generator file.
+    ' ''' </summary>
+    'Public Property UserSpecifiedDataType() As String Implements IDBField.UserSpecifiedDataType
+    '    Get
+    '        Return _userSpecifiedDataType
+    '    End Get
 
-        Set(ByVal value As String)
-            Me._userSpecifiedDataType = value
-        End Set
+    '    Set(ByVal value As String)
+    '        Me._userSpecifiedDataType = value
+    '    End Set
 
-    End Property
+    'End Property
 
     ''' <summary>
     ''' The data type of the field as defined / customized in the xml generator file.
@@ -364,11 +363,9 @@ Public Class DBField
     ''' <remarks></remarks>
     Public ReadOnly Property FieldDataType() As String Implements IDBField.FieldDataType
         Get
-            If _userSpecifiedDataType Is Nothing Then
-                Return Me.RuntimeTypeStr
-            Else
-                Return Me._userSpecifiedDataType
-            End If
+
+            Return Me.RuntimeTypeStr
+            
         End Get
 
     End Property

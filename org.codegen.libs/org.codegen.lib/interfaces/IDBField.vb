@@ -47,15 +47,15 @@ Public Interface IDBField
     Property isDBFieldNullable() As Boolean
     Property XMLSerializationIgnore() As Boolean
 
-    ''' <summary>
-    ''' The data type of the field as defined / customized in the xml generator file.
-    ''' If no customized data type was defined, then the default data type of the field
-    ''' as defined in the databse table structure
-    ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Property UserSpecifiedDataType() As String
+    ' ''' <summary>
+    ' ''' The data type of the field as defined / customized in the xml generator file.
+    ' ''' If no customized data type was defined, then the default data type of the field
+    ' ''' as defined in the database table structure
+    ' ''' </summary>
+    ' ''' <value></value>
+    ' ''' <returns></returns>
+    ' ''' <remarks></remarks>
+    'Property UserSpecifiedDataType() As String
 
 
 

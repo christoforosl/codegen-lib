@@ -278,9 +278,7 @@ Public Class DBTable
                 If f.AccessLevel <> String.Empty Then
                     fld.AccessLevel = f.AccessLevel
                 End If
-                If f.UserSpecifiedDataType IsNot Nothing Then
-                    fld.UserSpecifiedDataType = f.UserSpecifiedDataType
-                End If
+                
                 fld.XMLSerializationIgnore = f.XMLSerializationIgnore
 
             End If

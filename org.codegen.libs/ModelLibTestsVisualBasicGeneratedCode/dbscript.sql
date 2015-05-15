@@ -193,4 +193,11 @@ go
 ALTER TABLE dbo.Employee ADD
 	sampleGuidField uniqueidentifier NULL
 go
--------------------->>>>>>>
+ALTER TABLE Employee add  isActive bit
+go
+ALTER TABLE dbo.Employee ADD
+	sampleBigInt bigint NULL,
+	sampleSmallInt smallint NULL,
+	sampleNumericFieldInt numeric(18, 0) NULL,
+	sampleNumericField2Decimals numeric(10, 2) NULL
+go

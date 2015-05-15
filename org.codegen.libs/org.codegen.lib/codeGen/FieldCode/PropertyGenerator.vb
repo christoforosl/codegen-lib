@@ -23,12 +23,7 @@ Public Class PropertyGenerator
 		  vbTab & field.AccessLevel & " Overridable Property " & pfx & "<0> as {1}<IMPL>" & vbCrLf & _
 		  vbTab & "Get " & vbCrLf
 
-        If String.IsNullOrEmpty(field.UserSpecifiedDataType) = False Then
-
-            If field.UserSpecifiedDataType = "System.Boolean" _
-                       AndAlso (field.OriginalRuntimeType Is Type.GetType("System.Byte") _
-                                OrElse field.OriginalRuntimeType Is Type.GetType("System.Int16") _
-                                OrElse field.OriginalRuntimeType Is Type.GetType("System.Int32")) Then
+        If field.isBoolean Then
 
                 sproperty &= vbTab & vbTab & "if _{0}.hasValue then" & vbCrLf
                 sproperty &= vbTab & vbTab & vbTab & "return  CType( _{0}," & field.FieldDataType & ")" & vbCrLf
@@ -37,12 +32,6 @@ Public Class PropertyGenerator
                 sproperty &= vbTab & vbTab & vbTab & "return False" & vbCrLf
                 sproperty &= vbTab & vbTab & "End if 'end customized check" & vbCrLf
 
-            Else
-                sproperty &= vbTab & vbTab & "return CType( _{0}," & field.UserSpecifiedDataType & " )" & _
-                             vbCrLf
-
-
-            End If
 
         Else
             sproperty &= vbTab & vbTab & "return _{0}" & _
@@ -62,20 +51,9 @@ Public Class PropertyGenerator
             vbTab & vbTab & vbTab & "End If" & vbCrLf
 
         If field.isBoolean Then
-            If field.OriginalRuntimeType Is Type.GetType("System.Boolean") Then
-                sproperty &= vbTab & vbTab & vbTab & "me._{0} = value.HasValue AndAlso value.Value" & vbCrLf
-            Else
-
-                If field.UserSpecifiedDataType.ToLower = "system.boolean?" Then
-                    sproperty &= vbTab & vbTab & vbTab & "me._{0} = CInt(IIf(value.HasValue AndAlso value.Value, 1, 0))" & vbCrLf
-                Else
-                    sproperty &= vbTab & vbTab & vbTab & "me._{0} = CInt(IIf(value, 1, 0))" & vbCrLf
-                End If
-
-
-            End If
-
-
+            
+            sproperty &= vbTab & vbTab & vbTab & "me._{0} = CInt(IIf(value, 1, 0))" & vbCrLf
+            
         Else
             sproperty &= vbTab & vbTab & vbTab & "me._{0} = value" & vbCrLf
         End If

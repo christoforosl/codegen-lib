@@ -23,38 +23,15 @@ Public Class CSharpPropertyGenerator
 		  pfx & runtimeFieldName & "  {" & vbCrLf & _
 		  vbTab & "get {" & vbCrLf
 
-        If Not String.IsNullOrEmpty(field.UserSpecifiedDataType) Then
+        If field.isBoolean Then
 
-            If field.UserSpecifiedDataType.ToLower = "system.boolean?" _
-                       AndAlso (field.OriginalRuntimeType Is Type.GetType("System.Byte") _
-                                OrElse field.OriginalRuntimeType Is Type.GetType("System.Int16") _
-                                OrElse field.OriginalRuntimeType Is Type.GetType("System.Int32")) Then
-
+          
                 sproperty &= vbTab & vbTab & "if ( _" & runtimeFieldName & ".HasValue ) {" & vbCrLf
                 sproperty &= vbTab & vbTab & vbTab & "return _" & runtimeFieldName & ".GetValueOrDefault()==1;" & vbCrLf
 
                 sproperty &= vbTab & vbTab & "} else {" & vbCrLf
                 sproperty &= vbTab & vbTab & vbTab & "return false;" & vbCrLf
                 sproperty &= vbTab & vbTab & "} //end customized check" & vbCrLf
-
-            ElseIf field.UserSpecifiedDataType = "System.Boolean" _
-                       AndAlso (field.OriginalRuntimeType Is Type.GetType("System.Byte") _
-                                OrElse field.OriginalRuntimeType Is Type.GetType("System.Int16") _
-                                OrElse field.OriginalRuntimeType Is Type.GetType("System.Int32")) Then
-
-                sproperty &= vbTab & vbTab & "if ( _" & runtimeFieldName & ".HasValue ) {" & vbCrLf
-                sproperty &= vbTab & vbTab & vbTab & "return _" & runtimeFieldName & ".GetValueOrDefault()==1;" & vbCrLf
-
-                sproperty &= vbTab & vbTab & "} else {" & vbCrLf
-                sproperty &= vbTab & vbTab & vbTab & "return false;" & vbCrLf
-                sproperty &= vbTab & vbTab & "} //end customized check" & vbCrLf
-
-            Else
-                sproperty &= vbTab & vbTab & "return (" & field.UserSpecifiedDataType & ") _" & runtimeFieldName & ";" & _
-                             vbCrLf
-
-
-            End If
 
         Else
             sproperty &= vbTab & vbTab & "return _" & runtimeFieldName & ";" & _
@@ -74,15 +51,9 @@ Public Class CSharpPropertyGenerator
 			vbTab & vbTab & vbTab & "}" & vbCrLf
 
 		If field.isBoolean Then
-            If field.OriginalRuntimeType Is Type.GetType("System.Boolean") Then
-                sproperty &= vbTab & vbTab & vbTab & "this._" & runtimeFieldName & " = value.HasValue && value.Value;" & vbCrLf
-            Else
-                If field.UserSpecifiedDataType.ToLower = "system.boolean?" Then
-                    sproperty &= vbTab & vbTab & vbTab & "this._" & runtimeFieldName & " = value.HasValue && value.Value? 1: 0;" & vbCrLf
-                Else
+           
                     sproperty &= vbTab & vbTab & vbTab & "this._" & runtimeFieldName & " = value? 1: 0;" & vbCrLf
-                End If
-            End If
+           
         Else
             sproperty &= vbTab & vbTab & vbTab & "this._" & runtimeFieldName & " = value;" & vbCrLf
         End If

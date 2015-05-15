@@ -61,6 +61,16 @@ Public Class ucEmployeeDetails
 	Me.EmployeeTypeCode = New CGTextBox
 	Me.SampleGuidFieldlbl = New System.Windows.Forms.Label
 	Me.SampleGuidField = New CGTextBox
+	Me.IsActivelbl = New System.Windows.Forms.Label
+	Me.IsActive = New CGTextBox
+	Me.SampleBigIntlbl = New System.Windows.Forms.Label
+	Me.SampleBigInt = New CGIntTextBox
+	Me.SampleSmallIntlbl = New System.Windows.Forms.Label
+	Me.SampleSmallInt = New CGIntTextBox
+	Me.SampleNumericFieldIntlbl = New System.Windows.Forms.Label
+	Me.SampleNumericFieldInt = New CGIntTextBox
+	Me.SampleNumericField2Decimalslbl = New System.Windows.Forms.Label
+	Me.SampleNumericField2Decimals = New CGDecimalTextBox
 
 
         Me.SuspendLayout()
@@ -295,6 +305,102 @@ Public Class ucEmployeeDetails
 	Me.SampleGuidField.visible = True
 	Me.SampleGuidField.AssociatedLabel = me.SampleGuidFieldlbl
 
+	'IsActivelbl.
+	Me.IsActivelbl.AutoSize = False
+	Me.IsActivelbl.Location = New System.Drawing.Point(5, 375)
+	Me.IsActivelbl.Name = "IsActivelbl"
+	Me.IsActivelbl.Size = New System.Drawing.Size(120, 20)
+	Me.IsActivelbl.TabIndex = 12
+	Me.IsActivelbl.Text = "IsActive"
+	Me.IsActivelbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+
+	'IsActive
+	Me.IsActive.AutoSize = True
+	Me.IsActive.Location = New System.Drawing.Point(135, 375)
+	Me.IsActive.Name ="IsActive"
+	Me.IsActive.Size = New System.Drawing.Size(200, 20)
+	Me.IsActive.MaxLength = 255
+	Me.IsActive.TabIndex = 12
+	Me.IsActive.visible = True
+	Me.IsActive.AssociatedLabel = me.IsActivelbl
+
+	'SampleBigIntlbl.
+	Me.SampleBigIntlbl.AutoSize = False
+	Me.SampleBigIntlbl.Location = New System.Drawing.Point(5, 405)
+	Me.SampleBigIntlbl.Name = "SampleBigIntlbl"
+	Me.SampleBigIntlbl.Size = New System.Drawing.Size(120, 20)
+	Me.SampleBigIntlbl.TabIndex = 13
+	Me.SampleBigIntlbl.Text = "SampleBigInt"
+	Me.SampleBigIntlbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+
+	'SampleBigInt
+	Me.SampleBigInt.AutoSize = True
+	Me.SampleBigInt.Location = New System.Drawing.Point(135, 405)
+	Me.SampleBigInt.Name ="SampleBigInt"
+	Me.SampleBigInt.Size = New System.Drawing.Size(200, 20)
+	Me.SampleBigInt.MaxLength = 255
+	Me.SampleBigInt.TabIndex = 13
+	Me.SampleBigInt.visible = True
+	Me.SampleBigInt.AssociatedLabel = me.SampleBigIntlbl
+
+	'SampleSmallIntlbl.
+	Me.SampleSmallIntlbl.AutoSize = False
+	Me.SampleSmallIntlbl.Location = New System.Drawing.Point(5, 435)
+	Me.SampleSmallIntlbl.Name = "SampleSmallIntlbl"
+	Me.SampleSmallIntlbl.Size = New System.Drawing.Size(120, 20)
+	Me.SampleSmallIntlbl.TabIndex = 14
+	Me.SampleSmallIntlbl.Text = "SampleSmallInt"
+	Me.SampleSmallIntlbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+
+	'SampleSmallInt
+	Me.SampleSmallInt.AutoSize = True
+	Me.SampleSmallInt.Location = New System.Drawing.Point(135, 435)
+	Me.SampleSmallInt.Name ="SampleSmallInt"
+	Me.SampleSmallInt.Size = New System.Drawing.Size(200, 20)
+	Me.SampleSmallInt.MaxLength = 255
+	Me.SampleSmallInt.TabIndex = 14
+	Me.SampleSmallInt.visible = True
+	Me.SampleSmallInt.AssociatedLabel = me.SampleSmallIntlbl
+
+	'SampleNumericFieldIntlbl.
+	Me.SampleNumericFieldIntlbl.AutoSize = False
+	Me.SampleNumericFieldIntlbl.Location = New System.Drawing.Point(5, 465)
+	Me.SampleNumericFieldIntlbl.Name = "SampleNumericFieldIntlbl"
+	Me.SampleNumericFieldIntlbl.Size = New System.Drawing.Size(120, 20)
+	Me.SampleNumericFieldIntlbl.TabIndex = 15
+	Me.SampleNumericFieldIntlbl.Text = "SampleNumericFieldInt"
+	Me.SampleNumericFieldIntlbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+
+	'SampleNumericFieldInt
+	Me.SampleNumericFieldInt.AutoSize = True
+	Me.SampleNumericFieldInt.Location = New System.Drawing.Point(135, 465)
+	Me.SampleNumericFieldInt.Name ="SampleNumericFieldInt"
+	Me.SampleNumericFieldInt.Size = New System.Drawing.Size(200, 20)
+	Me.SampleNumericFieldInt.MaxLength = 0
+	Me.SampleNumericFieldInt.TabIndex = 15
+	Me.SampleNumericFieldInt.visible = True
+	Me.SampleNumericFieldInt.AssociatedLabel = me.SampleNumericFieldIntlbl
+
+	'SampleNumericField2Decimalslbl.
+	Me.SampleNumericField2Decimalslbl.AutoSize = False
+	Me.SampleNumericField2Decimalslbl.Location = New System.Drawing.Point(5, 495)
+	Me.SampleNumericField2Decimalslbl.Name = "SampleNumericField2Decimalslbl"
+	Me.SampleNumericField2Decimalslbl.Size = New System.Drawing.Size(120, 20)
+	Me.SampleNumericField2Decimalslbl.TabIndex = 16
+	Me.SampleNumericField2Decimalslbl.Text = "SampleNumericField2Decimals"
+	Me.SampleNumericField2Decimalslbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+
+	'SampleNumericField2Decimals
+	Me.SampleNumericField2Decimals.AutoSize = True
+	Me.SampleNumericField2Decimals.Location = New System.Drawing.Point(135, 495)
+	Me.SampleNumericField2Decimals.Name ="SampleNumericField2Decimals"
+	Me.SampleNumericField2Decimals.Size = New System.Drawing.Size(200, 20)
+	Me.SampleNumericField2Decimals.MaxLength = 10
+	Me.SampleNumericField2Decimals.FormatPattern = "00000000.00"
+	Me.SampleNumericField2Decimals.TabIndex = 16
+	Me.SampleNumericField2Decimals.visible = True
+	Me.SampleNumericField2Decimals.AssociatedLabel = me.SampleNumericField2Decimalslbl
+
 
 		
         'ucEmployee
@@ -325,6 +431,16 @@ Public Class ucEmployeeDetails
 	me.Controls.add(me.EmployeeTypeCode)
 	me.Controls.add(me.SampleGuidFieldlbl)
 	me.Controls.add(me.SampleGuidField)
+	me.Controls.add(me.IsActivelbl)
+	me.Controls.add(me.IsActive)
+	me.Controls.add(me.SampleBigIntlbl)
+	me.Controls.add(me.SampleBigInt)
+	me.Controls.add(me.SampleSmallIntlbl)
+	me.Controls.add(me.SampleSmallInt)
+	me.Controls.add(me.SampleNumericFieldIntlbl)
+	me.Controls.add(me.SampleNumericFieldInt)
+	me.Controls.add(me.SampleNumericField2Decimalslbl)
+	me.Controls.add(me.SampleNumericField2Decimals)
 
 		
 		Me.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
@@ -362,6 +478,16 @@ Public Class ucEmployeeDetails
 	Friend WithEvents EmployeeTypeCode As CGTextBox
 	Friend WithEvents SampleGuidFieldlbl As System.Windows.Forms.Label
 	Friend WithEvents SampleGuidField As CGTextBox
+	Friend WithEvents IsActivelbl As System.Windows.Forms.Label
+	Friend WithEvents IsActive As CGTextBox
+	Friend WithEvents SampleBigIntlbl As System.Windows.Forms.Label
+	Friend WithEvents SampleBigInt As CGIntTextBox
+	Friend WithEvents SampleSmallIntlbl As System.Windows.Forms.Label
+	Friend WithEvents SampleSmallInt As CGIntTextBox
+	Friend WithEvents SampleNumericFieldIntlbl As System.Windows.Forms.Label
+	Friend WithEvents SampleNumericFieldInt As CGIntTextBox
+	Friend WithEvents SampleNumericField2Decimalslbl As System.Windows.Forms.Label
+	Friend WithEvents SampleNumericField2Decimals As CGDecimalTextBox
 
 
 #End Region
@@ -387,6 +513,11 @@ Public Class ucEmployeeDetails
 	Me.NumDependents.value = mo.NumDependents
 	Me.EmployeeTypeCode.value = mo.EmployeeTypeCode
 	Me.SampleGuidField.value = mo.SampleGuidField
+	Me.IsActive.value = mo.IsActive
+	Me.SampleBigInt.value = mo.SampleBigInt
+	Me.SampleSmallInt.value = mo.SampleSmallInt
+	Me.SampleNumericFieldInt.value = mo.SampleNumericFieldInt
+	Me.SampleNumericField2Decimals.value = mo.SampleNumericField2Decimals
 
 
 		me.resetLastLoadedValues()
@@ -415,6 +546,11 @@ Public Class ucEmployeeDetails
 	mo.setNumDependents(Me.NumDependents.text)
 	mo.setEmployeeTypeCode(Me.EmployeeTypeCode.text)
 	mo.setSampleGuidField(Me.SampleGuidField.text)
+	mo.setIsActive(Me.IsActive.text)
+	mo.setSampleBigInt(Me.SampleBigInt.text)
+	mo.setSampleSmallInt(Me.SampleSmallInt.text)
+	mo.setSampleNumericFieldInt(Me.SampleNumericFieldInt.text)
+	mo.setSampleNumericField2Decimals(Me.SampleNumericField2Decimals.text)
 
 
     End Sub

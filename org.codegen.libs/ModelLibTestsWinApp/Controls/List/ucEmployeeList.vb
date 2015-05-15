@@ -43,6 +43,11 @@ Public Class ucEmployeeList
 	me.CreateUser = new DataGridViewTextBoxColumn
 	me.UpdateUser = new DataGridViewTextBoxColumn
 	me.SampleGuidField = new DataGridViewTextBoxColumn
+	me.IsActive = new DataGridViewTextBoxColumn
+	me.SampleBigInt = new DataGridViewTextBoxColumn
+	me.SampleSmallInt = new DataGridViewTextBoxColumn
+	me.SampleNumericFieldInt = new DataGridViewTextBoxColumn
+	me.SampleNumericField2Decimals = new DataGridViewTextBoxColumn
 
         Me.grdEmployee = New org.codegen.win.controls.Grid.CGSQLGrid()
         Me.SuspendLayout()
@@ -304,6 +309,77 @@ Public Class ucEmployeeList
 	'**** End Setup of column: SampleGuidField
 
 
+	' column: IsActive
+	IsActive.CellTemplate = New DataGridViewTextBoxCell
+	IsActive.Name = "IsActive"
+	IsActive.DataPropertyName = "isActive"
+	IsActive.ReadOnly = True
+	IsActive.HeaderText = "IsActive"
+	IsActive.HeaderCell.value = "IsActive"
+	IsActive.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft
+	IsActive.HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopLeft
+	IsActive.Width = 100
+	IsActive.Visible = True
+	'**** End Setup of column: IsActive
+
+
+	' column: SampleBigInt
+	SampleBigInt.CellTemplate = New DataGridViewTextBoxCell
+	SampleBigInt.Name = "SampleBigInt"
+	SampleBigInt.DataPropertyName = "sampleBigInt"
+	SampleBigInt.ReadOnly = True
+	SampleBigInt.HeaderText = "SampleBigInt"
+	SampleBigInt.HeaderCell.value = "SampleBigInt"
+	SampleBigInt.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight
+	SampleBigInt.HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopRight
+	SampleBigInt.Width = 50
+	SampleBigInt.Visible = True
+	'**** End Setup of column: SampleBigInt
+
+
+	' column: SampleSmallInt
+	SampleSmallInt.CellTemplate = New DataGridViewTextBoxCell
+	SampleSmallInt.Name = "SampleSmallInt"
+	SampleSmallInt.DataPropertyName = "sampleSmallInt"
+	SampleSmallInt.ReadOnly = True
+	SampleSmallInt.HeaderText = "SampleSmallInt"
+	SampleSmallInt.HeaderCell.value = "SampleSmallInt"
+	SampleSmallInt.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight
+	SampleSmallInt.HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopRight
+	SampleSmallInt.Width = 50
+	SampleSmallInt.Visible = True
+	'**** End Setup of column: SampleSmallInt
+
+
+	' column: SampleNumericFieldInt
+	SampleNumericFieldInt.CellTemplate = New DataGridViewTextBoxCell
+	SampleNumericFieldInt.Name = "SampleNumericFieldInt"
+	SampleNumericFieldInt.DataPropertyName = "sampleNumericFieldInt"
+	SampleNumericFieldInt.ReadOnly = True
+	SampleNumericFieldInt.HeaderText = "SampleNumericFieldInt"
+	SampleNumericFieldInt.HeaderCell.value = "SampleNumericFieldInt"
+	SampleNumericFieldInt.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight
+	SampleNumericFieldInt.HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopRight
+	SampleNumericFieldInt.Width = 50
+	SampleNumericFieldInt.Visible = True
+	'**** End Setup of column: SampleNumericFieldInt
+
+
+	' column: SampleNumericField2Decimals
+	SampleNumericField2Decimals.CellTemplate = New DataGridViewTextBoxCell
+	SampleNumericField2Decimals.Name = "SampleNumericField2Decimals"
+	SampleNumericField2Decimals.DataPropertyName = "sampleNumericField2Decimals"
+	SampleNumericField2Decimals.ReadOnly = True
+	SampleNumericField2Decimals.HeaderText = "SampleNumericField2Decimals"
+	SampleNumericField2Decimals.HeaderCell.value = "SampleNumericField2Decimals"
+	SampleNumericField2Decimals.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight
+	SampleNumericField2Decimals.HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopRight
+	SampleNumericField2Decimals.Width = 50
+	SampleNumericField2Decimals.Visible = True
+	SampleNumericField2Decimals.CellTemplate.Style.Format = "C"
+	'**** End Setup of column: SampleNumericField2Decimals
+
+
 
 
         '
@@ -331,6 +407,11 @@ Public Class ucEmployeeList
 	me.grdEmployee.Columns.Add(CreateUser)
 	me.grdEmployee.Columns.Add(UpdateUser)
 	me.grdEmployee.Columns.Add(SampleGuidField)
+	me.grdEmployee.Columns.Add(IsActive)
+	me.grdEmployee.Columns.Add(SampleBigInt)
+	me.grdEmployee.Columns.Add(SampleSmallInt)
+	me.grdEmployee.Columns.Add(SampleNumericFieldInt)
+	me.grdEmployee.Columns.Add(SampleNumericField2Decimals)
 
         Me.Name = "ucEmployeeList"
         Me.Text = "ucEmployeeList"
@@ -356,6 +437,11 @@ Public Class ucEmployeeList
 	Private WithEvents CreateUser As DataGridViewTextBoxColumn
 	Private WithEvents UpdateUser As DataGridViewTextBoxColumn
 	Private WithEvents SampleGuidField As DataGridViewTextBoxColumn
+	Private WithEvents IsActive As DataGridViewTextBoxColumn
+	Private WithEvents SampleBigInt As DataGridViewTextBoxColumn
+	Private WithEvents SampleSmallInt As DataGridViewTextBoxColumn
+	Private WithEvents SampleNumericFieldInt As DataGridViewTextBoxColumn
+	Private WithEvents SampleNumericField2Decimals As DataGridViewTextBoxColumn
 
 
 #End Region
