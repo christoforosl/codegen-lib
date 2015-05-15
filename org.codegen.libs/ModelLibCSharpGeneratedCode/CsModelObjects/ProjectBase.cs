@@ -139,6 +139,7 @@ namespace CsModelObjects
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_PROJECTID);
+				this._ProjectId=value;
 			}
 
 			this.raiseBroadcastIdChange();
@@ -167,6 +168,7 @@ public void setProjectId(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_PROJECTNAME);
+				this._ProjectName=value;
 			}
 
 		}
@@ -188,6 +190,7 @@ public void setProjectName( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ISACTIVE);
+				this._IsActive=value;
 			}
 
 		}

@@ -227,6 +227,7 @@ namespace CsModelObjects
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEEID);
+				this._EmployeeId=value;
 			}
 
 			this.raiseBroadcastIdChange();
@@ -255,6 +256,7 @@ public void setEmployeeId(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEENAME);
+				this._EmployeeName=value;
 			}
 
 		}
@@ -276,6 +278,7 @@ public void setEmployeeName( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEERANKID);
+				this._EmployeeRankId=value;
 			}
 
 		}
@@ -299,6 +302,7 @@ public void setEmployeeRankId(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SALARY);
+				this._Salary=value;
 			}
 
 		}
@@ -325,6 +329,7 @@ public void setSalary(String val ){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ADDRESS);
+				this._Address=value;
 			}
 
 		}
@@ -349,6 +354,7 @@ public void setAddress( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_TELEPHONE);
+				this._Telephone=value;
 			}
 
 		}
@@ -373,6 +379,7 @@ public void setTelephone( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_MOBILE);
+				this._Mobile=value;
 			}
 
 		}
@@ -397,6 +404,7 @@ public void setMobile( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_IDNUMBER);
+				this._IdNumber=value;
 			}
 
 		}
@@ -421,6 +429,7 @@ public void setIdNumber( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SSINUMBER);
+				this._SSINumber=value;
 			}
 
 		}
@@ -442,6 +451,7 @@ public void setSSINumber( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_HIREDATE);
+				this._HireDate=value;
 			}
 
 		}
@@ -465,6 +475,7 @@ public void setHireDate( String val ){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_NUMDEPENDENTS);
+				this._NumDependents=value;
 			}
 
 		}
@@ -491,6 +502,7 @@ public void setNumDependents(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEETYPECODE);
+				this._EmployeeTypeCode=value;
 			}
 
 		}
@@ -512,6 +524,7 @@ public void setEmployeeTypeCode( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATEDATE);
+				this._CreateDate=value;
 			}
 
 		}
@@ -535,6 +548,7 @@ public void setCreateDate( String val ){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATEDATE);
+				this._UpdateDate=value;
 			}
 
 		}
@@ -561,6 +575,7 @@ public void setUpdateDate( String val ){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATEUSER);
+				this._CreateUser=value;
 			}
 
 		}
@@ -585,6 +600,7 @@ public void setCreateUser( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATEUSER);
+				this._UpdateUser=value;
 			}
 
 		}
@@ -606,6 +622,7 @@ public void setUpdateUser( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SAMPLEGUIDFIELD);
+				this._SampleGuidField=value;
 			}
 
 		}
@@ -620,6 +637,7 @@ public void setUpdateUser( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ISACTIVE);
+				this._IsActive=value;
 			}
 
 		}
@@ -642,6 +660,7 @@ public void setIsActive(String val ){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SAMPLEBIGINT);
+				this._SampleBigInt=value;
 			}
 
 		}
@@ -665,6 +684,7 @@ public void setSampleBigInt(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SAMPLESMALLINT);
+				this._SampleSmallInt=value;
 			}
 
 		}
@@ -688,6 +708,7 @@ public void setSampleSmallInt(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SAMPLENUMERICFIELDINT);
+				this._SampleNumericFieldInt=value;
 			}
 
 		}
@@ -711,6 +732,7 @@ public void setSampleNumericFieldInt(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SAMPLENUMERICFIELD2DECIMALS);
+				this._SampleNumericField2Decimals=value;
 			}
 
 		}

@@ -135,6 +135,7 @@ namespace OracleModel
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COUNTRY_ID);
+				this._CountryId=value;
 			}
 
 			this.raiseBroadcastIdChange();
@@ -161,6 +162,7 @@ public void setCountryId( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COUNTRY_NAME);
+				this._CountryName=value;
 			}
 
 		}
@@ -182,6 +184,7 @@ public void setCountryName( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_REGION_ID);
+				this._RegionId=value;
 			}
 
 		}
@@ -208,6 +211,7 @@ public void setRegionId(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SKIP_FIELD);
+				this._SkipField=value;
 			}
 
 		}
@@ -229,6 +233,7 @@ public void setSkipField( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LONG_FLD);
+				this._LongFld=value;
 			}
 
 		}
@@ -252,6 +257,7 @@ public void setLongFld(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LONG_FLD2);
+				this._LongFld2=value;
 			}
 
 		}

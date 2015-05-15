@@ -259,6 +259,7 @@ namespace OracleModel
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEE_ID);
+				this._EmployeeId=value;
 			}
 
 			this.raiseBroadcastIdChange();
@@ -287,6 +288,7 @@ public void setEmployeeId(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_FIRST_NAME);
+				this._FirstName=value;
 			}
 
 		}
@@ -311,6 +313,7 @@ public void setFirstName( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LAST_NAME);
+				this._LastName=value;
 			}
 
 		}
@@ -335,6 +338,7 @@ public void setLastName( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMAIL);
+				this._EMAIL=value;
 			}
 
 		}
@@ -359,6 +363,7 @@ public void setEMAIL( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_PHONE_NUMBER);
+				this._PhoneNumber=value;
 			}
 
 		}
@@ -380,6 +385,7 @@ public void setPhoneNumber( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_HIRE_DATE);
+				this._HireDate=value;
 			}
 
 		}
@@ -406,6 +412,7 @@ public void setHireDate( String val ){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_JOB_ID);
+				this._JobId=value;
 			}
 
 		}
@@ -427,6 +434,7 @@ public void setJobId( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SALARY);
+				this._SALARY=value;
 			}
 
 		}
@@ -450,6 +458,7 @@ public void setSALARY(String val ){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COMMISSION_PCT);
+				this._CommissionPct=value;
 			}
 
 		}
@@ -473,6 +482,7 @@ public void setCommissionPct(String val ){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_MANAGER_ID);
+				this._ManagerId=value;
 			}
 
 		}
@@ -496,6 +506,7 @@ public void setManagerId(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DEPARTMENT_ID);
+				this._DepartmentId=value;
 			}
 
 		}
@@ -519,6 +530,7 @@ public void setDepartmentId(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_DATE);
+				this._CreateDate=value;
 			}
 
 		}
@@ -542,6 +554,7 @@ public void setCreateDate( String val ){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_DATE);
+				this._UpdateDate=value;
 			}
 
 		}
@@ -568,6 +581,7 @@ public void setUpdateDate( String val ){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_USER);
+				this._CreateUser=value;
 			}
 
 		}
@@ -592,6 +606,7 @@ public void setCreateUser( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_USER);
+				this._UpdateUser=value;
 			}
 
 		}
@@ -613,6 +628,7 @@ public void setUpdateUser( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LOCATION_ID);
+				this._LocationId=value;
 			}
 
 		}
@@ -639,6 +655,7 @@ public void setLocationId(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COUNTRY_ID);
+				this._CountryId=value;
 			}
 
 		}
@@ -663,6 +680,7 @@ public void setCountryId( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DEPARTMENT_NAME);
+				this._DepartmentName=value;
 			}
 
 		}
@@ -687,6 +705,7 @@ public void setDepartmentName( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_JOB_TITLE);
+				this._JobTitle=value;
 			}
 
 		}
@@ -711,6 +730,7 @@ public void setJobTitle( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CITY);
+				this._CITY=value;
 			}
 
 		}
@@ -735,6 +755,7 @@ public void setCITY( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_STATE_PROVINCE);
+				this._StateProvince=value;
 			}
 
 		}
@@ -759,6 +780,7 @@ public void setStateProvince( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COUNTRY_NAME);
+				this._CountryName=value;
 			}
 
 		}
@@ -783,6 +805,7 @@ public void setCountryName( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_REGION_NAME);
+				this._RegionName=value;
 			}
 
 		}
@@ -807,6 +830,7 @@ public void setRegionName( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_MANAGER_NAME);
+				this._ManagerName=value;
 			}
 
 		}

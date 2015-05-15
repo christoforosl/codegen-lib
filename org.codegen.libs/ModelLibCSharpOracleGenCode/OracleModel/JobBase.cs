@@ -143,6 +143,7 @@ namespace OracleModel
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_JOB_ID);
+				this._JobId=value;
 			}
 
 			this.raiseBroadcastIdChange();
@@ -169,6 +170,7 @@ public void setJobId( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_JOB_TITLE);
+				this._JobTitle=value;
 			}
 
 		}
@@ -190,6 +192,7 @@ public void setJobTitle( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_MIN_SALARY);
+				this._MinSalary=value;
 			}
 
 		}
@@ -213,6 +216,7 @@ public void setMinSalary(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_MAX_SALARY);
+				this._MaxSalary=value;
 			}
 
 		}
@@ -236,6 +240,7 @@ public void setMaxSalary(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_DATE);
+				this._CreateDate=value;
 			}
 
 		}
@@ -259,6 +264,7 @@ public void setCreateDate( String val ){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_DATE);
+				this._UpdateDate=value;
 			}
 
 		}
@@ -285,6 +291,7 @@ public void setUpdateDate( String val ){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_USER);
+				this._CreateUser=value;
 			}
 
 		}
@@ -309,6 +316,7 @@ public void setCreateUser( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_USER);
+				this._UpdateUser=value;
 			}
 
 		}

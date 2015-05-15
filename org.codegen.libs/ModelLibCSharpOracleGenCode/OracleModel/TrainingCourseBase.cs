@@ -123,6 +123,7 @@ namespace OracleModel
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CODE);
+				this._CODE=value;
 			}
 
 			this.raiseBroadcastIdChange();
@@ -149,6 +150,7 @@ public void setCODE( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DESCR_GR);
+				this._DescrGr=value;
 			}
 
 		}
@@ -173,6 +175,7 @@ public void setDescrGr( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DESCR_EN);
+				this._DescrEn=value;
 			}
 
 		}

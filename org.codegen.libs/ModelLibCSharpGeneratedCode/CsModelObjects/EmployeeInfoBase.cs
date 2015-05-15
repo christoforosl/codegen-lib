@@ -124,6 +124,7 @@ namespace CsModelObjects
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEEINFOID);
+				this._EmployeeInfoId=value;
 			}
 
 			this.raiseBroadcastIdChange();
@@ -149,6 +150,7 @@ public void setEmployeeInfoId(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EIEMPLOYEEID);
+				this._EIEmployeeId=value;
 			}
 
 		}
@@ -172,6 +174,7 @@ public void setEIEmployeeId(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SALARY);
+				this._Salary=value;
 			}
 
 		}
@@ -198,6 +201,7 @@ public void setSalary(String val ){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ADDRESS);
+				this._Address=value;
 			}
 
 		}

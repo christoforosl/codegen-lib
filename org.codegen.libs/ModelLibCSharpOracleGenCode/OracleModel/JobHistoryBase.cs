@@ -148,6 +148,7 @@ namespace OracleModel
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_JOB_HISTORY_ID);
+				this._JobHistoryId=value;
 			}
 
 			this.raiseBroadcastIdChange();
@@ -173,6 +174,7 @@ public void setJobHistoryId(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEE_ID);
+				this._EmployeeId=value;
 			}
 
 		}
@@ -196,6 +198,7 @@ public void setEmployeeId(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_START_DATE);
+				this._StartDate=value;
 			}
 
 		}
@@ -219,6 +222,7 @@ public void setStartDate( String val ){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_END_DATE);
+				this._EndDate=value;
 			}
 
 		}
@@ -245,6 +249,7 @@ public void setEndDate( String val ){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_JOB_ID);
+				this._JobId=value;
 			}
 
 		}
@@ -266,6 +271,7 @@ public void setJobId( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DEPARTMENT_ID);
+				this._DepartmentId=value;
 			}
 
 		}
@@ -289,6 +295,7 @@ public void setDepartmentId(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_DATE);
+				this._CreateDate=value;
 			}
 
 		}
@@ -312,6 +319,7 @@ public void setCreateDate( String val ){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_DATE);
+				this._UpdateDate=value;
 			}
 
 		}
@@ -338,6 +346,7 @@ public void setUpdateDate( String val ){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_USER);
+				this._CreateUser=value;
 			}
 
 		}
@@ -362,6 +371,7 @@ public void setCreateUser( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_USER);
+				this._UpdateUser=value;
 			}
 
 		}

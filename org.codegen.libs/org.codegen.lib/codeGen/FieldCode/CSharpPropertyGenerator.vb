@@ -46,6 +46,7 @@ Public Class CSharpPropertyGenerator
             vbTab).Append(vbTab).Append(vbTab & "if (this.IsObjectLoading == false) {").Append(vbCrLf).Append( _
             vbTab).Append(vbTab).Append(vbTab & vbTab).Append("this.isDirty = true;").Append(vbCrLf).Append( _
             vbTab).Append(vbTab).Append(vbTab & vbTab).Append("this.setFieldChanged(").Append(field.getConstantStr).Append(");").Append(vbCrLf & _
+            vbTab).Append(vbTab).Append(vbTab & vbTab).Append("this._").Append(runtimeFieldName).Append("=value;").Append(vbCrLf & _
             vbTab).Append(vbTab).Append(vbTab & "}").Append(vbCrLf)
 
         If field.isPrimaryKey Then

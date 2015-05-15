@@ -116,6 +116,7 @@ namespace OracleModel
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_REGION_ID);
+				this._RegionId=value;
 			}
 
 			this.raiseBroadcastIdChange();
@@ -144,6 +145,7 @@ public void setRegionId(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_REGION_NAME);
+				this._RegionName=value;
 			}
 
 		}

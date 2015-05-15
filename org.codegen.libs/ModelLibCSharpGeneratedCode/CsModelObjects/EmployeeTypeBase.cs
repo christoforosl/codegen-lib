@@ -119,6 +119,7 @@ namespace CsModelObjects
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEETYPECODE);
+				this._EmployeeTypeCode=value;
 			}
 
 			this.raiseBroadcastIdChange();
@@ -145,6 +146,7 @@ public void setEmployeeTypeCode( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEETYPE);
+				this._EmployeeType=value;
 			}
 
 		}

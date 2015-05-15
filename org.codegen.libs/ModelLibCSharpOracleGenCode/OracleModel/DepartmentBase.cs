@@ -140,6 +140,7 @@ namespace OracleModel
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DEPARTMENT_ID);
+				this._DepartmentId=value;
 			}
 
 			this.raiseBroadcastIdChange();
@@ -168,6 +169,7 @@ public void setDepartmentId(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DEPARTMENT_NAME);
+				this._DepartmentName=value;
 			}
 
 		}
@@ -189,6 +191,7 @@ public void setDepartmentName( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_MANAGER_ID);
+				this._ManagerId=value;
 			}
 
 		}
@@ -212,6 +215,7 @@ public void setManagerId(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LOCATION_ID);
+				this._LocationId=value;
 			}
 
 		}
@@ -235,6 +239,7 @@ public void setLocationId(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_DATE);
+				this._CreateDate=value;
 			}
 
 		}
@@ -258,6 +263,7 @@ public void setCreateDate( String val ){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_DATE);
+				this._UpdateDate=value;
 			}
 
 		}
@@ -284,6 +290,7 @@ public void setUpdateDate( String val ){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_USER);
+				this._CreateUser=value;
 			}
 
 		}
@@ -308,6 +315,7 @@ public void setCreateUser( String val ) {
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_USER);
+				this._UpdateUser=value;
 			}
 
 		}

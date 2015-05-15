@@ -142,6 +142,7 @@ namespace CsModelObjects
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEEPROJECTID);
+				this._EmployeeProjectId=value;
 			}
 
 			this.raiseBroadcastIdChange();
@@ -167,6 +168,7 @@ public void setEmployeeProjectId(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EPEMPLOYEEID);
+				this._EPEmployeeId=value;
 			}
 
 		}
@@ -190,6 +192,7 @@ public void setEPEmployeeId(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EPPROJECTID);
+				this._EPProjectId=value;
 			}
 
 		}
@@ -213,6 +216,7 @@ public void setEPProjectId(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ASSIGNDATE);
+				this._AssignDate=value;
 			}
 
 		}
@@ -236,6 +240,7 @@ public void setAssignDate( String val ){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ENDDATE);
+				this._EndDate=value;
 			}
 
 		}
@@ -259,6 +264,7 @@ public void setEndDate( String val ){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_RATE);
+				this._Rate=value;
 			}
 
 		}

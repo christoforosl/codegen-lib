@@ -116,6 +116,7 @@ namespace CsModelObjects
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_RANKID);
+				this._RankId=value;
 			}
 
 			this.raiseBroadcastIdChange();
@@ -144,6 +145,7 @@ public void setRankId(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_RANK);
+				this._Rank=value;
 			}
 
 		}

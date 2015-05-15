@@ -138,6 +138,7 @@ namespace OracleModel
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEE_TRAINING_HISTORY_ID);
+				this._EmployeeTrainingHistoryId=value;
 			}
 
 			this.raiseBroadcastIdChange();
@@ -163,6 +164,7 @@ public void setEmployeeTrainingHistoryId(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEE_ID);
+				this._EmployeeId=value;
 			}
 
 		}
@@ -186,6 +188,7 @@ public void setEmployeeId(String val){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DATE_FROM);
+				this._DateFrom=value;
 			}
 
 		}
@@ -209,6 +212,7 @@ public void setDateFrom( String val ){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DATE_TO);
+				this._DateTo=value;
 			}
 
 		}
@@ -235,6 +239,7 @@ public void setDateTo( String val ){
 			if (this.IsObjectLoading == false) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_TRAINING_COURSE_CODE);
+				this._TrainingCourseCode=value;
 			}
 
 		}
