@@ -9,12 +9,15 @@ Public Class XMLClassGenerator
 
 #Region "Constants"
 
+    Public Const XML_RELATION_ASSOCIATION As String = "table_association"
     Public Const XML_ATTR_TABLE As String = "table"
     Public Const XML_TABLE_ATTR_TABLE_NAME As String = "TableName"
     Public Const XML_TABLE_ATTR_DBMAPPER_NAMESPACE As String = "DBMapperNameSpace"
     Public Const XML_TABLE_ATTR_MOBJ_NAMESPACE As String = "Namespace"
     Public Const XML_TABLE_ATTR_TEST_CLASS_NAMESPACE As String = "TestClassNameSpace"
     Public Const XML_TABLE_ATTR_GENERATE_UI As String = "GenerateUI"
+    Public Const XML_LOOKUP_FIELDS As String = "table_Lookups"
+
     'Public Const XML_TABLE_ATTR_GENERATE_MAPPER As String = "GenerateMapper"
     Public Const XML_ATTR_PROJECT_TEST_OUT_DIR As String = "testProjectOutputDir"
     Public Const XML_ATTR_UI_TEST_OUT_DIR As String = "UIProjectOutputDir"
@@ -50,11 +53,6 @@ Public Class XMLClassGenerator
 
     Public Const XML_ATTR_SORT_FIELD As String = "SortField"
     Public Const XML_ATTR_SORT_ASC As String = "SortAscending"
-
-    Public Const XML_RELATION_ASSOCIATION As String = "table_association"
-    Public Const XML_CUSTOMIZED_FIELDS As String = "table_Field"
-    Public Const XML_LOOKUP_FIELDS As String = "table_Lookups"
-    Public Const XML_ATTR_FIELD As String = "Field"
 
     Public Const XML_FIELD_ATTR_SERIALIZATION_IGNORE As String = "XMLSerializationIgnore"
     Public Const XML_ATTR_MODEL_EXTRA_CODE As String = "ModelExtraCode"
@@ -270,17 +268,16 @@ Public Class XMLClassGenerator
     Public Sub parseConfFile(ByVal cds As DataSet)
 
         Dim projectInfo As DataTable = cds.Tables(XMLClassGenerator.XML_ATTR_PROJECT)
-        Dim totalTables As Integer = cds.Tables(XML_ATTR_TABLE).Rows.Count
-        Dim fieldDt As DataTable = cds.Tables(XML_ATTR_FIELD)
+        Dim totalDBTables As Integer = cds.Tables(XML_ATTR_TABLE).Rows.Count
 
         Dim generatorVersion As Integer = CInt(getRowValue(projectInfo.Rows(0), "GeneratorVersion", True))
-		Dim defaultNamespace As String = getRowValue(projectInfo.Rows(0), XML_PROJECT_ATTR_DEFAULT_NAMESPACE)
+        Dim defaultNamespace As String = getRowValue(projectInfo.Rows(0), XML_PROJECT_ATTR_DEFAULT_NAMESPACE)
 
         Dim propertyGeneratorClassName As String = getRowValue(projectInfo.Rows(0), XML_PROJECT_ATTR_IPROP_GEN_CLASS_NAME, False)
 
         Me.VbNetProjectFile = getRowValue(projectInfo.Rows(0), XML_PROJECT_ATTR_VB_NET_PROJECT_FILE, "")
 
-		Dim t As ModelGenerator = ModelGenerator.create(CType(generatorVersion, ModelGenerator.enumVERSION))
+        Dim t As ModelGenerator = ModelGenerator.create(CType(generatorVersion, ModelGenerator.enumVERSION))
 
         t.relativeDirectory = Me.relativeDirectory
         t.XmlFileDataSet = cds
@@ -292,17 +289,29 @@ Public Class XMLClassGenerator
 
         t.ProjectOutputDirModel = getRowValue(projectInfo.Rows(0), XML_PROJECT_ATTR_OUTPUT_DIR, True)
         t.ProjectOutputDirTest = getRowValue(projectInfo.Rows(0), XML_ATTR_PROJECT_TEST_OUT_DIR, False)
-		t.ProjectOutputDirUI = getRowValue(projectInfo.Rows(0), XML_ATTR_UI_TEST_OUT_DIR, False)
-		t.FieldPropertyPrefix = getRowValue(projectInfo.Rows(0), XML_PROP_PERFIX, False)
-		t.DefaultMapperNameSpace = getRowValue(projectInfo.Rows(0), XML_ATTR_DEFAULT_MAPPER_NAMESPACE, False)
+        t.ProjectOutputDirUI = getRowValue(projectInfo.Rows(0), XML_ATTR_UI_TEST_OUT_DIR, False)
+        t.FieldPropertyPrefix = getRowValue(projectInfo.Rows(0), XML_PROP_PERFIX, False)
+        t.DefaultMapperNameSpace = getRowValue(projectInfo.Rows(0), XML_ATTR_DEFAULT_MAPPER_NAMESPACE, False)
+        t.BooleanFieldsDefinition = New BooleanFieldsDefinition()
 
-		If getRowValue(projectInfo.Rows(0), "dotNetLanguage", "VB") = "VB" Then
+        If (cds.Tables("BooleanFields") IsNot Nothing) Then
+            Dim dtBooleanFields As DataTable = cds.Tables("BooleanFields")
+            If dtBooleanFields.Rows(0).Item("excludedFieldNames") IsNot Nothing Then
+                t.BooleanFieldsDefinition.ExcludedFields = getRowValue(dtBooleanFields.Rows(0), "excludedFieldNames", "")
+            End If
+
+            t.BooleanFieldsDefinition.DBDatatypeLength = CInt(getRowValue(dtBooleanFields.Rows(0), "length", True)) ' CInt(dtBooleanFields.Rows(0).Item("length"))
+            t.BooleanFieldsDefinition.DBDatatype = getRowValue(dtBooleanFields.Rows(0), "datatype", True)
+
+        End If
+
+        If getRowValue(projectInfo.Rows(0), "dotNetLanguage", "VB") = "VB" Then
             t.dotNetLanguage = ModelGenerator.enumLanguage.VB
         Else
             t.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP
         End If
 
-        For tblName As Integer = 0 To totalTables - 1
+        For tblName As Integer = 0 To totalDBTables - 1
 
             Dim thisRow As DataRow = cds.Tables(XML_ATTR_TABLE).Rows.Item(tblName)
             Dim table As String = getRowValue(thisRow, XML_TABLE_ATTR_TABLE_NAME, True)
@@ -345,33 +354,6 @@ Public Class XMLClassGenerator
             End If
 
             Me.parseAssociations(ogen)
-
-            Dim fieldRows As DataRow() = thisRow.GetChildRows(XML_CUSTOMIZED_FIELDS)
-
-            Dim fieldsCnt As Integer = fieldRows.Length
-            If fieldsCnt > 0 Then
-                For acnt As Integer = 0 To fieldsCnt - 1
-                    Dim FieldRow As DataRow = fieldRows(acnt)
-                    Dim f As New DBField
-                    f.FieldName = getRowValue(FieldRow, XML_FIELD_ATTR_FIELDNAME, True)
-
-                    Dim xmltype As String = getRowValue(FieldRow, XML_FIELD_ATTR_DATATYPE, String.Empty)
-                    If String.IsNullOrEmpty(xmltype) = False Then
-						f.UserSpecifiedDataType = xmltype
-                    End If
-
-
-                    Dim exclude As Boolean = CBool(getRowValue(FieldRow, XML_FIELD_ATTR_EXCLUDE, "0"))
-                    If exclude Then
-                        ogen.DbTable.addExludedField(f.FieldName)
-                    Else
-                        ogen.DbTable.addCustomizedField(f)
-                    End If
-
-                Next
-            End If
-
-            ' Debug.Print(ogen.ClassName)
             t.addObjectForGeneration(ogen)
 
         Next tblName
