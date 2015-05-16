@@ -132,11 +132,11 @@ namespace OracleModel
 		if (value != null && value.Length > 2){
 			throw new ModelObjectFieldTooLongException("COUNTRY_ID");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COUNTRY_ID);
-				this._CountryId=value;
 			}
+				this._CountryId=value;
 
 			this.raiseBroadcastIdChange();
 
@@ -159,11 +159,11 @@ public void setCountryId( String val ) {
 		if (value != null && value.Length > 40){
 			throw new ModelObjectFieldTooLongException("COUNTRY_NAME");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COUNTRY_NAME);
-				this._CountryName=value;
 			}
+				this._CountryName=value;
 
 		}
 		}
@@ -181,11 +181,11 @@ public void setCountryName( String val ) {
 	}
 	set {
 		if (ModelObject.valueChanged(_RegionId, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_REGION_ID);
-				this._RegionId=value;
 			}
+				this._RegionId=value;
 
 		}
 		}
@@ -208,11 +208,11 @@ public void setRegionId(String val){
 		if (value != null && value.Length > 40){
 			throw new ModelObjectFieldTooLongException("SKIP_FIELD");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SKIP_FIELD);
-				this._SkipField=value;
 			}
+				this._SkipField=value;
 
 		}
 		}
@@ -230,11 +230,11 @@ public void setSkipField( String val ) {
 	}
 	set {
 		if (ModelObject.valueChanged(_LongFld, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LONG_FLD);
-				this._LongFld=value;
 			}
+				this._LongFld=value;
 
 		}
 		}
@@ -254,11 +254,11 @@ public void setLongFld(String val){
 	}
 	set {
 		if (ModelObject.valueChanged(_LongFld2, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LONG_FLD2);
-				this._LongFld2=value;
 			}
+				this._LongFld2=value;
 
 		}
 		}

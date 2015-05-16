@@ -213,7 +213,7 @@ Namespace Model
             End If
 
             If CurrentDBUtils Is Nothing Then
-                Throw New ApplicationException("Application service connection is null!")
+                Throw New ApplicationException("No connection on ModelContext!!")
             End If
 
             CurrentDBUtils.beginTrans()

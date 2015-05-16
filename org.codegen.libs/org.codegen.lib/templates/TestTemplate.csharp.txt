@@ -54,8 +54,8 @@ using <NAMESPACE>;
 		ModelContext.beginTrans();
 		try {
 
-			int pid  = ModelContext.CurrentDBUtils.getIntValue("select top 1 <PK_TABKE_FIELD_NAME> from <TABLE_NAME>");
-			if (pid == 0) {
+			object pid  = ModelContext.CurrentDBUtils.getObjectValue("select top 1 <PK_TABKE_FIELD_NAME> from <TABLE_NAME>");
+			if (pid == null) {
 				Assert.Inconclusive("No <MODEL_CLASS_NAME> in database, table is empty");
 			} else {
 

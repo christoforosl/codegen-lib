@@ -21,7 +21,6 @@ namespace GeneratorTests {
 		[TestMethod]
 		public void runObjectTests() {
 
-	
 			DirectoryInfo d = new DirectoryInfo("..\\..\\..\\");
 			System.Diagnostics.Debug.WriteLine(d.FullName);
 

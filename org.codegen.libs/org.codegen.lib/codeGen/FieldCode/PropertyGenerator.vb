@@ -59,14 +59,15 @@ Public Class PropertyGenerator
         sproperty.Append(vbTab & vbTab & "return _" & runtimeFieldName & vbCrLf)
 
         sproperty.Append(vbTab & "End Get " & vbCrLf)
-        sproperty.Append(
-            vbTab).Append("Set(ByVal value As ").Append(field.getPropertyDataType).Append(")").Append(vbCrLf).Append( _
-            vbTab).Append(vbTab).Append("if ModelObject.valueChanged(_").Append(runtimeFieldName).Append(", value) then").Append(vbCrLf). _
-            Append(sLengthChecker).Append( _
-            vbTab).Append(vbTab).Append(vbTab & "if me.IsObjectLoading = false then").Append(vbCrLf).Append( _
-            vbTab).Append(vbTab).Append(vbTab & vbTab).Append("me.isDirty = true").Append(vbCrLf).Append( _
-            vbTab).Append(vbTab).Append(vbTab & vbTab).Append("me.setFieldChanged(").Append(field.getConstantStr).Append(")").Append(vbCrLf & _
-            vbTab).Append(vbTab).Append(vbTab & "End If").Append(vbCrLf)
+
+        sproperty.Append(vbTab).Append("Set(ByVal value As ").Append(field.getPropertyDataType).Append(")").Append(vbCrLf)
+        sproperty.Append(vbTab).Append(vbTab).Append("if ModelObject.valueChanged(_").Append(runtimeFieldName).Append(", value) then").Append(vbCrLf)
+        sproperty.Append(sLengthChecker)
+        sproperty.Append(vbTab).Append(vbTab).Append(vbTab & "if me.IsObjectLoading = false then").Append(vbCrLf)
+        sproperty.Append(vbTab).Append(vbTab).Append(vbTab & vbTab).Append("me.isDirty = true").Append(vbCrLf)
+        sproperty.Append(vbTab).Append(vbTab).Append(vbTab & vbTab).Append("me.setFieldChanged(").Append(field.getConstantStr).Append(")").Append(vbCrLf)
+        sproperty.Append(vbTab).Append(vbTab).Append(vbTab & "End If").Append(vbCrLf)
+        sproperty.Append(vbTab).Append(vbTab & vbTab).Append("me._").Append(runtimeFieldName).Append("=value").Append(vbCrLf)
 
         If field.isPrimaryKey Then
             sproperty.Append(vbCrLf & vbTab & vbTab & vbTab & "me.raiseBroadcastIdChange()" & vbCrLf)

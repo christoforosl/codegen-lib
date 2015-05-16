@@ -285,7 +285,7 @@ Public MustInherit Class DBUpdater
                                            ByVal _assembly As Assembly, _
                                            Optional ByVal _backupSQLStatement As String = "")
 
-        Dim dbu As DBUpdater
+        Dim dbu As DBUpdater = Nothing
 
         If _dbconn.ConnType = DBUtils.enumConnType.CONN_OLEDB Then
             dbu = New MSAccessUpdater

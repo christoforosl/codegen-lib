@@ -224,11 +224,11 @@ namespace CsModelObjects
 	}
 	set {
 		if (ModelObject.valueChanged(_EmployeeId, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEEID);
-				this._EmployeeId=value;
 			}
+				this._EmployeeId=value;
 
 			this.raiseBroadcastIdChange();
 
@@ -253,11 +253,11 @@ public void setEmployeeId(String val){
 		if (value != null && value.Length > 50){
 			throw new ModelObjectFieldTooLongException("EmployeeName");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEENAME);
-				this._EmployeeName=value;
 			}
+				this._EmployeeName=value;
 
 		}
 		}
@@ -275,11 +275,11 @@ public void setEmployeeName( String val ) {
 	}
 	set {
 		if (ModelObject.valueChanged(_EmployeeRankId, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEERANKID);
-				this._EmployeeRankId=value;
 			}
+				this._EmployeeRankId=value;
 
 		}
 		}
@@ -299,11 +299,11 @@ public void setEmployeeRankId(String val){
 	}
 	set {
 		if (ModelObject.valueChanged(_Salary, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SALARY);
-				this._Salary=value;
 			}
+				this._Salary=value;
 
 		}
 		}
@@ -326,11 +326,11 @@ public void setSalary(String val ){
 		if (value != null && value.Length > 50){
 			throw new ModelObjectFieldTooLongException("Address");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ADDRESS);
-				this._Address=value;
 			}
+				this._Address=value;
 
 		}
 		}
@@ -351,11 +351,11 @@ public void setAddress( String val ) {
 		if (value != null && value.Length > 10){
 			throw new ModelObjectFieldTooLongException("Telephone");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_TELEPHONE);
-				this._Telephone=value;
 			}
+				this._Telephone=value;
 
 		}
 		}
@@ -376,11 +376,11 @@ public void setTelephone( String val ) {
 		if (value != null && value.Length > 10){
 			throw new ModelObjectFieldTooLongException("Mobile");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_MOBILE);
-				this._Mobile=value;
 			}
+				this._Mobile=value;
 
 		}
 		}
@@ -401,11 +401,11 @@ public void setMobile( String val ) {
 		if (value != null && value.Length > 10){
 			throw new ModelObjectFieldTooLongException("IdNumber");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_IDNUMBER);
-				this._IdNumber=value;
 			}
+				this._IdNumber=value;
 
 		}
 		}
@@ -426,11 +426,11 @@ public void setIdNumber( String val ) {
 		if (value != null && value.Length > 10){
 			throw new ModelObjectFieldTooLongException("SSINumber");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SSINUMBER);
-				this._SSINumber=value;
 			}
+				this._SSINumber=value;
 
 		}
 		}
@@ -448,11 +448,11 @@ public void setSSINumber( String val ) {
 	}
 	set {
 		if (ModelObject.valueChanged(_HireDate, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_HIREDATE);
-				this._HireDate=value;
 			}
+				this._HireDate=value;
 
 		}
 		}
@@ -472,11 +472,11 @@ public void setHireDate( String val ){
 	}
 	set {
 		if (ModelObject.valueChanged(_NumDependents, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_NUMDEPENDENTS);
-				this._NumDependents=value;
 			}
+				this._NumDependents=value;
 
 		}
 		}
@@ -499,11 +499,11 @@ public void setNumDependents(String val){
 		if (value != null && value.Length > 10){
 			throw new ModelObjectFieldTooLongException("EmployeeTypeCode");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEETYPECODE);
-				this._EmployeeTypeCode=value;
 			}
+				this._EmployeeTypeCode=value;
 
 		}
 		}
@@ -521,11 +521,11 @@ public void setEmployeeTypeCode( String val ) {
 	}
 	set {
 		if (ModelObject.valueChanged(_CreateDate, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATEDATE);
-				this._CreateDate=value;
 			}
+				this._CreateDate=value;
 
 		}
 		}
@@ -545,11 +545,11 @@ public void setCreateDate( String val ){
 	}
 	set {
 		if (ModelObject.valueChanged(_UpdateDate, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATEDATE);
-				this._UpdateDate=value;
 			}
+				this._UpdateDate=value;
 
 		}
 		}
@@ -572,11 +572,11 @@ public void setUpdateDate( String val ){
 		if (value != null && value.Length > 50){
 			throw new ModelObjectFieldTooLongException("createUser");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATEUSER);
-				this._CreateUser=value;
 			}
+				this._CreateUser=value;
 
 		}
 		}
@@ -597,11 +597,11 @@ public void setCreateUser( String val ) {
 		if (value != null && value.Length > 50){
 			throw new ModelObjectFieldTooLongException("updateUser");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATEUSER);
-				this._UpdateUser=value;
 			}
+				this._UpdateUser=value;
 
 		}
 		}
@@ -619,11 +619,11 @@ public void setUpdateUser( String val ) {
 	}
 	set {
 		if (ModelObject.valueChanged(_SampleGuidField, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SAMPLEGUIDFIELD);
-				this._SampleGuidField=value;
 			}
+				this._SampleGuidField=value;
 
 		}
 		}
@@ -634,11 +634,11 @@ public void setUpdateUser( String val ) {
 	}
 	set {
 		if (ModelObject.valueChanged(_IsActive, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ISACTIVE);
-				this._IsActive=value;
 			}
+				this._IsActive=value;
 
 		}
 		}
@@ -657,11 +657,11 @@ public void setIsActive(String val ){
 	}
 	set {
 		if (ModelObject.valueChanged(_SampleBigInt, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SAMPLEBIGINT);
-				this._SampleBigInt=value;
 			}
+				this._SampleBigInt=value;
 
 		}
 		}
@@ -681,11 +681,11 @@ public void setSampleBigInt(String val){
 	}
 	set {
 		if (ModelObject.valueChanged(_SampleSmallInt, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SAMPLESMALLINT);
-				this._SampleSmallInt=value;
 			}
+				this._SampleSmallInt=value;
 
 		}
 		}
@@ -705,11 +705,11 @@ public void setSampleSmallInt(String val){
 	}
 	set {
 		if (ModelObject.valueChanged(_SampleNumericFieldInt, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SAMPLENUMERICFIELDINT);
-				this._SampleNumericFieldInt=value;
 			}
+				this._SampleNumericFieldInt=value;
 
 		}
 		}
@@ -729,11 +729,11 @@ public void setSampleNumericFieldInt(String val){
 	}
 	set {
 		if (ModelObject.valueChanged(_SampleNumericField2Decimals, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SAMPLENUMERICFIELD2DECIMALS);
-				this._SampleNumericField2Decimals=value;
 			}
+				this._SampleNumericField2Decimals=value;
 
 		}
 		}

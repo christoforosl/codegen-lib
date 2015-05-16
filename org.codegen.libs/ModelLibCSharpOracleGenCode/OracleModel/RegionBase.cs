@@ -113,11 +113,11 @@ namespace OracleModel
 	}
 	set {
 		if (ModelObject.valueChanged(_RegionId, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_REGION_ID);
-				this._RegionId=value;
 			}
+				this._RegionId=value;
 
 			this.raiseBroadcastIdChange();
 
@@ -142,11 +142,11 @@ public void setRegionId(String val){
 		if (value != null && value.Length > 25){
 			throw new ModelObjectFieldTooLongException("REGION_NAME");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_REGION_NAME);
-				this._RegionName=value;
 			}
+				this._RegionName=value;
 
 		}
 		}

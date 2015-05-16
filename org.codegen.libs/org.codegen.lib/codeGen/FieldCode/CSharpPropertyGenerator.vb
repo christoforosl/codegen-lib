@@ -39,15 +39,15 @@ Public Class CSharpPropertyGenerator
         sproperty.Append(vbTab & vbTab & "return _" & runtimeFieldName & ";" & vbCrLf)
 
         sproperty.Append(vbTab & "}" & vbCrLf)
-        sproperty.Append(
-            vbTab).Append("set {").Append(vbCrLf).Append( _
-            vbTab).Append(vbTab).Append("if (ModelObject.valueChanged(_").Append(runtimeFieldName).Append(", value)){").Append(vbCrLf). _
-            Append(sLengthChecker).Append( _
-            vbTab).Append(vbTab).Append(vbTab & "if (this.IsObjectLoading == false) {").Append(vbCrLf).Append( _
-            vbTab).Append(vbTab).Append(vbTab & vbTab).Append("this.isDirty = true;").Append(vbCrLf).Append( _
-            vbTab).Append(vbTab).Append(vbTab & vbTab).Append("this.setFieldChanged(").Append(field.getConstantStr).Append(");").Append(vbCrLf & _
-            vbTab).Append(vbTab).Append(vbTab & vbTab).Append("this._").Append(runtimeFieldName).Append("=value;").Append(vbCrLf & _
-            vbTab).Append(vbTab).Append(vbTab & "}").Append(vbCrLf)
+
+        sproperty.Append(vbTab).Append("set {").Append(vbCrLf)
+        sproperty.Append(vbTab).Append(vbTab).Append("if (ModelObject.valueChanged(_").Append(runtimeFieldName).Append(", value)){").Append(vbCrLf)
+        sproperty.Append(sLengthChecker)
+        sproperty.Append(vbTab).Append(vbTab).Append(vbTab & "if (!this.IsObjectLoading) {").Append(vbCrLf)
+        sproperty.Append(vbTab).Append(vbTab).Append(vbTab & vbTab).Append("this.isDirty = true;").Append(vbCrLf)
+        sproperty.Append(vbTab).Append(vbTab).Append(vbTab & vbTab).Append("this.setFieldChanged(").Append(field.getConstantStr).Append(");").Append(vbCrLf)
+        sproperty.Append(vbTab).Append(vbTab).Append(vbTab & "}").Append(vbCrLf)
+        sproperty.Append(vbTab).Append(vbTab).Append("this._").Append(runtimeFieldName).Append("=value;").Append(vbCrLf)
 
         If field.isPrimaryKey Then
             sproperty.Append(vbCrLf & vbTab & vbTab & vbTab & "this.raiseBroadcastIdChange();" & vbCrLf)

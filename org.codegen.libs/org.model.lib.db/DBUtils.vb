@@ -64,7 +64,7 @@ Public MustInherit Class DBUtils
                 ret.sqldialect = iDialect
 
             Case Else
-                Throw New ArgumentException("Cannot Indentify SQL Connection Type.  Enter 1 for SQL or 3 for OLE DB")
+                Throw New ArgumentException("Cannot Identify SQL Connection Type.  Enter 1 for SQL or 3 for OLE DB")
         End Select
 
         ret.ConnString = connString
@@ -734,15 +734,36 @@ Public MustInherit Class DBUtils
     ''' If value of first column is DBNULL, returns 0</returns>
     ''' <remarks></remarks>
     ''' <seealso cref="DBUtils.getSValue"></seealso>
-    Function getLngValue(ByVal sql As String) As Int32
+    Function getLngValue(ByVal sql As String, ByVal ParamArray params() As Object) As Int32
         Dim rs As IDataReader
         Try
-            rs = Me.getDataReader(sql)
+            rs = Me.getDataReaderWithParams(sql, params)
             If rs.Read Then
-                If IsDBNull(rs.GetValue(0)) OrElse Not IsNumeric(rs.GetValue(0)) Then
+                If IsDBNull(rs.GetValue(0)) Then
                     getLngValue = 0
                 Else
+                    Validate.isTrue(IsNumeric(rs.GetValue(0)), "Non Numeric value returned in call to getLngValue ")
                     getLngValue = CInt(rs.GetValue(0))
+
+                End If
+
+            End If
+
+        Finally
+            Call Me.closeDataReader(rs)
+        End Try
+
+    End Function
+
+    Public Function getObjectValue(ByVal sql As String, ByVal ParamArray params() As Object) As Object
+        Dim rs As IDataReader
+        Try
+            rs = Me.getDataReaderWithParams(sql, params)
+            If rs.Read Then
+                If IsDBNull(rs.GetValue(0)) Then
+                    Return Nothing
+                Else
+                    Return rs.GetValue(0)
                 End If
 
             End If

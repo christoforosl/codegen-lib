@@ -45,7 +45,7 @@ namespace GeneratorTests {
 
 	
 		[TestMethod]
-		public void createVbRecords() {
+		public void createOracletestRecords() {
 
             ModelContext.Current.config.DoCascadeDeletes = true;
 			ModelContext.beginTrans();

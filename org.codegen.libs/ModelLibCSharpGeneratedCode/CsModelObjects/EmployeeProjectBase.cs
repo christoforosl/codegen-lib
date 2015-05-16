@@ -139,11 +139,11 @@ namespace CsModelObjects
 	}
 	set {
 		if (ModelObject.valueChanged(_EmployeeProjectId, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEEPROJECTID);
-				this._EmployeeProjectId=value;
 			}
+				this._EmployeeProjectId=value;
 
 			this.raiseBroadcastIdChange();
 
@@ -165,11 +165,11 @@ public void setEmployeeProjectId(String val){
 	}
 	set {
 		if (ModelObject.valueChanged(_EPEmployeeId, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EPEMPLOYEEID);
-				this._EPEmployeeId=value;
 			}
+				this._EPEmployeeId=value;
 
 		}
 		}
@@ -189,11 +189,11 @@ public void setEPEmployeeId(String val){
 	}
 	set {
 		if (ModelObject.valueChanged(_EPProjectId, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EPPROJECTID);
-				this._EPProjectId=value;
 			}
+				this._EPProjectId=value;
 
 		}
 		}
@@ -213,11 +213,11 @@ public void setEPProjectId(String val){
 	}
 	set {
 		if (ModelObject.valueChanged(_AssignDate, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ASSIGNDATE);
-				this._AssignDate=value;
 			}
+				this._AssignDate=value;
 
 		}
 		}
@@ -237,11 +237,11 @@ public void setAssignDate( String val ){
 	}
 	set {
 		if (ModelObject.valueChanged(_EndDate, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ENDDATE);
-				this._EndDate=value;
 			}
+				this._EndDate=value;
 
 		}
 		}
@@ -261,11 +261,11 @@ public void setEndDate( String val ){
 	}
 	set {
 		if (ModelObject.valueChanged(_Rate, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_RATE);
-				this._Rate=value;
 			}
+				this._Rate=value;
 
 		}
 		}

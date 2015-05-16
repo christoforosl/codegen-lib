@@ -136,11 +136,11 @@ namespace CsModelObjects
 	}
 	set {
 		if (ModelObject.valueChanged(_ProjectId, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_PROJECTID);
-				this._ProjectId=value;
 			}
+				this._ProjectId=value;
 
 			this.raiseBroadcastIdChange();
 
@@ -165,11 +165,11 @@ public void setProjectId(String val){
 		if (value != null && value.Length > 250){
 			throw new ModelObjectFieldTooLongException("ProjectName");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_PROJECTNAME);
-				this._ProjectName=value;
 			}
+				this._ProjectName=value;
 
 		}
 		}
@@ -187,11 +187,11 @@ public void setProjectName( String val ) {
 	}
 	set {
 		if (ModelObject.valueChanged(_IsActive, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ISACTIVE);
-				this._IsActive=value;
 			}
+				this._IsActive=value;
 
 		}
 		}

@@ -54,8 +54,8 @@ using CsModelObjects;
 		ModelContext.beginTrans();
 		try {
 
-			int pid  = ModelContext.CurrentDBUtils.getIntValue("select top 1 EmployeeTypeCode from EmployeeType");
-			if (pid == 0) {
+			object pid  = ModelContext.CurrentDBUtils.getObjectValue("select top 1 EmployeeTypeCode from EmployeeType");
+			if (pid == null) {
 				Assert.Inconclusive("No EmployeeType in database, table is empty");
 			} else {
 

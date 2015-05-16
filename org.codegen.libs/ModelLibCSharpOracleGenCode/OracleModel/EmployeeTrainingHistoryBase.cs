@@ -135,11 +135,11 @@ namespace OracleModel
 	}
 	set {
 		if (ModelObject.valueChanged(_EmployeeTrainingHistoryId, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEE_TRAINING_HISTORY_ID);
-				this._EmployeeTrainingHistoryId=value;
 			}
+				this._EmployeeTrainingHistoryId=value;
 
 			this.raiseBroadcastIdChange();
 
@@ -161,11 +161,11 @@ public void setEmployeeTrainingHistoryId(String val){
 	}
 	set {
 		if (ModelObject.valueChanged(_EmployeeId, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEE_ID);
-				this._EmployeeId=value;
 			}
+				this._EmployeeId=value;
 
 		}
 		}
@@ -185,11 +185,11 @@ public void setEmployeeId(String val){
 	}
 	set {
 		if (ModelObject.valueChanged(_DateFrom, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DATE_FROM);
-				this._DateFrom=value;
 			}
+				this._DateFrom=value;
 
 		}
 		}
@@ -209,11 +209,11 @@ public void setDateFrom( String val ){
 	}
 	set {
 		if (ModelObject.valueChanged(_DateTo, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DATE_TO);
-				this._DateTo=value;
 			}
+				this._DateTo=value;
 
 		}
 		}
@@ -236,11 +236,11 @@ public void setDateTo( String val ){
 		if (value != null && value.Length > 5){
 			throw new ModelObjectFieldTooLongException("TRAINING_COURSE_CODE");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_TRAINING_COURSE_CODE);
-				this._TrainingCourseCode=value;
 			}
+				this._TrainingCourseCode=value;
 
 		}
 		}

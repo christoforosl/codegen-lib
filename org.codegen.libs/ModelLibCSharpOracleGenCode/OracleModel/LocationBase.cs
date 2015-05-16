@@ -145,11 +145,11 @@ namespace OracleModel
 	}
 	set {
 		if (ModelObject.valueChanged(_LocationId, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LOCATION_ID);
-				this._LocationId=value;
 			}
+				this._LocationId=value;
 
 			this.raiseBroadcastIdChange();
 
@@ -174,11 +174,11 @@ public void setLocationId(String val){
 		if (value != null && value.Length > 40){
 			throw new ModelObjectFieldTooLongException("STREET_ADDRESS");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_STREET_ADDRESS);
-				this._StreetAddress=value;
 			}
+				this._StreetAddress=value;
 
 		}
 		}
@@ -199,11 +199,11 @@ public void setStreetAddress( String val ) {
 		if (value != null && value.Length > 12){
 			throw new ModelObjectFieldTooLongException("POSTAL_CODE");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_POSTAL_CODE);
-				this._PostalCode=value;
 			}
+				this._PostalCode=value;
 
 		}
 		}
@@ -224,11 +224,11 @@ public void setPostalCode( String val ) {
 		if (value != null && value.Length > 30){
 			throw new ModelObjectFieldTooLongException("CITY");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CITY);
-				this._CITY=value;
 			}
+				this._CITY=value;
 
 		}
 		}
@@ -249,11 +249,11 @@ public void setCITY( String val ) {
 		if (value != null && value.Length > 25){
 			throw new ModelObjectFieldTooLongException("STATE_PROVINCE");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_STATE_PROVINCE);
-				this._StateProvince=value;
 			}
+				this._StateProvince=value;
 
 		}
 		}
@@ -274,11 +274,11 @@ public void setStateProvince( String val ) {
 		if (value != null && value.Length > 2){
 			throw new ModelObjectFieldTooLongException("COUNTRY_ID");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COUNTRY_ID);
-				this._CountryId=value;
 			}
+				this._CountryId=value;
 
 		}
 		}
@@ -296,11 +296,11 @@ public void setCountryId( String val ) {
 	}
 	set {
 		if (ModelObject.valueChanged(_CreateDate, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_DATE);
-				this._CreateDate=value;
 			}
+				this._CreateDate=value;
 
 		}
 		}
@@ -320,11 +320,11 @@ public void setCreateDate( String val ){
 	}
 	set {
 		if (ModelObject.valueChanged(_UpdateDate, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_DATE);
-				this._UpdateDate=value;
 			}
+				this._UpdateDate=value;
 
 		}
 		}
@@ -347,11 +347,11 @@ public void setUpdateDate( String val ){
 		if (value != null && value.Length > 20){
 			throw new ModelObjectFieldTooLongException("CREATE_USER");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_USER);
-				this._CreateUser=value;
 			}
+				this._CreateUser=value;
 
 		}
 		}
@@ -372,11 +372,11 @@ public void setCreateUser( String val ) {
 		if (value != null && value.Length > 20){
 			throw new ModelObjectFieldTooLongException("UPDATE_USER");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_USER);
-				this._UpdateUser=value;
 			}
+				this._UpdateUser=value;
 
 		}
 		}

@@ -256,11 +256,11 @@ namespace OracleModel
 	}
 	set {
 		if (ModelObject.valueChanged(_EmployeeId, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEE_ID);
-				this._EmployeeId=value;
 			}
+				this._EmployeeId=value;
 
 			this.raiseBroadcastIdChange();
 
@@ -285,11 +285,11 @@ public void setEmployeeId(String val){
 		if (value != null && value.Length > 20){
 			throw new ModelObjectFieldTooLongException("FIRST_NAME");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_FIRST_NAME);
-				this._FirstName=value;
 			}
+				this._FirstName=value;
 
 		}
 		}
@@ -310,11 +310,11 @@ public void setFirstName( String val ) {
 		if (value != null && value.Length > 25){
 			throw new ModelObjectFieldTooLongException("LAST_NAME");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LAST_NAME);
-				this._LastName=value;
 			}
+				this._LastName=value;
 
 		}
 		}
@@ -335,11 +335,11 @@ public void setLastName( String val ) {
 		if (value != null && value.Length > 25){
 			throw new ModelObjectFieldTooLongException("EMAIL");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMAIL);
-				this._EMAIL=value;
 			}
+				this._EMAIL=value;
 
 		}
 		}
@@ -360,11 +360,11 @@ public void setEMAIL( String val ) {
 		if (value != null && value.Length > 20){
 			throw new ModelObjectFieldTooLongException("PHONE_NUMBER");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_PHONE_NUMBER);
-				this._PhoneNumber=value;
 			}
+				this._PhoneNumber=value;
 
 		}
 		}
@@ -382,11 +382,11 @@ public void setPhoneNumber( String val ) {
 	}
 	set {
 		if (ModelObject.valueChanged(_HireDate, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_HIRE_DATE);
-				this._HireDate=value;
 			}
+				this._HireDate=value;
 
 		}
 		}
@@ -409,11 +409,11 @@ public void setHireDate( String val ){
 		if (value != null && value.Length > 10){
 			throw new ModelObjectFieldTooLongException("JOB_ID");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_JOB_ID);
-				this._JobId=value;
 			}
+				this._JobId=value;
 
 		}
 		}
@@ -431,11 +431,11 @@ public void setJobId( String val ) {
 	}
 	set {
 		if (ModelObject.valueChanged(_SALARY, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SALARY);
-				this._SALARY=value;
 			}
+				this._SALARY=value;
 
 		}
 		}
@@ -455,11 +455,11 @@ public void setSALARY(String val ){
 	}
 	set {
 		if (ModelObject.valueChanged(_CommissionPct, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COMMISSION_PCT);
-				this._CommissionPct=value;
 			}
+				this._CommissionPct=value;
 
 		}
 		}
@@ -479,11 +479,11 @@ public void setCommissionPct(String val ){
 	}
 	set {
 		if (ModelObject.valueChanged(_ManagerId, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_MANAGER_ID);
-				this._ManagerId=value;
 			}
+				this._ManagerId=value;
 
 		}
 		}
@@ -503,11 +503,11 @@ public void setManagerId(String val){
 	}
 	set {
 		if (ModelObject.valueChanged(_DepartmentId, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DEPARTMENT_ID);
-				this._DepartmentId=value;
 			}
+				this._DepartmentId=value;
 
 		}
 		}
@@ -527,11 +527,11 @@ public void setDepartmentId(String val){
 	}
 	set {
 		if (ModelObject.valueChanged(_CreateDate, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_DATE);
-				this._CreateDate=value;
 			}
+				this._CreateDate=value;
 
 		}
 		}
@@ -551,11 +551,11 @@ public void setCreateDate( String val ){
 	}
 	set {
 		if (ModelObject.valueChanged(_UpdateDate, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_DATE);
-				this._UpdateDate=value;
 			}
+				this._UpdateDate=value;
 
 		}
 		}
@@ -578,11 +578,11 @@ public void setUpdateDate( String val ){
 		if (value != null && value.Length > 20){
 			throw new ModelObjectFieldTooLongException("CREATE_USER");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_USER);
-				this._CreateUser=value;
 			}
+				this._CreateUser=value;
 
 		}
 		}
@@ -603,11 +603,11 @@ public void setCreateUser( String val ) {
 		if (value != null && value.Length > 20){
 			throw new ModelObjectFieldTooLongException("UPDATE_USER");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_USER);
-				this._UpdateUser=value;
 			}
+				this._UpdateUser=value;
 
 		}
 		}
@@ -625,11 +625,11 @@ public void setUpdateUser( String val ) {
 	}
 	set {
 		if (ModelObject.valueChanged(_LocationId, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LOCATION_ID);
-				this._LocationId=value;
 			}
+				this._LocationId=value;
 
 		}
 		}
@@ -652,11 +652,11 @@ public void setLocationId(String val){
 		if (value != null && value.Length > 2){
 			throw new ModelObjectFieldTooLongException("COUNTRY_ID");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COUNTRY_ID);
-				this._CountryId=value;
 			}
+				this._CountryId=value;
 
 		}
 		}
@@ -677,11 +677,11 @@ public void setCountryId( String val ) {
 		if (value != null && value.Length > 30){
 			throw new ModelObjectFieldTooLongException("DEPARTMENT_NAME");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DEPARTMENT_NAME);
-				this._DepartmentName=value;
 			}
+				this._DepartmentName=value;
 
 		}
 		}
@@ -702,11 +702,11 @@ public void setDepartmentName( String val ) {
 		if (value != null && value.Length > 35){
 			throw new ModelObjectFieldTooLongException("JOB_TITLE");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_JOB_TITLE);
-				this._JobTitle=value;
 			}
+				this._JobTitle=value;
 
 		}
 		}
@@ -727,11 +727,11 @@ public void setJobTitle( String val ) {
 		if (value != null && value.Length > 30){
 			throw new ModelObjectFieldTooLongException("CITY");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CITY);
-				this._CITY=value;
 			}
+				this._CITY=value;
 
 		}
 		}
@@ -752,11 +752,11 @@ public void setCITY( String val ) {
 		if (value != null && value.Length > 25){
 			throw new ModelObjectFieldTooLongException("STATE_PROVINCE");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_STATE_PROVINCE);
-				this._StateProvince=value;
 			}
+				this._StateProvince=value;
 
 		}
 		}
@@ -777,11 +777,11 @@ public void setStateProvince( String val ) {
 		if (value != null && value.Length > 40){
 			throw new ModelObjectFieldTooLongException("COUNTRY_NAME");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COUNTRY_NAME);
-				this._CountryName=value;
 			}
+				this._CountryName=value;
 
 		}
 		}
@@ -802,11 +802,11 @@ public void setCountryName( String val ) {
 		if (value != null && value.Length > 25){
 			throw new ModelObjectFieldTooLongException("REGION_NAME");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_REGION_NAME);
-				this._RegionName=value;
 			}
+				this._RegionName=value;
 
 		}
 		}
@@ -827,11 +827,11 @@ public void setRegionName( String val ) {
 		if (value != null && value.Length > 46){
 			throw new ModelObjectFieldTooLongException("MANAGER_NAME");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_MANAGER_NAME);
-				this._ManagerName=value;
 			}
+				this._ManagerName=value;
 
 		}
 		}

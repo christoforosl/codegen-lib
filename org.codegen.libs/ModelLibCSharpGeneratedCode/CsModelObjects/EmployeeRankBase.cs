@@ -113,11 +113,11 @@ namespace CsModelObjects
 	}
 	set {
 		if (ModelObject.valueChanged(_RankId, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_RANKID);
-				this._RankId=value;
 			}
+				this._RankId=value;
 
 			this.raiseBroadcastIdChange();
 
@@ -142,11 +142,11 @@ public void setRankId(String val){
 		if (value != null && value.Length > 50){
 			throw new ModelObjectFieldTooLongException("Rank");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_RANK);
-				this._Rank=value;
 			}
+				this._Rank=value;
 
 		}
 		}

@@ -116,11 +116,11 @@ namespace CsModelObjects
 		if (value != null && value.Length > 10){
 			throw new ModelObjectFieldTooLongException("EmployeeTypeCode");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEETYPECODE);
-				this._EmployeeTypeCode=value;
 			}
+				this._EmployeeTypeCode=value;
 
 			this.raiseBroadcastIdChange();
 
@@ -143,11 +143,11 @@ public void setEmployeeTypeCode( String val ) {
 		if (value != null && value.Length > 50){
 			throw new ModelObjectFieldTooLongException("EmployeeType");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEETYPE);
-				this._EmployeeType=value;
 			}
+				this._EmployeeType=value;
 
 		}
 		}

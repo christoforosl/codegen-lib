@@ -18,36 +18,22 @@ Public Class DBUtilsProviderFromConfig
     ''' <remarks></remarks>
     Public Function getDBUtils() As DBUtils Implements IDBUtilsProvider.getDBUtils
 
-        Dim ret As DBUtils
         Dim dbConfigSect As DBConfig = _
                     TryCast(System.Configuration.ConfigurationManager.GetSection("DBConfig"),  _
                     DBConfig)
 
-        If dbConfigSect IsNot Nothing Then
-            Select Case CType(dbConfigSect.sqlConnectionType, enumConnType)
+        Validate.isNotNull(dbConfigSect, "DBConfig is null, is there a section is app.config?")
 
-                Case enumConnType.CONN_MSSQL
-                    ret = New MSSQLUtils()
-                    ret.sqldialect = enumSqlDialect.MSSQL
+        Dim connstr As String = dbConfigSect.dbconnstring
 
-                Case enumConnType.CONN_OLEDB
-                    ret = New OLEDBUtils()
-                    ret.sqldialect = CType(dbConfigSect.sqlDialect, enumSqlDialect)
-
-            End Select
-
-            Dim connstr As String = dbConfigSect.dbconnstring
-
-            If CBool(dbConfigSect.dbConnStringEncrypted) Then
-                ret.ConnString = SimpleEncrypt.Decipher(connstr)
-
-            Else
-                ret.ConnString = connstr
-
-            End If
+        If CBool(dbConfigSect.dbConnStringEncrypted) Then
+            connstr = SimpleEncrypt.Decipher(connstr)
         End If
 
-        Return ret
+
+        Return DBUtils.getFromConnString(connstr, _
+                                         CType(dbConfigSect.sqlConnectionType, enumConnType), _
+                                         CType(dbConfigSect.sqlDialect, enumSqlDialect))
 
     End Function
 End Class

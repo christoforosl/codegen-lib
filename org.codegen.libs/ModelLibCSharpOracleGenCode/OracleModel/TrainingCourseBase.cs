@@ -120,11 +120,11 @@ namespace OracleModel
 		if (value != null && value.Length > 5){
 			throw new ModelObjectFieldTooLongException("CODE");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CODE);
-				this._CODE=value;
 			}
+				this._CODE=value;
 
 			this.raiseBroadcastIdChange();
 
@@ -147,11 +147,11 @@ public void setCODE( String val ) {
 		if (value != null && value.Length > 100){
 			throw new ModelObjectFieldTooLongException("DESCR_GR");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DESCR_GR);
-				this._DescrGr=value;
 			}
+				this._DescrGr=value;
 
 		}
 		}
@@ -172,11 +172,11 @@ public void setDescrGr( String val ) {
 		if (value != null && value.Length > 100){
 			throw new ModelObjectFieldTooLongException("DESCR_EN");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DESCR_EN);
-				this._DescrEn=value;
 			}
+				this._DescrEn=value;
 
 		}
 		}

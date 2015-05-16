@@ -121,11 +121,11 @@ namespace CsModelObjects
 	}
 	set {
 		if (ModelObject.valueChanged(_EmployeeInfoId, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEEINFOID);
-				this._EmployeeInfoId=value;
 			}
+				this._EmployeeInfoId=value;
 
 			this.raiseBroadcastIdChange();
 
@@ -147,11 +147,11 @@ public void setEmployeeInfoId(String val){
 	}
 	set {
 		if (ModelObject.valueChanged(_EIEmployeeId, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EIEMPLOYEEID);
-				this._EIEmployeeId=value;
 			}
+				this._EIEmployeeId=value;
 
 		}
 		}
@@ -171,11 +171,11 @@ public void setEIEmployeeId(String val){
 	}
 	set {
 		if (ModelObject.valueChanged(_Salary, value)){
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SALARY);
-				this._Salary=value;
 			}
+				this._Salary=value;
 
 		}
 		}
@@ -198,11 +198,11 @@ public void setSalary(String val ){
 		if (value != null && value.Length > 600){
 			throw new ModelObjectFieldTooLongException("Address");
 		}
-			if (this.IsObjectLoading == false) {
+			if (!this.IsObjectLoading) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ADDRESS);
-				this._Address=value;
 			}
+				this._Address=value;
 
 		}
 		}
