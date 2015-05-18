@@ -12,6 +12,8 @@ using System.IO;
 using Microsoft.CSharp;
 using System.CodeDom.Compiler;
 using System.Reflection;
+using NUnit.Core;
+using System.Collections;
 
 
 namespace GeneratorTests {
@@ -40,7 +42,14 @@ namespace GeneratorTests {
 			readText = readText.Replace("namespace GeneratorTests {", "namespace GeneratorTests.VB {");
 			readText = readText.Replace("public class CSharpObjectTests {", "public class VBObjectTests {");
 			readText = readText.Replace("public void createCsRecords()", "public void createVbRecords()");
-
+			readText = readText.Replace("[TestClass]", "[TestFixture]");
+			readText = readText.Replace("[TestMethod]", "[Test]");
+			readText = readText.Replace("using Microsoft.VisualStudio.TestTools.UnitTesting;", "using NUnit.Framework;");
+			readText = readText.Replace("Assert.", "NUnit.Framework.Assert.");
+			readText = readText.Replace("TestContext testContext", "NUnit.Framework.TestContext testContext");
+			readText = readText.Replace("[ClassInitialize()]", "[SetUp]");	
+			readText = readText.Replace("[ClassCleanup()]", "[TearDown]");	
+		
             File.WriteAllText(path, readText);
 
 			CSharpCodeProvider provider = new CSharpCodeProvider();
@@ -62,6 +71,12 @@ namespace GeneratorTests {
 			CompilerResults results = provider.CompileAssemblyFromSource(cp, readText);
 			Assert.AreEqual(0, results.Errors.Count);
 
+			TestSuite ts = GetTestSuiteFromAssembly(results.CompiledAssembly);
+			Assert.IsTrue( ts.Tests.Count > 0, "Expected at least one test");
+
+			TestExecutionContext.CurrentContext.TestPackage = new TestPackage(results.CompiledAssembly.GetName().FullName);
+			var suite = GetTestSuiteFromAssembly(results.CompiledAssembly);
+			suite.Run(new NullListener(), TestFilter.Empty);
 
         }
 		/// <summary>
@@ -81,6 +96,7 @@ namespace GeneratorTests {
 			return assembly.GetTypes()
 				.Where(TestFixtureBuilder.CanBuildFrom)
 				.Select(TestFixtureBuilder.BuildFrom).ToList();
+
 		}
 
 

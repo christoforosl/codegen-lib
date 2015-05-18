@@ -9,3 +9,5 @@
 **/FluentSharp.Roslyn.5.3.121
 **/release/*
 **/NUnit.Runners.2.6.4.nupkg/*
+**/packages/NUnit.2.6.4/*
+**/packages/NUnit.Runners.2.6.4/*
