@@ -32,9 +32,9 @@ Public Class CSharpPropertyGenerator
         If (field.isAuditField) Then pfx = String.Empty
 
         Dim sproperty As StringBuilder = New StringBuilder(xmlIgnore).Append(vbTab). _
-              Append("public virtual ").Append(field.getPropertyDataType).Append(" "). _
-              Append(pfx).Append(runtimeFieldName).Append("{").Append(vbCrLf). _
-              Append(vbTab).Append("get{").Append(vbCrLf)
+              Append("[DataMember]public virtual ").Append(field.getPropertyDataType).Append(" "). _
+        Append(pfx).Append(runtimeFieldName).Append("{").Append(vbCrLf). _
+        Append(vbTab).Append("get{").Append(vbCrLf)
 
         sproperty.Append(vbTab & vbTab & "return _" & runtimeFieldName & ";" & vbCrLf)
 
@@ -57,7 +57,7 @@ Public Class CSharpPropertyGenerator
            vbTab & vbTab & "}" & vbCrLf & _
            vbTab & "}" & vbCrLf)
 
-        Me.generateStringSetters(sproperty, field)
+        'Me.generateStringSetters(sproperty, field)
 
         Return sproperty.ToString
 

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-
+using System.Runtime.Serialization;
 using org.model.lib.Model;
 using org.model.lib;
 
@@ -115,7 +115,7 @@ namespace CsModelObjects
 
 		#region "Field Properties"
 
-	public virtual System.Int64 PrEmployeeInfoId{
+	[DataMember]public virtual System.Int64 PrEmployeeInfoId{
 	get{
 		return _EmployeeInfoId;
 	}
@@ -125,23 +125,14 @@ namespace CsModelObjects
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEEINFOID);
 			}
-				this._EmployeeInfoId=value;
+		this._EmployeeInfoId=value;
 
 			this.raiseBroadcastIdChange();
 
 		}
 		}
 	}
-public void setEmployeeInfoId(String val){
-	if (Information.IsNumeric(val)) {
-		this.PrEmployeeInfoId = Convert.ToInt64(val);
-	} else if (String.IsNullOrEmpty(val)) {
-		throw new ApplicationException("Cant update Primary Key to Null");
-	} else {
-		throw new ApplicationException("Invalid Integer Number, field:EmployeeInfoId, value:" + val);
-	}
-}
-	public virtual System.Int64? PrEIEmployeeId{
+	[DataMember]public virtual System.Int64? PrEIEmployeeId{
 	get{
 		return _EIEmployeeId;
 	}
@@ -151,21 +142,12 @@ public void setEmployeeInfoId(String val){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EIEMPLOYEEID);
 			}
-				this._EIEmployeeId=value;
+		this._EIEmployeeId=value;
 
 		}
 		}
 	}
-public void setEIEmployeeId(String val){
-	if (Information.IsNumeric(val)) {
-		this.PrEIEmployeeId = Convert.ToInt64(val);
-	} else if (String.IsNullOrEmpty(val)) {
-		this.PrEIEmployeeId = null;
-	} else {
-		throw new ApplicationException("Invalid Integer Number, field:EIEmployeeId, value:" + val);
-	}
-}
-	public virtual System.Decimal? PrSalary{
+	[DataMember]public virtual System.Decimal? PrSalary{
 	get{
 		return _Salary;
 	}
@@ -175,21 +157,12 @@ public void setEIEmployeeId(String val){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SALARY);
 			}
-				this._Salary=value;
+		this._Salary=value;
 
 		}
 		}
 	}
-public void setSalary(String val ){
-	if (Information.IsNumeric(val)) {
-		this.PrSalary =  Convert.ToDecimal(val);
-	} else if ( string.IsNullOrEmpty(val) ) {
-		this.PrSalary = null;
-	} else {
-		throw new ApplicationException("Invalid Decimal Number, field:Salary, value:" + val);
-	}
-}
-	public virtual System.String PrAddress{
+	[DataMember]public virtual System.String PrAddress{
 	get{
 		return _Address;
 	}
@@ -202,18 +175,11 @@ public void setSalary(String val ){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ADDRESS);
 			}
-				this._Address=value;
+		this._Address=value;
 
 		}
 		}
 	}
-public void setAddress( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrAddress = val;
-	} else {
-		this.PrAddress = null;
-	}
-}
 
 		#endregion
 
@@ -409,7 +375,7 @@ public void setAddress( String val ) {
 
 		#region "ID Property"
 
-		public override object Id {
+		[DataMember]public override object Id {
 			get { return this._EmployeeInfoId; }
 			set {
 				this._EmployeeInfoId = Convert.ToInt64(value);

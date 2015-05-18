@@ -18,8 +18,27 @@ namespace GeneratorTests {
 	[TestClass]
 	public class GenAndRunObjectTests {
 
+        [TestMethod]
+        public void runObjectTests() {
+            
+            DirectoryInfo d = new DirectoryInfo("..\\..\\");
+            string path = d.FullName + "VbObjectTestsTmp.cs";
+
+            File.Delete(path);
+
+            File.Copy( d.FullName + "CSharpObjectTests.cs",  path) ;
+            string readText = File.ReadAllText(path);
+            //using ModelLibVBGenCode.VbBusObjects;
+            //using ModelLibVBGenCode.VbBusObjects.DBMappers;
+            readText = readText.Replace("using CsModelObjects;", "using ModelLibVBGenCode.VbBusObjects;");
+            readText = readText.Replace("using CsModelMappers;", "using ModelLibVBGenCode.VbBusObjects.DBMappers;");
+            File.WriteAllText(path, readText);
+
+        }
+
+
 		[TestMethod]
-		public void runObjectTests() {
+		public void runGenerateCodeTests() {
 
 			DirectoryInfo d = new DirectoryInfo("..\\..\\..\\");
 			System.Diagnostics.Debug.WriteLine(d.FullName);

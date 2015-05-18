@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-
+using System.Runtime.Serialization;
 using org.model.lib.Model;
 using org.model.lib;
 
@@ -133,7 +133,7 @@ namespace CsModelObjects
 
 		#region "Field Properties"
 
-	public virtual System.Int64 PrEmployeeProjectId{
+	[DataMember]public virtual System.Int64 PrEmployeeProjectId{
 	get{
 		return _EmployeeProjectId;
 	}
@@ -143,23 +143,14 @@ namespace CsModelObjects
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEEPROJECTID);
 			}
-				this._EmployeeProjectId=value;
+		this._EmployeeProjectId=value;
 
 			this.raiseBroadcastIdChange();
 
 		}
 		}
 	}
-public void setEmployeeProjectId(String val){
-	if (Information.IsNumeric(val)) {
-		this.PrEmployeeProjectId = Convert.ToInt64(val);
-	} else if (String.IsNullOrEmpty(val)) {
-		throw new ApplicationException("Cant update Primary Key to Null");
-	} else {
-		throw new ApplicationException("Invalid Integer Number, field:EmployeeProjectId, value:" + val);
-	}
-}
-	public virtual System.Int64? PrEPEmployeeId{
+	[DataMember]public virtual System.Int64? PrEPEmployeeId{
 	get{
 		return _EPEmployeeId;
 	}
@@ -169,21 +160,12 @@ public void setEmployeeProjectId(String val){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EPEMPLOYEEID);
 			}
-				this._EPEmployeeId=value;
+		this._EPEmployeeId=value;
 
 		}
 		}
 	}
-public void setEPEmployeeId(String val){
-	if (Information.IsNumeric(val)) {
-		this.PrEPEmployeeId = Convert.ToInt64(val);
-	} else if (String.IsNullOrEmpty(val)) {
-		this.PrEPEmployeeId = null;
-	} else {
-		throw new ApplicationException("Invalid Integer Number, field:EPEmployeeId, value:" + val);
-	}
-}
-	public virtual System.Int64? PrEPProjectId{
+	[DataMember]public virtual System.Int64? PrEPProjectId{
 	get{
 		return _EPProjectId;
 	}
@@ -193,21 +175,12 @@ public void setEPEmployeeId(String val){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EPPROJECTID);
 			}
-				this._EPProjectId=value;
+		this._EPProjectId=value;
 
 		}
 		}
 	}
-public void setEPProjectId(String val){
-	if (Information.IsNumeric(val)) {
-		this.PrEPProjectId = Convert.ToInt64(val);
-	} else if (String.IsNullOrEmpty(val)) {
-		this.PrEPProjectId = null;
-	} else {
-		throw new ApplicationException("Invalid Integer Number, field:EPProjectId, value:" + val);
-	}
-}
-	public virtual System.DateTime? PrAssignDate{
+	[DataMember]public virtual System.DateTime? PrAssignDate{
 	get{
 		return _AssignDate;
 	}
@@ -217,21 +190,12 @@ public void setEPProjectId(String val){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ASSIGNDATE);
 			}
-				this._AssignDate=value;
+		this._AssignDate=value;
 
 		}
 		}
 	}
-public void setAssignDate( String val ){
-	if (Information.IsDate(val)) {
-		this.PrAssignDate = Convert.ToDateTime(val);
-	} else if (String.IsNullOrEmpty(val) ) {
-		this.PrAssignDate = null;
-	} else {
-		throw new ApplicationException("Invalid Date, field:AssignDate, value:" + val);
-	}
-}
-	public virtual System.DateTime? PrEndDate{
+	[DataMember]public virtual System.DateTime? PrEndDate{
 	get{
 		return _EndDate;
 	}
@@ -241,21 +205,12 @@ public void setAssignDate( String val ){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ENDDATE);
 			}
-				this._EndDate=value;
+		this._EndDate=value;
 
 		}
 		}
 	}
-public void setEndDate( String val ){
-	if (Information.IsDate(val)) {
-		this.PrEndDate = Convert.ToDateTime(val);
-	} else if (String.IsNullOrEmpty(val) ) {
-		this.PrEndDate = null;
-	} else {
-		throw new ApplicationException("Invalid Date, field:EndDate, value:" + val);
-	}
-}
-	public virtual System.Decimal? PrRate{
+	[DataMember]public virtual System.Decimal? PrRate{
 	get{
 		return _Rate;
 	}
@@ -265,20 +220,11 @@ public void setEndDate( String val ){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_RATE);
 			}
-				this._Rate=value;
+		this._Rate=value;
 
 		}
 		}
 	}
-public void setRate(String val ){
-	if (Information.IsNumeric(val)) {
-		this.PrRate =  Convert.ToDecimal(val);
-	} else if ( string.IsNullOrEmpty(val) ) {
-		this.PrRate = null;
-	} else {
-		throw new ApplicationException("Invalid Decimal Number, field:Rate, value:" + val);
-	}
-}
 
 		// ASSOCIATIONS GETTERS/SETTERS BELOW!
 		//associationParentCSharp.txt
@@ -578,7 +524,7 @@ public void setRate(String val ){
 
 		#region "ID Property"
 
-		public override object Id {
+		[DataMember]public override object Id {
 			get { return this._EmployeeProjectId; }
 			set {
 				this._EmployeeProjectId = Convert.ToInt64(value);

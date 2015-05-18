@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-
+using System.Runtime.Serialization;
 using org.model.lib.Model;
 using org.model.lib;
 
@@ -107,7 +107,7 @@ namespace CsModelObjects
 
 		#region "Field Properties"
 
-	public virtual System.Int64 PrRankId{
+	[DataMember]public virtual System.Int64 PrRankId{
 	get{
 		return _RankId;
 	}
@@ -117,23 +117,14 @@ namespace CsModelObjects
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_RANKID);
 			}
-				this._RankId=value;
+		this._RankId=value;
 
 			this.raiseBroadcastIdChange();
 
 		}
 		}
 	}
-public void setRankId(String val){
-	if (Information.IsNumeric(val)) {
-		this.PrRankId = Convert.ToInt64(val);
-	} else if (String.IsNullOrEmpty(val)) {
-		throw new ApplicationException("Cant update Primary Key to Null");
-	} else {
-		throw new ApplicationException("Invalid Integer Number, field:RankId, value:" + val);
-	}
-}
-	public virtual System.String PrRank{
+	[DataMember]public virtual System.String PrRank{
 	get{
 		return _Rank;
 	}
@@ -146,18 +137,11 @@ public void setRankId(String val){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_RANK);
 			}
-				this._Rank=value;
+		this._Rank=value;
 
 		}
 		}
 	}
-public void setRank( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrRank = val;
-	} else {
-		this.PrRank = null;
-	}
-}
 
 		#endregion
 
@@ -302,7 +286,7 @@ public void setRank( String val ) {
 
 		#region "ID Property"
 
-		public override object Id {
+		[DataMember]public override object Id {
 			get { return this._RankId; }
 			set {
 				this._RankId = Convert.ToInt64(value);

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-
+using System.Runtime.Serialization;
 using org.model.lib.Model;
 using org.model.lib;
 
@@ -107,7 +107,7 @@ namespace CsModelObjects
 
 		#region "Field Properties"
 
-	public virtual System.String PrEmployeeTypeCode{
+	[DataMember]public virtual System.String PrEmployeeTypeCode{
 	get{
 		return _EmployeeTypeCode;
 	}
@@ -120,21 +120,14 @@ namespace CsModelObjects
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEETYPECODE);
 			}
-				this._EmployeeTypeCode=value;
+		this._EmployeeTypeCode=value;
 
 			this.raiseBroadcastIdChange();
 
 		}
 		}
 	}
-public void setEmployeeTypeCode( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrEmployeeTypeCode = val;
-	} else {
-		this.PrEmployeeTypeCode = null;
-	}
-}
-	public virtual System.String PrEmployeeType{
+	[DataMember]public virtual System.String PrEmployeeType{
 	get{
 		return _EmployeeType;
 	}
@@ -147,18 +140,11 @@ public void setEmployeeTypeCode( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEETYPE);
 			}
-				this._EmployeeType=value;
+		this._EmployeeType=value;
 
 		}
 		}
 	}
-public void setEmployeeType( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrEmployeeType = val;
-	} else {
-		this.PrEmployeeType = null;
-	}
-}
 
 		#endregion
 
@@ -303,7 +289,7 @@ public void setEmployeeType( String val ) {
 
 		#region "ID Property"
 
-		public override object Id {
+		[DataMember]public override object Id {
 			get { return this._EmployeeTypeCode; }
 			set {
 				this._EmployeeTypeCode = Convert.ToString(value);

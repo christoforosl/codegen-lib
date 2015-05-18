@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-
+using System.Runtime.Serialization;
 using org.model.lib.Model;
 using org.model.lib;
 
@@ -130,7 +130,7 @@ namespace CsModelObjects
 
 		#region "Field Properties"
 
-	public virtual System.Int64 PrProjectId{
+	[DataMember]public virtual System.Int64 PrProjectId{
 	get{
 		return _ProjectId;
 	}
@@ -140,23 +140,14 @@ namespace CsModelObjects
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_PROJECTID);
 			}
-				this._ProjectId=value;
+		this._ProjectId=value;
 
 			this.raiseBroadcastIdChange();
 
 		}
 		}
 	}
-public void setProjectId(String val){
-	if (Information.IsNumeric(val)) {
-		this.PrProjectId = Convert.ToInt64(val);
-	} else if (String.IsNullOrEmpty(val)) {
-		throw new ApplicationException("Cant update Primary Key to Null");
-	} else {
-		throw new ApplicationException("Invalid Integer Number, field:ProjectId, value:" + val);
-	}
-}
-	public virtual System.String PrProjectName{
+	[DataMember]public virtual System.String PrProjectName{
 	get{
 		return _ProjectName;
 	}
@@ -169,19 +160,12 @@ public void setProjectId(String val){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_PROJECTNAME);
 			}
-				this._ProjectName=value;
+		this._ProjectName=value;
 
 		}
 		}
 	}
-public void setProjectName( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrProjectName = val;
-	} else {
-		this.PrProjectName = null;
-	}
-}
-	public virtual System.Boolean PrIsActive{
+	[DataMember]public virtual System.Boolean PrIsActive{
 	get{
 		return _IsActive;
 	}
@@ -191,19 +175,11 @@ public void setProjectName( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ISACTIVE);
 			}
-				this._IsActive=value;
+		this._IsActive=value;
 
 		}
 		}
 	}
-public void setIsActive(String val ){
-	if (String.IsNullOrEmpty(val)) {
-		this.PrIsActive = false;
-	} else {
-	    bool newval = ("1"==val || "true"==val.ToLower()) ;
-	    this.PrIsActive = newval;
-	}
-}
 
 		// ASSOCIATIONS GETTERS/SETTERS BELOW!
 		//associationChildManyCSharp.txt
@@ -473,7 +449,7 @@ public void setIsActive(String val ){
 
 		#region "ID Property"
 
-		public override object Id {
+		[DataMember]public override object Id {
 			get { return this._ProjectId; }
 			set {
 				this._ProjectId = Convert.ToInt64(value);

@@ -11,7 +11,7 @@ Public Class PropertyGenerator
 
         Dim sImplements As String = String.Empty
         Dim sLengthChecker As String = String.Empty
-        Dim xmlIgnore As String = String.Empty
+
         Dim runtimeFieldName As String = field.RuntimeFieldName()
         Dim propertyFieldname As String = field.RuntimeFieldName
 
@@ -44,14 +44,10 @@ Public Class PropertyGenerator
                     String.Join(",", iimplements)
         End If
 
-        If field.XMLSerializationIgnore Then
-            xmlIgnore = "<XmlIgnore()> _" & vbCrLf
-        End If
-
         Dim pfx As String = ModelGenerator.Current.FieldPropertyPrefix
         If (field.isAuditField) Then pfx = String.Empty
 
-        Dim sproperty As StringBuilder = New StringBuilder(xmlIgnore).Append(vbTab). _
+        Dim sproperty As StringBuilder = New StringBuilder("<DataMember>").Append(vbTab). _
               Append(field.AccessLevel).Append(" Overridable Property ").Append(pfx).Append(runtimeFieldName). _
               Append(" as ").Append(field.getPropertyDataType).Append(sImplements).Append(vbCrLf). _
               Append(vbTab).Append("Get ").Append(vbCrLf)

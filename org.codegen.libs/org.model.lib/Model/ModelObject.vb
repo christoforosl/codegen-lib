@@ -12,22 +12,11 @@ Namespace Model
     ''' are easily tested using JUnit (or a similar tool) 
     ''' can be used to implement the Model in a Model-View-Controller pattern 
     '''  </summary>
-    <Serializable()> _
+    <Serializable()> <DataContract> _
     Public MustInherit Class ModelObject
         Implements IModelObject
         Implements ICloneable
         Implements IChildObject
-
-        Public Const SYSTEM_INT32_DEFAULT As Integer = 0
-        Public Const SYSTEM_DECIMAL_DEFAULT As Decimal = 0D
-        Public Const SYSTEM_DATETIME_DEFAULT As DateTime = #12:00:00 AM#
-
-        Friend Const STR_XML_ATTR_REL_TYPE As String = "relationType"
-        Friend Const STR_XML_ATTR_REL_TYPE_STR As String = "relationTypeString"
-
-        Friend Const STR_XML_ATTR_ASSEMBLY As String = "AssemblyName"
-        Friend Const STR_XML_ATTR_TYPE_NAME As String = "moType"
-
 
 #Region "Class"
 
@@ -35,7 +24,6 @@ Namespace Model
         ''' hashmap of Field name, Boolean that keeps track of changed fields
         ''' </summary>
         ''' <remarks></remarks>
-        <IgnoreDataMemberAttribute>
         Private changedFields As Dictionary(Of String, Boolean)
 
         Private _New As Boolean = True

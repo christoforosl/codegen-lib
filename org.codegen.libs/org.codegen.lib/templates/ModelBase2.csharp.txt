@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-
+using System.Runtime.Serialization;
 using org.model.lib.Model;
 using org.model.lib;
 
@@ -184,7 +184,7 @@ namespace <NAMESPACE>
 
 		#region "ID Property"
 
-		public override object Id {
+		[DataMember]public override object Id {
 			get { return this._<PK_MO_FIELD_NAME>; }
 			set {
 				this._<PK_MO_FIELD_NAME> = <PK_CONVERTER>

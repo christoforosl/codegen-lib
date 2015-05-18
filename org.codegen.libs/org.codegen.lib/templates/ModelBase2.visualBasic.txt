@@ -4,6 +4,8 @@
 Imports System.Runtime.InteropServices
 Imports System.Collections.Generic
 Imports System.Xml.Serialization
+Imports System.Runtime.Serialization
+
 '<comments>
 '************************************************************
 ' Temnplate: ModelBase2.visualBasic.txt
@@ -166,7 +168,7 @@ Namespace <NAMESPACE>
 
 #Region "ID Property"
 	
-    Public Overrides Property Id() As object <ID_IMPLEMENTS>
+    <DataMember>Public Overrides Property Id() As object <ID_IMPLEMENTS>
         Get
             return me._<PK_MO_FIELD_NAME>
         End Get
