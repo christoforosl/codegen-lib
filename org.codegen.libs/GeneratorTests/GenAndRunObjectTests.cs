@@ -11,6 +11,7 @@ using org.codegen.lib;
 using System.IO;
 using Microsoft.CSharp;
 using System.CodeDom.Compiler;
+using System.Reflection;
 
 
 namespace GeneratorTests {
@@ -21,10 +22,13 @@ namespace GeneratorTests {
         [TestMethod]
         public void runObjectTests() {
             
-            DirectoryInfo d = new DirectoryInfo("..\\..\\");
-            string path = d.FullName + "VbObjectTestsTmp.cs";
+            DirectoryInfo d = new DirectoryInfo("..\\..\\..\\");
 
-            File.Delete(path);
+            string path = d.FullName + "VbObjectTestsTmp.cs";
+			if (File.Exists(path)) {
+				File.Delete(path);
+			}
+            
 
             File.Copy( d.FullName + "CSharpObjectTests.cs",  path) ;
             string readText = File.ReadAllText(path);
@@ -32,7 +36,32 @@ namespace GeneratorTests {
             //using ModelLibVBGenCode.VbBusObjects.DBMappers;
             readText = readText.Replace("using CsModelObjects;", "using ModelLibVBGenCode.VbBusObjects;");
             readText = readText.Replace("using CsModelMappers;", "using ModelLibVBGenCode.VbBusObjects.DBMappers;");
+
+			readText = readText.Replace("namespace GeneratorTests {", "namespace GeneratorTests.VB {");
+			readText = readText.Replace("public class CSharpObjectTests {", "public class VBObjectTests {");
+			readText = readText.Replace("public void createCsRecords()", "public void createVbRecords()");
+
             File.WriteAllText(path, readText);
+
+			CSharpCodeProvider provider = new CSharpCodeProvider();
+			CompilerParameters cp = new CompilerParameters();
+
+			// this line is here otherwise ModelLibVBGenCode is not returned 
+			// in call to this.GetType().Assembly.GetReferencedAssemblies
+			ModelLibVBGenCode.VbBusObjects.Employee e =  ModelLibVBGenCode.VbBusObjects.EmployeeFactory.Create();
+
+			var assemblies = this.GetType().Assembly.GetReferencedAssemblies().ToList();
+			var assemblyLocations =  
+						assemblies.Select(a => 
+						Assembly.ReflectionOnlyLoad(a.FullName).Location).ToList();
+
+			cp.ReferencedAssemblies.AddRange(assemblyLocations.ToArray());
+		
+			cp.GenerateInMemory = true;// True - memory generation, false - external file generation
+			cp.GenerateExecutable = false;// True - exe file generation, false - dll file generation
+			CompilerResults results = provider.CompileAssemblyFromSource(cp, readText);
+			Assert.AreEqual(0, results.Errors.Count);
+
 
         }
 
