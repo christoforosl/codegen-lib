@@ -64,6 +64,24 @@ namespace GeneratorTests {
 
 
         }
+		/// <summary>
+		/// Converts a given assembly containing tests to a runnable TestSuite
+		/// </summary>
+		protected static TestSuite GetTestSuiteFromAssembly(Assembly assembly) {
+			var treeBuilder = new NamespaceTreeBuilder(
+				new TestAssembly(assembly, assembly.GetName().FullName));
+			treeBuilder.Add(GetFixtures(assembly));
+			return treeBuilder.RootSuite;
+		}
+
+		/// <summary>
+		/// Creates a tree of fixtures and containing TestCases from the given assembly
+		/// </summary>
+		protected static IList GetFixtures(Assembly assembly) {
+			return assembly.GetTypes()
+				.Where(TestFixtureBuilder.CanBuildFrom)
+				.Select(TestFixtureBuilder.BuildFrom).ToList();
+		}
 
 
 		[TestMethod]
