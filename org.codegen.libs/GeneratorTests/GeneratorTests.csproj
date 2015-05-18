@@ -73,12 +73,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CSharpObjectTests.cs" />
-    <Compile Include="cstests\EmployeeInfoTestBase.cs" />
-    <Compile Include="cstests\EmployeeProjectTestBase.cs" />
-    <Compile Include="cstests\EmployeeRankTestBase.cs" />
-    <Compile Include="cstests\EmployeeTestBase.cs" />
-    <Compile Include="cstests\EmployeeTypeTestBase.cs" />
-    <Compile Include="cstests\ProjectTestBase.cs" />
     <Compile Include="GenAndRunObjectTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
