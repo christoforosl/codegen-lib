@@ -52,8 +52,7 @@ namespace GeneratorTests {
 			ModelContext.Current.addGlobalModelValidator(typeof(Employee), typeof(EmployeeValidator));
 
 			try {
-
-				
+								
 				Employee e = EmployeeFactory.Create();
 				e.PrFirstName= "test";
                 e.PrLastName = "Lastname";
