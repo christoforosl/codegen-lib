@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-
+using System.Runtime.Serialization;
 using org.model.lib.Model;
 using org.model.lib;
 
@@ -129,7 +129,7 @@ namespace OracleModel
 
 		#region "Field Properties"
 
-	public virtual System.Int64 PrEmployeeTrainingHistoryId{
+	[DataMember]public virtual System.Int64 PrEmployeeTrainingHistoryId{
 	get{
 		return _EmployeeTrainingHistoryId;
 	}
@@ -139,23 +139,14 @@ namespace OracleModel
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEE_TRAINING_HISTORY_ID);
 			}
-				this._EmployeeTrainingHistoryId=value;
+		this._EmployeeTrainingHistoryId=value;
 
 			this.raiseBroadcastIdChange();
 
 		}
 		}
 	}
-public void setEmployeeTrainingHistoryId(String val){
-	if (Information.IsNumeric(val)) {
-		this.PrEmployeeTrainingHistoryId = Convert.ToInt64(val);
-	} else if (String.IsNullOrEmpty(val)) {
-		throw new ApplicationException("Cant update Primary Key to Null");
-	} else {
-		throw new ApplicationException("Invalid Integer Number, field:EmployeeTrainingHistoryId, value:" + val);
-	}
-}
-	public virtual System.Int64? PrEmployeeId{
+	[DataMember]public virtual System.Int64? PrEmployeeId{
 	get{
 		return _EmployeeId;
 	}
@@ -165,21 +156,12 @@ public void setEmployeeTrainingHistoryId(String val){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEE_ID);
 			}
-				this._EmployeeId=value;
+		this._EmployeeId=value;
 
 		}
 		}
 	}
-public void setEmployeeId(String val){
-	if (Information.IsNumeric(val)) {
-		this.PrEmployeeId = Convert.ToInt64(val);
-	} else if (String.IsNullOrEmpty(val)) {
-		this.PrEmployeeId = null;
-	} else {
-		throw new ApplicationException("Invalid Integer Number, field:EmployeeId, value:" + val);
-	}
-}
-	public virtual System.DateTime? PrDateFrom{
+	[DataMember]public virtual System.DateTime? PrDateFrom{
 	get{
 		return _DateFrom;
 	}
@@ -189,21 +171,12 @@ public void setEmployeeId(String val){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DATE_FROM);
 			}
-				this._DateFrom=value;
+		this._DateFrom=value;
 
 		}
 		}
 	}
-public void setDateFrom( String val ){
-	if (Information.IsDate(val)) {
-		this.PrDateFrom = Convert.ToDateTime(val);
-	} else if (String.IsNullOrEmpty(val) ) {
-		this.PrDateFrom = null;
-	} else {
-		throw new ApplicationException("Invalid Date, field:DateFrom, value:" + val);
-	}
-}
-	public virtual System.DateTime? PrDateTo{
+	[DataMember]public virtual System.DateTime? PrDateTo{
 	get{
 		return _DateTo;
 	}
@@ -213,21 +186,12 @@ public void setDateFrom( String val ){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DATE_TO);
 			}
-				this._DateTo=value;
+		this._DateTo=value;
 
 		}
 		}
 	}
-public void setDateTo( String val ){
-	if (Information.IsDate(val)) {
-		this.PrDateTo = Convert.ToDateTime(val);
-	} else if (String.IsNullOrEmpty(val) ) {
-		this.PrDateTo = null;
-	} else {
-		throw new ApplicationException("Invalid Date, field:DateTo, value:" + val);
-	}
-}
-	public virtual System.String PrTrainingCourseCode{
+	[DataMember]public virtual System.String PrTrainingCourseCode{
 	get{
 		return _TrainingCourseCode;
 	}
@@ -240,18 +204,11 @@ public void setDateTo( String val ){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_TRAINING_COURSE_CODE);
 			}
-				this._TrainingCourseCode=value;
+		this._TrainingCourseCode=value;
 
 		}
 		}
 	}
-public void setTrainingCourseCode( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrTrainingCourseCode = val;
-	} else {
-		this.PrTrainingCourseCode = null;
-	}
-}
 
 		// ASSOCIATIONS GETTERS/SETTERS BELOW!
 		//associationParentCSharp.txt
@@ -530,7 +487,7 @@ public void setTrainingCourseCode( String val ) {
 
 		#region "ID Property"
 
-		public override object Id {
+		[DataMember]public override object Id {
 			get { return this._EmployeeTrainingHistoryId; }
 			set {
 				this._EmployeeTrainingHistoryId = Convert.ToInt64(value);

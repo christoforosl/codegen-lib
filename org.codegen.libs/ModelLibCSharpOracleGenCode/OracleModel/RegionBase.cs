@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-
+using System.Runtime.Serialization;
 using org.model.lib.Model;
 using org.model.lib;
 
@@ -107,7 +107,7 @@ namespace OracleModel
 
 		#region "Field Properties"
 
-	public virtual System.Int64 PrRegionId{
+	[DataMember]public virtual System.Int64 PrRegionId{
 	get{
 		return _RegionId;
 	}
@@ -117,23 +117,14 @@ namespace OracleModel
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_REGION_ID);
 			}
-				this._RegionId=value;
+		this._RegionId=value;
 
 			this.raiseBroadcastIdChange();
 
 		}
 		}
 	}
-public void setRegionId(String val){
-	if (Information.IsNumeric(val)) {
-		this.PrRegionId = Convert.ToInt64(val);
-	} else if (String.IsNullOrEmpty(val)) {
-		throw new ApplicationException("Cant update Primary Key to Null");
-	} else {
-		throw new ApplicationException("Invalid Integer Number, field:RegionId, value:" + val);
-	}
-}
-	public virtual System.String PrRegionName{
+	[DataMember]public virtual System.String PrRegionName{
 	get{
 		return _RegionName;
 	}
@@ -146,18 +137,11 @@ public void setRegionId(String val){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_REGION_NAME);
 			}
-				this._RegionName=value;
+		this._RegionName=value;
 
 		}
 		}
 	}
-public void setRegionName( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrRegionName = val;
-	} else {
-		this.PrRegionName = null;
-	}
-}
 
 		#endregion
 
@@ -302,7 +286,7 @@ public void setRegionName( String val ) {
 
 		#region "ID Property"
 
-		public override object Id {
+		[DataMember]public override object Id {
 			get { return this._RegionId; }
 			set {
 				this._RegionId = Convert.ToInt64(value);

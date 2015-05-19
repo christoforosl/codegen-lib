@@ -34,7 +34,9 @@ namespace GeneratorTests.VB {
 		/// Use ClassInitialize to run code before running the first test in the class
 		[NUnit.Framework.SetUp]
 		public static void MyClassInitialize() {
-			ModelContext.newForUnitTests();
+			
+            org.model.lib.db.DBUtils.Current().ConnString="Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=modelTest;Data Source=.\\SQLEXPRESS";
+            ModelContext.newForUnitTests();
 		}
 
 		/// Use ClassCleanup to run code after all tests in a class have run

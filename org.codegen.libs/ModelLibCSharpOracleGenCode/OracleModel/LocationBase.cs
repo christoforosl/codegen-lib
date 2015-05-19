@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-
+using System.Runtime.Serialization;
 using org.model.lib.Model;
 using org.model.lib;
 
@@ -139,7 +139,7 @@ namespace OracleModel
 
 		#region "Field Properties"
 
-	public virtual System.Int64 PrLocationId{
+	[DataMember]public virtual System.Int64 PrLocationId{
 	get{
 		return _LocationId;
 	}
@@ -149,23 +149,14 @@ namespace OracleModel
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LOCATION_ID);
 			}
-				this._LocationId=value;
+		this._LocationId=value;
 
 			this.raiseBroadcastIdChange();
 
 		}
 		}
 	}
-public void setLocationId(String val){
-	if (Information.IsNumeric(val)) {
-		this.PrLocationId = Convert.ToInt64(val);
-	} else if (String.IsNullOrEmpty(val)) {
-		throw new ApplicationException("Cant update Primary Key to Null");
-	} else {
-		throw new ApplicationException("Invalid Integer Number, field:LocationId, value:" + val);
-	}
-}
-	public virtual System.String PrStreetAddress{
+	[DataMember]public virtual System.String PrStreetAddress{
 	get{
 		return _StreetAddress;
 	}
@@ -178,19 +169,12 @@ public void setLocationId(String val){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_STREET_ADDRESS);
 			}
-				this._StreetAddress=value;
+		this._StreetAddress=value;
 
 		}
 		}
 	}
-public void setStreetAddress( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrStreetAddress = val;
-	} else {
-		this.PrStreetAddress = null;
-	}
-}
-	public virtual System.String PrPostalCode{
+	[DataMember]public virtual System.String PrPostalCode{
 	get{
 		return _PostalCode;
 	}
@@ -203,19 +187,12 @@ public void setStreetAddress( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_POSTAL_CODE);
 			}
-				this._PostalCode=value;
+		this._PostalCode=value;
 
 		}
 		}
 	}
-public void setPostalCode( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrPostalCode = val;
-	} else {
-		this.PrPostalCode = null;
-	}
-}
-	public virtual System.String PrCITY{
+	[DataMember]public virtual System.String PrCITY{
 	get{
 		return _CITY;
 	}
@@ -228,19 +205,12 @@ public void setPostalCode( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CITY);
 			}
-				this._CITY=value;
+		this._CITY=value;
 
 		}
 		}
 	}
-public void setCITY( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrCITY = val;
-	} else {
-		this.PrCITY = null;
-	}
-}
-	public virtual System.String PrStateProvince{
+	[DataMember]public virtual System.String PrStateProvince{
 	get{
 		return _StateProvince;
 	}
@@ -253,19 +223,12 @@ public void setCITY( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_STATE_PROVINCE);
 			}
-				this._StateProvince=value;
+		this._StateProvince=value;
 
 		}
 		}
 	}
-public void setStateProvince( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrStateProvince = val;
-	} else {
-		this.PrStateProvince = null;
-	}
-}
-	public virtual System.String PrCountryId{
+	[DataMember]public virtual System.String PrCountryId{
 	get{
 		return _CountryId;
 	}
@@ -278,19 +241,12 @@ public void setStateProvince( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COUNTRY_ID);
 			}
-				this._CountryId=value;
+		this._CountryId=value;
 
 		}
 		}
 	}
-public void setCountryId( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrCountryId = val;
-	} else {
-		this.PrCountryId = null;
-	}
-}
-	public virtual System.DateTime? CreateDate{
+	[DataMember]public virtual System.DateTime? CreateDate{
 	get{
 		return _CreateDate;
 	}
@@ -300,21 +256,12 @@ public void setCountryId( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_DATE);
 			}
-				this._CreateDate=value;
+		this._CreateDate=value;
 
 		}
 		}
 	}
-public void setCreateDate( String val ){
-	if (Information.IsDate(val)) {
-		this.CreateDate = Convert.ToDateTime(val);
-	} else if (String.IsNullOrEmpty(val) ) {
-		this.CreateDate = null;
-	} else {
-		throw new ApplicationException("Invalid Date, field:CreateDate, value:" + val);
-	}
-}
-	public virtual System.DateTime? UpdateDate{
+	[DataMember]public virtual System.DateTime? UpdateDate{
 	get{
 		return _UpdateDate;
 	}
@@ -324,21 +271,12 @@ public void setCreateDate( String val ){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_DATE);
 			}
-				this._UpdateDate=value;
+		this._UpdateDate=value;
 
 		}
 		}
 	}
-public void setUpdateDate( String val ){
-	if (Information.IsDate(val)) {
-		this.UpdateDate = Convert.ToDateTime(val);
-	} else if (String.IsNullOrEmpty(val) ) {
-		this.UpdateDate = null;
-	} else {
-		throw new ApplicationException("Invalid Date, field:UpdateDate, value:" + val);
-	}
-}
-	public virtual System.String CreateUser{
+	[DataMember]public virtual System.String CreateUser{
 	get{
 		return _CreateUser;
 	}
@@ -351,19 +289,12 @@ public void setUpdateDate( String val ){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_USER);
 			}
-				this._CreateUser=value;
+		this._CreateUser=value;
 
 		}
 		}
 	}
-public void setCreateUser( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.CreateUser = val;
-	} else {
-		this.CreateUser = null;
-	}
-}
-	public virtual System.String UpdateUser{
+	[DataMember]public virtual System.String UpdateUser{
 	get{
 		return _UpdateUser;
 	}
@@ -376,18 +307,11 @@ public void setCreateUser( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_USER);
 			}
-				this._UpdateUser=value;
+		this._UpdateUser=value;
 
 		}
 		}
 	}
-public void setUpdateUser( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.UpdateUser = val;
-	} else {
-		this.UpdateUser = null;
-	}
-}
 
 		#endregion
 
@@ -700,7 +624,7 @@ public void setUpdateUser( String val ) {
 
 		#region "ID Property"
 
-		public override object Id {
+		[DataMember]public override object Id {
 			get { return this._LocationId; }
 			set {
 				this._LocationId = Convert.ToInt64(value);

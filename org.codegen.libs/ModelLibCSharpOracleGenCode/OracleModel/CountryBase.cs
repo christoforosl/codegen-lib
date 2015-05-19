@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-
+using System.Runtime.Serialization;
 using org.model.lib.Model;
 using org.model.lib;
 
@@ -123,7 +123,7 @@ namespace OracleModel
 
 		#region "Field Properties"
 
-	public virtual System.String PrCountryId{
+	[DataMember]public virtual System.String PrCountryId{
 	get{
 		return _CountryId;
 	}
@@ -136,21 +136,14 @@ namespace OracleModel
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COUNTRY_ID);
 			}
-				this._CountryId=value;
+		this._CountryId=value;
 
 			this.raiseBroadcastIdChange();
 
 		}
 		}
 	}
-public void setCountryId( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrCountryId = val;
-	} else {
-		this.PrCountryId = null;
-	}
-}
-	public virtual System.String PrCountryName{
+	[DataMember]public virtual System.String PrCountryName{
 	get{
 		return _CountryName;
 	}
@@ -163,19 +156,12 @@ public void setCountryId( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COUNTRY_NAME);
 			}
-				this._CountryName=value;
+		this._CountryName=value;
 
 		}
 		}
 	}
-public void setCountryName( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrCountryName = val;
-	} else {
-		this.PrCountryName = null;
-	}
-}
-	public virtual System.Int64? PrRegionId{
+	[DataMember]public virtual System.Int64? PrRegionId{
 	get{
 		return _RegionId;
 	}
@@ -185,21 +171,12 @@ public void setCountryName( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_REGION_ID);
 			}
-				this._RegionId=value;
+		this._RegionId=value;
 
 		}
 		}
 	}
-public void setRegionId(String val){
-	if (Information.IsNumeric(val)) {
-		this.PrRegionId = Convert.ToInt64(val);
-	} else if (String.IsNullOrEmpty(val)) {
-		this.PrRegionId = null;
-	} else {
-		throw new ApplicationException("Invalid Integer Number, field:RegionId, value:" + val);
-	}
-}
-	public virtual System.String PrSkipField{
+	[DataMember]public virtual System.String PrSkipField{
 	get{
 		return _SkipField;
 	}
@@ -212,19 +189,12 @@ public void setRegionId(String val){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SKIP_FIELD);
 			}
-				this._SkipField=value;
+		this._SkipField=value;
 
 		}
 		}
 	}
-public void setSkipField( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrSkipField = val;
-	} else {
-		this.PrSkipField = null;
-	}
-}
-	public virtual System.Int64? PrLongFld{
+	[DataMember]public virtual System.Int64? PrLongFld{
 	get{
 		return _LongFld;
 	}
@@ -234,21 +204,12 @@ public void setSkipField( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LONG_FLD);
 			}
-				this._LongFld=value;
+		this._LongFld=value;
 
 		}
 		}
 	}
-public void setLongFld(String val){
-	if (Information.IsNumeric(val)) {
-		this.PrLongFld = Convert.ToInt64(val);
-	} else if (String.IsNullOrEmpty(val)) {
-		this.PrLongFld = null;
-	} else {
-		throw new ApplicationException("Invalid Integer Number, field:LongFld, value:" + val);
-	}
-}
-	public virtual System.Int64? PrLongFld2{
+	[DataMember]public virtual System.Int64? PrLongFld2{
 	get{
 		return _LongFld2;
 	}
@@ -258,20 +219,11 @@ public void setLongFld(String val){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LONG_FLD2);
 			}
-				this._LongFld2=value;
+		this._LongFld2=value;
 
 		}
 		}
 	}
-public void setLongFld2(String val){
-	if (Information.IsNumeric(val)) {
-		this.PrLongFld2 = Convert.ToInt64(val);
-	} else if (String.IsNullOrEmpty(val)) {
-		this.PrLongFld2 = null;
-	} else {
-		throw new ApplicationException("Invalid Integer Number, field:LongFld2, value:" + val);
-	}
-}
 
 		#endregion
 
@@ -500,7 +452,7 @@ public void setLongFld2(String val){
 
 		#region "ID Property"
 
-		public override object Id {
+		[DataMember]public override object Id {
 			get { return this._CountryId; }
 			set {
 				this._CountryId = Convert.ToString(value);

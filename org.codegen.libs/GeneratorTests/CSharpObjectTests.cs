@@ -34,7 +34,9 @@ namespace GeneratorTests {
 		/// Use ClassInitialize to run code before running the first test in the class
 		[ClassInitialize()]
 		public static void MyClassInitialize(TestContext testContext) {
-			ModelContext.newForUnitTests();
+			
+            //DBUtils.Current().ConnString=
+            ModelContext.newForUnitTests();
 		}
 
 		/// Use ClassCleanup to run code after all tests in a class have run

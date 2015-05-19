@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-
+using System.Runtime.Serialization;
 using org.model.lib.Model;
 using org.model.lib;
 
@@ -250,7 +250,7 @@ namespace OracleModel
 
 		#region "Field Properties"
 
-	public virtual System.Int64 PrEmployeeId{
+	[DataMember]public virtual System.Int64 PrEmployeeId{
 	get{
 		return _EmployeeId;
 	}
@@ -260,23 +260,14 @@ namespace OracleModel
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEE_ID);
 			}
-				this._EmployeeId=value;
+		this._EmployeeId=value;
 
 			this.raiseBroadcastIdChange();
 
 		}
 		}
 	}
-public void setEmployeeId(String val){
-	if (Information.IsNumeric(val)) {
-		this.PrEmployeeId = Convert.ToInt64(val);
-	} else if (String.IsNullOrEmpty(val)) {
-		throw new ApplicationException("Cant update Primary Key to Null");
-	} else {
-		throw new ApplicationException("Invalid Integer Number, field:EmployeeId, value:" + val);
-	}
-}
-	public virtual System.String PrFirstName{
+	[DataMember]public virtual System.String PrFirstName{
 	get{
 		return _FirstName;
 	}
@@ -289,19 +280,12 @@ public void setEmployeeId(String val){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_FIRST_NAME);
 			}
-				this._FirstName=value;
+		this._FirstName=value;
 
 		}
 		}
 	}
-public void setFirstName( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrFirstName = val;
-	} else {
-		this.PrFirstName = null;
-	}
-}
-	public virtual System.String PrLastName{
+	[DataMember]public virtual System.String PrLastName{
 	get{
 		return _LastName;
 	}
@@ -314,19 +298,12 @@ public void setFirstName( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LAST_NAME);
 			}
-				this._LastName=value;
+		this._LastName=value;
 
 		}
 		}
 	}
-public void setLastName( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrLastName = val;
-	} else {
-		this.PrLastName = null;
-	}
-}
-	public virtual System.String PrEMAIL{
+	[DataMember]public virtual System.String PrEMAIL{
 	get{
 		return _EMAIL;
 	}
@@ -339,19 +316,12 @@ public void setLastName( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMAIL);
 			}
-				this._EMAIL=value;
+		this._EMAIL=value;
 
 		}
 		}
 	}
-public void setEMAIL( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrEMAIL = val;
-	} else {
-		this.PrEMAIL = null;
-	}
-}
-	public virtual System.String PrPhoneNumber{
+	[DataMember]public virtual System.String PrPhoneNumber{
 	get{
 		return _PhoneNumber;
 	}
@@ -364,19 +334,12 @@ public void setEMAIL( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_PHONE_NUMBER);
 			}
-				this._PhoneNumber=value;
+		this._PhoneNumber=value;
 
 		}
 		}
 	}
-public void setPhoneNumber( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrPhoneNumber = val;
-	} else {
-		this.PrPhoneNumber = null;
-	}
-}
-	public virtual System.DateTime? PrHireDate{
+	[DataMember]public virtual System.DateTime? PrHireDate{
 	get{
 		return _HireDate;
 	}
@@ -386,21 +349,12 @@ public void setPhoneNumber( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_HIRE_DATE);
 			}
-				this._HireDate=value;
+		this._HireDate=value;
 
 		}
 		}
 	}
-public void setHireDate( String val ){
-	if (Information.IsDate(val)) {
-		this.PrHireDate = Convert.ToDateTime(val);
-	} else if (String.IsNullOrEmpty(val) ) {
-		this.PrHireDate = null;
-	} else {
-		throw new ApplicationException("Invalid Date, field:HireDate, value:" + val);
-	}
-}
-	public virtual System.String PrJobId{
+	[DataMember]public virtual System.String PrJobId{
 	get{
 		return _JobId;
 	}
@@ -413,19 +367,12 @@ public void setHireDate( String val ){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_JOB_ID);
 			}
-				this._JobId=value;
+		this._JobId=value;
 
 		}
 		}
 	}
-public void setJobId( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrJobId = val;
-	} else {
-		this.PrJobId = null;
-	}
-}
-	public virtual System.Decimal? PrSALARY{
+	[DataMember]public virtual System.Decimal? PrSALARY{
 	get{
 		return _SALARY;
 	}
@@ -435,21 +382,12 @@ public void setJobId( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SALARY);
 			}
-				this._SALARY=value;
+		this._SALARY=value;
 
 		}
 		}
 	}
-public void setSALARY(String val ){
-	if (Information.IsNumeric(val)) {
-		this.PrSALARY =  Convert.ToDecimal(val);
-	} else if ( string.IsNullOrEmpty(val) ) {
-		this.PrSALARY = null;
-	} else {
-		throw new ApplicationException("Invalid Decimal Number, field:SALARY, value:" + val);
-	}
-}
-	public virtual System.Decimal? PrCommissionPct{
+	[DataMember]public virtual System.Decimal? PrCommissionPct{
 	get{
 		return _CommissionPct;
 	}
@@ -459,21 +397,12 @@ public void setSALARY(String val ){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COMMISSION_PCT);
 			}
-				this._CommissionPct=value;
+		this._CommissionPct=value;
 
 		}
 		}
 	}
-public void setCommissionPct(String val ){
-	if (Information.IsNumeric(val)) {
-		this.PrCommissionPct =  Convert.ToDecimal(val);
-	} else if ( string.IsNullOrEmpty(val) ) {
-		this.PrCommissionPct = null;
-	} else {
-		throw new ApplicationException("Invalid Decimal Number, field:CommissionPct, value:" + val);
-	}
-}
-	public virtual System.Int64? PrManagerId{
+	[DataMember]public virtual System.Int64? PrManagerId{
 	get{
 		return _ManagerId;
 	}
@@ -483,21 +412,12 @@ public void setCommissionPct(String val ){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_MANAGER_ID);
 			}
-				this._ManagerId=value;
+		this._ManagerId=value;
 
 		}
 		}
 	}
-public void setManagerId(String val){
-	if (Information.IsNumeric(val)) {
-		this.PrManagerId = Convert.ToInt64(val);
-	} else if (String.IsNullOrEmpty(val)) {
-		this.PrManagerId = null;
-	} else {
-		throw new ApplicationException("Invalid Integer Number, field:ManagerId, value:" + val);
-	}
-}
-	public virtual System.Int64? PrDepartmentId{
+	[DataMember]public virtual System.Int64? PrDepartmentId{
 	get{
 		return _DepartmentId;
 	}
@@ -507,21 +427,12 @@ public void setManagerId(String val){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DEPARTMENT_ID);
 			}
-				this._DepartmentId=value;
+		this._DepartmentId=value;
 
 		}
 		}
 	}
-public void setDepartmentId(String val){
-	if (Information.IsNumeric(val)) {
-		this.PrDepartmentId = Convert.ToInt64(val);
-	} else if (String.IsNullOrEmpty(val)) {
-		this.PrDepartmentId = null;
-	} else {
-		throw new ApplicationException("Invalid Integer Number, field:DepartmentId, value:" + val);
-	}
-}
-	public virtual System.DateTime? CreateDate{
+	[DataMember]public virtual System.DateTime? CreateDate{
 	get{
 		return _CreateDate;
 	}
@@ -531,21 +442,12 @@ public void setDepartmentId(String val){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_DATE);
 			}
-				this._CreateDate=value;
+		this._CreateDate=value;
 
 		}
 		}
 	}
-public void setCreateDate( String val ){
-	if (Information.IsDate(val)) {
-		this.CreateDate = Convert.ToDateTime(val);
-	} else if (String.IsNullOrEmpty(val) ) {
-		this.CreateDate = null;
-	} else {
-		throw new ApplicationException("Invalid Date, field:CreateDate, value:" + val);
-	}
-}
-	public virtual System.DateTime? UpdateDate{
+	[DataMember]public virtual System.DateTime? UpdateDate{
 	get{
 		return _UpdateDate;
 	}
@@ -555,21 +457,12 @@ public void setCreateDate( String val ){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_DATE);
 			}
-				this._UpdateDate=value;
+		this._UpdateDate=value;
 
 		}
 		}
 	}
-public void setUpdateDate( String val ){
-	if (Information.IsDate(val)) {
-		this.UpdateDate = Convert.ToDateTime(val);
-	} else if (String.IsNullOrEmpty(val) ) {
-		this.UpdateDate = null;
-	} else {
-		throw new ApplicationException("Invalid Date, field:UpdateDate, value:" + val);
-	}
-}
-	public virtual System.String CreateUser{
+	[DataMember]public virtual System.String CreateUser{
 	get{
 		return _CreateUser;
 	}
@@ -582,19 +475,12 @@ public void setUpdateDate( String val ){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_USER);
 			}
-				this._CreateUser=value;
+		this._CreateUser=value;
 
 		}
 		}
 	}
-public void setCreateUser( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.CreateUser = val;
-	} else {
-		this.CreateUser = null;
-	}
-}
-	public virtual System.String UpdateUser{
+	[DataMember]public virtual System.String UpdateUser{
 	get{
 		return _UpdateUser;
 	}
@@ -607,19 +493,12 @@ public void setCreateUser( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_USER);
 			}
-				this._UpdateUser=value;
+		this._UpdateUser=value;
 
 		}
 		}
 	}
-public void setUpdateUser( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.UpdateUser = val;
-	} else {
-		this.UpdateUser = null;
-	}
-}
-	public virtual System.Int64? PrLocationId{
+	[DataMember]public virtual System.Int64? PrLocationId{
 	get{
 		return _LocationId;
 	}
@@ -629,21 +508,12 @@ public void setUpdateUser( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LOCATION_ID);
 			}
-				this._LocationId=value;
+		this._LocationId=value;
 
 		}
 		}
 	}
-public void setLocationId(String val){
-	if (Information.IsNumeric(val)) {
-		this.PrLocationId = Convert.ToInt64(val);
-	} else if (String.IsNullOrEmpty(val)) {
-		this.PrLocationId = null;
-	} else {
-		throw new ApplicationException("Invalid Integer Number, field:LocationId, value:" + val);
-	}
-}
-	public virtual System.String PrCountryId{
+	[DataMember]public virtual System.String PrCountryId{
 	get{
 		return _CountryId;
 	}
@@ -656,19 +526,12 @@ public void setLocationId(String val){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COUNTRY_ID);
 			}
-				this._CountryId=value;
+		this._CountryId=value;
 
 		}
 		}
 	}
-public void setCountryId( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrCountryId = val;
-	} else {
-		this.PrCountryId = null;
-	}
-}
-	public virtual System.String PrDepartmentName{
+	[DataMember]public virtual System.String PrDepartmentName{
 	get{
 		return _DepartmentName;
 	}
@@ -681,19 +544,12 @@ public void setCountryId( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DEPARTMENT_NAME);
 			}
-				this._DepartmentName=value;
+		this._DepartmentName=value;
 
 		}
 		}
 	}
-public void setDepartmentName( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrDepartmentName = val;
-	} else {
-		this.PrDepartmentName = null;
-	}
-}
-	public virtual System.String PrJobTitle{
+	[DataMember]public virtual System.String PrJobTitle{
 	get{
 		return _JobTitle;
 	}
@@ -706,19 +562,12 @@ public void setDepartmentName( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_JOB_TITLE);
 			}
-				this._JobTitle=value;
+		this._JobTitle=value;
 
 		}
 		}
 	}
-public void setJobTitle( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrJobTitle = val;
-	} else {
-		this.PrJobTitle = null;
-	}
-}
-	public virtual System.String PrCITY{
+	[DataMember]public virtual System.String PrCITY{
 	get{
 		return _CITY;
 	}
@@ -731,19 +580,12 @@ public void setJobTitle( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CITY);
 			}
-				this._CITY=value;
+		this._CITY=value;
 
 		}
 		}
 	}
-public void setCITY( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrCITY = val;
-	} else {
-		this.PrCITY = null;
-	}
-}
-	public virtual System.String PrStateProvince{
+	[DataMember]public virtual System.String PrStateProvince{
 	get{
 		return _StateProvince;
 	}
@@ -756,19 +598,12 @@ public void setCITY( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_STATE_PROVINCE);
 			}
-				this._StateProvince=value;
+		this._StateProvince=value;
 
 		}
 		}
 	}
-public void setStateProvince( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrStateProvince = val;
-	} else {
-		this.PrStateProvince = null;
-	}
-}
-	public virtual System.String PrCountryName{
+	[DataMember]public virtual System.String PrCountryName{
 	get{
 		return _CountryName;
 	}
@@ -781,19 +616,12 @@ public void setStateProvince( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COUNTRY_NAME);
 			}
-				this._CountryName=value;
+		this._CountryName=value;
 
 		}
 		}
 	}
-public void setCountryName( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrCountryName = val;
-	} else {
-		this.PrCountryName = null;
-	}
-}
-	public virtual System.String PrRegionName{
+	[DataMember]public virtual System.String PrRegionName{
 	get{
 		return _RegionName;
 	}
@@ -806,19 +634,12 @@ public void setCountryName( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_REGION_NAME);
 			}
-				this._RegionName=value;
+		this._RegionName=value;
 
 		}
 		}
 	}
-public void setRegionName( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrRegionName = val;
-	} else {
-		this.PrRegionName = null;
-	}
-}
-	public virtual System.String PrManagerName{
+	[DataMember]public virtual System.String PrManagerName{
 	get{
 		return _ManagerName;
 	}
@@ -831,18 +652,11 @@ public void setRegionName( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_MANAGER_NAME);
 			}
-				this._ManagerName=value;
+		this._ManagerName=value;
 
 		}
 		}
 	}
-public void setManagerName( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrManagerName = val;
-	} else {
-		this.PrManagerName = null;
-	}
-}
 
 		// ASSOCIATIONS GETTERS/SETTERS BELOW!
 		//associationChildManyCSharp.txt
@@ -1818,7 +1632,7 @@ public void setManagerName( String val ) {
 
 		#region "ID Property"
 
-		public override object Id {
+		[DataMember]public override object Id {
 			get { return this._EmployeeId; }
 			set {
 				this._EmployeeId = Convert.ToInt64(value);

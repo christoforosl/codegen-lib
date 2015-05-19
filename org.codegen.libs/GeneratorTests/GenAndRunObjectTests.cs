@@ -14,6 +14,7 @@ using System.CodeDom.Compiler;
 using System.Reflection;
 using NUnit.Core;
 using System.Collections;
+using org.model.lib.db;
 
 
 namespace GeneratorTests {
@@ -34,8 +35,7 @@ namespace GeneratorTests {
 
             File.Copy( d.FullName + "CSharpObjectTests.cs",  path) ;
             string readText = File.ReadAllText(path);
-            //using ModelLibVBGenCode.VbBusObjects;
-            //using ModelLibVBGenCode.VbBusObjects.DBMappers;
+
             readText = readText.Replace("using CsModelObjects;", "using ModelLibVBGenCode.VbBusObjects;");
             readText = readText.Replace("using CsModelMappers;", "using ModelLibVBGenCode.VbBusObjects.DBMappers;");
 
@@ -48,8 +48,11 @@ namespace GeneratorTests {
 			readText = readText.Replace("Assert.", "NUnit.Framework.Assert.");
 			readText = readText.Replace("public static void MyClassInitialize(TestContext testContext)", "public static void MyClassInitialize()");
 			readText = readText.Replace("[ClassInitialize()]", "[NUnit.Framework.SetUp]");
-			readText = readText.Replace("[ClassCleanup()]", "[NUnit.Framework.TearDown]");	
-		
+			readText = readText.Replace("[ClassCleanup()]", "[NUnit.Framework.TearDown]");
+
+            readText = readText.Replace("//DBUtils.Current().ConnString=",
+                    "org.model.lib.db.DBUtils.Current().ConnString=\"" + DBUtils.Current().ConnString.Replace("\\", "\\\\") + "\";");
+
             File.WriteAllText(path, readText);
 
 			CSharpCodeProvider provider = new CSharpCodeProvider();
@@ -84,13 +87,6 @@ namespace GeneratorTests {
 			Console.WriteLine("results count: " + result.Results.Count);
 			Console.WriteLine("success? " + result.IsSuccess);
 
-
-			//TestSuite ts = GetTestSuiteFromAssembly(results.CompiledAssembly);
-			////Assert.IsTrue( ts.Tests.Count > 0, "Expected at least one test");
-
-			//TestExecutionContext.CurrentContext.TestPackage = new TestPackage(results.CompiledAssembly.GetName().FullName);
-			//var suite = GetTestSuiteFromAssembly(results.CompiledAssembly);
-			//suite.Run(new NullListener(), TestFilter.Empty);
 
         }
 		/// <summary>

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-
+using System.Runtime.Serialization;
 using org.model.lib.Model;
 using org.model.lib;
 
@@ -131,7 +131,7 @@ namespace OracleModel
 
 		#region "Field Properties"
 
-	public virtual System.Int64 PrDepartmentId{
+	[DataMember]public virtual System.Int64 PrDepartmentId{
 	get{
 		return _DepartmentId;
 	}
@@ -141,23 +141,14 @@ namespace OracleModel
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DEPARTMENT_ID);
 			}
-				this._DepartmentId=value;
+		this._DepartmentId=value;
 
 			this.raiseBroadcastIdChange();
 
 		}
 		}
 	}
-public void setDepartmentId(String val){
-	if (Information.IsNumeric(val)) {
-		this.PrDepartmentId = Convert.ToInt64(val);
-	} else if (String.IsNullOrEmpty(val)) {
-		throw new ApplicationException("Cant update Primary Key to Null");
-	} else {
-		throw new ApplicationException("Invalid Integer Number, field:DepartmentId, value:" + val);
-	}
-}
-	public virtual System.String PrDepartmentName{
+	[DataMember]public virtual System.String PrDepartmentName{
 	get{
 		return _DepartmentName;
 	}
@@ -170,19 +161,12 @@ public void setDepartmentId(String val){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DEPARTMENT_NAME);
 			}
-				this._DepartmentName=value;
+		this._DepartmentName=value;
 
 		}
 		}
 	}
-public void setDepartmentName( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrDepartmentName = val;
-	} else {
-		this.PrDepartmentName = null;
-	}
-}
-	public virtual System.Int64? PrManagerId{
+	[DataMember]public virtual System.Int64? PrManagerId{
 	get{
 		return _ManagerId;
 	}
@@ -192,21 +176,12 @@ public void setDepartmentName( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_MANAGER_ID);
 			}
-				this._ManagerId=value;
+		this._ManagerId=value;
 
 		}
 		}
 	}
-public void setManagerId(String val){
-	if (Information.IsNumeric(val)) {
-		this.PrManagerId = Convert.ToInt64(val);
-	} else if (String.IsNullOrEmpty(val)) {
-		this.PrManagerId = null;
-	} else {
-		throw new ApplicationException("Invalid Integer Number, field:ManagerId, value:" + val);
-	}
-}
-	public virtual System.Int64? PrLocationId{
+	[DataMember]public virtual System.Int64? PrLocationId{
 	get{
 		return _LocationId;
 	}
@@ -216,21 +191,12 @@ public void setManagerId(String val){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LOCATION_ID);
 			}
-				this._LocationId=value;
+		this._LocationId=value;
 
 		}
 		}
 	}
-public void setLocationId(String val){
-	if (Information.IsNumeric(val)) {
-		this.PrLocationId = Convert.ToInt64(val);
-	} else if (String.IsNullOrEmpty(val)) {
-		this.PrLocationId = null;
-	} else {
-		throw new ApplicationException("Invalid Integer Number, field:LocationId, value:" + val);
-	}
-}
-	public virtual System.DateTime? CreateDate{
+	[DataMember]public virtual System.DateTime? CreateDate{
 	get{
 		return _CreateDate;
 	}
@@ -240,21 +206,12 @@ public void setLocationId(String val){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_DATE);
 			}
-				this._CreateDate=value;
+		this._CreateDate=value;
 
 		}
 		}
 	}
-public void setCreateDate( String val ){
-	if (Information.IsDate(val)) {
-		this.CreateDate = Convert.ToDateTime(val);
-	} else if (String.IsNullOrEmpty(val) ) {
-		this.CreateDate = null;
-	} else {
-		throw new ApplicationException("Invalid Date, field:CreateDate, value:" + val);
-	}
-}
-	public virtual System.DateTime? UpdateDate{
+	[DataMember]public virtual System.DateTime? UpdateDate{
 	get{
 		return _UpdateDate;
 	}
@@ -264,21 +221,12 @@ public void setCreateDate( String val ){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_DATE);
 			}
-				this._UpdateDate=value;
+		this._UpdateDate=value;
 
 		}
 		}
 	}
-public void setUpdateDate( String val ){
-	if (Information.IsDate(val)) {
-		this.UpdateDate = Convert.ToDateTime(val);
-	} else if (String.IsNullOrEmpty(val) ) {
-		this.UpdateDate = null;
-	} else {
-		throw new ApplicationException("Invalid Date, field:UpdateDate, value:" + val);
-	}
-}
-	public virtual System.String CreateUser{
+	[DataMember]public virtual System.String CreateUser{
 	get{
 		return _CreateUser;
 	}
@@ -291,19 +239,12 @@ public void setUpdateDate( String val ){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_USER);
 			}
-				this._CreateUser=value;
+		this._CreateUser=value;
 
 		}
 		}
 	}
-public void setCreateUser( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.CreateUser = val;
-	} else {
-		this.CreateUser = null;
-	}
-}
-	public virtual System.String UpdateUser{
+	[DataMember]public virtual System.String UpdateUser{
 	get{
 		return _UpdateUser;
 	}
@@ -316,18 +257,11 @@ public void setCreateUser( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_USER);
 			}
-				this._UpdateUser=value;
+		this._UpdateUser=value;
 
 		}
 		}
 	}
-public void setUpdateUser( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.UpdateUser = val;
-	} else {
-		this.UpdateUser = null;
-	}
-}
 
 		#endregion
 
@@ -598,7 +532,7 @@ public void setUpdateUser( String val ) {
 
 		#region "ID Property"
 
-		public override object Id {
+		[DataMember]public override object Id {
 			get { return this._DepartmentId; }
 			set {
 				this._DepartmentId = Convert.ToInt64(value);

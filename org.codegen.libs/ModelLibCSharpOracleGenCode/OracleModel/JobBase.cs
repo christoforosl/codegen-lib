@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-
+using System.Runtime.Serialization;
 using org.model.lib.Model;
 using org.model.lib;
 
@@ -131,7 +131,7 @@ namespace OracleModel
 
 		#region "Field Properties"
 
-	public virtual System.String PrJobId{
+	[DataMember]public virtual System.String PrJobId{
 	get{
 		return _JobId;
 	}
@@ -144,21 +144,14 @@ namespace OracleModel
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_JOB_ID);
 			}
-				this._JobId=value;
+		this._JobId=value;
 
 			this.raiseBroadcastIdChange();
 
 		}
 		}
 	}
-public void setJobId( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrJobId = val;
-	} else {
-		this.PrJobId = null;
-	}
-}
-	public virtual System.String PrJobTitle{
+	[DataMember]public virtual System.String PrJobTitle{
 	get{
 		return _JobTitle;
 	}
@@ -171,19 +164,12 @@ public void setJobId( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_JOB_TITLE);
 			}
-				this._JobTitle=value;
+		this._JobTitle=value;
 
 		}
 		}
 	}
-public void setJobTitle( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrJobTitle = val;
-	} else {
-		this.PrJobTitle = null;
-	}
-}
-	public virtual System.Int64? PrMinSalary{
+	[DataMember]public virtual System.Int64? PrMinSalary{
 	get{
 		return _MinSalary;
 	}
@@ -193,21 +179,12 @@ public void setJobTitle( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_MIN_SALARY);
 			}
-				this._MinSalary=value;
+		this._MinSalary=value;
 
 		}
 		}
 	}
-public void setMinSalary(String val){
-	if (Information.IsNumeric(val)) {
-		this.PrMinSalary = Convert.ToInt64(val);
-	} else if (String.IsNullOrEmpty(val)) {
-		this.PrMinSalary = null;
-	} else {
-		throw new ApplicationException("Invalid Integer Number, field:MinSalary, value:" + val);
-	}
-}
-	public virtual System.Int64? PrMaxSalary{
+	[DataMember]public virtual System.Int64? PrMaxSalary{
 	get{
 		return _MaxSalary;
 	}
@@ -217,21 +194,12 @@ public void setMinSalary(String val){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_MAX_SALARY);
 			}
-				this._MaxSalary=value;
+		this._MaxSalary=value;
 
 		}
 		}
 	}
-public void setMaxSalary(String val){
-	if (Information.IsNumeric(val)) {
-		this.PrMaxSalary = Convert.ToInt64(val);
-	} else if (String.IsNullOrEmpty(val)) {
-		this.PrMaxSalary = null;
-	} else {
-		throw new ApplicationException("Invalid Integer Number, field:MaxSalary, value:" + val);
-	}
-}
-	public virtual System.DateTime? CreateDate{
+	[DataMember]public virtual System.DateTime? CreateDate{
 	get{
 		return _CreateDate;
 	}
@@ -241,21 +209,12 @@ public void setMaxSalary(String val){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_DATE);
 			}
-				this._CreateDate=value;
+		this._CreateDate=value;
 
 		}
 		}
 	}
-public void setCreateDate( String val ){
-	if (Information.IsDate(val)) {
-		this.CreateDate = Convert.ToDateTime(val);
-	} else if (String.IsNullOrEmpty(val) ) {
-		this.CreateDate = null;
-	} else {
-		throw new ApplicationException("Invalid Date, field:CreateDate, value:" + val);
-	}
-}
-	public virtual System.DateTime? UpdateDate{
+	[DataMember]public virtual System.DateTime? UpdateDate{
 	get{
 		return _UpdateDate;
 	}
@@ -265,21 +224,12 @@ public void setCreateDate( String val ){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_DATE);
 			}
-				this._UpdateDate=value;
+		this._UpdateDate=value;
 
 		}
 		}
 	}
-public void setUpdateDate( String val ){
-	if (Information.IsDate(val)) {
-		this.UpdateDate = Convert.ToDateTime(val);
-	} else if (String.IsNullOrEmpty(val) ) {
-		this.UpdateDate = null;
-	} else {
-		throw new ApplicationException("Invalid Date, field:UpdateDate, value:" + val);
-	}
-}
-	public virtual System.String CreateUser{
+	[DataMember]public virtual System.String CreateUser{
 	get{
 		return _CreateUser;
 	}
@@ -292,19 +242,12 @@ public void setUpdateDate( String val ){
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_USER);
 			}
-				this._CreateUser=value;
+		this._CreateUser=value;
 
 		}
 		}
 	}
-public void setCreateUser( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.CreateUser = val;
-	} else {
-		this.CreateUser = null;
-	}
-}
-	public virtual System.String UpdateUser{
+	[DataMember]public virtual System.String UpdateUser{
 	get{
 		return _UpdateUser;
 	}
@@ -317,18 +260,11 @@ public void setCreateUser( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_USER);
 			}
-				this._UpdateUser=value;
+		this._UpdateUser=value;
 
 		}
 		}
 	}
-public void setUpdateUser( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.UpdateUser = val;
-	} else {
-		this.UpdateUser = null;
-	}
-}
 
 		#endregion
 
@@ -599,7 +535,7 @@ public void setUpdateUser( String val ) {
 
 		#region "ID Property"
 
-		public override object Id {
+		[DataMember]public override object Id {
 			get { return this._JobId; }
 			set {
 				this._JobId = Convert.ToString(value);

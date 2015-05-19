@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-
+using System.Runtime.Serialization;
 using org.model.lib.Model;
 using org.model.lib;
 
@@ -111,7 +111,7 @@ namespace OracleModel
 
 		#region "Field Properties"
 
-	public virtual System.String PrCODE{
+	[DataMember]public virtual System.String PrCODE{
 	get{
 		return _CODE;
 	}
@@ -124,21 +124,14 @@ namespace OracleModel
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CODE);
 			}
-				this._CODE=value;
+		this._CODE=value;
 
 			this.raiseBroadcastIdChange();
 
 		}
 		}
 	}
-public void setCODE( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrCODE = val;
-	} else {
-		this.PrCODE = null;
-	}
-}
-	public virtual System.String PrDescrGr{
+	[DataMember]public virtual System.String PrDescrGr{
 	get{
 		return _DescrGr;
 	}
@@ -151,19 +144,12 @@ public void setCODE( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DESCR_GR);
 			}
-				this._DescrGr=value;
+		this._DescrGr=value;
 
 		}
 		}
 	}
-public void setDescrGr( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrDescrGr = val;
-	} else {
-		this.PrDescrGr = null;
-	}
-}
-	public virtual System.String PrDescrEn{
+	[DataMember]public virtual System.String PrDescrEn{
 	get{
 		return _DescrEn;
 	}
@@ -176,18 +162,11 @@ public void setDescrGr( String val ) {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DESCR_EN);
 			}
-				this._DescrEn=value;
+		this._DescrEn=value;
 
 		}
 		}
 	}
-public void setDescrEn( String val ) {
-	if (! string.IsNullOrEmpty(val)) {
-		this.PrDescrEn = val;
-	} else {
-		this.PrDescrEn = null;
-	}
-}
 
 		#endregion
 
@@ -353,7 +332,7 @@ public void setDescrEn( String val ) {
 
 		#region "ID Property"
 
-		public override object Id {
+		[DataMember]public override object Id {
 			get { return this._CODE; }
 			set {
 				this._CODE = Convert.ToString(value);
