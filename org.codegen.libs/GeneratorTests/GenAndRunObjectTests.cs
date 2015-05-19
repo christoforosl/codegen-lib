@@ -69,17 +69,28 @@ namespace GeneratorTests {
 
 			cp.ReferencedAssemblies.AddRange(lstAssemblyLocations.ToArray());
 		
-			cp.GenerateInMemory = true;// True - memory generation, false - external file generation
+			cp.GenerateInMemory = false;// True - memory generation, false - external file generation
 			cp.GenerateExecutable = false;// True - exe file generation, false - dll file generation
 			CompilerResults results = provider.CompileAssemblyFromSource(cp, readText);
 			Assert.AreEqual(0, results.Errors.Count,"There should be no compilation errors");
 
-			TestSuite ts = GetTestSuiteFromAssembly(results.CompiledAssembly);
-			//Assert.IsTrue( ts.Tests.Count > 0, "Expected at least one test");
+			CoreExtensions.Host.InitializeService();
+			TestPackage testPackage = new TestPackage(results.CompiledAssembly.Location);
+			testPackage.BasePath = Path.GetDirectoryName(results.CompiledAssembly.Location);
+			TestSuiteBuilder builder = new TestSuiteBuilder();
+			TestSuite suite = builder.Build(testPackage);
+			TestResult result = suite.Run(new NullListener(), TestFilter.Empty);
+			Console.WriteLine("has results? " + result.HasResults);
+			Console.WriteLine("results count: " + result.Results.Count);
+			Console.WriteLine("success? " + result.IsSuccess);
 
-			TestExecutionContext.CurrentContext.TestPackage = new TestPackage(results.CompiledAssembly.GetName().FullName);
-			var suite = GetTestSuiteFromAssembly(results.CompiledAssembly);
-			suite.Run(new NullListener(), TestFilter.Empty);
+
+			//TestSuite ts = GetTestSuiteFromAssembly(results.CompiledAssembly);
+			////Assert.IsTrue( ts.Tests.Count > 0, "Expected at least one test");
+
+			//TestExecutionContext.CurrentContext.TestPackage = new TestPackage(results.CompiledAssembly.GetName().FullName);
+			//var suite = GetTestSuiteFromAssembly(results.CompiledAssembly);
+			//suite.Run(new NullListener(), TestFilter.Empty);
 
         }
 		/// <summary>
