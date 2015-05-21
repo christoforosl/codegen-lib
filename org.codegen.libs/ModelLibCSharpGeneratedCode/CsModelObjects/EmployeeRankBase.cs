@@ -35,6 +35,7 @@ namespace CsModelObjects
 #endregion
 
 	
+	[DataContract]
 	[DefaultMapperAttr(typeof(CsModelMappers.EmployeeRankDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 	public class EmployeeRankBase : ModelObject, IEquatable<EmployeeRankBase>, IEmployeeRank {
 

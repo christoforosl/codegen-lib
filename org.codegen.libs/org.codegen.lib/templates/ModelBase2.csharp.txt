@@ -28,6 +28,7 @@ namespace <NAMESPACE>
 
 	<MODEL_INTERFACE_DEFINITION>
 	
+	[DataContract]
 	[DefaultMapperAttr(typeof(<DBMAPPER_NAMESPACE>.<MODEL_CLASS_NAME>DBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 	public class <MODEL_CLASS_NAME>Base : <MODEL_BASE_CLASS>, IEquatable<<MODEL_CLASS_NAME>Base>, <implements> {
 

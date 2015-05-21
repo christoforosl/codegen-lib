@@ -40,6 +40,7 @@ namespace CsModelObjects
 #endregion
 
 	
+	[DataContract]
 	[DefaultMapperAttr(typeof(CsModelMappers.EmployeeProjectDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 	public class EmployeeProjectBase : ModelObject, IEquatable<EmployeeProjectBase>, IEmployeeProject {
 

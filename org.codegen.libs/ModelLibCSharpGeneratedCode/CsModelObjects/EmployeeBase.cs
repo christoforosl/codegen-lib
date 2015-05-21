@@ -63,6 +63,7 @@ namespace CsModelObjects
 #endregion
 
 	
+	[DataContract]
 	[DefaultMapperAttr(typeof(CsModelMappers.EmployeeDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 	public class EmployeeBase : ModelObject, IEquatable<EmployeeBase>, IAuditable,System.IComparable< Employee>,IEmployee {
 

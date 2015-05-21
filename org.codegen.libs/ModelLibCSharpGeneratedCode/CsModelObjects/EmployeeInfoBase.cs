@@ -37,6 +37,7 @@ namespace CsModelObjects
 #endregion
 
 	
+	[DataContract]
 	[DefaultMapperAttr(typeof(CsModelMappers.EmployeeInfoDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 	public class EmployeeInfoBase : ModelObject, IEquatable<EmployeeInfoBase>, IEmployeeInfo {
 
