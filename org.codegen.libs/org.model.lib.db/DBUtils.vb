@@ -742,7 +742,10 @@ Public MustInherit Class DBUtils
                 If IsDBNull(rs.GetValue(0)) Then
                     getLngValue = 0
                 Else
-                    Validate.isTrue(IsNumeric(rs.GetValue(0)), "Non Numeric value returned in call to getLngValue ")
+                    If (Not IsNumeric(rs.GetValue(0))) Then
+                        Throw New ApplicationException("Non Numeric value returned in call to getLngValue ")
+                    End If
+
                     getLngValue = CInt(rs.GetValue(0))
 
                 End If
