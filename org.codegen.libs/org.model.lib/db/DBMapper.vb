@@ -63,17 +63,21 @@ Public MustInherit Class DBMapper
 
 	Public Overridable Function getSqlWithWhereClause(ByVal sWhereClause As String) As String
 
-		Const STR_WHERE As String = "WHERE"
+        Const STR_WHERE As String = "WHERE"
+        Const STR_ORDER_BY As String = "ORDER BY"
 		Const SPACE As String = " "
 
 		If String.IsNullOrEmpty(sWhereClause) = False Then
-			If sWhereClause.Trim().ToUpper().StartsWith(STR_WHERE) = False Then
-				sWhereClause = STR_WHERE + SPACE + sWhereClause
-			End If
-		End If
+            Dim str As String = sWhereClause.Trim().ToUpper()
+            If str.StartsWith(STR_ORDER_BY) = False Then
+                If str.StartsWith(STR_WHERE) = False Then
+                    sWhereClause = STR_WHERE + SPACE + sWhereClause
+                End If
+            End If
+        End If
 
-		Dim sql As String = Me.getSQLStatement(SQL_SELECT_ALL) & " " & sWhereClause
-		Return sql
+        Dim sql As String = Me.getSQLStatement(SQL_SELECT_ALL) & " " & sWhereClause
+        Return sql
 
 	End Function
 
@@ -84,9 +88,7 @@ Public MustInherit Class DBMapper
 	''' <returns>loaded ModelObject class instance</returns>
 	''' <remarks></remarks>
 	''' 
-	Public Function findWhere(ByVal sWhereClause As String, _
-		 ByVal ParamArray params() As Object) _
-		 As IModelObject
+	Public Function findWhere(ByVal sWhereClause As String, ByVal ParamArray params() As Object) As IModelObject
 
 		Dim sql As String = Me.getSqlWithWhereClause(sWhereClause)
 		Dim rs As IDataReader = Nothing

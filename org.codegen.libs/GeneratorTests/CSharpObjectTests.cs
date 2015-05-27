@@ -12,7 +12,20 @@ using System.Threading;
 using System.Globalization;
 
 namespace GeneratorTests {
-	
+
+
+    [TestClass]
+    public class DBUtilsTests {
+
+        [TestMethod]
+        public void testParams() {
+
+            EmployeeDataUtils.findList("where Telephone=@1 and Telephone=@2", "X", "Y");
+
+        }
+
+    }
+
 	/// <summary>
 	/// Test validator functionality. Code below will execute before saving 
 	/// the object

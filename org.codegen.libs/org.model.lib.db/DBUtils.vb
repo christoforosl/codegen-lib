@@ -587,6 +587,34 @@ Public MustInherit Class DBUtils
 
     End Function
 
+    Public Function getDataSetWithParams(ByVal sql As String, ByVal ParamArray params() As IDataParameter) As DataSet
+        Dim ds As New DataSet
+
+
+        Try
+
+            Dim adapter As IDbDataAdapter = Me.getAdapter(sql)
+            If Me.inTrans Then
+                adapter.SelectCommand.Transaction = p_Trans
+            End If
+
+            For i As Integer = 0 To params.Length - 1
+                adapter.SelectCommand.Parameters.Add(params(i))
+            Next
+            adapter.Fill(ds)
+            logStatement("getDataSetWithParams:" & sql)
+
+        Catch ex As Exception
+            Throw New ApplicationException(ex.Message & vbCrLf & sql)
+
+        Finally
+
+            Me.closeConnection()
+        End Try
+
+        Return ds
+    End Function
+
     Public Function getDataSetWithParams(ByVal sql As String, ByVal ParamArray params() As Object) As DataSet
 
         Dim ds As New DataSet
@@ -760,9 +788,7 @@ Public MustInherit Class DBUtils
         Try
             rs = Me.getDataReaderWithParams(sql, params)
             If rs.Read Then
-                If IsDBNull(rs.GetValue(0)) Then
-                    Return Nothing
-                Else
+                If Not IsDBNull(rs.GetValue(0)) Then
                     Return rs.GetValue(0)
                 End If
 
@@ -772,6 +798,8 @@ Public MustInherit Class DBUtils
             Call Me.closeDataReader(rs)
         End Try
 
+
+        Return Nothing
     End Function
 
     ''' <summary>
@@ -1161,6 +1189,12 @@ Public MustInherit Class DBUtils
             icomm.Parameters.Add(iParam)
         Next
 
+        'For i As Integer = 0 To params.Length - 1
+        '    Dim iParam As System.Data.IDataParameter
+        '    iParam = Me.getParameter(Me.paramPrefix & i)
+        '    iParam.Value = params(i)
+        '    icomm.Parameters.Add(iParam)
+        'Next
     End Sub
 
     Public Sub executeSQLWithParamsIdentity(ByVal sql As String, ByVal ParamArray params() As Object)
@@ -1344,13 +1378,8 @@ Public MustInherit Class DBUtils
         icomm.Transaction = Me.Transaction
         icomm.CommandType = CommandType.Text
 
-        For i As Integer = 0 To params.Length - 1
-            Dim iParam As System.Data.IDataParameter
-            iParam = Me.getParameter(Me.paramPrefix & i)
-            iParam.Value = params(i)
-            icomm.Parameters.Add(iParam)
-        Next
-
+       
+        setParamValues(icomm, params)
         Try
             rs = icomm.ExecuteReader
 
