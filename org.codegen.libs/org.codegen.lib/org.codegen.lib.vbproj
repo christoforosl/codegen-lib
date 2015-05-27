@@ -372,7 +372,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\org.model.lib.db\org.model.lib.db.vbproj">
-      <Project>{C744D17D-3132-4365-8C44-9D295D942597}</Project>
+      <Project>{c744d17d-3132-4365-8c44-9d295d942597}</Project>
       <Name>org.model.lib.db</Name>
     </ProjectReference>
   </ItemGroup>

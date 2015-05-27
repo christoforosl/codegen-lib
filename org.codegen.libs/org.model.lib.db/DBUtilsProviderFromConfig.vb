@@ -22,7 +22,7 @@ Public Class DBUtilsProviderFromConfig
                     TryCast(System.Configuration.ConfigurationManager.GetSection("DBConfig"),  _
                     DBConfig)
 
-        Validate.isNotNull(dbConfigSect, "DBConfig is null, is there a section is app.config?")
+        If (dbConfigSect Is Nothing) Then Throw New ApplicationException("DBConfig is null, is there a section is app.config?")
 
         Dim connstr As String = dbConfigSect.dbconnstring
 

@@ -104,9 +104,6 @@
     <Compile Include="..\org.codegen.common\SimpleEncrypt.vb">
       <Link>SimpleEncrypt.vb</Link>
     </Compile>
-    <Compile Include="..\org.codegen.common\Validate.vb">
-      <Link>Validate.vb</Link>
-    </Compile>
     <Compile Include="DBUpdater.vb" />
     <Compile Include="DBUtilsProvider.vb" />
     <Compile Include="DBUtilsProviderFromConfig.vb" />
