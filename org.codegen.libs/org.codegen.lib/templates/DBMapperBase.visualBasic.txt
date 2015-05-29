@@ -51,12 +51,12 @@ Namespace <DBMAPPER_NAMESPACE>
         
 #End Region
 
+
 #Region "getUpdateDBCommand"
-        Public Overrides Function getUpdateDBCommand(ByVal modelObj As IModelObject, _
-                                                     ByVal sql As String) As IDbCommand
+        Public Overrides Function getUpdateDBCommand(ByVal modelObj As IModelObject, ByVal sql As String) As IDbCommand
 
              Dim p As IDataParameter = Nothing
-             Dim obj as I<MODEL_CLASS_NAME> = DirectCast(modelObj,I<MODEL_CLASS_NAME>)
+             Dim obj as <MODEL_CLASS_NAME> = DirectCast(modelObj,<MODEL_CLASS_NAME>)
              Dim stmt As IDbCommand = Me.dbConn.getCommand(sql)
 <FILL_STATEMENT>
              return stmt

@@ -30,7 +30,7 @@ namespace OracleModel {
 	}
 
 	[Serializable()]
-	public class Location : LocationBase, ILocation {
+	public class Location : LocationBase {
 
 		#region "Constructor"
 		

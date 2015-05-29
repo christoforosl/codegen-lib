@@ -23,24 +23,11 @@ using System.Xml.Serialization;
 //
 //************************************************************
 //</comments>
-namespace OracleModel
-{
-
-	#region "Interface"
-[System.Runtime.InteropServices.ComVisible(false)] 
-	public interface ICountry: IModelObject {
-	System.String PrCountryId {get;set;} 
-	System.String PrCountryName {get;set;} 
-	System.Int64? PrRegionId {get;set;} 
-	System.String PrSkipField {get;set;} 
-	System.Int64? PrLongFld {get;set;} 
-	System.Int64? PrLongFld2 {get;set;} 
-}
-#endregion
-
+namespace OracleModel {
 	
+	[DataContract]
 	[DefaultMapperAttr(typeof(OracleMappers.CountryDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class CountryBase : ModelObject, IEquatable<CountryBase>, ICountry {
+	public class CountryBase : ModelObject, IEquatable<CountryBase>  {
 
 		#region "Constructor"
 

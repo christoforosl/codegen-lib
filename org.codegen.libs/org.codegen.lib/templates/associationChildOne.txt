@@ -1,8 +1,9 @@
 ﻿        
         friend _<association_name>Loaded as Boolean
 		'associationChildOne.txt
-		Public Overridable Property <prop_prefix><association_name>() As <datatype> _
-			implements <implements>.<prop_prefix><association_name>
+
+		Public Overridable Property <prop_prefix><association_name>() As <datatype> 
+
 			'1-1 child association
             Set(ByVal value As <datatype>)
                 Me._<association_name> = value

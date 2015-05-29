@@ -33,7 +33,7 @@ namespace CsModelObjects {
 	}
 
 	[Serializable()]
-	public class Employee : EmployeeBase, IEmployee {
+	public class Employee : EmployeeBase {
 
 		#region "Constructor"
 		

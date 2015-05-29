@@ -61,7 +61,7 @@ namespace <DBMAPPER_NAMESPACE> {
 
 		#region "getUpdateDBCommand"
 		public override IDbCommand getUpdateDBCommand(IModelObject modelObj, string sql) {
-			I<MODEL_CLASS_NAME> obj = (I<MODEL_CLASS_NAME>)modelObj;
+			<MODEL_CLASS_NAME> obj = (<MODEL_CLASS_NAME>)modelObj;
 			IDbCommand stmt = this.dbConn.getCommand(sql);
 <FILL_STATEMENT>
 			return stmt;

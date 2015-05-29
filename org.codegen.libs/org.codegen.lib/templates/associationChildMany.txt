@@ -3,8 +3,7 @@
 		'associationChildMany.txt
 		friend _<association_name>Loaded as Boolean
 
-		Public Overridable Function <prop_prefix><association_name_singular>GetAt(ByVal i As Integer) As <datatype> _
-				implements <iface>.<prop_prefix><association_name_singular>GetAt
+		Public Overridable Function <prop_prefix><association_name_singular>GetAt(ByVal i As Integer) As <datatype>
 
             me.load<association_name>
             If Me._<association_name>.Count >= (i - 1) Then
@@ -14,8 +13,8 @@
 
         End Function        
 		
-		Public Overridable Sub <prop_prefix><association_name_singular>Add(val As <datatype>) _
-				implements <iface>.<prop_prefix><association_name_singular>Add
+		Public Overridable Sub <prop_prefix><association_name_singular>Add(val As <datatype>) 
+
 			'1-Many , add a single item!
 			me.load<association_name>
 			val.<prop_prefix><child_field_runtime> = me.<prop_prefix><parent_field_runtime>
@@ -32,9 +31,7 @@
 
         End Sub
 
-		Public Overridable Sub <prop_prefix><association_name_singular>Remove( _ 
-					val As <datatype>) _
-					implements <iface>.<prop_prefix><association_name_singular>Remove
+		Public Overridable Sub <prop_prefix><association_name_singular>Remove(val As <datatype>) 
 			
 			me.load<association_name>
 			me._deleted<association_name>.add(val)
@@ -43,16 +40,14 @@
         End Sub
 
 		
-		Public Overridable Function <prop_prefix><association_name>GetDeleted() As IEnumerable(Of <datatype>) _
-					implements <iface>.<prop_prefix><association_name>GetDeleted
+		Public Overridable Function <prop_prefix><association_name>GetDeleted() As IEnumerable(Of <datatype>)  
 			
 			return me._deleted<association_name>
 
         End Function
 
         Public Overridable Property <prop_prefix><association_name>() _ 
-					As IEnumerable(Of <datatype>) _
-					implements <implements>.<prop_prefix><association_name>
+					As IEnumerable(Of <datatype>) 
 
             Get
 				'1 to many relation

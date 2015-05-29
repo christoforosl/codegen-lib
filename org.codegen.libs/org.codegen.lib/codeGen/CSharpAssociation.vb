@@ -168,9 +168,7 @@ Public Class CSharpAssociation
 
         Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
         Dim fieldName As String = Me.associationName
-        Dim PropertyInterface As String = DirectCast( _
-                ModelGenerator.Current.CurrentObjectBeingGenerated.FileGroup(ModelObjectFileComponent.KEY),  _
-                DotNetClassFileComponent).ClassInterface
+       
 
         If Me.isCardinalityMany And Me.RelationType = STR_RELATION_PARENT Then
             Throw New ApplicationException("PARENT relationship with cardinality ""MANY"" not allowed!")
@@ -195,8 +193,8 @@ Public Class CSharpAssociation
 
         stmpl = stmpl.Replace("<child_field>", Me.ChildFieldName)
         stmpl = stmpl.Replace("<parent_field>", Me.ParentFieldName)
-        stmpl = stmpl.Replace("<implements>", PropertyInterface)
-        stmpl = stmpl.Replace("<iface>", PropertyInterface)
+        stmpl = stmpl.Replace("<implements>", String.Empty)
+        stmpl = stmpl.Replace("<iface>", String.Empty)
         sb.Append(stmpl)
 
         Return sb.ToString()

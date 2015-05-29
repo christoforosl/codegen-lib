@@ -28,8 +28,7 @@ Namespace <NAMESPACE>
 
 	<Serializable()> _
 	<CLASS_ACCESS_LEVEL> class <MODEL_CLASS_NAME>
-		inherits <MODEL_CLASS_NAME>Base
-		implements <MODEL_CLASS_IFACE_NAME>
+		inherits <MODEL_CLASS_NAME>Base 
 
 #Region "Constructor"
     

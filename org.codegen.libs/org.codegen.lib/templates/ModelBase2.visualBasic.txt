@@ -20,13 +20,11 @@ Imports System.Runtime.Serialization
 '</comments>
 Namespace <NAMESPACE>
 
-<MODEL_INTERFACE_DEFINITION>
-	<DefaultMapperAttr(GetType(<MODEL_CLASS_NAME>DBMapper)), DataContract, _
-	 ComVisible(False),Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)> _
-	<CLASS_ACCESS_LEVEL> class <MODEL_CLASS_NAME>Base
+<DefaultMapperAttr(GetType(<MODEL_CLASS_NAME>DBMapper)), DataContract, _
+ComVisible(False),Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)> _
+<CLASS_ACCESS_LEVEL> class <MODEL_CLASS_NAME>Base
 		Inherits <MODEL_BASE_CLASS>
-		Implements IEquatable(Of <MODEL_CLASS_NAME>Base),
-		<implements> 
+		Implements IEquatable(Of <MODEL_CLASS_NAME>Base)<MODEL_CLASS_IFACE_NAME> 
 
 #Region "Constructor"
     
@@ -168,7 +166,7 @@ Namespace <NAMESPACE>
 
 #Region "ID Property"
 	
-    <DataMember>Public Overrides Property Id() As object <ID_IMPLEMENTS>
+    <DataMember>Public Overrides Property Id() As object
         Get
             return me._<PK_MO_FIELD_NAME>
         End Get

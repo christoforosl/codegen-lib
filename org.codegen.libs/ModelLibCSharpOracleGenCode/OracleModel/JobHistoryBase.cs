@@ -23,28 +23,11 @@ using System.Xml.Serialization;
 //
 //************************************************************
 //</comments>
-namespace OracleModel
-{
-
-	#region "Interface"
-[System.Runtime.InteropServices.ComVisible(false)] 
-	public interface IJobHistory: IModelObject {
-	System.Int64 PrJobHistoryId {get;set;} 
-	System.Int64? PrEmployeeId {get;set;} 
-	System.DateTime? PrStartDate {get;set;} 
-	System.DateTime? PrEndDate {get;set;} 
-	System.String PrJobId {get;set;} 
-	System.Int64? PrDepartmentId {get;set;} 
-	System.DateTime? CreateDate {get;set;} 
-	System.DateTime? UpdateDate {get;set;} 
-	System.String CreateUser {get;set;} 
-	System.String UpdateUser {get;set;} 
-}
-#endregion
-
+namespace OracleModel {
 	
+	[DataContract]
 	[DefaultMapperAttr(typeof(OracleMappers.JobHistoryDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class JobHistoryBase : ModelObject, IEquatable<JobHistoryBase>, IAuditable,IJobHistory {
+	public class JobHistoryBase : ModelObject, IEquatable<JobHistoryBase>, IAuditable {
 
 		#region "Constructor"
 

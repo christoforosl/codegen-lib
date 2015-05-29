@@ -29,7 +29,6 @@ Namespace VbBusObjects
 	<Serializable()> _
 	Public class Employee
 		inherits EmployeeBase
-		implements IEmployee
 
 #Region "Constructor"
     

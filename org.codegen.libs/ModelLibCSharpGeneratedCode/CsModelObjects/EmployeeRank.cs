@@ -30,7 +30,7 @@ namespace CsModelObjects {
 	}
 
 	[Serializable()]
-	public class EmployeeRank : EmployeeRankBase, IEmployeeRank {
+	public class EmployeeRank : EmployeeRankBase {
 
 		#region "Constructor"
 		

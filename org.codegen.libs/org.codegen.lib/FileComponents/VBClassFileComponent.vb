@@ -75,9 +75,7 @@ Namespace FileComponents
             Return Me.ClassNamespace & "." & Me.ClassName
         End Function
 
-        Public Function ClassInterface() As String
-            Return "I" & Me.ClassName
-        End Function
+       
 
     End Class
 

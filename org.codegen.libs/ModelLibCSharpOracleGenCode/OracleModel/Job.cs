@@ -30,7 +30,7 @@ namespace OracleModel {
 	}
 
 	[Serializable()]
-	public class Job : JobBase, IJob {
+	public class Job : JobBase {
 
 		#region "Constructor"
 		

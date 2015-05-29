@@ -29,15 +29,7 @@ Public Class PropertyGenerator
             iimplements.Add(field.ParentTable.getAuditInterface & "." & field.PropertyName)
         End If
 
-        Dim PropertyInterface As String = DirectCast( _
-                    ModelGenerator.Current.CurrentObjectBeingGenerated.FileGroup(ModelObjectFileComponent.KEY),  _
-                    DotNetClassFileComponent).ClassInterface
-
-        If String.IsNullOrEmpty(PropertyInterface) = False Then
-            iimplements.Add(PropertyInterface & "." & field.PropertyName)
-
-        End If
-
+       
         If iimplements.Count > 0 Then
             sImplements = " _ " & vbCrLf & vbTab & vbTab & _
                     "Implements " & _

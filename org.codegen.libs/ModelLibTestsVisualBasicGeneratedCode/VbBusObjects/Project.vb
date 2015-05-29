@@ -29,7 +29,6 @@ Namespace VbBusObjects
 	<Serializable()> _
 	Public class Project
 		inherits ProjectBase
-		implements IProject
 
 #Region "Constructor"
     

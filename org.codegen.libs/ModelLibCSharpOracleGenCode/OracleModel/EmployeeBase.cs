@@ -23,61 +23,11 @@ using System.Xml.Serialization;
 //
 //************************************************************
 //</comments>
-namespace OracleModel
-{
-
-	#region "Interface"
-[System.Runtime.InteropServices.ComVisible(false)] 
-	public interface IEmployee: IModelObject {
-	System.Int64 PrEmployeeId {get;set;} 
-	System.String PrFirstName {get;set;} 
-	System.String PrLastName {get;set;} 
-	System.String PrEMAIL {get;set;} 
-	System.String PrPhoneNumber {get;set;} 
-	System.DateTime? PrHireDate {get;set;} 
-	System.String PrJobId {get;set;} 
-	System.Decimal? PrSALARY {get;set;} 
-	System.Decimal? PrCommissionPct {get;set;} 
-	System.Int64? PrManagerId {get;set;} 
-	System.Int64? PrDepartmentId {get;set;} 
-	System.DateTime? CreateDate {get;set;} 
-	System.DateTime? UpdateDate {get;set;} 
-	System.String CreateUser {get;set;} 
-	System.String UpdateUser {get;set;} 
-	System.Int64? PrLocationId {get;set;} 
-	System.String PrCountryId {get;set;} 
-	System.String PrDepartmentName {get;set;} 
-	System.String PrJobTitle {get;set;} 
-	System.String PrCITY {get;set;} 
-	System.String PrStateProvince {get;set;} 
-	System.String PrCountryName {get;set;} 
-	System.String PrRegionName {get;set;} 
-	System.String PrManagerName {get;set;} 
-	IEnumerable< OracleModel.JobHistory>PrJobHistory {get; set;}
-		void PrJobHistoryAdd(OracleModel.JobHistory val);
-		void PrJobHistoryRemove(OracleModel.JobHistory val);
-		IEnumerable<OracleModel.JobHistory> PrJobHistoryGetDeleted();
-		OracleModel.JobHistory PrJobHistoryGetAt( int i ) ;
-
-	OracleModel.Department PrDepartment {get;set;} //association
-	IEnumerable< OracleModel.EmployeeTrainingHistory>PrCourses {get; set;}
-		void PrCoursesAdd(OracleModel.EmployeeTrainingHistory val);
-		void PrCoursesRemove(OracleModel.EmployeeTrainingHistory val);
-		IEnumerable<OracleModel.EmployeeTrainingHistory> PrCoursesGetDeleted();
-		OracleModel.EmployeeTrainingHistory PrCoursesGetAt( int i ) ;
-
-	IEnumerable< OracleModel.EmployeeTrainingHistory>PrTrainingHistory {get; set;}
-		void PrTrainingHistoryAdd(OracleModel.EmployeeTrainingHistory val);
-		void PrTrainingHistoryRemove(OracleModel.EmployeeTrainingHistory val);
-		IEnumerable<OracleModel.EmployeeTrainingHistory> PrTrainingHistoryGetDeleted();
-		OracleModel.EmployeeTrainingHistory PrTrainingHistoryGetAt( int i ) ;
-
-}
-#endregion
-
+namespace OracleModel {
 	
+	[DataContract]
 	[DefaultMapperAttr(typeof(OracleMappers.EmployeeDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class EmployeeBase : ModelObject, IEquatable<EmployeeBase>, IAuditable,IEmployee {
+	public class EmployeeBase : ModelObject, IEquatable<EmployeeBase>, IAuditable {
 
 		#region "Constructor"
 

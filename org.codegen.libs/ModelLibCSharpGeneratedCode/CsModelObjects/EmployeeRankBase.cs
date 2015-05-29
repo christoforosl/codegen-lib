@@ -23,21 +23,11 @@ using System.Xml.Serialization;
 //
 //************************************************************
 //</comments>
-namespace CsModelObjects
-{
-
-	#region "Interface"
-[System.Runtime.InteropServices.ComVisible(false)] 
-	public interface IEmployeeRank: IModelObject {
-	System.Int64 PrRankId {get;set;} 
-	System.String PrRank {get;set;} 
-}
-#endregion
-
+namespace CsModelObjects {
 	
 	[DataContract]
 	[DefaultMapperAttr(typeof(CsModelMappers.EmployeeRankDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class EmployeeRankBase : ModelObject, IEquatable<EmployeeRankBase>, IEmployeeRank {
+	public class EmployeeRankBase : ModelObject, IEquatable<EmployeeRankBase>  {
 
 		#region "Constructor"
 

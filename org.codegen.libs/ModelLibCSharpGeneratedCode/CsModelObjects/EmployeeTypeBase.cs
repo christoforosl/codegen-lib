@@ -23,21 +23,11 @@ using System.Xml.Serialization;
 //
 //************************************************************
 //</comments>
-namespace CsModelObjects
-{
-
-	#region "Interface"
-[System.Runtime.InteropServices.ComVisible(false)] 
-	public interface IEmployeeType: IModelObject {
-	System.String PrEmployeeTypeCode {get;set;} 
-	System.String PrEmployeeType {get;set;} 
-}
-#endregion
-
+namespace CsModelObjects {
 	
 	[DataContract]
 	[DefaultMapperAttr(typeof(CsModelMappers.EmployeeTypeDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class EmployeeTypeBase : ModelObject, IEquatable<EmployeeTypeBase>, IEmployeeType {
+	public class EmployeeTypeBase : ModelObject, IEquatable<EmployeeTypeBase>  {
 
 		#region "Constructor"
 

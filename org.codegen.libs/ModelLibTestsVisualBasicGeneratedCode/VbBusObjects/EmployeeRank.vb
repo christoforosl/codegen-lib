@@ -29,7 +29,6 @@ Namespace VbBusObjects
 	<Serializable()> _
 	Public class EmployeeRank
 		inherits EmployeeRankBase
-		implements IEmployeeRank
 
 #Region "Constructor"
     

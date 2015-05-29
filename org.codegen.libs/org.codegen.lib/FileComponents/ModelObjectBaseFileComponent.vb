@@ -11,7 +11,6 @@ Namespace FileComponents
        GetType(ModelImplementedInterfacesToken), GetType(ModelBaseClassToken), _
        GetType(RequiredFieldValidatorToken), _
        GetType(SorterToken), _
-       GetType(IdFieldImplementedInterfaceToken), _
        GetType(UpdateChildrenFieldCodeToken), _
        GetType(PKConverter), _
        GetType(PKFieldRuntimeNameToken), _
@@ -20,7 +19,6 @@ Namespace FileComponents
        GetType(ClassFieldStringConstantsToken), _
        GetType(FieldListToken), _
        GetType(ClassFieldDeclarationsToken), _
-       GetType(GeneratedInterfaceToken), _
        GetType(ClassFieldDeclarationsToken), _
        GetType(GetAttrStrToken), _
        GetType(SetAttrStrToken), _
@@ -29,7 +27,7 @@ Namespace FileComponents
        GetType(ObjectCopyToken), _
        GetType(ModelExtraCodeToken), _
        GetType(ModelObjectChildArrayToken), _
-       GetType(LoadObjectHierarchyToken), _
+       GetType(LoadObjectHierarchyToken), GetType(IfaceNameToken), _
        GetType(ModelObjectParentArrayToken), _
        GetType(GeneratorToken), _
        GetType(CurentDateToken), GetType(ModelObjectClassNameToken) _

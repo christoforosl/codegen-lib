@@ -23,26 +23,11 @@ using System.Xml.Serialization;
 //
 //************************************************************
 //</comments>
-namespace CsModelObjects
-{
-
-	#region "Interface"
-[System.Runtime.InteropServices.ComVisible(false)] 
-	public interface IEmployeeProject: IModelObject {
-	System.Int64 PrEmployeeProjectId {get;set;} 
-	System.Int64? PrEPEmployeeId {get;set;} 
-	System.Int64? PrEPProjectId {get;set;} 
-	System.DateTime? PrAssignDate {get;set;} 
-	System.DateTime? PrEndDate {get;set;} 
-	System.Decimal? PrRate {get;set;} 
-	CsModelObjects.Project PrProject {get;set;} //association
-}
-#endregion
-
+namespace CsModelObjects {
 	
 	[DataContract]
 	[DefaultMapperAttr(typeof(CsModelMappers.EmployeeProjectDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class EmployeeProjectBase : ModelObject, IEquatable<EmployeeProjectBase>, IEmployeeProject {
+	public class EmployeeProjectBase : ModelObject, IEquatable<EmployeeProjectBase>  {
 
 		#region "Constructor"
 

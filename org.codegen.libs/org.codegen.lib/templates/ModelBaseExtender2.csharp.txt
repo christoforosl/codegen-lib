@@ -30,7 +30,7 @@ namespace <NAMESPACE> {
 	}
 
 	[Serializable()]
-	public class <MODEL_CLASS_NAME> : <MODEL_CLASS_NAME>Base, I<MODEL_CLASS_NAME> {
+	public class <MODEL_CLASS_NAME> : <MODEL_CLASS_NAME>Base  {
 
 		#region "Constructor"
 		

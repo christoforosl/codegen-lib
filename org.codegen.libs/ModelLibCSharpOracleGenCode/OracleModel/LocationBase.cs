@@ -23,28 +23,11 @@ using System.Xml.Serialization;
 //
 //************************************************************
 //</comments>
-namespace OracleModel
-{
-
-	#region "Interface"
-[System.Runtime.InteropServices.ComVisible(false)] 
-	public interface ILocation: IModelObject {
-	System.Int64 PrLocationId {get;set;} 
-	System.String PrStreetAddress {get;set;} 
-	System.String PrPostalCode {get;set;} 
-	System.String PrCITY {get;set;} 
-	System.String PrStateProvince {get;set;} 
-	System.String PrCountryId {get;set;} 
-	System.DateTime? CreateDate {get;set;} 
-	System.DateTime? UpdateDate {get;set;} 
-	System.String CreateUser {get;set;} 
-	System.String UpdateUser {get;set;} 
-}
-#endregion
-
+namespace OracleModel {
 	
+	[DataContract]
 	[DefaultMapperAttr(typeof(OracleMappers.LocationDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class LocationBase : ModelObject, IEquatable<LocationBase>, IAuditable,ILocation {
+	public class LocationBase : ModelObject, IEquatable<LocationBase> ,IAuditable {
 
 		#region "Constructor"
 

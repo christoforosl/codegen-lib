@@ -23,49 +23,11 @@ using System.Xml.Serialization;
 //
 //************************************************************
 //</comments>
-namespace CsModelObjects
-{
-
-	#region "Interface"
-[System.Runtime.InteropServices.ComVisible(false)] 
-	public interface IEmployee: IModelObject {
-	System.Int64 PrEmployeeId {get;set;} 
-	System.String PrEmployeeName {get;set;} 
-	System.Int64? PrEmployeeRankId {get;set;} 
-	System.Decimal? PrSalary {get;set;} 
-	System.String PrAddress {get;set;} 
-	System.String PrTelephone {get;set;} 
-	System.String PrMobile {get;set;} 
-	System.String PrIdNumber {get;set;} 
-	System.String PrSSINumber {get;set;} 
-	System.DateTime? PrHireDate {get;set;} 
-	System.Int64? PrNumDependents {get;set;} 
-	System.String PrEmployeeTypeCode {get;set;} 
-	System.DateTime? CreateDate {get;set;} 
-	System.DateTime? UpdateDate {get;set;} 
-	System.String CreateUser {get;set;} 
-	System.String UpdateUser {get;set;} 
-	System.Guid? PrSampleGuidField {get;set;} 
-	System.Boolean PrIsActive {get;set;} 
-	System.Int64? PrSampleBigInt {get;set;} 
-	System.Int64? PrSampleSmallInt {get;set;} 
-	System.Int64? PrSampleNumericFieldInt {get;set;} 
-	System.Decimal? PrSampleNumericField2Decimals {get;set;} 
-	CsModelObjects.EmployeeRank PrRank {get;set;} //association
-	CsModelObjects.EmployeeInfo PrEmployeeInfo {get;set;} //association
-	IEnumerable< CsModelObjects.EmployeeProject>PrEmployeeProjects {get; set;}
-		void PrEmployeeProjectAdd(CsModelObjects.EmployeeProject val);
-		void PrEmployeeProjectRemove(CsModelObjects.EmployeeProject val);
-		IEnumerable<CsModelObjects.EmployeeProject> PrEmployeeProjectsGetDeleted();
-		CsModelObjects.EmployeeProject PrEmployeeProjectGetAt( int i ) ;
-
-}
-#endregion
-
+namespace CsModelObjects {
 	
 	[DataContract]
 	[DefaultMapperAttr(typeof(CsModelMappers.EmployeeDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class EmployeeBase : ModelObject, IEquatable<EmployeeBase>, IAuditable,System.IComparable< Employee>,IEmployee {
+	public class EmployeeBase : ModelObject, IEquatable<EmployeeBase>, IAuditable,System.IComparable< Employee> {
 
 		#region "Constructor"
 

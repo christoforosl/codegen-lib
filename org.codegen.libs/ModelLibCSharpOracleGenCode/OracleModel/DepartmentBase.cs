@@ -23,26 +23,11 @@ using System.Xml.Serialization;
 //
 //************************************************************
 //</comments>
-namespace OracleModel
-{
-
-	#region "Interface"
-[System.Runtime.InteropServices.ComVisible(false)] 
-	public interface IDepartment: IModelObject {
-	System.Int64 PrDepartmentId {get;set;} 
-	System.String PrDepartmentName {get;set;} 
-	System.Int64? PrManagerId {get;set;} 
-	System.Int64? PrLocationId {get;set;} 
-	System.DateTime? CreateDate {get;set;} 
-	System.DateTime? UpdateDate {get;set;} 
-	System.String CreateUser {get;set;} 
-	System.String UpdateUser {get;set;} 
-}
-#endregion
-
+namespace OracleModel {
 	
+	[DataContract]
 	[DefaultMapperAttr(typeof(OracleMappers.DepartmentDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class DepartmentBase : ModelObject, IEquatable<DepartmentBase>, IAuditable,IDepartment {
+	public class DepartmentBase : ModelObject, IEquatable<DepartmentBase>, IAuditable {
 
 		#region "Constructor"
 

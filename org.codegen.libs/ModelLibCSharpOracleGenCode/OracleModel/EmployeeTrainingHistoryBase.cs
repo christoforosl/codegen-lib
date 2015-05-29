@@ -23,24 +23,11 @@ using System.Xml.Serialization;
 //
 //************************************************************
 //</comments>
-namespace OracleModel
-{
-
-	#region "Interface"
-[System.Runtime.InteropServices.ComVisible(false)] 
-	public interface IEmployeeTrainingHistory: IModelObject {
-	System.Int64 PrEmployeeTrainingHistoryId {get;set;} 
-	System.Int64? PrEmployeeId {get;set;} 
-	System.DateTime? PrDateFrom {get;set;} 
-	System.DateTime? PrDateTo {get;set;} 
-	System.String PrTrainingCourseCode {get;set;} 
-	OracleModel.TrainingCourse PrTrainingCourse {get;set;} //association
-}
-#endregion
-
+namespace OracleModel {
 	
+	[DataContract]
 	[DefaultMapperAttr(typeof(OracleMappers.EmployeeTrainingHistoryDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class EmployeeTrainingHistoryBase : ModelObject, IEquatable<EmployeeTrainingHistoryBase>, IEmployeeTrainingHistory {
+	public class EmployeeTrainingHistoryBase : ModelObject, IEquatable<EmployeeTrainingHistoryBase>  {
 
 		#region "Constructor"
 

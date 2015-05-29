@@ -40,13 +40,7 @@ Namespace Tokens
 
             End If
 
-            Dim PropertyInterface As String = _
-                DirectCast(og.FileGroup(ModelObjectFileComponent.KEY), DotNetClassFileComponent).ClassInterface
-
-            If Not String.IsNullOrEmpty(PropertyInterface) Then
-                og.DbTable.addImplemetedInterface(PropertyInterface)
-            End If
-
+            
             Return og.DbTable.ImplementsAsString
 
         End Function

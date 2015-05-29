@@ -10,9 +10,8 @@ Namespace Tokens
         End Sub
         Public Overrides Function getReplacementCode(ByVal t As IObjectToGenerate) As String
 
-            Dim PropertyInterface As String = _
-                DirectCast(t.FileGroup(ModelObjectFileComponent.KEY), DotNetClassFileComponent).ClassInterface
-            Return PropertyInterface
+            Dim ifaces As String = t.DbTable.ImplementsAsString
+            Return CStr(IIf(String.IsNullOrEmpty(ifaces), String.Empty, "," & ifaces))
 
         End Function
     End Class
@@ -194,88 +193,7 @@ Namespace Tokens
 
     End Class
 
-    Public Class GeneratedInterfaceToken
-        Inherits MultiLingualReplacementToken
-
-        Sub New()
-            Me.StringToReplace = "MODEL_INTERFACE_DEFINITION"
-        End Sub
-        Public Overrides Function getReplacementCodeCSharp(t As IObjectToGenerate) As String
-            Dim sb As StringBuilder = New StringBuilder()
-            Dim PropertyInterface As String = _
-             DirectCast(t.FileGroup(ModelObjectFileComponent.KEY), DotNetClassFileComponent).ClassInterface
-
-            If String.IsNullOrEmpty(PropertyInterface) = False Then
-                t.DbTable.addImplemetedInterface(PropertyInterface)
-
-                sb.Append("#region ""Interface""")
-                sb.Append(vbCrLf)
-                sb.Append("[System.Runtime.InteropServices.ComVisible(false)] " & vbCrLf)
-                sb.Append(vbTab & "public interface " & PropertyInterface & ":" & _
-                      " IModelObject {")
-                sb.Append(vbCrLf)
-
-                Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
-                Dim proGen As IPropertyGenerator = ModelGenerator.Current.IPropertyGenerator
-
-                For Each field As DBField In vec.Values
-                    sb.Append(proGen.generateInterfaceDeclaration(field))
-                Next
-
-                For Each ass As IAssociation In t.DbTable.Associations
-                    sb.Append(vbTab & ass.getInterfaceDeclaration)
-                    sb.Append(vbCrLf)
-
-                Next
-
-                sb.Append("}")
-                sb.Append(vbCrLf)
-                sb.Append("#endregion")
-                sb.Append(vbCrLf)
-
-            End If
-            Return sb.ToString
-        End Function
-        Public Overrides Function getReplacementCodeVB(ByVal t As IObjectToGenerate) As String
-
-            Dim sb As StringBuilder = New StringBuilder()
-            Dim PropertyInterface As String = _
-             DirectCast(t.FileGroup(ModelObjectFileComponent.KEY), DotNetClassFileComponent).ClassInterface
-
-            If String.IsNullOrEmpty(PropertyInterface) = False Then
-                t.DbTable.addImplemetedInterface(PropertyInterface)
-
-                sb.Append("#Region ""Interface""")
-                sb.Append(vbCrLf)
-                sb.Append("<System.Runtime.InteropServices.ComVisible(False)> _" & vbCrLf)
-                sb.Append(vbTab & "Public Interface " & PropertyInterface & ":" & _
-                      " Inherits IModelObject")
-                sb.Append(vbCrLf)
-
-                Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
-                Dim proGen As IPropertyGenerator = ModelGenerator.Current.IPropertyGenerator
-
-                For Each field As DBField In vec.Values
-                    sb.Append(proGen.generateInterfaceDeclaration(field))
-                Next
-
-                For Each ass As IAssociation In t.DbTable.Associations
-                    sb.Append(vbTab & ass.getInterfaceDeclaration)
-                    sb.Append(vbCrLf)
-                Next
-
-                sb.Append("End Interface")
-                sb.Append(vbCrLf)
-                sb.Append("#End region ")
-                sb.Append(vbCrLf)
-
-            End If
-            Return sb.ToString
-        End Function
-
-
-    End Class
-
+   
     Public Class RequiredFieldValidatorToken
         Inherits MultiLingualReplacementToken
 
@@ -553,29 +471,5 @@ Namespace Tokens
 
     End Class
 
-    Public Class IdFieldImplementedInterfaceToken
-        Inherits ReplacementToken
-
-        Sub New()
-            Me.StringToReplace = "ID_IMPLEMENTS"
-        End Sub
-
-        Public Overrides Function getReplacementCode(ByVal t As IObjectToGenerate) As String
-
-            Dim PropertyInterface As String = _
-             DirectCast(t.FileGroup(ModelObjectFileComponent.KEY), DotNetClassFileComponent).ClassInterface
-
-            If String.IsNullOrEmpty(PropertyInterface) = False Then
-                If t.DbTable.hasFieldName("id") Then
-                    Return "Implements " & PropertyInterface & ".Id"
-                Else
-                    Return String.Empty
-                End If
-            Else
-                Return String.Empty
-            End If
-
-        End Function
-    End Class
-
+   
 End Namespace

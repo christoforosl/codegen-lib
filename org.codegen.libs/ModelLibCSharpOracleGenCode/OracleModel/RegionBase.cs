@@ -23,20 +23,11 @@ using System.Xml.Serialization;
 //
 //************************************************************
 //</comments>
-namespace OracleModel
-{
-
-	#region "Interface"
-[System.Runtime.InteropServices.ComVisible(false)] 
-	public interface IRegion: IModelObject {
-	System.Int64 PrRegionId {get;set;} 
-	System.String PrRegionName {get;set;} 
-}
-#endregion
-
+namespace OracleModel {
 	
+	[DataContract]
 	[DefaultMapperAttr(typeof(OracleMappers.RegionDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class RegionBase : ModelObject, IEquatable<RegionBase>, IRegion {
+	public class RegionBase : ModelObject, IEquatable<RegionBase>  {
 
 		#region "Constructor"
 

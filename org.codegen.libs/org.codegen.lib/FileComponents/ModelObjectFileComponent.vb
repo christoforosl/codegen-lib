@@ -14,11 +14,11 @@ Namespace FileComponents
     <ReplacementTokenAttribute(GetType(ClassNameSpaceToken), GetType(GeneratorToken), _
         GetType(CurentDateToken), GetType(ClassAccessLevelToken), _
         GetType(ModelObjectClassNameToken), _
-        GetType(IfaceNameToken), GetType(ClassAccessLevelToken))> _
+        GetType(ClassAccessLevelToken))> _
     Public Class ModelObjectFileComponent
         Inherits DotNetClassFileComponent
 
-		Private _modelObjectDefaultNamespace As String = Nothing
+        Private _modelObjectDefaultNamespace As String = Nothing
 
         Public Sub New(ByVal inobjGen As IObjectToGenerate)
             MyBase.New(inobjGen)
@@ -59,21 +59,21 @@ Namespace FileComponents
         End Function
 
 
-		Public Function getDefaultNameSpace() As String
+        Public Function getDefaultNameSpace() As String
 
-			If _modelObjectDefaultNamespace Is Nothing Then
+            If _modelObjectDefaultNamespace Is Nothing Then
 
-				Dim projectInfo As DataTable = ModelGenerator.Current.XmlFileDataSet.Tables( _
-										XMLClassGenerator.XML_ATTR_PROJECT)
+                Dim projectInfo As DataTable = ModelGenerator.Current.XmlFileDataSet.Tables( _
+                                        XMLClassGenerator.XML_ATTR_PROJECT)
 
-				_modelObjectDefaultNamespace = XMLClassGenerator.getRowValue(projectInfo.Rows(0), _
-											 XMLClassGenerator.XML_PROJECT_ATTR_DEFAULT_NAMESPACE, True)
+                _modelObjectDefaultNamespace = XMLClassGenerator.getRowValue(projectInfo.Rows(0), _
+                                             XMLClassGenerator.XML_PROJECT_ATTR_DEFAULT_NAMESPACE, True)
 
-			End If
+            End If
 
-			Return _modelObjectDefaultNamespace
+            Return _modelObjectDefaultNamespace
 
-		End Function
+        End Function
 
         Shared Function KEY() As String
             Return "MO"

@@ -20,7 +20,7 @@ namespace GeneratorTests {
         [TestMethod]
         public void testParams() {
 
-            EmployeeDataUtils.findList("where Telephone=@1 and Telephone=@2", "X", "Y");
+            EmployeeDataUtils.findList("where Telephone={0} and Telephone={1}", "X", "Y");
 
         }
 

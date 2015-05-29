@@ -30,7 +30,7 @@ namespace CsModelObjects {
 	}
 
 	[Serializable()]
-	public class Project : ProjectBase, IProject {
+	public class Project : ProjectBase {
 
 		#region "Constructor"
 		
