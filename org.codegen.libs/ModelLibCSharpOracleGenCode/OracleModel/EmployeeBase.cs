@@ -27,7 +27,7 @@ namespace OracleModel {
 	
 	[DataContract]
 	[DefaultMapperAttr(typeof(OracleMappers.EmployeeDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class EmployeeBase : ModelObject, IEquatable<EmployeeBase>, IAuditable {
+	public class EmployeeBase : ModelObject, IEquatable<EmployeeBase> ,IAuditable {
 
 		#region "Constructor"
 
@@ -1533,7 +1533,7 @@ namespace OracleModel {
 
 			//NOTE: we can't cast from EmployeeBase to Employee, so below we 
 			//instantiate a Employee, NOT a EmployeeBase object
-			Employee ret = EmployeeFactory.Create();
+			Employee ret = new Employee();
 
 		ret.PrEmployeeId = this.PrEmployeeId;
 		ret.PrFirstName = this.PrFirstName;

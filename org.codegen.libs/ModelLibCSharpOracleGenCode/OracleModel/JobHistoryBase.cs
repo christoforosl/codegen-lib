@@ -27,7 +27,7 @@ namespace OracleModel {
 	
 	[DataContract]
 	[DefaultMapperAttr(typeof(OracleMappers.JobHistoryDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class JobHistoryBase : ModelObject, IEquatable<JobHistoryBase>, IAuditable {
+	public class JobHistoryBase : ModelObject, IEquatable<JobHistoryBase> ,IAuditable {
 
 		#region "Constructor"
 
@@ -569,7 +569,7 @@ namespace OracleModel {
 
 			//NOTE: we can't cast from JobHistoryBase to JobHistory, so below we 
 			//instantiate a JobHistory, NOT a JobHistoryBase object
-			JobHistory ret = JobHistoryFactory.Create();
+			JobHistory ret = new JobHistory();
 
 		ret.PrJobHistoryId = this.PrJobHistoryId;
 		ret.PrEmployeeId = this.PrEmployeeId;

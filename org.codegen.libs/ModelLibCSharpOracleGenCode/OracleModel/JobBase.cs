@@ -496,7 +496,7 @@ namespace OracleModel {
 
 			//NOTE: we can't cast from JobBase to Job, so below we 
 			//instantiate a Job, NOT a JobBase object
-			Job ret = JobFactory.Create();
+			Job ret = new Job();
 
 		ret.PrJobId = this.PrJobId;
 		ret.PrJobTitle = this.PrJobTitle;

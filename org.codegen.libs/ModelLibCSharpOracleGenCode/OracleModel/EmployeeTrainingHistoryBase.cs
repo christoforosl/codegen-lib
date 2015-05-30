@@ -436,7 +436,7 @@ namespace OracleModel {
 
 			//NOTE: we can't cast from EmployeeTrainingHistoryBase to EmployeeTrainingHistory, so below we 
 			//instantiate a EmployeeTrainingHistory, NOT a EmployeeTrainingHistoryBase object
-			EmployeeTrainingHistory ret = EmployeeTrainingHistoryFactory.Create();
+			EmployeeTrainingHistory ret = new EmployeeTrainingHistory();
 
 		ret.PrEmployeeTrainingHistoryId = this.PrEmployeeTrainingHistoryId;
 		ret.PrEmployeeId = this.PrEmployeeId;

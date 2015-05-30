@@ -166,7 +166,7 @@ namespace <NAMESPACE> {
 
 			//NOTE: we can't cast from <MODEL_CLASS_NAME>Base to <MODEL_CLASS_NAME>, so below we 
 			//instantiate a <MODEL_CLASS_NAME>, NOT a <MODEL_CLASS_NAME>Base object
-			<MODEL_CLASS_NAME> ret = <MODEL_CLASS_NAME>Factory.Create();
+			<MODEL_CLASS_NAME> ret = new <MODEL_CLASS_NAME>();
 
 <COPY_FIELDS>
 

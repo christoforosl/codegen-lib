@@ -188,7 +188,6 @@ namespace GeneratorTests {
 				Assert.IsNotNull(et2, "New employeetype must have been created!");
 				et1 = EmployeeTypeDataUtils.findByKey("XX1");
 				Assert.IsNotNull(et1, "New employeetype must have been created!");
-                
 
 			} finally {
 				ModelContext.rollbackTrans();

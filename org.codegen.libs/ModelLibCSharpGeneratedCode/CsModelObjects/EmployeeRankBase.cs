@@ -259,7 +259,7 @@ namespace CsModelObjects {
 
 			//NOTE: we can't cast from EmployeeRankBase to EmployeeRank, so below we 
 			//instantiate a EmployeeRank, NOT a EmployeeRankBase object
-			EmployeeRank ret = EmployeeRankFactory.Create();
+			EmployeeRank ret = new EmployeeRank();
 
 		ret.PrRankId = this.PrRankId;
 		ret.PrRank = this.PrRank;

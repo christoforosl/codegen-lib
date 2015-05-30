@@ -151,7 +151,7 @@ Namespace <DBMAPPER_NAMESPACE>
 #End Region
 		
 		Public Overrides Function getModelInstance() As IModelObject
-			return <MODEL_CLASS_NAME>Factory.Create()
+			return new <MODEL_CLASS_NAME>()
         End Function
 		
     End Class
@@ -279,7 +279,7 @@ Namespace <DBMAPPER_NAMESPACE>
                                                  Optional ByRef mo As <MODEL_CLASS_NAME> = Nothing)
 
             if mo is Nothing then 
-				mo = <MODEL_CLASS_NAME>Factory.Create()
+				mo = new <MODEL_CLASS_NAME>()
 			end if
 			
             For Each dc As DataColumn In dr.Table.Columns
@@ -303,7 +303,7 @@ Namespace <DBMAPPER_NAMESPACE>
 		 Public Shared Function loadFromDataRow(ByVal r As DataRow) As <MODEL_CLASS_NAME>
 
             Dim a As New DataRowLoader
-            Dim mo As IModelObject = <MODEL_CLASS_NAME>Factory.Create
+            Dim mo As IModelObject = new <MODEL_CLASS_NAME>()
             a.DataSource = r
             a.load(mo)
             Return DirectCast(mo, <MODEL_CLASS_NAME>)

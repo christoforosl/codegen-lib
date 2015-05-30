@@ -335,7 +335,7 @@ namespace CsModelObjects {
 
 			//NOTE: we can't cast from EmployeeInfoBase to EmployeeInfo, so below we 
 			//instantiate a EmployeeInfo, NOT a EmployeeInfoBase object
-			EmployeeInfo ret = EmployeeInfoFactory.Create();
+			EmployeeInfo ret = new EmployeeInfo();
 
 		ret.PrEmployeeInfoId = this.PrEmployeeInfoId;
 		ret.PrEIEmployeeId = this.PrEIEmployeeId;

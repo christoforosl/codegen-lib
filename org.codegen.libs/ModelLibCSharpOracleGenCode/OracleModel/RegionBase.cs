@@ -259,7 +259,7 @@ namespace OracleModel {
 
 			//NOTE: we can't cast from RegionBase to Region, so below we 
 			//instantiate a Region, NOT a RegionBase object
-			Region ret = RegionFactory.Create();
+			Region ret = new Region();
 
 		ret.PrRegionId = this.PrRegionId;
 		ret.PrRegionName = this.PrRegionName;

@@ -24,176 +24,174 @@ using System.Xml.Serialization;
 //************************************************************
 //</comments>
 namespace CsModelObjects {
+	
+	[DataContract]
+	[DefaultMapperAttr(typeof(CsModelMappers.ProjectDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+	public class ProjectBase : ModelObject, IEquatable<ProjectBase>  {
 
-    [DataContract]
-    [DefaultMapperAttr(typeof(CsModelMappers.ProjectDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-    public class ProjectBase : ModelObject, IEquatable<ProjectBase> {
+		#region "Constructor"
 
-        #region "Constructor"
+		public ProjectBase() {
+			this.addValidator(new ProjectRequiredFieldsValidator());
+		}
 
-        public ProjectBase() {
-            this.addValidator(new ProjectRequiredFieldsValidator());
-        }
+		#endregion
 
-        #endregion
+		#region "Children and Parents"
+		
+		public override void loadObjectHierarchy() {
+		loadEmployeeProjects();
 
-        #region "Children and Parents"
+		}
 
-        public override void loadObjectHierarchy() {
-            loadEmployeeProjects();
+		/// <summary>
+		/// Returns the **loaded** children of this model object.
+		/// Any records that are not loaded (ie the getter method was not called) are not returned.
+		/// To get all child records tied to this object, call loadObjectHierarchy() method
+		/// </summary>
+		public override List<ModelObject> getChildren() {
+			List<ModelObject> ret = new List<ModelObject>();
+				if  (this.EmployeeProjectsLoaded) { // check if loaded first!
+		List< ModelObject > lp = this._EmployeeProjects.ConvertAll(
+				new Converter< CsModelObjects.EmployeeProject, ModelObject>((
+			CsModelObjects.EmployeeProject pf )=> {				return (ModelObject)pf;}));
+		ret.AddRange(lp);
+	}
 
-        }
+			return ret;
+		}
 
-        /// <summary>
-        /// Returns the **loaded** children of this model object.
-        /// Any records that are not loaded (ie the getter method was not called) are not returned.
-        /// To get all child records tied to this object, call loadObjectHierarchy() method
-        /// </summary>
-        public override List<ModelObject> getChildren() {
-            List<ModelObject> ret = new List<ModelObject>();
-            if (this.EmployeeProjectsLoaded) { // check if loaded first!
-                List<ModelObject> lp = this._EmployeeProjects.ConvertAll(
-                        new Converter<CsModelObjects.EmployeeProject, ModelObject>((
-                    CsModelObjects.EmployeeProject pf) => { return (ModelObject)pf; }));
-                ret.AddRange(lp);
-            }
+		/// <summary>
+		/// Returns the **loaded** parent objects of this model object.
+		/// Any records are not loaded (ie the getter method was not called) are not returned.
+		/// To get all parent records tied to this object, call loadObjectHierarchy() method
+		/// </summary>
+		public override List<ModelObject> getParents() {
+			List<ModelObject> ret = new List<ModelObject>();
+			
+			return ret;
+		}
 
-            return ret;
-        }
+		#endregion
+		#region "Field CONSTANTS"
 
-        /// <summary>
-        /// Returns the **loaded** parent objects of this model object.
-        /// Any records are not loaded (ie the getter method was not called) are not returned.
-        /// To get all parent records tied to this object, call loadObjectHierarchy() method
-        /// </summary>
-        public override List<ModelObject> getParents() {
-            List<ModelObject> ret = new List<ModelObject>();
-
-            return ret;
-        }
-
-        #endregion
-        #region "Field CONSTANTS"
-
-        public const String STR_FLD_PROJECTID = "ProjectId";
-        public const String STR_FLD_PROJECTNAME = "ProjectName";
-        public const String STR_FLD_ISACTIVE = "IsActive";
-
-
-        public const int FLD_PROJECTID = 0;
-        public const int FLD_PROJECTNAME = 1;
-        public const int FLD_ISACTIVE = 2;
+					public const String STR_FLD_PROJECTID = "ProjectId";
+			public const String STR_FLD_PROJECTNAME = "ProjectName";
+			public const String STR_FLD_ISACTIVE = "IsActive";
 
 
+				public const int FLD_PROJECTID = 0;
+		public const int FLD_PROJECTNAME = 1;
+		public const int FLD_ISACTIVE = 2;
 
-        ///<summary> Returns the names of fields in the object as a string array.
-        /// Useful in automatically setting/getting values from UI objects (windows or web Form)</summary>
-        /// <returns> string array </returns>	 
-        public override string[] getFieldList() {
-            return new string[] {
+
+
+		///<summary> Returns the names of fields in the object as a string array.
+		/// Useful in automatically setting/getting values from UI objects (windows or web Form)</summary>
+		/// <returns> string array </returns>	 
+		public override string[] getFieldList()
+		{
+			return new string[] {
 				STR_FLD_PROJECTID,STR_FLD_PROJECTNAME,STR_FLD_ISACTIVE
 			};
-        }
+		}
 
-        #endregion
+		#endregion
 
-        #region "Field Declarations"
+		#region "Field Declarations"
 
-        private System.Int64 _ProjectId;
-        private System.String _ProjectName;
-        private System.Boolean _IsActive;
-        // ****** CHILD OBJECTS ********************
-        private List<CsModelObjects.EmployeeProject> _EmployeeProjects = null;  // initialize to nothing, for lazy load logic below !!!
-        private List<CsModelObjects.EmployeeProject> _deletedEmployeeProjects = new List<CsModelObjects.EmployeeProject>();// initialize to empty list !!!
+	private System.Int64 _ProjectId;
+	private System.String _ProjectName;
+	private System.Boolean _IsActive;
+	// ****** CHILD OBJECTS ********************
+	private List< CsModelObjects.EmployeeProject> _EmployeeProjects = null;  // initialize to nothing, for lazy load logic below !!!
+	 private List< CsModelObjects.EmployeeProject> _deletedEmployeeProjects = new List< CsModelObjects.EmployeeProject>();// initialize to empty list !!!
 
-        // *****************************************
-        // ****** END CHILD OBJECTS ********************
+	// *****************************************
+	// ****** END CHILD OBJECTS ********************
 
-        #endregion
+		#endregion
 
-        #region "Field Properties"
+		#region "Field Properties"
 
-        [DataMember]
-        public virtual System.Int64 PrProjectId {
-            get {
-                return _ProjectId;
-            }
-            set {
-                if (ModelObject.valueChanged(_ProjectId, value)) {
-                    if (!this.IsObjectLoading) {
-                        this.isDirty = true;
-                        this.setFieldChanged(STR_FLD_PROJECTID);
-                    }
-                    this._ProjectId = value;
+	[DataMember]public virtual System.Int64 PrProjectId{
+	get{
+		return _ProjectId;
+	}
+	set {
+		if (ModelObject.valueChanged(_ProjectId, value)){
+			if (!this.IsObjectLoading) {
+				this.isDirty = true;
+				this.setFieldChanged(STR_FLD_PROJECTID);
+			}
+		this._ProjectId=value;
 
-                    this.raiseBroadcastIdChange();
+			this.raiseBroadcastIdChange();
 
-                }
-            }
-        }
-        [DataMember]
-        public virtual System.String PrProjectName {
-            get {
-                return _ProjectName;
-            }
-            set {
-                if (ModelObject.valueChanged(_ProjectName, value)) {
-                    if (value != null && value.Length > 250) {
-                        throw new ModelObjectFieldTooLongException("ProjectName");
-                    }
-                    if (!this.IsObjectLoading) {
-                        this.isDirty = true;
-                        this.setFieldChanged(STR_FLD_PROJECTNAME);
-                    }
-                    this._ProjectName = value;
+		}
+		}
+	}
+	[DataMember]public virtual System.String PrProjectName{
+	get{
+		return _ProjectName;
+	}
+	set {
+		if (ModelObject.valueChanged(_ProjectName, value)){
+		if (value != null && value.Length > 250){
+			throw new ModelObjectFieldTooLongException("ProjectName");
+		}
+			if (!this.IsObjectLoading) {
+				this.isDirty = true;
+				this.setFieldChanged(STR_FLD_PROJECTNAME);
+			}
+		this._ProjectName=value;
 
-                }
-            }
-        }
-        [DataMember]
-        public virtual System.Boolean PrIsActive {
-            get {
-                return _IsActive;
-            }
-            set {
-                if (ModelObject.valueChanged(_IsActive, value)) {
-                    if (!this.IsObjectLoading) {
-                        this.isDirty = true;
-                        this.setFieldChanged(STR_FLD_ISACTIVE);
-                    }
-                    this._IsActive = value;
+		}
+		}
+	}
+	[DataMember]public virtual System.Boolean PrIsActive{
+	get{
+		return _IsActive;
+	}
+	set {
+		if (ModelObject.valueChanged(_IsActive, value)){
+			if (!this.IsObjectLoading) {
+				this.isDirty = true;
+				this.setFieldChanged(STR_FLD_ISACTIVE);
+			}
+		this._IsActive=value;
 
-                }
-            }
-        }
+		}
+		}
+	}
 
-        // ASSOCIATIONS GETTERS/SETTERS BELOW!
-        //associationChildManyCSharp.txt
-        #region "Association EmployeeProjects"
+		// ASSOCIATIONS GETTERS/SETTERS BELOW!
+		//associationChildManyCSharp.txt
+		#region "Association EmployeeProjects"
 
-        public bool EmployeeProjectsLoaded { get; private set; }
+		public bool EmployeeProjectsLoaded  {get; private set;}
 
-        public virtual CsModelObjects.EmployeeProject PrEmployeeProjectGetAt(int i) {
+		public virtual CsModelObjects.EmployeeProject PrEmployeeProjectGetAt( int i ) {
 
             this.loadEmployeeProjects();
-            if (this._EmployeeProjects.Count >= (i - 1)) {
+            if( this._EmployeeProjects.Count >= (i - 1)) {
                 return this._EmployeeProjects[i];
             }
             return null;
 
         } //End Function        
-
-        public virtual void PrEmployeeProjectAdd(CsModelObjects.EmployeeProject val) {
-            //1-Many , add a single item!
-            this.loadEmployeeProjects();
-            val.PrEPProjectId = this.PrProjectId;
-            //AddHandler this.IDChanged, AddressOf val.handleParentIdChanged;
-            this.IDChanged += val.handleParentIdChanged;
-            this._EmployeeProjects.Add(val);
+		
+		public virtual void PrEmployeeProjectAdd( CsModelObjects.EmployeeProject val )  {
+			//1-Many , add a single item!
+			this.loadEmployeeProjects();
+			val.PrEPProjectId = this.PrProjectId;
+			//AddHandler this.IDChanged, AddressOf val.handleParentIdChanged;
+			this.IDChanged += val.handleParentIdChanged;
+			this._EmployeeProjects.Add(val);
 
         }
 
-        public virtual void PrEmployeeProjectsClear() {
+		public virtual void PrEmployeeProjectsClear() {
 
             this.loadEmployeeProjects();
             this._deletedEmployeeProjects.AddRange(this._EmployeeProjects);
@@ -201,269 +199,274 @@ namespace CsModelObjects {
 
         }
 
-        public virtual void PrEmployeeProjectRemove(CsModelObjects.EmployeeProject val) {
+		public virtual void PrEmployeeProjectRemove( CsModelObjects.EmployeeProject val ) {
+			
+			this.loadEmployeeProjects();
+			this._deletedEmployeeProjects.Add(val);
+			this._EmployeeProjects.Remove(val);
 
-            this.loadEmployeeProjects();
-            this._deletedEmployeeProjects.Add(val);
-            this._EmployeeProjects.Remove(val);
+        }
+		
+		public virtual IEnumerable< CsModelObjects.EmployeeProject >PrEmployeeProjectsGetDeleted() {
+			
+			return this._deletedEmployeeProjects;
 
         }
 
-        public virtual IEnumerable<CsModelObjects.EmployeeProject> PrEmployeeProjectsGetDeleted() {
-
-            return this._deletedEmployeeProjects;
-
-        }
-
-        public virtual IEnumerable<CsModelObjects.EmployeeProject> PrEmployeeProjects {
+        public virtual IEnumerable< CsModelObjects.EmployeeProject > PrEmployeeProjects {
 
             get {
-                //'1 to many relation
+				//'1 to many relation
                 //'LAZY LOADING! Only hit the database to get the child object if we need it
-                if (this._EmployeeProjects == null) {
+                if ( this._EmployeeProjects == null ) {
                     this.loadEmployeeProjects();
-                }
-
+                } 
+				
                 return this._EmployeeProjects;
             }
-
-            set {
-                if (value == null) {
-                    this._EmployeeProjects = null;
+            
+			set {
+				if (value == null ) {
+					this._EmployeeProjects = null;
                 } else {
-                    this._EmployeeProjects = new List<CsModelObjects.EmployeeProject>();
+                    this._EmployeeProjects = new List< CsModelObjects.EmployeeProject >();
                     this.addToEmployeeProjectsList(value);
                 }
-            }
+			}
         }
 
-        /// <summary>
+		/// <summary>
         /// Private method to add to the EmployeeProjects List. 
-        /// The list must have aldready been initialized
+		/// The list must have aldready been initialized
         /// </summary>
-        private void addToEmployeeProjectsList(IEnumerable<CsModelObjects.EmployeeProject> value) {
+		private void addToEmployeeProjectsList( IEnumerable< CsModelObjects.EmployeeProject> value ) {
 
-            IEnumerator<CsModelObjects.EmployeeProject> enumtor = value.GetEnumerator();
-
-            while (enumtor.MoveNext()) {
+			IEnumerator< CsModelObjects.EmployeeProject> enumtor = value.GetEnumerator();
+        
+		    while (enumtor.MoveNext()) {
                 CsModelObjects.EmployeeProject v = enumtor.Current;
                 v.IDChanged += this.handleParentIdChanged;
                 this._EmployeeProjects.Add(v);
             }
 
         } //End Sub
-
+        
         /// <summary>
         /// Loads child objects from dabatabase, if not loaded already
         /// </summary>
         private void loadEmployeeProjects() {
+			
+			if (this.EmployeeProjectsLoaded)return;
+			//init list
+			this._EmployeeProjects = new List< CsModelObjects.EmployeeProject>();
 
-            if (this.EmployeeProjectsLoaded) return;
-            //init list
-            this._EmployeeProjects = new List<CsModelObjects.EmployeeProject>();
-
-            if (!this.isNew) {
-                this.addToEmployeeProjectsList(new CsModelMappers.EmployeeProjectDBMapper().findList("EPProjectId={0}", this.PrProjectId));
+			if (! this.isNew ) {
+                this.addToEmployeeProjectsList( new CsModelMappers.EmployeeProjectDBMapper().findList("EPProjectId={0}", this.PrProjectId));
             }
-
-            this.EmployeeProjectsLoaded = true;
-        }
-        #endregion
-
-
-        #endregion
-
-        #region "Getters/Setters of values by field index/name"
-        public override object getAttribute(int fieldKey) {
-
-            switch (fieldKey) {
-                case FLD_PROJECTID:
-                    return this.PrProjectId;
-                case FLD_PROJECTNAME:
-                    return this.PrProjectName;
-                case FLD_ISACTIVE:
-                    return this.PrIsActive;
-                default:
-                    return null;
-            } //end switch
-
-        }
-
-        public override object getAttribute(string fieldKey) {
-            fieldKey = fieldKey.ToLower();
-
-            if (fieldKey == STR_FLD_PROJECTID.ToLower()) {
-                return this.PrProjectId;
-            } else if (fieldKey == STR_FLD_PROJECTNAME.ToLower()) {
-                return this.PrProjectName;
-            } else if (fieldKey == STR_FLD_ISACTIVE.ToLower()) {
-                return this.PrIsActive;
-            } else {
-                return null;
-            }
-        }
-
-        public override void setAttribute(int fieldKey, object val) {
-            switch (fieldKey) {
-                case FLD_PROJECTID:
-                    if (val == DBNull.Value || val == null) {
-                        throw new ApplicationException("Can't set Primary Key to null");
-                    } else {
-                        this.PrProjectId = (System.Int64)val;
-                    } //
-                    return;
-                case FLD_PROJECTNAME:
-                    if (val == DBNull.Value || val == null) {
-                        this.PrProjectName = null;
-                    } else {
-                        this.PrProjectName = (System.String)val;
-                    } //
-                    return;
-                case FLD_ISACTIVE:
-                    if (val == DBNull.Value || val == null) {
-                        this.PrIsActive = false;
-                    } else {
-                        this.PrIsActive = (System.Boolean)val;
-                    } //
-                    return;
-                default:
-                    return;
-            }
-
-        }
-
-        public override void setAttribute(string fieldKey, object val) {
-            fieldKey = fieldKey.ToLower();
-            if (fieldKey == STR_FLD_PROJECTID.ToLower()) {
-                if (val == DBNull.Value || val == null) {
-                    throw new ApplicationException("Can't set Primary Key to null");
-                } else {
-                    this.PrProjectId = (System.Int64)val;
-                }
-                return;
-            } else if (fieldKey == STR_FLD_PROJECTNAME.ToLower()) {
-                if (val == DBNull.Value || val == null) {
-                    this.PrProjectName = null;
-                } else {
-                    this.PrProjectName = (System.String)val;
-                }
-                return;
-            } else if (fieldKey == STR_FLD_ISACTIVE.ToLower()) {
-                if (val == DBNull.Value || val == null) {
-                    this.PrIsActive = false;
-                } else {
-                    this.PrIsActive = (System.Boolean)val;
-                }
-                return;
-            }
-        }
-
-        #endregion
-        #region "Overrides of GetHashCode and Equals "
-        public bool Equals(ProjectBase other) {
-
-            //typesafe equals, checks for equality of fields
-            if (other == null)
-                return false;
-            if (object.ReferenceEquals(other, this))
-                return true;
-
-            return this.PrProjectId == other.PrProjectId
-                && this.PrProjectName == other.PrProjectName
-                && this.PrIsActive == other.PrIsActive; ;
-
-        }
-
-        public override int GetHashCode() {
-            //using Xor has the advantage of not overflowing the integer.
-            return this.PrProjectId.GetHashCode()
-                 ^ this.getStringHashCode(this.PrProjectName)
-                 ^ this.PrIsActive.GetHashCode(); ;
-
-        }
-
-        public override bool Equals(object Obj) {
-
-            if (Obj != null && Obj is ProjectBase) {
-
-                return this.Equals((ProjectBase)Obj);
-
-            } else {
-                return false;
-            }
-
-        }
-
-        public static bool operator ==(ProjectBase obj1, ProjectBase obj2) {
-            return object.Equals(obj1, obj2);
-        }
-
-        public static bool operator !=(ProjectBase obj1, ProjectBase obj2) {
-            return !(obj1 == obj2);
-        }
-
-        #endregion
-
-        #region "Copy and sort"
-
-        public override IModelObject copy() {
-            //creates a copy
-
-            //NOTE: we can't cast from ProjectBase to Project, so below we 
-            //instantiate a Project, NOT a ProjectBase object
-            Project ret = ProjectFactory.Create();
-
-            ret.PrProjectId = this.PrProjectId;
-            ret.PrProjectName = this.PrProjectName;
-            ret.PrIsActive = this.PrIsActive;
+            
+			this.EmployeeProjectsLoaded = true;
+        } 
+		#endregion
 
 
+		#endregion
 
-            return ret;
+		#region "Getters/Setters of values by field index/name"
+		public override object getAttribute(int fieldKey){
 
-        }
+		switch (fieldKey) {
+		case FLD_PROJECTID:
+			return this.PrProjectId;
+		case FLD_PROJECTNAME:
+			return this.PrProjectName;
+		case FLD_ISACTIVE:
+			return this.PrIsActive;
+		default:
+			return null;
+		} //end switch
 
-        #endregion
+		}
+
+		public override object getAttribute(string fieldKey) {
+			fieldKey = fieldKey.ToLower();
+
+		if (fieldKey==STR_FLD_PROJECTID.ToLower() ) {
+			return this.PrProjectId;
+		} else if (fieldKey==STR_FLD_PROJECTNAME.ToLower() ) {
+			return this.PrProjectName;
+		} else if (fieldKey==STR_FLD_ISACTIVE.ToLower() ) {
+			return this.PrIsActive;
+		} else {
+			return null;
+		}
+		}
+
+		public override void setAttribute(int fieldKey, object val){
+		switch (fieldKey) {
+		case FLD_PROJECTID:
+			if (val == DBNull.Value || val == null ){
+				throw new ApplicationException("Can't set Primary Key to null");
+			} else {
+				this.PrProjectId=(System.Int64)val;
+			} //
+			return;
+		case FLD_PROJECTNAME:
+			if (val == DBNull.Value || val == null ){
+				this.PrProjectName = null;
+			} else {
+				this.PrProjectName=(System.String)val;
+			} //
+			return;
+		case FLD_ISACTIVE:
+			if (val == DBNull.Value || val == null ){
+				this.PrIsActive = false;
+			} else {
+				this.PrIsActive=(System.Boolean)val;
+			} //
+			return;
+		default:
+			return;
+		}
+
+		}
+
+		public override void setAttribute(string fieldKey, object val) {
+			fieldKey = fieldKey.ToLower();
+		if ( fieldKey==STR_FLD_PROJECTID.ToLower()){
+			if (val == DBNull.Value || val ==null ){
+				throw new ApplicationException("Can't set Primary Key to null");
+			} else {
+				this.PrProjectId=(System.Int64)val;
+			}
+			return;
+		} else if ( fieldKey==STR_FLD_PROJECTNAME.ToLower()){
+			if (val == DBNull.Value || val ==null ){
+				this.PrProjectName = null;
+			} else {
+				this.PrProjectName=(System.String)val;
+			}
+			return;
+		} else if ( fieldKey==STR_FLD_ISACTIVE.ToLower()){
+			if (val == DBNull.Value || val ==null ){
+				this.PrIsActive = false;
+			} else {
+				this.PrIsActive=(System.Boolean)val;
+			}
+			return;
+		}
+		}
+
+		#endregion
+		#region "Overrides of GetHashCode and Equals "
+		public bool Equals(ProjectBase other)
+		{
+
+			//typesafe equals, checks for equality of fields
+			if (other == null)
+				return false;
+			if (object.ReferenceEquals(other, this))
+				return true;
+
+			return this.PrProjectId == other.PrProjectId
+				&& this.PrProjectName == other.PrProjectName
+				&& this.PrIsActive == other.PrIsActive;;
+
+		}
+
+		public override int GetHashCode()
+		{
+			//using Xor has the advantage of not overflowing the integer.
+			return this.PrProjectId.GetHashCode()
+				 ^ this.getStringHashCode(this.PrProjectName)
+				 ^ this.PrIsActive.GetHashCode();;
+
+		}
+
+		public override bool Equals(object Obj) {
+
+			if (Obj != null && Obj is ProjectBase) {
+
+				return this.Equals((ProjectBase)Obj);
+
+			} else {
+				return false;
+			}
+
+		}
+
+		public static bool operator ==(ProjectBase obj1, ProjectBase obj2)
+		{
+			return object.Equals(obj1, obj2);
+		}
+
+		public static bool operator !=(ProjectBase obj1, ProjectBase obj2)
+		{
+			return !(obj1 == obj2);
+		}
+
+		#endregion
+
+		#region "Copy and sort"
+
+		public override IModelObject copy()
+		{
+			//creates a copy
+
+			//NOTE: we can't cast from ProjectBase to Project, so below we 
+			//instantiate a Project, NOT a ProjectBase object
+			Project ret = new Project();
+
+		ret.PrProjectId = this.PrProjectId;
+		ret.PrProjectName = this.PrProjectName;
+		ret.PrIsActive = this.PrIsActive;
 
 
 
+			return ret;
 
-        #region "ID Property"
+		}
 
-        [DataMember]
-        public override object Id {
-            get { return this._ProjectId; }
-            set {
-                this._ProjectId = Convert.ToInt64(value);
-                this.raiseBroadcastIdChange();
-            }
-        }
-        #endregion
-
-        #region "Extra Code"
-
-        #endregion
-
-    }
-
-    #region "Req Fields validator"
-    [System.Runtime.InteropServices.ComVisible(false)]
-    public class ProjectRequiredFieldsValidator : IModelObjectValidator {
+		#endregion
 
 
-        public void validate(org.model.lib.Model.IModelObject imo) {
-            Project mo = (Project)imo;
-            if (string.IsNullOrEmpty(mo.PrProjectName)) {
-                throw new ModelObjectRequiredFieldException("ProjectName");
-            }
-            if (mo.PrIsActive == null) {
-                throw new ModelObjectRequiredFieldException("IsActive");
-            }
 
-        }
 
-    }
-    #endregion
+		#region "ID Property"
+
+		[DataMember]public override object Id {
+			get { return this._ProjectId; }
+			set {
+				this._ProjectId = Convert.ToInt64(value);
+				this.raiseBroadcastIdChange();
+			}
+		}
+		#endregion
+
+		#region "Extra Code"
+
+		#endregion
+
+	}
+
+	#region "Req Fields validator"
+	[System.Runtime.InteropServices.ComVisible(false)]
+	public class ProjectRequiredFieldsValidator : IModelObjectValidator
+	{
+
+
+		public void validate(org.model.lib.Model.IModelObject imo) {
+			Project mo = (Project)imo;
+if (string.IsNullOrEmpty( mo.PrProjectName)) {
+		throw new ModelObjectRequiredFieldException("ProjectName");
+}
+if (mo.PrIsActive == null ) {
+		throw new ModelObjectRequiredFieldException("IsActive");
+}
+
+		}
+
+	}
+	#endregion
 
 }
 

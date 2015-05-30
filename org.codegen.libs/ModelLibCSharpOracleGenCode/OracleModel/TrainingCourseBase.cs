@@ -303,7 +303,7 @@ namespace OracleModel {
 
 			//NOTE: we can't cast from TrainingCourseBase to TrainingCourse, so below we 
 			//instantiate a TrainingCourse, NOT a TrainingCourseBase object
-			TrainingCourse ret = TrainingCourseFactory.Create();
+			TrainingCourse ret = new TrainingCourse();
 
 		ret.PrCODE = this.PrCODE;
 		ret.PrDescrGr = this.PrDescrGr;

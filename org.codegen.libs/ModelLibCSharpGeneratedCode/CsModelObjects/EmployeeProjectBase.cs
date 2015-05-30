@@ -471,7 +471,7 @@ namespace CsModelObjects {
 
 			//NOTE: we can't cast from EmployeeProjectBase to EmployeeProject, so below we 
 			//instantiate a EmployeeProject, NOT a EmployeeProjectBase object
-			EmployeeProject ret = EmployeeProjectFactory.Create();
+			EmployeeProject ret = new EmployeeProject();
 
 		ret.PrEmployeeProjectId = this.PrEmployeeProjectId;
 		ret.PrEPEmployeeId = this.PrEPEmployeeId;

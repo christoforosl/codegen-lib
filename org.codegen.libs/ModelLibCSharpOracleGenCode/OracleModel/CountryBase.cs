@@ -417,7 +417,7 @@ namespace OracleModel {
 
 			//NOTE: we can't cast from CountryBase to Country, so below we 
 			//instantiate a Country, NOT a CountryBase object
-			Country ret = CountryFactory.Create();
+			Country ret = new Country();
 
 		ret.PrCountryId = this.PrCountryId;
 		ret.PrCountryName = this.PrCountryName;

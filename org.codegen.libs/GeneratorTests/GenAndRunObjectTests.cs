@@ -23,7 +23,7 @@ namespace GeneratorTests {
 	public class GenAndRunObjectTests {
 
         [TestMethod]
-        public void runObjectTests() {
+        public void generateAndRunVBObjectTests() {
             
             DirectoryInfo d = new DirectoryInfo("..\\..\\..\\");
 
@@ -49,7 +49,7 @@ namespace GeneratorTests {
 			readText = readText.Replace("public static void MyClassInitialize(TestContext testContext)", "public static void MyClassInitialize()");
 			readText = readText.Replace("[ClassInitialize()]", "[NUnit.Framework.SetUp]");
 			readText = readText.Replace("[ClassCleanup()]", "[NUnit.Framework.TearDown]");
-
+            readText = readText.Replace("//NUnit.Framework.NUnit.Framework.Assert.IsTrue(false)", "NUnit.Framework.Assert.IsTrue(false);");
             readText = readText.Replace("//DBUtils.Current().ConnString=",
                     "org.model.lib.db.DBUtils.Current().ConnString=\"" + DBUtils.Current().ConnString.Replace("\\", "\\\\") + "\";");
 
@@ -78,14 +78,15 @@ namespace GeneratorTests {
 			Assert.AreEqual(0, results.Errors.Count,"There should be no compilation errors");
 
 			CoreExtensions.Host.InitializeService();
-			TestPackage testPackage = new TestPackage(results.CompiledAssembly.Location);
-			testPackage.BasePath = Path.GetDirectoryName(results.CompiledAssembly.Location);
-			TestSuiteBuilder builder = new TestSuiteBuilder();
-			TestSuite suite = builder.Build(testPackage);
-			TestResult result = suite.Run(new NullListener(), TestFilter.Empty);
-			Console.WriteLine("has results? " + result.HasResults);
-			Console.WriteLine("results count: " + result.Results.Count);
-			Console.WriteLine("success? " + result.IsSuccess);
+            TestPackage package = new TestPackage(results.CompiledAssembly.Location);
+            RemoteTestRunner remoteTestRunner = new RemoteTestRunner();
+            remoteTestRunner.Load(package);
+            TestResult result = remoteTestRunner.Run(new NullListener(),
+                                    TestFilter.Empty, false, LoggingThreshold.All);
+
+			Assert.IsTrue(result.HasResults," must have test results " );
+			
+			Assert.IsTrue(result.IsSuccess,"dynamic vb tests must return success " );
 
 
         }

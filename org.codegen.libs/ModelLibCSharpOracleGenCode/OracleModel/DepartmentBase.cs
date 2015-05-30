@@ -27,7 +27,7 @@ namespace OracleModel {
 	
 	[DataContract]
 	[DefaultMapperAttr(typeof(OracleMappers.DepartmentDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class DepartmentBase : ModelObject, IEquatable<DepartmentBase>, IAuditable {
+	public class DepartmentBase : ModelObject, IEquatable<DepartmentBase> ,IAuditable {
 
 		#region "Constructor"
 
@@ -493,7 +493,7 @@ namespace OracleModel {
 
 			//NOTE: we can't cast from DepartmentBase to Department, so below we 
 			//instantiate a Department, NOT a DepartmentBase object
-			Department ret = DepartmentFactory.Create();
+			Department ret = new Department();
 
 		ret.PrDepartmentId = this.PrDepartmentId;
 		ret.PrDepartmentName = this.PrDepartmentName;

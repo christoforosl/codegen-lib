@@ -262,7 +262,7 @@ namespace CsModelObjects {
 
 			//NOTE: we can't cast from EmployeeTypeBase to EmployeeType, so below we 
 			//instantiate a EmployeeType, NOT a EmployeeTypeBase object
-			EmployeeType ret = EmployeeTypeFactory.Create();
+			EmployeeType ret = new EmployeeType();
 
 		ret.PrEmployeeTypeCode = this.PrEmployeeTypeCode;
 		ret.PrEmployeeType = this.PrEmployeeType;

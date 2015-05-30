@@ -127,7 +127,7 @@ namespace <DBMAPPER_NAMESPACE> {
 
 		public override IModelObject getModelInstance()
 		{
-			return <MODEL_CLASS_NAME>Factory.Create();
+			return new <MODEL_CLASS_NAME>();
 		}
 
 	}
@@ -242,7 +242,7 @@ namespace <DBMAPPER_NAMESPACE> {
 
 		public static void save<MODEL_CLASS_NAME>(DataRow dr, ref <MODEL_CLASS_NAME> mo) {
 			if (mo == null) {
-				mo = <MODEL_CLASS_NAME>Factory.Create();
+				mo = new <MODEL_CLASS_NAME>();
 			}
 
 			foreach (DataColumn dc in dr.Table.Columns) {
@@ -263,7 +263,7 @@ namespace <DBMAPPER_NAMESPACE> {
 		public static <MODEL_CLASS_NAME> loadFromDataRow(DataRow r) {
 
 			DataRowLoader a = new DataRowLoader();
-			IModelObject mo = <MODEL_CLASS_NAME>Factory.Create();
+			IModelObject mo = new <MODEL_CLASS_NAME>();
 			a.DataSource = r;
 			a.load(mo);
 			return (<MODEL_CLASS_NAME>)mo;

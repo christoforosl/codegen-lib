@@ -27,7 +27,7 @@ namespace CsModelObjects {
 	
 	[DataContract]
 	[DefaultMapperAttr(typeof(CsModelMappers.EmployeeDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class EmployeeBase : ModelObject, IEquatable<EmployeeBase>, IAuditable,System.IComparable< Employee> {
+	public class EmployeeBase : ModelObject, IEquatable<EmployeeBase> ,IAuditable,System.IComparable< Employee> {
 
 		#region "Constructor"
 
@@ -1264,7 +1264,7 @@ namespace CsModelObjects {
 
 			//NOTE: we can't cast from EmployeeBase to Employee, so below we 
 			//instantiate a Employee, NOT a EmployeeBase object
-			Employee ret = EmployeeFactory.Create();
+			Employee ret = new Employee();
 
 		ret.PrEmployeeId = this.PrEmployeeId;
 		ret.PrEmployeeName = this.PrEmployeeName;

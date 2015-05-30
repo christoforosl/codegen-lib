@@ -581,7 +581,7 @@ namespace OracleModel {
 
 			//NOTE: we can't cast from LocationBase to Location, so below we 
 			//instantiate a Location, NOT a LocationBase object
-			Location ret = LocationFactory.Create();
+			Location ret = new Location();
 
 		ret.PrLocationId = this.PrLocationId;
 		ret.PrStreetAddress = this.PrStreetAddress;

@@ -152,7 +152,7 @@ ComVisible(False),Serializable(), System.ComponentModel.EditorBrowsable(System.C
 		
 		'NOTE: we can't cast from <MODEL_CLASS_NAME>Base to <MODEL_CLASS_NAME>, so below we 
         'instantiate a <MODEL_CLASS_NAME>, NOT a <MODEL_CLASS_NAME>Base object
-        Dim ret as <MODEL_CLASS_NAME> = <MODEL_CLASS_NAME>Factory.Create()
+        Dim ret as <MODEL_CLASS_NAME> =  new <MODEL_CLASS_NAME>()
             
 		<COPY_FIELDS>
 		
