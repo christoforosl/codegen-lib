@@ -12,7 +12,20 @@ using System.Threading;
 using System.Globalization;
 
 namespace GeneratorTests.VB {
-	
+
+
+    [NUnit.Framework.TestFixture]
+    public class DBUtilsTests {
+
+        [NUnit.Framework.Test]
+        public void testParams() {
+
+            EmployeeDataUtils.findList("where Telephone={0} and Telephone={1}", "X", "Y");
+
+        }
+
+    }
+
 	/// <summary>
 	/// Test validator functionality. Code below will execute before saving 
 	/// the object
@@ -175,7 +188,6 @@ namespace GeneratorTests.VB {
 				NUnit.Framework.Assert.IsNotNull(et2, "New employeetype must have been created!");
 				et1 = EmployeeTypeDataUtils.findByKey("XX1");
 				NUnit.Framework.Assert.IsNotNull(et1, "New employeetype must have been created!");
-                
 
 			} finally {
 				ModelContext.rollbackTrans();
