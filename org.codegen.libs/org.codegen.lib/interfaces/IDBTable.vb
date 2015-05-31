@@ -44,8 +44,7 @@ Public Interface IDBTable
     Property Associations() As List(Of IAssociation)
 
     Property PrimaryKeyFieldName() As String
-    ReadOnly Property quotedTableName() As String
-    ReadOnly Property quotedSelectObject() As String
+    Function quotedTableName() As String
 
     Function getPrimaryKeyName() As String
     Function getPrimaryKeyField() As IDBField

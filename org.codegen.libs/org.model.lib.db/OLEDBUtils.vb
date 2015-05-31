@@ -11,15 +11,7 @@ Imports Microsoft.VisualBasic
 Public Class OLEDBUtils
     Inherits DBUtils
 
-    Public Overrides Function quoteObjectName(ByVal objName As String) As String
-        If Me.sqldialect = enumSqlDialect.ORACLE Then
-            Return """" & objName.Trim & """"
-        Else
-            Return "[" & objName.Trim & "]"
-        End If
-
-
-    End Function
+  
 
     Public Overrides Function fillTypedDataSet(ByVal ds As DataSet, _
                                                   ByVal tablename As String, _

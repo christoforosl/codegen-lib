@@ -302,20 +302,7 @@ Public Class DBTable
     Public Property PrimaryKeyFieldName() As String Implements IDBTable.PrimaryKeyFieldName
 
 
-    Public ReadOnly Property quotedTableName() As String Implements IDBTable.quotedTableName
-
-        Get
-            Return ModelGenerator.Current.dbConn.quoteObjectName(_TableName)
-        End Get
-
-    End Property
-    Public ReadOnly Property quotedSelectObject() As String Implements IDBTable.quotedSelectObject
-
-        Get
-            Return ModelGenerator.Current.dbConn.quoteObjectName(_selectObject)
-        End Get
-
-    End Property
+    
 
     Public Overridable Function getPrimaryKeyName() As String Implements IDBTable.getPrimaryKeyName
 
@@ -496,5 +483,18 @@ Public Class DBTable
         End If
         Return String.Empty
     End Function
+
+
+    Public Function quotedTableName() As String Implements IDBTable.quotedTableName
+
+        If DBUtils.Current.sqldialect = DBUtils.enumSqlDialect.ORACLE Then
+            Return """" & Me.TableName.Trim & """"
+        Else
+            Return "[" & Me.TableName.Trim & "]"
+        End If
+
+
+    End Function
+
 
 End Class

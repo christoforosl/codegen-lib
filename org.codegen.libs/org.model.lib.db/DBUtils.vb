@@ -1,6 +1,7 @@
 Option Strict On
 
 Imports System.IO
+Imports System.Runtime.CompilerServices
 
 ''' <summary>
 ''' Database Utility class to fascilitate sql statements execution
@@ -31,7 +32,7 @@ Public MustInherit Class DBUtils
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public Shared Function Current() As DBUtils
-        
+
         Return dbProvider.getDBUtils
 
     End Function
@@ -75,6 +76,7 @@ Public MustInherit Class DBUtils
 
 #End Region
 
+#Region "enums"
 
     ''' <summary>
     ''' Connection types
@@ -98,7 +100,12 @@ Public MustInherit Class DBUtils
         COMMON = 5
     End Enum
 
-#Region "Declarations"
+#End Region
+
+#Region "field Declarations"
+
+    Protected Shared stmtCache As ConditionalWeakTable(Of String, String) = New ConditionalWeakTable(Of String, String)
+
     Protected p_connstring As String
     Protected p_conntype As enumConnType
     Protected p_string_quote_prefix As String
@@ -380,173 +387,7 @@ Public MustInherit Class DBUtils
 
 #End Region
 
-#Region "Quotes"
-
-    ''' <summary>
-    ''' Escapes an object name in case it is a reserved word.  For example, it will return [User] for object named "User" for MSSQL database
-    ''' </summary>
-    ''' <param name="objName"></param>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public MustOverride Function quoteObjectName(ByVal objName As String) As String
-
-    ''' <summary>
-    ''' Encloses a value in single quotes.  Any quotes in the string are escaped.
-    ''' <example>
-    ''' <code lang="vbnet">
-    ''' Dim dbconn as DBUtilsBase = DBUtilsBase.getDBUtilsFromConfig()
-    ''' Dim someVal as String = "o'neil"
-    ''' Dim sQuoted as String = dbconn.quote(someVal)
-    ''' </code>
-    ''' In the above, sQuoted value is <b>'o''neil'</b>
-    ''' </example>
-    ''' </summary>
-    ''' <param name="qtStr"></param>
-    ''' <returns>qtStr enclosed in single quotes.  If qtStr is IsDBNull or Nothing, it return the literal <b>NULL</b></returns>
-    ''' <remarks></remarks>
-    Public Function quote(ByVal qtStr As Object) As String
-
-        If IsDBNull(qtStr) OrElse qtStr Is Nothing Then
-            Return "NULL"
-        Else
-            Return p_string_quote_prefix & "'" & Replace(CStr(qtStr), "'", "''") & "'"
-        End If
-
-    End Function
-    ''' <summary>
-    ''' Quotes an object value as a LIKE string to be added to an sql statement.
-    ''' The like character (%) is appended at <b>the end</b> of the string
-    ''' <example>
-    ''' <code lang="vbnet">
-    ''' Dim dbconn as DBUtilsBase = DBUtilsBase.getDBUtilsFromConfig()
-    ''' Dim someVal as String = "o'neil"
-    ''' Dim sQuoted as String = dbconn.quoteLIKE(someVal)
-    ''' </code>
-    ''' </example>
-    ''' In the above, sQuoted value is <b>'o''neil%'</b>
-    ''' </summary>
-    ''' <param name="dt"></param>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public Function quoteLIKE(ByVal dt As String) As String
-
-        quoteLIKE = p_string_quote_prefix & "'" & Replace(dt, "'", "''") & p_like_char & "'"
-
-    End Function
-
-    ''' <summary>
-    ''' Quotes an object value as a DateTime string to be added to an sql statement
-    ''' For Oracle, the value returned is enclosed in the TO_DATE function.
-    ''' For MSSQL, the value is encloded in quotes, and the months are inserted by name to avoid 
-    ''' confusion due to date formats
-    ''' <example>
-    ''' <code lang="vbnet">
-    ''' Dim dbconn as DBUtilsBase = DBUtilsBase.getDBUtilsFromConfig()
-    ''' Dim someVal as Date = #1/2/1980 12:56 AM#
-    ''' Dim sQuoted as string = dbutils.quoteDateTime(someVal)
-    ''' </code>
-    ''' For MSSQL dialect BUtils, the above sQuoted value is <b>'1-Feb-1980 12:56:00 AM</b>
-    ''' For Oracle dialect DBUtils, the above sQuoted value is <b>to_date('1-2-1980 12:56:00 AM','DD-MM-YYYY HH24:MI:SS')</b>
-    ''' </example>
-    ''' </summary>
-    ''' <param name="dt"></param>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Private Function quoteDateTime(ByVal dt As Date) As String
-
-        If Me.sqldialect = enumSqlDialect.ORACLE Then
-            quoteDateTime = String.Format(p_date_pattern, _
-                    Format(dt, "dd-MM-yyyy") & " " & _
-                    Format(dt, "HH:mm:ss"))
-
-        Else
-
-            quoteDateTime = String.Format(p_date_pattern, _
-                        Day(dt) & "-" & p_monthNames(Month(dt)) & "-" & Year(dt) & " " & _
-                        Format(dt, "HH:mm:ss"))
-
-        End If
-
-
-    End Function
-
-
-    ''' <summary>
-    ''' Quotes an object value as a DateTime string to be added to an sql statement.  The fucntion first checks if <paramref>indt</paramref>
-    ''' can be converted to a date.  If not, the literal value of <b>NULL</b> is returned, else
-    ''' it behaves like <b>quoteDateTime(ByVal dt As Date)</b>
-    ''' <seealso cref="DBUtils.quoteDateTime"></seealso>
-    ''' </summary>
-    ''' <param name="indt">some Object value</param>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public Function quoteDateTime(ByVal indt As Object) As String
-        Dim dt As Date
-        If IsDate(indt) Then
-            dt = CDate(indt)
-            Return quoteDateTime(dt)
-        Else
-            Return "null"
-        End If
-
-    End Function
-
-    ''' <summary>
-    ''' Quotes an object value for an sql statement.  The function first checks if <paramref>odt</paramref>
-    ''' can be converted to a date.  If not, the literal value of <b>NULL</b> is returned, else
-    ''' it behaves like <b>quoteDate(ByVal dt As Date)</b>
-    ''' </summary>
-    ''' <param name="odt">some Object value</param>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public Function quoteDate(ByVal odt As Object) As String
-
-        Dim dt As Date
-        If IsDate(odt) Then
-            dt = CDate(odt)
-            Return quoteDate(dt)
-        Else
-            Return "null"
-        End If
-
-    End Function
-
-    ''' <summary>
-    ''' Quotes an object value for an sql statement.  The function first checks if <paramref>odt</paramref>
-    ''' can be converted to a date.  If not, the literal value of <b>NULL</b> is returned, else
-    ''' it behaves like <b>quoteDate(ByVal dt As Date)</b>
-    ''' </summary>
-    ''' <param name="dt"></param>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Private Function quoteDate(ByVal dt As Date) As String
-
-
-        If Me.ConnType = enumConnType.CONN_ORACLE Then
-            Return String.Format(p_date_pattern, _
-                    Format(dt, "dd-MM-yyyy"))
-
-        Else
-            Return String.Format(p_date_pattern, Format(Day(dt), "00") & " " & _
-                                                        p_monthNames(Month(dt)) & _
-                                                        " " & Year(dt))
-        End If
-
-    End Function
-#End Region
-
 #Region "Utility Functions"
-
-    Public ReadOnly Property dbUpper(ByVal f As String) As String
-        Get
-            If Me.sqldialect = enumSqlDialect.JET Then
-                Return "ucase(" & f & ")"
-            Else
-                Return "UPPER(" & f & ")"
-            End If
-        End Get
-    End Property
-
 
     Public MustOverride Function getAdapter(ByVal sql As String) As IDbDataAdapter
     Public MustOverride Function fillTypedDataSet(ByVal ds As DataSet, ByVal tablename As String, ByVal sql As String) As DataSet
@@ -578,18 +419,53 @@ Public MustInherit Class DBUtils
 
     End Function
 
-    Protected Overridable Function replaceParameterPlaceHolders(ByRef sql As String, ByVal numparams As Integer) As String
+    Private Const QMARK As String = "?"
 
-        For i As Integer = 0 To numparams
-            sql = sql.Replace("{" & i & "}", Me.paramPrefix & i)
-        Next
-        Return sql
+    ''' <summary>
+    ''' Support for positional placeholders in sql server.
+    ''' By default, the sql server driver supprorts only **named** parameters
+    ''' </summary>
+    ''' <param name="sql">SQL to execute.  Symbols ? and {i} are supported</param>
+    ''' <param name="params">Paraneters of sql</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Overridable Function replaceParameterPlaceHolders(ByVal sql As String, ByVal ParamArray params() As Object) As String
+
+        Dim ret As String = String.Empty
+
+        stmtCache.TryGetValue(sql, ret)
+        If ret IsNot Nothing Then
+            Return ret
+        End If
+
+        If sql.IndexOf(QMARK) >= 0 Then
+
+            Dim c As String() = sql.Split(CChar(QMARK))
+            For i As Integer = 0 To c.Length - 1
+
+                ret &= c(i)
+
+                If i < c.Length - 1 Then
+                    ret &= Me.paramPrefix & i
+                End If
+            Next
+
+
+        Else
+            ret = sql
+            For i As Integer = 0 To params.Length - 1
+                ret = ret.Replace("{" & i & "}", Me.paramPrefix & i)
+            Next
+
+        End If
+
+        stmtCache.Add(sql, ret)
+        Return ret
 
     End Function
 
     Public Function getDataSetWithParams(ByVal sql As String, ByVal ParamArray params() As IDataParameter) As DataSet
         Dim ds As New DataSet
-
 
         Try
 
@@ -648,8 +524,8 @@ Public MustInherit Class DBUtils
         End Try
 
         Return ds
-
     End Function
+
 
 
     ''' <summary>
@@ -1153,7 +1029,7 @@ Public MustInherit Class DBUtils
     End Sub
 
 
-   
+
     ''' <summary>
     ''' Executes an sql statement of type UPDATE, INSERT or DELETE, but allows for paramerized sql
     ''' </summary>
@@ -1163,7 +1039,7 @@ Public MustInherit Class DBUtils
     Public Sub executeSQLWithParams(ByVal sql As String, ByVal ParamArray params() As Object)
 
         Dim icomm As IDbCommand = Me.Connection.CreateCommand()
-        icomm.CommandText = replaceParameterPlaceholders(sql, params.Length - 1)
+        icomm.CommandText = replaceParameterPlaceHolders(sql, params)
         icomm.Transaction = Me.Transaction
         icomm.CommandType = CommandType.Text
         Me.setParamValues(icomm, params)
@@ -1354,7 +1230,6 @@ Public MustInherit Class DBUtils
             If Not icomm Is Nothing Then
                 icomm.Dispose()
             End If
-            'Me.closeConnection()
 
         End Try
 
@@ -1375,13 +1250,13 @@ Public MustInherit Class DBUtils
         Dim rs As IDataReader
         Dim icomm As IDbCommand = Me.Connection.CreateCommand()
 
-        sql = replaceParameterPlaceHolders(sql, params.Length - 1)
+        sql = replaceParameterPlaceHolders(sql, params)
 
         icomm.CommandText = sql
         icomm.Transaction = Me.Transaction
         icomm.CommandType = CommandType.Text
 
-       
+
         setParamValues(icomm, params)
         Try
             rs = icomm.ExecuteReader

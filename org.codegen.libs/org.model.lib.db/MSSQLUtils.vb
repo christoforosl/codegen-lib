@@ -118,7 +118,5 @@ Public Class MSSQLUtils
 
     End Function
 
-    Public Overrides Function quoteObjectName(ByVal objName As String) As String
-        Return "[" & objName.Trim & "]"
-    End Function
+    
 End Class
