@@ -6,8 +6,9 @@ Partial Class frmMain
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
-            If disposing AndAlso components IsNot Nothing Then
-                components.Dispose()
+            If disposing Then
+                If components IsNot Nothing Then components.Dispose()
+                If Me.writer IsNot Nothing Then Me.writer.Dispose()
             End If
         Finally
             MyBase.Dispose(disposing)

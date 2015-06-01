@@ -8,159 +8,200 @@ Imports System.Reflection
 Imports System.Threading
 
 Public Class DBMapperStatementsFile
+    Implements IDisposable
 
-	Private domDs As DataSet
-	Private dv As DataView
-	'Private _sqlStream As Stream
-	'   Private _stmtsFile As String
+    Public Enum StmtType
+        selectall
+        update
+        delete
+        insert
+    End Enum
 
-	Private Const CONFIG_SQL_DIALECT As String = "sqlDialect"
-	Private Const CONFIG_SQL_STMTS_FILE As String = "sqlStatementFile"
+    Private domDs As DataSet
+    Private dv As DataView
+    'Private _sqlStream As Stream
+    '   Private _stmtsFile As String
 
-	Public Shared Function getStmtsFromResource(ByVal resourceName As String) As DBMapperStatementsFile
+    Private Const CONFIG_SQL_DIALECT As String = "sqlDialect"
+    Private Const CONFIG_SQL_STMTS_FILE As String = "sqlStatementFile"
 
-		Dim loadAsembly As Assembly = Assembly.GetExecutingAssembly
-		Return getStmtsFromResource(loadAsembly, resourceName)
+    Public Shared Function getStmtsFromResource(ByVal resourceName As String) As DBMapperStatementsFile
 
-	End Function
+        Dim loadAsembly As Assembly = Assembly.GetExecutingAssembly
+        Return getStmtsFromResource(loadAsembly, resourceName)
 
-	Public Shared Function getStmtsForMapper(ByVal dbmapper As System.Type) As DBMapperStatementsFile
+    End Function
 
-
-		Dim loadAsembly As Assembly = Assembly.GetAssembly(dbmapper)
-		Dim resourceName As String = dbmapper.FullName
-		Return getStmtsFromResource(loadAsembly, resourceName)
-
-	End Function
-
-	Public Shared Function getStmtsFromResource(loadAsembly As Assembly, resourceName As String) As DBMapperStatementsFile
-		Dim cSQLStmts As New DBMapperStatementsFile
-		Using sqlStream As Stream = loadAsembly.GetManifestResourceStream(resourceName)
-
-			If sqlStream Is Nothing = True Then
-				Throw New ApplicationException("Could not load SQL Statements from " & resourceName & _
-				 ". Make sure that the file is marked as Embedded Resource")
-			End If
-
-			cSQLStmts.loadStatements(sqlStream)
-
-		End Using
-
-		Return cSQLStmts
-
-	End Function
+    Public Shared Function getStmtsForMapper(ByVal dbmapper As System.Type) As DBMapperStatementsFile
 
 
-	Private Sub New()
+        Dim loadAsembly As Assembly = Assembly.GetAssembly(dbmapper)
+        Dim resourceName As String = dbmapper.FullName
+        Return getStmtsFromResource(loadAsembly, resourceName)
 
-	End Sub
+    End Function
 
-	Private Sub loadStatements(_sqlStream As Stream)
+    Public Shared Function getStmtsFromResource(loadAsembly As Assembly, resourceName As String) As DBMapperStatementsFile
+        Dim cSQLStmts As New DBMapperStatementsFile
+        Using sqlStream As Stream = loadAsembly.GetManifestResourceStream(resourceName)
 
-		If _sqlStream Is Nothing = False Then
-			_sqlStream.Position = 0	'rewind the stream!!
-		End If
+            If sqlStream Is Nothing = True Then
+                Throw New ApplicationException("Could not load SQL Statements from " & resourceName & _
+                 ". Make sure that the file is marked as Embedded Resource")
+            End If
 
-		domDs = New DataSet
-		domDs.ReadXml(_sqlStream)
+            cSQLStmts.loadStatements(sqlStream)
 
-		If domDs.Tables(0).Columns(1).ColumnName = "mssql" Then
-			'old schema, must change to new!
-			domDs.Tables(0).Columns(1).ColumnName = DBUtils.enumSqlDialect.MSSQL.ToString
-			domDs.Tables(0).Columns(2).ColumnName = DBUtils.enumSqlDialect.ORACLE.ToString
-			domDs.Tables(0).Columns(3).ColumnName = DBUtils.enumSqlDialect.JET.ToString
-		End If
-		'If domDs.Tables(0).Columns(2).ColumnName = DBUtilsBase.enumSqlDialect.ORACLE.ToString Then
-		'    domDs.Tables(0).Columns.Remove(domDs.Tables(0).Columns(2))
-		'End If
-		Dim keys(0) As DataColumn
-		keys(0) = domDs.Tables(0).Columns(0)
-		dv = domDs.Tables(0).DefaultView
-		dv.Sort = domDs.Tables(0).Columns(0).ColumnName
+        End Using
 
-	End Sub
+        Return cSQLStmts
 
-	Public Function getStatement(ByVal key As String, ByVal dialect As DBUtils.enumSqlDialect, ByVal ParamArray params() As String) As String
-
-		Dim i As Integer
-		Dim stm As String
-
-		stm = String.Empty
-
-		i = Me.dv.Find(key)
-		If i > -1 Then
-			stm = NullChecker.strNull(Me.dv.Item(i).Item(dialect.ToString))
-			If stm Is Nothing OrElse stm = String.Empty Then
-				stm = NullChecker.strNull(Me.dv.Item(i).Item(DBUtils.enumSqlDialect.COMMON))
-			End If
-
-			If stm = String.Empty Then
-				Throw New ApplicationException("Statement Key:" & key & " not found")
-			End If
-
-			If params Is Nothing OrElse params.Length = 0 Then
-				'just return the stmmt
-			Else
-				stm = String.Format(stm, params)
-			End If
-
-			If stm.IndexOf(" ") = -1 Then 'single word, assume table name
-				stm = "select * from " & stm
-			End If
-		End If
-		Return stm
-
-	End Function
-
-	Public Sub setStatement(ByVal skey As String, _
-	   ByVal stnt As String, _
-	   Optional ByVal isqlDialect As DBUtils.enumSqlDialect = DBUtils.enumSqlDialect.COMMON)
-
-		Dim i As Integer
-		Dim stm As String
-
-		stm = String.Empty
-
-		i = Me.dv.Find(skey)
-		If i > -1 Then
-			Me.dv.Item(i).Item(isqlDialect.ToString) = stnt
-		Else
-			Dim dr As DataRow = Me.domDs.Tables(0).NewRow
-			dr("key") = skey
-			dr(isqlDialect.ToString) = stnt
-			Me.domDs.Tables(0).Rows.Add(dr)
-		End If
-
-		Me.domDs.AcceptChanges()
+    End Function
 
 
-	End Sub
+    Private Sub New()
 
-	Public Function getXML() As String
+    End Sub
 
-		Me.domDs.DataSetName = "SQLStatements"
-		Me.domDs.AcceptChanges()
-		Return Me.domDs.GetXml()
+    Private Sub loadStatements(_sqlStream As Stream)
 
-	End Function
+        If _sqlStream Is Nothing = False Then
+            _sqlStream.Position = 0 'rewind the stream!!
+        End If
 
-	'Public Sub writeXML()
+        domDs = New DataSet
+        domDs.ReadXml(_sqlStream)
 
-	'    Me.domDs.DataSetName = "SQLStatements"
-	'    Me.domDs.AcceptChanges()
-	'    _sqlStream.Close()
-	'    Me.domDs.WriteXml(statementsFileFromPath, XmlWriteMode.IgnoreSchema)
+        If domDs.Tables(0).Columns(1).ColumnName = "mssql" Then
+            'old schema, must change to new!
+            domDs.Tables(0).Columns(1).ColumnName = DBUtils.enumSqlDialect.MSSQL.ToString
+            domDs.Tables(0).Columns(2).ColumnName = DBUtils.enumSqlDialect.ORACLE.ToString
+            domDs.Tables(0).Columns(3).ColumnName = DBUtils.enumSqlDialect.JET.ToString
+        End If
+        'If domDs.Tables(0).Columns(2).ColumnName = DBUtilsBase.enumSqlDialect.ORACLE.ToString Then
+        '    domDs.Tables(0).Columns.Remove(domDs.Tables(0).Columns(2))
+        'End If
+        Dim keys(0) As DataColumn
+        keys(0) = domDs.Tables(0).Columns(0)
+        dv = domDs.Tables(0).DefaultView
+        dv.Sort = domDs.Tables(0).Columns(0).ColumnName
 
-	'End Sub
+    End Sub
 
-	Public Sub writeXML(ByVal sPath As String)
+    Public Function getStatement(ByVal key As StmtType, _
+                                 ByVal dialect As DBUtils.enumSqlDialect, _
+                                 ByVal ParamArray params() As String) As String
 
-		Me.domDs.DataSetName = "SQLStatements"
-		Me.domDs.AcceptChanges()
-		Me.domDs.WriteXml(sPath, XmlWriteMode.IgnoreSchema)
+        Dim i As Integer
+        Dim stm As String
 
-	End Sub
+        stm = String.Empty
+
+        i = Me.dv.Find(key.ToString)
+        If i > -1 Then
+            stm = NullChecker.strNull(Me.dv.Item(i).Item(dialect.ToString))
+            If stm Is Nothing OrElse stm = String.Empty Then
+                stm = NullChecker.strNull(Me.dv.Item(i).Item(DBUtils.enumSqlDialect.COMMON))
+            End If
+
+            If stm = String.Empty Then
+                Throw New ApplicationException("Statement Key:" & key & " not found")
+            End If
+
+            If params Is Nothing OrElse params.Length = 0 Then
+                'just return the stmmt
+            Else
+                stm = String.Format(stm, params)
+            End If
+
+            If stm.IndexOf(" ") = -1 Then 'single word, assume table name
+                stm = "select * from " & stm
+            End If
+        End If
+        Return stm
+
+    End Function
+
+    Public Sub setStatement(ByVal skey As String, _
+       ByVal stnt As String, _
+       Optional ByVal isqlDialect As DBUtils.enumSqlDialect = DBUtils.enumSqlDialect.COMMON)
+
+        Dim i As Integer
+        Dim stm As String
+
+        stm = String.Empty
+
+        i = Me.dv.Find(skey)
+        If i > -1 Then
+            Me.dv.Item(i).Item(isqlDialect.ToString) = stnt
+        Else
+            Dim dr As DataRow = Me.domDs.Tables(0).NewRow
+            dr("key") = skey
+            dr(isqlDialect.ToString) = stnt
+            Me.domDs.Tables(0).Rows.Add(dr)
+        End If
+
+        Me.domDs.AcceptChanges()
 
 
+    End Sub
+
+    Public Function getXML() As String
+
+        Me.domDs.DataSetName = "SQLStatements"
+        Me.domDs.AcceptChanges()
+        Return Me.domDs.GetXml()
+
+    End Function
+
+    'Public Sub writeXML()
+
+    '    Me.domDs.DataSetName = "SQLStatements"
+    '    Me.domDs.AcceptChanges()
+    '    _sqlStream.Close()
+    '    Me.domDs.WriteXml(statementsFileFromPath, XmlWriteMode.IgnoreSchema)
+
+    'End Sub
+
+    Public Sub writeXML(ByVal sPath As String)
+
+        Me.domDs.DataSetName = "SQLStatements"
+        Me.domDs.AcceptChanges()
+        Me.domDs.WriteXml(sPath, XmlWriteMode.IgnoreSchema)
+
+    End Sub
+
+
+
+#Region "IDisposable Support"
+    Private disposedValue As Boolean ' To detect redundant calls
+
+    ' IDisposable
+    Protected Overridable Sub Dispose(disposing As Boolean)
+        If Not Me.disposedValue Then
+            If disposing Then
+                If Me.domDs IsNot Nothing Then Me.domDs.Dispose()
+            End If
+
+            ' TODO: free unmanaged resources (unmanaged objects) and override Finalize() below.
+            ' TODO: set large fields to null.
+        End If
+        Me.disposedValue = True
+    End Sub
+
+    ' TODO: override Finalize() only if Dispose(ByVal disposing As Boolean) above has code to free unmanaged resources.
+    'Protected Overrides Sub Finalize()
+    '    ' Do not change this code.  Put cleanup code in Dispose(ByVal disposing As Boolean) above.
+    '    Dispose(False)
+    '    MyBase.Finalize()
+    'End Sub
+
+    ' This code added by Visual Basic to correctly implement the disposable pattern.
+    Public Sub Dispose() Implements IDisposable.Dispose
+        ' Do not change this code.  Put cleanup code in Dispose(disposing As Boolean) above.
+        Dispose(True)
+        GC.SuppressFinalize(Me)
+    End Sub
+#End Region
 
 End Class

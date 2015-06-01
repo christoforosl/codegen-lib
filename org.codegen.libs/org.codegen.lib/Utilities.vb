@@ -69,7 +69,7 @@ Public Class Utilities
             Return templ
         Finally
             d.Close()
-            ds.Close()
+
 
         End Try
 
@@ -96,7 +96,7 @@ Public Class Utilities
             Return templ
         Finally
             d.Close()
-            ds.Close()
+
 
         End Try
 

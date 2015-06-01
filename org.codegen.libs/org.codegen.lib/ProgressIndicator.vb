@@ -1,5 +1,6 @@
 ﻿
 Public Interface IProgressIndicator
+
     Event StartProgress(ByVal maxSteps As Integer)
     Event doProgress(ByVal currentStep As Integer)
 

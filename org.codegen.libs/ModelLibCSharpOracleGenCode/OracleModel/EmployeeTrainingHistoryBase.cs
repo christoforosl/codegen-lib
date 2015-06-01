@@ -32,6 +32,7 @@ namespace OracleModel {
 		#region "Constructor"
 
 		public EmployeeTrainingHistoryBase() {
+			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new EmployeeTrainingHistoryRequiredFieldsValidator());
 		}
 
@@ -454,7 +455,7 @@ namespace OracleModel {
 
 #region "parentIdChanged"
 	//below sub is called when parentIdChanged
-	public override void handleParentIdChanged(IModelObject parentMo ){
+	public override void handleParentIdChanged(Object parentMo, IDChangedEventArgs e){
 		// Assocations from OracleModel.TrainingCourse
 		if ( parentMo is OracleModel.TrainingCourse) {
 			this.PrTrainingCourseCode= ((OracleModel.TrainingCourse)parentMo).PrCODE;
@@ -474,7 +475,7 @@ namespace OracleModel {
 
 		#region "ID Property"
 
-		[DataMember]public override object Id {
+		[DataMember]public sealed override object Id {
 			get { return this._EmployeeTrainingHistoryId; }
 			set {
 				this._EmployeeTrainingHistoryId = Convert.ToInt64(value);

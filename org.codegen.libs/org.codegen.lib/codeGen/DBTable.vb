@@ -487,7 +487,7 @@ Public Class DBTable
 
     Public Function quotedTableName() As String Implements IDBTable.quotedTableName
 
-        If DBUtils.Current.sqldialect = DBUtils.enumSqlDialect.ORACLE Then
+        If ModelGenerator.Current.dbConn.sqldialect = DBUtils.enumSqlDialect.ORACLE Then
             Return """" & Me.TableName.Trim & """"
         Else
             Return "[" & Me.TableName.Trim & "]"

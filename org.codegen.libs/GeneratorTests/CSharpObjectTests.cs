@@ -10,21 +10,12 @@ using org.model.lib.Model;
 using org.model.lib;
 using System.Threading;
 using System.Globalization;
+using org.model.lib.db;
 
 namespace GeneratorTests {
 
 
-    [TestClass]
-    public class DBUtilsTests {
-
-        [TestMethod]
-        public void testParams() {
-
-            EmployeeDataUtils.findList("where Telephone={0} and Telephone={1}", "X", "Y");
-
-        }
-
-    }
+    
 
 	/// <summary>
 	/// Test validator functionality. Code below will execute before saving 
@@ -77,14 +68,14 @@ namespace GeneratorTests {
 				employee.PrSalary = 100m;
 				employee.PrSSINumber = "1030045";
 				employee.PrTelephone = "2234455";
-				employee.PrHireDate = new DateTime(DateTime.Now.Year, 1, 1);
+				employee.PrHireDate = new DateTime(DateTime.Now.Year+10, 1, 1);
                 
                 Guid g = Guid.NewGuid();
                 employee.PrSampleGuidField = g;
                 employee.PrEmployeeProjectAdd(EmployeeProjectFactory.Create());
 				EmployeeProject emplProj = employee.PrEmployeeProjectGetAt(0);
-				emplProj.PrAssignDate = new DateTime(DateTime.Now.Year, 3, 1);
-				emplProj.PrEndDate = new DateTime(DateTime.Now.Year, 6, 1);
+				emplProj.PrAssignDate = new DateTime(DateTime.Now.Year+10, 3, 1);
+				emplProj.PrEndDate = new DateTime(DateTime.Now.Year+10, 6, 1);
 				emplProj.PrEPProjectId = 1;
 				emplProj.PrProject = ProjectFactory.Create();
 				emplProj.PrProject.PrProjectName = "MyProject";
@@ -124,24 +115,27 @@ namespace GeneratorTests {
 				Assert.AreEqual(employee.PrSalary, 100m);
 				Assert.AreEqual(employee.PrEmployeeName, "test employee");
 				Assert.AreEqual(employee.PrSSINumber, "12345XX");
-				Assert.AreEqual(employee.PrHireDate, new DateTime(2015, 1, 1));
+				Assert.AreEqual(employee.PrHireDate, new DateTime(DateTime.Now.Year+10, 1, 1));
 				Assert.AreEqual(employee.PrEmployeeProjects.ToList().Count, 1);
 				Assert.AreEqual(employee.PrEmployeeProjectGetAt(0).PrProject.PrProjectName, "MyProject");
 
 				//change some values on child and parent objects
-				employee.PrEmployeeProjectGetAt(0).PrEndDate = new DateTime(DateTime.Now.Year, 6, 1);
+				employee.PrEmployeeProjectGetAt(0).PrEndDate = new DateTime(DateTime.Now.Year+10, 6, 1);
                 employee.PrEmployeeProjectGetAt(0).PrProject.PrProjectName = "MyProject Updated"; // here we are updating parent record of child object of employee!
 				Assert.IsTrue(employee.NeedsSave, "After changing parent or child obejcts values, e.NeedsSave must be true");
 				Assert.IsFalse(employee.isDirty, "After changing parent or child obejcts values, e.isDirty must be false since we did not change anything on the Model Object");
 
 				// method 2: call [ModelObject]DataUtils.save
 				EmployeeDataUtils.saveEmployee(employee);
-
+				
+				var lst = EmployeeDataUtils.findList("hiredate between ? and ?", new DateTime(DateTime.Now.Year + 10, 1, 1), new DateTime(DateTime.Now.Year + 10, 12, 1));
+				Assert.AreEqual(1, lst.Count);
                 employee = EmployeeDataUtils.findByKey(x);
+
 				//Assert.IsTrue(e.UpdateDate > e.CreateDate, "after update of record, update must be date > create date ");
 				// note that above test cannot be sucess since save is happening too fast
 
-                Assert.AreEqual(employee.PrEmployeeProjectGetAt(0).PrEndDate, new DateTime(DateTime.Now.Year, 6, 1));
+                Assert.AreEqual(employee.PrEmployeeProjectGetAt(0).PrEndDate, new DateTime(DateTime.Now.Year+10, 6, 1));
                 Assert.AreEqual(employee.PrEmployeeProjectGetAt(0).PrProject.PrProjectName, "MyProject Updated", "Expected to have parent record of child updated!");
 
 				employee.PrSSINumber = "XXXXX";
@@ -152,7 +146,7 @@ namespace GeneratorTests {
 				new EmployeeDBMapper().save(employee);
 				employee = EmployeeDataUtils.findByKey(x);
 				Assert.AreEqual(employee.PrSSINumber, "XXXXX");
-                Assert.AreEqual(employee.PrEmployeeProjectGetAt(0).PrEndDate, new DateTime(DateTime.Now.Year, 6, 1));
+                Assert.AreEqual(employee.PrEmployeeProjectGetAt(0).PrEndDate, new DateTime(DateTime.Now.Year+10, 6, 1));
                 Assert.AreEqual(employee.PrEmployeeProjectGetAt(0).PrProject.PrProjectName, "MyProject Updated", "Expected to have parent record of child updated!");
 
 				employee.PrEmployeeProjectsClear();

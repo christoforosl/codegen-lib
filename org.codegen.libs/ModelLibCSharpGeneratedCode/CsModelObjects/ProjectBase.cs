@@ -32,6 +32,7 @@ namespace CsModelObjects {
 		#region "Constructor"
 
 		public ProjectBase() {
+			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new ProjectRequiredFieldsValidator());
 		}
 
@@ -433,7 +434,7 @@ namespace CsModelObjects {
 
 		#region "ID Property"
 
-		[DataMember]public override object Id {
+		[DataMember]public sealed override object Id {
 			get { return this._ProjectId; }
 			set {
 				this._ProjectId = Convert.ToInt64(value);

@@ -32,6 +32,7 @@ namespace CsModelObjects {
 		#region "Constructor"
 
 		public EmployeeBase() {
+			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new EmployeeRequiredFieldsValidator());
 		}
 
@@ -1303,7 +1304,7 @@ namespace CsModelObjects {
 
 #region "parentIdChanged"
 	//below sub is called when parentIdChanged
-	public override void handleParentIdChanged(IModelObject parentMo ){
+	public override void handleParentIdChanged(Object parentMo, IDChangedEventArgs e) {
 		// Assocations from CsModelObjects.EmployeeRank
 		if ( parentMo is CsModelObjects.EmployeeRank) {
 			this.PrEmployeeRankId= ((CsModelObjects.EmployeeRank)parentMo).PrRankId;
@@ -1315,7 +1316,7 @@ namespace CsModelObjects {
 
 		#region "ID Property"
 
-		[DataMember]public override object Id {
+		[DataMember]public sealed override object Id {
 			get { return this._EmployeeId; }
 			set {
 				this._EmployeeId = Convert.ToInt64(value);

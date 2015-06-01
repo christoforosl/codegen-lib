@@ -32,6 +32,7 @@ namespace OracleModel {
 		#region "Constructor"
 
 		public CountryBase() {
+			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new CountryRequiredFieldsValidator());
 		}
 
@@ -439,7 +440,7 @@ namespace OracleModel {
 
 		#region "ID Property"
 
-		[DataMember]public override object Id {
+		[DataMember]public sealed override object Id {
 			get { return this._CountryId; }
 			set {
 				this._CountryId = Convert.ToString(value);

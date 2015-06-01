@@ -33,7 +33,7 @@ Namespace Model
         ''' <returns> an int value stored in the Key object </returns>	 
         Public MustOverride Property Id() As Object Implements IModelObject.Id
 
-        Public Event IDChanged(ByVal mo As ModelObject) Implements IModelObject.IDChanged
+        Public Event IDChanged(ByVal sender As Object, e As IDChangedEventArgs) Implements IModelObject.IDChanged
 
         <IgnoreDataMemberAttribute>
         <Serialization.XmlIgnore()> _
@@ -141,9 +141,6 @@ Namespace Model
         ''' and loads any configured validators from ModelContext.Current.getModelValidator
         '''</remarks>
         Public Sub New()
-
-            Me.Id = ModelObjectKeyGen.nextId()
-            Me.isDirty = False
 
             Dim lval As IModelObjectValidator = ModelContext.Current.getModelValidator(Me.GetType)
             If lval IsNot Nothing Then
@@ -317,14 +314,14 @@ Namespace Model
         ''' parent Model Object of class 
         ''' </param>
         '''	 
-        Public Overridable Sub handleParentIdChanged(ByVal parentMo As IModelObject) Implements IModelObject.handleParentIdChanged
+        Public Overridable Sub handleParentIdChanged(ByVal parentMo As Object, e As IDChangedEventArgs) Implements IModelObject.handleParentIdChanged
             'if the code comes here, it means that a child has not overriden
             'the method to update the ids
             If Me.getParents.Count > 0 Then
                 Dim err As String = "****Error: handleParentIdChanged not Overriden" & vbCrLf & _
                     " Parent type:" & TypeName(parentMo) & vbCrLf & _
                     " Me type:" & TypeName(Me) & vbCrLf & _
-                    " New ID:" & CStr(parentMo.Id) & vbCrLf & " ****" & vbCrLf
+                    " New ID:" & CStr(DirectCast(parentMo, ModelObject).Id) & vbCrLf & " ****" & vbCrLf
 
                 Throw New ApplicationException(err)
             End If
@@ -334,7 +331,7 @@ Namespace Model
         End Sub
 
         Public Sub raiseBroadcastIdChange() Implements IModelObject.raiseBroadcastIdChange
-            RaiseEvent IDChanged(Me)
+            RaiseEvent IDChanged(Me, New IDChangedEventArgs(Me.Id))
         End Sub
 
 #End Region

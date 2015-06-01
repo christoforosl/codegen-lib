@@ -3,6 +3,17 @@ Imports System.Runtime.InteropServices
 
 Namespace Model
 
+    Public Class IDChangedEventArgs
+        Inherits EventArgs
+
+        Public Sub New(inNewId As Object)
+            Me.NewId = inNewId
+        End Sub
+        Public Property NewId As Object
+
+    End Class
+
+
     Public Interface IModelObject
 
         Property Id As Object
@@ -10,9 +21,9 @@ Namespace Model
         ''' <summary>
         ''' Event fired when ID (primary key) of model object has changed
         ''' </summary>
-        ''' <param name="mo"></param>
+        ''' <param name="sender">The model object whose id has changed</param>
         ''' <remarks></remarks>
-        Event IDChanged(ByVal mo As ModelObject)
+        Event IDChanged(ByVal sender As Object, e As IDChangedEventArgs)
 
         ''' <summary> 
         ''' Returns the names of fields in the object as a string array. 
@@ -78,10 +89,10 @@ Namespace Model
         ''' Clients should override this and do necessarry operations when 
         ''' parent object changes ID. 
         ''' </summary>
-        ''' <param name="parentMo"> 
-        ''' parent Model Object of class 
+        ''' <param name="sender"> 
+        ''' Parent Model Object of class that Id has changed
         ''' </param>
-        Sub handleParentIdChanged(ByVal parentMo As IModelObject)
+        Sub handleParentIdChanged(ByVal sender As Object, e As IDChangedEventArgs)
 
         Sub raiseBroadcastIdChange()
 
@@ -112,13 +123,13 @@ Namespace Model
         ''' Sub to set the audit fields CreateDate, UpdateDate, CreateUser, UpdateUser
         ''' </summary>
         ''' <remarks></remarks>
-		Sub setAuditFields()
+        Sub setAuditFields()
 
         Function copy() As IModelObject
 
         Function getAuditor() As IAuditor
 
-		Sub loadObjectHierarchy()
+        Sub loadObjectHierarchy()
 
     End Interface
 

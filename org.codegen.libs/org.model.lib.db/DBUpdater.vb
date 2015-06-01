@@ -178,7 +178,6 @@ Public MustInherit Class DBUpdater
             Return templ
         Finally
             d.Close()
-            ds.Close()
 
         End Try
 

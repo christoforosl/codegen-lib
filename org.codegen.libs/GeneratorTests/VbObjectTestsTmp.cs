@@ -10,6 +10,7 @@ using org.model.lib.Model;
 using org.model.lib;
 using System.Threading;
 using System.Globalization;
+using org.model.lib.db;
 
 namespace GeneratorTests.VB {
 
@@ -23,6 +24,32 @@ namespace GeneratorTests.VB {
             EmployeeDataUtils.findList("where Telephone={0} and Telephone={1}", "X", "Y");
 
         }
+
+		[NUnit.Framework.Test]
+		public void testParsePositionalParamsForSQLServer() {
+			
+			string x;
+
+			x = DBUtils.Current().replaceParameterPlaceHolders("Telephone=? and Telephone=? and ?=x");
+			NUnit.Framework.Assert.AreEqual(x, "Telephone=@0 and Telephone=@1 and @2=x");
+
+			x = DBUtils.Current().replaceParameterPlaceHolders("where Telephone=? and Telephone=?", "x","y");
+			NUnit.Framework.Assert.AreEqual(x, "where Telephone=@0 and Telephone=@1");
+
+			x = DBUtils.Current().replaceParameterPlaceHolders("where Telephone=? and Telephone=?", "x", "y");
+			NUnit.Framework.Assert.AreEqual(x, "where Telephone=@0 and Telephone=@1");
+			
+			x = DBUtils.Current().replaceParameterPlaceHolders("where Telephone=? and Telephone=?", "x", "y");
+			NUnit.Framework.Assert.AreEqual(x, "where Telephone=@0 and Telephone=@1");
+
+			x = DBUtils.Current().replaceParameterPlaceHolders("where Telephone=? and Telephone=? and ?=x");
+			NUnit.Framework.Assert.AreEqual(x, "where Telephone=@0 and Telephone=@1 and @2=x");
+
+			x = DBUtils.Current().replaceParameterPlaceHolders("where Telephone BETWEEN ? and ?");
+			NUnit.Framework.Assert.AreEqual(x, "where Telephone BETWEEN @0 and @1");
+
+			
+		}
 
     }
 
@@ -77,14 +104,14 @@ namespace GeneratorTests.VB {
 				employee.PrSalary = 100m;
 				employee.PrSSINumber = "1030045";
 				employee.PrTelephone = "2234455";
-				employee.PrHireDate = new DateTime(DateTime.Now.Year, 1, 1);
+				employee.PrHireDate = new DateTime(DateTime.Now.Year+10, 1, 1);
                 
                 Guid g = Guid.NewGuid();
                 employee.PrSampleGuidField = g;
                 employee.PrEmployeeProjectAdd(EmployeeProjectFactory.Create());
 				EmployeeProject emplProj = employee.PrEmployeeProjectGetAt(0);
-				emplProj.PrAssignDate = new DateTime(DateTime.Now.Year, 3, 1);
-				emplProj.PrEndDate = new DateTime(DateTime.Now.Year, 6, 1);
+				emplProj.PrAssignDate = new DateTime(DateTime.Now.Year+10, 3, 1);
+				emplProj.PrEndDate = new DateTime(DateTime.Now.Year+10, 6, 1);
 				emplProj.PrEPProjectId = 1;
 				emplProj.PrProject = ProjectFactory.Create();
 				emplProj.PrProject.PrProjectName = "MyProject";
@@ -124,24 +151,27 @@ namespace GeneratorTests.VB {
 				NUnit.Framework.Assert.AreEqual(employee.PrSalary, 100m);
 				NUnit.Framework.Assert.AreEqual(employee.PrEmployeeName, "test employee");
 				NUnit.Framework.Assert.AreEqual(employee.PrSSINumber, "12345XX");
-				NUnit.Framework.Assert.AreEqual(employee.PrHireDate, new DateTime(2015, 1, 1));
+				NUnit.Framework.Assert.AreEqual(employee.PrHireDate, new DateTime(DateTime.Now.Year+10, 1, 1));
 				NUnit.Framework.Assert.AreEqual(employee.PrEmployeeProjects.ToList().Count, 1);
 				NUnit.Framework.Assert.AreEqual(employee.PrEmployeeProjectGetAt(0).PrProject.PrProjectName, "MyProject");
 
 				//change some values on child and parent objects
-				employee.PrEmployeeProjectGetAt(0).PrEndDate = new DateTime(DateTime.Now.Year, 6, 1);
+				employee.PrEmployeeProjectGetAt(0).PrEndDate = new DateTime(DateTime.Now.Year+10, 6, 1);
                 employee.PrEmployeeProjectGetAt(0).PrProject.PrProjectName = "MyProject Updated"; // here we are updating parent record of child object of employee!
 				NUnit.Framework.Assert.IsTrue(employee.NeedsSave, "After changing parent or child obejcts values, e.NeedsSave must be true");
 				NUnit.Framework.Assert.IsFalse(employee.isDirty, "After changing parent or child obejcts values, e.isDirty must be false since we did not change anything on the Model Object");
 
 				// method 2: call [ModelObject]DataUtils.save
 				EmployeeDataUtils.saveEmployee(employee);
-
+				
+				var lst = EmployeeDataUtils.findList("hiredate between ? and ?", new DateTime(DateTime.Now.Year + 10, 1, 1), new DateTime(DateTime.Now.Year + 10, 12, 1));
+				NUnit.Framework.Assert.AreEqual(1, lst.Count);
                 employee = EmployeeDataUtils.findByKey(x);
+
 				//NUnit.Framework.Assert.IsTrue(e.UpdateDate > e.CreateDate, "after update of record, update must be date > create date ");
 				// note that above test cannot be sucess since save is happening too fast
 
-                NUnit.Framework.Assert.AreEqual(employee.PrEmployeeProjectGetAt(0).PrEndDate, new DateTime(DateTime.Now.Year, 6, 1));
+                NUnit.Framework.Assert.AreEqual(employee.PrEmployeeProjectGetAt(0).PrEndDate, new DateTime(DateTime.Now.Year+10, 6, 1));
                 NUnit.Framework.Assert.AreEqual(employee.PrEmployeeProjectGetAt(0).PrProject.PrProjectName, "MyProject Updated", "Expected to have parent record of child updated!");
 
 				employee.PrSSINumber = "XXXXX";
@@ -152,7 +182,7 @@ namespace GeneratorTests.VB {
 				new EmployeeDBMapper().save(employee);
 				employee = EmployeeDataUtils.findByKey(x);
 				NUnit.Framework.Assert.AreEqual(employee.PrSSINumber, "XXXXX");
-                NUnit.Framework.Assert.AreEqual(employee.PrEmployeeProjectGetAt(0).PrEndDate, new DateTime(DateTime.Now.Year, 6, 1));
+                NUnit.Framework.Assert.AreEqual(employee.PrEmployeeProjectGetAt(0).PrEndDate, new DateTime(DateTime.Now.Year+10, 6, 1));
                 NUnit.Framework.Assert.AreEqual(employee.PrEmployeeProjectGetAt(0).PrProject.PrProjectName, "MyProject Updated", "Expected to have parent record of child updated!");
 
 				employee.PrEmployeeProjectsClear();

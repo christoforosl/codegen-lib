@@ -32,6 +32,7 @@ namespace OracleModel {
 		#region "Constructor"
 
 		public TrainingCourseBase() {
+			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new TrainingCourseRequiredFieldsValidator());
 		}
 
@@ -322,7 +323,7 @@ namespace OracleModel {
 
 		#region "ID Property"
 
-		[DataMember]public override object Id {
+		[DataMember]public sealed override object Id {
 			get { return this._CODE; }
 			set {
 				this._CODE = Convert.ToString(value);

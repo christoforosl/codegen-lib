@@ -125,8 +125,11 @@ namespace <DBMAPPER_NAMESPACE> {
 
 		#endregion
 
-		public override IModelObject getModelInstance()
-		{
+		protected override String pkFieldName(){
+			return "<PK_FIELD_NAME>";
+		}
+		
+		public override IModelObject getModelInstance() {
 			return new <MODEL_CLASS_NAME>();
 		}
 

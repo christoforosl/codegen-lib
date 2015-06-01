@@ -2,26 +2,28 @@
 
 Namespace Model
 
+    <Serializable>
     Public Class ModelObjectRequiredFieldException
         Inherits Exception
 
-    Private _requiedFieldName As String
+        Private _requiedFieldName As String
 
-    Public Sub New(ByVal requiedFieldName As String)
+        Public Sub New(ByVal requiedFieldName As String)
 
-        MyBase.New("Missing required Field " & requiedFieldName)
-        Me._requiedFieldName = Fieldname
+            MyBase.New("Missing required Field " & requiedFieldName)
+            Me._requiedFieldName = Fieldname
 
-    End Sub
+        End Sub
 
-    Public ReadOnly Property Fieldname() As String
-        Get
-            Return _requiedFieldName
-        End Get
-    End Property
+        Public ReadOnly Property Fieldname() As String
+            Get
+                Return _requiedFieldName
+            End Get
+        End Property
 
     End Class
 
+    <Serializable>
     Public Class ModelObjectFieldTooLongException
         Inherits Exception
 
@@ -42,6 +44,7 @@ Namespace Model
 
     End Class
 
+    <Serializable>
     Public Class ModelObjectDuplicateRecordException
         Inherits Exception
 

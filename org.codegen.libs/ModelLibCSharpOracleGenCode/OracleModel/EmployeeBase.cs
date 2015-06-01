@@ -32,6 +32,7 @@ namespace OracleModel {
 		#region "Constructor"
 
 		public EmployeeBase() {
+			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new EmployeeRequiredFieldsValidator());
 		}
 
@@ -1570,7 +1571,7 @@ namespace OracleModel {
 
 #region "parentIdChanged"
 	//below sub is called when parentIdChanged
-	public override void handleParentIdChanged(IModelObject parentMo ){
+	public override void handleParentIdChanged(Object parentMo, IDChangedEventArgs e){
 		// Assocations from OracleModel.Department
 		if ( parentMo is OracleModel.Department) {
 			this.PrDepartmentId= ((OracleModel.Department)parentMo).PrDepartmentId;
@@ -1582,7 +1583,7 @@ namespace OracleModel {
 
 		#region "ID Property"
 
-		[DataMember]public override object Id {
+		[DataMember]public sealed override object Id {
 			get { return this._EmployeeId; }
 			set {
 				this._EmployeeId = Convert.ToInt64(value);

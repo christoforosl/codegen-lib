@@ -73,6 +73,12 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="cstests\EmployeeInfoTestBase.cs" />
+    <Compile Include="cstests\EmployeeProjectTestBase.cs" />
+    <Compile Include="cstests\EmployeeRankTestBase.cs" />
+    <Compile Include="cstests\EmployeeTestBase.cs" />
+    <Compile Include="cstests\EmployeeTypeTestBase.cs" />
+    <Compile Include="cstests\ProjectTestBase.cs" />
     <Compile Include="DBUtilsTests.cs" />
     <Compile Include="CSharpObjectTests.cs" />
     <Compile Include="GenAndRunObjectTests.cs">

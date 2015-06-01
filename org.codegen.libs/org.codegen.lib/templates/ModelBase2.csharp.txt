@@ -32,6 +32,7 @@ namespace <NAMESPACE> {
 		#region "Constructor"
 
 		public <MODEL_CLASS_NAME>Base() {
+			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new <MODEL_CLASS_NAME>RequiredFieldsValidator());
 		}
 
@@ -182,7 +183,7 @@ namespace <NAMESPACE> {
 
 		#region "ID Property"
 
-		[DataMember]public override object Id {
+		[DataMember]public sealed override object Id {
 			get { return this._<PK_MO_FIELD_NAME>; }
 			set {
 				this._<PK_MO_FIELD_NAME> = <PK_CONVERTER>

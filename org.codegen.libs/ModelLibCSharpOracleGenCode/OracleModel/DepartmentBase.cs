@@ -32,6 +32,7 @@ namespace OracleModel {
 		#region "Constructor"
 
 		public DepartmentBase() {
+			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new DepartmentRequiredFieldsValidator());
 		}
 
@@ -517,7 +518,7 @@ namespace OracleModel {
 
 		#region "ID Property"
 
-		[DataMember]public override object Id {
+		[DataMember]public sealed override object Id {
 			get { return this._DepartmentId; }
 			set {
 				this._DepartmentId = Convert.ToInt64(value);

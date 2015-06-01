@@ -32,6 +32,7 @@ namespace CsModelObjects {
 		#region "Constructor"
 
 		public EmployeeTypeBase() {
+			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new EmployeeTypeRequiredFieldsValidator());
 		}
 
@@ -280,7 +281,7 @@ namespace CsModelObjects {
 
 		#region "ID Property"
 
-		[DataMember]public override object Id {
+		[DataMember]public sealed override object Id {
 			get { return this._EmployeeTypeCode; }
 			set {
 				this._EmployeeTypeCode = Convert.ToString(value);

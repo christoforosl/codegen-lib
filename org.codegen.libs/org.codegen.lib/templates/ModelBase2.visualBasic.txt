@@ -30,6 +30,7 @@ ComVisible(False),Serializable(), System.ComponentModel.EditorBrowsable(System.C
     
     public sub New()
 		Me.addValidator(New <MODEL_CLASS_NAME>RequiredFieldsValidator)
+		Me.Id = ModelObjectKeyGen.nextId()
     End Sub
 
 #End Region
@@ -166,7 +167,7 @@ ComVisible(False),Serializable(), System.ComponentModel.EditorBrowsable(System.C
 
 #Region "ID Property"
 	
-    <DataMember>Public Overrides Property Id() As object
+    <DataMember>Public NotOverridable Overrides Property Id() As object
         Get
             return me._<PK_MO_FIELD_NAME>
         End Get

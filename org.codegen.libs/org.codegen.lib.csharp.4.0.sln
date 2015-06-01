@@ -5,7 +5,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D812F799-E78F-4778-84B3-C70E6E14735A}"
 	ProjectSection(SolutionItems) = preProject
 		Local.testsettings = Local.testsettings
-		org.codegen.lib.csharp.4.01.vsmdi = org.codegen.lib.csharp.4.01.vsmdi
 		regCom.bat = regCom.bat
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
@@ -113,8 +112,8 @@ Global
 		{12D3D3B3-4176-4FA8-BA6E-502FFF896341}.Release|x64.ActiveCfg = Release|Any CPU
 		{12D3D3B3-4176-4FA8-BA6E-502FFF896341}.Release|x86.ActiveCfg = Release|Any CPU
 		{12D3D3B3-4176-4FA8-BA6E-502FFF896341}.Release|x86.Build.0 = Release|Any CPU
-		{891F585A-35B8-4BB9-8B40-33DCA98F055E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{891F585A-35B8-4BB9-8B40-33DCA98F055E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{891F585A-35B8-4BB9-8B40-33DCA98F055E}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{891F585A-35B8-4BB9-8B40-33DCA98F055E}.Debug|Any CPU.Build.0 = Debug|x86
 		{891F585A-35B8-4BB9-8B40-33DCA98F055E}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{891F585A-35B8-4BB9-8B40-33DCA98F055E}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{891F585A-35B8-4BB9-8B40-33DCA98F055E}.Debug|x64.ActiveCfg = Debug|Any CPU

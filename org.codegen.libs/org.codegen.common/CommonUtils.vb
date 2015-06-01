@@ -128,7 +128,7 @@ Public Class CommonUtils
             Return templ
         Finally
             d.Close()
-            ds.Close()
+
 
         End Try
 
@@ -156,7 +156,6 @@ Public Class CommonUtils
             Return templ
         Finally
             d.Close()
-            ds.Close()
 
         End Try
 

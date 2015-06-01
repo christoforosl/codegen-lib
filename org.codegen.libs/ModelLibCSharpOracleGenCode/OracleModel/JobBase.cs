@@ -32,6 +32,7 @@ namespace OracleModel {
 		#region "Constructor"
 
 		public JobBase() {
+			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new JobRequiredFieldsValidator());
 		}
 
@@ -520,7 +521,7 @@ namespace OracleModel {
 
 		#region "ID Property"
 
-		[DataMember]public override object Id {
+		[DataMember]public sealed override object Id {
 			get { return this._JobId; }
 			set {
 				this._JobId = Convert.ToString(value);

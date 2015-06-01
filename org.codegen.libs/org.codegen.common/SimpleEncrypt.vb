@@ -16,6 +16,7 @@ Namespace Encryption
     ''' are commonly used with digital signatures and for data integrity.
     ''' </summary>
     Class Hash
+        Implements IDisposable
 
         ''' <summary>
         ''' Type of hash; some are security oriented, others are fast and simple
@@ -219,6 +220,37 @@ Namespace Encryption
 
 #End Region
 
+#Region "IDisposable Support"
+        Private disposedValue As Boolean ' To detect redundant calls
+
+        ' IDisposable
+        Protected Overridable Sub Dispose(disposing As Boolean)
+            If Not Me.disposedValue Then
+                If disposing Then
+                    If _Hash IsNot Nothing Then _Hash.Dispose()
+                End If
+
+                ' TODO: free unmanaged resources (unmanaged objects) and override Finalize() below.
+                ' TODO: set large fields to null.
+            End If
+            Me.disposedValue = True
+        End Sub
+
+        ' TODO: override Finalize() only if Dispose(ByVal disposing As Boolean) above has code to free unmanaged resources.
+        'Protected Overrides Sub Finalize()
+        '    ' Do not change this code.  Put cleanup code in Dispose(ByVal disposing As Boolean) above.
+        '    Dispose(False)
+        '    MyBase.Finalize()
+        'End Sub
+
+        ' This code added by Visual Basic to correctly implement the disposable pattern.
+        Public Sub Dispose() Implements IDisposable.Dispose
+            ' Do not change this code.  Put cleanup code in Dispose(disposing As Boolean) above.
+            Dispose(True)
+            GC.SuppressFinalize(Me)
+        End Sub
+#End Region
+
     End Class
 #End Region
 
@@ -229,6 +261,7 @@ Namespace Encryption
     ''' Both parties (encryptor and decryptor) must share the same secret key.
     ''' </summary>
     Class Symmetric
+        Implements IDisposable
 
         Private Const _DefaultIntializationVector As String = "%1Az=-@qT"
         Private Const _BufferSize As Integer = 2048
@@ -405,7 +438,7 @@ Namespace Encryption
             Dim cs As New CryptoStream(ms, _crypto.CreateEncryptor(), CryptoStreamMode.Write)
             cs.Write(d.Bytes, 0, d.Bytes.Length)
             cs.Close()
-            ms.Close()
+
 
             Return New Data(ms.ToArray)
         End Function
@@ -445,7 +478,7 @@ Namespace Encryption
             Loop
 
             cs.Close()
-            ms.Close()
+
 
             Return New Data(ms.ToArray)
         End Function
@@ -509,6 +542,37 @@ Namespace Encryption
             End Try
             Return New Data(b)
         End Function
+
+#Region "IDisposable Support"
+        Private disposedValue As Boolean ' To detect redundant calls
+
+        ' IDisposable
+        Protected Overridable Sub Dispose(disposing As Boolean)
+            If Not Me.disposedValue Then
+                If disposing Then
+                    If (_crypto IsNot Nothing) Then _crypto.Dispose()
+                End If
+
+                ' TODO: free unmanaged resources (unmanaged objects) and override Finalize() below.
+                ' TODO: set large fields to null.
+            End If
+            Me.disposedValue = True
+        End Sub
+
+        ' TODO: override Finalize() only if Dispose(ByVal disposing As Boolean) above has code to free unmanaged resources.
+        'Protected Overrides Sub Finalize()
+        '    ' Do not change this code.  Put cleanup code in Dispose(ByVal disposing As Boolean) above.
+        '    Dispose(False)
+        '    MyBase.Finalize()
+        'End Sub
+
+        ' This code added by Visual Basic to correctly implement the disposable pattern.
+        Public Sub Dispose() Implements IDisposable.Dispose
+            ' Do not change this code.  Put cleanup code in Dispose(disposing As Boolean) above.
+            Dispose(True)
+            GC.SuppressFinalize(Me)
+        End Sub
+#End Region
 
     End Class
 

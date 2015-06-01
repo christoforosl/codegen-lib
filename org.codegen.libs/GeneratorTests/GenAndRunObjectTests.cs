@@ -1,8 +1,9 @@
-﻿using System;
+﻿using NUnit.Framework;
+using System;
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using org.model.lib.Model;
 using org.model.lib;
 using System.Threading;
@@ -19,25 +20,37 @@ using org.model.lib.db;
 
 namespace GeneratorTests {
 
-	[TestClass]
+	[NUnit.Framework.TestFixture]
 	public class GenAndRunObjectTests {
 
-        [TestMethod]
-        public void generateAndRunVBObjectTests() {
-            
-            DirectoryInfo d = new DirectoryInfo("..\\..\\..\\");
+		[NUnit.Framework.Test]
+		public void generateAndRunVBObjectTests() {
+			int i = 0;
+			DirectoryInfo d = new DirectoryInfo(Directory.GetCurrentDirectory());
+			while (true) {
+				i++;
+				if(i>=20){
+					throw new ApplicationException ("could not get a dir with name GeneratorTests");
+				}
+				d = d.Parent;
+				if (d.Name == "GeneratorTests") {
+					break;
+				}
 
-            string path = d.FullName + "VbObjectTestsTmp.cs";
+			}
+
+
+			string path = d.FullName + "\\VbObjectTestsTmp.cs";
 			if (File.Exists(path)) {
 				File.Delete(path);
 			}
-            
 
-            File.Copy( d.FullName + "CSharpObjectTests.cs",  path) ;
-            string readText = File.ReadAllText(path);
 
-            readText = readText.Replace("using CsModelObjects;", "using ModelLibVBGenCode.VbBusObjects;");
-            readText = readText.Replace("using CsModelMappers;", "using ModelLibVBGenCode.VbBusObjects.DBMappers;");
+			File.Copy(d.FullName + "\\CSharpObjectTests.cs", path);
+			string readText = File.ReadAllText(path);
+
+			readText = readText.Replace("using CsModelObjects;", "using ModelLibVBGenCode.VbBusObjects;");
+			readText = readText.Replace("using CsModelMappers;", "using ModelLibVBGenCode.VbBusObjects.DBMappers;");
 
 			readText = readText.Replace("namespace GeneratorTests {", "namespace GeneratorTests.VB {");
 			readText = readText.Replace("public class CSharpObjectTests {", "public class VBObjectTests {");
@@ -49,47 +62,47 @@ namespace GeneratorTests {
 			readText = readText.Replace("public static void MyClassInitialize(TestContext testContext)", "public static void MyClassInitialize()");
 			readText = readText.Replace("[ClassInitialize()]", "[NUnit.Framework.SetUp]");
 			readText = readText.Replace("[ClassCleanup()]", "[NUnit.Framework.TearDown]");
-            readText = readText.Replace("//NUnit.Framework.NUnit.Framework.Assert.IsTrue(false)", "NUnit.Framework.Assert.IsTrue(false);");
-            readText = readText.Replace("//DBUtils.Current().ConnString=",
-                    "org.model.lib.db.DBUtils.Current().ConnString=\"" + DBUtils.Current().ConnString.Replace("\\", "\\\\") + "\";");
+			readText = readText.Replace("//NUnit.Framework.NUnit.Framework.Assert.IsTrue(false)", "NUnit.Framework.Assert.IsTrue(false);");
+			readText = readText.Replace("//DBUtils.Current().ConnString=",
+					"org.model.lib.db.DBUtils.Current().ConnString=\"" + DBUtils.Current().ConnString.Replace("\\", "\\\\") + "\";");
 
-            File.WriteAllText(path, readText);
+			File.WriteAllText(path, readText);
 
 			CSharpCodeProvider provider = new CSharpCodeProvider();
 			CompilerParameters cp = new CompilerParameters();
 
 			// this line is here otherwise ModelLibVBGenCode is not returned 
 			// in call to this.GetType().Assembly.GetReferencedAssemblies
-			ModelLibVBGenCode.VbBusObjects.Employee e =  null;
-			NUnit.Framework.Guard x=null; // note: DO NOT REMOVE!
+			ModelLibVBGenCode.VbBusObjects.Employee e = null;
+			NUnit.Framework.Guard x = null; // note: DO NOT REMOVE!
 
 			var assemblies = this.GetType().Assembly.GetReferencedAssemblies().ToList();
-			var assemblyLocations =  
-						assemblies.Select(a => 
+			var assemblyLocations =
+						assemblies.Select(a =>
 						Assembly.ReflectionOnlyLoad(a.FullName).Location);
 
 			var lstAssemblyLocations = assemblyLocations.Where(a => !a.Contains("Microsoft.VisualStudio.QualityTools.UnitTestFramework")).ToList();
 
 			cp.ReferencedAssemblies.AddRange(lstAssemblyLocations.ToArray());
-		
+
 			cp.GenerateInMemory = false;// True - memory generation, false - external file generation
 			cp.GenerateExecutable = false;// True - exe file generation, false - dll file generation
 			CompilerResults results = provider.CompileAssemblyFromSource(cp, readText);
-			Assert.AreEqual(0, results.Errors.Count,"There should be no compilation errors");
+			Assert.AreEqual(0, results.Errors.Count, "There should be no compilation errors");
 
 			CoreExtensions.Host.InitializeService();
-            TestPackage package = new TestPackage(results.CompiledAssembly.Location);
-            RemoteTestRunner remoteTestRunner = new RemoteTestRunner();
-            remoteTestRunner.Load(package);
-            TestResult result = remoteTestRunner.Run(new NullListener(),
-                                    TestFilter.Empty, false, LoggingThreshold.All);
+			TestPackage package = new TestPackage(results.CompiledAssembly.Location);
+			RemoteTestRunner remoteTestRunner = new RemoteTestRunner();
+			remoteTestRunner.Load(package);
+			TestResult result = remoteTestRunner.Run(new NullListener(),
+									TestFilter.Empty, false, LoggingThreshold.All);
 
-			Assert.IsTrue(result.HasResults," must have test results " );
-			
-			Assert.IsTrue(result.IsSuccess,"dynamic vb tests must return success " );
+			Assert.IsTrue(result.HasResults, " must have test results ");
+
+			Assert.IsTrue(result.IsSuccess, "dynamic vb tests must return success ");
 
 
-        }
+		}
 		/// <summary>
 		/// Converts a given assembly containing tests to a runnable TestSuite
 		/// </summary>
@@ -113,14 +126,14 @@ namespace GeneratorTests {
 		}
 
 
-		[TestMethod]
+		[NUnit.Framework.Test]
 		public void runGenerateCodeTests() {
 
 			DirectoryInfo d = new DirectoryInfo("..\\..\\..\\");
 			System.Diagnostics.Debug.WriteLine(d.FullName);
 
 			XMLClassGenerator.GenerateClassesFromFile(d.FullName + "ModelLibCSharpGeneratedCode\\CSharpModelGenerator.xml");
-						
+
 			CSharpCodeProvider provider = new CSharpCodeProvider();
 			CompilerParameters parameters = new CompilerParameters();
 			parameters.ReferencedAssemblies.Add("Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll");
@@ -135,6 +148,6 @@ namespace GeneratorTests {
 			XMLClassGenerator.GenerateClassesFromFile(d.FullName + "ModelLibCSharpOracleGenCode\\OracleCSharpModelGenerator.xml");
 
 		}
-		
+
 	}
 }

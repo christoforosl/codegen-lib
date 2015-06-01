@@ -32,6 +32,7 @@ namespace OracleModel {
 		#region "Constructor"
 
 		public JobHistoryBase() {
+			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new JobHistoryRequiredFieldsValidator());
 		}
 
@@ -592,7 +593,7 @@ namespace OracleModel {
 
 #region "parentIdChanged"
 	//below sub is called when parentIdChanged
-	public override void handleParentIdChanged(IModelObject parentMo ){
+	public override void handleParentIdChanged(Object parentMo, IDChangedEventArgs e){
 		// Assocations from OracleModel.Employee
 		if ( parentMo is OracleModel.Employee) {
 			this.PrEmployeeId= ((OracleModel.Employee)parentMo).PrEmployeeId;
@@ -604,7 +605,7 @@ namespace OracleModel {
 
 		#region "ID Property"
 
-		[DataMember]public override object Id {
+		[DataMember]public sealed override object Id {
 			get { return this._JobHistoryId; }
 			set {
 				this._JobHistoryId = Convert.ToInt64(value);

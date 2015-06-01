@@ -445,4 +445,17 @@ Namespace Tokens
 
 	End Class
 
+    Public Class PrimaryKeyFieldnameToken
+        Inherits ReplacementToken
+
+
+        Sub New()
+            Me.StringToReplace = "PK_FIELD_NAME"
+        End Sub
+
+        Public Overrides Function getReplacementCode(t As IObjectToGenerate) As String
+            Return t.DbTable.PrimaryKeyFieldName
+        End Function
+
+    End Class
 End Namespace

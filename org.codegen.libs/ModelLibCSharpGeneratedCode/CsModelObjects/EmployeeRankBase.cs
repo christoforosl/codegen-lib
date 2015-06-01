@@ -32,6 +32,7 @@ namespace CsModelObjects {
 		#region "Constructor"
 
 		public EmployeeRankBase() {
+			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new EmployeeRankRequiredFieldsValidator());
 		}
 
@@ -277,7 +278,7 @@ namespace CsModelObjects {
 
 		#region "ID Property"
 
-		[DataMember]public override object Id {
+		[DataMember]public sealed override object Id {
 			get { return this._RankId; }
 			set {
 				this._RankId = Convert.ToInt64(value);
