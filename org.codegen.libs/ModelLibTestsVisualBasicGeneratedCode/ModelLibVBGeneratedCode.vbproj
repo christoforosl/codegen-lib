@@ -105,6 +105,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="Tests\EmployeeInfoTestBase.vb" />
+    <Compile Include="Tests\EmployeeProjectTestBase.vb" />
+    <Compile Include="Tests\EmployeeRankTestBase.vb" />
+    <Compile Include="Tests\EmployeeTestBase.vb" />
+    <Compile Include="Tests\EmployeeTypeTestBase.vb" />
+    <Compile Include="Tests\ProjectTestBase.vb" />
     <Compile Include="VbBusObjects\DBMappers\EmployeeDBMapper.vb" />
     <Compile Include="VbBusObjects\DBMappers\EmployeeProjectDBMapper.vb" />
     <Compile Include="VbBusObjects\DBMappers\EmployeeRankDBMapper.vb" />
