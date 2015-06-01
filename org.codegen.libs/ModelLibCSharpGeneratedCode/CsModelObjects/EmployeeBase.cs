@@ -10,6 +10,7 @@ using org.model.lib;
 using Microsoft.VisualBasic;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
+using System.Data.Linq.Mapping;
 
 //<comments>
 //************************************************************
@@ -24,14 +25,15 @@ using System.Xml.Serialization;
 //************************************************************
 //</comments>
 namespace CsModelObjects {
-	
+
+	[Table(Name = "Employee")]
 	[DataContract]
 	[DefaultMapperAttr(typeof(CsModelMappers.EmployeeDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class EmployeeBase : ModelObject, IEquatable<EmployeeBase> ,IAuditable,System.IComparable< Employee> {
+	public partial class Employee:ModelObject,IEquatable<Employee> ,IAuditable,System.IComparable< Employee> {
 
 		#region "Constructor"
 
-		public EmployeeBase() {
+		public Employee() {
 			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new EmployeeRequiredFieldsValidator());
 		}
@@ -182,6 +184,7 @@ namespace CsModelObjects {
 
 		#region "Field Properties"
 
+	[Column(Name="EmployeeId",Storage = "_EmployeeId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64 PrEmployeeId{
 	get{
 		return _EmployeeId;
@@ -199,6 +202,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="EmployeeName",Storage = "_EmployeeName", IsPrimaryKey=false,DbType = "nvarchar NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.String PrEmployeeName{
 	get{
 		return _EmployeeName;
@@ -217,6 +221,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="EmployeeRankId",Storage = "_EmployeeRankId", IsPrimaryKey=false,DbType = "int NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64? PrEmployeeRankId{
 	get{
 		return _EmployeeRankId;
@@ -232,6 +237,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="Salary",Storage = "_Salary", IsPrimaryKey=false,DbType = "decimal",CanBeNull = true)]
 	[DataMember]public virtual System.Decimal? PrSalary{
 	get{
 		return _Salary;
@@ -247,6 +253,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="Address",Storage = "_Address", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
 	[DataMember]public virtual System.String PrAddress{
 	get{
 		return _Address;
@@ -265,6 +272,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="Telephone",Storage = "_Telephone", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
 	[DataMember]public virtual System.String PrTelephone{
 	get{
 		return _Telephone;
@@ -283,6 +291,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="Mobile",Storage = "_Mobile", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
 	[DataMember]public virtual System.String PrMobile{
 	get{
 		return _Mobile;
@@ -301,6 +310,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="IdNumber",Storage = "_IdNumber", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
 	[DataMember]public virtual System.String PrIdNumber{
 	get{
 		return _IdNumber;
@@ -319,6 +329,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="SSINumber",Storage = "_SSINumber", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
 	[DataMember]public virtual System.String PrSSINumber{
 	get{
 		return _SSINumber;
@@ -337,6 +348,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="HireDate",Storage = "_HireDate", IsPrimaryKey=false,DbType = "date",CanBeNull = true)]
 	[DataMember]public virtual System.DateTime? PrHireDate{
 	get{
 		return _HireDate;
@@ -352,6 +364,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="NumDependents",Storage = "_NumDependents", IsPrimaryKey=false,DbType = "int",CanBeNull = true)]
 	[DataMember]public virtual System.Int64? PrNumDependents{
 	get{
 		return _NumDependents;
@@ -367,6 +380,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="EmployeeTypeCode",Storage = "_EmployeeTypeCode", IsPrimaryKey=false,DbType = "varchar",CanBeNull = true)]
 	[DataMember]public virtual System.String PrEmployeeTypeCode{
 	get{
 		return _EmployeeTypeCode;
@@ -385,6 +399,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="createDate",Storage = "_CreateDate", IsPrimaryKey=false,DbType = "datetime",CanBeNull = true)]
 	[DataMember]public virtual System.DateTime? CreateDate{
 	get{
 		return _CreateDate;
@@ -400,6 +415,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="updateDate",Storage = "_UpdateDate", IsPrimaryKey=false,DbType = "datetime",CanBeNull = true)]
 	[DataMember]public virtual System.DateTime? UpdateDate{
 	get{
 		return _UpdateDate;
@@ -415,6 +431,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="createUser",Storage = "_CreateUser", IsPrimaryKey=false,DbType = "varchar",CanBeNull = true)]
 	[DataMember]public virtual System.String CreateUser{
 	get{
 		return _CreateUser;
@@ -433,6 +450,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="updateUser",Storage = "_UpdateUser", IsPrimaryKey=false,DbType = "varchar",CanBeNull = true)]
 	[DataMember]public virtual System.String UpdateUser{
 	get{
 		return _UpdateUser;
@@ -451,6 +469,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="sampleGuidField",Storage = "_SampleGuidField", IsPrimaryKey=false,DbType = "uniqueidentifier",CanBeNull = true)]
 	[DataMember]public virtual System.Guid? PrSampleGuidField{
 	get{
 		return _SampleGuidField;
@@ -466,6 +485,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="isActive",Storage = "_IsActive", IsPrimaryKey=false,DbType = "bit",CanBeNull = true)]
 	[DataMember]public virtual System.Boolean PrIsActive{
 	get{
 		return _IsActive;
@@ -481,6 +501,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="sampleBigInt",Storage = "_SampleBigInt", IsPrimaryKey=false,DbType = "bigint",CanBeNull = true)]
 	[DataMember]public virtual System.Int64? PrSampleBigInt{
 	get{
 		return _SampleBigInt;
@@ -496,6 +517,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="sampleSmallInt",Storage = "_SampleSmallInt", IsPrimaryKey=false,DbType = "smallint",CanBeNull = true)]
 	[DataMember]public virtual System.Int64? PrSampleSmallInt{
 	get{
 		return _SampleSmallInt;
@@ -511,6 +533,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="sampleNumericFieldInt",Storage = "_SampleNumericFieldInt", IsPrimaryKey=false,DbType = "decimal",CanBeNull = true)]
 	[DataMember]public virtual System.Int64? PrSampleNumericFieldInt{
 	get{
 		return _SampleNumericFieldInt;
@@ -526,6 +549,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="sampleNumericField2Decimals",Storage = "_SampleNumericField2Decimals", IsPrimaryKey=false,DbType = "decimal",CanBeNull = true)]
 	[DataMember]public virtual System.Decimal? PrSampleNumericField2Decimals{
 	get{
 		return _SampleNumericField2Decimals;
@@ -1171,7 +1195,7 @@ namespace CsModelObjects {
 
 		#endregion
 		#region "Overrides of GetHashCode and Equals "
-		public bool Equals(EmployeeBase other)
+		public bool Equals(Employee other)
 		{
 
 			//typesafe equals, checks for equality of fields
@@ -1235,9 +1259,9 @@ namespace CsModelObjects {
 
 		public override bool Equals(object Obj) {
 
-			if (Obj != null && Obj is EmployeeBase) {
+			if (Obj != null && Obj is Employee) {
 
-				return this.Equals((EmployeeBase)Obj);
+				return this.Equals((Employee)Obj);
 
 			} else {
 				return false;
@@ -1245,12 +1269,12 @@ namespace CsModelObjects {
 
 		}
 
-		public static bool operator ==(EmployeeBase obj1, EmployeeBase obj2)
+		public static bool operator ==(Employee obj1, Employee obj2)
 		{
 			return object.Equals(obj1, obj2);
 		}
 
-		public static bool operator !=(EmployeeBase obj1, EmployeeBase obj2)
+		public static bool operator !=(Employee obj1, Employee obj2)
 		{
 			return !(obj1 == obj2);
 		}
@@ -1263,8 +1287,8 @@ namespace CsModelObjects {
 		{
 			//creates a copy
 
-			//NOTE: we can't cast from EmployeeBase to Employee, so below we 
-			//instantiate a Employee, NOT a EmployeeBase object
+			//NOTE: we can't cast from Employee to Employee, so below we 
+			//instantiate a Employee, NOT a Employee object
 			Employee ret = new Employee();
 
 		ret.PrEmployeeId = this.PrEmployeeId;
@@ -1304,7 +1328,7 @@ namespace CsModelObjects {
 
 #region "parentIdChanged"
 	//below sub is called when parentIdChanged
-	public override void handleParentIdChanged(Object parentMo, IDChangedEventArgs e) {
+	public override void handleParentIdChanged(Object parentMo, IDChangedEventArgs e){
 		// Assocations from CsModelObjects.EmployeeRank
 		if ( parentMo is CsModelObjects.EmployeeRank) {
 			this.PrEmployeeRankId= ((CsModelObjects.EmployeeRank)parentMo).PrRankId;

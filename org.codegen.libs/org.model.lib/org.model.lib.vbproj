@@ -112,7 +112,6 @@
     <Compile Include="Model\ModelObjectExceptions.vb" />
     <Compile Include="Model\ModelObjectKeyGen.vb" />
     <Compile Include="Model\ModelContext.vb" />
-    <Compile Include="Model\PagedModelObjectList.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

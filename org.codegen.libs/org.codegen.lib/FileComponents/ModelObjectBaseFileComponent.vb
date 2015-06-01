@@ -26,7 +26,7 @@ Namespace FileComponents
        GetType(SetAttrToken), _
        GetType(ObjectCopyToken), _
        GetType(ModelExtraCodeToken), _
-       GetType(ModelObjectChildArrayToken), _
+       GetType(ModelObjectChildArrayToken), GetType(TableNameToken), _
        GetType(LoadObjectHierarchyToken), GetType(IfaceNameToken), _
        GetType(ModelObjectParentArrayToken), _
        GetType(GeneratorToken), _

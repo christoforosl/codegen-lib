@@ -39,7 +39,7 @@ Public Class PropertyGenerator
         Dim pfx As String = ModelGenerator.Current.FieldPropertyPrefix
         If (field.isAuditField) Then pfx = String.Empty
 
-        Dim sproperty As StringBuilder = New StringBuilder("<DataMember>").Append(vbTab). _
+        Dim sproperty As StringBuilder = New StringBuilder().Append(getLinqDataAttribute(field)).Append(vbTab).Append("<DataMember>").Append(vbTab). _
               Append(field.AccessLevel).Append(" Overridable Property ").Append(pfx).Append(runtimeFieldName). _
               Append(" as ").Append(field.getPropertyDataType).Append(sImplements).Append(vbCrLf). _
               Append(vbTab).Append("Get ").Append(vbCrLf)
@@ -157,8 +157,11 @@ Public Class PropertyGenerator
             ret.Append("	End If").Append(vbCrLf)
             ret.Append("End Sub").Append(vbCrLf)
         End If
-
-
-
     End Sub
+
+    Private Function getLinqDataAttribute(field As IDBField) As String
+        Dim nl As String = CStr(IIf(field.isDBFieldNullable, "", " NOT NULL"))
+        Return vbTab & "<Column(Name:=""" & field.FieldName & """,Storage:=""_" & field.RuntimeFieldName & """, IsPrimaryKey:=" & field.isPrimaryKey & ",DbType:=""" & field.DBType & nl & """,CanBeNull:=" & field.isDBFieldNullable & " )> _" & vbCrLf
+    End Function
+
 End Class

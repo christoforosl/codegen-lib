@@ -44,6 +44,7 @@ Public Interface IDBField
     Property Size() As Integer
     Property Precision() As Integer
     Property Scale() As Integer
+    Property DBType() As String
 
     Property XMLSerializationIgnore() As Boolean
 

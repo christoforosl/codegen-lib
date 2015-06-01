@@ -32,7 +32,7 @@ Public Class CSharpPropertyGenerator
         If (field.isAuditField) Then pfx = String.Empty
 
         Dim sproperty As StringBuilder = New StringBuilder(xmlIgnore).Append(vbTab). _
-              Append("[DataMember]public virtual ").Append(field.getPropertyDataType).Append(" "). _
+              Append(getLinqDataAttribute(field)).Append(vbTab).Append("[DataMember]public virtual ").Append(field.getPropertyDataType).Append(" "). _
         Append(pfx).Append(runtimeFieldName).Append("{").Append(vbCrLf). _
         Append(vbTab).Append("get{").Append(vbCrLf)
 
@@ -149,5 +149,11 @@ Public Class CSharpPropertyGenerator
             ret.Append("}").Append(vbCrLf)
         End If
     End Sub
+
+    Private Function getLinqDataAttribute(field As IDBField) As String
+        Dim nl As String = CStr(IIf(field.isDBFieldNullable, "", " NOT NULL"))
+
+        Return "[Column(Name=""" & field.FieldName & """,Storage = ""_" & field.RuntimeFieldName & """, IsPrimaryKey=" & field.isPrimaryKey.ToString.ToLower & ",DbType = """ & field.DBType & nl & """,CanBeNull = " & field.isDBFieldNullable.ToString.ToLower & ")]" & vbCrLf
+    End Function
 
 End Class

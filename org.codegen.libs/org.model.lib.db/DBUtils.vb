@@ -2,6 +2,7 @@ Option Strict On
 
 Imports System.IO
 Imports System.Runtime.CompilerServices
+Imports System.Data.Linq
 
 ''' <summary>
 ''' Database Utility class to fascilitate sql statements execution
@@ -9,7 +10,6 @@ Imports System.Runtime.CompilerServices
 ''' <remarks></remarks>
 Public MustInherit Class DBUtils
     Implements IDisposable
-
 
 #Region "db provider"
 
@@ -120,30 +120,12 @@ Public MustInherit Class DBUtils
     Protected p_Conn As IDbConnection
     Protected p_params As IDataParameterCollection
 
-    Private Shared p_monthNames(13) As String
     Private Shared p_logStnms As Boolean
     Private Shared p_logFilePath As String
 
 #End Region
 
 #Region "Class constructors"
-
-    Shared Sub New()
-
-        p_monthNames(1) = "Jan"
-        p_monthNames(2) = "Feb"
-        p_monthNames(3) = "Mar"
-        p_monthNames(4) = "Apr"
-        p_monthNames(5) = "May"
-        p_monthNames(6) = "Jun"
-        p_monthNames(7) = "Jul"
-        p_monthNames(8) = "Aug"
-        p_monthNames(9) = "Sep"
-        p_monthNames(10) = "Oct"
-        p_monthNames(11) = "Nov"
-        p_monthNames(12) = "Dec"
-
-    End Sub
 
     Protected Sub New()
 
@@ -167,6 +149,12 @@ Public MustInherit Class DBUtils
         End Set
 
     End Property
+
+    Public Function dbContext() As DataContext
+
+        Return New DataContext(Me.Connection)
+
+    End Function
 
     ''' <summary>
     ''' SQL Dialect
@@ -368,7 +356,6 @@ Public MustInherit Class DBUtils
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public MustOverride Property Connection() As IDbConnection
-
 
     Protected Friend MustOverride Sub setSpecialChars()
 

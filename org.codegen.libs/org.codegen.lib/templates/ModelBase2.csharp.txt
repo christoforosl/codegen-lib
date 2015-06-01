@@ -10,6 +10,7 @@ using org.model.lib;
 using Microsoft.VisualBasic;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
+using System.Data.Linq.Mapping;
 
 //<comments>
 //************************************************************
@@ -24,14 +25,15 @@ using System.Xml.Serialization;
 //************************************************************
 //</comments>
 namespace <NAMESPACE> {
-	
+
+	[Table(Name = "<TABLE_NAME>")]
 	[DataContract]
 	[DefaultMapperAttr(typeof(<DBMAPPER_NAMESPACE>.<MODEL_CLASS_NAME>DBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class <MODEL_CLASS_NAME>Base : <MODEL_BASE_CLASS>, IEquatable<<MODEL_CLASS_NAME>Base> <MODEL_CLASS_IFACE_NAME> {
+	public partial class <MODEL_CLASS_NAME>:ModelObject,IEquatable<<MODEL_CLASS_NAME>> <MODEL_CLASS_IFACE_NAME> {
 
 		#region "Constructor"
 
-		public <MODEL_CLASS_NAME>Base() {
+		public <MODEL_CLASS_NAME>() {
 			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new <MODEL_CLASS_NAME>RequiredFieldsValidator());
 		}
@@ -115,7 +117,7 @@ namespace <NAMESPACE> {
 
 		#endregion
 		#region "Overrides of GetHashCode and Equals "
-		public bool Equals(<MODEL_CLASS_NAME>Base other)
+		public bool Equals(<MODEL_CLASS_NAME> other)
 		{
 
 			//typesafe equals, checks for equality of fields
@@ -137,9 +139,9 @@ namespace <NAMESPACE> {
 
 		public override bool Equals(object Obj) {
 
-			if (Obj != null && Obj is <MODEL_CLASS_NAME>Base) {
+			if (Obj != null && Obj is <MODEL_CLASS_NAME>) {
 
-				return this.Equals((<MODEL_CLASS_NAME>Base)Obj);
+				return this.Equals((<MODEL_CLASS_NAME>)Obj);
 
 			} else {
 				return false;
@@ -147,12 +149,12 @@ namespace <NAMESPACE> {
 
 		}
 
-		public static bool operator ==(<MODEL_CLASS_NAME>Base obj1, <MODEL_CLASS_NAME>Base obj2)
+		public static bool operator ==(<MODEL_CLASS_NAME> obj1, <MODEL_CLASS_NAME> obj2)
 		{
 			return object.Equals(obj1, obj2);
 		}
 
-		public static bool operator !=(<MODEL_CLASS_NAME>Base obj1, <MODEL_CLASS_NAME>Base obj2)
+		public static bool operator !=(<MODEL_CLASS_NAME> obj1, <MODEL_CLASS_NAME> obj2)
 		{
 			return !(obj1 == obj2);
 		}
@@ -165,8 +167,8 @@ namespace <NAMESPACE> {
 		{
 			//creates a copy
 
-			//NOTE: we can't cast from <MODEL_CLASS_NAME>Base to <MODEL_CLASS_NAME>, so below we 
-			//instantiate a <MODEL_CLASS_NAME>, NOT a <MODEL_CLASS_NAME>Base object
+			//NOTE: we can't cast from <MODEL_CLASS_NAME> to <MODEL_CLASS_NAME>, so below we 
+			//instantiate a <MODEL_CLASS_NAME>, NOT a <MODEL_CLASS_NAME> object
 			<MODEL_CLASS_NAME> ret = new <MODEL_CLASS_NAME>();
 
 <COPY_FIELDS>

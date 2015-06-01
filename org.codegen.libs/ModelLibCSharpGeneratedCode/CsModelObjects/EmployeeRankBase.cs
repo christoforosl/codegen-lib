@@ -10,6 +10,7 @@ using org.model.lib;
 using Microsoft.VisualBasic;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
+using System.Data.Linq.Mapping;
 
 //<comments>
 //************************************************************
@@ -24,14 +25,15 @@ using System.Xml.Serialization;
 //************************************************************
 //</comments>
 namespace CsModelObjects {
-	
+
+	[Table(Name = "EmployeeRank")]
 	[DataContract]
 	[DefaultMapperAttr(typeof(CsModelMappers.EmployeeRankDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class EmployeeRankBase : ModelObject, IEquatable<EmployeeRankBase>  {
+	public partial class EmployeeRank:ModelObject,IEquatable<EmployeeRank>  {
 
 		#region "Constructor"
 
-		public EmployeeRankBase() {
+		public EmployeeRank() {
 			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new EmployeeRankRequiredFieldsValidator());
 		}
@@ -99,6 +101,7 @@ namespace CsModelObjects {
 
 		#region "Field Properties"
 
+	[Column(Name="RankId",Storage = "_RankId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64 PrRankId{
 	get{
 		return _RankId;
@@ -116,6 +119,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="Rank",Storage = "_Rank", IsPrimaryKey=false,DbType = "nvarchar NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.String PrRank{
 	get{
 		return _Rank;
@@ -206,7 +210,7 @@ namespace CsModelObjects {
 
 		#endregion
 		#region "Overrides of GetHashCode and Equals "
-		public bool Equals(EmployeeRankBase other)
+		public bool Equals(EmployeeRank other)
 		{
 
 			//typesafe equals, checks for equality of fields
@@ -230,9 +234,9 @@ namespace CsModelObjects {
 
 		public override bool Equals(object Obj) {
 
-			if (Obj != null && Obj is EmployeeRankBase) {
+			if (Obj != null && Obj is EmployeeRank) {
 
-				return this.Equals((EmployeeRankBase)Obj);
+				return this.Equals((EmployeeRank)Obj);
 
 			} else {
 				return false;
@@ -240,12 +244,12 @@ namespace CsModelObjects {
 
 		}
 
-		public static bool operator ==(EmployeeRankBase obj1, EmployeeRankBase obj2)
+		public static bool operator ==(EmployeeRank obj1, EmployeeRank obj2)
 		{
 			return object.Equals(obj1, obj2);
 		}
 
-		public static bool operator !=(EmployeeRankBase obj1, EmployeeRankBase obj2)
+		public static bool operator !=(EmployeeRank obj1, EmployeeRank obj2)
 		{
 			return !(obj1 == obj2);
 		}
@@ -258,8 +262,8 @@ namespace CsModelObjects {
 		{
 			//creates a copy
 
-			//NOTE: we can't cast from EmployeeRankBase to EmployeeRank, so below we 
-			//instantiate a EmployeeRank, NOT a EmployeeRankBase object
+			//NOTE: we can't cast from EmployeeRank to EmployeeRank, so below we 
+			//instantiate a EmployeeRank, NOT a EmployeeRank object
 			EmployeeRank ret = new EmployeeRank();
 
 		ret.PrRankId = this.PrRankId;

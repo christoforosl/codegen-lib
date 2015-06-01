@@ -74,6 +74,7 @@
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
@@ -102,40 +103,46 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="CsModelMappers\EmployeeDBMapperSql.xml">
+      <DependentUpon>EmployeeDBMapper.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="CsModelMappers\EmployeeDBMapper.cs" />
     <Compile Include="CsModelObjects\Employee.cs" />
     <Compile Include="CsModelObjects\EmployeeBase.cs">
       <DependentUpon>Employee.cs</DependentUpon>
     </Compile>
-    <Compile Include="CsModelObjects\EmployeeProject.cs" />
-    <Compile Include="CsModelObjects\EmployeeProjectBase.cs">
-      <DependentUpon>EmployeeProject.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CsModelObjects\EmployeeRank.cs" />
-    <Compile Include="CsModelObjects\EmployeeRankBase.cs">
-      <DependentUpon>EmployeeRank.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CsModelObjects\EmployeeInfo.cs" />
-    <Compile Include="CsModelObjects\EmployeeInfoBase.cs">
-      <DependentUpon>EmployeeInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CsModelObjects\Project.cs" />
-    <Compile Include="CsModelObjects\ProjectBase.cs">
-      <DependentUpon>Project.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CsModelMappers\EmployeeDBMapper.cs" />
     <EmbeddedResource Include="CsModelMappers\EmployeeProjectDBMapperSql.xml">
       <DependentUpon>EmployeeProjectDBMapper.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="CsModelMappers\EmployeeProjectDBMapper.cs" />
+    <Compile Include="CsModelObjects\EmployeeProject.cs" />
+    <Compile Include="CsModelObjects\EmployeeProjectBase.cs">
+      <DependentUpon>EmployeeProject.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="CsModelMappers\EmployeeRankDBMapperSql.xml">
       <DependentUpon>EmployeeRankDBMapper.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="CsModelMappers\EmployeeRankDBMapper.cs" />
+    <Compile Include="CsModelObjects\EmployeeRank.cs" />
+    <Compile Include="CsModelObjects\EmployeeRankBase.cs">
+      <DependentUpon>EmployeeRank.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="CsModelMappers\EmployeeInfoDBMapperSql.xml">
+      <DependentUpon>EmployeeInfoDBMapper.cs</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="CsModelMappers\EmployeeInfoDBMapper.cs" />
+    <Compile Include="CsModelObjects\EmployeeInfo.cs" />
+    <Compile Include="CsModelObjects\EmployeeInfoBase.cs">
+      <DependentUpon>EmployeeInfo.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="CsModelMappers\ProjectDBMapperSql.xml">
       <DependentUpon>ProjectDBMapper.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="CsModelMappers\ProjectDBMapper.cs" />
+    <Compile Include="CsModelObjects\Project.cs" />
+    <Compile Include="CsModelObjects\ProjectBase.cs">
+      <DependentUpon>Project.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="CsModelMappers\EmployeeTypeDBMapperSql.xml">
       <DependentUpon>EmployeeTypeDBMapper.cs</DependentUpon>
     </EmbeddedResource>
@@ -144,12 +151,6 @@
     <Compile Include="CsModelObjects\EmployeeTypeBase.cs">
       <DependentUpon>EmployeeType.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="CsModelMappers\EmployeeDBMapperSql.xml">
-      <DependentUpon>EmployeeDBMapper.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CsModelMappers\EmployeeInfoDBMapperSql.xml">
-      <DependentUpon>EmployeeInfoDBMapper.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="CSharpModelGenerator.xml">

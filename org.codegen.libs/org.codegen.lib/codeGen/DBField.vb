@@ -340,9 +340,11 @@ Public Class DBField
         Get
 
             Return Me.RuntimeTypeStr
-            
+
         End Get
 
     End Property
+
+    Public Property DBType As String Implements IDBField.DBType
 
 End Class

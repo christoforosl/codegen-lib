@@ -5,7 +5,7 @@ Imports System.Runtime.InteropServices
 Imports System.Collections.Generic
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
-
+Imports System.Data.Linq.Mapping
 '<comments>
 '************************************************************
 ' Temnplate: ModelBase2.visualBasic.txt
@@ -19,16 +19,16 @@ Imports System.Runtime.Serialization
 '************************************************************
 '</comments>
 Namespace <NAMESPACE>
-
+<Table(Name := "<TABLE_NAME>")>
 <DefaultMapperAttr(GetType(<MODEL_CLASS_NAME>DBMapper)), DataContract, _
 ComVisible(False),Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)> _
-<CLASS_ACCESS_LEVEL> class <MODEL_CLASS_NAME>Base
+public partial class <MODEL_CLASS_NAME>
 		Inherits <MODEL_BASE_CLASS>
-		Implements IEquatable(Of <MODEL_CLASS_NAME>Base)<MODEL_CLASS_IFACE_NAME> 
+		Implements IEquatable(Of <MODEL_CLASS_NAME>)<MODEL_CLASS_IFACE_NAME> 
 
 #Region "Constructor"
     
-    public sub New()
+    Friend sub New()
 		Me.addValidator(New <MODEL_CLASS_NAME>RequiredFieldsValidator)
 		Me.Id = ModelObjectKeyGen.nextId()
     End Sub
@@ -108,8 +108,8 @@ ComVisible(False),Serializable(), System.ComponentModel.EditorBrowsable(System.C
 
 #End Region
 #Region "Overrides of GetHashCode and Equals "
-	Public Overloads Function Equals(ByVal other As <MODEL_CLASS_NAME>Base) As Boolean _     
-		Implements System.IEquatable(Of <MODEL_CLASS_NAME>Base).Equals       
+	Public Overloads Function Equals(ByVal other As <MODEL_CLASS_NAME>) As Boolean _     
+		Implements System.IEquatable(Of <MODEL_CLASS_NAME>).Equals       
 		
 			'typesafe equals, checks for equality of fields
 			If other Is Nothing Then Return False       
@@ -127,7 +127,7 @@ ComVisible(False),Serializable(), System.ComponentModel.EditorBrowsable(System.C
     
     Public Overloads Overrides Function Equals(ByVal Obj As Object) As Boolean
 		
-		Dim temp = TryCast(obj, <MODEL_CLASS_NAME>Base)       
+		Dim temp = TryCast(obj, <MODEL_CLASS_NAME>)       
 		If temp IsNot Nothing Then 
 			Return Me.Equals(temp)
 		Else
@@ -136,11 +136,11 @@ ComVisible(False),Serializable(), System.ComponentModel.EditorBrowsable(System.C
 
     End Function
 	
-	Public Shared Operator =(ByVal obj1 As <MODEL_CLASS_NAME>Base, ByVal obj2 As <MODEL_CLASS_NAME>Base) As Boolean       
+	Public Shared Operator =(ByVal obj1 As <MODEL_CLASS_NAME>, ByVal obj2 As <MODEL_CLASS_NAME>) As Boolean       
 		Return Object.Equals(obj1 ,obj2)    
 	End Operator    
 	
-	Public Shared Operator <>(ByVal obj1 As <MODEL_CLASS_NAME>Base, ByVal obj2 As <MODEL_CLASS_NAME>Base) As Boolean       
+	Public Shared Operator <>(ByVal obj1 As <MODEL_CLASS_NAME>, ByVal obj2 As <MODEL_CLASS_NAME>) As Boolean       
 		Return Not (obj1 = obj2)    
 	End Operator
 
@@ -151,8 +151,8 @@ ComVisible(False),Serializable(), System.ComponentModel.EditorBrowsable(System.C
 	Public Overrides Function copy() as IModelObject
 		'creates a copy
 		
-		'NOTE: we can't cast from <MODEL_CLASS_NAME>Base to <MODEL_CLASS_NAME>, so below we 
-        'instantiate a <MODEL_CLASS_NAME>, NOT a <MODEL_CLASS_NAME>Base object
+		'NOTE: we can't cast from <MODEL_CLASS_NAME> to <MODEL_CLASS_NAME>, so below we 
+        'instantiate a <MODEL_CLASS_NAME>, NOT a <MODEL_CLASS_NAME> object
         Dim ret as <MODEL_CLASS_NAME> =  new <MODEL_CLASS_NAME>()
             
 		<COPY_FIELDS>

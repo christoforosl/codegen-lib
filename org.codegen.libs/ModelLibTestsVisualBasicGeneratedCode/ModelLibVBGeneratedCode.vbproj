@@ -77,6 +77,7 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -104,41 +105,35 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="My Project\AssemblyInfo.vb" />
-    <Compile Include="Tests\EmployeeInfoTestBase.vb" />
-    <Compile Include="Tests\EmployeeProjectTestBase.vb" />
-    <Compile Include="Tests\EmployeeRankTestBase.vb" />
-    <Compile Include="Tests\EmployeeTestBase.vb" />
-    <Compile Include="Tests\EmployeeTypeTestBase.vb" />
-    <Compile Include="Tests\ProjectTestBase.vb" />
     <Compile Include="VbBusObjects\DBMappers\EmployeeDBMapper.vb" />
     <Compile Include="VbBusObjects\DBMappers\EmployeeProjectDBMapper.vb" />
-    <Compile Include="VbBusObjects\EmployeeProject.vb" />
-    <Compile Include="VbBusObjects\EmployeeProjectBase.vb">
-      <DependentUpon>EmployeeProject.vb</DependentUpon>
-    </Compile>
     <Compile Include="VbBusObjects\DBMappers\EmployeeRankDBMapper.vb" />
-    <Compile Include="VbBusObjects\EmployeeRank.vb" />
-    <Compile Include="VbBusObjects\EmployeeRankBase.vb">
-      <DependentUpon>EmployeeRank.vb</DependentUpon>
-    </Compile>
     <Compile Include="VbBusObjects\DBMappers\EmployeeInfoDBMapper.vb" />
-    <Compile Include="VbBusObjects\EmployeeInfo.vb" />
-    <Compile Include="VbBusObjects\EmployeeInfoBase.vb">
-      <DependentUpon>EmployeeInfo.vb</DependentUpon>
-    </Compile>
     <Compile Include="VbBusObjects\DBMappers\ProjectDBMapper.vb" />
+    <Compile Include="VbBusObjects\DBMappers\EmployeeTypeDBMapper.vb" />
     <Compile Include="VbBusObjects\Employee.vb" />
     <Compile Include="VbBusObjects\EmployeeBase.vb">
       <DependentUpon>Employee.vb</DependentUpon>
     </Compile>
-    <Compile Include="VbBusObjects\DBMappers\EmployeeTypeDBMapper.vb" />
-    <Compile Include="VbBusObjects\EmployeeType.vb" />
-    <Compile Include="VbBusObjects\EmployeeTypeBase.vb">
-      <DependentUpon>EmployeeType.vb</DependentUpon>
+    <Compile Include="VbBusObjects\EmployeeProject.vb" />
+    <Compile Include="VbBusObjects\EmployeeProjectBase.vb">
+      <DependentUpon>EmployeeProject.vb</DependentUpon>
+    </Compile>
+    <Compile Include="VbBusObjects\EmployeeRank.vb" />
+    <Compile Include="VbBusObjects\EmployeeRankBase.vb">
+      <DependentUpon>EmployeeRank.vb</DependentUpon>
+    </Compile>
+    <Compile Include="VbBusObjects\EmployeeInfo.vb" />
+    <Compile Include="VbBusObjects\EmployeeInfoBase.vb">
+      <DependentUpon>EmployeeInfo.vb</DependentUpon>
     </Compile>
     <Compile Include="VbBusObjects\Project.vb" />
     <Compile Include="VbBusObjects\ProjectBase.vb">
       <DependentUpon>Project.vb</DependentUpon>
+    </Compile>
+    <Compile Include="VbBusObjects\EmployeeType.vb" />
+    <Compile Include="VbBusObjects\EmployeeTypeBase.vb">
+      <DependentUpon>EmployeeType.vb</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

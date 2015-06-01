@@ -1,5 +1,6 @@
 ﻿
 Imports System.Linq
+Imports System.Data.Linq
 
 Namespace Model
 
@@ -51,6 +52,12 @@ Namespace Model
         End Function
 
         Public Iterator Function getList() As IEnumerable(Of T)
+
+            Using cts As DataContext = DBUtils.Current.dbContext
+
+                return cts.
+
+            End Using
 
             Dim ilen As Integer
             If (Me.params Is Nothing) Then

@@ -10,6 +10,7 @@ using org.model.lib;
 using Microsoft.VisualBasic;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
+using System.Data.Linq.Mapping;
 
 //<comments>
 //************************************************************
@@ -24,14 +25,15 @@ using System.Xml.Serialization;
 //************************************************************
 //</comments>
 namespace CsModelObjects {
-	
+
+	[Table(Name = "EmployeeType")]
 	[DataContract]
 	[DefaultMapperAttr(typeof(CsModelMappers.EmployeeTypeDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class EmployeeTypeBase : ModelObject, IEquatable<EmployeeTypeBase>  {
+	public partial class EmployeeType:ModelObject,IEquatable<EmployeeType>  {
 
 		#region "Constructor"
 
-		public EmployeeTypeBase() {
+		public EmployeeType() {
 			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new EmployeeTypeRequiredFieldsValidator());
 		}
@@ -99,6 +101,7 @@ namespace CsModelObjects {
 
 		#region "Field Properties"
 
+	[Column(Name="EmployeeTypeCode",Storage = "_EmployeeTypeCode", IsPrimaryKey=true,DbType = "varchar NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.String PrEmployeeTypeCode{
 	get{
 		return _EmployeeTypeCode;
@@ -119,6 +122,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="EmployeeType",Storage = "_EmployeeType", IsPrimaryKey=false,DbType = "nvarchar NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.String PrEmployeeType{
 	get{
 		return _EmployeeType;
@@ -209,7 +213,7 @@ namespace CsModelObjects {
 
 		#endregion
 		#region "Overrides of GetHashCode and Equals "
-		public bool Equals(EmployeeTypeBase other)
+		public bool Equals(EmployeeType other)
 		{
 
 			//typesafe equals, checks for equality of fields
@@ -233,9 +237,9 @@ namespace CsModelObjects {
 
 		public override bool Equals(object Obj) {
 
-			if (Obj != null && Obj is EmployeeTypeBase) {
+			if (Obj != null && Obj is EmployeeType) {
 
-				return this.Equals((EmployeeTypeBase)Obj);
+				return this.Equals((EmployeeType)Obj);
 
 			} else {
 				return false;
@@ -243,12 +247,12 @@ namespace CsModelObjects {
 
 		}
 
-		public static bool operator ==(EmployeeTypeBase obj1, EmployeeTypeBase obj2)
+		public static bool operator ==(EmployeeType obj1, EmployeeType obj2)
 		{
 			return object.Equals(obj1, obj2);
 		}
 
-		public static bool operator !=(EmployeeTypeBase obj1, EmployeeTypeBase obj2)
+		public static bool operator !=(EmployeeType obj1, EmployeeType obj2)
 		{
 			return !(obj1 == obj2);
 		}
@@ -261,8 +265,8 @@ namespace CsModelObjects {
 		{
 			//creates a copy
 
-			//NOTE: we can't cast from EmployeeTypeBase to EmployeeType, so below we 
-			//instantiate a EmployeeType, NOT a EmployeeTypeBase object
+			//NOTE: we can't cast from EmployeeType to EmployeeType, so below we 
+			//instantiate a EmployeeType, NOT a EmployeeType object
 			EmployeeType ret = new EmployeeType();
 
 		ret.PrEmployeeTypeCode = this.PrEmployeeTypeCode;

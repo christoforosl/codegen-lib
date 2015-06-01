@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.Data.Linq.Mapping;
 
 //<comments>
 //************************************************************
@@ -29,34 +30,9 @@ namespace <NAMESPACE> {
 
 	}
 
-	[Serializable()]
-	public class <MODEL_CLASS_NAME> : <MODEL_CLASS_NAME>Base  {
+	public partial class <MODEL_CLASS_NAME>  {
 
-		#region "Constructor"
-		
-		/// <summary>
-		/// We want people to use the factory, 
-		/// so the constructor has assembly level access
-		/// </summary>
-		internal <MODEL_CLASS_NAME>() {
-			//Empty constructor.
-		}
-
-		#endregion
-
-		#region "Overrides"
-
-		#endregion
-
-		#region "Before Save,After Save and Validate Overriden Methods "
-
-		#endregion
-
-		#region "Shadowed and Other Methods "
-
-		#endregion
-
-		#region "Methods "
+		#region "Custom Methods "
 
 		#endregion
 

@@ -1,5 +1,6 @@
 Option Strict On
 Imports System.Runtime.InteropServices
+Imports System.Data.Linq.Mapping
 
 '<comments>
 '************************************************************
@@ -26,23 +27,7 @@ Namespace <NAMESPACE>
     
 	End Class
 
-	<Serializable()> _
-	<CLASS_ACCESS_LEVEL> class <MODEL_CLASS_NAME>
-		inherits <MODEL_CLASS_NAME>Base 
-
-#Region "Constructor"
-    
-    Friend sub New()
-        
-		'Empty constructor.  
-        
-    End Sub
-
-#End Region
-
-#Region "Overrides"
-
-#End Region
+	<CLASS_ACCESS_LEVEL> partial class <MODEL_CLASS_NAME>
         
 #Region "Custom Properties and Other Methods "
 

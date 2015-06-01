@@ -10,6 +10,7 @@ using org.model.lib;
 using Microsoft.VisualBasic;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
+using System.Data.Linq.Mapping;
 
 //<comments>
 //************************************************************
@@ -24,14 +25,15 @@ using System.Xml.Serialization;
 //************************************************************
 //</comments>
 namespace CsModelObjects {
-	
+
+	[Table(Name = "Project")]
 	[DataContract]
 	[DefaultMapperAttr(typeof(CsModelMappers.ProjectDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class ProjectBase : ModelObject, IEquatable<ProjectBase>  {
+	public partial class Project:ModelObject,IEquatable<Project>  {
 
 		#region "Constructor"
 
-		public ProjectBase() {
+		public Project() {
 			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new ProjectRequiredFieldsValidator());
 		}
@@ -115,6 +117,7 @@ namespace CsModelObjects {
 
 		#region "Field Properties"
 
+	[Column(Name="ProjectId",Storage = "_ProjectId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64 PrProjectId{
 	get{
 		return _ProjectId;
@@ -132,6 +135,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="ProjectName",Storage = "_ProjectName", IsPrimaryKey=false,DbType = "nvarchar NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.String PrProjectName{
 	get{
 		return _ProjectName;
@@ -150,6 +154,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="isActive",Storage = "_IsActive", IsPrimaryKey=false,DbType = "bit NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Boolean PrIsActive{
 	get{
 		return _IsActive;
@@ -359,7 +364,7 @@ namespace CsModelObjects {
 
 		#endregion
 		#region "Overrides of GetHashCode and Equals "
-		public bool Equals(ProjectBase other)
+		public bool Equals(Project other)
 		{
 
 			//typesafe equals, checks for equality of fields
@@ -385,9 +390,9 @@ namespace CsModelObjects {
 
 		public override bool Equals(object Obj) {
 
-			if (Obj != null && Obj is ProjectBase) {
+			if (Obj != null && Obj is Project) {
 
-				return this.Equals((ProjectBase)Obj);
+				return this.Equals((Project)Obj);
 
 			} else {
 				return false;
@@ -395,12 +400,12 @@ namespace CsModelObjects {
 
 		}
 
-		public static bool operator ==(ProjectBase obj1, ProjectBase obj2)
+		public static bool operator ==(Project obj1, Project obj2)
 		{
 			return object.Equals(obj1, obj2);
 		}
 
-		public static bool operator !=(ProjectBase obj1, ProjectBase obj2)
+		public static bool operator !=(Project obj1, Project obj2)
 		{
 			return !(obj1 == obj2);
 		}
@@ -413,8 +418,8 @@ namespace CsModelObjects {
 		{
 			//creates a copy
 
-			//NOTE: we can't cast from ProjectBase to Project, so below we 
-			//instantiate a Project, NOT a ProjectBase object
+			//NOTE: we can't cast from Project to Project, so below we 
+			//instantiate a Project, NOT a Project object
 			Project ret = new Project();
 
 		ret.PrProjectId = this.PrProjectId;

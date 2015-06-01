@@ -10,6 +10,7 @@ using org.model.lib;
 using Microsoft.VisualBasic;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
+using System.Data.Linq.Mapping;
 
 //<comments>
 //************************************************************
@@ -24,14 +25,15 @@ using System.Xml.Serialization;
 //************************************************************
 //</comments>
 namespace CsModelObjects {
-	
+
+	[Table(Name = "EmployeeInfo")]
 	[DataContract]
 	[DefaultMapperAttr(typeof(CsModelMappers.EmployeeInfoDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class EmployeeInfoBase : ModelObject, IEquatable<EmployeeInfoBase>  {
+	public partial class EmployeeInfo:ModelObject,IEquatable<EmployeeInfo>  {
 
 		#region "Constructor"
 
-		public EmployeeInfoBase() {
+		public EmployeeInfo() {
 			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new EmployeeInfoRequiredFieldsValidator());
 		}
@@ -105,6 +107,7 @@ namespace CsModelObjects {
 
 		#region "Field Properties"
 
+	[Column(Name="EmployeeInfoId",Storage = "_EmployeeInfoId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64 PrEmployeeInfoId{
 	get{
 		return _EmployeeInfoId;
@@ -122,6 +125,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="EIEmployeeId",Storage = "_EIEmployeeId", IsPrimaryKey=false,DbType = "int NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64? PrEIEmployeeId{
 	get{
 		return _EIEmployeeId;
@@ -137,6 +141,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="Salary",Storage = "_Salary", IsPrimaryKey=false,DbType = "decimal",CanBeNull = true)]
 	[DataMember]public virtual System.Decimal? PrSalary{
 	get{
 		return _Salary;
@@ -152,6 +157,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="Address",Storage = "_Address", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
 	[DataMember]public virtual System.String PrAddress{
 	get{
 		return _Address;
@@ -278,7 +284,7 @@ namespace CsModelObjects {
 
 		#endregion
 		#region "Overrides of GetHashCode and Equals "
-		public bool Equals(EmployeeInfoBase other)
+		public bool Equals(EmployeeInfo other)
 		{
 
 			//typesafe equals, checks for equality of fields
@@ -306,9 +312,9 @@ namespace CsModelObjects {
 
 		public override bool Equals(object Obj) {
 
-			if (Obj != null && Obj is EmployeeInfoBase) {
+			if (Obj != null && Obj is EmployeeInfo) {
 
-				return this.Equals((EmployeeInfoBase)Obj);
+				return this.Equals((EmployeeInfo)Obj);
 
 			} else {
 				return false;
@@ -316,12 +322,12 @@ namespace CsModelObjects {
 
 		}
 
-		public static bool operator ==(EmployeeInfoBase obj1, EmployeeInfoBase obj2)
+		public static bool operator ==(EmployeeInfo obj1, EmployeeInfo obj2)
 		{
 			return object.Equals(obj1, obj2);
 		}
 
-		public static bool operator !=(EmployeeInfoBase obj1, EmployeeInfoBase obj2)
+		public static bool operator !=(EmployeeInfo obj1, EmployeeInfo obj2)
 		{
 			return !(obj1 == obj2);
 		}
@@ -334,8 +340,8 @@ namespace CsModelObjects {
 		{
 			//creates a copy
 
-			//NOTE: we can't cast from EmployeeInfoBase to EmployeeInfo, so below we 
-			//instantiate a EmployeeInfo, NOT a EmployeeInfoBase object
+			//NOTE: we can't cast from EmployeeInfo to EmployeeInfo, so below we 
+			//instantiate a EmployeeInfo, NOT a EmployeeInfo object
 			EmployeeInfo ret = new EmployeeInfo();
 
 		ret.PrEmployeeInfoId = this.PrEmployeeInfoId;

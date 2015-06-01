@@ -10,6 +10,7 @@ using org.model.lib;
 using Microsoft.VisualBasic;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
+using System.Data.Linq.Mapping;
 
 //<comments>
 //************************************************************
@@ -24,14 +25,15 @@ using System.Xml.Serialization;
 //************************************************************
 //</comments>
 namespace CsModelObjects {
-	
+
+	[Table(Name = "EmployeeProject")]
 	[DataContract]
 	[DefaultMapperAttr(typeof(CsModelMappers.EmployeeProjectDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class EmployeeProjectBase : ModelObject, IEquatable<EmployeeProjectBase>  {
+	public partial class EmployeeProject:ModelObject,IEquatable<EmployeeProject>  {
 
 		#region "Constructor"
 
-		public EmployeeProjectBase() {
+		public EmployeeProject() {
 			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new EmployeeProjectRequiredFieldsValidator());
 		}
@@ -120,6 +122,7 @@ namespace CsModelObjects {
 
 		#region "Field Properties"
 
+	[Column(Name="EmployeeProjectId",Storage = "_EmployeeProjectId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64 PrEmployeeProjectId{
 	get{
 		return _EmployeeProjectId;
@@ -137,6 +140,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="EPEmployeeId",Storage = "_EPEmployeeId", IsPrimaryKey=false,DbType = "int NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64? PrEPEmployeeId{
 	get{
 		return _EPEmployeeId;
@@ -152,6 +156,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="EPProjectId",Storage = "_EPProjectId", IsPrimaryKey=false,DbType = "int NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64? PrEPProjectId{
 	get{
 		return _EPProjectId;
@@ -167,6 +172,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="AssignDate",Storage = "_AssignDate", IsPrimaryKey=false,DbType = "date",CanBeNull = true)]
 	[DataMember]public virtual System.DateTime? PrAssignDate{
 	get{
 		return _AssignDate;
@@ -182,6 +188,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="EndDate",Storage = "_EndDate", IsPrimaryKey=false,DbType = "date",CanBeNull = true)]
 	[DataMember]public virtual System.DateTime? PrEndDate{
 	get{
 		return _EndDate;
@@ -197,6 +204,7 @@ namespace CsModelObjects {
 		}
 		}
 	}
+	[Column(Name="Rate",Storage = "_Rate", IsPrimaryKey=false,DbType = "decimal",CanBeNull = true)]
 	[DataMember]public virtual System.Decimal? PrRate{
 	get{
 		return _Rate;
@@ -410,7 +418,7 @@ namespace CsModelObjects {
 
 		#endregion
 		#region "Overrides of GetHashCode and Equals "
-		public bool Equals(EmployeeProjectBase other)
+		public bool Equals(EmployeeProject other)
 		{
 
 			//typesafe equals, checks for equality of fields
@@ -442,9 +450,9 @@ namespace CsModelObjects {
 
 		public override bool Equals(object Obj) {
 
-			if (Obj != null && Obj is EmployeeProjectBase) {
+			if (Obj != null && Obj is EmployeeProject) {
 
-				return this.Equals((EmployeeProjectBase)Obj);
+				return this.Equals((EmployeeProject)Obj);
 
 			} else {
 				return false;
@@ -452,12 +460,12 @@ namespace CsModelObjects {
 
 		}
 
-		public static bool operator ==(EmployeeProjectBase obj1, EmployeeProjectBase obj2)
+		public static bool operator ==(EmployeeProject obj1, EmployeeProject obj2)
 		{
 			return object.Equals(obj1, obj2);
 		}
 
-		public static bool operator !=(EmployeeProjectBase obj1, EmployeeProjectBase obj2)
+		public static bool operator !=(EmployeeProject obj1, EmployeeProject obj2)
 		{
 			return !(obj1 == obj2);
 		}
@@ -470,8 +478,8 @@ namespace CsModelObjects {
 		{
 			//creates a copy
 
-			//NOTE: we can't cast from EmployeeProjectBase to EmployeeProject, so below we 
-			//instantiate a EmployeeProject, NOT a EmployeeProjectBase object
+			//NOTE: we can't cast from EmployeeProject to EmployeeProject, so below we 
+			//instantiate a EmployeeProject, NOT a EmployeeProject object
 			EmployeeProject ret = new EmployeeProject();
 
 		ret.PrEmployeeProjectId = this.PrEmployeeProjectId;
