@@ -13,13 +13,14 @@ https://github.com/christoforosl/codegen-lib/wiki</description>
         <summary>Simple ORM that supports saving Object Hieratchies in a single transaction.  Includes a code generator to generate ORM classes from database.</summary>
         <frameworkAssemblies>
             <frameworkAssembly assemblyName="System.Runtime.Serialization" targetFramework=".NETFramework4.0" />
+			<frameworkAssembly assemblyName="System.Data.Linq" targetFramework=".NETFramework4.0" />
         </frameworkAssemblies>
     </metadata>
     <files>
-        <file src="lib\net40\org.model.lib.4.0.dll" target="lib\net40\org.model.lib.4.0.dll" />
-        <file src="lib\net40\org.model.lib.db.4.0.dll" target="lib\net40\org.model.lib.db.4.0.dll" />
-        <file src="tools\codeGenWin4.exe" target="tools\codeGenWin4.exe" />
-        <file src="tools\org.codegen.common.4.0.dll" target="tools\org.codegen.common.4.0.dll" />
-        <file src="tools\org.model.lib.4.0.dll" target="tools\org.model.lib.4.0.dll" />
+        <file src="C:\VSProjects\codegen-lib\org.codegen.libs\release\org.model.lib.4.0.dll" target="lib\net40\org.model.lib.4.0.dll" />
+        <file src="C:\VSProjects\codegen-lib\org.codegen.libs\release\org.model.lib.db.4.0.dll" target="lib\net40\org.model.lib.db.4.0.dll" />
+        <file src="C:\VSProjects\codegen-lib\org.codegen.libs\release\codeGenWin4.exe" target="tools\codeGenWin4.exe" />
+        <file src="C:\VSProjects\codegen-lib\org.codegen.libs\release\org.codegen.common.4.0.dll" target="tools\org.codegen.common.4.0.dll" />
+        <file src="C:\VSProjects\codegen-lib\org.codegen.libs\release\org.model.lib.4.0.dll" target="tools\org.model.lib.4.0.dll" />
     </files>
 </package>
