@@ -12,6 +12,7 @@ Public Class DBMapperStatementsFile
 
     Public Enum StmtType
         selectall
+        selectByPK
         update
         delete
         insert

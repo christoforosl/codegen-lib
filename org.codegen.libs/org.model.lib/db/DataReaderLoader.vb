@@ -1,3 +1,6 @@
+Option Infer On
+Imports System.Data.Linq
+Imports System.Linq
 
 ''' <summary>
 ''' Loads a model object from a System.Data.IDataReader
@@ -27,5 +30,22 @@ Public MustInherit Class DataReaderLoader : Implements IModelObjectLoader
     ''' </summary>
     ''' <remarks></remarks>
     Public MustOverride Sub load(ByVal mo As Model.IModelObject) Implements Model.IModelObjectLoader.load
+
+End Class
+
+Public Class LinQLoader(Of T As IModelObject)
+
+    Public Function load() As IEnumerable(Of T)
+
+        Dim sql = ModelContext.GetModelDefaultMapper(GetType(T)).getSQLStatement(DBMapperStatementsFile.StmtType.selectByPK)
+
+        Using ctx As DataContext = DBUtils.Current().dbContext()
+
+            Dim query = ctx.ExecuteQuery(Of T)(sql)
+            Return query
+
+        End Using
+
+    End Function
 
 End Class

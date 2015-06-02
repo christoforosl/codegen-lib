@@ -1,6 +1,7 @@
 Option Strict On
-
+Option Infer On
 Imports org.model.lib.DBMapperStatementsFile
+Imports System.Data.Linq
 
 '''
 ''' <summary>  
@@ -9,8 +10,7 @@ Imports org.model.lib.DBMapperStatementsFile
 '''  data into Model Objects, and saving them back to 
 '''  the Database </summary>
 ''' 
-Public MustInherit Class DBMapper
-    Implements IDataMapper
+Public MustInherit Class DBMapper(Of T As {ModelObject, New})
 
 #Region "Fields"
 
@@ -52,30 +52,9 @@ Public MustInherit Class DBMapper
         End If
     End Sub
 
-
-
 #End Region
 
 
-    Public Overridable Function getSqlWithWhereClause(ByVal sWhereClause As String) As String
-
-        Const STR_WHERE As String = "WHERE"
-        Const STR_ORDER_BY As String = "ORDER BY"
-        Const SPACE As String = " "
-
-        If String.IsNullOrEmpty(sWhereClause) = False Then
-            Dim str As String = sWhereClause.Trim().ToUpper()
-            If str.StartsWith(STR_ORDER_BY) = False Then
-                If str.StartsWith(STR_WHERE) = False Then
-                    sWhereClause = STR_WHERE + SPACE + sWhereClause
-                End If
-            End If
-        End If
-
-        Dim sql As String = Me.getSQLStatement(StmtType.selectall) & " " & sWhereClause
-        Return sql
-
-    End Function
 
     ''' <summary>
     ''' Retrieves a modelobject based on the key value passed
@@ -84,11 +63,10 @@ Public MustInherit Class DBMapper
     ''' <returns>loaded ModelObject class instance</returns>
     ''' <remarks></remarks>
     ''' 
-    Public Function findWhere(ByVal sWhereClause As String, ByVal ParamArray params() As Object) As IModelObject
+    Public Function findWhere(ByVal sWhereClause As String, ByVal ParamArray params() As Object) As T
 
         Dim sql As String = Me.getSqlWithWhereClause(sWhereClause)
         Dim rs As IDataReader = Nothing
-        Dim mo As IModelObject = Nothing
 
         Try
 
@@ -98,11 +76,11 @@ Public MustInherit Class DBMapper
             If rs.Read Then
 
                 'if datareader has records, then instantiate the object and load it
-                mo = Me.getModelInstance()
+                Dim mo As T = New T()
                 Me.Loader.load(mo)
                 mo.isDirty = False
                 mo.afterLoad()
-
+                Return CType(mo, T)
             End If
 
 
@@ -110,7 +88,7 @@ Public MustInherit Class DBMapper
             Me.dbConn.closeDataReader(rs)
         End Try
 
-        Return mo
+        Return Nothing
 
     End Function
 
@@ -121,10 +99,10 @@ Public MustInherit Class DBMapper
     ''' <param name="IdValue">Primary Key value</param>
     ''' <returns>loaded ModelObject class instance</returns>
     ''' <remarks></remarks>
-    Public Function findByKey(ByVal IdValue As Object) As IModelObject
+    Public Function findByKey(ByVal IdValue As Object) As T
 
         Dim rs As IDataReader = Nothing
-        Dim mo As IModelObject = Nothing
+
 
         Try
             'no need to hit the database if the IdValue is less than 0
@@ -134,11 +112,11 @@ Public MustInherit Class DBMapper
                 Me.Loader.DataSource = rs
 
                 If rs.Read Then
-                    mo = Me.getModelInstance
+                    Dim mo = New T()
                     Me.Loader.load(mo)
                     mo.isDirty = False
                     mo.afterLoad()
-
+                    Return CType(mo, T)
                 End If
             End If
 
@@ -146,7 +124,7 @@ Public MustInherit Class DBMapper
             Me.dbConn.closeDataReader(rs)
         End Try
 
-        Return mo
+        Return Nothing
 
     End Function
 
@@ -156,10 +134,10 @@ Public MustInherit Class DBMapper
     ''' <returns>List of loaded ModelObject class instances</returns>
     ''' <remarks></remarks>
     Public Function findList(ByVal sWhereClause As String, ByVal ParamArray params() As Object) _
-         As IEnumerable(Of IModelObject)
+         As IEnumerable(Of T)
 
         Dim rs As IDataReader = Nothing
-        Dim ret As List(Of IModelObject) = New List(Of IModelObject)
+        Dim ret As List(Of T) = New List(Of T)
 
         Try
 
@@ -167,11 +145,11 @@ Public MustInherit Class DBMapper
             Me.Loader.DataSource = rs
 
             Do While rs.Read
-                Dim mo As IModelObject = Me.getModelInstance
+                Dim mo = New T()
                 Me.Loader.load(mo)
                 mo.isDirty = False
                 mo.afterLoad()
-                ret.Add(mo)
+                ret.Add(CType(mo, T))
             Loop
 
         Finally
@@ -180,6 +158,20 @@ Public MustInherit Class DBMapper
 
         Return ret
 
+
+    End Function
+
+    Public Function findList2(ByVal sWhereClause As String, ByVal ParamArray params() As Object) _
+         As IEnumerable(Of T)
+
+        Dim sql As String = Me.getSqlWithWhereClause(sWhereClause)
+
+        Using ctx As DataContext = Me.dbConn.dbContext()
+
+            Dim query = ctx.ExecuteQuery(Of T)(sql, params)
+            Return query
+
+        End Using
 
     End Function
 
@@ -239,7 +231,7 @@ Public MustInherit Class DBMapper
 
 #End Region
 
-    Public Overridable Sub deleteList(ByVal olst As IEnumerable(Of ModelObject))
+    Public Overridable Sub deleteList(ByVal olst As IEnumerable(Of T))
         Try
 
             Me.beginTrans()
@@ -256,12 +248,12 @@ Public MustInherit Class DBMapper
 
     End Sub
 
-    Public Overridable Sub saveList(ByVal olst As IEnumerable(Of ModelObject))
+    Public Overridable Sub saveList(ByVal olst As IEnumerable(Of T))
         Try
 
             Me.beginTrans()
 
-            For Each o As IModelObject In olst
+            For Each o As T In olst
                 Me.save(o)
             Next
 
@@ -276,7 +268,7 @@ Public MustInherit Class DBMapper
     '''	 <summary>Save a ModelObject to the database
     '''	This method first calls saveModelObject and then saveChildren </summary>
     '''	<param name="o">ModelObject to save </param>
-    Public Overridable Sub save(ByVal o As IModelObject) Implements IDataMapper.save
+    Public Overridable Sub save(ByVal o As T)
 
         If (o Is Nothing) Then Exit Sub
 
@@ -315,7 +307,7 @@ Public MustInherit Class DBMapper
     ''' After save, the dirty flag is set to False </summary>
     ''' <param name="o"> ModelObject to save </param>
     ''' <seealso></seealso>
-    Private Sub saveModelObject(ByVal o As IModelObject)
+    Private Sub saveModelObject(ByVal o As T)
 
         ' only Save data if the object has changed, or is not empty
         If o.isDirty() = True Then
@@ -341,7 +333,7 @@ Public MustInherit Class DBMapper
     ''' </ul> </summary>
     ''' <param name="mo"> ModelObject that parent belongs to </param>
     '''	 
-    Public Overridable Sub saveParents(ByVal mo As IModelObject) Implements IDataMapper.saveParents
+    Public Overridable Sub saveParents(ByVal mo As T)
 
         If mo.getParents.Count > 0 Then
             Throw New ApplicationException("** saveParents must be overriden **")
@@ -356,7 +348,7 @@ Public MustInherit Class DBMapper
     ''' Clients should override this for any children objects that the Model Object mo carries </summary>
     ''' <param name="mo"> ModelObject that children belong to </param>
     '''	 
-    Public Overridable Sub saveChildren(ByVal mo As IModelObject) Implements IDataMapper.saveChildren
+    Public Overridable Sub saveChildren(ByVal mo As T)
         Return
     End Sub
 
@@ -364,7 +356,7 @@ Public MustInherit Class DBMapper
     '''    
     '''	 <summary>  Performs an <b>update</b> operation to the database </summary>
     ''' <param name="o"> ModelObject to save to database </param>
-    Public Overridable Sub update(ByVal o As IModelObject) Implements IDataMapper.update
+    Public Overridable Sub update(ByVal o As T)
 
         Dim pstmt As IDbCommand = Nothing
 
@@ -380,14 +372,7 @@ Public MustInherit Class DBMapper
 
     End Sub
 
-    ''' <summary>
-    ''' Returns a new instance of the ModelObject we are handling
-    ''' with the dbMapper
-    ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public MustOverride Function getModelInstance() As IModelObject
-
+   
     ''' <summary>
     ''' The name of the SQL field that is the primary key
     ''' </summary>
@@ -406,7 +391,7 @@ Public MustInherit Class DBMapper
     '''    
     '''	 <summary>  Performs an <b>insert</b> operation to the database </summary>
     ''' <param name="mo"> ModelObject to save to database </param>
-    Public Overridable Sub insert(ByVal mo As IModelObject) Implements IDataMapper.insert
+    Public Overridable Sub insert(ByVal mo As T)
 
         Dim pstmt As IDbCommand = Nothing
         Dim vLStatement As String = String.Empty
@@ -448,7 +433,7 @@ Public MustInherit Class DBMapper
     '''    
     '''<summary>  Performs an <b>delete</b> operation to the database </summary>
     '''<param name="mo"> ModelObject to save to database </param> 
-    Public Overridable Sub delete(ByVal mo As IModelObject) Implements IDataMapper.delete
+    Public Overridable Sub delete(ByVal mo As T)
 
         mo.validateDelete()
 
@@ -539,8 +524,31 @@ Public MustInherit Class DBMapper
         'because the EmployeeTypeSql.xml file is stored as an Embedded resource under
         'EmployeeTypeDBMapper file (DependentUpon in the project file), 
         'its resource name is the same as the DBMapper file.
-       
-        Return SQLStmtsRegistry.getStatement(Me.GetType, skey, Me.dbConn.sqldialect)
+        If skey = StmtType.selectByPK Then
+
+            Return getSqlWithWhereClause(Me.pkFieldName & "=?")
+        Else
+            Return SQLStmtsRegistry.getStatement(Me.GetType, skey, Me.dbConn.sqldialect)
+        End If
+
+    End Function
+    Protected Function getSqlWithWhereClause(ByVal sWhereClause As String) As String
+
+        Const STR_WHERE As String = "WHERE"
+        Const STR_ORDER_BY As String = "ORDER BY"
+        Const SPACE As String = " "
+
+        If String.IsNullOrEmpty(sWhereClause) = False Then
+            Dim str As String = sWhereClause.Trim().ToUpper()
+            If str.StartsWith(STR_ORDER_BY) = False Then
+                If str.StartsWith(STR_WHERE) = False Then
+                    sWhereClause = STR_WHERE + SPACE + sWhereClause
+                End If
+            End If
+        End If
+
+        Dim sql As String = Me.getSQLStatement(StmtType.selectall) & " " & sWhereClause
+        Return sql
 
     End Function
 #End Region
