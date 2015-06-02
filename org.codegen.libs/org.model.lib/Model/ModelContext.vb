@@ -297,32 +297,6 @@ Namespace Model
 
         End Function
 
-        Public Shared Function GetModelDefaultMapper(ByVal modelType As Type) _
-                       As DBMapper
-
-            'get default dbMapper
-            Dim sattr As DefaultMapperAttr = CType(Attribute.GetCustomAttribute(modelType, GetType(DefaultMapperAttr)), DefaultMapperAttr)
-
-            If sattr Is Nothing Then
-                Throw New ApplicationException( _
-                    String.Format("Call to ModelContext.Save/Load Model Object must pass a model object with attribute DefaultMapperAttr set. ""{0}"" does not have the attribute set.", _
-                    modelType.ToString))
-            End If
-            Dim mapper As DBMapper = CType(Activator.CreateInstance(sattr.defaultMapper), DBMapper)
-            Return mapper
-
-        End Function
-
-        ''' <summary>
-        ''' Returns the default mapper for the mode object
-        ''' </summary>
-        ''' <param name="modelObjectInstance">Ab instance of IModelObject</param>
-        ''' <returns>DBMapper instance</returns>
-        Public Shared Function GetModelDefaultMapper(ByVal modelObjectInstance As IModelObject) As DBMapper
-
-            Return GetModelDefaultMapper(modelObjectInstance.GetType)
-
-        End Function
 
         ''' <summary>
         ''' 
@@ -331,7 +305,7 @@ Namespace Model
         ''' <remarks></remarks>
         Public Sub saveModelObject(modelObjectInstance As IModelObject)
 
-            Dim mapper As DBMapper = GetModelDefaultMapper(modelObjectInstance)
+            Dim mapper As DBMapper = New DBMapper()
             mapper.save(modelObjectInstance)
 
         End Sub

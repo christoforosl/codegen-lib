@@ -33,19 +33,3 @@ Public MustInherit Class DataReaderLoader : Implements IModelObjectLoader
 
 End Class
 
-Public Class LinQLoader(Of T As IModelObject)
-
-    Public Function load() As IEnumerable(Of T)
-
-        Dim sql = ModelContext.GetModelDefaultMapper(GetType(T)).getSQLStatement(DBMapperStatementsFile.StmtType.selectByPK)
-
-        Using ctx As DataContext = DBUtils.Current().dbContext()
-
-            Dim query = ctx.ExecuteQuery(Of T)(sql)
-            Return query
-
-        End Using
-
-    End Function
-
-End Class
