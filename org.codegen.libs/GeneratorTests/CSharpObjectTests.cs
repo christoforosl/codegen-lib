@@ -56,6 +56,7 @@ namespace GeneratorTests {
 			ModelContext.Current.config.DoCascadeDeletes = true;
 			ModelContext.beginTrans();
 			ModelContext.Current.addGlobalModelValidator(typeof(Employee), typeof(CsharpEmployeeValidator));
+            DateTime hireDate=new DateTime(DateTime.Now.Year+10, 1, 1);
 
 			try {
 
@@ -68,8 +69,11 @@ namespace GeneratorTests {
 				employee.PrSalary = 100m;
 				employee.PrSSINumber = "1030045";
 				employee.PrTelephone = "2234455";
-				employee.PrHireDate = new DateTime(DateTime.Now.Year+10, 1, 1);
-                
+                employee.PrHireDate = hireDate;
+                employee.PrCvFileContent = System.IO.File.ReadAllBytes("TestWordDocument.docx");
+                employee.PrPhoto = System.IO.File.ReadAllBytes("merkel.jpg");
+
+
                 Guid g = Guid.NewGuid();
                 employee.PrSampleGuidField = g;
                 employee.PrEmployeeProjectAdd(EmployeeProjectFactory.Create());
@@ -79,6 +83,7 @@ namespace GeneratorTests {
 				emplProj.PrEPProjectId = 1;
 				emplProj.PrProject = ProjectFactory.Create();
 				emplProj.PrProject.PrProjectName = "MyProject";
+                
 
 				Assert.IsTrue(employee.isNew);
 				Assert.IsTrue(employee.isDirty);
@@ -115,7 +120,7 @@ namespace GeneratorTests {
 				Assert.AreEqual(employee.PrSalary, 100m);
 				Assert.AreEqual(employee.PrEmployeeName, "test employee");
 				Assert.AreEqual(employee.PrSSINumber, "12345XX");
-				Assert.AreEqual(employee.PrHireDate, new DateTime(DateTime.Now.Year+10, 1, 1));
+                Assert.AreEqual(employee.PrHireDate, hireDate);
 				Assert.AreEqual(employee.PrEmployeeProjects.ToList().Count, 1);
 				Assert.AreEqual(employee.PrEmployeeProjectGetAt(0).PrProject.PrProjectName, "MyProject");
 
@@ -156,8 +161,8 @@ namespace GeneratorTests {
 				employee = EmployeeDataUtils.findByKey(x);
 				Assert.AreEqual(employee.PrEmployeeProjects.ToList().Count, 0, "Expected to have no Projects linked, after reloading from db");
 
-                List<Employee> empls = EmployeeDataUtils.findList("EmployeeName={0} and Salary between {1} and {2} and HireDate={3}", "test employee", 0, 100000, new DateTime(2015, 1, 1));
-                Assert.IsTrue(empls.Count > 0);
+                List<Employee> empls = EmployeeDataUtils.findList("EmployeeName={0} and Salary between {1} and {2} and HireDate={3}", "test employee", 0, 100, hireDate);
+                Assert.IsTrue(empls.Count > 0, "Employee Count not the expected!");
 
 				EmployeeDataUtils.deleteEmployee(employee);
 				employee = EmployeeDataUtils.findByKey(x);
