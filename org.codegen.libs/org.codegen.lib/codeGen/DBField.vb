@@ -5,6 +5,7 @@ Imports System.Text
 Public Class DBField
     Implements IDBField
 
+
     ' Private _userSpecifiedDataType As String
     Private _RuntimeType As System.Type
 
@@ -69,15 +70,14 @@ Public Class DBField
 
         Dim fname As String = Me.RuntimeFieldName()
         Dim ret As String = String.Empty
-
+        Dim ft As String = getFieldDataType()
         If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
             ret = vbTab & accessLevel & " _" & _
-                            fname & " as " & _
-                            getFieldDataType()
+                            fname & " as " & ft
 
             If withInitialiser AndAlso Me.isNullableProperty Then ret &= " = Nothing"
         Else
-            ret = vbTab & accessLevel & " " & getFieldDataType() & " _" & fname
+            ret = vbTab & accessLevel & " " & ft & " _" & fname
             If withInitialiser AndAlso Me.isNullableProperty Then ret &= " = null"
             ret &= ";"
         End If
@@ -96,7 +96,14 @@ Public Class DBField
                 Return Me._RuntimeTypeStr & "?"
             End If
         Else
-            Return Me._RuntimeTypeStr
+            If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB _
+                AndAlso Me.isBinaryField Then
+                Return "System.Byte()"
+            Else
+                Return Me._RuntimeTypeStr
+            End If
+
+
         End If
 
     End Function
@@ -104,7 +111,8 @@ Public Class DBField
 
     Public ReadOnly Property isNullableProperty() As Boolean Implements IDBField.isNullableProperty
         Get
-            Return Me.isPrimaryKey = False AndAlso Me.isString = False AndAlso Me.isBoolean = False
+            Return Me.isPrimaryKey = False AndAlso Me.isString = False AndAlso Me.isBoolean = False _
+                AndAlso Me._OriginalRuntimeType IsNot System.Type.GetType("System.Byte[]")
         End Get
     End Property
 
@@ -130,6 +138,7 @@ Public Class DBField
 
         Else
             ret = Me.FieldDataType
+
         End If
 
         Return ret
@@ -179,8 +188,13 @@ Public Class DBField
 
         ElseIf Me._OriginalRuntimeType Is System.Type.GetType("System.Guid") Then
             Return "OleDbType.Guid"
+
+        ElseIf Me._OriginalRuntimeType Is System.Type.GetType("System.Byte[]") Then
+            Return "OleDbType.Binary"
         Else
-            Throw New ApplicationException(Me.ParentTable.TableName & "." & Me.FieldName & ":Unhandled TypeConverter for type:" & Me.RuntimeType.ToString)
+            Dim msg As String = Me.ParentTable.TableName & "." & Me.FieldName & ":Unhandled TypeConverter for type:" & Me.RuntimeType.ToString
+            System.Diagnostics.Debug.WriteLine(msg)
+            Throw New ApplicationException(msg)
         End If
 
     End Function
@@ -331,7 +345,7 @@ Public Class DBField
     ''' <summary>
     ''' The data type of the field as defined / customized in the xml generator file.
     ''' If no customized data type was defined, then the default data type of the field
-    ''' as defined in the databse table structure
+    ''' as defined in the database table structure
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
@@ -339,12 +353,22 @@ Public Class DBField
     Public ReadOnly Property FieldDataType() As String Implements IDBField.FieldDataType
         Get
 
-            Return Me.RuntimeTypeStr
+            If (ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB) _
+                AndAlso isBinaryField() Then
 
+                Return "System.Byte()"
+            Else
+                Return Me.RuntimeTypeStr
+            End If
         End Get
 
     End Property
 
     Public Property DBType As String Implements IDBField.DBType
 
+    Public Function isBinaryField() As Boolean Implements IDBField.isBinaryField
+
+        Return Me.RuntimeType Is System.Type.GetType("System.Byte[]")
+
+    End Function
 End Class

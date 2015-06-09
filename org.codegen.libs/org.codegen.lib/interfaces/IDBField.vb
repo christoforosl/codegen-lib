@@ -16,6 +16,8 @@ Public Interface IDBField
     Function isDate() As Boolean
     Function isDecimal() As Boolean
     Function isLookup() As Boolean
+    Function isBinaryField() As Boolean
+
     Property AccessLevel() As String
     Property OriginalRuntimeType() As System.Type
     Function isAuditField() As Boolean
