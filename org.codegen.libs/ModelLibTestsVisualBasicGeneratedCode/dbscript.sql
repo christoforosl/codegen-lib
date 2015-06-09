@@ -201,3 +201,7 @@ ALTER TABLE dbo.Employee ADD
 	sampleNumericFieldInt numeric(18, 0) NULL,
 	sampleNumericField2Decimals numeric(10, 2) NULL
 go
+ALTER TABLE dbo.Employee ADD [CvFileContent] [varbinary](max)  NULL 
+go
+ALTER TABLE dbo.Employee ADD photo [varbinary](max)  NULL 
+go
