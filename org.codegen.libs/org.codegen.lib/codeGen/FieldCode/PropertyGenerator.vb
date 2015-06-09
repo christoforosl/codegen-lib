@@ -13,7 +13,7 @@ Public Class PropertyGenerator
         Dim sLengthChecker As String = String.Empty
 
         Dim runtimeFieldName As String = field.RuntimeFieldName()
-        Dim propertyFieldname As String = field.RuntimeFieldName
+        Dim propertyFieldname As String = field.RuntimeFieldName()
 
         If runtimeFieldName.ToLower = "readonly" Then runtimeFieldName = "[ReadOnly]"
         If runtimeFieldName.ToLower = "new" Then runtimeFieldName = "[new]"
@@ -39,7 +39,7 @@ Public Class PropertyGenerator
         Dim pfx As String = ModelGenerator.Current.FieldPropertyPrefix
         If (field.isAuditField) Then pfx = String.Empty
 
-        Dim sproperty As StringBuilder = New StringBuilder().Append(getLinqDataAttribute(field)).Append(vbTab).Append("<DataMember>").Append(vbTab). _
+        Dim sproperty As StringBuilder = New StringBuilder().Append(getLinqDataAttribute(field)).Append("<DataMember>").Append(vbTab). _
               Append(field.AccessLevel).Append(" Overridable Property ").Append(pfx).Append(runtimeFieldName). _
               Append(" as ").Append(field.getPropertyDataType).Append(sImplements).Append(vbCrLf). _
               Append(vbTab).Append("Get ").Append(vbCrLf)

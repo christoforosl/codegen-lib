@@ -204,7 +204,7 @@ Namespace Tokens
         End Function
     End Class
 
-    Public Class GetUpdateDBCommandToken
+    Public Class FillStatementToken
         Inherits MultiLingualReplacementToken
 
         Sub New()
@@ -222,16 +222,18 @@ Namespace Tokens
             Dim pkParam As String = ""
 
             For Each field As DBField In vec.Values
+                If Not field.isBinaryField() Then
+                    If field.FieldName().Equals(t.DbTable.getPrimaryKeyName()) Then
+                        ' do not process primary key here
+                        pkParam = field.getSQLParameter()
+                    Else
 
-                If field.FieldName().Equals(t.DbTable.getPrimaryKeyName()) Then
-                    ' do not process primary key here
-                    pkParam = field.getSQLParameter()
-                Else
+                        ret.Append(field.getSQLParameter())
+                        parameterCounter += 1
 
-                    ret.Append(field.getSQLParameter())
-                    parameterCounter += 1
-
+                    End If
                 End If
+
             Next
 
             ret.Append(vbCrLf)
@@ -261,16 +263,18 @@ Namespace Tokens
             Dim pkParam As String = ""
 
             For Each field As DBField In vec.Values
+                If Not field.isBinaryField() Then
+                    If field.FieldName().Equals(t.DbTable.getPrimaryKeyName()) Then
+                        ' do not process primary key here
+                        pkParam = field.getSQLParameter()
+                    Else
 
-                If field.FieldName().Equals(t.DbTable.getPrimaryKeyName()) Then
-                    ' do not process primary key here
-                    pkParam = field.getSQLParameter()
-                Else
+                        ret.Append(field.getSQLParameter())
+                        parameterCounter += 1
 
-                    ret.Append(field.getSQLParameter())
-                    parameterCounter += 1
-
+                    End If
                 End If
+
             Next
 
             ret.Append(vbCrLf)
@@ -306,14 +310,16 @@ Namespace Tokens
 
             'me.setFields(rs.getString(FIELD));
 
-            For Each field As DBField In vec.Values
-                'field.OriginalRuntimeType
-                Dim fldsetter As String = String.Format(setFromRs, _
-                  field.PropertyName, _
-                  Me.getDataReaderGetter(field), field.getConstant())
-                sb.Append(fldsetter)
+            For Each field As IDBField In vec.Values
+                If Not field.isBinaryField() Then
 
-                sb.Append(vbCrLf)
+                    Dim fldsetter As String = String.Format(setFromRs, _
+                      field.PropertyName, _
+                      Me.getDataReaderGetter(field), field.getConstant())
+                    sb.Append(fldsetter)
+
+                    sb.Append(vbCrLf)
+                End If
             Next
 
 
@@ -331,19 +337,21 @@ Namespace Tokens
             'me.setFields(rs.getString(FIELD));
 
             For Each field As DBField In vec.Values
-                'field.OriginalRuntimeType
-                Dim fldsetter As String = String.Format(setFromRs, _
-                  field.PropertyName, _
-                  Me.getDataReaderGetter(field), field.getConstant())
-                sb.Append(fldsetter)
-                sb.Append(vbCrLf)
+                If Not field.isBinaryField() Then
+                    Dim fldsetter As String = String.Format(setFromRs, _
+                      field.PropertyName, _
+                      Me.getDataReaderGetter(field), field.getConstant())
+                    sb.Append(fldsetter)
+                    sb.Append(vbCrLf)
+                End If
             Next
 
 
             Return sb.ToString()
+
         End Function
 
-        Private Function getDataReaderGetter(ByVal field As DBField) As String
+        Private Function getDataReaderGetter(ByVal field As IDBField) As String
 
             Dim sString As String = ""
             Dim skey As String = field.getConstant()
@@ -386,10 +394,19 @@ Namespace Tokens
             ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Guid") Then
                 sString &= meMarker & ".reader.GetGuid" & "(DATAREADER_" & skey & ")"
 
+            ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Byte[]") Then
+                If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP Then
+                    sString &= "(Byte[])" & meMarker & ".reader.GetValue" & "(DATAREADER_" & skey & ")"
+                Else
+                    sString &= "Ctype(" & meMarker & ".reader.GetValue" & "(DATAREADER_" & skey & "), Byte())"
+                End If
+
             Else
-                Throw New ApplicationException(field.ParentTable.TableName & "." & field.FieldName & _
+                Dim msg = field.ParentTable.TableName & "." & field.FieldName & _
                           ":Unhandled DataReader getter for type:" & _
-                          field.RuntimeType.ToString)
+                          field.RuntimeType.ToString
+                Debug.WriteLine(msg)
+                Throw New ApplicationException(msg)
             End If
 
             If field.isBoolean And field.OriginalRuntimeType IsNot System.Type.GetType("System.Boolean") Then
@@ -399,6 +416,8 @@ Namespace Tokens
                     sString = sString & "=1"
                 End If
             End If
+
+
             Return sString
 
         End Function

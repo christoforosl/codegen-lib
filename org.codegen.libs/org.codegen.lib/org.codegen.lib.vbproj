@@ -156,6 +156,9 @@
     <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42024,42032,42036,42099</WarningsAsErrors>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System">
       <Name>System</Name>

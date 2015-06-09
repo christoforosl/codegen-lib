@@ -51,6 +51,7 @@ namespace GeneratorTests {
 
 			readText = readText.Replace("using CsModelObjects;", "using ModelLibVBGenCode.VbBusObjects;");
 			readText = readText.Replace("using CsModelMappers;", "using ModelLibVBGenCode.VbBusObjects.DBMappers;");
+            //readText = readText.Replace("DateTime hireDate=new", "dim hireDate as DateTime=new");
 
 			readText = readText.Replace("namespace GeneratorTests {", "namespace GeneratorTests.VB {");
 			readText = readText.Replace("public class CSharpObjectTests {", "public class VBObjectTests {");
@@ -98,7 +99,6 @@ namespace GeneratorTests {
 									TestFilter.Empty, false, LoggingThreshold.All);
 
 			Assert.IsTrue(result.HasResults, " must have test results ");
-
 			Assert.IsTrue(result.IsSuccess, "dynamic vb tests must return success ");
 
 

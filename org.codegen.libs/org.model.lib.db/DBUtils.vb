@@ -806,6 +806,22 @@ Public MustInherit Class DBUtils
 
     Public MustOverride Function getParameter() As IDataParameter
 
+
+    Public Function getParameter(ByVal _paramName As String, ByVal val As Byte()) As IDataParameter
+        Dim tmp As IDataParameter = Me.getParameter
+        tmp.ParameterName = _paramName
+        tmp.DbType = DbType.Binary
+
+        If val Is Nothing Then
+            tmp.Value = DBNull.Value
+        Else
+            tmp.Value = val
+        End If
+
+        Return tmp
+
+    End Function
+
     Public Function getParameter(ByVal _paramName As String, ByVal val As DateTime?) As IDataParameter
         Dim tmp As IDataParameter = Me.getParameter
         tmp.ParameterName = _paramName
