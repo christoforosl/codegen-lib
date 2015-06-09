@@ -21,14 +21,13 @@ Namespace org.codegen.lib.Tokens
 
 
             For Each field As DBField In vec
+                If Not field.isBinaryField Then
+                    Dim fldName As String = DBTable.getRuntimeName(field.FieldName())
 
+                    sb.Append(vbTab & "Me.").Append(fldName).Append(".value").Append(" = mo.").Append(fldName)
+                    sb.Append(vbCrLf)
+                End If
 
-                Dim fldName As String = DBTable.getRuntimeName(field.FieldName())
-
-                sb.Append(vbTab & "Me.").Append(fldName).Append(".value").Append(" = mo.").Append(fldName)
-                sb.Append(vbCrLf)
-
-                
             Next
 
             Return sb.ToString

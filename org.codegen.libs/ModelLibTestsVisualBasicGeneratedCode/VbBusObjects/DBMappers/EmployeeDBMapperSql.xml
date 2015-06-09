@@ -11,10 +11,6 @@
     <MSSQL>SELECT EmployeeId,EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,EmployeeTypeCode,createDate,updateDate,createUser,updateUser,sampleGuidField,isActive,sampleBigInt,sampleSmallInt,sampleNumericFieldInt,sampleNumericField2Decimals FROM [Employee]</MSSQL>
   </stmt>
   <stmt>
-    <key>selectone</key>
-    <MSSQL>SELECT EmployeeId,EmployeeName,EmployeeRankId,Salary,Address,Telephone,Mobile,IdNumber,SSINumber,HireDate,NumDependents,EmployeeTypeCode,createDate,updateDate,createUser,updateUser,sampleGuidField,isActive,sampleBigInt,sampleSmallInt,sampleNumericFieldInt,sampleNumericField2Decimals FROM [Employee] WHERE EmployeeId=@0</MSSQL>
-  </stmt>
-  <stmt>
     <key>delete</key>
     <MSSQL>DELETE FROM [Employee] WHERE EmployeeId=@0</MSSQL>
   </stmt>

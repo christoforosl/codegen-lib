@@ -15,43 +15,7 @@ using org.model.lib.db;
 namespace GeneratorTests.VB {
 
 
-    [NUnit.Framework.TestFixture]
-    public class DBUtilsTests {
-
-        [NUnit.Framework.Test]
-        public void testParams() {
-
-            EmployeeDataUtils.findList("where Telephone={0} and Telephone={1}", "X", "Y");
-
-        }
-
-		[NUnit.Framework.Test]
-		public void testParsePositionalParamsForSQLServer() {
-			
-			string x;
-
-			x = DBUtils.Current().replaceParameterPlaceHolders("Telephone=? and Telephone=? and ?=x");
-			NUnit.Framework.Assert.AreEqual(x, "Telephone=@0 and Telephone=@1 and @2=x");
-
-			x = DBUtils.Current().replaceParameterPlaceHolders("where Telephone=? and Telephone=?", "x","y");
-			NUnit.Framework.Assert.AreEqual(x, "where Telephone=@0 and Telephone=@1");
-
-			x = DBUtils.Current().replaceParameterPlaceHolders("where Telephone=? and Telephone=?", "x", "y");
-			NUnit.Framework.Assert.AreEqual(x, "where Telephone=@0 and Telephone=@1");
-			
-			x = DBUtils.Current().replaceParameterPlaceHolders("where Telephone=? and Telephone=?", "x", "y");
-			NUnit.Framework.Assert.AreEqual(x, "where Telephone=@0 and Telephone=@1");
-
-			x = DBUtils.Current().replaceParameterPlaceHolders("where Telephone=? and Telephone=? and ?=x");
-			NUnit.Framework.Assert.AreEqual(x, "where Telephone=@0 and Telephone=@1 and @2=x");
-
-			x = DBUtils.Current().replaceParameterPlaceHolders("where Telephone BETWEEN ? and ?");
-			NUnit.Framework.Assert.AreEqual(x, "where Telephone BETWEEN @0 and @1");
-
-			
-		}
-
-    }
+    
 
 	/// <summary>
 	/// Test validator functionality. Code below will execute before saving 
@@ -92,6 +56,7 @@ namespace GeneratorTests.VB {
 			ModelContext.Current.config.DoCascadeDeletes = true;
 			ModelContext.beginTrans();
 			ModelContext.Current.addGlobalModelValidator(typeof(Employee), typeof(CsharpEmployeeValidator));
+            DateTime hireDate=new DateTime(DateTime.Now.Year+10, 1, 1);
 
 			try {
 
@@ -104,8 +69,11 @@ namespace GeneratorTests.VB {
 				employee.PrSalary = 100m;
 				employee.PrSSINumber = "1030045";
 				employee.PrTelephone = "2234455";
-				employee.PrHireDate = new DateTime(DateTime.Now.Year+10, 1, 1);
-                
+                employee.PrHireDate = hireDate;
+                employee.PrCvFileContent = System.IO.File.ReadAllBytes("TestWordDocument.docx");
+                employee.PrPhoto = System.IO.File.ReadAllBytes("merkel.jpg");
+
+
                 Guid g = Guid.NewGuid();
                 employee.PrSampleGuidField = g;
                 employee.PrEmployeeProjectAdd(EmployeeProjectFactory.Create());
@@ -115,6 +83,7 @@ namespace GeneratorTests.VB {
 				emplProj.PrEPProjectId = 1;
 				emplProj.PrProject = ProjectFactory.Create();
 				emplProj.PrProject.PrProjectName = "MyProject";
+                
 
 				NUnit.Framework.Assert.IsTrue(employee.isNew);
 				NUnit.Framework.Assert.IsTrue(employee.isDirty);
@@ -151,7 +120,7 @@ namespace GeneratorTests.VB {
 				NUnit.Framework.Assert.AreEqual(employee.PrSalary, 100m);
 				NUnit.Framework.Assert.AreEqual(employee.PrEmployeeName, "test employee");
 				NUnit.Framework.Assert.AreEqual(employee.PrSSINumber, "12345XX");
-				NUnit.Framework.Assert.AreEqual(employee.PrHireDate, new DateTime(DateTime.Now.Year+10, 1, 1));
+                NUnit.Framework.Assert.AreEqual(employee.PrHireDate, hireDate);
 				NUnit.Framework.Assert.AreEqual(employee.PrEmployeeProjects.ToList().Count, 1);
 				NUnit.Framework.Assert.AreEqual(employee.PrEmployeeProjectGetAt(0).PrProject.PrProjectName, "MyProject");
 
@@ -192,8 +161,8 @@ namespace GeneratorTests.VB {
 				employee = EmployeeDataUtils.findByKey(x);
 				NUnit.Framework.Assert.AreEqual(employee.PrEmployeeProjects.ToList().Count, 0, "Expected to have no Projects linked, after reloading from db");
 
-                List<Employee> empls = EmployeeDataUtils.findList("EmployeeName={0} and Salary between {1} and {2} and HireDate={3}", "test employee", 0, 100000, new DateTime(2015, 1, 1));
-                NUnit.Framework.Assert.IsTrue(empls.Count > 0);
+                List<Employee> empls = EmployeeDataUtils.findList("EmployeeName={0} and Salary between {1} and {2} and HireDate={3}", "test employee", 0, 100, hireDate);
+                NUnit.Framework.Assert.IsTrue(empls.Count > 0, "Employee Count not the expected!");
 
 				EmployeeDataUtils.deleteEmployee(employee);
 				employee = EmployeeDataUtils.findByKey(x);

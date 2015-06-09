@@ -11,10 +11,6 @@
     <MSSQL>SELECT RankId,Rank FROM [EmployeeRank]</MSSQL>
   </stmt>
   <stmt>
-    <key>selectone</key>
-    <MSSQL>SELECT RankId,Rank FROM [EmployeeRank] WHERE RankId=@0</MSSQL>
-  </stmt>
-  <stmt>
     <key>delete</key>
     <MSSQL>DELETE FROM [EmployeeRank] WHERE RankId=@0</MSSQL>
   </stmt>

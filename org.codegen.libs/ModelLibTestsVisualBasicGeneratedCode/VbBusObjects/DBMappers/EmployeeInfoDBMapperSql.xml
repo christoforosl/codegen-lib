@@ -11,10 +11,6 @@
     <MSSQL>SELECT EmployeeInfoId,EIEmployeeId,Salary,Address FROM [EmployeeInfo]</MSSQL>
   </stmt>
   <stmt>
-    <key>selectone</key>
-    <MSSQL>SELECT EmployeeInfoId,EIEmployeeId,Salary,Address FROM [EmployeeInfo] WHERE EmployeeInfoId=@0</MSSQL>
-  </stmt>
-  <stmt>
     <key>delete</key>
     <MSSQL>DELETE FROM [EmployeeInfo] WHERE EmployeeInfoId=@0</MSSQL>
   </stmt>

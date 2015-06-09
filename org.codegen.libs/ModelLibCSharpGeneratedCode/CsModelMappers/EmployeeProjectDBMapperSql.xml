@@ -11,10 +11,6 @@
     <MSSQL>SELECT EmployeeProjectId,EPEmployeeId,EPProjectId,AssignDate,EndDate,Rate FROM [EmployeeProject]</MSSQL>
   </stmt>
   <stmt>
-    <key>selectone</key>
-    <MSSQL>SELECT EmployeeProjectId,EPEmployeeId,EPProjectId,AssignDate,EndDate,Rate FROM [EmployeeProject] WHERE EmployeeProjectId=@0</MSSQL>
-  </stmt>
-  <stmt>
     <key>delete</key>
     <MSSQL>DELETE FROM [EmployeeProject] WHERE EmployeeProjectId=@0</MSSQL>
   </stmt>

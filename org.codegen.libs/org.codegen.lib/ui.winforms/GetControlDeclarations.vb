@@ -23,14 +23,16 @@ Namespace org.codegen.lib.Tokens
             Dim i As Integer = 0
             For Each field As DBField In vec
 
+                If Not field.isBinaryField Then
+                    Dim fldName As String = DBTable.getRuntimeName(field.FieldName())
+                    sb.Append(vbTab & "Friend WithEvents ").Append(fldName).Append("lbl As System.Windows.Forms.Label")
+                    sb.Append(vbCrLf)
+                    sb.Append(vbTab & "Friend WithEvents ").Append(fldName).Append(" As ").Append(getControlType(field))
+                    sb.Append(vbCrLf)
 
-                Dim fldName As String = DBTable.getRuntimeName(field.FieldName())
-                sb.Append(vbTab & "Friend WithEvents ").Append(fldName).Append("lbl As System.Windows.Forms.Label")
-                sb.Append(vbCrLf)
-                sb.Append(vbTab & "Friend WithEvents ").Append(fldName).Append(" As ").Append(getControlType(field))
-                sb.Append(vbCrLf)
+                    i += 1
+                End If
 
-                i += 1
 
             Next
 

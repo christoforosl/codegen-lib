@@ -12,10 +12,7 @@ using System.Threading;
 using System.Globalization;
 using org.model.lib.db;
 
-namespace GeneratorTests {
-
-
-    
+namespace GeneratorTests {   
 
 	/// <summary>
 	/// Test validator functionality. Code below will execute before saving 

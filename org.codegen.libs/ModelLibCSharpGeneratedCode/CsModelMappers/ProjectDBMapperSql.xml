@@ -11,10 +11,6 @@
     <MSSQL>SELECT ProjectId,ProjectName,isActive FROM [Project]</MSSQL>
   </stmt>
   <stmt>
-    <key>selectone</key>
-    <MSSQL>SELECT ProjectId,ProjectName,isActive FROM [Project] WHERE ProjectId=@0</MSSQL>
-  </stmt>
-  <stmt>
     <key>delete</key>
     <MSSQL>DELETE FROM [Project] WHERE ProjectId=@0</MSSQL>
   </stmt>

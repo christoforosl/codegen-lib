@@ -21,15 +21,16 @@ Namespace org.codegen.lib.Tokens
 
             Dim i As Integer = 0
             For Each field As DBField In vec
-
-                Dim fldName As String = DBTable.getRuntimeName(field.FieldName())
-                If (i > 0) Then
-                    sb.Append(vbTab)
-                    sb.Append(" & _").Append(vbCrLf)
+                If Not field.isBinaryField Then
+                    Dim fldName As String = DBTable.getRuntimeName(field.FieldName())
+                    If (i > 0) Then
+                        sb.Append(vbTab)
+                        sb.Append(" & _").Append(vbCrLf)
+                    End If
+                    sb.Append(vbTab & "Me.").Append(fldName).Append(".Text")
+                    i = i + 1
                 End If
-                sb.Append(vbTab & "Me.").Append(fldName).Append(".Text")
-                i = i + 1
-                
+
 
             Next
 

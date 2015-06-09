@@ -11,10 +11,6 @@
     <MSSQL>SELECT EmployeeTypeCode,EmployeeType FROM [EmployeeType]</MSSQL>
   </stmt>
   <stmt>
-    <key>selectone</key>
-    <MSSQL>SELECT EmployeeTypeCode,EmployeeType FROM [EmployeeType] WHERE EmployeeTypeCode=@0</MSSQL>
-  </stmt>
-  <stmt>
     <key>delete</key>
     <MSSQL>DELETE FROM [EmployeeType] WHERE EmployeeTypeCode=@0</MSSQL>
   </stmt>

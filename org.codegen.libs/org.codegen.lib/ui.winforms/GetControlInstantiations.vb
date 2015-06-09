@@ -25,7 +25,7 @@ Namespace org.codegen.lib.Tokens
 
             Dim i As Integer = 0
             For Each field As DBField In vec
-                
+                If Not field.isBinaryField Then
                     Dim fldName As String = DBTable.getRuntimeName(field.FieldName())
                     sb.Append(vbTab & "Me.").Append(fldName).Append("lbl = New System.Windows.Forms.Label")
                     sb.Append(vbCrLf)
@@ -34,7 +34,7 @@ Namespace org.codegen.lib.Tokens
                     sb.Append(vbCrLf)
 
                     i += 1
-
+                End If
             Next
 
             Return sb.ToString()

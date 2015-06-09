@@ -21,14 +21,15 @@ Namespace org.codegen.lib.Tokens
                                               End Function)
 
             For Each field As DBField In vec
+                If Not field.isBinaryField Then
 
+                    Dim fldName As String = DBTable.getRuntimeName(field.FieldName())
 
-                Dim fldName As String = DBTable.getRuntimeName(field.FieldName())
-
-                sb.Append(vbTab & "me.Controls.add(me.").Append(fldName).Append("lbl)")
-                sb.Append(vbCrLf)
-                sb.Append(vbTab & "me.Controls.add(me.").Append(fldName).Append(")")
-                sb.Append(vbCrLf)
+                    sb.Append(vbTab & "me.Controls.add(me.").Append(fldName).Append("lbl)")
+                    sb.Append(vbCrLf)
+                    sb.Append(vbTab & "me.Controls.add(me.").Append(fldName).Append(")")
+                    sb.Append(vbCrLf)
+                End If
 
             Next
 

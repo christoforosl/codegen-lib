@@ -31,68 +31,69 @@ Namespace org.codegen.lib.Tokens
             Dim ctlY As Integer = 0 'start from 0
 
             For Each field As DBField In vec
-                Dim fldName As String = DBTable.getRuntimeName(field.FieldName())
+                If Not field.isBinaryField Then
+                    Dim fldName As String = DBTable.getRuntimeName(field.FieldName())
 
 
-                ctlY = ctlY + 15
-                sb.Append(vbTab & "'").Append(fldName).Append("lbl.").Append(vbCrLf)
-                sb.Append(vbTab & "Me.").Append(fldName).Append("lbl.AutoSize = False" & vbCrLf)
-                sb.Append(vbTab & "Me.").Append(fldName).Append("lbl.Location = "). _
-                         Append("New System.Drawing.Point(").Append(LABEL_X).Append(", ").Append(ctlY).Append(")").Append(vbCrLf)
+                    ctlY = ctlY + 15
+                    sb.Append(vbTab & "'").Append(fldName).Append("lbl.").Append(vbCrLf)
+                    sb.Append(vbTab & "Me.").Append(fldName).Append("lbl.AutoSize = False" & vbCrLf)
+                    sb.Append(vbTab & "Me.").Append(fldName).Append("lbl.Location = "). _
+                             Append("New System.Drawing.Point(").Append(LABEL_X).Append(", ").Append(ctlY).Append(")").Append(vbCrLf)
 
-                sb.Append(vbTab & "Me.").Append(fldName).Append("lbl.Name = """).Append(fldName).Append("lbl""").Append(vbCrLf)
-                sb.Append(vbTab & "Me.").Append(fldName).Append("lbl.Size = New System.Drawing.Size(").Append(LABEL_WIDTH).Append(", 20)").Append(vbCrLf)
-                sb.Append(vbTab & "Me.").Append(fldName).Append("lbl.TabIndex = ").Append(tabIndex).Append(vbCrLf)
-                sb.Append(vbTab & "Me.").Append(fldName).Append("lbl.Text = """). _
-                        Append(fldName).Append("""").Append(vbCrLf)
+                    sb.Append(vbTab & "Me.").Append(fldName).Append("lbl.Name = """).Append(fldName).Append("lbl""").Append(vbCrLf)
+                    sb.Append(vbTab & "Me.").Append(fldName).Append("lbl.Size = New System.Drawing.Size(").Append(LABEL_WIDTH).Append(", 20)").Append(vbCrLf)
+                    sb.Append(vbTab & "Me.").Append(fldName).Append("lbl.TabIndex = ").Append(tabIndex).Append(vbCrLf)
+                    sb.Append(vbTab & "Me.").Append(fldName).Append("lbl.Text = """). _
+                            Append(fldName).Append("""").Append(vbCrLf)
 
-                sb.Append(vbTab & "Me.").Append(fldName).Append("lbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight").Append(vbCrLf)
-                sb.Append(vbCrLf)
-                tabIndex = +tabIndex
+                    sb.Append(vbTab & "Me.").Append(fldName).Append("lbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight").Append(vbCrLf)
+                    sb.Append(vbCrLf)
+                    tabIndex = +tabIndex
 
-                sb.Append(vbTab & "'").Append(fldName).Append(vbCrLf)
-                sb.Append(vbTab & "Me.").Append(fldName).Append(".AutoSize = True" & vbCrLf)
-                sb.Append(vbTab & "Me.").Append(fldName).Append(".Location = "). _
-                         Append("New System.Drawing.Point(").Append(CONTROL_X).Append(", ").Append(ctlY).Append(")").Append(vbCrLf)
+                    sb.Append(vbTab & "'").Append(fldName).Append(vbCrLf)
+                    sb.Append(vbTab & "Me.").Append(fldName).Append(".AutoSize = True" & vbCrLf)
+                    sb.Append(vbTab & "Me.").Append(fldName).Append(".Location = "). _
+                             Append("New System.Drawing.Point(").Append(CONTROL_X).Append(", ").Append(ctlY).Append(")").Append(vbCrLf)
 
-                sb.Append(vbTab & "Me.").Append(fldName).Append(".Name =""").Append(fldName).Append("""" & vbCrLf)
+                    sb.Append(vbTab & "Me.").Append(fldName).Append(".Name =""").Append(fldName).Append("""" & vbCrLf)
 
-                If field.isBoolean = False Then
-                    sb.Append(vbTab & "Me.").Append(fldName).Append(".Size = New System.Drawing.Size(200, 20)").Append(vbCrLf)
+                    If field.isBoolean = False Then
+                        sb.Append(vbTab & "Me.").Append(fldName).Append(".Size = New System.Drawing.Size(200, 20)").Append(vbCrLf)
 
-                    If field.isDecimal Then
-                        sb.Append(vbTab & "Me.").Append(fldName).Append(".MaxLength = ") _
-                            .Append(CStr(field.Precision)).Append(vbCrLf)
-                        sb.Append(vbTab & "Me.").Append(fldName).Append(".FormatPattern = """) _
-                                .Append(New String("0"c, field.Precision - field.Scale)).Append(".") _
-                                .Append(New String("0"c, field.Scale)).Append("""") _
-                                .Append(vbCrLf)
-                    Else
-                        sb.Append(vbTab & "Me.").Append(fldName).Append(".MaxLength = ").Append(CStr(field.Scale)).Append(vbCrLf)
+                        If field.isDecimal Then
+                            sb.Append(vbTab & "Me.").Append(fldName).Append(".MaxLength = ") _
+                                .Append(CStr(field.Precision)).Append(vbCrLf)
+                            sb.Append(vbTab & "Me.").Append(fldName).Append(".FormatPattern = """) _
+                                    .Append(New String("0"c, field.Precision - field.Scale)).Append(".") _
+                                    .Append(New String("0"c, field.Scale)).Append("""") _
+                                    .Append(vbCrLf)
+                        Else
+                            sb.Append(vbTab & "Me.").Append(fldName).Append(".MaxLength = ").Append(CStr(field.Scale)).Append(vbCrLf)
+                        End If
+
                     End If
 
+                    sb.Append(vbTab & "Me.").Append(fldName).Append(".TabIndex = ").Append(tabIndex).Append(vbCrLf)
+                    sb.Append(vbTab & "Me.").Append(fldName).Append(".visible = ").Append(CStr(Not field.isPrimaryKey)).Append(vbCrLf)
+
+
+                    If field.isDBFieldNullable = False AndAlso field.isBoolean = False Then
+
+                        'sb.Append(vbTab & "Me.").Append(fldName).Append(".BackColor = System.Drawing.Color.LightYellow").Append(vbCrLf)
+                        sb.Append(vbTab & "Me.").Append(fldName).Append(".isMandatory = True").Append(vbCrLf)
+
+                    End If
+
+                    sb.Append(vbTab & "Me.").Append(fldName).Append(".AssociatedLabel = me.").Append(fldName).Append("lbl").Append(vbCrLf)
+
+                    sb.Append(vbCrLf)
+
+                    ctlY = ctlY + 15
+                    tabIndex += 1
+
+
                 End If
-
-                sb.Append(vbTab & "Me.").Append(fldName).Append(".TabIndex = ").Append(tabIndex).Append(vbCrLf)
-                sb.Append(vbTab & "Me.").Append(fldName).Append(".visible = ").Append(CStr(Not field.isPrimaryKey)).Append(vbCrLf)
-
-
-                If field.isDBFieldNullable = False AndAlso field.isBoolean = False Then
-
-                    'sb.Append(vbTab & "Me.").Append(fldName).Append(".BackColor = System.Drawing.Color.LightYellow").Append(vbCrLf)
-                    sb.Append(vbTab & "Me.").Append(fldName).Append(".isMandatory = True").Append(vbCrLf)
-
-                End If
-
-                sb.Append(vbTab & "Me.").Append(fldName).Append(".AssociatedLabel = me.").Append(fldName).Append("lbl").Append(vbCrLf)
-
-                sb.Append(vbCrLf)
-
-                ctlY = ctlY + 15
-                tabIndex += 1
-
-
-
             Next
 
             Return sb.ToString

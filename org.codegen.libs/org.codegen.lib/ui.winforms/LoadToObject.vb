@@ -22,33 +22,33 @@ Namespace org.codegen.lib.Tokens
 
             For Each field As DBField In vec
 
+                If Not field.isBinaryField Then
+                    Dim fldName As String = DBTable.getRuntimeName(field.FieldName())
 
-                Dim fldName As String = DBTable.getRuntimeName(field.FieldName())
+                    If field.isLookup() Then
+                        sb.Append(vbTab & "mo.").Append(fldName).Append("= Me.") _
+                                       .Append(fldName)
 
-                If field.isLookup() Then
-                    sb.Append(vbTab & "mo.").Append(fldName).Append("= Me.") _
-                                   .Append(fldName)
+                        If field.isDecimal Then
+                            sb.Append(".DecValue")
 
-                    If field.isDecimal Then
-                        sb.Append(".DecValue")
+                        ElseIf field.isInteger Then
+                            sb.Append(".IntValue")
 
-                    ElseIf field.isInteger Then
-                        sb.Append(".IntValue")
+                        ElseIf field.isString Then
+                            sb.Append(".StrValue")
 
-                    ElseIf field.isString Then
-                        sb.Append(".StrValue")
+                        End If
 
+                        sb.Append(vbCrLf)
+                    Else
+
+
+                        sb.Append(vbTab & "mo.set").Append(fldName).Append("(Me.") _
+                                       .Append(fldName).Append(".text)")
+                        sb.Append(vbCrLf)
                     End If
-
-                    sb.Append(vbCrLf)
-                Else
-
-
-                    sb.Append(vbTab & "mo.set").Append(fldName).Append("(Me.") _
-                                   .Append(fldName).Append(".text)")
-                    sb.Append(vbCrLf)
                 End If
-
 
             Next
 
