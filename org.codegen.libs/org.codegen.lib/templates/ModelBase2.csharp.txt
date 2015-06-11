@@ -29,7 +29,7 @@ namespace <NAMESPACE> {
 	[Table(Name = "<TABLE_NAME>")]
 	[DataContract]
 	[DefaultMapperAttr(typeof(<DBMAPPER_NAMESPACE>.<MODEL_CLASS_NAME>DBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public partial class <MODEL_CLASS_NAME>:<MODEL_BASE_CLASS>,IEquatable<<MODEL_CLASS_NAME>> <MODEL_CLASS_IFACE_NAME> {
+	partial class <MODEL_CLASS_NAME>:<MODEL_BASE_CLASS>,IEquatable<<MODEL_CLASS_NAME>> <MODEL_CLASS_IFACE_NAME> {
 
 		#region "Constructor"
 
