@@ -29,7 +29,7 @@ namespace CsModelObjects {
 	[Table(Name = "EmployeeRank")]
 	[DataContract]
 	[DefaultMapperAttr(typeof(CsModelMappers.EmployeeRankDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public partial class EmployeeRank:ModelObject,IEquatable<EmployeeRank>  {
+	partial class EmployeeRank:ModelObject,IEquatable<EmployeeRank>  {
 
 		#region "Constructor"
 

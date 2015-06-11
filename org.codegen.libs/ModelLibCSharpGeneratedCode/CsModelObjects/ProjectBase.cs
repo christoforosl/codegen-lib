@@ -29,7 +29,7 @@ namespace CsModelObjects {
 	[Table(Name = "Project")]
 	[DataContract]
 	[DefaultMapperAttr(typeof(CsModelMappers.ProjectDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public partial class Project:ModelObject,IEquatable<Project>  {
+	partial class Project:ModelObject,IEquatable<Project>  {
 
 		#region "Constructor"
 
