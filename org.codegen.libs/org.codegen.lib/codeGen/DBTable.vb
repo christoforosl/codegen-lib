@@ -108,9 +108,9 @@ Public Class DBTable
             Me.determineIAuditable()
             Me.applyXMLCustomizations()
 
-        Catch e As Exception
+            'Catch e As Exception
 
-            Throw New ApplicationException(e.Message)
+            '    Throw New ApplicationException(e.Message)
         Finally
             ModelGenerator.Current.dbConn.closeDataReader(objStmt)
         End Try
@@ -148,6 +148,7 @@ Public Class DBTable
         For i As Integer = 0 To numberOfColumns - 1
             dr = rsMetaData.Rows(i)
             dbField = New DBField()
+            dbField.ParentTable = Me
             dbField.FieldName = CStr(dr.Item("ColumnName"))
 
             dbField.Scale = CInt(dr.Item("NumericScale"))
@@ -159,7 +160,7 @@ Public Class DBTable
             'note: this does not work: CBool(NullChecker.intNull(dr.Item("IsKey"))) '
             dbField.RuntimeType = CType(dr.Item("DataType"), System.Type)
             dbField.DBType = CStr(dr.Item("DataTypeName"))
-            dbField.ParentTable = Me
+
             If _exludedFields.Contains(dbField.FieldName.ToLower) = True Then
                 'skip this field!
                 Debug.WriteLine("skipped " & dbField.FieldName)

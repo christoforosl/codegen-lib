@@ -1,5 +1,6 @@
 ﻿Imports System.Windows.Forms
 Imports org.codegen.lib
+Imports System.Reflection
 
 
 Public Class frmMain
@@ -43,9 +44,7 @@ Public Class frmMain
 
             SaveSetting(STR_REG_SECTION, STR_REG_SECTION, STR_LAST_EXECUTED, Me.cboXMLConfFile.Text)
 
-
             Me.Show()
-
 
             Try
 
@@ -58,7 +57,7 @@ Public Class frmMain
                     cds = New DataSet
                     cds.ReadXmlSchema(xsdstream)
                     cds.ReadXml(CStr(Me.cboXMLConfFile.Text))
-                    gen.parseConfFile(cds)
+                    gen.parseConfFile(cds, Assembly.GetExecutingAssembly.GetName.Version)
 
                     If System.IO.Directory.Exists(ModelGenerator.Current.ProjectOutputDirModel) = False Then
                         MsgBox(String.Format(MSG_DIR_NOT_EXISTS, ModelGenerator.Current.ProjectOutputDirModel))

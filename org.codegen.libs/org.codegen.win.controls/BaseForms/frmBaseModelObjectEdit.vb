@@ -66,10 +66,11 @@ Public Class frmBaseModelObjectEdit
 
                     common.Validate.isNotNull(ModelObjectType, "ModelObjectType not given")
                     Dim loader As DBMapper = ModelContext.GetModelDefaultMapper(ModelObjectType)
-                    If Me.IdValue > 0 Then
-                        _ModelObjectInstance = loader.findByKey(Me.IdValue)
-                    Else
+                    If Me.NewRecord() Then
                         _ModelObjectInstance = loader.getModelInstance
+
+                    Else
+                        _ModelObjectInstance = loader.findByKey(Me.IdValue)
                     End If
 
                 End If

@@ -36,7 +36,7 @@ Public Class CSharpPropertyGenerator
         Append(pfx).Append(runtimeFieldName).Append("{").Append(vbCrLf). _
         Append(vbTab).Append("get{").Append(vbCrLf)
 
-        sproperty.Append(vbTab & vbTab & "return _" & runtimeFieldName & ";" & vbCrLf)
+        sproperty.Append(vbTab & vbTab & "return " & Me.Converter(field) & ";" & vbCrLf)
 
         sproperty.Append(vbTab & "}" & vbCrLf)
 
@@ -47,7 +47,7 @@ Public Class CSharpPropertyGenerator
         sproperty.Append(vbTab).Append(vbTab).Append(vbTab & vbTab).Append("this.isDirty = true;").Append(vbCrLf)
         sproperty.Append(vbTab).Append(vbTab).Append(vbTab & vbTab).Append("this.setFieldChanged(").Append(field.getConstantStr).Append(");").Append(vbCrLf)
         sproperty.Append(vbTab).Append(vbTab).Append(vbTab & "}").Append(vbCrLf)
-        sproperty.Append(vbTab).Append(vbTab).Append("this._").Append(runtimeFieldName).Append("=value;").Append(vbCrLf)
+        sproperty.Append(vbTab).Append(vbTab).Append(Me.setConverter(field)).Append(vbCrLf)
 
         If field.isPrimaryKey Then
             sproperty.Append(vbCrLf & vbTab & vbTab & vbTab & "this.raiseBroadcastIdChange();" & vbCrLf)
@@ -154,6 +154,28 @@ Public Class CSharpPropertyGenerator
         Dim nl As String = CStr(IIf(field.isDBFieldNullable, "", " NOT NULL"))
 
         Return "[Column(Name=""" & field.FieldName & """,Storage = ""_" & field.RuntimeFieldName & """, IsPrimaryKey=" & field.isPrimaryKey.ToString.ToLower & ",DbType = """ & field.DBType & nl & """,CanBeNull = " & field.isDBFieldNullable.ToString.ToLower & ")]" & vbCrLf
+    End Function
+
+    Private Function Converter(field As IDBField) As String
+
+        If field.isBooleanFromInt Then
+            Return String.Format("_{0}.GetValueOrDefault != 0 ? true: false", field.RuntimeFieldName)
+        Else
+            Return "_" & field.RuntimeFieldName()
+        End If
+
+    End Function
+
+
+    Private Function setConverter(field As IDBField) As String
+
+        If field.isBooleanFromInt Then
+            Return String.Format("this._{0} = value ? 1 : 0", field.RuntimeFieldName)
+            'String.Format("CBool(IIf(_{0}.GetValueOrDefault <> 0, True, False))", field.RuntimeFieldName)
+        Else
+            Return String.Format("this._{0} = value", field.RuntimeFieldName)
+        End If
+
     End Function
 
 End Class

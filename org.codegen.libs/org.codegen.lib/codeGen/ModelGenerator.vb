@@ -64,7 +64,7 @@ Public Class ModelGenerator
 	''' </summary>
 	Property relativeDirectory As String
 
-    Property BooleanFieldsDefinition As BooleanFieldsDefinition
+    Property BooleanFieldsCollection As BooleanFieldsCollection
 
 	Public Sub addAssociation(ByVal ass As IAssociation)
 		Me._systemAssociations.Add(ass)

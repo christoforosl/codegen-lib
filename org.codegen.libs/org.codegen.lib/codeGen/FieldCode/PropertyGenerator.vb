@@ -29,7 +29,6 @@ Public Class PropertyGenerator
             iimplements.Add(field.ParentTable.getAuditInterface & "." & field.PropertyName)
         End If
 
-       
         If iimplements.Count > 0 Then
             sImplements = " _ " & vbCrLf & vbTab & vbTab & _
                     "Implements " & _
@@ -44,7 +43,7 @@ Public Class PropertyGenerator
               Append(" as ").Append(field.getPropertyDataType).Append(sImplements).Append(vbCrLf). _
               Append(vbTab).Append("Get ").Append(vbCrLf)
 
-        sproperty.Append(vbTab & vbTab & "return _" & runtimeFieldName & vbCrLf)
+        sproperty.Append(vbTab & vbTab & "return " & Me.Converter(field) & vbCrLf)
 
         sproperty.Append(vbTab & "End Get " & vbCrLf)
 
@@ -55,7 +54,7 @@ Public Class PropertyGenerator
         sproperty.Append(vbTab).Append(vbTab).Append(vbTab & vbTab).Append("me.isDirty = true").Append(vbCrLf)
         sproperty.Append(vbTab).Append(vbTab).Append(vbTab & vbTab).Append("me.setFieldChanged(").Append(field.getConstantStr).Append(")").Append(vbCrLf)
         sproperty.Append(vbTab).Append(vbTab).Append(vbTab & "End If").Append(vbCrLf)
-        sproperty.Append(vbTab).Append(vbTab & vbTab).Append("me._").Append(runtimeFieldName).Append("=value").Append(vbCrLf)
+        sproperty.Append(vbTab).Append(vbTab & vbTab).Append(Me.setConverter(field)).Append(vbCrLf)
 
         If field.isPrimaryKey Then
             sproperty.Append(vbCrLf & vbTab & vbTab & vbTab & "me.raiseBroadcastIdChange()" & vbCrLf)
@@ -162,6 +161,27 @@ Public Class PropertyGenerator
     Private Function getLinqDataAttribute(field As IDBField) As String
         Dim nl As String = CStr(IIf(field.isDBFieldNullable, "", " NOT NULL"))
         Return vbTab & "<Column(Name:=""" & field.FieldName & """,Storage:=""_" & field.RuntimeFieldName & """, IsPrimaryKey:=" & field.isPrimaryKey & ",DbType:=""" & field.DBType & nl & """,CanBeNull:=" & field.isDBFieldNullable & " )> _" & vbCrLf
+    End Function
+
+    Private Function Converter(field As IDBField) As String
+
+        If field.isBooleanFromInt Then
+            Return String.Format("CBool(IIf(_{0}.GetValueOrDefault <> 0, True, False))", field.RuntimeFieldName)
+        Else
+            Return "_" & field.RuntimeFieldName()
+        End If
+
+    End Function
+
+    Private Function setConverter(field As IDBField) As String
+
+        If field.isBooleanFromInt Then
+            Return String.Format("me._{0} = CLng(IIf(value, 1, 0))", field.RuntimeFieldName)
+            'String.Format("CBool(IIf(_{0}.GetValueOrDefault <> 0, True, False))", field.RuntimeFieldName)
+        Else
+            Return String.Format("me._{0} = value", field.RuntimeFieldName)
+        End If
+
     End Function
 
 End Class

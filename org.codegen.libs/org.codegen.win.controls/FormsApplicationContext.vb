@@ -56,6 +56,8 @@ Public Class FormsApplicationContext
 
     Public Property requiredLabelsColor As Color = Color.DarkRed
 
+    Public Property editRecordIsNewProvider As IBaseEditRecordIsNewProvider = New BaseEditRecordIsNewProvider()
+
     Public Property Translator() As TranslatedStringsProvider
 
         Get

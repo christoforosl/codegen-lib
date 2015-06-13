@@ -8,6 +8,8 @@ End Class
 
 Public Interface IDBField
 
+    Function isBooleanFromInt() As Boolean
+
     ReadOnly Property FieldDataType() As String
 
     Function isBoolean() As Boolean

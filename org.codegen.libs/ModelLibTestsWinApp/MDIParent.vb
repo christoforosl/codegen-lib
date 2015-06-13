@@ -17,7 +17,7 @@ Public Class MDIParent
         Me.Text = FormsApplicationContext.current.ApplicationTitle
         Me.setupMenues()
 
-        ModelContext.Current.addGlobalModelValidator(GetType(Employee), GetType(SampleEmployeeGlobalValidator))
+        'ModelContext.Current.addGlobalModelValidator(GetType(Employee), GetType(SampleEmployeeGlobalValidator))
 
         'Dim pro As New BackroundProgressIndicator.BackroundProgressIndicator
         'pro.showCancel = False

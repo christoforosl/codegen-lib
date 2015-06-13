@@ -62,8 +62,6 @@ Public Class DBField
         Return "STR_" & Me.getConstant()
     End Function
 
-
-
     Public Overridable Function getClassVariableDeclaration( _
                     Optional ByVal accessLevel As String = "private", _
                     Optional ByVal withInitialiser As Boolean = True) As String Implements IDBField.getClassVariableDeclaration
@@ -89,21 +87,25 @@ Public Class DBField
 
     Public Overridable Function getFieldDataType() As String Implements IDBField.getFieldDataType
 
-        If Me.isNullableProperty Then
-            If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
-                Return "Nullable (of " & Me._RuntimeTypeStr & ")"
-            Else
-                Return Me._RuntimeTypeStr & "?"
-            End If
+        If Me.isBooleanFromInt Then
+            Return "System.int64?"
         Else
-            If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB _
-                AndAlso Me.isBinaryField Then
-                Return "System.Byte()"
+            If Me.isNullableProperty Then
+                'If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
+                '    Return "Nullable (of " & Me._RuntimeTypeStr & ")"
+                'Else
+                '    Return Me._RuntimeTypeStr & "?"
+                'End If
+                Return Me._RuntimeTypeStr & "?"
             Else
-                Return Me._RuntimeTypeStr
+                If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB _
+                    AndAlso Me.isBinaryField Then
+                    Return "System.Byte()"
+                Else
+                    Return Me._RuntimeTypeStr
+                End If
+
             End If
-
-
         End If
 
     End Function
@@ -124,6 +126,9 @@ Public Class DBField
 
         If Me.isPrimaryKey Then
             ret = Me._RuntimeTypeStr
+
+        ElseIf Me.isBooleanFromInt() Then
+            ret = CStr(IIf(isCSharp(), "bool", "Boolean"))
 
         ElseIf Me.FieldDataType = "System.String" Then
             ret = Me.FieldDataType
@@ -268,9 +273,29 @@ Public Class DBField
         Return Me.RuntimeType = Type.GetType("System.String")
     End Function
 
+    Public Function isBooleanFromInt() As Boolean Implements IDBField.isBooleanFromInt
+
+        Dim iamBoolean As Boolean = ModelGenerator.Current.BooleanFieldsCollection.isBooleanField(Me)
+
+        Dim isIntIndatabase = (Me.OriginalRuntimeType = Type.GetType("System.Int16") _
+            OrElse Me.OriginalRuntimeType = Type.GetType("System.Int32") _
+            OrElse Me.OriginalRuntimeType = Type.GetType("System.Byte") _
+            OrElse Me.OriginalRuntimeType = Type.GetType("System.Int64"))
+
+        If (iamBoolean AndAlso Not isIntIndatabase) Then
+            Throw New ApplicationException(String.Format("Error: Boolean specified fields must be of type Integer in the database. It seems {0}.{1} is not!", Me.ParentTable.TableName, Me.FieldName))
+        End If
+
+        Return isIntIndatabase AndAlso iamBoolean
+
+
+    End Function
+
+
     Public Function isBoolean() As Boolean Implements IDBField.isBoolean
 
-        Return Me.RuntimeType = Type.GetType("System.Boolean") OrElse ModelGenerator.Current.BooleanFieldsDefinition.isBooleanField(Me)
+        Return Me.RuntimeType = Type.GetType("System.Boolean") OrElse _
+                ModelGenerator.Current.BooleanFieldsCollection.isBooleanField(Me)
 
     End Function
 
@@ -329,7 +354,7 @@ Public Class DBField
 
             End If
 
-            If ModelGenerator.Current.BooleanFieldsDefinition.isBooleanField(Me) Then
+            If ModelGenerator.Current.BooleanFieldsCollection.isBooleanField(Me) Then
                 _RuntimeType = Type.GetType("System.Boolean")
             End If
 
@@ -371,4 +396,9 @@ Public Class DBField
         Return Me.RuntimeType Is System.Type.GetType("System.Byte[]")
 
     End Function
+
+    Private Function isCSharp() As Boolean
+        Return (ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP)
+    End Function
+
 End Class

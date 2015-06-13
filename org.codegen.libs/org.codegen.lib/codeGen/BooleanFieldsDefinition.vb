@@ -1,32 +1,45 @@
-﻿Public Class BooleanFieldsDefinition
+﻿Imports System.Collections.Generic
 
-    Public Property DBDatatype As String = "int"
-    Public Property DBDatatypeLength As Integer = 1
-    Public Property ExcludedFields As String = String.Empty
+Public Class BooleanFieldsCollection
+
+    Private lst As List(Of BooleanFieldDefinition)
+
+    Public Sub addBooleanFieldDefinition(tablename As String, fieldname As String)
+        If (Me.lst Is Nothing) Then
+            Me.lst = New List(Of BooleanFieldDefinition)
+        End If
+        Me.lst.Add(New BooleanFieldDefinition(tablename, fieldname))
+    End Sub
 
     Public Function isBooleanField(field As IDBField) As Boolean
 
-        If SkipField(field.FieldName) Then
-            Return False
-        Else
-            Return field.FieldDataType = Me.DBDatatype And field.Size = Me.DBDatatypeLength
-        End If
+        For Each bf As BooleanFieldDefinition In lst
+
+            If field.FieldName.ToLower = bf.fieldName.ToLower AndAlso _
+                field.ParentTable.TableName.ToLower = bf.tableName.ToLower Then
+                Return True
+            End If
+
+        Next
+
+        Return False
 
     End Function
 
-    Public Function SkipField(fieldname As String) As Boolean
+End Class
 
-        If (String.IsNullOrEmpty(ExcludedFields)) Then Return False
+Public Class BooleanFieldDefinition
 
-        If (Not ExcludedFields.EndsWith(",")) Then
-            ExcludedFields = ExcludedFields & ","
-        End If
-        If (Not ExcludedFields.StartsWith(",")) Then
-            ExcludedFields = "," & ExcludedFields & ","
-        End If
+    Public Property tableName As String
+    Public Property fieldName As String
 
-        Return Me.ExcludedFields.Contains("," & fieldname & ",")
+    Public Sub New(tableName As String, fieldName As String)
 
-    End Function
+        Me.fieldName = fieldName
+        Me.tableName = tableName
+
+    End Sub
+
+   
 
 End Class

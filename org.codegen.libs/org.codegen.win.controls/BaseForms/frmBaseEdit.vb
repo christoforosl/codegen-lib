@@ -1,6 +1,44 @@
 Imports System.ComponentModel
 
 ''' <summary>
+''' Classes that implement this interface decide based on the id value if
+''' the idvalue belongs to a new record
+''' </summary>
+''' <remarks></remarks>
+Public Interface IBaseEditRecordIsNewProvider
+
+    Function isNew(idvalue As Object) As Boolean
+
+End Interface
+
+''' <summary>
+''' 
+''' </summary>
+''' <remarks></remarks>
+Public Class BaseEditRecordIsNewProvider
+    Implements IBaseEditRecordIsNewProvider
+
+    Public Function isNew(idvalue As Object) As Boolean _
+                Implements IBaseEditRecordIsNewProvider.isNew
+
+        If idvalue Is Nothing Then Return True
+
+        If (idvalue.GetType() Is Type.GetType("System.Int16")) _
+                OrElse (idvalue.GetType() Is Type.GetType("System.Int32")) _
+                OrElse (idvalue.GetType() Is Type.GetType("System.Int64")) Then
+
+            Return CLng(idvalue) <= 0
+        Else
+            Return Not String.IsNullOrEmpty(CStr(idvalue))
+        End If
+
+    End Function
+End Class
+
+
+
+
+''' <summary>
 ''' Enumeration for reults values of SaveData of frmBaseEdit
 ''' </summary>
 ''' <remarks></remarks>
@@ -45,7 +83,7 @@ Public Class frmBaseEdit
     ''' IDValue (primary key ) value of record we are editing
     ''' </summary>
     ''' <remarks></remarks>
-    Private _IdValue As Integer
+    Private _IdValue As Object
 
     ''' <summary>
     ''' Boolean flag to indicate if we adding a new record
@@ -76,7 +114,7 @@ Public Class frmBaseEdit
 
     Public Sub New(ByVal _IdValue As Integer)
 
-        Me.new()
+        Me.New()
         Me.IdValue = _IdValue
 
     End Sub
@@ -202,14 +240,16 @@ Public Class frmBaseEdit
     ''' if value is 0, then the _newRecord boolean proeprty is set to true, else false
     ''' </summary>
     <Browsable(False)> _
-    Public Property IdValue() As Integer
+    Public Property IdValue() As Object
         Get
             Return _IdValue
         End Get
 
-        Set(ByVal value As Integer)
+        Set(ByVal value As Object)
+
             _IdValue = value
-            _newRecord = (value <= 0)
+            _newRecord = FormsApplicationContext.current.editRecordIsNewProvider.isNew(value)
+
             Me.setToolbarControls()
         End Set
 
@@ -282,13 +322,13 @@ Public Class frmBaseEdit
 
     Private Sub frmBaseEdit_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
-        AddHandler UcEditToolar.cmdSave.Click, AddressOf UcEditToolar1_Save_Click
-        AddHandler UcEditToolar.cmdDelete.Click, AddressOf UcEditToolar1_Delete_Click
-        AddHandler UcEditToolar.cmdSaveAs.Click, AddressOf UcEditToolar1_SaveAs_Click
-        AddHandler UcEditToolar.cmdNext.Click, AddressOf UcEditToolar1_Next_Click
-        AddHandler UcEditToolar.cmdPrevious.Click, AddressOf UcEditToolar1_Previous_Click
-        AddHandler UcEditToolar.cmdCancel.Click, AddressOf UcEditToolar1_Cancel_Click
-        AddHandler UcEditToolar.cmdAdd.Click, AddressOf UcEditToolar1_Add_Click
+        AddHandler ucEditToolar.cmdSave.Click, AddressOf UcEditToolar1_Save_Click
+        AddHandler ucEditToolar.cmdDelete.Click, AddressOf UcEditToolar1_Delete_Click
+        AddHandler ucEditToolar.cmdSaveAs.Click, AddressOf UcEditToolar1_SaveAs_Click
+        AddHandler ucEditToolar.cmdNext.Click, AddressOf UcEditToolar1_Next_Click
+        AddHandler ucEditToolar.cmdPrevious.Click, AddressOf UcEditToolar1_Previous_Click
+        AddHandler ucEditToolar.cmdCancel.Click, AddressOf UcEditToolar1_Cancel_Click
+        AddHandler ucEditToolar.cmdAdd.Click, AddressOf UcEditToolar1_Add_Click
 
     End Sub
 
@@ -438,13 +478,13 @@ Public Class frmBaseEdit
 
     Protected Sub setToolbarControls()
 
-        Me.UcEditToolar.cmdDelete.Enabled = Me._IdValue > 0 OrElse Me.DesignMode = True
-        Me.UcEditToolar.cmdPrint.Enabled = Me._IdValue > 0 OrElse Me.DesignMode = True
-        Me.UcEditToolar.cmdSaveAs.Enabled = Me._IdValue > 0 OrElse Me.DesignMode = True
+        Me.UcEditToolar.cmdDelete.Enabled = Not Me.NewRecord() OrElse Me.DesignMode = True
+        Me.UcEditToolar.cmdPrint.Enabled = Not Me.NewRecord() OrElse Me.DesignMode = True
+        Me.UcEditToolar.cmdSaveAs.Enabled = Not Me.NewRecord() OrElse Me.DesignMode = True
         Me.UcEditToolar.cmdNext.Visible = Me._MoveNextProvider Is Nothing = False OrElse Me.DesignMode = True
         Me.UcEditToolar.cmdPrevious.Visible = Me._MoveNextProvider Is Nothing = False OrElse Me.DesignMode = True
 
-        Me.UcEditToolar.cmdAdd.Enabled = Me._IdValue > 0 OrElse Me.DesignMode = True
+        Me.UcEditToolar.cmdAdd.Enabled = Not Me.NewRecord() OrElse Me.DesignMode = True
 
     End Sub
     ''' <summary>
@@ -639,7 +679,5 @@ Public Class frmBaseEdit
     End Sub
 
 #End Region
-
-
 
 End Class
