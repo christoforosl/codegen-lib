@@ -206,7 +206,7 @@ Public Class DBField
 
         Dim param As StringBuilder = New StringBuilder(vbTab).Append(vbTab).Append(vbTab)
         param.Append("stmt.Parameters.Add(").Append(MeOrThis).Append(".dbConn.getParameter(")
-        param.Append(Me.ParentTable.TableName).Append("." ).Append(Me.getConstantStr()).Append(",")
+        param.Append(ModelGenerator.Current.CurrentObjectBeingGenerated.ClassName).Append(".").Append(Me.getConstantStr()).Append(",")
 
         If Me.FieldName.ToLower = "id" Then
             If Me.isString Then
