@@ -19,8 +19,16 @@
   <dbConnectionDialect>MSSQL</dbConnectionDialect>
   <dbConnectionType>CONN_MSSQL</dbConnectionType>
   <UIProjectOutputDir>..\ModelLibTestsWinApp\</UIProjectOutputDir>
+
+  <booleanFields>
+    <booleanField tableName="Project" fieldName="isActive" />
+  </booleanFields>
+  <enumerationFields>
+
+    <enumarationField tableName="Project" fieldName="ProjectTypeId" enumType="EnumProjectType" />
+
+  </enumerationFields>
   
-  <BooleanFields datatype="int" length="1" excludedFieldNames="" />
   
   <table>
 

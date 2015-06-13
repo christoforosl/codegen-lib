@@ -356,9 +356,11 @@ Namespace Tokens
             Dim sString As String = ""
             Dim skey As String = field.getConstant()
             Dim meMarker As String = "me"
+
             If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP Then
                 meMarker = "this"
             End If
+
             If field.OriginalRuntimeType Is System.Type.GetType("System.Date") OrElse _
                field.OriginalRuntimeType Is System.Type.GetType("System.DateTime") Then
 
@@ -409,14 +411,23 @@ Namespace Tokens
                 Throw New ApplicationException(msg)
             End If
 
-            If field.isBoolean And field.OriginalRuntimeType IsNot System.Type.GetType("System.Boolean") Then
+            If field.isEnumFromInt Then
+                Dim enumName = ModelGenerator.Current.EnumFieldsCollection.getEnumField(field).enumTypeName
                 If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP Then
-                    sString = sString & "==1;"
+                    Return "(" & enumName & "?)" & sString
                 Else
-                    sString = sString & "=1"
+                    Return "CType(" & sString & "," & enumName & "?)"
                 End If
             End If
 
+            If field.isBooleanFromInt Then
+
+                If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP Then
+                    Return sString & "!=0"
+                Else
+                    Return sString & "<>0"
+                End If
+            End If
 
             Return sString
 

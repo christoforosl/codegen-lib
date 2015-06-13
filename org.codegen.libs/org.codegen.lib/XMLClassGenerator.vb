@@ -108,7 +108,7 @@ Public Class XMLClassGenerator
             cds.Namespace = "ClassGenerator4"
             cds.ReadXmlSchema(strm)
             cds.ReadXml(xmlConfFile)
-            gen.parseConfFile(cds)
+            gen.parseConfFile(cds, New System.Version(4, 0, 9, 0))
             gen.genClasses()
         End Using
 
@@ -265,12 +265,13 @@ Public Class XMLClassGenerator
         End Try
     End Sub
 
-    Public Sub parseConfFile(ByVal cds As DataSet)
+    Public Sub parseConfFile(ByVal cds As DataSet, requiredVersion As System.Version)
 
         Dim projectInfo As DataTable = cds.Tables(XMLClassGenerator.XML_ATTR_PROJECT)
         Dim totalDBTables As Integer = cds.Tables(XML_ATTR_TABLE).Rows.Count
 
-        Dim generatorVersion As Integer = CInt(getRowValue(projectInfo.Rows(0), "GeneratorVersion", True))
+        Dim generatorVersion As Integer = CInt(getRowValue(projectInfo.Rows(0), "generatorVersion", True))
+        Dim generatorExeVersion As String = getRowValue(projectInfo.Rows(0), "generatorExeRequiredVersion", False)
         Dim defaultNamespace As String = getRowValue(projectInfo.Rows(0), XML_PROJECT_ATTR_DEFAULT_NAMESPACE)
 
         Dim propertyGeneratorClassName As String = getRowValue(projectInfo.Rows(0), XML_PROJECT_ATTR_IPROP_GEN_CLASS_NAME, False)
@@ -278,6 +279,12 @@ Public Class XMLClassGenerator
         Me.VbNetProjectFile = getRowValue(projectInfo.Rows(0), XML_PROJECT_ATTR_VB_NET_PROJECT_FILE, "")
 
         Dim t As ModelGenerator = ModelGenerator.create(CType(generatorVersion, ModelGenerator.enumVERSION))
+
+        If String.IsNullOrEmpty(generatorExeVersion) = False Then
+            If requiredVersion.ToString <> generatorExeVersion Then
+                Throw New ApplicationException("generatorExeRequiredVersion element specifies a value of {0} but the generator exe has version {1}. Please re-check xml.")
+            End If
+        End If
 
         t.relativeDirectory = Me.relativeDirectory
         t.XmlFileDataSet = cds
@@ -292,19 +299,36 @@ Public Class XMLClassGenerator
         t.ProjectOutputDirUI = getRowValue(projectInfo.Rows(0), XML_ATTR_UI_TEST_OUT_DIR, False)
         t.FieldPropertyPrefix = getRowValue(projectInfo.Rows(0), XML_PROP_PERFIX, False)
         t.DefaultMapperNameSpace = getRowValue(projectInfo.Rows(0), XML_ATTR_DEFAULT_MAPPER_NAMESPACE, False)
-        t.BooleanFieldsDefinition = New BooleanFieldsDefinition()
+        t.BooleanFieldsCollection = New BooleanFieldsCollection
+        t.EnumFieldsCollection = New EnumFieldsCollection
 
-        If (cds.Tables("BooleanFields") IsNot Nothing AndAlso cds.Tables("BooleanFields").Rows.Count > 0) Then
-            Dim dtBooleanFields As DataTable = cds.Tables("BooleanFields")
-            If dtBooleanFields.Rows.Count > 0 AndAlso dtBooleanFields.Rows(0).Item("excludedFieldNames") IsNot Nothing Then
-                t.BooleanFieldsDefinition.ExcludedFields = getRowValue(dtBooleanFields.Rows(0), "excludedFieldNames", "")
-            End If
+        If (cds.Tables("booleanField") IsNot Nothing AndAlso _
+                    cds.Tables("booleanField").Rows.Count > 0) Then
 
-            t.BooleanFieldsDefinition.DBDatatypeLength = CInt(getRowValue(dtBooleanFields.Rows(0), "length", True)) ' CInt(dtBooleanFields.Rows(0).Item("length"))
-            t.BooleanFieldsDefinition.DBDatatype = getRowValue(dtBooleanFields.Rows(0), "datatype", True)
+            Dim dtBooleanFields As DataTable = cds.Tables("booleanField")
+            For Each xr As DataRow In dtBooleanFields.Rows
+                Dim tblName = getRowValue(xr, "tableName", True)
+                Dim fname = getRowValue(xr, "fieldName", True)
+
+                t.BooleanFieldsCollection.addBooleanFieldDefinition(tblName, fname)
+
+            Next
 
         End If
+        If (cds.Tables("enumerationFields") IsNot Nothing AndAlso _
+                  cds.Tables("enumerationFields").Rows.Count > 0) Then
 
+            Dim dtBooleanFields As DataTable = cds.Tables("enumarationField")
+            For Each xr As DataRow In dtBooleanFields.Rows
+                Dim tblName = getRowValue(xr, "tableName", True)
+                Dim fname = getRowValue(xr, "fieldName", True)
+
+                t.EnumFieldsCollection.addEnumFieldDefinition( _
+                        tblName, fname, getRowValue(xr, "enumType", True))
+
+            Next
+
+        End If
         If getRowValue(projectInfo.Rows(0), "dotNetLanguage", "VB") = "VB" Then
             t.dotNetLanguage = ModelGenerator.enumLanguage.VB
         Else

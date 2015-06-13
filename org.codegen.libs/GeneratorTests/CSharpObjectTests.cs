@@ -67,9 +67,7 @@ namespace GeneratorTests {
 				employee.PrSSINumber = "1030045";
 				employee.PrTelephone = "2234455";
                 employee.PrHireDate = hireDate;
-                employee.PrCvFileContent = System.IO.File.ReadAllBytes("TestWordDocument.docx");
-                employee.PrPhoto = System.IO.File.ReadAllBytes("merkel.jpg");
-
+				employee.PrIsActive = true;
 
                 Guid g = Guid.NewGuid();
                 employee.PrSampleGuidField = g;
@@ -184,6 +182,21 @@ namespace GeneratorTests {
 				Assert.IsNotNull(et2, "New employeetype must have been created!");
 				et1 = EmployeeTypeDataUtils.findByKey("XX1");
 				Assert.IsNotNull(et1, "New employeetype must have been created!");
+
+				Project p = ProjectFactory.Create();
+				p.PrIsActive = true;
+				p.PrProjectTypeId = EnumProjectType.EXTERNAL;
+				p.PrProjectName = "Test";
+				ProjectDataUtils.saveProject(p);
+				long pid = p.PrProjectId;
+				p = ProjectDataUtils.findByKey(pid);
+				Assert.IsNotNull(p, "New project must have been saved to the db!");
+
+				p.PrProjectTypeId = null; // test null value to enumaration
+				ProjectDataUtils.saveProject(p);
+				p = ProjectDataUtils.findByKey(pid);
+				Assert.IsNotNull(p, "New project must have been saved to the db!");
+				Assert.IsNull(p.PrProjectTypeId, "project type id must be null after saved to the db, instead got value:" + p.PrProjectTypeId);
 
 			} finally {
 				ModelContext.rollbackTrans();

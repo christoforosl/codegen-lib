@@ -104,6 +104,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnumProjectType.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="Tests\EmployeeInfoTestBase.vb" />
     <Compile Include="Tests\EmployeeProjectTestBase.vb" />

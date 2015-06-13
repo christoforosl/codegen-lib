@@ -8,7 +8,7 @@
   </stmt>
   <stmt>
     <key>selectall</key>
-    <MSSQL>SELECT ProjectId,ProjectName,isActive FROM [Project]</MSSQL>
+    <MSSQL>SELECT ProjectId,ProjectName,isActive,ProjectTypeId FROM [Project]</MSSQL>
   </stmt>
   <stmt>
     <key>delete</key>
@@ -16,10 +16,10 @@
   </stmt>
   <stmt>
     <key>insert</key>
-    <MSSQL>insert into Project (ProjectName,isActive) values (@ProjectName,@isActive)</MSSQL>
+    <MSSQL>insert into Project (ProjectName,isActive,ProjectTypeId) values (@ProjectName,@isActive,@ProjectTypeId)</MSSQL>
   </stmt>
   <stmt>
     <key>update</key>
-    <MSSQL>UPDATE [Project] SET ProjectName=@ProjectName,isActive=@isActive WHERE ProjectId=@ProjectId</MSSQL>
+    <MSSQL>UPDATE [Project] SET ProjectName=@ProjectName,isActive=@isActive,ProjectTypeId=@ProjectTypeId WHERE ProjectId=@ProjectId</MSSQL>
   </stmt>
 </SQLStatements>

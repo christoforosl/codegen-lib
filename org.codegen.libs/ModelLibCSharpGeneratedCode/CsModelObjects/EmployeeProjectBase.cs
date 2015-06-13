@@ -133,7 +133,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEEPROJECTID);
 			}
-		this._EmployeeProjectId=value;
+		this._EmployeeProjectId = value;
 
 			this.raiseBroadcastIdChange();
 
@@ -151,7 +151,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EPEMPLOYEEID);
 			}
-		this._EPEmployeeId=value;
+		this._EPEmployeeId = value;
 
 		}
 		}
@@ -167,7 +167,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EPPROJECTID);
 			}
-		this._EPProjectId=value;
+		this._EPProjectId = value;
 
 		}
 		}
@@ -183,7 +183,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ASSIGNDATE);
 			}
-		this._AssignDate=value;
+		this._AssignDate = value;
 
 		}
 		}
@@ -199,7 +199,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ENDDATE);
 			}
-		this._EndDate=value;
+		this._EndDate = value;
 
 		}
 		}
@@ -215,7 +215,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_RATE);
 			}
-		this._Rate=value;
+		this._Rate = value;
 
 		}
 		}
@@ -332,35 +332,35 @@ namespace CsModelObjects {
 			if (val == DBNull.Value || val == null ){
 				this.PrEPEmployeeId = null;
 			} else {
-				this.PrEPEmployeeId=(System.Int64)val;
+				this.PrEPEmployeeId=(System.Int64?)val;
 			} //
 			return;
 		case FLD_EPPROJECTID:
 			if (val == DBNull.Value || val == null ){
 				this.PrEPProjectId = null;
 			} else {
-				this.PrEPProjectId=(System.Int64)val;
+				this.PrEPProjectId=(System.Int64?)val;
 			} //
 			return;
 		case FLD_ASSIGNDATE:
 			if (val == DBNull.Value || val == null ){
 				this.PrAssignDate = null;
 			} else {
-				this.PrAssignDate=(System.DateTime)val;
+				this.PrAssignDate=(System.DateTime?)val;
 			} //
 			return;
 		case FLD_ENDDATE:
 			if (val == DBNull.Value || val == null ){
 				this.PrEndDate = null;
 			} else {
-				this.PrEndDate=(System.DateTime)val;
+				this.PrEndDate=(System.DateTime?)val;
 			} //
 			return;
 		case FLD_RATE:
 			if (val == DBNull.Value || val == null ){
 				this.PrRate = null;
 			} else {
-				this.PrRate=(System.Decimal)val;
+				this.PrRate=(System.Decimal?)val;
 			} //
 			return;
 		default:
@@ -382,35 +382,35 @@ namespace CsModelObjects {
 			if (val == DBNull.Value || val ==null ){
 				this.PrEPEmployeeId = null;
 			} else {
-				this.PrEPEmployeeId=(System.Int64)val;
+				this.PrEPEmployeeId=(System.Int64?)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_EPPROJECTID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrEPProjectId = null;
 			} else {
-				this.PrEPProjectId=(System.Int64)val;
+				this.PrEPProjectId=(System.Int64?)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_ASSIGNDATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrAssignDate = null;
 			} else {
-				this.PrAssignDate=(System.DateTime)val;
+				this.PrAssignDate=(System.DateTime?)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_ENDDATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrEndDate = null;
 			} else {
-				this.PrEndDate=(System.DateTime)val;
+				this.PrEndDate=(System.DateTime?)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_RATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrRate = null;
 			} else {
-				this.PrRate=(System.Decimal)val;
+				this.PrRate=(System.Decimal?)val;
 			}
 			return;
 		}

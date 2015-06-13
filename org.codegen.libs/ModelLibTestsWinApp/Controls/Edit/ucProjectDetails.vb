@@ -41,6 +41,8 @@ Public Class ucProjectDetails
 	Me.ProjectName = New CGTextBox
 	Me.IsActivelbl = New System.Windows.Forms.Label
 	Me.IsActive = New CGCheckBox
+	Me.ProjectTypeIdlbl = New System.Windows.Forms.Label
+	Me.ProjectTypeId = New CGIntTextBox
 
 
         Me.SuspendLayout()
@@ -81,6 +83,25 @@ Public Class ucProjectDetails
 	Me.IsActive.visible = True
 	Me.IsActive.AssociatedLabel = me.IsActivelbl
 
+	'ProjectTypeIdlbl.
+	Me.ProjectTypeIdlbl.AutoSize = False
+	Me.ProjectTypeIdlbl.Location = New System.Drawing.Point(5, 75)
+	Me.ProjectTypeIdlbl.Name = "ProjectTypeIdlbl"
+	Me.ProjectTypeIdlbl.Size = New System.Drawing.Size(120, 20)
+	Me.ProjectTypeIdlbl.TabIndex = 2
+	Me.ProjectTypeIdlbl.Text = "ProjectTypeId"
+	Me.ProjectTypeIdlbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+
+	'ProjectTypeId
+	Me.ProjectTypeId.AutoSize = True
+	Me.ProjectTypeId.Location = New System.Drawing.Point(135, 75)
+	Me.ProjectTypeId.Name ="ProjectTypeId"
+	Me.ProjectTypeId.Size = New System.Drawing.Size(200, 20)
+	Me.ProjectTypeId.MaxLength = 255
+	Me.ProjectTypeId.TabIndex = 2
+	Me.ProjectTypeId.visible = True
+	Me.ProjectTypeId.AssociatedLabel = me.ProjectTypeIdlbl
+
 
 		
         'ucProject
@@ -91,6 +112,8 @@ Public Class ucProjectDetails
 	me.Controls.add(me.ProjectName)
 	me.Controls.add(me.IsActivelbl)
 	me.Controls.add(me.IsActive)
+	me.Controls.add(me.ProjectTypeIdlbl)
+	me.Controls.add(me.ProjectTypeId)
 
 		
 		Me.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
@@ -108,6 +131,8 @@ Public Class ucProjectDetails
 	Friend WithEvents ProjectName As CGTextBox
 	Friend WithEvents IsActivelbl As System.Windows.Forms.Label
 	Friend WithEvents IsActive As CGCheckBox
+	Friend WithEvents ProjectTypeIdlbl As System.Windows.Forms.Label
+	Friend WithEvents ProjectTypeId As CGIntTextBox
 
 
 #End Region
@@ -123,6 +148,7 @@ Public Class ucProjectDetails
         Dim mo As Project = DirectCast(Me.ModelObject(), Project)
         	Me.ProjectName.value = mo.ProjectName
 	Me.IsActive.value = mo.IsActive
+	Me.ProjectTypeId.value = mo.ProjectTypeId
 
 
 		me.resetLastLoadedValues()
@@ -141,6 +167,7 @@ Public Class ucProjectDetails
         Dim mo As Project = DirectCast(me.ModelObject, Project)
         	mo.setProjectName(Me.ProjectName.text)
 	mo.setIsActive(Me.IsActive.text)
+	mo.setProjectTypeId(Me.ProjectTypeId.text)
 
 
     End Sub

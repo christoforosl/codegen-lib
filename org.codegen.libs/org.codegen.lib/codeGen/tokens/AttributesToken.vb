@@ -105,11 +105,8 @@ Namespace Tokens
                 End If
 
                 sb.Append(vbTab + vbTab + vbTab & "} else {" & vbCrLf)
-
                 sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & field.PropertyName & "=")
-
-                sb.Append("(").Append(field.FieldDataType).Append(")val;").Append(vbCrLf)
-
+                sb.Append("(").Append(field.getPropertyDataType).Append(")val;").Append(vbCrLf)
 
                 sb.Append(vbTab + vbTab + vbTab & "}" & vbCrLf)
                 sb.Append(vbTab + vbTab + vbTab & "return;" & vbCrLf)
@@ -147,11 +144,8 @@ Namespace Tokens
                     sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & " = Nothing" & vbCrLf)
                 End If
                 sb.Append(vbTab + vbTab + vbTab & "Else" & vbCrLf)
-
 				sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & "=")
-
-                sb.Append("CType(val,").Append(field.FieldDataType).Append(")").Append(vbCrLf)
-
+                sb.Append("CType(val,").Append(field.getPropertyDataType).Append(")").Append(vbCrLf)
 
                 sb.Append(vbTab + vbTab + vbTab & "End If" & vbCrLf)
                 sb.Append(vbTab + vbTab + vbTab & "return" & vbCrLf)
@@ -200,7 +194,7 @@ Namespace Tokens
                 sb.Append(vbTab + vbTab + vbTab & "} else {" & vbCrLf)
 
                 sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & field.PropertyName & "=")
-                sb.Append("(" & field.FieldDataType).Append(")val;").Append(vbCrLf)
+                sb.Append("(" & field.getPropertyDataType).Append(")val;").Append(vbCrLf)
 
                 sb.Append(vbTab + vbTab + vbTab & "} //" & vbCrLf)
                 sb.Append(vbTab + vbTab + vbTab & "return;" & vbCrLf)
@@ -237,7 +231,7 @@ Namespace Tokens
                 sb.Append(vbTab + vbTab + vbTab & "Else" & vbCrLf)
 
                 sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & "=")
-                sb.Append("CType(val,").Append(field.FieldDataType).Append(")").Append(vbCrLf)
+                sb.Append("CType(val,").Append(field.getPropertyDataType).Append(")").Append(vbCrLf)
 
                 sb.Append(vbTab + vbTab + vbTab & "End If" & vbCrLf)
                 sb.Append(vbTab + vbTab + vbTab & "return" & vbCrLf)

@@ -118,7 +118,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEEINFOID);
 			}
-		this._EmployeeInfoId=value;
+		this._EmployeeInfoId = value;
 
 			this.raiseBroadcastIdChange();
 
@@ -136,7 +136,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EIEMPLOYEEID);
 			}
-		this._EIEmployeeId=value;
+		this._EIEmployeeId = value;
 
 		}
 		}
@@ -152,7 +152,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SALARY);
 			}
-		this._Salary=value;
+		this._Salary = value;
 
 		}
 		}
@@ -171,7 +171,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ADDRESS);
 			}
-		this._Address=value;
+		this._Address = value;
 
 		}
 		}
@@ -226,14 +226,14 @@ namespace CsModelObjects {
 			if (val == DBNull.Value || val == null ){
 				this.PrEIEmployeeId = null;
 			} else {
-				this.PrEIEmployeeId=(System.Int64)val;
+				this.PrEIEmployeeId=(System.Int64?)val;
 			} //
 			return;
 		case FLD_SALARY:
 			if (val == DBNull.Value || val == null ){
 				this.PrSalary = null;
 			} else {
-				this.PrSalary=(System.Decimal)val;
+				this.PrSalary=(System.Decimal?)val;
 			} //
 			return;
 		case FLD_ADDRESS:
@@ -262,14 +262,14 @@ namespace CsModelObjects {
 			if (val == DBNull.Value || val ==null ){
 				this.PrEIEmployeeId = null;
 			} else {
-				this.PrEIEmployeeId=(System.Int64)val;
+				this.PrEIEmployeeId=(System.Int64?)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_SALARY.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrSalary = null;
 			} else {
-				this.PrSalary=(System.Decimal)val;
+				this.PrSalary=(System.Decimal?)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_ADDRESS.ToLower()){

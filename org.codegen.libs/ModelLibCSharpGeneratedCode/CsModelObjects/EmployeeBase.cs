@@ -108,8 +108,6 @@ namespace CsModelObjects {
 			public const String STR_FLD_SAMPLESMALLINT = "SampleSmallInt";
 			public const String STR_FLD_SAMPLENUMERICFIELDINT = "SampleNumericFieldInt";
 			public const String STR_FLD_SAMPLENUMERICFIELD2DECIMALS = "SampleNumericField2Decimals";
-			public const String STR_FLD_CVFILECONTENT = "CvFileContent";
-			public const String STR_FLD_PHOTO = "Photo";
 
 
 				public const int FLD_EMPLOYEEID = 0;
@@ -134,8 +132,6 @@ namespace CsModelObjects {
 		public const int FLD_SAMPLESMALLINT = 19;
 		public const int FLD_SAMPLENUMERICFIELDINT = 20;
 		public const int FLD_SAMPLENUMERICFIELD2DECIMALS = 21;
-		public const int FLD_CVFILECONTENT = 22;
-		public const int FLD_PHOTO = 23;
 
 
 
@@ -145,7 +141,7 @@ namespace CsModelObjects {
 		public override string[] getFieldList()
 		{
 			return new string[] {
-				STR_FLD_EMPLOYEEID,STR_FLD_EMPLOYEENAME,STR_FLD_EMPLOYEERANKID,STR_FLD_SALARY,STR_FLD_ADDRESS,STR_FLD_TELEPHONE,STR_FLD_MOBILE,STR_FLD_IDNUMBER,STR_FLD_SSINUMBER,STR_FLD_HIREDATE,STR_FLD_NUMDEPENDENTS,STR_FLD_EMPLOYEETYPECODE,STR_FLD_CREATEDATE,STR_FLD_UPDATEDATE,STR_FLD_CREATEUSER,STR_FLD_UPDATEUSER,STR_FLD_SAMPLEGUIDFIELD,STR_FLD_ISACTIVE,STR_FLD_SAMPLEBIGINT,STR_FLD_SAMPLESMALLINT,STR_FLD_SAMPLENUMERICFIELDINT,STR_FLD_SAMPLENUMERICFIELD2DECIMALS,STR_FLD_CVFILECONTENT,STR_FLD_PHOTO
+				STR_FLD_EMPLOYEEID,STR_FLD_EMPLOYEENAME,STR_FLD_EMPLOYEERANKID,STR_FLD_SALARY,STR_FLD_ADDRESS,STR_FLD_TELEPHONE,STR_FLD_MOBILE,STR_FLD_IDNUMBER,STR_FLD_SSINUMBER,STR_FLD_HIREDATE,STR_FLD_NUMDEPENDENTS,STR_FLD_EMPLOYEETYPECODE,STR_FLD_CREATEDATE,STR_FLD_UPDATEDATE,STR_FLD_CREATEUSER,STR_FLD_UPDATEUSER,STR_FLD_SAMPLEGUIDFIELD,STR_FLD_ISACTIVE,STR_FLD_SAMPLEBIGINT,STR_FLD_SAMPLESMALLINT,STR_FLD_SAMPLENUMERICFIELDINT,STR_FLD_SAMPLENUMERICFIELD2DECIMALS
 			};
 		}
 
@@ -175,8 +171,6 @@ namespace CsModelObjects {
 	private System.Int64? _SampleSmallInt = null;
 	private System.Int64? _SampleNumericFieldInt = null;
 	private System.Decimal? _SampleNumericField2Decimals = null;
-	private System.Byte[] _CvFileContent;
-	private System.Byte[] _Photo;
 	// ****** CHILD OBJECTS ********************
 	private CsModelObjects.EmployeeRank _Rank = null;  // initialize to nothing, for lazy load logic below !!!
 	private CsModelObjects.EmployeeInfo _EmployeeInfo = null;  // initialize to nothing, for lazy load logic below !!!
@@ -201,7 +195,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEEID);
 			}
-		this._EmployeeId=value;
+		this._EmployeeId = value;
 
 			this.raiseBroadcastIdChange();
 
@@ -222,7 +216,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEENAME);
 			}
-		this._EmployeeName=value;
+		this._EmployeeName = value;
 
 		}
 		}
@@ -238,7 +232,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEERANKID);
 			}
-		this._EmployeeRankId=value;
+		this._EmployeeRankId = value;
 
 		}
 		}
@@ -254,7 +248,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SALARY);
 			}
-		this._Salary=value;
+		this._Salary = value;
 
 		}
 		}
@@ -273,7 +267,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ADDRESS);
 			}
-		this._Address=value;
+		this._Address = value;
 
 		}
 		}
@@ -292,7 +286,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_TELEPHONE);
 			}
-		this._Telephone=value;
+		this._Telephone = value;
 
 		}
 		}
@@ -311,7 +305,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_MOBILE);
 			}
-		this._Mobile=value;
+		this._Mobile = value;
 
 		}
 		}
@@ -330,7 +324,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_IDNUMBER);
 			}
-		this._IdNumber=value;
+		this._IdNumber = value;
 
 		}
 		}
@@ -349,7 +343,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SSINUMBER);
 			}
-		this._SSINumber=value;
+		this._SSINumber = value;
 
 		}
 		}
@@ -365,7 +359,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_HIREDATE);
 			}
-		this._HireDate=value;
+		this._HireDate = value;
 
 		}
 		}
@@ -381,7 +375,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_NUMDEPENDENTS);
 			}
-		this._NumDependents=value;
+		this._NumDependents = value;
 
 		}
 		}
@@ -400,7 +394,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEETYPECODE);
 			}
-		this._EmployeeTypeCode=value;
+		this._EmployeeTypeCode = value;
 
 		}
 		}
@@ -416,7 +410,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATEDATE);
 			}
-		this._CreateDate=value;
+		this._CreateDate = value;
 
 		}
 		}
@@ -432,7 +426,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATEDATE);
 			}
-		this._UpdateDate=value;
+		this._UpdateDate = value;
 
 		}
 		}
@@ -451,7 +445,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATEUSER);
 			}
-		this._CreateUser=value;
+		this._CreateUser = value;
 
 		}
 		}
@@ -470,7 +464,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATEUSER);
 			}
-		this._UpdateUser=value;
+		this._UpdateUser = value;
 
 		}
 		}
@@ -486,7 +480,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SAMPLEGUIDFIELD);
 			}
-		this._SampleGuidField=value;
+		this._SampleGuidField = value;
 
 		}
 		}
@@ -502,7 +496,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ISACTIVE);
 			}
-		this._IsActive=value;
+		this._IsActive = value;
 
 		}
 		}
@@ -518,7 +512,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SAMPLEBIGINT);
 			}
-		this._SampleBigInt=value;
+		this._SampleBigInt = value;
 
 		}
 		}
@@ -534,7 +528,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SAMPLESMALLINT);
 			}
-		this._SampleSmallInt=value;
+		this._SampleSmallInt = value;
 
 		}
 		}
@@ -550,7 +544,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SAMPLENUMERICFIELDINT);
 			}
-		this._SampleNumericFieldInt=value;
+		this._SampleNumericFieldInt = value;
 
 		}
 		}
@@ -566,39 +560,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SAMPLENUMERICFIELD2DECIMALS);
 			}
-		this._SampleNumericField2Decimals=value;
-
-		}
-		}
-	}
-	[Column(Name="CvFileContent",Storage = "_CvFileContent", IsPrimaryKey=false,DbType = "varbinary",CanBeNull = true)]
-	[DataMember]public virtual System.Byte[] PrCvFileContent{
-	get{
-		return _CvFileContent;
-	}
-	set {
-		if (ModelObject.valueChanged(_CvFileContent, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_CVFILECONTENT);
-			}
-		this._CvFileContent=value;
-
-		}
-		}
-	}
-	[Column(Name="photo",Storage = "_Photo", IsPrimaryKey=false,DbType = "varbinary",CanBeNull = true)]
-	[DataMember]public virtual System.Byte[] PrPhoto{
-	get{
-		return _Photo;
-	}
-	set {
-		if (ModelObject.valueChanged(_Photo, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_PHOTO);
-			}
-		this._Photo=value;
+		this._SampleNumericField2Decimals = value;
 
 		}
 		}
@@ -852,10 +814,6 @@ namespace CsModelObjects {
 			return this.PrSampleNumericFieldInt;
 		case FLD_SAMPLENUMERICFIELD2DECIMALS:
 			return this.PrSampleNumericField2Decimals;
-		case FLD_CVFILECONTENT:
-			return this.PrCvFileContent;
-		case FLD_PHOTO:
-			return this.PrPhoto;
 		default:
 			return null;
 		} //end switch
@@ -909,10 +867,6 @@ namespace CsModelObjects {
 			return this.PrSampleNumericFieldInt;
 		} else if (fieldKey==STR_FLD_SAMPLENUMERICFIELD2DECIMALS.ToLower() ) {
 			return this.PrSampleNumericField2Decimals;
-		} else if (fieldKey==STR_FLD_CVFILECONTENT.ToLower() ) {
-			return this.PrCvFileContent;
-		} else if (fieldKey==STR_FLD_PHOTO.ToLower() ) {
-			return this.PrPhoto;
 		} else {
 			return null;
 		}
@@ -938,14 +892,14 @@ namespace CsModelObjects {
 			if (val == DBNull.Value || val == null ){
 				this.PrEmployeeRankId = null;
 			} else {
-				this.PrEmployeeRankId=(System.Int64)val;
+				this.PrEmployeeRankId=(System.Int64?)val;
 			} //
 			return;
 		case FLD_SALARY:
 			if (val == DBNull.Value || val == null ){
 				this.PrSalary = null;
 			} else {
-				this.PrSalary=(System.Decimal)val;
+				this.PrSalary=(System.Decimal?)val;
 			} //
 			return;
 		case FLD_ADDRESS:
@@ -987,14 +941,14 @@ namespace CsModelObjects {
 			if (val == DBNull.Value || val == null ){
 				this.PrHireDate = null;
 			} else {
-				this.PrHireDate=(System.DateTime)val;
+				this.PrHireDate=(System.DateTime?)val;
 			} //
 			return;
 		case FLD_NUMDEPENDENTS:
 			if (val == DBNull.Value || val == null ){
 				this.PrNumDependents = null;
 			} else {
-				this.PrNumDependents=(System.Int64)val;
+				this.PrNumDependents=(System.Int64?)val;
 			} //
 			return;
 		case FLD_EMPLOYEETYPECODE:
@@ -1008,14 +962,14 @@ namespace CsModelObjects {
 			if (val == DBNull.Value || val == null ){
 				this.CreateDate = null;
 			} else {
-				this.CreateDate=(System.DateTime)val;
+				this.CreateDate=(System.DateTime?)val;
 			} //
 			return;
 		case FLD_UPDATEDATE:
 			if (val == DBNull.Value || val == null ){
 				this.UpdateDate = null;
 			} else {
-				this.UpdateDate=(System.DateTime)val;
+				this.UpdateDate=(System.DateTime?)val;
 			} //
 			return;
 		case FLD_CREATEUSER:
@@ -1036,7 +990,7 @@ namespace CsModelObjects {
 			if (val == DBNull.Value || val == null ){
 				this.PrSampleGuidField = null;
 			} else {
-				this.PrSampleGuidField=(System.Guid)val;
+				this.PrSampleGuidField=(System.Guid?)val;
 			} //
 			return;
 		case FLD_ISACTIVE:
@@ -1050,42 +1004,28 @@ namespace CsModelObjects {
 			if (val == DBNull.Value || val == null ){
 				this.PrSampleBigInt = null;
 			} else {
-				this.PrSampleBigInt=(System.Int64)val;
+				this.PrSampleBigInt=(System.Int64?)val;
 			} //
 			return;
 		case FLD_SAMPLESMALLINT:
 			if (val == DBNull.Value || val == null ){
 				this.PrSampleSmallInt = null;
 			} else {
-				this.PrSampleSmallInt=(System.Int64)val;
+				this.PrSampleSmallInt=(System.Int64?)val;
 			} //
 			return;
 		case FLD_SAMPLENUMERICFIELDINT:
 			if (val == DBNull.Value || val == null ){
 				this.PrSampleNumericFieldInt = null;
 			} else {
-				this.PrSampleNumericFieldInt=(System.Int64)val;
+				this.PrSampleNumericFieldInt=(System.Int64?)val;
 			} //
 			return;
 		case FLD_SAMPLENUMERICFIELD2DECIMALS:
 			if (val == DBNull.Value || val == null ){
 				this.PrSampleNumericField2Decimals = null;
 			} else {
-				this.PrSampleNumericField2Decimals=(System.Decimal)val;
-			} //
-			return;
-		case FLD_CVFILECONTENT:
-			if (val == DBNull.Value || val == null ){
-				this.PrCvFileContent = null;
-			} else {
-				this.PrCvFileContent=(System.Byte[])val;
-			} //
-			return;
-		case FLD_PHOTO:
-			if (val == DBNull.Value || val == null ){
-				this.PrPhoto = null;
-			} else {
-				this.PrPhoto=(System.Byte[])val;
+				this.PrSampleNumericField2Decimals=(System.Decimal?)val;
 			} //
 			return;
 		default:
@@ -1114,14 +1054,14 @@ namespace CsModelObjects {
 			if (val == DBNull.Value || val ==null ){
 				this.PrEmployeeRankId = null;
 			} else {
-				this.PrEmployeeRankId=(System.Int64)val;
+				this.PrEmployeeRankId=(System.Int64?)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_SALARY.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrSalary = null;
 			} else {
-				this.PrSalary=(System.Decimal)val;
+				this.PrSalary=(System.Decimal?)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_ADDRESS.ToLower()){
@@ -1163,14 +1103,14 @@ namespace CsModelObjects {
 			if (val == DBNull.Value || val ==null ){
 				this.PrHireDate = null;
 			} else {
-				this.PrHireDate=(System.DateTime)val;
+				this.PrHireDate=(System.DateTime?)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_NUMDEPENDENTS.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrNumDependents = null;
 			} else {
-				this.PrNumDependents=(System.Int64)val;
+				this.PrNumDependents=(System.Int64?)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_EMPLOYEETYPECODE.ToLower()){
@@ -1184,14 +1124,14 @@ namespace CsModelObjects {
 			if (val == DBNull.Value || val ==null ){
 				this.CreateDate = null;
 			} else {
-				this.CreateDate=(System.DateTime)val;
+				this.CreateDate=(System.DateTime?)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_UPDATEDATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.UpdateDate = null;
 			} else {
-				this.UpdateDate=(System.DateTime)val;
+				this.UpdateDate=(System.DateTime?)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_CREATEUSER.ToLower()){
@@ -1212,7 +1152,7 @@ namespace CsModelObjects {
 			if (val == DBNull.Value || val ==null ){
 				this.PrSampleGuidField = null;
 			} else {
-				this.PrSampleGuidField=(System.Guid)val;
+				this.PrSampleGuidField=(System.Guid?)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_ISACTIVE.ToLower()){
@@ -1226,42 +1166,28 @@ namespace CsModelObjects {
 			if (val == DBNull.Value || val ==null ){
 				this.PrSampleBigInt = null;
 			} else {
-				this.PrSampleBigInt=(System.Int64)val;
+				this.PrSampleBigInt=(System.Int64?)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_SAMPLESMALLINT.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrSampleSmallInt = null;
 			} else {
-				this.PrSampleSmallInt=(System.Int64)val;
+				this.PrSampleSmallInt=(System.Int64?)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_SAMPLENUMERICFIELDINT.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrSampleNumericFieldInt = null;
 			} else {
-				this.PrSampleNumericFieldInt=(System.Int64)val;
+				this.PrSampleNumericFieldInt=(System.Int64?)val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_SAMPLENUMERICFIELD2DECIMALS.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrSampleNumericField2Decimals = null;
 			} else {
-				this.PrSampleNumericField2Decimals=(System.Decimal)val;
-			}
-			return;
-		} else if ( fieldKey==STR_FLD_CVFILECONTENT.ToLower()){
-			if (val == DBNull.Value || val ==null ){
-				this.PrCvFileContent = null;
-			} else {
-				this.PrCvFileContent=(System.Byte[])val;
-			}
-			return;
-		} else if ( fieldKey==STR_FLD_PHOTO.ToLower()){
-			if (val == DBNull.Value || val ==null ){
-				this.PrPhoto = null;
-			} else {
-				this.PrPhoto=(System.Byte[])val;
+				this.PrSampleNumericField2Decimals=(System.Decimal?)val;
 			}
 			return;
 		}
@@ -1387,8 +1313,6 @@ namespace CsModelObjects {
 		ret.PrSampleSmallInt = this.PrSampleSmallInt;
 		ret.PrSampleNumericFieldInt = this.PrSampleNumericFieldInt;
 		ret.PrSampleNumericField2Decimals = this.PrSampleNumericField2Decimals;
-		ret.PrCvFileContent = this.PrCvFileContent;
-		ret.PrPhoto = this.PrPhoto;
 
 
 

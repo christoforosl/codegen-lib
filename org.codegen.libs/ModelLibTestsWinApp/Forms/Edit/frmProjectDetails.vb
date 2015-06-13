@@ -42,7 +42,7 @@ Public Class frmProjectDetails
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(573, 115)
+        Me.ClientSize = New System.Drawing.Size(573, 150)
         Me.Controls.Add(Me.UcProject)
         Me.Name = "frmProjectDetails"
         Me.Text = "frmProjectDetails"

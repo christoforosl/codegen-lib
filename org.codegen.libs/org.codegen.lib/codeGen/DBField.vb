@@ -87,15 +87,11 @@ Public Class DBField
 
     Public Overridable Function getFieldDataType() As String Implements IDBField.getFieldDataType
 
-        If Me.isBooleanFromInt Then
-            Return "System.int64?"
+        If Me.isBooleanFromInt OrElse Me.isEnumFromInt Then
+            Return "System.Int64?"
         Else
             If Me.isNullableProperty Then
-                'If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
-                '    Return "Nullable (of " & Me._RuntimeTypeStr & ")"
-                'Else
-                '    Return Me._RuntimeTypeStr & "?"
-                'End If
+               
                 Return Me._RuntimeTypeStr & "?"
             Else
                 If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB _
@@ -118,8 +114,6 @@ Public Class DBField
         End Get
     End Property
 
-
-
     Public Overridable Function getPropertyDataType() As String Implements IDBField.getPropertyDataType
 
         Dim ret As String = ""
@@ -130,16 +124,14 @@ Public Class DBField
         ElseIf Me.isBooleanFromInt() Then
             ret = CStr(IIf(isCSharp(), "bool", "Boolean"))
 
+        ElseIf Me.isEnumFromInt() Then
+            ret = ModelGenerator.Current.EnumFieldsCollection.getEnumField(Me).enumTypeName & "?"
+
         ElseIf Me.FieldDataType = "System.String" Then
             ret = Me.FieldDataType
 
         ElseIf Me.isNullableProperty Then
-            If (ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP) Then
-                ret = Me.FieldDataType & "?"
-            Else
-                ret = "Nullable (of " & Me.FieldDataType & ")"
-            End If
-
+            ret = Me.FieldDataType & "?"
 
         Else
             ret = Me.FieldDataType
@@ -206,18 +198,16 @@ Public Class DBField
 
     Public Overridable Function getSQLParameter() As String Implements IDBField.getSQLParameter
 
-        Const paramPrefix As String = "@"
-
-
         Dim MeOrThis As String = "Me"
         If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
         Else
             MeOrThis = "this"
         End If
 
-        Dim param As StringBuilder = New StringBuilder(vbTab).Append(vbTab).Append(vbTab).Append(vbTab)
-        param.Append("stmt.Parameters.Add(").Append(MeOrThis).Append(".dbConn.getParameter(""")
-        param.Append(paramPrefix).Append(Me.FieldName).Append(""",")
+        Dim param As StringBuilder = New StringBuilder(vbTab).Append(vbTab).Append(vbTab)
+        param.Append("stmt.Parameters.Add(").Append(MeOrThis).Append(".dbConn.getParameter(")
+        param.Append(Me.ParentTable.TableName).Append("." ).Append(Me.getConstantStr()).Append(",")
+
         If Me.FieldName.ToLower = "id" Then
             If Me.isString Then
                 param.Append("Convert.ToString(obj.").Append(Me.PropertyName).Append(")))")
@@ -225,8 +215,20 @@ Public Class DBField
                 param.Append("Convert.ToInt64(obj.").Append(Me.PropertyName).Append(")))")
             End If
         Else
-            param.Append("obj.").Append(Me.PropertyName).Append("))")
-        End If
+            If Me.isEnumFromInt Then
+                Dim xs As String
+                If Me.isCSharp Then
+                    xs = String.Format("obj.{0} == null? (long?)null : Convert.ToInt64(obj.{0})))", Me.PropertyName)
+                Else
+                    xs = String.Format("CType(IIf(obj.{0} Is Nothing, Nothing, Convert.ToInt64(obj.{0})), Long?)))", Me.PropertyName)
+                End If
+
+                param.Append(xs)
+            Else
+                param.Append("obj.").Append(Me.PropertyName).Append("))")
+            End If
+
+            End If
 
         If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP Then
             param.Append(";")
@@ -291,7 +293,22 @@ Public Class DBField
 
     End Function
 
+    Public Function isEnumFromInt() As Boolean Implements IDBField.isEnumFromInt
 
+        Dim iamEnum As Boolean = ModelGenerator.Current.EnumFieldsCollection.getEnumField(Me) IsNot Nothing
+
+        Dim isIntIndatabase = (Me.OriginalRuntimeType = Type.GetType("System.Int16") _
+            OrElse Me.OriginalRuntimeType = Type.GetType("System.Int32") _
+            OrElse Me.OriginalRuntimeType = Type.GetType("System.Byte") _
+            OrElse Me.OriginalRuntimeType = Type.GetType("System.Int64"))
+
+        If (iamEnum AndAlso Not isIntIndatabase) Then
+            Throw New ApplicationException(String.Format("Error: Enumeration specified fields must be of type Integer in the database. It seems {0}.{1} is not!", Me.ParentTable.TableName, Me.FieldName))
+        End If
+
+        Return isIntIndatabase AndAlso iamEnum
+
+    End Function
     Public Function isBoolean() As Boolean Implements IDBField.isBoolean
 
         Return Me.RuntimeType = Type.GetType("System.Boolean") OrElse _
@@ -354,9 +371,9 @@ Public Class DBField
 
             End If
 
-            If ModelGenerator.Current.BooleanFieldsCollection.isBooleanField(Me) Then
-                _RuntimeType = Type.GetType("System.Boolean")
-            End If
+            'If ModelGenerator.Current.BooleanFieldsCollection.isBooleanField(Me) Then
+            '    _RuntimeType = Type.GetType("System.Boolean")
+            'End If
 
             _RuntimeTypeStr = _RuntimeType.ToString
 

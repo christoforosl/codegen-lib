@@ -8,6 +8,8 @@ End Class
 
 Public Interface IDBField
 
+    Function isEnumFromInt() As Boolean
+
     Function isBooleanFromInt() As Boolean
 
     ReadOnly Property FieldDataType() As String

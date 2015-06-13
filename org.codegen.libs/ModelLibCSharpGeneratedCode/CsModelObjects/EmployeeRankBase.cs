@@ -112,7 +112,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_RANKID);
 			}
-		this._RankId=value;
+		this._RankId = value;
 
 			this.raiseBroadcastIdChange();
 
@@ -133,7 +133,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_RANK);
 			}
-		this._Rank=value;
+		this._Rank = value;
 
 		}
 		}

@@ -45,6 +45,15 @@
   </dbConnectionString>
   <dbConnectionDialect>MSSQL</dbConnectionDialect>
   <dbConnectionType>CONN_MSSQL</dbConnectionType>
+
+  <booleanFields>
+    <booleanField tableName="Project" fieldName="isActive" />
+  </booleanFields>
+  <enumerationFields>
+
+    <enumarationField tableName="Project" fieldName="ProjectTypeId" enumType="EnumProjectType" />
+
+  </enumerationFields>
   
   <!-- Following is the list of tables you want to generate -->
   <table>

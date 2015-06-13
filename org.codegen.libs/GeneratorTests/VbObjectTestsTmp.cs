@@ -67,9 +67,7 @@ namespace GeneratorTests.VB {
 				employee.PrSSINumber = "1030045";
 				employee.PrTelephone = "2234455";
                 employee.PrHireDate = hireDate;
-                employee.PrCvFileContent = System.IO.File.ReadAllBytes("TestWordDocument.docx");
-                employee.PrPhoto = System.IO.File.ReadAllBytes("merkel.jpg");
-
+                
 
                 Guid g = Guid.NewGuid();
                 employee.PrSampleGuidField = g;

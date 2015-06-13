@@ -164,7 +164,7 @@ ALTER TABLE dbo.Employee ADD
 	NumDependents int null
 go
 ALTER TABLE dbo.Project ADD
-	isActive int not null default 1
+	isActive int not null default 1 -- note: do not make this a bit, we need to test boolean fields
 go
 CREATE TABLE [dbo].sysLanguageStrings(
 [langKey] [varchar](70) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
@@ -205,3 +205,6 @@ ALTER TABLE dbo.Employee ADD [CvFileContent] [varbinary](max)  NULL
 go
 ALTER TABLE dbo.Employee ADD photo [varbinary](max)  NULL 
 go
+ALTER TABLE dbo.Project ADD ProjectTypeId int NULL 
+go
+

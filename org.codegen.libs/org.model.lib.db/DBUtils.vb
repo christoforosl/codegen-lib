@@ -952,6 +952,7 @@ Public MustInherit Class DBUtils
         Return tmp
     End Function
 
+
     ''' <summary>
     ''' Returns a GUID parameter
     ''' </summary>

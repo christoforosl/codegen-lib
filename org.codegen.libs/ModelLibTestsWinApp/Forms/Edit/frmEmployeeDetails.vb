@@ -42,7 +42,7 @@ Public Class frmEmployeeDetails
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(573, 850)
+        Me.ClientSize = New System.Drawing.Size(573, 780)
         Me.Controls.Add(Me.UcEmployee)
         Me.Name = "frmEmployeeDetails"
         Me.Text = "frmEmployeeDetails"

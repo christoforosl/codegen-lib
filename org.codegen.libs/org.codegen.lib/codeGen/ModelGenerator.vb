@@ -66,6 +66,8 @@ Public Class ModelGenerator
 
     Property BooleanFieldsCollection As BooleanFieldsCollection
 
+    Property EnumFieldsCollection As EnumFieldsCollection
+
 	Public Sub addAssociation(ByVal ass As IAssociation)
 		Me._systemAssociations.Add(ass)
 	End Sub

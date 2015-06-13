@@ -47,7 +47,7 @@ Public Class CSharpPropertyGenerator
         sproperty.Append(vbTab).Append(vbTab).Append(vbTab & vbTab).Append("this.isDirty = true;").Append(vbCrLf)
         sproperty.Append(vbTab).Append(vbTab).Append(vbTab & vbTab).Append("this.setFieldChanged(").Append(field.getConstantStr).Append(");").Append(vbCrLf)
         sproperty.Append(vbTab).Append(vbTab).Append(vbTab & "}").Append(vbCrLf)
-        sproperty.Append(vbTab).Append(vbTab).Append(Me.setConverter(field)).Append(vbCrLf)
+        sproperty.Append(vbTab).Append(vbTab).Append(Me.setConverter(field)).Append(";").Append(vbCrLf)
 
         If field.isPrimaryKey Then
             sproperty.Append(vbCrLf & vbTab & vbTab & vbTab & "this.raiseBroadcastIdChange();" & vbCrLf)
@@ -159,7 +159,12 @@ Public Class CSharpPropertyGenerator
     Private Function Converter(field As IDBField) As String
 
         If field.isBooleanFromInt Then
-            Return String.Format("_{0}.GetValueOrDefault != 0 ? true: false", field.RuntimeFieldName)
+            Return String.Format("_{0}.GetValueOrDefault() != 0 ? true: false", field.RuntimeFieldName)
+
+        ElseIf field.isEnumFromInt Then
+            Return String.Format("({1}?)_{0}", field.RuntimeFieldName, _
+                              ModelGenerator.Current.EnumFieldsCollection.getEnumField(field).enumTypeName)
+
         Else
             Return "_" & field.RuntimeFieldName()
         End If
@@ -172,6 +177,11 @@ Public Class CSharpPropertyGenerator
         If field.isBooleanFromInt Then
             Return String.Format("this._{0} = value ? 1 : 0", field.RuntimeFieldName)
             'String.Format("CBool(IIf(_{0}.GetValueOrDefault <> 0, True, False))", field.RuntimeFieldName)
+
+        ElseIf field.isEnumFromInt Then
+            Return String.Format("this._{0}=({1})value", field.RuntimeFieldName, _
+                              field.getFieldDataType)
+
         Else
             Return String.Format("this._{0} = value", field.RuntimeFieldName)
         End If

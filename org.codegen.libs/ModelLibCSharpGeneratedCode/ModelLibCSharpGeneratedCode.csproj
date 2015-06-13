@@ -156,6 +156,7 @@
     <Content Include="CSharpModelGenerator.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Compile Include="EnumProjectType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\org.codegen.common\org.codegen.common.vbproj">

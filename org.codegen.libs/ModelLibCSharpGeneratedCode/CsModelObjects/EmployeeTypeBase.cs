@@ -115,7 +115,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEETYPECODE);
 			}
-		this._EmployeeTypeCode=value;
+		this._EmployeeTypeCode = value;
 
 			this.raiseBroadcastIdChange();
 
@@ -136,7 +136,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEETYPE);
 			}
-		this._EmployeeType=value;
+		this._EmployeeType = value;
 
 		}
 		}

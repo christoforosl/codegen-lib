@@ -167,6 +167,10 @@ Public Class PropertyGenerator
 
         If field.isBooleanFromInt Then
             Return String.Format("CBool(IIf(_{0}.GetValueOrDefault <> 0, True, False))", field.RuntimeFieldName)
+
+        ElseIf field.isEnumFromInt Then
+            Return String.Format("CType(_{0}, {1}?)", field.RuntimeFieldName, _
+                              ModelGenerator.Current.EnumFieldsCollection.getEnumField(field).enumTypeName)
         Else
             Return "_" & field.RuntimeFieldName()
         End If
@@ -177,7 +181,10 @@ Public Class PropertyGenerator
 
         If field.isBooleanFromInt Then
             Return String.Format("me._{0} = CLng(IIf(value, 1, 0))", field.RuntimeFieldName)
-            'String.Format("CBool(IIf(_{0}.GetValueOrDefault <> 0, True, False))", field.RuntimeFieldName)
+
+        ElseIf field.isEnumFromInt Then
+            Return String.Format("Me._{0} = CType(value, {1}?)", field.RuntimeFieldName, _
+                              ModelGenerator.Current.EnumFieldsCollection.getEnumField(field).enumTypeName)
         Else
             Return String.Format("me._{0} = value", field.RuntimeFieldName)
         End If

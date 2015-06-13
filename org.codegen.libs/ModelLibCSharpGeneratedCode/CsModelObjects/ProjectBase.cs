@@ -81,11 +81,13 @@ namespace CsModelObjects {
 					public const String STR_FLD_PROJECTID = "ProjectId";
 			public const String STR_FLD_PROJECTNAME = "ProjectName";
 			public const String STR_FLD_ISACTIVE = "IsActive";
+			public const String STR_FLD_PROJECTTYPEID = "ProjectTypeId";
 
 
 				public const int FLD_PROJECTID = 0;
 		public const int FLD_PROJECTNAME = 1;
 		public const int FLD_ISACTIVE = 2;
+		public const int FLD_PROJECTTYPEID = 3;
 
 
 
@@ -95,7 +97,7 @@ namespace CsModelObjects {
 		public override string[] getFieldList()
 		{
 			return new string[] {
-				STR_FLD_PROJECTID,STR_FLD_PROJECTNAME,STR_FLD_ISACTIVE
+				STR_FLD_PROJECTID,STR_FLD_PROJECTNAME,STR_FLD_ISACTIVE,STR_FLD_PROJECTTYPEID
 			};
 		}
 
@@ -105,7 +107,8 @@ namespace CsModelObjects {
 
 	private System.Int64 _ProjectId;
 	private System.String _ProjectName;
-	private System.Boolean _IsActive;
+	private System.Int64? _IsActive;
+	private System.Int64? _ProjectTypeId = null;
 	// ****** CHILD OBJECTS ********************
 	private List< CsModelObjects.EmployeeProject> _EmployeeProjects = null;  // initialize to nothing, for lazy load logic below !!!
 	 private List< CsModelObjects.EmployeeProject> _deletedEmployeeProjects = new List< CsModelObjects.EmployeeProject>();// initialize to empty list !!!
@@ -128,7 +131,7 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_PROJECTID);
 			}
-		this._ProjectId=value;
+		this._ProjectId = value;
 
 			this.raiseBroadcastIdChange();
 
@@ -149,15 +152,15 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_PROJECTNAME);
 			}
-		this._ProjectName=value;
+		this._ProjectName = value;
 
 		}
 		}
 	}
-	[Column(Name="isActive",Storage = "_IsActive", IsPrimaryKey=false,DbType = "bit NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.Boolean PrIsActive{
+	[Column(Name="isActive",Storage = "_IsActive", IsPrimaryKey=false,DbType = "int NOT NULL",CanBeNull = false)]
+	[DataMember]public virtual bool PrIsActive{
 	get{
-		return _IsActive;
+		return _IsActive.GetValueOrDefault() != 0 ? true: false;
 	}
 	set {
 		if (ModelObject.valueChanged(_IsActive, value)){
@@ -165,7 +168,23 @@ namespace CsModelObjects {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_ISACTIVE);
 			}
-		this._IsActive=value;
+		this._IsActive = value ? 1 : 0;
+
+		}
+		}
+	}
+	[Column(Name="ProjectTypeId",Storage = "_ProjectTypeId", IsPrimaryKey=false,DbType = "int",CanBeNull = true)]
+	[DataMember]public virtual EnumProjectType? PrProjectTypeId{
+	get{
+		return (EnumProjectType?)_ProjectTypeId;
+	}
+	set {
+		if (ModelObject.valueChanged(_ProjectTypeId, value)){
+			if (!this.IsObjectLoading) {
+				this.isDirty = true;
+				this.setFieldChanged(STR_FLD_PROJECTTYPEID);
+			}
+		this._ProjectTypeId=(System.Int64?)value;
 
 		}
 		}
@@ -287,6 +306,8 @@ namespace CsModelObjects {
 			return this.PrProjectName;
 		case FLD_ISACTIVE:
 			return this.PrIsActive;
+		case FLD_PROJECTTYPEID:
+			return this.PrProjectTypeId;
 		default:
 			return null;
 		} //end switch
@@ -302,6 +323,8 @@ namespace CsModelObjects {
 			return this.PrProjectName;
 		} else if (fieldKey==STR_FLD_ISACTIVE.ToLower() ) {
 			return this.PrIsActive;
+		} else if (fieldKey==STR_FLD_PROJECTTYPEID.ToLower() ) {
+			return this.PrProjectTypeId;
 		} else {
 			return null;
 		}
@@ -327,7 +350,14 @@ namespace CsModelObjects {
 			if (val == DBNull.Value || val == null ){
 				this.PrIsActive = false;
 			} else {
-				this.PrIsActive=(System.Boolean)val;
+				this.PrIsActive=(bool)val;
+			} //
+			return;
+		case FLD_PROJECTTYPEID:
+			if (val == DBNull.Value || val == null ){
+				this.PrProjectTypeId = null;
+			} else {
+				this.PrProjectTypeId=(EnumProjectType?)val;
 			} //
 			return;
 		default:
@@ -356,7 +386,14 @@ namespace CsModelObjects {
 			if (val == DBNull.Value || val ==null ){
 				this.PrIsActive = false;
 			} else {
-				this.PrIsActive=(System.Boolean)val;
+				this.PrIsActive=(bool)val;
+			}
+			return;
+		} else if ( fieldKey==STR_FLD_PROJECTTYPEID.ToLower()){
+			if (val == DBNull.Value || val ==null ){
+				this.PrProjectTypeId = null;
+			} else {
+				this.PrProjectTypeId=(EnumProjectType?)val;
 			}
 			return;
 		}
@@ -375,7 +412,8 @@ namespace CsModelObjects {
 
 			return this.PrProjectId == other.PrProjectId
 				&& this.PrProjectName == other.PrProjectName
-				&& this.PrIsActive == other.PrIsActive;;
+				&& this.PrIsActive == other.PrIsActive
+				&& this.PrProjectTypeId.GetValueOrDefault() == other.PrProjectTypeId.GetValueOrDefault();;
 
 		}
 
@@ -384,7 +422,8 @@ namespace CsModelObjects {
 			//using Xor has the advantage of not overflowing the integer.
 			return this.PrProjectId.GetHashCode()
 				 ^ this.getStringHashCode(this.PrProjectName)
-				 ^ this.PrIsActive.GetHashCode();;
+				 ^ this.PrIsActive.GetHashCode()
+				 ^ this.PrProjectTypeId.GetHashCode();;
 
 		}
 
@@ -425,6 +464,7 @@ namespace CsModelObjects {
 		ret.PrProjectId = this.PrProjectId;
 		ret.PrProjectName = this.PrProjectName;
 		ret.PrIsActive = this.PrIsActive;
+		ret.PrProjectTypeId = this.PrProjectTypeId;
 
 
 

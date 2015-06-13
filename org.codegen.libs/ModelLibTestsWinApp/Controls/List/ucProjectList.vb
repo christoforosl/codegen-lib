@@ -29,6 +29,7 @@ Public Class ucProjectList
 			me.ProjectId = new DataGridViewTextBoxColumn
 	me.ProjectName = new DataGridViewTextBoxColumn
 	me.IsActive = new DataGridViewCheckBoxColumn
+	me.ProjectTypeId = new DataGridViewTextBoxColumn
 
         Me.grdProject = New org.codegen.win.controls.Grid.CGSQLGrid()
         Me.SuspendLayout()
@@ -90,6 +91,20 @@ Public Class ucProjectList
 	'**** End Setup of column: IsActive
 
 
+	' column: ProjectTypeId
+	ProjectTypeId.CellTemplate = New DataGridViewTextBoxCell
+	ProjectTypeId.Name = "ProjectTypeId"
+	ProjectTypeId.DataPropertyName = "ProjectTypeId"
+	ProjectTypeId.ReadOnly = True
+	ProjectTypeId.HeaderText = "ProjectTypeId"
+	ProjectTypeId.HeaderCell.value = "ProjectTypeId"
+	ProjectTypeId.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight
+	ProjectTypeId.HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopRight
+	ProjectTypeId.Width = 50
+	ProjectTypeId.Visible = True
+	'**** End Setup of column: ProjectTypeId
+
+
 
 
         '
@@ -103,6 +118,7 @@ Public Class ucProjectList
 			me.grdProject.Columns.Add(ProjectId)
 	me.grdProject.Columns.Add(ProjectName)
 	me.grdProject.Columns.Add(IsActive)
+	me.grdProject.Columns.Add(ProjectTypeId)
 
         Me.Name = "ucProjectList"
         Me.Text = "ucProjectList"
@@ -114,6 +130,7 @@ Public Class ucProjectList
 		Private WithEvents ProjectId As DataGridViewTextBoxColumn
 	Private WithEvents ProjectName As DataGridViewTextBoxColumn
 	Private WithEvents IsActive As DataGridViewCheckBoxColumn
+	Private WithEvents ProjectTypeId As DataGridViewTextBoxColumn
 
 
 #End Region
