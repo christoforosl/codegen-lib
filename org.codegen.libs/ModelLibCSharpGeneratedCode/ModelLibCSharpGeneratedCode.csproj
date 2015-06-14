@@ -151,6 +151,14 @@
     <Compile Include="CsModelObjects\EmployeeTypeBase.cs">
       <DependentUpon>EmployeeType.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CsModelMappers\EmployeeEvaluationDBMapperSql.xml">
+      <DependentUpon>EmployeeEvaluationDBMapper.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="CsModelMappers\EmployeeEvaluationDBMapper.cs" />
+    <Compile Include="CsModelObjects\EmployeeEvaluation.cs" />
+    <Compile Include="CsModelObjects\EmployeeEvaluationBase.cs">
+      <DependentUpon>EmployeeEvaluation.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="CSharpModelGenerator.xml">

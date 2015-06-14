@@ -1,0 +1,25 @@
+﻿<SQLStatements>
+  <stmt>
+    <key>key</key>
+    <MSSQL />
+    <ORACLE />
+    <COMMON />
+    <JET />
+  </stmt>
+  <stmt>
+    <key>selectall</key>
+    <MSSQL>SELECT Employee_Evaluation_Id,evaluator_id,evaluation_date,employee_id FROM [Employee_Evaluation]</MSSQL>
+  </stmt>
+  <stmt>
+    <key>delete</key>
+    <MSSQL>DELETE FROM [Employee_Evaluation] WHERE Employee_Evaluation_Id=@0</MSSQL>
+  </stmt>
+  <stmt>
+    <key>insert</key>
+    <MSSQL>insert into Employee_Evaluation (Employee_Evaluation_Id,evaluator_id,evaluation_date,employee_id) values (@EmployeeEvaluationId,@EvaluatorId,@EvaluationDate,@EmployeeId)</MSSQL>
+  </stmt>
+  <stmt>
+    <key>update</key>
+    <MSSQL>UPDATE [Employee_Evaluation] SET evaluator_id=@EvaluatorId,evaluation_date=@EvaluationDate,employee_id=@EmployeeId WHERE Employee_Evaluation_Id=@EmployeeEvaluationId</MSSQL>
+  </stmt>
+</SQLStatements>

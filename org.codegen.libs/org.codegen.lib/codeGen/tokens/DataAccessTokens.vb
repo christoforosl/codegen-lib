@@ -374,15 +374,18 @@ Namespace Tokens
 
             ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Int64") Then
                 sString &= meMarker & ".reader.GetInt64" & "(DATAREADER_" & skey & ")"
-
+                
             ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Decimal") Then
                 sString &= meMarker & ".reader.GetDecimal" & "(DATAREADER_" & skey & ")"
 
             ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Double") Then
-                sString &= meMarker & ".reader.GetDecimal" & "(DATAREADER_" & skey & ")"
+                sString &= "System.Convert.ToDecimal(" & meMarker & ".reader.GetDouble" & "(DATAREADER_" & skey & "))"
 
             ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Single") Then
-                sString &= meMarker & ".reader.GetDecimal" & "(DATAREADER_" & skey & ")"
+                sString &= "System.Convert.ToDecimal(" & meMarker & ".reader.GetFloat" & "(DATAREADER_" & skey & "))"
+
+            ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Float") Then
+                sString &= "System.Convert.ToDecimal(" & meMarker & ".reader.GetFloat" & "(DATAREADER_" & skey & "))"
 
             ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.String") Then
                 sString &= meMarker & ".reader.GetString" & "(DATAREADER_" & skey & ")"
@@ -448,11 +451,13 @@ Namespace Tokens
 
             Dim i As Integer = 1
             For Each field As DBField In vec.Values
+                If (Not field.isBinaryField) Then
+                    sb.Append(vbTab & vbTab & vbTab & "const int DATAREADER_" & field.getConstant() & " = " & (i - 1))
+                    i += 1
+                    sb.Append(";")
+                    sb.Append(vbCrLf)
+                End If
 
-                sb.Append(vbTab & vbTab & vbTab & "const int DATAREADER_" & field.getConstant() & " = " & (i - 1))
-                i += 1
-                sb.Append(";")
-                sb.Append(vbCrLf)
             Next
 
             Return sb.ToString()
@@ -464,10 +469,11 @@ Namespace Tokens
 
             Dim i As Integer = 1
             For Each field As DBField In vec.Values
-
-                sb.Append(vbTab & vbTab & vbTab & "Const DATAREADER_" & field.getConstant() & " as Integer = " & (i - 1))
-                i += 1
-                sb.Append(vbCrLf)
+                If (Not field.isBinaryField) Then
+                    sb.Append(vbTab & vbTab & vbTab & "Const DATAREADER_" & field.getConstant() & " as Integer = " & (i - 1))
+                    i += 1
+                    sb.Append(vbCrLf)
+                End If
             Next
 
             Return sb.ToString()

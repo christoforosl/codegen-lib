@@ -367,7 +367,7 @@ Public Class DBField
             If _RuntimeType Is Type.GetType("System.Decimal") AndAlso Me.Scale = 0 Then
                 _RuntimeType = Type.GetType("System.Int64")
 
-                _OriginalRuntimeType = Type.GetType("System.Int64")
+                _OriginalRuntimeType = Type.GetType("System.Decimal")
 
             End If
 

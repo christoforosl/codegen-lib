@@ -40,16 +40,36 @@ Public Interface IDBField
     Function getProperty() As String
     Function getSQLParameter() As String
 
-	Property ParentTable() As IDBTable
-	ReadOnly Property PropertyName() As String
+    Property ParentTable() As IDBTable
+
+    ReadOnly Property PropertyName() As String
+    ''' <summary>
+    ''' The name of the field at 'runtime' ie, VB or C# name
+    ''' </summary>
     ReadOnly Property RuntimeFieldName() As String
+
+    ''' <summary>
+    ''' If select statement uses a view to load object and that view 
+    ''' brings fields from other tables, this returns true if 
+    ''' the field is part of the table's fields collection
+    ''' </summary>
     Property IsTableField() As Boolean
+
+    ''' <summary>
+    ''' The name of the field, as it in the database
+    ''' </summary>
     Property FieldName() As String
+
     Property RuntimeType() As System.Type
+
     Property RuntimeTypeStr() As System.String
+
     Property Size() As Integer
+
     Property Precision() As Integer
+
     Property Scale() As Integer
+
     Property DBType() As String
 
     Property XMLSerializationIgnore() As Boolean

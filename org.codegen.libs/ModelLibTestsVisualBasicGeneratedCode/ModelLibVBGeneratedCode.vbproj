@@ -106,6 +106,7 @@
   <ItemGroup>
     <Compile Include="EnumProjectType.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="Tests\EmployeeEvaluationTestBase.vb" />
     <Compile Include="Tests\EmployeeInfoTestBase.vb" />
     <Compile Include="Tests\EmployeeProjectTestBase.vb" />
     <Compile Include="Tests\EmployeeRankTestBase.vb" />
@@ -142,6 +143,11 @@
     <Compile Include="VbBusObjects\EmployeeTypeBase.vb">
       <DependentUpon>EmployeeType.vb</DependentUpon>
     </Compile>
+    <Compile Include="VbBusObjects\DBMappers\EmployeeEvaluationDBMapper.vb" />
+    <Compile Include="VbBusObjects\EmployeeEvaluation.vb" />
+    <Compile Include="VbBusObjects\EmployeeEvaluationBase.vb">
+      <DependentUpon>EmployeeEvaluation.vb</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="dbscript.sql" />
@@ -165,6 +171,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VbBusObjects\DBMappers\EmployeeTypeDBMapperSql.xml">
       <DependentUpon>EmployeeTypeDBMapper.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VbBusObjects\DBMappers\EmployeeEvaluationDBMapperSql.xml">
+      <DependentUpon>EmployeeEvaluationDBMapper.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

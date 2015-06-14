@@ -76,7 +76,11 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 				p.isDirty = True 'to force save
 				ModelContext.Current.saveModelObject(p)
 				p = ModelContext.Current.loadModelObject(Of <MODEL_CLASS_NAME>)(p.Id)
+				
+				p.loadObjectHierarchy()
+
 				<TEST_ASSERT_RANDOM_FIELDS>
+
 			End If
 
 		Finally

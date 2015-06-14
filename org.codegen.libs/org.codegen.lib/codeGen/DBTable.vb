@@ -300,10 +300,10 @@ Public Class DBTable
 
     End Function
 
+    ''' <summary>
+    ''' The database primary field name
+    ''' </summary>
     Public Property PrimaryKeyFieldName() As String Implements IDBTable.PrimaryKeyFieldName
-
-
-    
 
     Public Overridable Function getPrimaryKeyName() As String Implements IDBTable.getPrimaryKeyName
 

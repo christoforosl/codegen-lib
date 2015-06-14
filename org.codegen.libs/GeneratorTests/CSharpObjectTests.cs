@@ -61,6 +61,8 @@ namespace GeneratorTests {
 				er.PrRank = "My New Rank";
 
 				Employee employee = EmployeeFactory.Create();
+				Assert.IsTrue(employee is IAuditable,"Empoyee must implement IAuditable");
+				
 				employee.PrRank = er;
 				employee.PrEmployeeName = "test employee";
 				employee.PrSalary = 100m;

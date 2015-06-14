@@ -167,5 +167,8 @@
   <table>
     <TableName>EmployeeType</TableName>
   </table>
-  
+  <table>
+    <!-- testing of undescores in name -->
+    <TableName>Employee_Evaluation</TableName>
+  </table>
 </project>

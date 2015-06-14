@@ -80,12 +80,9 @@ Public Class Association
 
     Public Overridable Function getTestCode() As String Implements IAssociation.getTestCode
 
-        Dim ret As String = "Assert."
+        Dim ret As String = String.Empty
         If Me._cardinality.Equals("*") Then
-            ret &= "isTrue(p." & Me.getGet & " isNot Nothing)"
-
-        Else
-            ret &= "isTrue(p." & Me.getGet & " isNot Nothing)"
+            ret &= "Assert.isTrue(p." & Me.getGet & " isNot Nothing)"
         End If
 
         Return ret

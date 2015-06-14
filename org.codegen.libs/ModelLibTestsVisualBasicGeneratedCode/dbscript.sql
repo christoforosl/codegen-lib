@@ -207,4 +207,75 @@ ALTER TABLE dbo.Employee ADD photo [varbinary](max)  NULL
 go
 ALTER TABLE dbo.Project ADD ProjectTypeId int NULL 
 go
+CREATE TABLE [Employee_Evaluation](
+	Employee_Evaluation_Id int IDENTITY NOT NULL ,
+	evaluator_id int ,
+	evaluation_date datetime,
+	evaluation_result  [varbinary](max)  NULL ,
+	employee_id int
+  CONSTRAINT [Employee_Evaluation_PK] PRIMARY KEY ( Employee_Evaluation_Id ),
+  CONSTRAINT [Employee_Evaluation_R01] FOREIGN KEY(employee_id) REFERENCES [Employee] ([EmployeeId]),
+  CONSTRAINT [Employee_Evaluation_R02] FOREIGN KEY(evaluator_id) REFERENCES [Employee] ([EmployeeId])
+)
+go
 
+INSERT INTO [Employee_Evaluation]
+           ([evaluator_id]
+           ,[evaluation_date]
+           ,[evaluation_result]
+           ,[employee_id])
+     VALUES
+           (1
+           ,'2015-01-01'
+           ,convert(  varbinary(max),'Very good')
+           ,2)
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[usp_addcol]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [usp_addcol]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+create procedure [usp_addcol](@tblName varchar(100), @fldName varchar(100),@dtype varchar(100))
+AS
+begin
+declare @ret int
+set @ret = 0
+if exists(select * from syscolumns where lower(name)=lower(@fldName) 
+	and lower(object_name(id)) = lower(@tblName))
+	
+set @ret=1
+
+if @ret=0
+	begin
+	--print 'adding field'
+	exec('ALTER TABLE '+@tblName+' add '+@fldName+' '+@dtype)
+	end
+
+end
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[usp_addAuditFields]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [usp_addAuditFields]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+create procedure [usp_addAuditFields](@tblName varchar(100))
+AS
+begin
+exec usp_addcol @tblName,'createUser','int not null default -1'
+exec usp_addcol @tblName,'createDate','datetime not null default getdate()'
+exec usp_addcol @tblName,'updateUser','int not null default -1'
+exec usp_addcol @tblName,'updateDate','datetime not null default getdate()'
+end
+GO
+exec [usp_addAuditFields] 'employee'
+go
