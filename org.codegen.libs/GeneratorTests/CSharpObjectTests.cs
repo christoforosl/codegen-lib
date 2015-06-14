@@ -200,6 +200,25 @@ namespace GeneratorTests {
 				Assert.IsNotNull(p, "New project must have been saved to the db!");
 				Assert.IsNull(p.PrProjectTypeId, "project type id must be null after saved to the db, instead got value:" + p.PrProjectTypeId);
 
+				List<Employee> elst = EmployeeDataUtils.findList();
+				EmployeeEvaluation ep = EmployeeEvaluationFactory.Create();
+				ep.PrEmployeeId = elst[0].PrEmployeeId;
+				ep.PrEvaluatorId = elst[1].PrEmployeeId;
+				ep.PrEvaluationDate = hireDate;
+				EmployeeEvaluationDataUtils.saveEmployeeEvaluation(ep); // insert
+				Assert.IsTrue(ep.PrEmployeeEvaluationId > 0);
+				long eid = ep.PrEmployeeEvaluationId;
+				
+				EmployeeEvaluation ep2 = EmployeeEvaluationDataUtils.findByKey(eid);
+				Assert.IsNotNull(ep2);
+				Assert.AreEqual(ep, ep2);
+				ep2.PrEvaluationDate = new DateTime(hireDate.Year, hireDate.Month+1, 1);
+				EmployeeEvaluationDataUtils.saveEmployeeEvaluation(ep2); // update
+
+				EmployeeEvaluationDataUtils.deleteEmployeeEvaluation(ep2); //delete 
+				ep2 = EmployeeEvaluationDataUtils.findByKey(eid);
+				Assert.IsNull(ep2);
+
 			} finally {
 				ModelContext.rollbackTrans();
 			}
