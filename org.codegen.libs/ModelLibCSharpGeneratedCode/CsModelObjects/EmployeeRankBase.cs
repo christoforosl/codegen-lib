@@ -249,8 +249,7 @@ namespace CsModelObjects {
 			return object.Equals(obj1, obj2);
 		}
 
-		public static bool operator !=(EmployeeRank obj1, EmployeeRank obj2)
-		{
+		public static bool operator !=(EmployeeRank obj1, EmployeeRank obj2) {
 			return !(obj1 == obj2);
 		}
 
@@ -258,18 +257,11 @@ namespace CsModelObjects {
 
 		#region "Copy and sort"
 
-		public override IModelObject copy()
-		{
+		public override IModelObject copy() {
 			//creates a copy
-
-			//NOTE: we can't cast from EmployeeRank to EmployeeRank, so below we 
-			//instantiate a EmployeeRank, NOT a EmployeeRank object
 			EmployeeRank ret = new EmployeeRank();
-
-		ret.PrRankId = this.PrRankId;
-		ret.PrRank = this.PrRank;
-
-
+		ret.PrRankId=this.PrRankId;
+		ret.PrRank=this.PrRank;
 
 			return ret;
 

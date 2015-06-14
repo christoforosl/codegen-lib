@@ -163,7 +163,7 @@ Namespace Tokens
 
                     If field.FieldName.ToLower = "id" Then
                         'case when the table has a field named "id"
-                        sb.Append("me.IdToString = other.Id.ToString")
+                        sb.Append("me.Id.ToString = other.Id.ToString")
                     ElseIf field.isNullableProperty Then
                         sb.Append("me." & field.PropertyName & ".GetValueOrDefault = other." & field.PropertyName & ".GetValueOrDefault")
                     Else

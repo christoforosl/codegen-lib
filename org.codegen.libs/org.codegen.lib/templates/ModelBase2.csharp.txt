@@ -154,8 +154,7 @@ namespace <NAMESPACE> {
 			return object.Equals(obj1, obj2);
 		}
 
-		public static bool operator !=(<MODEL_CLASS_NAME> obj1, <MODEL_CLASS_NAME> obj2)
-		{
+		public static bool operator !=(<MODEL_CLASS_NAME> obj1, <MODEL_CLASS_NAME> obj2) {
 			return !(obj1 == obj2);
 		}
 
@@ -163,17 +162,10 @@ namespace <NAMESPACE> {
 
 		#region "Copy and sort"
 
-		public override IModelObject copy()
-		{
+		public override IModelObject copy() {
 			//creates a copy
-
-			//NOTE: we can't cast from <MODEL_CLASS_NAME> to <MODEL_CLASS_NAME>, so below we 
-			//instantiate a <MODEL_CLASS_NAME>, NOT a <MODEL_CLASS_NAME> object
 			<MODEL_CLASS_NAME> ret = new <MODEL_CLASS_NAME>();
-
 <COPY_FIELDS>
-
-
 			return ret;
 
 		}

@@ -149,14 +149,9 @@ partial class <MODEL_CLASS_NAME>
 #Region "Copy and sort"
 
 	Public Overrides Function copy() as IModelObject
-		'creates a copy
-		
-		'NOTE: we can't cast from <MODEL_CLASS_NAME> to <MODEL_CLASS_NAME>, so below we 
-        'instantiate a <MODEL_CLASS_NAME>, NOT a <MODEL_CLASS_NAME> object
+		'creates a shallow copy
         Dim ret as <MODEL_CLASS_NAME> =  new <MODEL_CLASS_NAME>()
-            
-		<COPY_FIELDS>
-		
+<COPY_FIELDS>		
 		return ret
 		
 	End Function

@@ -465,8 +465,7 @@ namespace CsModelObjects {
 			return object.Equals(obj1, obj2);
 		}
 
-		public static bool operator !=(EmployeeProject obj1, EmployeeProject obj2)
-		{
+		public static bool operator !=(EmployeeProject obj1, EmployeeProject obj2) {
 			return !(obj1 == obj2);
 		}
 
@@ -474,22 +473,15 @@ namespace CsModelObjects {
 
 		#region "Copy and sort"
 
-		public override IModelObject copy()
-		{
+		public override IModelObject copy() {
 			//creates a copy
-
-			//NOTE: we can't cast from EmployeeProject to EmployeeProject, so below we 
-			//instantiate a EmployeeProject, NOT a EmployeeProject object
 			EmployeeProject ret = new EmployeeProject();
-
 		ret.PrEmployeeProjectId = this.PrEmployeeProjectId;
 		ret.PrEPEmployeeId = this.PrEPEmployeeId;
 		ret.PrEPProjectId = this.PrEPProjectId;
 		ret.PrAssignDate = this.PrAssignDate;
 		ret.PrEndDate = this.PrEndDate;
 		ret.PrRate = this.PrRate;
-
-
 
 			return ret;
 

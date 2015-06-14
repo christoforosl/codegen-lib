@@ -327,8 +327,7 @@ namespace CsModelObjects {
 			return object.Equals(obj1, obj2);
 		}
 
-		public static bool operator !=(EmployeeInfo obj1, EmployeeInfo obj2)
-		{
+		public static bool operator !=(EmployeeInfo obj1, EmployeeInfo obj2) {
 			return !(obj1 == obj2);
 		}
 
@@ -336,20 +335,13 @@ namespace CsModelObjects {
 
 		#region "Copy and sort"
 
-		public override IModelObject copy()
-		{
+		public override IModelObject copy() {
 			//creates a copy
-
-			//NOTE: we can't cast from EmployeeInfo to EmployeeInfo, so below we 
-			//instantiate a EmployeeInfo, NOT a EmployeeInfo object
 			EmployeeInfo ret = new EmployeeInfo();
-
-		ret.PrEmployeeInfoId = this.PrEmployeeInfoId;
-		ret.PrEIEmployeeId = this.PrEIEmployeeId;
-		ret.PrSalary = this.PrSalary;
-		ret.PrAddress = this.PrAddress;
-
-
+		ret.PrEmployeeInfoId=this.PrEmployeeInfoId;
+		ret.PrEIEmployeeId=this.PrEIEmployeeId;
+		ret.PrSalary=this.PrSalary;
+		ret.PrAddress=this.PrAddress;
 
 			return ret;
 
