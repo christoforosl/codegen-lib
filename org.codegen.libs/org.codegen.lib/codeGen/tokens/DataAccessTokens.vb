@@ -356,6 +356,7 @@ Namespace Tokens
             Dim sString As String = ""
             Dim skey As String = field.getConstant()
             Dim meMarker As String = "me"
+            Dim differentRuntimType As Boolean = field.RuntimeType IsNot field.OriginalRuntimeType
 
             If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP Then
                 meMarker = "this"
@@ -379,13 +380,13 @@ Namespace Tokens
                 sString &= meMarker & ".reader.GetDecimal" & "(DATAREADER_" & skey & ")"
 
             ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Double") Then
-                sString &= "System.Convert.ToDecimal(" & meMarker & ".reader.GetDouble" & "(DATAREADER_" & skey & "))"
+                sString &= meMarker & ".reader.GetDouble" & "(DATAREADER_" & skey & ")"
 
             ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Single") Then
-                sString &= "System.Convert.ToDecimal(" & meMarker & ".reader.GetFloat" & "(DATAREADER_" & skey & "))"
+                sString &= meMarker & ".reader.GetFloat" & "(DATAREADER_" & skey & ")"
 
             ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.Float") Then
-                sString &= "System.Convert.ToDecimal(" & meMarker & ".reader.GetFloat" & "(DATAREADER_" & skey & "))"
+                sString &= meMarker & ".reader.GetFloat" & "(DATAREADER_" & skey & ")"
 
             ElseIf field.OriginalRuntimeType Is System.Type.GetType("System.String") Then
                 sString &= meMarker & ".reader.GetString" & "(DATAREADER_" & skey & ")"
@@ -421,15 +422,18 @@ Namespace Tokens
                 Else
                     Return "CType(" & sString & "," & enumName & "?)"
                 End If
-            End If
-
-            If field.isBooleanFromInt Then
+            ElseIf field.isBooleanFromInt Then
 
                 If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP Then
                     Return sString & "!=0"
                 Else
                     Return sString & "<>0"
                 End If
+
+            ElseIf differentRuntimType AndAlso _
+                    (Not String.IsNullOrEmpty(field.getConverter())) Then
+                sString = field.getConverter() & "(" & sString & ")"
+
             End If
 
             Return sString

@@ -23,7 +23,12 @@ Public Interface IDBField
     Function isBinaryField() As Boolean
 
     Property AccessLevel() As String
+
+    ''' <summary>
+    ''' The runtime type as it was read from the database meta data.
+    ''' </summary>
     Property OriginalRuntimeType() As System.Type
+
     Function isAuditField() As Boolean
     Property isPrimaryKey() As Boolean
     Function getConstant() As String
@@ -60,8 +65,14 @@ Public Interface IDBField
     ''' </summary>
     Property FieldName() As String
 
+    ''' <summary>
+    ''' The System.Type of the field in C# / VB generated object
+    ''' </summary>
     Property RuntimeType() As System.Type
 
+    ''' <summary>
+    ''' The System.Type as string of the field in C# / VB generated object
+    ''' </summary>
     Property RuntimeTypeStr() As System.String
 
     Property Size() As Integer
@@ -73,6 +84,12 @@ Public Interface IDBField
     Property DBType() As String
 
     Property XMLSerializationIgnore() As Boolean
+
+    ''' <summary>
+    ''' If Me.RuntimeType Is not the same as Me.RuntimeType, 
+    ''' it returns the appropriate Convert.toXXX call
+    ''' </summary>
+    Function getConverter() As String
 
 
 End Interface

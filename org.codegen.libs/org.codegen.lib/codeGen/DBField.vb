@@ -382,6 +382,58 @@ Public Class DBField
     End Property
 
 
+    ''' <summary>
+    ''' If Me.RuntimeType Is not the same as Me.RuntimeType, 
+    ''' it returns the appropriate Convert.toXXX call
+    ''' </summary>
+    Public Function getConverter() As String Implements IDBField.getConverter
+
+        If Me.RuntimeType Is Me.OriginalRuntimeType Then Return String.Empty
+
+        If Me.RuntimeType Is System.Type.GetType("System.Date") OrElse _
+               Me.RuntimeType Is System.Type.GetType("System.DateTime") Then
+
+            Return "Convert.ToDate"
+
+        ElseIf Me.RuntimeType Is System.Type.GetType("System.Int16") Then
+            Return "Convert.ToInt16"
+
+        ElseIf Me.RuntimeType Is System.Type.GetType("System.Int32") Then
+            Return "Convert.ToInt32"
+
+        ElseIf Me.RuntimeType Is System.Type.GetType("System.Int64") Then
+            Return "Convert.ToInt64"
+
+        ElseIf Me.RuntimeType Is System.Type.GetType("System.Decimal") Then
+            Return "Convert.ToDecimal"
+
+        ElseIf Me.RuntimeType Is System.Type.GetType("System.Double") Then
+            Return "Convert.ToDouble"
+
+        ElseIf Me.RuntimeType Is System.Type.GetType("System.Single") Then
+            Return "Convert.ToSingle"
+
+        ElseIf Me.RuntimeType Is System.Type.GetType("System.Float") Then
+            Return "Convert.ToFloat"
+
+        ElseIf Me.RuntimeType Is System.Type.GetType("System.String") Then
+            Return String.Empty
+
+        ElseIf Me.RuntimeType Is System.Type.GetType("System.Boolean") Then
+            Return "Convert.ToBoolean"
+
+        ElseIf Me.RuntimeType Is System.Type.GetType("System.Byte") Then
+            Return "Convert.ToByte"
+
+        ElseIf Me.RuntimeType Is System.Type.GetType("System.Guid") Then
+            Return String.Empty
+
+        Else
+            Return String.Empty
+
+        End If
+
+    End Function
 
 
     ''' <summary>
