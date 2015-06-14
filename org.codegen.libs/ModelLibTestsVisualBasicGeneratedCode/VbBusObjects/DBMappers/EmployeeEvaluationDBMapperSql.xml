@@ -16,7 +16,7 @@
   </stmt>
   <stmt>
     <key>insert</key>
-    <MSSQL>insert into Employee_Evaluation (Employee_Evaluation_Id,evaluator_id,evaluation_date,employee_id) values (@EmployeeEvaluationId,@EvaluatorId,@EvaluationDate,@EmployeeId)</MSSQL>
+    <MSSQL>insert into Employee_Evaluation (evaluator_id,evaluation_date,employee_id) values (@EvaluatorId,@EvaluationDate,@EmployeeId)</MSSQL>
   </stmt>
   <stmt>
     <key>update</key>
