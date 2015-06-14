@@ -67,6 +67,9 @@ namespace GeneratorTests {
 			readText = readText.Replace("//DBUtils.Current().ConnString=",
 					"org.model.lib.db.DBUtils.Current().ConnString=\"" + DBUtils.Current().ConnString.Replace("\\", "\\\\") + "\";");
 
+            readText = readText.Replace("EnumProjectType.EXTERNAL", "ModelLibVBGenCode.EnumProjectType.EXTERNAL");
+           
+
 			File.WriteAllText(path, readText);
 
 			CSharpCodeProvider provider = new CSharpCodeProvider();

@@ -279,3 +279,6 @@ end
 GO
 exec [usp_addAuditFields] 'employee'
 go
+insert into [EmployeeType] ([EmployeeTypeCode],[EmployeeType]) 
+values ('X1','Test Me')
+go

@@ -61,13 +61,15 @@ namespace GeneratorTests.VB {
 				er.PrRank = "My New Rank";
 
 				Employee employee = EmployeeFactory.Create();
+				NUnit.Framework.Assert.IsTrue(employee is IAuditable,"Empoyee must implement IAuditable");
+				
 				employee.PrRank = er;
 				employee.PrEmployeeName = "test employee";
 				employee.PrSalary = 100m;
 				employee.PrSSINumber = "1030045";
 				employee.PrTelephone = "2234455";
                 employee.PrHireDate = hireDate;
-                
+				employee.PrIsActive = true;
 
                 Guid g = Guid.NewGuid();
                 employee.PrSampleGuidField = g;
@@ -182,6 +184,41 @@ namespace GeneratorTests.VB {
 				NUnit.Framework.Assert.IsNotNull(et2, "New employeetype must have been created!");
 				et1 = EmployeeTypeDataUtils.findByKey("XX1");
 				NUnit.Framework.Assert.IsNotNull(et1, "New employeetype must have been created!");
+
+				Project p = ProjectFactory.Create();
+				p.PrIsActive = true;
+				p.PrProjectTypeId = ModelLibVBGenCode.EnumProjectType.EXTERNAL;
+				p.PrProjectName = "Test";
+				ProjectDataUtils.saveProject(p);
+				long pid = p.PrProjectId;
+				p = ProjectDataUtils.findByKey(pid);
+				NUnit.Framework.Assert.IsNotNull(p, "New project must have been saved to the db!");
+                NUnit.Framework.Assert.AreEqual(p.PrProjectTypeId, ModelLibVBGenCode.EnumProjectType.EXTERNAL);
+
+				p.PrProjectTypeId = null; // test null value to enumaration
+				ProjectDataUtils.saveProject(p);
+				p = ProjectDataUtils.findByKey(pid);
+				NUnit.Framework.Assert.IsNotNull(p, "New project must have been saved to the db!");
+				NUnit.Framework.Assert.IsNull(p.PrProjectTypeId, "project type id must be null after saved to the db, instead got value:" + p.PrProjectTypeId);
+
+				List<Employee> elst = EmployeeDataUtils.findList();
+				EmployeeEvaluation ep = EmployeeEvaluationFactory.Create();
+				ep.PrEmployeeId = elst[0].PrEmployeeId;
+				ep.PrEvaluatorId = elst[1].PrEmployeeId;
+				ep.PrEvaluationDate = hireDate;
+				EmployeeEvaluationDataUtils.saveEmployeeEvaluation(ep); // insert
+				NUnit.Framework.Assert.IsTrue(ep.PrEmployeeEvaluationId > 0);
+				long eid = ep.PrEmployeeEvaluationId;
+				
+				EmployeeEvaluation ep2 = EmployeeEvaluationDataUtils.findByKey(eid);
+				NUnit.Framework.Assert.IsNotNull(ep2);
+				NUnit.Framework.Assert.AreEqual(ep, ep2);
+				ep2.PrEvaluationDate = new DateTime(hireDate.Year, hireDate.Month+1, 1);
+				EmployeeEvaluationDataUtils.saveEmployeeEvaluation(ep2); // update
+
+				EmployeeEvaluationDataUtils.deleteEmployeeEvaluation(ep2); //delete 
+				ep2 = EmployeeEvaluationDataUtils.findByKey(eid);
+				NUnit.Framework.Assert.IsNull(ep2);
 
 			} finally {
 				ModelContext.rollbackTrans();

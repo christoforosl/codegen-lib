@@ -193,6 +193,7 @@ namespace GeneratorTests {
 				long pid = p.PrProjectId;
 				p = ProjectDataUtils.findByKey(pid);
 				Assert.IsNotNull(p, "New project must have been saved to the db!");
+                Assert.AreEqual(p.PrProjectTypeId, EnumProjectType.EXTERNAL);
 
 				p.PrProjectTypeId = null; // test null value to enumaration
 				ProjectDataUtils.saveProject(p);
