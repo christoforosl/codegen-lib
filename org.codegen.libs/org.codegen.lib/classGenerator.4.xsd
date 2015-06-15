@@ -184,7 +184,7 @@
         <xs:element maxOccurs="unbounded" minOccurs="1" name="table">
 
           <xs:complexType>
-            <xs:sequence>
+           <xsd:all>
 
               <xs:element name="TableName" type="xs:string">
                 <xs:annotation>
@@ -420,7 +420,7 @@
                 </xs:complexType>
               </xs:element>
 
-            </xs:sequence>
+           </xsd:all>
           </xs:complexType>
 
         </xs:element>
