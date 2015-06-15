@@ -318,7 +318,8 @@
 
               <xs:element name="association" minOccurs="0" maxOccurs="unbounded">
                 <xs:complexType>
-                  <xs:sequence>
+                  
+				  <xs:all>
                     <xs:element name="relationType" minOccurs="1" default="CHILD">
                       <xs:simpleType>
                         <xs:restriction base="xs:string">
@@ -416,7 +417,7 @@
                       </xs:annotation>
                     </xs:element>
 
-                  </xs:sequence>
+                  </xs:all>
                 </xs:complexType>
               </xs:element>
 
