@@ -148,8 +148,8 @@
             <xs:sequence>
             <xs:element maxOccurs="unbounded" minOccurs="1" name="booleanField">
               <xs:complexType>
-              <xs:attribute name="table" type="xs:string"></xs:attribute>
-              <xs:attribute name="field" type="xs:string"></xs:attribute>
+              <xs:attribute name="tableName" type="xs:string"></xs:attribute>
+              <xs:attribute name="fieldName" type="xs:string"></xs:attribute>
                </xs:complexType>
             </xs:element>
             </xs:sequence>
@@ -171,8 +171,8 @@
             <xs:sequence>
               <xs:element maxOccurs="unbounded" minOccurs="1" name="enumarationField">
                 <xs:complexType>
-                  <xs:attribute name="table" type="xs:string"></xs:attribute>
-                  <xs:attribute name="field" type="xs:string"></xs:attribute>
+                  <xs:attribute name="tableName" type="xs:string"></xs:attribute>
+                  <xs:attribute name="fieldName" type="xs:string"></xs:attribute>
                   <xs:attribute name="enumType" type="xs:string"></xs:attribute>
                 </xs:complexType>
               </xs:element>
