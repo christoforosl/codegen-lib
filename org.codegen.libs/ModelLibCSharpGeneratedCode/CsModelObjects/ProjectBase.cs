@@ -331,6 +331,7 @@ namespace CsModelObjects {
 		}
 
 		public override void setAttribute(int fieldKey, object val){
+			try {
 		switch (fieldKey) {
 		case FLD_PROJECTID:
 			if (val == DBNull.Value || val == null ){
@@ -364,22 +365,28 @@ namespace CsModelObjects {
 			return;
 		}
 
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+						String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+								fieldKey, val, ex.Message));
+			}
 		}
 
 		public override void setAttribute(string fieldKey, object val) {
 			fieldKey = fieldKey.ToLower();
+			try {
 		if ( fieldKey==STR_FLD_PROJECTID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.PrProjectId=(System.Int64)val;
+				this.PrProjectId=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_PROJECTNAME.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrProjectName = null;
 			} else {
-				this.PrProjectName=(System.String)val;
+				this.PrProjectName=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_ISACTIVE.ToLower()){
@@ -397,6 +404,11 @@ namespace CsModelObjects {
 			}
 			return;
 		}
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+					String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+							fieldKey, val, ex.Message));
+			}
 		}
 
 		#endregion

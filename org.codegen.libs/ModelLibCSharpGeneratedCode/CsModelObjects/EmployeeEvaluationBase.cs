@@ -234,6 +234,7 @@ namespace CsModelObjects {
 		}
 
 		public override void setAttribute(int fieldKey, object val){
+			try {
 		switch (fieldKey) {
 		case FLD_EMPLOYEE_EVALUATION_ID:
 			if (val == DBNull.Value || val == null ){
@@ -274,29 +275,35 @@ namespace CsModelObjects {
 			return;
 		}
 
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+						String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+								fieldKey, val, ex.Message));
+			}
 		}
 
 		public override void setAttribute(string fieldKey, object val) {
 			fieldKey = fieldKey.ToLower();
+			try {
 		if ( fieldKey==STR_FLD_EMPLOYEE_EVALUATION_ID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.PrEmployeeEvaluationId=(System.Int64)val;
+				this.PrEmployeeEvaluationId=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_EVALUATOR_ID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrEvaluatorId = null;
 			} else {
-				this.PrEvaluatorId=(System.Int64?)val;
+				this.PrEvaluatorId=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_EVALUATION_DATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrEvaluationDate = null;
 			} else {
-				this.PrEvaluationDate=(System.DateTime?)val;
+				this.PrEvaluationDate=Convert.ToDateTime(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_EVALUATION_RESULT.ToLower()){
@@ -310,10 +317,15 @@ namespace CsModelObjects {
 			if (val == DBNull.Value || val ==null ){
 				this.PrEmployeeId = null;
 			} else {
-				this.PrEmployeeId=(System.Int64?)val;
+				this.PrEmployeeId=Convert.ToInt64(val);
 			}
 			return;
 		}
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+					String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+							fieldKey, val, ex.Message));
+			}
 		}
 
 		#endregion

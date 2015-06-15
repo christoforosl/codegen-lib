@@ -873,6 +873,7 @@ namespace CsModelObjects {
 		}
 
 		public override void setAttribute(int fieldKey, object val){
+			try {
 		switch (fieldKey) {
 		case FLD_EMPLOYEEID:
 			if (val == DBNull.Value || val == null ){
@@ -1032,120 +1033,126 @@ namespace CsModelObjects {
 			return;
 		}
 
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+						String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+								fieldKey, val, ex.Message));
+			}
 		}
 
 		public override void setAttribute(string fieldKey, object val) {
 			fieldKey = fieldKey.ToLower();
+			try {
 		if ( fieldKey==STR_FLD_EMPLOYEEID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.PrEmployeeId=(System.Int64)val;
+				this.PrEmployeeId=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_EMPLOYEENAME.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrEmployeeName = null;
 			} else {
-				this.PrEmployeeName=(System.String)val;
+				this.PrEmployeeName=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_EMPLOYEERANKID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrEmployeeRankId = null;
 			} else {
-				this.PrEmployeeRankId=(System.Int64?)val;
+				this.PrEmployeeRankId=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_SALARY.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrSalary = null;
 			} else {
-				this.PrSalary=(System.Decimal?)val;
+				this.PrSalary=Convert.ToDecimal(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_ADDRESS.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrAddress = null;
 			} else {
-				this.PrAddress=(System.String)val;
+				this.PrAddress=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_TELEPHONE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrTelephone = null;
 			} else {
-				this.PrTelephone=(System.String)val;
+				this.PrTelephone=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_MOBILE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrMobile = null;
 			} else {
-				this.PrMobile=(System.String)val;
+				this.PrMobile=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_IDNUMBER.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrIdNumber = null;
 			} else {
-				this.PrIdNumber=(System.String)val;
+				this.PrIdNumber=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_SSINUMBER.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrSSINumber = null;
 			} else {
-				this.PrSSINumber=(System.String)val;
+				this.PrSSINumber=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_HIREDATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrHireDate = null;
 			} else {
-				this.PrHireDate=(System.DateTime?)val;
+				this.PrHireDate=Convert.ToDateTime(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_NUMDEPENDENTS.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrNumDependents = null;
 			} else {
-				this.PrNumDependents=(System.Int64?)val;
+				this.PrNumDependents=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_EMPLOYEETYPECODE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrEmployeeTypeCode = null;
 			} else {
-				this.PrEmployeeTypeCode=(System.String)val;
+				this.PrEmployeeTypeCode=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_CREATEDATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.CreateDate = null;
 			} else {
-				this.CreateDate=(System.DateTime?)val;
+				this.CreateDate=Convert.ToDateTime(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_UPDATEDATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.UpdateDate = null;
 			} else {
-				this.UpdateDate=(System.DateTime?)val;
+				this.UpdateDate=Convert.ToDateTime(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_CREATEUSER.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.CreateUser = null;
 			} else {
-				this.CreateUser=(System.String)val;
+				this.CreateUser=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_UPDATEUSER.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.UpdateUser = null;
 			} else {
-				this.UpdateUser=(System.String)val;
+				this.UpdateUser=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_SAMPLEGUIDFIELD.ToLower()){
@@ -1159,38 +1166,43 @@ namespace CsModelObjects {
 			if (val == DBNull.Value || val ==null ){
 				this.PrIsActive = false;
 			} else {
-				this.PrIsActive=(System.Boolean)val;
+				this.PrIsActive=Convert.ToBoolean(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_SAMPLEBIGINT.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrSampleBigInt = null;
 			} else {
-				this.PrSampleBigInt=(System.Int64?)val;
+				this.PrSampleBigInt=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_SAMPLESMALLINT.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrSampleSmallInt = null;
 			} else {
-				this.PrSampleSmallInt=(System.Int64?)val;
+				this.PrSampleSmallInt=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_SAMPLENUMERICFIELDINT.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrSampleNumericFieldInt = null;
 			} else {
-				this.PrSampleNumericFieldInt=(System.Int64?)val;
+				this.PrSampleNumericFieldInt=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_SAMPLENUMERICFIELD2DECIMALS.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrSampleNumericField2Decimals = null;
 			} else {
-				this.PrSampleNumericField2Decimals=(System.Decimal?)val;
+				this.PrSampleNumericField2Decimals=Convert.ToDecimal(val);
 			}
 			return;
 		}
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+					String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+							fieldKey, val, ex.Message));
+			}
 		}
 
 		#endregion

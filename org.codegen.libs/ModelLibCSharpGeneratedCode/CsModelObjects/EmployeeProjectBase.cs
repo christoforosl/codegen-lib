@@ -320,6 +320,7 @@ namespace CsModelObjects {
 		}
 
 		public override void setAttribute(int fieldKey, object val){
+			try {
 		switch (fieldKey) {
 		case FLD_EMPLOYEEPROJECTID:
 			if (val == DBNull.Value || val == null ){
@@ -367,53 +368,64 @@ namespace CsModelObjects {
 			return;
 		}
 
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+						String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+								fieldKey, val, ex.Message));
+			}
 		}
 
 		public override void setAttribute(string fieldKey, object val) {
 			fieldKey = fieldKey.ToLower();
+			try {
 		if ( fieldKey==STR_FLD_EMPLOYEEPROJECTID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.PrEmployeeProjectId=(System.Int64)val;
+				this.PrEmployeeProjectId=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_EPEMPLOYEEID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrEPEmployeeId = null;
 			} else {
-				this.PrEPEmployeeId=(System.Int64?)val;
+				this.PrEPEmployeeId=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_EPPROJECTID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrEPProjectId = null;
 			} else {
-				this.PrEPProjectId=(System.Int64?)val;
+				this.PrEPProjectId=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_ASSIGNDATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrAssignDate = null;
 			} else {
-				this.PrAssignDate=(System.DateTime?)val;
+				this.PrAssignDate=Convert.ToDateTime(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_ENDDATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrEndDate = null;
 			} else {
-				this.PrEndDate=(System.DateTime?)val;
+				this.PrEndDate=Convert.ToDateTime(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_RATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrRate = null;
 			} else {
-				this.PrRate=(System.Decimal?)val;
+				this.PrRate=Convert.ToDecimal(val);
 			}
 			return;
 		}
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+					String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+							fieldKey, val, ex.Message));
+			}
 		}
 
 		#endregion

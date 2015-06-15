@@ -168,6 +168,7 @@ namespace CsModelObjects {
 		}
 
 		public override void setAttribute(int fieldKey, object val){
+			try {
 		switch (fieldKey) {
 		case FLD_RANKID:
 			if (val == DBNull.Value || val == null ){
@@ -187,25 +188,36 @@ namespace CsModelObjects {
 			return;
 		}
 
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+						String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+								fieldKey, val, ex.Message));
+			}
 		}
 
 		public override void setAttribute(string fieldKey, object val) {
 			fieldKey = fieldKey.ToLower();
+			try {
 		if ( fieldKey==STR_FLD_RANKID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.PrRankId=(System.Int64)val;
+				this.PrRankId=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_RANK.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrRank = null;
 			} else {
-				this.PrRank=(System.String)val;
+				this.PrRank=Convert.ToString(val);
 			}
 			return;
 		}
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+					String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+							fieldKey, val, ex.Message));
+			}
 		}
 
 		#endregion

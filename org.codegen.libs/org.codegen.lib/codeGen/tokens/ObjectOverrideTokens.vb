@@ -62,7 +62,7 @@ Namespace Tokens
             Dim i As Integer = 0
 
             For Each field As DBField In vec.Values
-                If field.FieldDataType <> "System.Byte[]" Then
+                If Not field.isBinaryField Then
                     If i > 0 Then
                         sb.Append(vbCrLf)
                         sb.Append(vbTab & vbTab & vbTab & vbTab)
@@ -125,7 +125,7 @@ Namespace Tokens
             Dim i As Integer = 0
 
             For Each field As DBField In vec.Values
-                If field.FieldDataType <> "System.Byte[]" Then
+                If Not field.isBinaryField Then
                     If i > 0 Then
                         sb.Append(vbCrLf)
                         sb.Append(vbTab & vbTab & vbTab & vbTab)

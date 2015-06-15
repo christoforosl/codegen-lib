@@ -171,6 +171,7 @@ namespace CsModelObjects {
 		}
 
 		public override void setAttribute(int fieldKey, object val){
+			try {
 		switch (fieldKey) {
 		case FLD_EMPLOYEETYPECODE:
 			if (val == DBNull.Value || val == null ){
@@ -190,25 +191,36 @@ namespace CsModelObjects {
 			return;
 		}
 
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+						String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+								fieldKey, val, ex.Message));
+			}
 		}
 
 		public override void setAttribute(string fieldKey, object val) {
 			fieldKey = fieldKey.ToLower();
+			try {
 		if ( fieldKey==STR_FLD_EMPLOYEETYPECODE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.PrEmployeeTypeCode=(System.String)val;
+				this.PrEmployeeTypeCode=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_EMPLOYEETYPE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrEmployeeType = null;
 			} else {
-				this.PrEmployeeType=(System.String)val;
+				this.PrEmployeeType=Convert.ToString(val);
 			}
 			return;
 		}
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+					String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+							fieldKey, val, ex.Message));
+			}
 		}
 
 		#endregion
@@ -263,8 +275,8 @@ namespace CsModelObjects {
 		public override IModelObject copy() {
 			//creates a copy
 			EmployeeType ret = new EmployeeType();
-		ret.PrEmployeeTypeCode=this.PrEmployeeTypeCode;
-		ret.PrEmployeeType=this.PrEmployeeType;
+		ret.PrEmployeeTypeCode = this.PrEmployeeTypeCode;
+		ret.PrEmployeeType = this.PrEmployeeType;
 
 			return ret;
 

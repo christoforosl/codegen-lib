@@ -9,6 +9,9 @@ Namespace Tokens
         ''' it returns the appropriate Convert.toXXX call
         ''' </summary>
         Public Shared Function getConverter(field As IDBField) As String
+
+            If field.isBinaryField Then Return String.Empty
+
             'we use .StartsWith below to covert both System.int64 and System.int64?
             If field.getPropertyDataType().StartsWith("System.Date") OrElse _
                    field.getPropertyDataType().StartsWith("System.DateTime") Then
