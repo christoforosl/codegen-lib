@@ -17,5 +17,7 @@
 **/packages/org.codegen.common.*/*
 **/packages/CodeGen.Model.Library.*/*
 **/packages/Newtonsoft.Json.*/**
+
 **/VbObjectTestsTmp.cs
+
 
