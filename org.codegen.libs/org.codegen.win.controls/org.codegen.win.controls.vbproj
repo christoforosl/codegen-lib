@@ -66,7 +66,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>..\release\</OutputPath>
+    <OutputPath>bin\release\</OutputPath>
     <DocumentationFile>org.codegen.win.controls.4.0.xml</DocumentationFile>
     <BaseAddress>285212672</BaseAddress>
     <ConfigurationOverrideFile>
@@ -88,13 +88,16 @@
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic.Compatibility" />
     <Reference Include="org.codegen.common.4.0">
-      <HintPath>..\..\..\codeGenLibs\org.codegen.common.4.0.dll</HintPath>
+      <HintPath>..\packages\org.codegen.common.4.0.0\lib\org.codegen.common.4.0.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="org.model.lib.4.0">
-      <HintPath>..\..\..\codeGenLibs\org.model.lib.4.0.dll</HintPath>
+    <Reference Include="org.model.lib.4.0, Version=4.0.9.3, Culture=neutral, PublicKeyToken=44c29659cab133d9, processorArchitecture=MSIL">
+      <HintPath>..\packages\CodeGen.Model.Library.4.0.9.4\lib\net40\org.model.lib.4.0.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="org.model.lib.db.4.0">
-      <HintPath>..\..\..\codeGenLibs\org.model.lib.db.4.0.dll</HintPath>
+    <Reference Include="org.model.lib.db.4.0, Version=4.0.9.3, Culture=neutral, PublicKeyToken=44c29659cab133d9, processorArchitecture=MSIL">
+      <HintPath>..\packages\CodeGen.Model.Library.4.0.9.4\lib\net40\org.model.lib.db.4.0.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -104,9 +107,11 @@
       <Name>System.Data</Name>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms">
       <Name>System.Windows.Forms</Name>
@@ -335,6 +340,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="org.codegen.win.controls.snk" />
+    <None Include="packages.config" />
     <None Include="Resources\back.png" />
   </ItemGroup>
   <ItemGroup>

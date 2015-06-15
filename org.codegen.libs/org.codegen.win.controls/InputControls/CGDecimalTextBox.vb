@@ -27,6 +27,23 @@ Public Class CGDecimalTextBox
         End Set
     End Property
 
+    Public Overrides Property Text() As String
+
+        Get
+            Return MyBase.Text
+        End Get
+
+        Set(ByVal Value As String)
+            If IsNumeric(Value) Then
+                MyBase.Text = Format(CDec(Value), Me.FormatPattern)
+            Else
+                MyBase.Text = Value
+
+            End If
+        End Set
+
+    End Property
+
     <System.ComponentModel.Browsable(False), _
    System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)> _
     Public Property decimalValue() As Decimal?
