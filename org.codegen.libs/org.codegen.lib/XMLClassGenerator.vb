@@ -282,7 +282,7 @@ Public Class XMLClassGenerator
 
         If String.IsNullOrEmpty(generatorExeVersion) = False Then
             If requiredVersion.ToString <> generatorExeVersion Then
-                Throw New ApplicationException("generatorExeRequiredVersion element specifies a value of {0} but the generator exe has version {1}. Please re-check xml.")
+                Throw New ApplicationException(String.Format("generatorExeRequiredVersion element specifies a value of {0} but the generator exe has version {1}. Please re-check xml.", generatorExeVersion, requiredVersion))
             End If
         End If
 
