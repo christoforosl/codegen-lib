@@ -391,7 +391,7 @@
 
 
 
-                    <xs:element name="parentFieldName" minOccurs="0" type="xs:string">
+                    <xs:element name="parentFieldName" minOccurs="1" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>
                           The SQL name of the field in the parent table.
@@ -409,7 +409,7 @@
                       </xs:annotation>
                     </xs:element>
 
-                    <xs:element name="childFieldName" minOccurs="0" type="xs:string">
+                    <xs:element name="childFieldName" minOccurs="1" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>
                           The SQL name of the field that links the 2 tables in the child table.
