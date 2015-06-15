@@ -93,16 +93,21 @@ partial class <MODEL_CLASS_NAME>
     End Function
 
     Public Overloads Overrides Sub setAttribute(ByVal fieldKey As Integer, ByVal val As Object)
-		
+		Try
 <SET_ATTRS>
-
+		Catch ex As Exception
+			Throw New ApplicationException(String.Format("Error setting field with index {0}, value ""{1}"" : {2}", fieldKey, val, ex.Message))
+		End Try
     End Sub
 
     Public Overloads Overrides Sub setAttribute(ByVal fieldKey As String, ByVal val As Object)
 		
 		fieldKey = fieldKey.ToLower
-		
+		Try
 <SET_ATTRS_STR>
+		Catch ex As Exception
+			Throw New ApplicationException(String.Format("Error setting field with index {0}, value ""{1}"" : {2}", fieldKey, val, ex.Message))
+		End Try
 
     End Sub
 

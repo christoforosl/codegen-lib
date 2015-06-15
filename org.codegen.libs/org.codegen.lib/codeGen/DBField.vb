@@ -386,14 +386,14 @@ Public Class DBField
     ''' If Me.RuntimeType Is not the same as Me.RuntimeType, 
     ''' it returns the appropriate Convert.toXXX call
     ''' </summary>
-    Public Function getConverter() As String Implements IDBField.getConverter
+    Public Function getDataReaderConverter() As String Implements IDBField.getDataReaderConverter
 
         If Me.RuntimeType Is Me.OriginalRuntimeType Then Return String.Empty
 
         If Me.RuntimeType Is System.Type.GetType("System.Date") OrElse _
                Me.RuntimeType Is System.Type.GetType("System.DateTime") Then
 
-            Return "Convert.ToDate"
+            Return "Convert.ToDateTime"
 
         ElseIf Me.RuntimeType Is System.Type.GetType("System.Int16") Then
             Return "Convert.ToInt16"

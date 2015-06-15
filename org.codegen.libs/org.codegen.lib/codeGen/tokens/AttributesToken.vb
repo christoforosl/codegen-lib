@@ -2,6 +2,61 @@
 
 Namespace Tokens
 
+    Public Class FieldConverter
+
+        ''' <summary>
+        ''' If Me.RuntimeType Is not the same as Me.RuntimeType, 
+        ''' it returns the appropriate Convert.toXXX call
+        ''' </summary>
+        Public Shared Function getConverter(field As IDBField) As String
+            'we use .StartsWith below to covert both System.int64 and System.int64?
+            If field.getPropertyDataType().StartsWith("System.Date") OrElse _
+                   field.getPropertyDataType().StartsWith("System.DateTime") Then
+
+                Return "Convert.ToDateTime"
+
+            ElseIf field.getPropertyDataType().StartsWith("System.Int16") Then
+                Return "Convert.ToInt16"
+
+            ElseIf field.getPropertyDataType().StartsWith("System.Int32") Then
+                Return "Convert.ToInt32"
+
+            ElseIf field.getPropertyDataType().StartsWith("System.Int64") Then
+                Return "Convert.ToInt64"
+
+            ElseIf field.getPropertyDataType().StartsWith("System.Decimal") Then
+                Return "Convert.ToDecimal"
+
+            ElseIf field.getPropertyDataType().StartsWith("System.Double") Then
+                Return "Convert.ToDouble"
+
+            ElseIf field.getPropertyDataType().StartsWith("System.Single") Then
+                Return "Convert.ToSingle"
+
+            ElseIf field.getPropertyDataType().StartsWith("System.Float") Then
+                Return "Convert.ToFloat"
+
+            ElseIf field.getPropertyDataType() = ("System.String") Then
+                Return "Convert.ToString"
+
+            ElseIf field.getPropertyDataType().StartsWith("System.Boolean") Then
+                Return "Convert.ToBoolean"
+
+            ElseIf field.getPropertyDataType().StartsWith("System.Byte") Then
+                Return "Convert.ToByte"
+
+            ElseIf field.getPropertyDataType().StartsWith("System.Guid") Then
+                Return String.Empty
+
+            Else
+                Return String.Empty
+
+            End If
+
+        End Function
+
+    End Class
+
     Public Class GetAttrStrToken
         Inherits MultiLingualReplacementToken
 
@@ -52,7 +107,7 @@ Namespace Tokens
 
                 sb.Append("fieldKey=" & field.getConstantStr() & ".ToLower() Then")
                 sb.Append(vbCrLf)
-				sb.Append(vbTab + vbTab + vbTab & "return me." & field.PropertyName & "" & vbCrLf)
+                sb.Append(vbTab + vbTab + vbTab & "return me." & field.PropertyName & "" & vbCrLf)
                 i += 1
 
             Next
@@ -106,7 +161,15 @@ Namespace Tokens
 
                 sb.Append(vbTab + vbTab + vbTab & "} else {" & vbCrLf)
                 sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & field.PropertyName & "=")
-                sb.Append("(").Append(field.getPropertyDataType).Append(")val;").Append(vbCrLf)
+
+                Dim fconv = FieldConverter.getConverter(field)
+
+                If fconv <> "" Then
+                    sb.Append(fconv).Append("(val);").Append(vbCrLf)
+                Else
+                    sb.Append("(").Append(field.getPropertyDataType).Append(")val;").Append(vbCrLf)
+                End If
+
 
                 sb.Append(vbTab + vbTab + vbTab & "}" & vbCrLf)
                 sb.Append(vbTab + vbTab + vbTab & "return;" & vbCrLf)
@@ -144,8 +207,15 @@ Namespace Tokens
                     sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & " = Nothing" & vbCrLf)
                 End If
                 sb.Append(vbTab + vbTab + vbTab & "Else" & vbCrLf)
-				sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & "=")
-                sb.Append("CType(val,").Append(field.getPropertyDataType).Append(")").Append(vbCrLf)
+                sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & "=")
+
+                Dim fconv = FieldConverter.getConverter(field)
+
+                If fconv <> "" Then
+                    sb.Append(fconv).Append("(val)").Append(vbCrLf)
+                Else
+                    sb.Append("CType(val,").Append(field.getPropertyDataType).Append(")").Append(vbCrLf)
+                End If
 
                 sb.Append(vbTab + vbTab + vbTab & "End If" & vbCrLf)
                 sb.Append(vbTab + vbTab + vbTab & "return" & vbCrLf)
@@ -158,7 +228,7 @@ Namespace Tokens
 
         End Function
 
-        
+
 
     End Class
 

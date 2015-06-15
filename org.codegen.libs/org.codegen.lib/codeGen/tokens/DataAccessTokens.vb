@@ -431,8 +431,8 @@ Namespace Tokens
                 End If
 
             ElseIf differentRuntimType AndAlso _
-                    (Not String.IsNullOrEmpty(field.getConverter())) Then
-                sString = field.getConverter() & "(" & sString & ")"
+                    (Not String.IsNullOrEmpty(field.getDataReaderConverter())) Then
+                sString = field.getDataReaderConverter() & "(" & sString & ")"
 
             End If
 

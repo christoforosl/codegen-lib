@@ -78,8 +78,11 @@ Public Class frmBaseModelObjectEdit
 
             Return _ModelObjectInstance
         End Get
+
         Set(value As IModelObject)
             _ModelObjectInstance = value
+            Me.IdValue = value.Id
+
         End Set
     End Property
 
@@ -105,8 +108,11 @@ Public Class frmBaseModelObjectEdit
     Public Overrides Function SaveData() As enumSaveDataResult
 
         If Me.ValidateChildren() Then
+
             For Each c As ICGBaseControl In Me.BindableControls
+
                 Me.ModelObjectInstance.setAttribute(c.DataPropertyName, c.Value)
+
             Next
             ModelContext.Current.saveModelObject(Me.ModelObjectInstance)
             Call Me.resetLastLoadedValues()

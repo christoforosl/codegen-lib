@@ -260,8 +260,8 @@ namespace CsModelObjects {
 		public override IModelObject copy() {
 			//creates a copy
 			EmployeeRank ret = new EmployeeRank();
-		ret.PrRankId=this.PrRankId;
-		ret.PrRank=this.PrRank;
+		ret.PrRankId = this.PrRankId;
+		ret.PrRank = this.PrRank;
 
 			return ret;
 

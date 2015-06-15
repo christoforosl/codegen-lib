@@ -338,10 +338,10 @@ namespace CsModelObjects {
 		public override IModelObject copy() {
 			//creates a copy
 			EmployeeInfo ret = new EmployeeInfo();
-		ret.PrEmployeeInfoId=this.PrEmployeeInfoId;
-		ret.PrEIEmployeeId=this.PrEIEmployeeId;
-		ret.PrSalary=this.PrSalary;
-		ret.PrAddress=this.PrAddress;
+		ret.PrEmployeeInfoId = this.PrEmployeeInfoId;
+		ret.PrEIEmployeeId = this.PrEIEmployeeId;
+		ret.PrSalary = this.PrSalary;
+		ret.PrAddress = this.PrAddress;
 
 			return ret;
 

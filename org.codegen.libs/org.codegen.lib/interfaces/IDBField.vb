@@ -89,7 +89,7 @@ Public Interface IDBField
     ''' If Me.RuntimeType Is not the same as Me.RuntimeType, 
     ''' it returns the appropriate Convert.toXXX call
     ''' </summary>
-    Function getConverter() As String
+    Function getDataReaderConverter() As String
 
 
 End Interface

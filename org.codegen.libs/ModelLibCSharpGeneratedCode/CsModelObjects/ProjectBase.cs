@@ -455,10 +455,10 @@ namespace CsModelObjects {
 		public override IModelObject copy() {
 			//creates a copy
 			Project ret = new Project();
-		ret.PrProjectId=this.PrProjectId;
-		ret.PrProjectName=this.PrProjectName;
-		ret.PrIsActive=this.PrIsActive;
-		ret.PrProjectTypeId=this.PrProjectTypeId;
+		ret.PrProjectId = this.PrProjectId;
+		ret.PrProjectName = this.PrProjectName;
+		ret.PrIsActive = this.PrIsActive;
+		ret.PrProjectTypeId = this.PrProjectTypeId;
 
 			return ret;
 
