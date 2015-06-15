@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="windows-1253"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
-             xmlns:xs="http://www.w3.org/2001/XMLSchema"
+             xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
              targetNamespace="ClassGenerator4">
 
   <xs:element name="project">
@@ -184,7 +184,7 @@
         <xs:element maxOccurs="unbounded" minOccurs="1" name="table">
 
           <xs:complexType>
-            <xs:sequence>
+            <xs:choice maxOccurs="unbounded">
 
               <xs:element name="TableName" type="xs:string">
                 <xs:annotation>
@@ -420,7 +420,7 @@
                 </xs:complexType>
               </xs:element>
 
-            </xs:sequence>
+            </xs:choice>
           </xs:complexType>
 
         </xs:element>
