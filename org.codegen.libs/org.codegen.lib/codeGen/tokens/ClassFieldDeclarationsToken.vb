@@ -29,9 +29,9 @@ Namespace Tokens
 
             Dim i As Integer = 0
             For Each field As DBField In vec.Values
-
-                sb.Append(field.getClassVariableDeclaration("private"))
-
+                If (Not field.isBinaryField) Then
+                    sb.Append(field.getClassVariableDeclaration("private"))
+                End If
             Next
 
             sb.Append(getAssociationsVarsCSharp(CType(t.DbTable, DBTable)))
@@ -45,9 +45,9 @@ Namespace Tokens
 
             Dim i As Integer = 0
             For Each field As DBField In vec.Values
-
-                sb.Append(field.getClassVariableDeclaration("Private"))
-
+                If (Not field.isBinaryField) Then
+                    sb.Append(field.getClassVariableDeclaration("Private"))
+                End If
             Next
 
             sb.Append(getAssociationsVarsVB(CType(t.DbTable, DBTable)))

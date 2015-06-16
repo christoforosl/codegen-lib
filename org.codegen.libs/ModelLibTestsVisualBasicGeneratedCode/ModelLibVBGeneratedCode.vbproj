@@ -181,10 +181,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\org.codegen.common\org.codegen.common.vbproj">
-      <Project>{c367eae9-fdea-468d-9a91-c5075f927d39}</Project>
-      <Name>org.codegen.common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\org.model.lib.db\org.model.lib.db.vbproj">
       <Project>{c744d17d-3132-4365-8c44-9d295d942597}</Project>
       <Name>org.model.lib.db</Name>

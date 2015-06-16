@@ -16,13 +16,13 @@ Namespace Tokens
             Dim i As Integer = 0
 
             For Each field As DBField In vec.Values
+                If Not field.isBinaryField Then
 
-                'If field.isPrimaryKey = False Then
-                sb.Append(vbTab + vbTab).Append("ret.").Append(field.PropertyName)
-                sb.Append(" = this.").Append(field.PropertyName).Append(";").Append(vbCrLf)
-                'End If
-
-                i = i + 1
+                    sb.Append(vbTab + vbTab).Append("ret.").Append(field.PropertyName)
+                    sb.Append(" = this.").Append(field.PropertyName).Append(";").Append(vbCrLf)
+                    
+                    i = i + 1
+                End If
             Next
 
             Return sb.ToString()
@@ -35,13 +35,13 @@ Namespace Tokens
 
             For Each field As DBField In vec.Values
 
-                'If field.isPrimaryKey = False Then
-                sb.Append(vbTab + vbTab & "ret." & field.PropertyName & " = me." & _
-                     field.PropertyName & _
-                   vbCrLf)
-                'End If
+                If Not field.isBinaryField Then
+                    sb.Append(vbTab + vbTab & "ret." & field.PropertyName & " = me." & _
+                         field.PropertyName & _
+                       vbCrLf)
 
-                i = i + 1
+                    i = i + 1
+                End If
             Next
 
             Return sb.ToString()

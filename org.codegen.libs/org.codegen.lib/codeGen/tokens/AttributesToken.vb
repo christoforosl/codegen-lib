@@ -73,18 +73,18 @@ Namespace Tokens
 
             Dim i As Integer = 0
             For Each field As DBField In vec.Values
+                If Not field.isBinaryField Then
+                    If (i > 0) Then
+                        sb.Append(vbTab + vbTab & "} else if (")
+                    Else
+                        sb.Append(vbTab + vbTab & "if (")
+                    End If
 
-                If (i > 0) Then
-                    sb.Append(vbTab + vbTab & "} else if (")
-                Else
-                    sb.Append(vbTab + vbTab & "if (")
+                    sb.Append("fieldKey==" & field.getConstantStr() & ".ToLower() ) {")
+                    sb.Append(vbCrLf)
+                    sb.Append(vbTab + vbTab + vbTab & "return this." & field.PropertyName & ";" & vbCrLf)
+                    i += 1
                 End If
-
-                sb.Append("fieldKey==" & field.getConstantStr() & ".ToLower() ) {")
-                sb.Append(vbCrLf)
-                sb.Append(vbTab + vbTab + vbTab & "return this." & field.PropertyName & ";" & vbCrLf)
-                i += 1
-
             Next
             sb.Append(vbTab + vbTab + "} else {" & vbCrLf)
             sb.Append(vbTab + vbTab + vbTab & "return null;" & vbCrLf)
@@ -101,18 +101,18 @@ Namespace Tokens
 
             Dim i As Integer = 0
             For Each field As DBField In vec.Values
+                If Not field.isBinaryField Then
+                    If (i > 0) Then
+                        sb.Append(vbTab + vbTab & "else if ")
+                    Else
+                        sb.Append(vbTab + vbTab & "if ")
+                    End If
 
-                If (i > 0) Then
-                    sb.Append(vbTab + vbTab & "else if ")
-                Else
-                    sb.Append(vbTab + vbTab & "if ")
+                    sb.Append("fieldKey=" & field.getConstantStr() & ".ToLower() Then")
+                    sb.Append(vbCrLf)
+                    sb.Append(vbTab + vbTab + vbTab & "return me." & field.PropertyName & "" & vbCrLf)
+                    i += 1
                 End If
-
-                sb.Append("fieldKey=" & field.getConstantStr() & ".ToLower() Then")
-                sb.Append(vbCrLf)
-                sb.Append(vbTab + vbTab + vbTab & "return me." & field.PropertyName & "" & vbCrLf)
-                i += 1
-
             Next
             sb.Append(vbTab + vbTab + "else" & vbCrLf)
             sb.Append(vbTab + vbTab + vbTab & "return nothing" & vbCrLf)
@@ -136,48 +136,51 @@ Namespace Tokens
             Dim i As Integer = 0
 
             For Each field As DBField In vec.Values
-                sb.Append(vbTab + vbTab)
+                If Not field.isBinaryField Then
+                    sb.Append(vbTab + vbTab)
 
-                If (i > 0) Then
-                    sb.Append("} else if (")
-                Else
-                    sb.Append("if (")
-                End If
-                sb.Append(" fieldKey==" & field.getConstantStr() & ".ToLower()){")
-
-                'sb.Append(" fieldKey=" & field.getConstantStr() & " Then")
-                sb.Append(vbCrLf)
-
-                sb.Append(vbTab + vbTab + vbTab & "if (val == DBNull.Value || val ==null ){" & vbCrLf)
-                'sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & DBTable.getRuntimeName(field.FieldName()) & " = null;" & vbCrLf)
-
-                If (field.isPrimaryKey) Then
-                    sb.Append(vbTab + vbTab + vbTab + vbTab & "throw new ApplicationException(""Can't set Primary Key to null"");" & vbCrLf)
-                Else
-                    If field.isBoolean Then
-                        sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & field.PropertyName & " = false;" & vbCrLf)
+                    If (i > 0) Then
+                        sb.Append("} else if (")
                     Else
-                        sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & field.PropertyName & " = null;" & vbCrLf)
+                        sb.Append("if (")
+                    End If
+                    sb.Append(" fieldKey==" & field.getConstantStr() & ".ToLower()){")
+
+                    'sb.Append(" fieldKey=" & field.getConstantStr() & " Then")
+                    sb.Append(vbCrLf)
+
+                    sb.Append(vbTab + vbTab + vbTab & "if (val == DBNull.Value || val ==null ){" & vbCrLf)
+                    'sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & DBTable.getRuntimeName(field.FieldName()) & " = null;" & vbCrLf)
+
+                    If (field.isPrimaryKey) Then
+                        sb.Append(vbTab + vbTab + vbTab + vbTab & "throw new ApplicationException(""Can't set Primary Key to null"");" & vbCrLf)
+                    Else
+                        If field.isBoolean Then
+                            sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & field.PropertyName & " = false;" & vbCrLf)
+                        Else
+                            sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & field.PropertyName & " = null;" & vbCrLf)
+                        End If
+
                     End If
 
+                    sb.Append(vbTab + vbTab + vbTab & "} else {" & vbCrLf)
+                    sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & field.PropertyName & "=")
+
+                    Dim fconv = FieldConverter.getConverter(field)
+
+                    If fconv <> "" Then
+                        sb.Append(fconv).Append("(val);").Append(vbCrLf)
+                    Else
+                        sb.Append("(").Append(field.getPropertyDataType).Append(")val;").Append(vbCrLf)
+                    End If
+
+
+                    sb.Append(vbTab + vbTab + vbTab & "}" & vbCrLf)
+                    sb.Append(vbTab + vbTab + vbTab & "return;" & vbCrLf)
+
+                    i = i + 1
                 End If
 
-                sb.Append(vbTab + vbTab + vbTab & "} else {" & vbCrLf)
-                sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & field.PropertyName & "=")
-
-                Dim fconv = FieldConverter.getConverter(field)
-
-                If fconv <> "" Then
-                    sb.Append(fconv).Append("(val);").Append(vbCrLf)
-                Else
-                    sb.Append("(").Append(field.getPropertyDataType).Append(")val;").Append(vbCrLf)
-                End If
-
-
-                sb.Append(vbTab + vbTab + vbTab & "}" & vbCrLf)
-                sb.Append(vbTab + vbTab + vbTab & "return;" & vbCrLf)
-
-                i = i + 1
             Next
 
             sb.Append(vbTab + vbTab + "}")
@@ -191,39 +194,42 @@ Namespace Tokens
             Dim i As Integer = 0
 
             For Each field As DBField In vec.Values
-                sb.Append(vbTab + vbTab)
+                If Not field.isBinaryField Then
+                    sb.Append(vbTab + vbTab)
 
-                If (i > 0) Then
-                    sb.Append("else if ")
-                Else
-                    sb.Append("if ")
+                    If (i > 0) Then
+                        sb.Append("else if ")
+                    Else
+                        sb.Append("if ")
+                    End If
+                    sb.Append(" fieldKey=" & field.getConstantStr() & ".ToLower() Then")
+
+                    'sb.Append(" fieldKey=" & field.getConstantStr() & " Then")
+                    sb.Append(vbCrLf)
+
+                    sb.Append(vbTab + vbTab + vbTab & "If Val Is DBNull.Value OrElse Val Is Nothing Then" & vbCrLf)
+                    If field.isBoolean Then
+                        sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & " = False" & vbCrLf)
+                    Else
+                        sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & " = Nothing" & vbCrLf)
+                    End If
+                    sb.Append(vbTab + vbTab + vbTab & "Else" & vbCrLf)
+                    sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & "=")
+
+                    Dim fconv = FieldConverter.getConverter(field)
+
+                    If fconv <> "" Then
+                        sb.Append(fconv).Append("(val)").Append(vbCrLf)
+                    Else
+                        sb.Append("CType(val,").Append(field.getPropertyDataType).Append(")").Append(vbCrLf)
+                    End If
+
+                    sb.Append(vbTab + vbTab + vbTab & "End If" & vbCrLf)
+                    sb.Append(vbTab + vbTab + vbTab & "return" & vbCrLf)
+
+                    i = i + 1
                 End If
-                sb.Append(" fieldKey=" & field.getConstantStr() & ".ToLower() Then")
 
-                'sb.Append(" fieldKey=" & field.getConstantStr() & " Then")
-                sb.Append(vbCrLf)
-
-                sb.Append(vbTab + vbTab + vbTab & "If Val Is DBNull.Value OrElse Val Is Nothing Then" & vbCrLf)
-                If field.isBoolean Then
-                    sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & " = False" & vbCrLf)
-                Else
-                    sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & " = Nothing" & vbCrLf)
-                End If
-                sb.Append(vbTab + vbTab + vbTab & "Else" & vbCrLf)
-                sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & "=")
-
-                Dim fconv = FieldConverter.getConverter(field)
-
-                If fconv <> "" Then
-                    sb.Append(fconv).Append("(val)").Append(vbCrLf)
-                Else
-                    sb.Append("CType(val,").Append(field.getPropertyDataType).Append(")").Append(vbCrLf)
-                End If
-
-                sb.Append(vbTab + vbTab + vbTab & "End If" & vbCrLf)
-                sb.Append(vbTab + vbTab + vbTab & "return" & vbCrLf)
-
-                i = i + 1
             Next
 
             sb.Append(vbTab + vbTab + "end If")
@@ -248,29 +254,30 @@ Namespace Tokens
             sb.Append(vbTab + vbTab + "switch (fieldKey) {" & vbCrLf)
 
             For Each field As DBField In vec.Values
+                If Not field.isBinaryField Then
+                    sb.Append(vbTab + vbTab & "case " & field.getConstant()).Append(":")
+                    sb.Append(vbCrLf)
 
-                sb.Append(vbTab + vbTab & "case " & field.getConstant()).Append(":")
-                sb.Append(vbCrLf)
-
-                sb.Append(vbTab + vbTab + vbTab & "if (val == DBNull.Value || val == null ){" & vbCrLf)
-                If (field.isPrimaryKey) Then
-                    sb.Append(vbTab + vbTab + vbTab + vbTab & "throw new ApplicationException(""Can't set Primary Key to null"");" & vbCrLf)
-                Else
-                    If field.isBoolean Then
-                        sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & field.PropertyName & " = false;" & vbCrLf)
+                    sb.Append(vbTab + vbTab + vbTab & "if (val == DBNull.Value || val == null ){" & vbCrLf)
+                    If (field.isPrimaryKey) Then
+                        sb.Append(vbTab + vbTab + vbTab + vbTab & "throw new ApplicationException(""Can't set Primary Key to null"");" & vbCrLf)
                     Else
-                        sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & field.PropertyName & " = null;" & vbCrLf)
+                        If field.isBoolean Then
+                            sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & field.PropertyName & " = false;" & vbCrLf)
+                        Else
+                            sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & field.PropertyName & " = null;" & vbCrLf)
+                        End If
+
                     End If
 
+                    sb.Append(vbTab + vbTab + vbTab & "} else {" & vbCrLf)
+
+                    sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & field.PropertyName & "=")
+                    sb.Append("(" & field.getPropertyDataType).Append(")val;").Append(vbCrLf)
+
+                    sb.Append(vbTab + vbTab + vbTab & "} //" & vbCrLf)
+                    sb.Append(vbTab + vbTab + vbTab & "return;" & vbCrLf)
                 End If
-
-                sb.Append(vbTab + vbTab + vbTab & "} else {" & vbCrLf)
-
-                sb.Append(vbTab + vbTab + vbTab + vbTab & "this." & field.PropertyName & "=")
-                sb.Append("(" & field.getPropertyDataType).Append(")val;").Append(vbCrLf)
-
-                sb.Append(vbTab + vbTab + vbTab & "} //" & vbCrLf)
-                sb.Append(vbTab + vbTab + vbTab & "return;" & vbCrLf)
 
 
             Next
@@ -290,25 +297,25 @@ Namespace Tokens
             sb.Append(vbTab + vbTab + "Select Case fieldKey" & vbCrLf)
 
             For Each field As DBField In vec.Values
+                If Not field.isBinaryField Then
+                    sb.Append(vbTab + vbTab & "case " & field.getConstant())
+                    sb.Append(vbCrLf)
 
-                sb.Append(vbTab + vbTab & "case " & field.getConstant())
-                sb.Append(vbCrLf)
+                    sb.Append(vbTab + vbTab + vbTab & "If Val Is DBNull.Value OrElse Val Is Nothing Then" & vbCrLf)
+                    If field.isBoolean Then
+                        sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & " = False" & vbCrLf)
+                    Else
+                        sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & " = Nothing" & vbCrLf)
+                    End If
 
-                sb.Append(vbTab + vbTab + vbTab & "If Val Is DBNull.Value OrElse Val Is Nothing Then" & vbCrLf)
-                If field.isBoolean Then
-                    sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & " = False" & vbCrLf)
-                Else
-                    sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & " = Nothing" & vbCrLf)
+                    sb.Append(vbTab + vbTab + vbTab & "Else" & vbCrLf)
+
+                    sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & "=")
+                    sb.Append("CType(val,").Append(field.getPropertyDataType).Append(")").Append(vbCrLf)
+
+                    sb.Append(vbTab + vbTab + vbTab & "End If" & vbCrLf)
+                    sb.Append(vbTab + vbTab + vbTab & "return" & vbCrLf)
                 End If
-
-                sb.Append(vbTab + vbTab + vbTab & "Else" & vbCrLf)
-
-                sb.Append(vbTab + vbTab + vbTab + vbTab & "Me." & field.PropertyName & "=")
-                sb.Append("CType(val,").Append(field.getPropertyDataType).Append(")").Append(vbCrLf)
-
-                sb.Append(vbTab + vbTab + vbTab & "End If" & vbCrLf)
-                sb.Append(vbTab + vbTab + vbTab & "return" & vbCrLf)
-
 
             Next
 
@@ -335,12 +342,13 @@ Namespace Tokens
             sb.Append(vbTab + vbTab + "switch (fieldKey) {" & vbCrLf)
 
             For Each field As DBField In vec.Values
+                If Not field.isBinaryField Then
+                    sb.Append(vbTab + vbTab & "case ")
+                    sb.Append(field.getConstant()).Append(":")
 
-                sb.Append(vbTab + vbTab & "case ")
-                sb.Append(field.getConstant()).Append(":")
-
-                sb.Append(vbCrLf)
-                sb.Append(vbTab + vbTab + vbTab & "return this." & field.PropertyName & ";" & vbCrLf)
+                    sb.Append(vbCrLf)
+                    sb.Append(vbTab + vbTab + vbTab & "return this." & field.PropertyName & ";" & vbCrLf)
+                End If
 
             Next
             sb.Append(vbTab + vbTab + "default:" & vbCrLf)
@@ -360,12 +368,13 @@ Namespace Tokens
             sb.Append(vbTab + vbTab + "select case fieldKey" & vbCrLf)
 
             For Each field As DBField In vec.Values
+                If Not field.isBinaryField Then
+                    sb.Append(vbTab + vbTab & "case ")
+                    sb.Append(field.getConstant())
 
-                sb.Append(vbTab + vbTab & "case ")
-                sb.Append(field.getConstant())
-
-                sb.Append(vbCrLf)
-                sb.Append(vbTab + vbTab + vbTab & "return me." & field.PropertyName & "" & vbCrLf)
+                    sb.Append(vbCrLf)
+                    sb.Append(vbTab + vbTab + vbTab & "return me." & field.PropertyName & "" & vbCrLf)
+                End If
 
             Next
             sb.Append(vbTab + vbTab + "case else" & vbCrLf)

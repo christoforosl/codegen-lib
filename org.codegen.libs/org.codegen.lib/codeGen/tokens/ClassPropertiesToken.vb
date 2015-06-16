@@ -210,7 +210,7 @@ Namespace Tokens
                 'Dim field As DBField = CType(vec(i), DBField)
                 Dim field As IDBField = vec.Item(vec.Keys(i))
 
-                If field.IsTableField() AndAlso Not field.isPrimaryKey _
+                If field.IsTableField() AndAlso Not field.isBinaryField AndAlso Not field.isPrimaryKey _
                         AndAlso field.isDBFieldNullable = False Then
 
                     If field.isString Then
@@ -245,7 +245,7 @@ Namespace Tokens
 
                 Dim field As IDBField = vec.Item(vec.Keys(i))
 
-                If field.IsTableField() AndAlso Not field.isBoolean AndAlso Not field.isPrimaryKey _
+                If field.IsTableField() AndAlso Not field.isBinaryField AndAlso Not field.isBoolean AndAlso Not field.isPrimaryKey _
                         AndAlso field.isDBFieldNullable = False Then
 
                     If field.isString Then
@@ -282,9 +282,11 @@ Namespace Tokens
             Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
 
             For i As Integer = 0 To vec.Keys.Count - 1
-                Dim field As DBField = CType(vec.Item(vec.Keys(i)), DBField)
-                If i > 0 Then sb.Append(",")
-                sb.Append(field.getConstantStr())
+                Dim field As IDBField = CType(vec.Item(vec.Keys(i)), IDBField)
+                If Not field.isBinaryField Then
+                    If i > 0 Then sb.Append(",")
+                    sb.Append(field.getConstantStr())
+                End If
 
             Next
 
@@ -315,10 +317,12 @@ Namespace Tokens
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
             Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
 
-            For Each field As DBField In vec.Values
+            For Each field As IDBField In vec.Values
+                If Not field.isBinaryField Then
+                    sb.Append(vbTab & vbTab & vbTab & "public const String " & field.getConstantStr() & " = """ & DBTable.getRuntimeName(field.FieldName()) & """;")
+                    sb.Append(vbCrLf)
+                End If
 
-                sb.Append(vbTab & vbTab & vbTab & "public const String " & field.getConstantStr() & " = """ & DBTable.getRuntimeName(field.FieldName()) & """;")
-                sb.Append(vbCrLf)
             Next
 
             Return sb.ToString()
@@ -328,10 +332,12 @@ Namespace Tokens
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
             Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
 
-            For Each field As DBField In vec.Values
+            For Each field As IDBField In vec.Values
+                If Not field.isBinaryField Then
+                    sb.Append(vbTab & vbTab & vbTab & "public Const " & field.getConstantStr() & " as String = """ & DBTable.getRuntimeName(field.FieldName()) & """")
+                    sb.Append(vbCrLf)
+                End If
 
-                sb.Append(vbTab & vbTab & vbTab & "public Const " & field.getConstantStr() & " as String = """ & DBTable.getRuntimeName(field.FieldName()) & """")
-                sb.Append(vbCrLf)
             Next
 
             Return sb.ToString()
@@ -362,11 +368,11 @@ Namespace Tokens
             Dim i As Integer = 0
             For Each field As DBField In vec.Values
 
-                'If field.FieldName.ToUpper <> Me._dbTable.getPrimaryKeyName.ToUpper Then
-                sb.Append(vbTab & vbTab & "public const int " & field.getConstant() & " = " & (i) & ";")
-                i += 1
-                sb.Append(vbCrLf)
-                'End If
+                If Not field.isBinaryField Then
+                    sb.Append(vbTab & vbTab & "public const int " & field.getConstant() & " = " & (i) & ";")
+                    i += 1
+                    sb.Append(vbCrLf)
+                End If
 
             Next
             ''keep primary key to be the last field 
@@ -380,11 +386,11 @@ Namespace Tokens
             Dim i As Integer = 0
             For Each field As DBField In vec.Values
 
-                'If field.FieldName.ToUpper <> Me._dbTable.getPrimaryKeyName.ToUpper Then
-                sb.Append(vbTab & vbTab & "public Const " & field.getConstant() & " as Integer = " & (i))
-                i += 1
-                sb.Append(vbCrLf)
-                'End If
+                If Not field.isBinaryField Then
+                    sb.Append(vbTab & vbTab & "public Const " & field.getConstant() & " as Integer = " & (i))
+                    i += 1
+                    sb.Append(vbCrLf)
+                End If
 
             Next
             ''keep primary key to be the last field 
@@ -417,9 +423,9 @@ Namespace Tokens
             Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
 
             Dim i As Integer = 0
-            For Each field As DBField In vec.Values
+            For Each field As IDBField In vec.Values
                 'no need to generate anything for "id" field.  it is overriden
-                If field.FieldName.ToLower.Equals("id") = False Then
+                If field.FieldName.ToLower.Equals("id") = False AndAlso Not field.isBinaryField Then
                     'field.PropertiesImplementedInterface = Me.GenerateInterface
                     sb.Append(field.getProperty())
                 End If
@@ -439,7 +445,7 @@ Namespace Tokens
             Dim i As Integer = 0
             For Each field As DBField In vec.Values
                 'no need to generate anything for "id" field.  it is overriden
-                If field.FieldName.ToLower.Equals("id") = False Then
+                If field.FieldName.ToLower.Equals("id") = False AndAlso Not field.isBinaryField Then
                     'field.PropertiesImplementedInterface = Me.GenerateInterface
                     sb.Append(field.getProperty())
                 End If

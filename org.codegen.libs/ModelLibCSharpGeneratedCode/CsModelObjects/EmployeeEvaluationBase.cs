@@ -74,15 +74,13 @@ namespace CsModelObjects {
 					public const String STR_FLD_EMPLOYEE_EVALUATION_ID = "EmployeeEvaluationId";
 			public const String STR_FLD_EVALUATOR_ID = "EvaluatorId";
 			public const String STR_FLD_EVALUATION_DATE = "EvaluationDate";
-			public const String STR_FLD_EVALUATION_RESULT = "EvaluationResult";
 			public const String STR_FLD_EMPLOYEE_ID = "EmployeeId";
 
 
 				public const int FLD_EMPLOYEE_EVALUATION_ID = 0;
 		public const int FLD_EVALUATOR_ID = 1;
 		public const int FLD_EVALUATION_DATE = 2;
-		public const int FLD_EVALUATION_RESULT = 3;
-		public const int FLD_EMPLOYEE_ID = 4;
+		public const int FLD_EMPLOYEE_ID = 3;
 
 
 
@@ -92,7 +90,7 @@ namespace CsModelObjects {
 		public override string[] getFieldList()
 		{
 			return new string[] {
-				STR_FLD_EMPLOYEE_EVALUATION_ID,STR_FLD_EVALUATOR_ID,STR_FLD_EVALUATION_DATE,STR_FLD_EVALUATION_RESULT,STR_FLD_EMPLOYEE_ID
+				STR_FLD_EMPLOYEE_EVALUATION_ID,STR_FLD_EVALUATOR_ID,STR_FLD_EVALUATION_DATE,STR_FLD_EMPLOYEE_ID
 			};
 		}
 
@@ -103,7 +101,6 @@ namespace CsModelObjects {
 	private System.Int64 _EmployeeEvaluationId;
 	private System.Int64? _EvaluatorId = null;
 	private System.DateTime? _EvaluationDate = null;
-	private System.Byte[] _EvaluationResult;
 	private System.Int64? _EmployeeId = null;
 
 		#endregion
@@ -160,22 +157,6 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="evaluation_result",Storage = "_EvaluationResult", IsPrimaryKey=false,DbType = "varbinary",CanBeNull = true)]
-	[DataMember]public virtual System.Byte[] PrEvaluationResult{
-	get{
-		return _EvaluationResult;
-	}
-	set {
-		if (ModelObject.valueChanged(_EvaluationResult, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_EVALUATION_RESULT);
-			}
-		this._EvaluationResult = value;
-
-		}
-		}
-	}
 	[Column(Name="employee_id",Storage = "_EmployeeId", IsPrimaryKey=false,DbType = "int",CanBeNull = true)]
 	[DataMember]public virtual System.Int64? PrEmployeeId{
 	get{
@@ -205,8 +186,6 @@ namespace CsModelObjects {
 			return this.PrEvaluatorId;
 		case FLD_EVALUATION_DATE:
 			return this.PrEvaluationDate;
-		case FLD_EVALUATION_RESULT:
-			return this.PrEvaluationResult;
 		case FLD_EMPLOYEE_ID:
 			return this.PrEmployeeId;
 		default:
@@ -224,8 +203,6 @@ namespace CsModelObjects {
 			return this.PrEvaluatorId;
 		} else if (fieldKey==STR_FLD_EVALUATION_DATE.ToLower() ) {
 			return this.PrEvaluationDate;
-		} else if (fieldKey==STR_FLD_EVALUATION_RESULT.ToLower() ) {
-			return this.PrEvaluationResult;
 		} else if (fieldKey==STR_FLD_EMPLOYEE_ID.ToLower() ) {
 			return this.PrEmployeeId;
 		} else {
@@ -255,13 +232,6 @@ namespace CsModelObjects {
 				this.PrEvaluationDate = null;
 			} else {
 				this.PrEvaluationDate=(System.DateTime?)val;
-			} //
-			return;
-		case FLD_EVALUATION_RESULT:
-			if (val == DBNull.Value || val == null ){
-				this.PrEvaluationResult = null;
-			} else {
-				this.PrEvaluationResult=(System.Byte[])val;
 			} //
 			return;
 		case FLD_EMPLOYEE_ID:
@@ -304,13 +274,6 @@ namespace CsModelObjects {
 				this.PrEvaluationDate = null;
 			} else {
 				this.PrEvaluationDate=Convert.ToDateTime(val);
-			}
-			return;
-		} else if ( fieldKey==STR_FLD_EVALUATION_RESULT.ToLower()){
-			if (val == DBNull.Value || val ==null ){
-				this.PrEvaluationResult = null;
-			} else {
-				this.PrEvaluationResult=(System.Byte[])val;
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_EMPLOYEE_ID.ToLower()){
@@ -387,7 +350,6 @@ namespace CsModelObjects {
 		ret.PrEmployeeEvaluationId = this.PrEmployeeEvaluationId;
 		ret.PrEvaluatorId = this.PrEvaluatorId;
 		ret.PrEvaluationDate = this.PrEvaluationDate;
-		ret.PrEvaluationResult = this.PrEvaluationResult;
 		ret.PrEmployeeId = this.PrEmployeeId;
 
 			return ret;
