@@ -102,7 +102,7 @@ namespace GeneratorTests.VB {
                 NUnit.Framework.Assert.IsTrue(employee.UpdateDate.GetValueOrDefault().ToString("dd/MM/yyyy") == employee.CreateDate.GetValueOrDefault().ToString("dd/MM/yyyy"), "update date = create date after saving new");
 				NUnit.Framework.Assert.IsTrue(employee.UpdateUser == employee.CreateUser, "update date = create date after saving new");
 
-				long x = employee.PrEmployeeId;
+				long x = (long)employee.Id ;
 				NUnit.Framework.Assert.IsFalse(employee.isNew, "After save, model object isNew property must return false");
 				NUnit.Framework.Assert.IsFalse(employee.isDirty, "After save to db, model object isDirty property must return false");
 

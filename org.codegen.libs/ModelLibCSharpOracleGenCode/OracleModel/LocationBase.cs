@@ -10,6 +10,8 @@ using org.model.lib;
 using Microsoft.VisualBasic;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
+using System.Data.Linq.Mapping;
+using System.ComponentModel.DataAnnotations;
 
 //<comments>
 //************************************************************
@@ -24,14 +26,15 @@ using System.Xml.Serialization;
 //************************************************************
 //</comments>
 namespace OracleModel {
-	
+
+	[Table(Name = "LOCATIONS")]
 	[DataContract]
 	[DefaultMapperAttr(typeof(OracleMappers.LocationDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class LocationBase : ModelObject, IEquatable<LocationBase> ,IAuditable {
+	partial class Location:ModelObject,IEquatable<Location> ,IAuditable {
 
 		#region "Constructor"
 
-		public LocationBase() {
+		public Location() {
 			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new LocationRequiredFieldsValidator());
 		}
@@ -123,6 +126,8 @@ namespace OracleModel {
 
 		#region "Field Properties"
 
+		//Field LOCATION_ID
+	[Required][Column(Name="LOCATION_ID",Storage = "_LocationId", IsPrimaryKey=true,DbType = " NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64 PrLocationId{
 	get{
 		return _LocationId;
@@ -133,13 +138,15 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LOCATION_ID);
 			}
-		this._LocationId=value;
+		this._LocationId = value;
 
 			this.raiseBroadcastIdChange();
 
 		}
 		}
 	}
+		//Field STREET_ADDRESS
+	[Key][StringLength(40, ErrorMessage="STREET_ADDRESS must be 40 characters or less")][Column(Name="STREET_ADDRESS",Storage = "_StreetAddress", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String PrStreetAddress{
 	get{
 		return _StreetAddress;
@@ -153,11 +160,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_STREET_ADDRESS);
 			}
-		this._StreetAddress=value;
+		this._StreetAddress = value;
 
 		}
 		}
 	}
+		//Field POSTAL_CODE
+	[Key][StringLength(12, ErrorMessage="POSTAL_CODE must be 12 characters or less")][Column(Name="POSTAL_CODE",Storage = "_PostalCode", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String PrPostalCode{
 	get{
 		return _PostalCode;
@@ -171,11 +180,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_POSTAL_CODE);
 			}
-		this._PostalCode=value;
+		this._PostalCode = value;
 
 		}
 		}
 	}
+		//Field CITY
+	[Key][Required][StringLength(30, ErrorMessage="CITY must be 30 characters or less")][Column(Name="CITY",Storage = "_CITY", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.String PrCITY{
 	get{
 		return _CITY;
@@ -189,11 +200,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CITY);
 			}
-		this._CITY=value;
+		this._CITY = value;
 
 		}
 		}
 	}
+		//Field STATE_PROVINCE
+	[Key][StringLength(25, ErrorMessage="STATE_PROVINCE must be 25 characters or less")][Column(Name="STATE_PROVINCE",Storage = "_StateProvince", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String PrStateProvince{
 	get{
 		return _StateProvince;
@@ -207,11 +220,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_STATE_PROVINCE);
 			}
-		this._StateProvince=value;
+		this._StateProvince = value;
 
 		}
 		}
 	}
+		//Field COUNTRY_ID
+	[Key][StringLength(2, ErrorMessage="COUNTRY_ID must be 2 characters or less")][Column(Name="COUNTRY_ID",Storage = "_CountryId", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String PrCountryId{
 	get{
 		return _CountryId;
@@ -225,11 +240,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COUNTRY_ID);
 			}
-		this._CountryId=value;
+		this._CountryId = value;
 
 		}
 		}
 	}
+		//Field CREATE_DATE
+	[Key][Column(Name="CREATE_DATE",Storage = "_CreateDate", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.DateTime? CreateDate{
 	get{
 		return _CreateDate;
@@ -240,11 +257,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_DATE);
 			}
-		this._CreateDate=value;
+		this._CreateDate = value;
 
 		}
 		}
 	}
+		//Field UPDATE_DATE
+	[Key][Column(Name="UPDATE_DATE",Storage = "_UpdateDate", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.DateTime? UpdateDate{
 	get{
 		return _UpdateDate;
@@ -255,11 +274,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_DATE);
 			}
-		this._UpdateDate=value;
+		this._UpdateDate = value;
 
 		}
 		}
 	}
+		//Field CREATE_USER
+	[Key][StringLength(20, ErrorMessage="CREATE_USER must be 20 characters or less")][Column(Name="CREATE_USER",Storage = "_CreateUser", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String CreateUser{
 	get{
 		return _CreateUser;
@@ -273,11 +294,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_USER);
 			}
-		this._CreateUser=value;
+		this._CreateUser = value;
 
 		}
 		}
 	}
+		//Field UPDATE_USER
+	[Key][StringLength(20, ErrorMessage="UPDATE_USER must be 20 characters or less")][Column(Name="UPDATE_USER",Storage = "_UpdateUser", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String UpdateUser{
 	get{
 		return _UpdateUser;
@@ -291,7 +314,7 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_USER);
 			}
-		this._UpdateUser=value;
+		this._UpdateUser = value;
 
 		}
 		}
@@ -358,6 +381,7 @@ namespace OracleModel {
 		}
 
 		public override void setAttribute(int fieldKey, object val){
+			try {
 		switch (fieldKey) {
 		case FLD_LOCATION_ID:
 			if (val == DBNull.Value || val == null ){
@@ -405,14 +429,14 @@ namespace OracleModel {
 			if (val == DBNull.Value || val == null ){
 				this.CreateDate = null;
 			} else {
-				this.CreateDate=(System.DateTime)val;
+				this.CreateDate=(System.DateTime?)val;
 			} //
 			return;
 		case FLD_UPDATE_DATE:
 			if (val == DBNull.Value || val == null ){
 				this.UpdateDate = null;
 			} else {
-				this.UpdateDate=(System.DateTime)val;
+				this.UpdateDate=(System.DateTime?)val;
 			} //
 			return;
 		case FLD_CREATE_USER:
@@ -433,86 +457,97 @@ namespace OracleModel {
 			return;
 		}
 
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+						String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+								fieldKey, val, ex.Message));
+			}
 		}
 
 		public override void setAttribute(string fieldKey, object val) {
 			fieldKey = fieldKey.ToLower();
+			try {
 		if ( fieldKey==STR_FLD_LOCATION_ID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.PrLocationId=(System.Int64)val;
+				this.PrLocationId=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_STREET_ADDRESS.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrStreetAddress = null;
 			} else {
-				this.PrStreetAddress=(System.String)val;
+				this.PrStreetAddress=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_POSTAL_CODE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrPostalCode = null;
 			} else {
-				this.PrPostalCode=(System.String)val;
+				this.PrPostalCode=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_CITY.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrCITY = null;
 			} else {
-				this.PrCITY=(System.String)val;
+				this.PrCITY=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_STATE_PROVINCE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrStateProvince = null;
 			} else {
-				this.PrStateProvince=(System.String)val;
+				this.PrStateProvince=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_COUNTRY_ID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrCountryId = null;
 			} else {
-				this.PrCountryId=(System.String)val;
+				this.PrCountryId=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_CREATE_DATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.CreateDate = null;
 			} else {
-				this.CreateDate=(System.DateTime)val;
+				this.CreateDate=Convert.ToDateTime(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_UPDATE_DATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.UpdateDate = null;
 			} else {
-				this.UpdateDate=(System.DateTime)val;
+				this.UpdateDate=Convert.ToDateTime(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_CREATE_USER.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.CreateUser = null;
 			} else {
-				this.CreateUser=(System.String)val;
+				this.CreateUser=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_UPDATE_USER.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.UpdateUser = null;
 			} else {
-				this.UpdateUser=(System.String)val;
+				this.UpdateUser=Convert.ToString(val);
 			}
 			return;
 		}
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+					String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+							fieldKey, val, ex.Message));
+			}
 		}
 
 		#endregion
 		#region "Overrides of GetHashCode and Equals "
-		public bool Equals(LocationBase other)
+		public bool Equals(Location other)
 		{
 
 			//typesafe equals, checks for equality of fields
@@ -552,9 +587,9 @@ namespace OracleModel {
 
 		public override bool Equals(object Obj) {
 
-			if (Obj != null && Obj is LocationBase) {
+			if (Obj != null && Obj is Location) {
 
-				return this.Equals((LocationBase)Obj);
+				return this.Equals((Location)Obj);
 
 			} else {
 				return false;
@@ -562,13 +597,12 @@ namespace OracleModel {
 
 		}
 
-		public static bool operator ==(LocationBase obj1, LocationBase obj2)
+		public static bool operator ==(Location obj1, Location obj2)
 		{
 			return object.Equals(obj1, obj2);
 		}
 
-		public static bool operator !=(LocationBase obj1, LocationBase obj2)
-		{
+		public static bool operator !=(Location obj1, Location obj2) {
 			return !(obj1 == obj2);
 		}
 
@@ -576,14 +610,9 @@ namespace OracleModel {
 
 		#region "Copy and sort"
 
-		public override IModelObject copy()
-		{
+		public override IModelObject copy() {
 			//creates a copy
-
-			//NOTE: we can't cast from LocationBase to Location, so below we 
-			//instantiate a Location, NOT a LocationBase object
 			Location ret = new Location();
-
 		ret.PrLocationId = this.PrLocationId;
 		ret.PrStreetAddress = this.PrStreetAddress;
 		ret.PrPostalCode = this.PrPostalCode;
@@ -594,8 +623,6 @@ namespace OracleModel {
 		ret.UpdateDate = this.UpdateDate;
 		ret.CreateUser = this.CreateUser;
 		ret.UpdateUser = this.UpdateUser;
-
-
 
 			return ret;
 

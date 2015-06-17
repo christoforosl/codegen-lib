@@ -11,20 +11,16 @@
     <ORACLE>SELECT REGION_ID,REGION_NAME FROM "REGIONS"</ORACLE>
   </stmt>
   <stmt>
-    <key>selectone</key>
-    <ORACLE>SELECT REGION_ID,REGION_NAME FROM "REGIONS" WHERE REGION_ID=:0</ORACLE>
-  </stmt>
-  <stmt>
     <key>delete</key>
     <ORACLE>DELETE FROM "REGIONS" WHERE REGION_ID=:0</ORACLE>
   </stmt>
   <stmt>
     <key>insert</key>
     <ORACLE>BEGIN insert into "REGIONS" (
-REGION_NAME) values (:REGION_NAME) RETURNING REGION_ID INTO :REGION_ID;END;</ORACLE>
+REGION_NAME) values (?) RETURNING REGION_ID INTO ?;END;</ORACLE>
   </stmt>
   <stmt>
     <key>update</key>
-    <ORACLE>UPDATE "REGIONS" SET REGION_NAME=:REGION_NAME WHERE REGION_ID=:REGION_ID</ORACLE>
+    <ORACLE>UPDATE "REGIONS" SET REGION_NAME=:RegionName WHERE REGION_ID=:RegionId</ORACLE>
   </stmt>
 </SQLStatements>

@@ -10,6 +10,8 @@ using org.model.lib;
 using Microsoft.VisualBasic;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
+using System.Data.Linq.Mapping;
+using System.ComponentModel.DataAnnotations;
 
 //<comments>
 //************************************************************
@@ -24,14 +26,15 @@ using System.Xml.Serialization;
 //************************************************************
 //</comments>
 namespace OracleModel {
-	
+
+	[Table(Name = "EMPLOYEE_TRAINING_HISTORY")]
 	[DataContract]
 	[DefaultMapperAttr(typeof(OracleMappers.EmployeeTrainingHistoryDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class EmployeeTrainingHistoryBase : ModelObject, IEquatable<EmployeeTrainingHistoryBase>  {
+	partial class EmployeeTrainingHistory:ModelObject,IEquatable<EmployeeTrainingHistory>  {
 
 		#region "Constructor"
 
-		public EmployeeTrainingHistoryBase() {
+		public EmployeeTrainingHistory() {
 			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new EmployeeTrainingHistoryRequiredFieldsValidator());
 		}
@@ -117,6 +120,8 @@ namespace OracleModel {
 
 		#region "Field Properties"
 
+		//Field EMPLOYEE_TRAINING_HISTORY_ID
+	[Required][Column(Name="EMPLOYEE_TRAINING_HISTORY_ID",Storage = "_EmployeeTrainingHistoryId", IsPrimaryKey=true,DbType = " NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64 PrEmployeeTrainingHistoryId{
 	get{
 		return _EmployeeTrainingHistoryId;
@@ -127,13 +132,15 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEE_TRAINING_HISTORY_ID);
 			}
-		this._EmployeeTrainingHistoryId=value;
+		this._EmployeeTrainingHistoryId = value;
 
 			this.raiseBroadcastIdChange();
 
 		}
 		}
 	}
+		//Field EMPLOYEE_ID
+	[Key][Required][Column(Name="EMPLOYEE_ID",Storage = "_EmployeeId", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64? PrEmployeeId{
 	get{
 		return _EmployeeId;
@@ -144,11 +151,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEE_ID);
 			}
-		this._EmployeeId=value;
+		this._EmployeeId = value;
 
 		}
 		}
 	}
+		//Field DATE_FROM
+	[Key][Column(Name="DATE_FROM",Storage = "_DateFrom", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.DateTime? PrDateFrom{
 	get{
 		return _DateFrom;
@@ -159,11 +168,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DATE_FROM);
 			}
-		this._DateFrom=value;
+		this._DateFrom = value;
 
 		}
 		}
 	}
+		//Field DATE_TO
+	[Key][Column(Name="DATE_TO",Storage = "_DateTo", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.DateTime? PrDateTo{
 	get{
 		return _DateTo;
@@ -174,11 +185,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DATE_TO);
 			}
-		this._DateTo=value;
+		this._DateTo = value;
 
 		}
 		}
 	}
+		//Field TRAINING_COURSE_CODE
+	[Key][StringLength(5, ErrorMessage="TRAINING_COURSE_CODE must be 5 characters or less")][Column(Name="TRAINING_COURSE_CODE",Storage = "_TrainingCourseCode", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String PrTrainingCourseCode{
 	get{
 		return _TrainingCourseCode;
@@ -192,7 +205,7 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_TRAINING_COURSE_CODE);
 			}
-		this._TrainingCourseCode=value;
+		this._TrainingCourseCode = value;
 
 		}
 		}
@@ -293,6 +306,7 @@ namespace OracleModel {
 		}
 
 		public override void setAttribute(int fieldKey, object val){
+			try {
 		switch (fieldKey) {
 		case FLD_EMPLOYEE_TRAINING_HISTORY_ID:
 			if (val == DBNull.Value || val == null ){
@@ -305,21 +319,21 @@ namespace OracleModel {
 			if (val == DBNull.Value || val == null ){
 				this.PrEmployeeId = null;
 			} else {
-				this.PrEmployeeId=(System.Int64)val;
+				this.PrEmployeeId=(System.Int64?)val;
 			} //
 			return;
 		case FLD_DATE_FROM:
 			if (val == DBNull.Value || val == null ){
 				this.PrDateFrom = null;
 			} else {
-				this.PrDateFrom=(System.DateTime)val;
+				this.PrDateFrom=(System.DateTime?)val;
 			} //
 			return;
 		case FLD_DATE_TO:
 			if (val == DBNull.Value || val == null ){
 				this.PrDateTo = null;
 			} else {
-				this.PrDateTo=(System.DateTime)val;
+				this.PrDateTo=(System.DateTime?)val;
 			} //
 			return;
 		case FLD_TRAINING_COURSE_CODE:
@@ -333,51 +347,62 @@ namespace OracleModel {
 			return;
 		}
 
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+						String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+								fieldKey, val, ex.Message));
+			}
 		}
 
 		public override void setAttribute(string fieldKey, object val) {
 			fieldKey = fieldKey.ToLower();
+			try {
 		if ( fieldKey==STR_FLD_EMPLOYEE_TRAINING_HISTORY_ID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.PrEmployeeTrainingHistoryId=(System.Int64)val;
+				this.PrEmployeeTrainingHistoryId=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_EMPLOYEE_ID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrEmployeeId = null;
 			} else {
-				this.PrEmployeeId=(System.Int64)val;
+				this.PrEmployeeId=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_DATE_FROM.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrDateFrom = null;
 			} else {
-				this.PrDateFrom=(System.DateTime)val;
+				this.PrDateFrom=Convert.ToDateTime(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_DATE_TO.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrDateTo = null;
 			} else {
-				this.PrDateTo=(System.DateTime)val;
+				this.PrDateTo=Convert.ToDateTime(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_TRAINING_COURSE_CODE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrTrainingCourseCode = null;
 			} else {
-				this.PrTrainingCourseCode=(System.String)val;
+				this.PrTrainingCourseCode=Convert.ToString(val);
 			}
 			return;
 		}
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+					String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+							fieldKey, val, ex.Message));
+			}
 		}
 
 		#endregion
 		#region "Overrides of GetHashCode and Equals "
-		public bool Equals(EmployeeTrainingHistoryBase other)
+		public bool Equals(EmployeeTrainingHistory other)
 		{
 
 			//typesafe equals, checks for equality of fields
@@ -407,9 +432,9 @@ namespace OracleModel {
 
 		public override bool Equals(object Obj) {
 
-			if (Obj != null && Obj is EmployeeTrainingHistoryBase) {
+			if (Obj != null && Obj is EmployeeTrainingHistory) {
 
-				return this.Equals((EmployeeTrainingHistoryBase)Obj);
+				return this.Equals((EmployeeTrainingHistory)Obj);
 
 			} else {
 				return false;
@@ -417,13 +442,12 @@ namespace OracleModel {
 
 		}
 
-		public static bool operator ==(EmployeeTrainingHistoryBase obj1, EmployeeTrainingHistoryBase obj2)
+		public static bool operator ==(EmployeeTrainingHistory obj1, EmployeeTrainingHistory obj2)
 		{
 			return object.Equals(obj1, obj2);
 		}
 
-		public static bool operator !=(EmployeeTrainingHistoryBase obj1, EmployeeTrainingHistoryBase obj2)
-		{
+		public static bool operator !=(EmployeeTrainingHistory obj1, EmployeeTrainingHistory obj2) {
 			return !(obj1 == obj2);
 		}
 
@@ -431,21 +455,14 @@ namespace OracleModel {
 
 		#region "Copy and sort"
 
-		public override IModelObject copy()
-		{
+		public override IModelObject copy() {
 			//creates a copy
-
-			//NOTE: we can't cast from EmployeeTrainingHistoryBase to EmployeeTrainingHistory, so below we 
-			//instantiate a EmployeeTrainingHistory, NOT a EmployeeTrainingHistoryBase object
 			EmployeeTrainingHistory ret = new EmployeeTrainingHistory();
-
 		ret.PrEmployeeTrainingHistoryId = this.PrEmployeeTrainingHistoryId;
 		ret.PrEmployeeId = this.PrEmployeeId;
 		ret.PrDateFrom = this.PrDateFrom;
 		ret.PrDateTo = this.PrDateTo;
 		ret.PrTrainingCourseCode = this.PrTrainingCourseCode;
-
-
 
 			return ret;
 

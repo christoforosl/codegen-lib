@@ -6,6 +6,8 @@ Imports System.Collections.Generic
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 Imports System.Data.Linq.Mapping
+Imports System.ComponentModel.DataAnnotations
+
 '<comments>
 '************************************************************
 ' Temnplate: ModelBase2.visualBasic.txt

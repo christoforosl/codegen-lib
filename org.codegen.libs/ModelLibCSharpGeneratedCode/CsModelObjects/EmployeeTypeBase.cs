@@ -11,6 +11,7 @@ using Microsoft.VisualBasic;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 using System.Data.Linq.Mapping;
+using System.ComponentModel.DataAnnotations;
 
 //<comments>
 //************************************************************
@@ -101,7 +102,8 @@ namespace CsModelObjects {
 
 		#region "Field Properties"
 
-	[Column(Name="EmployeeTypeCode",Storage = "_EmployeeTypeCode", IsPrimaryKey=true,DbType = "varchar NOT NULL",CanBeNull = false)]
+		//Field EmployeeTypeCode
+	[Required][StringLength(10, ErrorMessage="EmployeeTypeCode must be 10 characters or less")][Column(Name="EmployeeTypeCode",Storage = "_EmployeeTypeCode", IsPrimaryKey=true,DbType = "varchar NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.String PrEmployeeTypeCode{
 	get{
 		return _EmployeeTypeCode;
@@ -122,7 +124,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="EmployeeType",Storage = "_EmployeeType", IsPrimaryKey=false,DbType = "nvarchar NOT NULL",CanBeNull = false)]
+		//Field EmployeeType
+	[Key][Required][StringLength(50, ErrorMessage="EmployeeType must be 50 characters or less")][Column(Name="EmployeeType",Storage = "_EmployeeType", IsPrimaryKey=false,DbType = "nvarchar NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.String PrEmployeeType{
 	get{
 		return _EmployeeType;

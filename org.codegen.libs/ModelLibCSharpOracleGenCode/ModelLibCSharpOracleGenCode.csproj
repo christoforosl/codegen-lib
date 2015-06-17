@@ -81,7 +81,9 @@
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
@@ -117,70 +119,70 @@
       <DependentUpon>EmployeeTrainingHistoryDBMapper.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="OracleMappers\EmployeeTrainingHistoryDBMapper.cs" />
-    <Compile Include="OracleModel\EmployeeTrainingHistory.cs" />
-    <Compile Include="OracleModel\EmployeeTrainingHistoryBase.cs">
-      <DependentUpon>EmployeeTrainingHistory.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="OracleMappers\DepartmentDBMapperSql.xml">
       <DependentUpon>DepartmentDBMapper.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="OracleMappers\DepartmentDBMapper.cs" />
-    <Compile Include="OracleModel\Department.cs" />
-    <Compile Include="OracleModel\DepartmentBase.cs">
-      <DependentUpon>Department.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="OracleMappers\CountryDBMapperSql.xml">
       <DependentUpon>CountryDBMapper.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="OracleMappers\CountryDBMapper.cs" />
-    <Compile Include="OracleModel\Country.cs" />
-    <Compile Include="OracleModel\CountryBase.cs">
-      <DependentUpon>Country.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="OracleMappers\EmployeeDBMapperSql.xml">
       <DependentUpon>EmployeeDBMapper.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="OracleMappers\EmployeeDBMapper.cs" />
-    <Compile Include="OracleModel\Employee.cs" />
-    <Compile Include="OracleModel\EmployeeBase.cs">
-      <DependentUpon>Employee.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="OracleMappers\JobDBMapperSql.xml">
       <DependentUpon>JobDBMapper.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="OracleMappers\JobDBMapper.cs" />
-    <Compile Include="OracleModel\Job.cs" />
-    <Compile Include="OracleModel\JobBase.cs">
-      <DependentUpon>Job.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="OracleMappers\JobHistoryDBMapperSql.xml">
       <DependentUpon>JobHistoryDBMapper.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="OracleMappers\JobHistoryDBMapper.cs" />
-    <Compile Include="OracleModel\JobHistory.cs" />
-    <Compile Include="OracleModel\JobHistoryBase.cs">
-      <DependentUpon>JobHistory.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="OracleMappers\LocationDBMapperSql.xml">
       <DependentUpon>LocationDBMapper.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="OracleMappers\LocationDBMapper.cs" />
-    <Compile Include="OracleModel\Location.cs" />
-    <Compile Include="OracleModel\LocationBase.cs">
-      <DependentUpon>Location.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="OracleMappers\RegionDBMapperSql.xml">
       <DependentUpon>RegionDBMapper.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="OracleMappers\RegionDBMapper.cs" />
-    <Compile Include="OracleModel\Region.cs" />
-    <Compile Include="OracleModel\RegionBase.cs">
-      <DependentUpon>Region.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="OracleMappers\TrainingCourseDBMapperSql.xml">
       <DependentUpon>TrainingCourseDBMapper.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="OracleMappers\TrainingCourseDBMapper.cs" />
+    <Compile Include="OracleModel\EmployeeTrainingHistory.cs" />
+    <Compile Include="OracleModel\EmployeeTrainingHistoryBase.cs">
+      <DependentUpon>EmployeeTrainingHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OracleModel\Department.cs" />
+    <Compile Include="OracleModel\DepartmentBase.cs">
+      <DependentUpon>Department.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OracleModel\Country.cs" />
+    <Compile Include="OracleModel\CountryBase.cs">
+      <DependentUpon>Country.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OracleModel\Employee.cs" />
+    <Compile Include="OracleModel\EmployeeBase.cs">
+      <DependentUpon>Employee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OracleModel\Job.cs" />
+    <Compile Include="OracleModel\JobBase.cs">
+      <DependentUpon>Job.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OracleModel\JobHistory.cs" />
+    <Compile Include="OracleModel\JobHistoryBase.cs">
+      <DependentUpon>JobHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OracleModel\Location.cs" />
+    <Compile Include="OracleModel\LocationBase.cs">
+      <DependentUpon>Location.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OracleModel\Region.cs" />
+    <Compile Include="OracleModel\RegionBase.cs">
+      <DependentUpon>Region.cs</DependentUpon>
+    </Compile>
     <Compile Include="OracleModel\TrainingCourse.cs" />
     <Compile Include="OracleModel\TrainingCourseBase.cs">
       <DependentUpon>TrainingCourse.cs</DependentUpon>
@@ -226,6 +228,7 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

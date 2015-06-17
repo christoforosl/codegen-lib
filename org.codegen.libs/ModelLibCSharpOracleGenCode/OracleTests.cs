@@ -57,8 +57,10 @@ namespace GeneratorTests {
 				e.PrFirstName= "test";
                 e.PrLastName = "Lastname";
 				e.PrSALARY = 100m;
+                e.PrEMAIL = "test@test.com.cy";
 				e.PrPhoneNumber= "1030045";
 				e.PrHireDate = new DateTime(DateTime.Now.Year, 1, 1);
+                e.PrJobId = JobDataUtils.findList()[0].PrJobId;
 
                 e.PrTrainingHistoryAdd( EmployeeTrainingHistoryFactory.Create() );
                 EmployeeTrainingHistory emplProj = e.PrTrainingHistoryGetAt(0);

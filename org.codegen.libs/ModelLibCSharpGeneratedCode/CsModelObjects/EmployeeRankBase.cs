@@ -11,6 +11,7 @@ using Microsoft.VisualBasic;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 using System.Data.Linq.Mapping;
+using System.ComponentModel.DataAnnotations;
 
 //<comments>
 //************************************************************
@@ -101,7 +102,8 @@ namespace CsModelObjects {
 
 		#region "Field Properties"
 
-	[Column(Name="RankId",Storage = "_RankId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
+		//Field RankId
+	[Required][Column(Name="RankId",Storage = "_RankId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64 PrRankId{
 	get{
 		return _RankId;
@@ -119,7 +121,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="Rank",Storage = "_Rank", IsPrimaryKey=false,DbType = "nvarchar NOT NULL",CanBeNull = false)]
+		//Field Rank
+	[Key][Required][StringLength(50, ErrorMessage="Rank must be 50 characters or less")][Column(Name="Rank",Storage = "_Rank", IsPrimaryKey=false,DbType = "nvarchar NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.String PrRank{
 	get{
 		return _Rank;

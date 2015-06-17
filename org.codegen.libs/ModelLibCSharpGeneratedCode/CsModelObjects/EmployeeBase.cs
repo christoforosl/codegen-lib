@@ -11,6 +11,7 @@ using Microsoft.VisualBasic;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 using System.Data.Linq.Mapping;
+using System.ComponentModel.DataAnnotations;
 
 //<comments>
 //************************************************************
@@ -184,7 +185,8 @@ namespace CsModelObjects {
 
 		#region "Field Properties"
 
-	[Column(Name="EmployeeId",Storage = "_EmployeeId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
+		//Field EmployeeId
+	[Required][Column(Name="EmployeeId",Storage = "_EmployeeId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64 PrEmployeeId{
 	get{
 		return _EmployeeId;
@@ -202,7 +204,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="EmployeeName",Storage = "_EmployeeName", IsPrimaryKey=false,DbType = "nvarchar NOT NULL",CanBeNull = false)]
+		//Field EmployeeName
+	[Key][Required][StringLength(50, ErrorMessage="EmployeeName must be 50 characters or less")][Column(Name="EmployeeName",Storage = "_EmployeeName", IsPrimaryKey=false,DbType = "nvarchar NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.String PrEmployeeName{
 	get{
 		return _EmployeeName;
@@ -221,7 +224,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="EmployeeRankId",Storage = "_EmployeeRankId", IsPrimaryKey=false,DbType = "int NOT NULL",CanBeNull = false)]
+		//Field EmployeeRankId
+	[Key][Required][Column(Name="EmployeeRankId",Storage = "_EmployeeRankId", IsPrimaryKey=false,DbType = "int NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64? PrEmployeeRankId{
 	get{
 		return _EmployeeRankId;
@@ -237,7 +241,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="Salary",Storage = "_Salary", IsPrimaryKey=false,DbType = "decimal",CanBeNull = true)]
+		//Field Salary
+	[Key][Column(Name="Salary",Storage = "_Salary", IsPrimaryKey=false,DbType = "decimal",CanBeNull = true)]
 	[DataMember]public virtual System.Decimal? PrSalary{
 	get{
 		return _Salary;
@@ -253,7 +258,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="Address",Storage = "_Address", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
+		//Field Address
+	[Key][StringLength(50, ErrorMessage="Address must be 50 characters or less")][Column(Name="Address",Storage = "_Address", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
 	[DataMember]public virtual System.String PrAddress{
 	get{
 		return _Address;
@@ -272,7 +278,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="Telephone",Storage = "_Telephone", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
+		//Field Telephone
+	[Key][StringLength(10, ErrorMessage="Telephone must be 10 characters or less")][Column(Name="Telephone",Storage = "_Telephone", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
 	[DataMember]public virtual System.String PrTelephone{
 	get{
 		return _Telephone;
@@ -291,7 +298,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="Mobile",Storage = "_Mobile", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
+		//Field Mobile
+	[Key][StringLength(10, ErrorMessage="Mobile must be 10 characters or less")][Column(Name="Mobile",Storage = "_Mobile", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
 	[DataMember]public virtual System.String PrMobile{
 	get{
 		return _Mobile;
@@ -310,7 +318,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="IdNumber",Storage = "_IdNumber", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
+		//Field IdNumber
+	[Key][StringLength(10, ErrorMessage="IdNumber must be 10 characters or less")][Column(Name="IdNumber",Storage = "_IdNumber", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
 	[DataMember]public virtual System.String PrIdNumber{
 	get{
 		return _IdNumber;
@@ -329,7 +338,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="SSINumber",Storage = "_SSINumber", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
+		//Field SSINumber
+	[Key][StringLength(10, ErrorMessage="SSINumber must be 10 characters or less")][Column(Name="SSINumber",Storage = "_SSINumber", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
 	[DataMember]public virtual System.String PrSSINumber{
 	get{
 		return _SSINumber;
@@ -348,7 +358,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="HireDate",Storage = "_HireDate", IsPrimaryKey=false,DbType = "date",CanBeNull = true)]
+		//Field HireDate
+	[Key][Column(Name="HireDate",Storage = "_HireDate", IsPrimaryKey=false,DbType = "date",CanBeNull = true)]
 	[DataMember]public virtual System.DateTime? PrHireDate{
 	get{
 		return _HireDate;
@@ -364,7 +375,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="NumDependents",Storage = "_NumDependents", IsPrimaryKey=false,DbType = "int",CanBeNull = true)]
+		//Field NumDependents
+	[Key][Column(Name="NumDependents",Storage = "_NumDependents", IsPrimaryKey=false,DbType = "int",CanBeNull = true)]
 	[DataMember]public virtual System.Int64? PrNumDependents{
 	get{
 		return _NumDependents;
@@ -380,7 +392,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="EmployeeTypeCode",Storage = "_EmployeeTypeCode", IsPrimaryKey=false,DbType = "varchar",CanBeNull = true)]
+		//Field EmployeeTypeCode
+	[Key][StringLength(10, ErrorMessage="EmployeeTypeCode must be 10 characters or less")][Column(Name="EmployeeTypeCode",Storage = "_EmployeeTypeCode", IsPrimaryKey=false,DbType = "varchar",CanBeNull = true)]
 	[DataMember]public virtual System.String PrEmployeeTypeCode{
 	get{
 		return _EmployeeTypeCode;
@@ -399,7 +412,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="createDate",Storage = "_CreateDate", IsPrimaryKey=false,DbType = "datetime",CanBeNull = true)]
+		//Field createDate
+	[Key][Column(Name="createDate",Storage = "_CreateDate", IsPrimaryKey=false,DbType = "datetime",CanBeNull = true)]
 	[DataMember]public virtual System.DateTime? CreateDate{
 	get{
 		return _CreateDate;
@@ -415,7 +429,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="updateDate",Storage = "_UpdateDate", IsPrimaryKey=false,DbType = "datetime",CanBeNull = true)]
+		//Field updateDate
+	[Key][Column(Name="updateDate",Storage = "_UpdateDate", IsPrimaryKey=false,DbType = "datetime",CanBeNull = true)]
 	[DataMember]public virtual System.DateTime? UpdateDate{
 	get{
 		return _UpdateDate;
@@ -431,7 +446,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="createUser",Storage = "_CreateUser", IsPrimaryKey=false,DbType = "varchar",CanBeNull = true)]
+		//Field createUser
+	[Key][StringLength(50, ErrorMessage="createUser must be 50 characters or less")][Column(Name="createUser",Storage = "_CreateUser", IsPrimaryKey=false,DbType = "varchar",CanBeNull = true)]
 	[DataMember]public virtual System.String CreateUser{
 	get{
 		return _CreateUser;
@@ -450,7 +466,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="updateUser",Storage = "_UpdateUser", IsPrimaryKey=false,DbType = "varchar",CanBeNull = true)]
+		//Field updateUser
+	[Key][StringLength(50, ErrorMessage="updateUser must be 50 characters or less")][Column(Name="updateUser",Storage = "_UpdateUser", IsPrimaryKey=false,DbType = "varchar",CanBeNull = true)]
 	[DataMember]public virtual System.String UpdateUser{
 	get{
 		return _UpdateUser;
@@ -469,7 +486,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="sampleGuidField",Storage = "_SampleGuidField", IsPrimaryKey=false,DbType = "uniqueidentifier",CanBeNull = true)]
+		//Field sampleGuidField
+	[Key][Column(Name="sampleGuidField",Storage = "_SampleGuidField", IsPrimaryKey=false,DbType = "uniqueidentifier",CanBeNull = true)]
 	[DataMember]public virtual System.Guid? PrSampleGuidField{
 	get{
 		return _SampleGuidField;
@@ -485,7 +503,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="isActive",Storage = "_IsActive", IsPrimaryKey=false,DbType = "bit",CanBeNull = true)]
+		//Field isActive
+	[Key][Column(Name="isActive",Storage = "_IsActive", IsPrimaryKey=false,DbType = "bit",CanBeNull = true)]
 	[DataMember]public virtual System.Boolean PrIsActive{
 	get{
 		return _IsActive;
@@ -501,7 +520,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="sampleBigInt",Storage = "_SampleBigInt", IsPrimaryKey=false,DbType = "bigint",CanBeNull = true)]
+		//Field sampleBigInt
+	[Key][Column(Name="sampleBigInt",Storage = "_SampleBigInt", IsPrimaryKey=false,DbType = "bigint",CanBeNull = true)]
 	[DataMember]public virtual System.Int64? PrSampleBigInt{
 	get{
 		return _SampleBigInt;
@@ -517,7 +537,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="sampleSmallInt",Storage = "_SampleSmallInt", IsPrimaryKey=false,DbType = "smallint",CanBeNull = true)]
+		//Field sampleSmallInt
+	[Key][Column(Name="sampleSmallInt",Storage = "_SampleSmallInt", IsPrimaryKey=false,DbType = "smallint",CanBeNull = true)]
 	[DataMember]public virtual System.Int64? PrSampleSmallInt{
 	get{
 		return _SampleSmallInt;
@@ -533,7 +554,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="sampleNumericFieldInt",Storage = "_SampleNumericFieldInt", IsPrimaryKey=false,DbType = "decimal",CanBeNull = true)]
+		//Field sampleNumericFieldInt
+	[Key][Column(Name="sampleNumericFieldInt",Storage = "_SampleNumericFieldInt", IsPrimaryKey=false,DbType = "decimal",CanBeNull = true)]
 	[DataMember]public virtual System.Int64? PrSampleNumericFieldInt{
 	get{
 		return _SampleNumericFieldInt;
@@ -549,7 +571,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="sampleNumericField2Decimals",Storage = "_SampleNumericField2Decimals", IsPrimaryKey=false,DbType = "decimal",CanBeNull = true)]
+		//Field sampleNumericField2Decimals
+	[Key][Column(Name="sampleNumericField2Decimals",Storage = "_SampleNumericField2Decimals", IsPrimaryKey=false,DbType = "decimal",CanBeNull = true)]
 	[DataMember]public virtual System.Decimal? PrSampleNumericField2Decimals{
 	get{
 		return _SampleNumericField2Decimals;

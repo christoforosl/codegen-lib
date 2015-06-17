@@ -189,10 +189,10 @@ Public Class SQLStmtsGenerator
                 sbf.Append(field.FieldName())
 
                 If (Not sbv.ToString().Equals("")) Then
-                    sbv.Append(",:")
+                    sbv.Append(",")
                 End If
                 'sbv.Append(parameterCounter)''change: take param name
-                sbv.Append(field.FieldName())
+                sbv.Append("?")
                 fldLineCnt = fldLineCnt + 1
                 If fldLineCnt = 5 Then
                     'sbf.Append(vbCrLf & vbTab)
@@ -205,9 +205,9 @@ Public Class SQLStmtsGenerator
         Next
 
         'sbf.append(me.dbTable.getPrimaryKey());
-        sbf.Append(") values (:")
-        'sbv.Append(") RETURNING " & Me.DbTable.getPrimaryKeyName() & " INTO :" & parameterCounter & ";END;")
-        sbv.Append(") RETURNING " & Me.dbTable.getPrimaryKeyName() & " INTO :" & Me.dbTable.getPrimaryKeyName() & ";END;")
+        sbf.Append(") values (")
+
+        sbv.Append(") RETURNING " & Me.dbTable.getPrimaryKeyName() & " INTO ?;END;")
         sbf.Append(sbv)
 
         sbf.Insert(0, "BEGIN insert into " & Me.dbTable.quotedTableName() & " (" & vbCrLf)

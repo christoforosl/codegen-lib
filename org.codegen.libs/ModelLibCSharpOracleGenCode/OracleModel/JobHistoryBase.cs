@@ -10,6 +10,8 @@ using org.model.lib;
 using Microsoft.VisualBasic;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
+using System.Data.Linq.Mapping;
+using System.ComponentModel.DataAnnotations;
 
 //<comments>
 //************************************************************
@@ -24,14 +26,15 @@ using System.Xml.Serialization;
 //************************************************************
 //</comments>
 namespace OracleModel {
-	
+
+	[Table(Name = "JOB_HISTORY")]
 	[DataContract]
 	[DefaultMapperAttr(typeof(OracleMappers.JobHistoryDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class JobHistoryBase : ModelObject, IEquatable<JobHistoryBase> ,IAuditable {
+	partial class JobHistory:ModelObject,IEquatable<JobHistory> ,IAuditable {
 
 		#region "Constructor"
 
-		public JobHistoryBase() {
+		public JobHistory() {
 			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new JobHistoryRequiredFieldsValidator());
 		}
@@ -123,6 +126,8 @@ namespace OracleModel {
 
 		#region "Field Properties"
 
+		//Field JOB_HISTORY_ID
+	[Required][Column(Name="JOB_HISTORY_ID",Storage = "_JobHistoryId", IsPrimaryKey=true,DbType = " NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64 PrJobHistoryId{
 	get{
 		return _JobHistoryId;
@@ -133,13 +138,15 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_JOB_HISTORY_ID);
 			}
-		this._JobHistoryId=value;
+		this._JobHistoryId = value;
 
 			this.raiseBroadcastIdChange();
 
 		}
 		}
 	}
+		//Field EMPLOYEE_ID
+	[Key][Required][Column(Name="EMPLOYEE_ID",Storage = "_EmployeeId", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64? PrEmployeeId{
 	get{
 		return _EmployeeId;
@@ -150,11 +157,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEE_ID);
 			}
-		this._EmployeeId=value;
+		this._EmployeeId = value;
 
 		}
 		}
 	}
+		//Field START_DATE
+	[Key][Required][Column(Name="START_DATE",Storage = "_StartDate", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.DateTime? PrStartDate{
 	get{
 		return _StartDate;
@@ -165,11 +174,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_START_DATE);
 			}
-		this._StartDate=value;
+		this._StartDate = value;
 
 		}
 		}
 	}
+		//Field END_DATE
+	[Key][Required][Column(Name="END_DATE",Storage = "_EndDate", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.DateTime? PrEndDate{
 	get{
 		return _EndDate;
@@ -180,11 +191,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_END_DATE);
 			}
-		this._EndDate=value;
+		this._EndDate = value;
 
 		}
 		}
 	}
+		//Field JOB_ID
+	[Key][Required][StringLength(10, ErrorMessage="JOB_ID must be 10 characters or less")][Column(Name="JOB_ID",Storage = "_JobId", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.String PrJobId{
 	get{
 		return _JobId;
@@ -198,11 +211,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_JOB_ID);
 			}
-		this._JobId=value;
+		this._JobId = value;
 
 		}
 		}
 	}
+		//Field DEPARTMENT_ID
+	[Key][Column(Name="DEPARTMENT_ID",Storage = "_DepartmentId", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.Int64? PrDepartmentId{
 	get{
 		return _DepartmentId;
@@ -213,11 +228,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DEPARTMENT_ID);
 			}
-		this._DepartmentId=value;
+		this._DepartmentId = value;
 
 		}
 		}
 	}
+		//Field CREATE_DATE
+	[Key][Column(Name="CREATE_DATE",Storage = "_CreateDate", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.DateTime? CreateDate{
 	get{
 		return _CreateDate;
@@ -228,11 +245,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_DATE);
 			}
-		this._CreateDate=value;
+		this._CreateDate = value;
 
 		}
 		}
 	}
+		//Field UPDATE_DATE
+	[Key][Column(Name="UPDATE_DATE",Storage = "_UpdateDate", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.DateTime? UpdateDate{
 	get{
 		return _UpdateDate;
@@ -243,11 +262,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_DATE);
 			}
-		this._UpdateDate=value;
+		this._UpdateDate = value;
 
 		}
 		}
 	}
+		//Field CREATE_USER
+	[Key][StringLength(10, ErrorMessage="CREATE_USER must be 10 characters or less")][Column(Name="CREATE_USER",Storage = "_CreateUser", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String CreateUser{
 	get{
 		return _CreateUser;
@@ -261,11 +282,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_USER);
 			}
-		this._CreateUser=value;
+		this._CreateUser = value;
 
 		}
 		}
 	}
+		//Field UPDATE_USER
+	[Key][StringLength(10, ErrorMessage="UPDATE_USER must be 10 characters or less")][Column(Name="UPDATE_USER",Storage = "_UpdateUser", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String UpdateUser{
 	get{
 		return _UpdateUser;
@@ -279,7 +302,7 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_USER);
 			}
-		this._UpdateUser=value;
+		this._UpdateUser = value;
 
 		}
 		}
@@ -346,6 +369,7 @@ namespace OracleModel {
 		}
 
 		public override void setAttribute(int fieldKey, object val){
+			try {
 		switch (fieldKey) {
 		case FLD_JOB_HISTORY_ID:
 			if (val == DBNull.Value || val == null ){
@@ -358,21 +382,21 @@ namespace OracleModel {
 			if (val == DBNull.Value || val == null ){
 				this.PrEmployeeId = null;
 			} else {
-				this.PrEmployeeId=(System.Int64)val;
+				this.PrEmployeeId=(System.Int64?)val;
 			} //
 			return;
 		case FLD_START_DATE:
 			if (val == DBNull.Value || val == null ){
 				this.PrStartDate = null;
 			} else {
-				this.PrStartDate=(System.DateTime)val;
+				this.PrStartDate=(System.DateTime?)val;
 			} //
 			return;
 		case FLD_END_DATE:
 			if (val == DBNull.Value || val == null ){
 				this.PrEndDate = null;
 			} else {
-				this.PrEndDate=(System.DateTime)val;
+				this.PrEndDate=(System.DateTime?)val;
 			} //
 			return;
 		case FLD_JOB_ID:
@@ -386,21 +410,21 @@ namespace OracleModel {
 			if (val == DBNull.Value || val == null ){
 				this.PrDepartmentId = null;
 			} else {
-				this.PrDepartmentId=(System.Int64)val;
+				this.PrDepartmentId=(System.Int64?)val;
 			} //
 			return;
 		case FLD_CREATE_DATE:
 			if (val == DBNull.Value || val == null ){
 				this.CreateDate = null;
 			} else {
-				this.CreateDate=(System.DateTime)val;
+				this.CreateDate=(System.DateTime?)val;
 			} //
 			return;
 		case FLD_UPDATE_DATE:
 			if (val == DBNull.Value || val == null ){
 				this.UpdateDate = null;
 			} else {
-				this.UpdateDate=(System.DateTime)val;
+				this.UpdateDate=(System.DateTime?)val;
 			} //
 			return;
 		case FLD_CREATE_USER:
@@ -421,86 +445,97 @@ namespace OracleModel {
 			return;
 		}
 
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+						String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+								fieldKey, val, ex.Message));
+			}
 		}
 
 		public override void setAttribute(string fieldKey, object val) {
 			fieldKey = fieldKey.ToLower();
+			try {
 		if ( fieldKey==STR_FLD_JOB_HISTORY_ID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.PrJobHistoryId=(System.Int64)val;
+				this.PrJobHistoryId=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_EMPLOYEE_ID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrEmployeeId = null;
 			} else {
-				this.PrEmployeeId=(System.Int64)val;
+				this.PrEmployeeId=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_START_DATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrStartDate = null;
 			} else {
-				this.PrStartDate=(System.DateTime)val;
+				this.PrStartDate=Convert.ToDateTime(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_END_DATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrEndDate = null;
 			} else {
-				this.PrEndDate=(System.DateTime)val;
+				this.PrEndDate=Convert.ToDateTime(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_JOB_ID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrJobId = null;
 			} else {
-				this.PrJobId=(System.String)val;
+				this.PrJobId=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_DEPARTMENT_ID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrDepartmentId = null;
 			} else {
-				this.PrDepartmentId=(System.Int64)val;
+				this.PrDepartmentId=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_CREATE_DATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.CreateDate = null;
 			} else {
-				this.CreateDate=(System.DateTime)val;
+				this.CreateDate=Convert.ToDateTime(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_UPDATE_DATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.UpdateDate = null;
 			} else {
-				this.UpdateDate=(System.DateTime)val;
+				this.UpdateDate=Convert.ToDateTime(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_CREATE_USER.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.CreateUser = null;
 			} else {
-				this.CreateUser=(System.String)val;
+				this.CreateUser=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_UPDATE_USER.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.UpdateUser = null;
 			} else {
-				this.UpdateUser=(System.String)val;
+				this.UpdateUser=Convert.ToString(val);
 			}
 			return;
 		}
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+					String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+							fieldKey, val, ex.Message));
+			}
 		}
 
 		#endregion
 		#region "Overrides of GetHashCode and Equals "
-		public bool Equals(JobHistoryBase other)
+		public bool Equals(JobHistory other)
 		{
 
 			//typesafe equals, checks for equality of fields
@@ -540,9 +575,9 @@ namespace OracleModel {
 
 		public override bool Equals(object Obj) {
 
-			if (Obj != null && Obj is JobHistoryBase) {
+			if (Obj != null && Obj is JobHistory) {
 
-				return this.Equals((JobHistoryBase)Obj);
+				return this.Equals((JobHistory)Obj);
 
 			} else {
 				return false;
@@ -550,13 +585,12 @@ namespace OracleModel {
 
 		}
 
-		public static bool operator ==(JobHistoryBase obj1, JobHistoryBase obj2)
+		public static bool operator ==(JobHistory obj1, JobHistory obj2)
 		{
 			return object.Equals(obj1, obj2);
 		}
 
-		public static bool operator !=(JobHistoryBase obj1, JobHistoryBase obj2)
-		{
+		public static bool operator !=(JobHistory obj1, JobHistory obj2) {
 			return !(obj1 == obj2);
 		}
 
@@ -564,14 +598,9 @@ namespace OracleModel {
 
 		#region "Copy and sort"
 
-		public override IModelObject copy()
-		{
+		public override IModelObject copy() {
 			//creates a copy
-
-			//NOTE: we can't cast from JobHistoryBase to JobHistory, so below we 
-			//instantiate a JobHistory, NOT a JobHistoryBase object
 			JobHistory ret = new JobHistory();
-
 		ret.PrJobHistoryId = this.PrJobHistoryId;
 		ret.PrEmployeeId = this.PrEmployeeId;
 		ret.PrStartDate = this.PrStartDate;
@@ -582,8 +611,6 @@ namespace OracleModel {
 		ret.UpdateDate = this.UpdateDate;
 		ret.CreateUser = this.CreateUser;
 		ret.UpdateUser = this.UpdateUser;
-
-
 
 			return ret;
 

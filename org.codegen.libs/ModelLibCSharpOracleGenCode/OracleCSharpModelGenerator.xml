@@ -4,26 +4,27 @@
 	   xsi:schemaLocation="ClassGenerator4 https://raw.githubusercontent.com/christoforosl/codegen-lib/master/org.codegen.libs/org.codegen.lib/classGenerator.4.xsd" >
 
 
-  <GeneratorVersion>4</GeneratorVersion>
+  <generatorVersion>4</generatorVersion>
   <projectFile>.\ModelLibCSharpOracleGenCode.csproj</projectFile>
   <projectName>ModelLibCSharpTests</projectName>
   <outputDir>.\</outputDir>
   <dotNetLanguage>CSHARP</dotNetLanguage>
-  
+
   <testProjectOutputDir>.\OracleTests</testProjectOutputDir>
 
   <defaultNamespace>OracleModel</defaultNamespace>
   <defaultDBMapperNameSpace>OracleMappers</defaultDBMapperNameSpace>
-  
+
   <propertiesPrefix>Pr</propertiesPrefix>
   <dbConnectionString>
-    Provider=MSDAORA;Data Source=polnewdbsrv0;Persist Security Info=True;User ID=hrnuf;password=hr
+    Provider=MSDAORA.1;Data Source=polnewdbsrv0;Persist Security Info=True;User ID=hrnuf;password=hr
   </dbConnectionString>
   <dbConnectionDialect>ORACLE</dbConnectionDialect>
   <dbConnectionType>CONN_OLEDB</dbConnectionType>
+  
   <table>
     <TableName>EMPLOYEE_TRAINING_HISTORY</TableName>
-   <association>
+    <association>
       <relationType>PARENT</relationType>
       <DataType>OracleModel.TrainingCourse</DataType>
       <AssociationName>TrainingCourse</AssociationName>
@@ -31,19 +32,19 @@
       <parentFieldName>CODE</parentFieldName>
       <childFieldName>training_course_code</childFieldName>
     </association>
-        
+
   </table>
-  
+
   <table>
     <TableName>DEPARTMENTS</TableName>
     <ClassName>Department</ClassName>
   </table>
   <table>
     <TableName>COUNTRIES</TableName>
-    <ClassName>Country</ClassName>    
+    <ClassName>Country</ClassName>
   </table>
-  
-<!--
+
+  <!--
   <table>
     <TableName>XML_TYPE_TEST</TableName>
     <ClassName>XmlTypeTest</ClassName>
@@ -54,17 +55,17 @@
     <TableName>EMPLOYEES</TableName>
     <ClassName>Employee</ClassName>
     <SelectObject>EMP_DETAILS_VIEW</SelectObject>
-  
+
     <association>
       <relationType>CHILD</relationType>
       <DataType>OracleModel.JobHistory</DataType>
-      
+
       <AssociationName>JobHistory</AssociationName>
       <cardinality>*</cardinality>
 
       <parentFieldName>employee_id</parentFieldName>
       <childFieldName>employee_id</childFieldName>
-      
+
     </association>
 
     <association>
@@ -75,7 +76,7 @@
       <parentFieldName>Department_id</parentFieldName>
       <childFieldName>Department_id</childFieldName>
     </association>
-    
+
     <association>
       <relationType>CHILD</relationType>
       <DataType>OracleModel.EmployeeTrainingHistory</DataType>
@@ -83,27 +84,27 @@
       <cardinality>*</cardinality>
       <parentFieldName>employee_id</parentFieldName>
       <childFieldName>employee_id</childFieldName>
-      
-      
+
+
     </association>
 
     <association>
       <relationType>CHILD</relationType>
       <DataType>OracleModel.EmployeeTrainingHistory</DataType>
-      <AssociationName>TrainingHistory</AssociationName>      
+      <AssociationName>TrainingHistory</AssociationName>
       <cardinality>*</cardinality>
       <parentFieldName>employee_id</parentFieldName>
       <childFieldName>employee_id</childFieldName>
-      
-      
-      
+
+
+
     </association>
 
   </table>
   <table>
     <TableName>JOBS</TableName>
     <ClassName>Job</ClassName>
-  
+
   </table>
   <table>
     <TableName>JOB_HISTORY</TableName>
@@ -112,7 +113,7 @@
   <table>
     <TableName>LOCATIONS</TableName>
     <ClassName>Location</ClassName>
-  
+
   </table>
   <table>
     <TableName>REGIONS</TableName>
@@ -120,7 +121,7 @@
   </table>
 
 
- 
+
   <table>
     <TableName>training_courses</TableName>
     <ClassName>TrainingCourse</ClassName>

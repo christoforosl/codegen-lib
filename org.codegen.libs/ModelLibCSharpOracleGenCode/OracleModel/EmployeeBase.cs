@@ -10,6 +10,8 @@ using org.model.lib;
 using Microsoft.VisualBasic;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
+using System.Data.Linq.Mapping;
+using System.ComponentModel.DataAnnotations;
 
 //<comments>
 //************************************************************
@@ -24,14 +26,15 @@ using System.Xml.Serialization;
 //************************************************************
 //</comments>
 namespace OracleModel {
-	
+
+	[Table(Name = "EMPLOYEES")]
 	[DataContract]
 	[DefaultMapperAttr(typeof(OracleMappers.EmployeeDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class EmployeeBase : ModelObject, IEquatable<EmployeeBase> ,IAuditable {
+	partial class Employee:ModelObject,IEquatable<Employee> ,IAuditable {
 
 		#region "Constructor"
 
-		public EmployeeBase() {
+		public Employee() {
 			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new EmployeeRequiredFieldsValidator());
 		}
@@ -201,6 +204,8 @@ namespace OracleModel {
 
 		#region "Field Properties"
 
+		//Field EMPLOYEE_ID
+	[Required][Column(Name="EMPLOYEE_ID",Storage = "_EmployeeId", IsPrimaryKey=true,DbType = " NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64 PrEmployeeId{
 	get{
 		return _EmployeeId;
@@ -211,13 +216,15 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMPLOYEE_ID);
 			}
-		this._EmployeeId=value;
+		this._EmployeeId = value;
 
 			this.raiseBroadcastIdChange();
 
 		}
 		}
 	}
+		//Field FIRST_NAME
+	[Key][StringLength(20, ErrorMessage="FIRST_NAME must be 20 characters or less")][Column(Name="FIRST_NAME",Storage = "_FirstName", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String PrFirstName{
 	get{
 		return _FirstName;
@@ -231,11 +238,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_FIRST_NAME);
 			}
-		this._FirstName=value;
+		this._FirstName = value;
 
 		}
 		}
 	}
+		//Field LAST_NAME
+	[Key][Required][StringLength(25, ErrorMessage="LAST_NAME must be 25 characters or less")][Column(Name="LAST_NAME",Storage = "_LastName", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.String PrLastName{
 	get{
 		return _LastName;
@@ -249,11 +258,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LAST_NAME);
 			}
-		this._LastName=value;
+		this._LastName = value;
 
 		}
 		}
 	}
+		//Field EMAIL
+	[Key][Required][StringLength(25, ErrorMessage="EMAIL must be 25 characters or less")][Column(Name="EMAIL",Storage = "_EMAIL", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.String PrEMAIL{
 	get{
 		return _EMAIL;
@@ -267,11 +278,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_EMAIL);
 			}
-		this._EMAIL=value;
+		this._EMAIL = value;
 
 		}
 		}
 	}
+		//Field PHONE_NUMBER
+	[Key][StringLength(20, ErrorMessage="PHONE_NUMBER must be 20 characters or less")][Column(Name="PHONE_NUMBER",Storage = "_PhoneNumber", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String PrPhoneNumber{
 	get{
 		return _PhoneNumber;
@@ -285,11 +298,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_PHONE_NUMBER);
 			}
-		this._PhoneNumber=value;
+		this._PhoneNumber = value;
 
 		}
 		}
 	}
+		//Field HIRE_DATE
+	[Key][Required][Column(Name="HIRE_DATE",Storage = "_HireDate", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.DateTime? PrHireDate{
 	get{
 		return _HireDate;
@@ -300,11 +315,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_HIRE_DATE);
 			}
-		this._HireDate=value;
+		this._HireDate = value;
 
 		}
 		}
 	}
+		//Field JOB_ID
+	[Key][Required][StringLength(10, ErrorMessage="JOB_ID must be 10 characters or less")][Column(Name="JOB_ID",Storage = "_JobId", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.String PrJobId{
 	get{
 		return _JobId;
@@ -318,11 +335,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_JOB_ID);
 			}
-		this._JobId=value;
+		this._JobId = value;
 
 		}
 		}
 	}
+		//Field SALARY
+	[Key][Column(Name="SALARY",Storage = "_SALARY", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.Decimal? PrSALARY{
 	get{
 		return _SALARY;
@@ -333,11 +352,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SALARY);
 			}
-		this._SALARY=value;
+		this._SALARY = value;
 
 		}
 		}
 	}
+		//Field COMMISSION_PCT
+	[Key][Column(Name="COMMISSION_PCT",Storage = "_CommissionPct", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.Decimal? PrCommissionPct{
 	get{
 		return _CommissionPct;
@@ -348,11 +369,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COMMISSION_PCT);
 			}
-		this._CommissionPct=value;
+		this._CommissionPct = value;
 
 		}
 		}
 	}
+		//Field MANAGER_ID
+	[Key][Column(Name="MANAGER_ID",Storage = "_ManagerId", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.Int64? PrManagerId{
 	get{
 		return _ManagerId;
@@ -363,11 +386,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_MANAGER_ID);
 			}
-		this._ManagerId=value;
+		this._ManagerId = value;
 
 		}
 		}
 	}
+		//Field DEPARTMENT_ID
+	[Key][Column(Name="DEPARTMENT_ID",Storage = "_DepartmentId", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.Int64? PrDepartmentId{
 	get{
 		return _DepartmentId;
@@ -378,11 +403,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DEPARTMENT_ID);
 			}
-		this._DepartmentId=value;
+		this._DepartmentId = value;
 
 		}
 		}
 	}
+		//Field CREATE_DATE
+	[Key][Column(Name="CREATE_DATE",Storage = "_CreateDate", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.DateTime? CreateDate{
 	get{
 		return _CreateDate;
@@ -393,11 +420,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_DATE);
 			}
-		this._CreateDate=value;
+		this._CreateDate = value;
 
 		}
 		}
 	}
+		//Field UPDATE_DATE
+	[Key][Column(Name="UPDATE_DATE",Storage = "_UpdateDate", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.DateTime? UpdateDate{
 	get{
 		return _UpdateDate;
@@ -408,11 +437,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_DATE);
 			}
-		this._UpdateDate=value;
+		this._UpdateDate = value;
 
 		}
 		}
 	}
+		//Field CREATE_USER
+	[Key][StringLength(20, ErrorMessage="CREATE_USER must be 20 characters or less")][Column(Name="CREATE_USER",Storage = "_CreateUser", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String CreateUser{
 	get{
 		return _CreateUser;
@@ -426,11 +457,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_USER);
 			}
-		this._CreateUser=value;
+		this._CreateUser = value;
 
 		}
 		}
 	}
+		//Field UPDATE_USER
+	[Key][StringLength(20, ErrorMessage="UPDATE_USER must be 20 characters or less")][Column(Name="UPDATE_USER",Storage = "_UpdateUser", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String UpdateUser{
 	get{
 		return _UpdateUser;
@@ -444,11 +477,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_USER);
 			}
-		this._UpdateUser=value;
+		this._UpdateUser = value;
 
 		}
 		}
 	}
+		//Field LOCATION_ID
+	[Key][Column(Name="LOCATION_ID",Storage = "_LocationId", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.Int64? PrLocationId{
 	get{
 		return _LocationId;
@@ -459,11 +494,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LOCATION_ID);
 			}
-		this._LocationId=value;
+		this._LocationId = value;
 
 		}
 		}
 	}
+		//Field COUNTRY_ID
+	[Key][StringLength(2, ErrorMessage="COUNTRY_ID must be 2 characters or less")][Column(Name="COUNTRY_ID",Storage = "_CountryId", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String PrCountryId{
 	get{
 		return _CountryId;
@@ -477,11 +514,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COUNTRY_ID);
 			}
-		this._CountryId=value;
+		this._CountryId = value;
 
 		}
 		}
 	}
+		//Field DEPARTMENT_NAME
+	[Key][StringLength(30, ErrorMessage="DEPARTMENT_NAME must be 30 characters or less")][Column(Name="DEPARTMENT_NAME",Storage = "_DepartmentName", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String PrDepartmentName{
 	get{
 		return _DepartmentName;
@@ -495,11 +534,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DEPARTMENT_NAME);
 			}
-		this._DepartmentName=value;
+		this._DepartmentName = value;
 
 		}
 		}
 	}
+		//Field JOB_TITLE
+	[Key][StringLength(35, ErrorMessage="JOB_TITLE must be 35 characters or less")][Column(Name="JOB_TITLE",Storage = "_JobTitle", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String PrJobTitle{
 	get{
 		return _JobTitle;
@@ -513,11 +554,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_JOB_TITLE);
 			}
-		this._JobTitle=value;
+		this._JobTitle = value;
 
 		}
 		}
 	}
+		//Field CITY
+	[Key][StringLength(30, ErrorMessage="CITY must be 30 characters or less")][Column(Name="CITY",Storage = "_CITY", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String PrCITY{
 	get{
 		return _CITY;
@@ -531,11 +574,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CITY);
 			}
-		this._CITY=value;
+		this._CITY = value;
 
 		}
 		}
 	}
+		//Field STATE_PROVINCE
+	[Key][StringLength(25, ErrorMessage="STATE_PROVINCE must be 25 characters or less")][Column(Name="STATE_PROVINCE",Storage = "_StateProvince", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String PrStateProvince{
 	get{
 		return _StateProvince;
@@ -549,11 +594,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_STATE_PROVINCE);
 			}
-		this._StateProvince=value;
+		this._StateProvince = value;
 
 		}
 		}
 	}
+		//Field COUNTRY_NAME
+	[Key][StringLength(40, ErrorMessage="COUNTRY_NAME must be 40 characters or less")][Column(Name="COUNTRY_NAME",Storage = "_CountryName", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String PrCountryName{
 	get{
 		return _CountryName;
@@ -567,11 +614,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COUNTRY_NAME);
 			}
-		this._CountryName=value;
+		this._CountryName = value;
 
 		}
 		}
 	}
+		//Field REGION_NAME
+	[Key][StringLength(25, ErrorMessage="REGION_NAME must be 25 characters or less")][Column(Name="REGION_NAME",Storage = "_RegionName", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String PrRegionName{
 	get{
 		return _RegionName;
@@ -585,11 +634,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_REGION_NAME);
 			}
-		this._RegionName=value;
+		this._RegionName = value;
 
 		}
 		}
 	}
+		//Field MANAGER_NAME
+	[Key][StringLength(46, ErrorMessage="MANAGER_NAME must be 46 characters or less")][Column(Name="MANAGER_NAME",Storage = "_ManagerName", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String PrManagerName{
 	get{
 		return _ManagerName;
@@ -603,7 +654,7 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_MANAGER_NAME);
 			}
-		this._ManagerName=value;
+		this._ManagerName = value;
 
 		}
 		}
@@ -1086,6 +1137,7 @@ namespace OracleModel {
 		}
 
 		public override void setAttribute(int fieldKey, object val){
+			try {
 		switch (fieldKey) {
 		case FLD_EMPLOYEE_ID:
 			if (val == DBNull.Value || val == null ){
@@ -1126,7 +1178,7 @@ namespace OracleModel {
 			if (val == DBNull.Value || val == null ){
 				this.PrHireDate = null;
 			} else {
-				this.PrHireDate=(System.DateTime)val;
+				this.PrHireDate=(System.DateTime?)val;
 			} //
 			return;
 		case FLD_JOB_ID:
@@ -1140,42 +1192,42 @@ namespace OracleModel {
 			if (val == DBNull.Value || val == null ){
 				this.PrSALARY = null;
 			} else {
-				this.PrSALARY=(System.Decimal)val;
+				this.PrSALARY=(System.Decimal?)val;
 			} //
 			return;
 		case FLD_COMMISSION_PCT:
 			if (val == DBNull.Value || val == null ){
 				this.PrCommissionPct = null;
 			} else {
-				this.PrCommissionPct=(System.Decimal)val;
+				this.PrCommissionPct=(System.Decimal?)val;
 			} //
 			return;
 		case FLD_MANAGER_ID:
 			if (val == DBNull.Value || val == null ){
 				this.PrManagerId = null;
 			} else {
-				this.PrManagerId=(System.Int64)val;
+				this.PrManagerId=(System.Int64?)val;
 			} //
 			return;
 		case FLD_DEPARTMENT_ID:
 			if (val == DBNull.Value || val == null ){
 				this.PrDepartmentId = null;
 			} else {
-				this.PrDepartmentId=(System.Int64)val;
+				this.PrDepartmentId=(System.Int64?)val;
 			} //
 			return;
 		case FLD_CREATE_DATE:
 			if (val == DBNull.Value || val == null ){
 				this.CreateDate = null;
 			} else {
-				this.CreateDate=(System.DateTime)val;
+				this.CreateDate=(System.DateTime?)val;
 			} //
 			return;
 		case FLD_UPDATE_DATE:
 			if (val == DBNull.Value || val == null ){
 				this.UpdateDate = null;
 			} else {
-				this.UpdateDate=(System.DateTime)val;
+				this.UpdateDate=(System.DateTime?)val;
 			} //
 			return;
 		case FLD_CREATE_USER:
@@ -1196,7 +1248,7 @@ namespace OracleModel {
 			if (val == DBNull.Value || val == null ){
 				this.PrLocationId = null;
 			} else {
-				this.PrLocationId=(System.Int64)val;
+				this.PrLocationId=(System.Int64?)val;
 			} //
 			return;
 		case FLD_COUNTRY_ID:
@@ -1259,184 +1311,195 @@ namespace OracleModel {
 			return;
 		}
 
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+						String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+								fieldKey, val, ex.Message));
+			}
 		}
 
 		public override void setAttribute(string fieldKey, object val) {
 			fieldKey = fieldKey.ToLower();
+			try {
 		if ( fieldKey==STR_FLD_EMPLOYEE_ID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.PrEmployeeId=(System.Int64)val;
+				this.PrEmployeeId=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_FIRST_NAME.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrFirstName = null;
 			} else {
-				this.PrFirstName=(System.String)val;
+				this.PrFirstName=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_LAST_NAME.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrLastName = null;
 			} else {
-				this.PrLastName=(System.String)val;
+				this.PrLastName=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_EMAIL.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrEMAIL = null;
 			} else {
-				this.PrEMAIL=(System.String)val;
+				this.PrEMAIL=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_PHONE_NUMBER.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrPhoneNumber = null;
 			} else {
-				this.PrPhoneNumber=(System.String)val;
+				this.PrPhoneNumber=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_HIRE_DATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrHireDate = null;
 			} else {
-				this.PrHireDate=(System.DateTime)val;
+				this.PrHireDate=Convert.ToDateTime(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_JOB_ID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrJobId = null;
 			} else {
-				this.PrJobId=(System.String)val;
+				this.PrJobId=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_SALARY.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrSALARY = null;
 			} else {
-				this.PrSALARY=(System.Decimal)val;
+				this.PrSALARY=Convert.ToDecimal(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_COMMISSION_PCT.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrCommissionPct = null;
 			} else {
-				this.PrCommissionPct=(System.Decimal)val;
+				this.PrCommissionPct=Convert.ToDecimal(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_MANAGER_ID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrManagerId = null;
 			} else {
-				this.PrManagerId=(System.Int64)val;
+				this.PrManagerId=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_DEPARTMENT_ID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrDepartmentId = null;
 			} else {
-				this.PrDepartmentId=(System.Int64)val;
+				this.PrDepartmentId=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_CREATE_DATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.CreateDate = null;
 			} else {
-				this.CreateDate=(System.DateTime)val;
+				this.CreateDate=Convert.ToDateTime(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_UPDATE_DATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.UpdateDate = null;
 			} else {
-				this.UpdateDate=(System.DateTime)val;
+				this.UpdateDate=Convert.ToDateTime(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_CREATE_USER.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.CreateUser = null;
 			} else {
-				this.CreateUser=(System.String)val;
+				this.CreateUser=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_UPDATE_USER.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.UpdateUser = null;
 			} else {
-				this.UpdateUser=(System.String)val;
+				this.UpdateUser=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_LOCATION_ID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrLocationId = null;
 			} else {
-				this.PrLocationId=(System.Int64)val;
+				this.PrLocationId=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_COUNTRY_ID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrCountryId = null;
 			} else {
-				this.PrCountryId=(System.String)val;
+				this.PrCountryId=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_DEPARTMENT_NAME.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrDepartmentName = null;
 			} else {
-				this.PrDepartmentName=(System.String)val;
+				this.PrDepartmentName=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_JOB_TITLE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrJobTitle = null;
 			} else {
-				this.PrJobTitle=(System.String)val;
+				this.PrJobTitle=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_CITY.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrCITY = null;
 			} else {
-				this.PrCITY=(System.String)val;
+				this.PrCITY=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_STATE_PROVINCE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrStateProvince = null;
 			} else {
-				this.PrStateProvince=(System.String)val;
+				this.PrStateProvince=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_COUNTRY_NAME.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrCountryName = null;
 			} else {
-				this.PrCountryName=(System.String)val;
+				this.PrCountryName=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_REGION_NAME.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrRegionName = null;
 			} else {
-				this.PrRegionName=(System.String)val;
+				this.PrRegionName=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_MANAGER_NAME.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrManagerName = null;
 			} else {
-				this.PrManagerName=(System.String)val;
+				this.PrManagerName=Convert.ToString(val);
 			}
 			return;
 		}
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+					String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+							fieldKey, val, ex.Message));
+			}
 		}
 
 		#endregion
 		#region "Overrides of GetHashCode and Equals "
-		public bool Equals(EmployeeBase other)
+		public bool Equals(Employee other)
 		{
 
 			//typesafe equals, checks for equality of fields
@@ -1504,9 +1567,9 @@ namespace OracleModel {
 
 		public override bool Equals(object Obj) {
 
-			if (Obj != null && Obj is EmployeeBase) {
+			if (Obj != null && Obj is Employee) {
 
-				return this.Equals((EmployeeBase)Obj);
+				return this.Equals((Employee)Obj);
 
 			} else {
 				return false;
@@ -1514,13 +1577,12 @@ namespace OracleModel {
 
 		}
 
-		public static bool operator ==(EmployeeBase obj1, EmployeeBase obj2)
+		public static bool operator ==(Employee obj1, Employee obj2)
 		{
 			return object.Equals(obj1, obj2);
 		}
 
-		public static bool operator !=(EmployeeBase obj1, EmployeeBase obj2)
-		{
+		public static bool operator !=(Employee obj1, Employee obj2) {
 			return !(obj1 == obj2);
 		}
 
@@ -1528,14 +1590,9 @@ namespace OracleModel {
 
 		#region "Copy and sort"
 
-		public override IModelObject copy()
-		{
+		public override IModelObject copy() {
 			//creates a copy
-
-			//NOTE: we can't cast from EmployeeBase to Employee, so below we 
-			//instantiate a Employee, NOT a EmployeeBase object
 			Employee ret = new Employee();
-
 		ret.PrEmployeeId = this.PrEmployeeId;
 		ret.PrFirstName = this.PrFirstName;
 		ret.PrLastName = this.PrLastName;
@@ -1560,8 +1617,6 @@ namespace OracleModel {
 		ret.PrCountryName = this.PrCountryName;
 		ret.PrRegionName = this.PrRegionName;
 		ret.PrManagerName = this.PrManagerName;
-
-
 
 			return ret;
 

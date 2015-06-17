@@ -10,6 +10,8 @@ using org.model.lib;
 using Microsoft.VisualBasic;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
+using System.Data.Linq.Mapping;
+using System.ComponentModel.DataAnnotations;
 
 //<comments>
 //************************************************************
@@ -24,14 +26,15 @@ using System.Xml.Serialization;
 //************************************************************
 //</comments>
 namespace OracleModel {
-	
+
+	[Table(Name = "training_courses")]
 	[DataContract]
 	[DefaultMapperAttr(typeof(OracleMappers.TrainingCourseDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class TrainingCourseBase : ModelObject, IEquatable<TrainingCourseBase>  {
+	partial class TrainingCourse:ModelObject,IEquatable<TrainingCourse>  {
 
 		#region "Constructor"
 
-		public TrainingCourseBase() {
+		public TrainingCourse() {
 			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new TrainingCourseRequiredFieldsValidator());
 		}
@@ -102,6 +105,8 @@ namespace OracleModel {
 
 		#region "Field Properties"
 
+		//Field CODE
+	[Required][StringLength(5, ErrorMessage="CODE must be 5 characters or less")][Column(Name="CODE",Storage = "_CODE", IsPrimaryKey=true,DbType = " NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.String PrCODE{
 	get{
 		return _CODE;
@@ -115,13 +120,15 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CODE);
 			}
-		this._CODE=value;
+		this._CODE = value;
 
 			this.raiseBroadcastIdChange();
 
 		}
 		}
 	}
+		//Field DESCR_GR
+	[Key][StringLength(100, ErrorMessage="DESCR_GR must be 100 characters or less")][Column(Name="DESCR_GR",Storage = "_DescrGr", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String PrDescrGr{
 	get{
 		return _DescrGr;
@@ -135,11 +142,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DESCR_GR);
 			}
-		this._DescrGr=value;
+		this._DescrGr = value;
 
 		}
 		}
 	}
+		//Field DESCR_EN
+	[Key][StringLength(100, ErrorMessage="DESCR_EN must be 100 characters or less")][Column(Name="DESCR_EN",Storage = "_DescrEn", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String PrDescrEn{
 	get{
 		return _DescrEn;
@@ -153,7 +162,7 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_DESCR_EN);
 			}
-		this._DescrEn=value;
+		this._DescrEn = value;
 
 		}
 		}
@@ -192,6 +201,7 @@ namespace OracleModel {
 		}
 
 		public override void setAttribute(int fieldKey, object val){
+			try {
 		switch (fieldKey) {
 		case FLD_CODE:
 			if (val == DBNull.Value || val == null ){
@@ -218,37 +228,48 @@ namespace OracleModel {
 			return;
 		}
 
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+						String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+								fieldKey, val, ex.Message));
+			}
 		}
 
 		public override void setAttribute(string fieldKey, object val) {
 			fieldKey = fieldKey.ToLower();
+			try {
 		if ( fieldKey==STR_FLD_CODE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.PrCODE=(System.String)val;
+				this.PrCODE=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_DESCR_GR.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrDescrGr = null;
 			} else {
-				this.PrDescrGr=(System.String)val;
+				this.PrDescrGr=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_DESCR_EN.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrDescrEn = null;
 			} else {
-				this.PrDescrEn=(System.String)val;
+				this.PrDescrEn=Convert.ToString(val);
 			}
 			return;
 		}
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+					String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+							fieldKey, val, ex.Message));
+			}
 		}
 
 		#endregion
 		#region "Overrides of GetHashCode and Equals "
-		public bool Equals(TrainingCourseBase other)
+		public bool Equals(TrainingCourse other)
 		{
 
 			//typesafe equals, checks for equality of fields
@@ -274,9 +295,9 @@ namespace OracleModel {
 
 		public override bool Equals(object Obj) {
 
-			if (Obj != null && Obj is TrainingCourseBase) {
+			if (Obj != null && Obj is TrainingCourse) {
 
-				return this.Equals((TrainingCourseBase)Obj);
+				return this.Equals((TrainingCourse)Obj);
 
 			} else {
 				return false;
@@ -284,13 +305,12 @@ namespace OracleModel {
 
 		}
 
-		public static bool operator ==(TrainingCourseBase obj1, TrainingCourseBase obj2)
+		public static bool operator ==(TrainingCourse obj1, TrainingCourse obj2)
 		{
 			return object.Equals(obj1, obj2);
 		}
 
-		public static bool operator !=(TrainingCourseBase obj1, TrainingCourseBase obj2)
-		{
+		public static bool operator !=(TrainingCourse obj1, TrainingCourse obj2) {
 			return !(obj1 == obj2);
 		}
 
@@ -298,19 +318,12 @@ namespace OracleModel {
 
 		#region "Copy and sort"
 
-		public override IModelObject copy()
-		{
+		public override IModelObject copy() {
 			//creates a copy
-
-			//NOTE: we can't cast from TrainingCourseBase to TrainingCourse, so below we 
-			//instantiate a TrainingCourse, NOT a TrainingCourseBase object
 			TrainingCourse ret = new TrainingCourse();
-
 		ret.PrCODE = this.PrCODE;
 		ret.PrDescrGr = this.PrDescrGr;
 		ret.PrDescrEn = this.PrDescrEn;
-
-
 
 			return ret;
 

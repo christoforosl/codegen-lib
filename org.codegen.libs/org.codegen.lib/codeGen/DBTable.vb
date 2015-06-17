@@ -159,7 +159,9 @@ Public Class DBTable
             dbField.isPrimaryKey = dbField.FieldName.ToUpper = Me.getPrimaryKeyName.ToUpper
             'note: this does not work: CBool(NullChecker.intNull(dr.Item("IsKey"))) '
             dbField.RuntimeType = CType(dr.Item("DataType"), System.Type)
-            dbField.DBType = CStr(dr.Item("DataTypeName"))
+            If (dr.Table.Columns.Item("DataTypeName") IsNot Nothing) Then
+                dbField.DBType = CStr(dr.Item("DataTypeName"))
+            End If
 
             If _exludedFields.Contains(dbField.FieldName.ToLower) = True Then
                 'skip this field!

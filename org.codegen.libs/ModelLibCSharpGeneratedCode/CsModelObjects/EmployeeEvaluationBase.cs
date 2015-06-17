@@ -11,6 +11,7 @@ using Microsoft.VisualBasic;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 using System.Data.Linq.Mapping;
+using System.ComponentModel.DataAnnotations;
 
 //<comments>
 //************************************************************
@@ -107,7 +108,8 @@ namespace CsModelObjects {
 
 		#region "Field Properties"
 
-	[Column(Name="Employee_Evaluation_Id",Storage = "_EmployeeEvaluationId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
+	//Field Employee_Evaluation_Id
+[Required][Column(Name="Employee_Evaluation_Id",Storage = "_EmployeeEvaluationId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64 PrEmployeeEvaluationId{
 	get{
 		return _EmployeeEvaluationId;
@@ -125,7 +127,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="evaluator_id",Storage = "_EvaluatorId", IsPrimaryKey=false,DbType = "int",CanBeNull = true)]
+	//Field evaluator_id
+[Key][Column(Name="evaluator_id",Storage = "_EvaluatorId", IsPrimaryKey=false,DbType = "int",CanBeNull = true)]
 	[DataMember]public virtual System.Int64? PrEvaluatorId{
 	get{
 		return _EvaluatorId;
@@ -141,7 +144,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="evaluation_date",Storage = "_EvaluationDate", IsPrimaryKey=false,DbType = "datetime",CanBeNull = true)]
+	//Field evaluation_date
+[Key][Column(Name="evaluation_date",Storage = "_EvaluationDate", IsPrimaryKey=false,DbType = "datetime",CanBeNull = true)]
 	[DataMember]public virtual System.DateTime? PrEvaluationDate{
 	get{
 		return _EvaluationDate;
@@ -157,7 +161,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="employee_id",Storage = "_EmployeeId", IsPrimaryKey=false,DbType = "int",CanBeNull = true)]
+	//Field employee_id
+[Key][Column(Name="employee_id",Storage = "_EmployeeId", IsPrimaryKey=false,DbType = "int",CanBeNull = true)]
 	[DataMember]public virtual System.Int64? PrEmployeeId{
 	get{
 		return _EmployeeId;

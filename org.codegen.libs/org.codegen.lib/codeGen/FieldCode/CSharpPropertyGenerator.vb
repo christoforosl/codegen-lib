@@ -151,9 +151,14 @@ Public Class CSharpPropertyGenerator
     End Sub
 
     Private Function getLinqDataAttribute(field As IDBField) As String
-        Dim nl As String = CStr(IIf(field.isDBFieldNullable, "", " NOT NULL"))
 
-        Return "[Column(Name=""" & field.FieldName & """,Storage = ""_" & field.RuntimeFieldName & """, IsPrimaryKey=" & field.isPrimaryKey.ToString.ToLower & ",DbType = """ & field.DBType & nl & """,CanBeNull = " & field.isDBFieldNullable.ToString.ToLower & ")]" & vbCrLf
+        Dim nl As String = CStr(IIf(field.isDBFieldNullable, "", " NOT NULL"))
+        Dim keyattr = CStr(IIf(field.isPrimaryKey, String.Empty, "[Key]"))
+        Dim reqAttr = CStr(IIf(field.isDBFieldNullable, String.Empty, "[Required]"))
+        Dim strAttr = CStr(IIf(field.isString, String.Format("[StringLength({0}, ErrorMessage=""{1} must be {0} characters or less"")]", field.Size, field.FieldName), String.Empty))
+
+        Return vbTab & "//Field " & field.FieldName & vbCrLf & vbTab & keyattr & reqAttr & strAttr & "[Column(Name=""" & field.FieldName & """,Storage = ""_" & field.RuntimeFieldName & """, IsPrimaryKey=" & field.isPrimaryKey.ToString.ToLower & ",DbType = """ & field.DBType & nl & """,CanBeNull = " & field.isDBFieldNullable.ToString.ToLower & ")]" & vbCrLf
+
     End Function
 
     Private Function Converter(field As IDBField) As String

@@ -188,7 +188,7 @@ Namespace Tokens
         End Sub
 
         Public Overrides Function getReplacementCode(ByVal t As IObjectToGenerate) As String
-            Return "Public"
+            Return "public"
         End Function
 
     End Class

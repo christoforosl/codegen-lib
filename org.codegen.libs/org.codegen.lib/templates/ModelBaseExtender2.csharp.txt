@@ -30,7 +30,7 @@ namespace <NAMESPACE> {
 
 	}
 
-	public partial class <MODEL_CLASS_NAME>  {
+	<CLASS_ACCESS_LEVEL> partial class <MODEL_CLASS_NAME>  {
 
 		#region "Custom Methods "
 

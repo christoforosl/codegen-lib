@@ -37,8 +37,14 @@ Public Interface IDBField
     Function getClassVariableDeclaration(Optional ByVal accessLevel As String = "private", Optional ByVal withInitialiser As Boolean = True) As String
     Function getFieldDataType() As String
 
+    ''' <summary>
+    ''' Returns true if the generated property of the POCO is of a .net Nullable data type
+    ''' </summary>
     ReadOnly Property isNullableProperty() As Boolean
 
+    ''' <summary>
+    ''' Returns true if field in database can be null
+    ''' </summary>
     Property isDBFieldNullable() As Boolean
 
     Function getPropertyDataType() As String

@@ -11,20 +11,16 @@
     <ORACLE>SELECT CODE,DESCR_GR,DESCR_EN FROM "training_courses"</ORACLE>
   </stmt>
   <stmt>
-    <key>selectone</key>
-    <ORACLE>SELECT CODE,DESCR_GR,DESCR_EN FROM "training_courses" WHERE CODE=:0</ORACLE>
-  </stmt>
-  <stmt>
     <key>delete</key>
     <ORACLE>DELETE FROM "training_courses" WHERE CODE=:0</ORACLE>
   </stmt>
   <stmt>
     <key>insert</key>
     <ORACLE>BEGIN insert into "training_courses" (
-DESCR_GR,DESCR_EN) values (:DESCR_GR,:DESCR_EN) RETURNING CODE INTO :CODE;END;</ORACLE>
+DESCR_GR,DESCR_EN) values (?,?) RETURNING CODE INTO ?;END;</ORACLE>
   </stmt>
   <stmt>
     <key>update</key>
-    <ORACLE>UPDATE "training_courses" SET CODE=:CODE,DESCR_GR=:DESCR_GR,DESCR_EN=:DESCR_EN WHERE CODE=:CODE</ORACLE>
+    <ORACLE>UPDATE "training_courses" SET CODE=:CODE,DESCR_GR=:DescrGr,DESCR_EN=:DescrEn WHERE CODE=:CODE</ORACLE>
   </stmt>
 </SQLStatements>

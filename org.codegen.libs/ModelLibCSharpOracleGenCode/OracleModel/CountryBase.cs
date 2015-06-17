@@ -10,6 +10,8 @@ using org.model.lib;
 using Microsoft.VisualBasic;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
+using System.Data.Linq.Mapping;
+using System.ComponentModel.DataAnnotations;
 
 //<comments>
 //************************************************************
@@ -24,14 +26,15 @@ using System.Xml.Serialization;
 //************************************************************
 //</comments>
 namespace OracleModel {
-	
+
+	[Table(Name = "COUNTRIES")]
 	[DataContract]
 	[DefaultMapperAttr(typeof(OracleMappers.CountryDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class CountryBase : ModelObject, IEquatable<CountryBase>  {
+	partial class Country:ModelObject,IEquatable<Country>  {
 
 		#region "Constructor"
 
-		public CountryBase() {
+		public Country() {
 			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new CountryRequiredFieldsValidator());
 		}
@@ -111,6 +114,8 @@ namespace OracleModel {
 
 		#region "Field Properties"
 
+		//Field COUNTRY_ID
+	[Required][StringLength(2, ErrorMessage="COUNTRY_ID must be 2 characters or less")][Column(Name="COUNTRY_ID",Storage = "_CountryId", IsPrimaryKey=true,DbType = " NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.String PrCountryId{
 	get{
 		return _CountryId;
@@ -124,13 +129,15 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COUNTRY_ID);
 			}
-		this._CountryId=value;
+		this._CountryId = value;
 
 			this.raiseBroadcastIdChange();
 
 		}
 		}
 	}
+		//Field COUNTRY_NAME
+	[Key][StringLength(40, ErrorMessage="COUNTRY_NAME must be 40 characters or less")][Column(Name="COUNTRY_NAME",Storage = "_CountryName", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String PrCountryName{
 	get{
 		return _CountryName;
@@ -144,11 +151,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_COUNTRY_NAME);
 			}
-		this._CountryName=value;
+		this._CountryName = value;
 
 		}
 		}
 	}
+		//Field REGION_ID
+	[Key][Column(Name="REGION_ID",Storage = "_RegionId", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.Int64? PrRegionId{
 	get{
 		return _RegionId;
@@ -159,11 +168,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_REGION_ID);
 			}
-		this._RegionId=value;
+		this._RegionId = value;
 
 		}
 		}
 	}
+		//Field SKIP_FIELD
+	[Key][StringLength(40, ErrorMessage="SKIP_FIELD must be 40 characters or less")][Column(Name="SKIP_FIELD",Storage = "_SkipField", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String PrSkipField{
 	get{
 		return _SkipField;
@@ -177,11 +188,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_SKIP_FIELD);
 			}
-		this._SkipField=value;
+		this._SkipField = value;
 
 		}
 		}
 	}
+		//Field LONG_FLD
+	[Key][Column(Name="LONG_FLD",Storage = "_LongFld", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.Int64? PrLongFld{
 	get{
 		return _LongFld;
@@ -192,11 +205,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LONG_FLD);
 			}
-		this._LongFld=value;
+		this._LongFld = value;
 
 		}
 		}
 	}
+		//Field LONG_FLD2
+	[Key][Column(Name="LONG_FLD2",Storage = "_LongFld2", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.Int64? PrLongFld2{
 	get{
 		return _LongFld2;
@@ -207,7 +222,7 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_LONG_FLD2);
 			}
-		this._LongFld2=value;
+		this._LongFld2 = value;
 
 		}
 		}
@@ -258,6 +273,7 @@ namespace OracleModel {
 		}
 
 		public override void setAttribute(int fieldKey, object val){
+			try {
 		switch (fieldKey) {
 		case FLD_COUNTRY_ID:
 			if (val == DBNull.Value || val == null ){
@@ -277,7 +293,7 @@ namespace OracleModel {
 			if (val == DBNull.Value || val == null ){
 				this.PrRegionId = null;
 			} else {
-				this.PrRegionId=(System.Int64)val;
+				this.PrRegionId=(System.Int64?)val;
 			} //
 			return;
 		case FLD_SKIP_FIELD:
@@ -291,72 +307,83 @@ namespace OracleModel {
 			if (val == DBNull.Value || val == null ){
 				this.PrLongFld = null;
 			} else {
-				this.PrLongFld=(System.Int64)val;
+				this.PrLongFld=(System.Int64?)val;
 			} //
 			return;
 		case FLD_LONG_FLD2:
 			if (val == DBNull.Value || val == null ){
 				this.PrLongFld2 = null;
 			} else {
-				this.PrLongFld2=(System.Int64)val;
+				this.PrLongFld2=(System.Int64?)val;
 			} //
 			return;
 		default:
 			return;
 		}
 
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+						String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+								fieldKey, val, ex.Message));
+			}
 		}
 
 		public override void setAttribute(string fieldKey, object val) {
 			fieldKey = fieldKey.ToLower();
+			try {
 		if ( fieldKey==STR_FLD_COUNTRY_ID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.PrCountryId=(System.String)val;
+				this.PrCountryId=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_COUNTRY_NAME.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrCountryName = null;
 			} else {
-				this.PrCountryName=(System.String)val;
+				this.PrCountryName=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_REGION_ID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrRegionId = null;
 			} else {
-				this.PrRegionId=(System.Int64)val;
+				this.PrRegionId=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_SKIP_FIELD.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrSkipField = null;
 			} else {
-				this.PrSkipField=(System.String)val;
+				this.PrSkipField=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_LONG_FLD.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrLongFld = null;
 			} else {
-				this.PrLongFld=(System.Int64)val;
+				this.PrLongFld=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_LONG_FLD2.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrLongFld2 = null;
 			} else {
-				this.PrLongFld2=(System.Int64)val;
+				this.PrLongFld2=Convert.ToInt64(val);
 			}
 			return;
 		}
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+					String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+							fieldKey, val, ex.Message));
+			}
 		}
 
 		#endregion
 		#region "Overrides of GetHashCode and Equals "
-		public bool Equals(CountryBase other)
+		public bool Equals(Country other)
 		{
 
 			//typesafe equals, checks for equality of fields
@@ -388,9 +415,9 @@ namespace OracleModel {
 
 		public override bool Equals(object Obj) {
 
-			if (Obj != null && Obj is CountryBase) {
+			if (Obj != null && Obj is Country) {
 
-				return this.Equals((CountryBase)Obj);
+				return this.Equals((Country)Obj);
 
 			} else {
 				return false;
@@ -398,13 +425,12 @@ namespace OracleModel {
 
 		}
 
-		public static bool operator ==(CountryBase obj1, CountryBase obj2)
+		public static bool operator ==(Country obj1, Country obj2)
 		{
 			return object.Equals(obj1, obj2);
 		}
 
-		public static bool operator !=(CountryBase obj1, CountryBase obj2)
-		{
+		public static bool operator !=(Country obj1, Country obj2) {
 			return !(obj1 == obj2);
 		}
 
@@ -412,22 +438,15 @@ namespace OracleModel {
 
 		#region "Copy and sort"
 
-		public override IModelObject copy()
-		{
+		public override IModelObject copy() {
 			//creates a copy
-
-			//NOTE: we can't cast from CountryBase to Country, so below we 
-			//instantiate a Country, NOT a CountryBase object
 			Country ret = new Country();
-
 		ret.PrCountryId = this.PrCountryId;
 		ret.PrCountryName = this.PrCountryName;
 		ret.PrRegionId = this.PrRegionId;
 		ret.PrSkipField = this.PrSkipField;
 		ret.PrLongFld = this.PrLongFld;
 		ret.PrLongFld2 = this.PrLongFld2;
-
-
 
 			return ret;
 

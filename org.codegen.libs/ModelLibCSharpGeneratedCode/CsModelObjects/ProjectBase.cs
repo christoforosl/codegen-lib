@@ -11,6 +11,7 @@ using Microsoft.VisualBasic;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 using System.Data.Linq.Mapping;
+using System.ComponentModel.DataAnnotations;
 
 //<comments>
 //************************************************************
@@ -120,7 +121,8 @@ namespace CsModelObjects {
 
 		#region "Field Properties"
 
-	[Column(Name="ProjectId",Storage = "_ProjectId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
+		//Field ProjectId
+	[Required][Column(Name="ProjectId",Storage = "_ProjectId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64 PrProjectId{
 	get{
 		return _ProjectId;
@@ -138,7 +140,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="ProjectName",Storage = "_ProjectName", IsPrimaryKey=false,DbType = "nvarchar NOT NULL",CanBeNull = false)]
+		//Field ProjectName
+	[Key][Required][StringLength(250, ErrorMessage="ProjectName must be 250 characters or less")][Column(Name="ProjectName",Storage = "_ProjectName", IsPrimaryKey=false,DbType = "nvarchar NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.String PrProjectName{
 	get{
 		return _ProjectName;
@@ -157,7 +160,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="isActive",Storage = "_IsActive", IsPrimaryKey=false,DbType = "int NOT NULL",CanBeNull = false)]
+		//Field isActive
+	[Key][Required][Column(Name="isActive",Storage = "_IsActive", IsPrimaryKey=false,DbType = "int NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual bool PrIsActive{
 	get{
 		return _IsActive.GetValueOrDefault() != 0 ? true: false;
@@ -173,7 +177,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="ProjectTypeId",Storage = "_ProjectTypeId", IsPrimaryKey=false,DbType = "int",CanBeNull = true)]
+		//Field ProjectTypeId
+	[Key][Column(Name="ProjectTypeId",Storage = "_ProjectTypeId", IsPrimaryKey=false,DbType = "int",CanBeNull = true)]
 	[DataMember]public virtual EnumProjectType? PrProjectTypeId{
 	get{
 		return (EnumProjectType?)_ProjectTypeId;

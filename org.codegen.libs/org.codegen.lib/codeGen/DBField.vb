@@ -371,10 +371,6 @@ Public Class DBField
 
             End If
 
-            'If ModelGenerator.Current.BooleanFieldsCollection.isBooleanField(Me) Then
-            '    _RuntimeType = Type.GetType("System.Boolean")
-            'End If
-
             _RuntimeTypeStr = _RuntimeType.ToString
 
         End Set

@@ -10,6 +10,8 @@ using org.model.lib;
 using Microsoft.VisualBasic;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
+using System.Data.Linq.Mapping;
+using System.ComponentModel.DataAnnotations;
 
 //<comments>
 //************************************************************
@@ -24,14 +26,15 @@ using System.Xml.Serialization;
 //************************************************************
 //</comments>
 namespace OracleModel {
-	
+
+	[Table(Name = "JOBS")]
 	[DataContract]
 	[DefaultMapperAttr(typeof(OracleMappers.JobDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class JobBase : ModelObject, IEquatable<JobBase> ,IAuditable {
+	partial class Job:ModelObject,IEquatable<Job> ,IAuditable {
 
 		#region "Constructor"
 
-		public JobBase() {
+		public Job() {
 			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new JobRequiredFieldsValidator());
 		}
@@ -117,6 +120,8 @@ namespace OracleModel {
 
 		#region "Field Properties"
 
+		//Field JOB_ID
+	[Required][StringLength(10, ErrorMessage="JOB_ID must be 10 characters or less")][Column(Name="JOB_ID",Storage = "_JobId", IsPrimaryKey=true,DbType = " NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.String PrJobId{
 	get{
 		return _JobId;
@@ -130,13 +135,15 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_JOB_ID);
 			}
-		this._JobId=value;
+		this._JobId = value;
 
 			this.raiseBroadcastIdChange();
 
 		}
 		}
 	}
+		//Field JOB_TITLE
+	[Key][Required][StringLength(35, ErrorMessage="JOB_TITLE must be 35 characters or less")][Column(Name="JOB_TITLE",Storage = "_JobTitle", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.String PrJobTitle{
 	get{
 		return _JobTitle;
@@ -150,11 +157,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_JOB_TITLE);
 			}
-		this._JobTitle=value;
+		this._JobTitle = value;
 
 		}
 		}
 	}
+		//Field MIN_SALARY
+	[Key][Column(Name="MIN_SALARY",Storage = "_MinSalary", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.Int64? PrMinSalary{
 	get{
 		return _MinSalary;
@@ -165,11 +174,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_MIN_SALARY);
 			}
-		this._MinSalary=value;
+		this._MinSalary = value;
 
 		}
 		}
 	}
+		//Field MAX_SALARY
+	[Key][Column(Name="MAX_SALARY",Storage = "_MaxSalary", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.Int64? PrMaxSalary{
 	get{
 		return _MaxSalary;
@@ -180,11 +191,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_MAX_SALARY);
 			}
-		this._MaxSalary=value;
+		this._MaxSalary = value;
 
 		}
 		}
 	}
+		//Field CREATE_DATE
+	[Key][Column(Name="CREATE_DATE",Storage = "_CreateDate", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.DateTime? CreateDate{
 	get{
 		return _CreateDate;
@@ -195,11 +208,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_DATE);
 			}
-		this._CreateDate=value;
+		this._CreateDate = value;
 
 		}
 		}
 	}
+		//Field UPDATE_DATE
+	[Key][Column(Name="UPDATE_DATE",Storage = "_UpdateDate", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.DateTime? UpdateDate{
 	get{
 		return _UpdateDate;
@@ -210,11 +225,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_DATE);
 			}
-		this._UpdateDate=value;
+		this._UpdateDate = value;
 
 		}
 		}
 	}
+		//Field CREATE_USER
+	[Key][StringLength(20, ErrorMessage="CREATE_USER must be 20 characters or less")][Column(Name="CREATE_USER",Storage = "_CreateUser", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String CreateUser{
 	get{
 		return _CreateUser;
@@ -228,11 +245,13 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_CREATE_USER);
 			}
-		this._CreateUser=value;
+		this._CreateUser = value;
 
 		}
 		}
 	}
+		//Field UPDATE_USER
+	[Key][StringLength(20, ErrorMessage="UPDATE_USER must be 20 characters or less")][Column(Name="UPDATE_USER",Storage = "_UpdateUser", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String UpdateUser{
 	get{
 		return _UpdateUser;
@@ -246,7 +265,7 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_UPDATE_USER);
 			}
-		this._UpdateUser=value;
+		this._UpdateUser = value;
 
 		}
 		}
@@ -305,6 +324,7 @@ namespace OracleModel {
 		}
 
 		public override void setAttribute(int fieldKey, object val){
+			try {
 		switch (fieldKey) {
 		case FLD_JOB_ID:
 			if (val == DBNull.Value || val == null ){
@@ -324,28 +344,28 @@ namespace OracleModel {
 			if (val == DBNull.Value || val == null ){
 				this.PrMinSalary = null;
 			} else {
-				this.PrMinSalary=(System.Int64)val;
+				this.PrMinSalary=(System.Int64?)val;
 			} //
 			return;
 		case FLD_MAX_SALARY:
 			if (val == DBNull.Value || val == null ){
 				this.PrMaxSalary = null;
 			} else {
-				this.PrMaxSalary=(System.Int64)val;
+				this.PrMaxSalary=(System.Int64?)val;
 			} //
 			return;
 		case FLD_CREATE_DATE:
 			if (val == DBNull.Value || val == null ){
 				this.CreateDate = null;
 			} else {
-				this.CreateDate=(System.DateTime)val;
+				this.CreateDate=(System.DateTime?)val;
 			} //
 			return;
 		case FLD_UPDATE_DATE:
 			if (val == DBNull.Value || val == null ){
 				this.UpdateDate = null;
 			} else {
-				this.UpdateDate=(System.DateTime)val;
+				this.UpdateDate=(System.DateTime?)val;
 			} //
 			return;
 		case FLD_CREATE_USER:
@@ -366,72 +386,83 @@ namespace OracleModel {
 			return;
 		}
 
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+						String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+								fieldKey, val, ex.Message));
+			}
 		}
 
 		public override void setAttribute(string fieldKey, object val) {
 			fieldKey = fieldKey.ToLower();
+			try {
 		if ( fieldKey==STR_FLD_JOB_ID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.PrJobId=(System.String)val;
+				this.PrJobId=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_JOB_TITLE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrJobTitle = null;
 			} else {
-				this.PrJobTitle=(System.String)val;
+				this.PrJobTitle=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_MIN_SALARY.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrMinSalary = null;
 			} else {
-				this.PrMinSalary=(System.Int64)val;
+				this.PrMinSalary=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_MAX_SALARY.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrMaxSalary = null;
 			} else {
-				this.PrMaxSalary=(System.Int64)val;
+				this.PrMaxSalary=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_CREATE_DATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.CreateDate = null;
 			} else {
-				this.CreateDate=(System.DateTime)val;
+				this.CreateDate=Convert.ToDateTime(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_UPDATE_DATE.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.UpdateDate = null;
 			} else {
-				this.UpdateDate=(System.DateTime)val;
+				this.UpdateDate=Convert.ToDateTime(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_CREATE_USER.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.CreateUser = null;
 			} else {
-				this.CreateUser=(System.String)val;
+				this.CreateUser=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_UPDATE_USER.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.UpdateUser = null;
 			} else {
-				this.UpdateUser=(System.String)val;
+				this.UpdateUser=Convert.ToString(val);
 			}
 			return;
 		}
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+					String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+							fieldKey, val, ex.Message));
+			}
 		}
 
 		#endregion
 		#region "Overrides of GetHashCode and Equals "
-		public bool Equals(JobBase other)
+		public bool Equals(Job other)
 		{
 
 			//typesafe equals, checks for equality of fields
@@ -467,9 +498,9 @@ namespace OracleModel {
 
 		public override bool Equals(object Obj) {
 
-			if (Obj != null && Obj is JobBase) {
+			if (Obj != null && Obj is Job) {
 
-				return this.Equals((JobBase)Obj);
+				return this.Equals((Job)Obj);
 
 			} else {
 				return false;
@@ -477,13 +508,12 @@ namespace OracleModel {
 
 		}
 
-		public static bool operator ==(JobBase obj1, JobBase obj2)
+		public static bool operator ==(Job obj1, Job obj2)
 		{
 			return object.Equals(obj1, obj2);
 		}
 
-		public static bool operator !=(JobBase obj1, JobBase obj2)
-		{
+		public static bool operator !=(Job obj1, Job obj2) {
 			return !(obj1 == obj2);
 		}
 
@@ -491,14 +521,9 @@ namespace OracleModel {
 
 		#region "Copy and sort"
 
-		public override IModelObject copy()
-		{
+		public override IModelObject copy() {
 			//creates a copy
-
-			//NOTE: we can't cast from JobBase to Job, so below we 
-			//instantiate a Job, NOT a JobBase object
 			Job ret = new Job();
-
 		ret.PrJobId = this.PrJobId;
 		ret.PrJobTitle = this.PrJobTitle;
 		ret.PrMinSalary = this.PrMinSalary;
@@ -507,8 +532,6 @@ namespace OracleModel {
 		ret.UpdateDate = this.UpdateDate;
 		ret.CreateUser = this.CreateUser;
 		ret.UpdateUser = this.UpdateUser;
-
-
 
 			return ret;
 

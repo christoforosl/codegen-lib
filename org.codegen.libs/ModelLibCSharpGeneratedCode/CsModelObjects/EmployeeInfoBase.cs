@@ -11,6 +11,7 @@ using Microsoft.VisualBasic;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 using System.Data.Linq.Mapping;
+using System.ComponentModel.DataAnnotations;
 
 //<comments>
 //************************************************************
@@ -107,7 +108,8 @@ namespace CsModelObjects {
 
 		#region "Field Properties"
 
-	[Column(Name="EmployeeInfoId",Storage = "_EmployeeInfoId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
+		//Field EmployeeInfoId
+	[Required][Column(Name="EmployeeInfoId",Storage = "_EmployeeInfoId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64 PrEmployeeInfoId{
 	get{
 		return _EmployeeInfoId;
@@ -125,7 +127,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="EIEmployeeId",Storage = "_EIEmployeeId", IsPrimaryKey=false,DbType = "int NOT NULL",CanBeNull = false)]
+		//Field EIEmployeeId
+	[Key][Required][Column(Name="EIEmployeeId",Storage = "_EIEmployeeId", IsPrimaryKey=false,DbType = "int NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64? PrEIEmployeeId{
 	get{
 		return _EIEmployeeId;
@@ -141,7 +144,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="Salary",Storage = "_Salary", IsPrimaryKey=false,DbType = "decimal",CanBeNull = true)]
+		//Field Salary
+	[Key][Column(Name="Salary",Storage = "_Salary", IsPrimaryKey=false,DbType = "decimal",CanBeNull = true)]
 	[DataMember]public virtual System.Decimal? PrSalary{
 	get{
 		return _Salary;
@@ -157,7 +161,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	[Column(Name="Address",Storage = "_Address", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
+		//Field Address
+	[Key][StringLength(600, ErrorMessage="Address must be 600 characters or less")][Column(Name="Address",Storage = "_Address", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
 	[DataMember]public virtual System.String PrAddress{
 	get{
 		return _Address;

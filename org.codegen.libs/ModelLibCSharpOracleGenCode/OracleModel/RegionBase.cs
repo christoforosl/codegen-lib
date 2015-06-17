@@ -10,6 +10,8 @@ using org.model.lib;
 using Microsoft.VisualBasic;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
+using System.Data.Linq.Mapping;
+using System.ComponentModel.DataAnnotations;
 
 //<comments>
 //************************************************************
@@ -24,14 +26,15 @@ using System.Xml.Serialization;
 //************************************************************
 //</comments>
 namespace OracleModel {
-	
+
+	[Table(Name = "REGIONS")]
 	[DataContract]
 	[DefaultMapperAttr(typeof(OracleMappers.RegionDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public class RegionBase : ModelObject, IEquatable<RegionBase>  {
+	partial class Region:ModelObject,IEquatable<Region>  {
 
 		#region "Constructor"
 
-		public RegionBase() {
+		public Region() {
 			this.Id = ModelObjectKeyGen.nextId();
 			this.addValidator(new RegionRequiredFieldsValidator());
 		}
@@ -99,6 +102,8 @@ namespace OracleModel {
 
 		#region "Field Properties"
 
+		//Field REGION_ID
+	[Required][Column(Name="REGION_ID",Storage = "_RegionId", IsPrimaryKey=true,DbType = " NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64 PrRegionId{
 	get{
 		return _RegionId;
@@ -109,13 +114,15 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_REGION_ID);
 			}
-		this._RegionId=value;
+		this._RegionId = value;
 
 			this.raiseBroadcastIdChange();
 
 		}
 		}
 	}
+		//Field REGION_NAME
+	[Key][StringLength(25, ErrorMessage="REGION_NAME must be 25 characters or less")][Column(Name="REGION_NAME",Storage = "_RegionName", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 	[DataMember]public virtual System.String PrRegionName{
 	get{
 		return _RegionName;
@@ -129,7 +136,7 @@ namespace OracleModel {
 				this.isDirty = true;
 				this.setFieldChanged(STR_FLD_REGION_NAME);
 			}
-		this._RegionName=value;
+		this._RegionName = value;
 
 		}
 		}
@@ -164,6 +171,7 @@ namespace OracleModel {
 		}
 
 		public override void setAttribute(int fieldKey, object val){
+			try {
 		switch (fieldKey) {
 		case FLD_REGION_ID:
 			if (val == DBNull.Value || val == null ){
@@ -183,30 +191,41 @@ namespace OracleModel {
 			return;
 		}
 
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+						String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+								fieldKey, val, ex.Message));
+			}
 		}
 
 		public override void setAttribute(string fieldKey, object val) {
 			fieldKey = fieldKey.ToLower();
+			try {
 		if ( fieldKey==STR_FLD_REGION_ID.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.PrRegionId=(System.Int64)val;
+				this.PrRegionId=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_REGION_NAME.ToLower()){
 			if (val == DBNull.Value || val ==null ){
 				this.PrRegionName = null;
 			} else {
-				this.PrRegionName=(System.String)val;
+				this.PrRegionName=Convert.ToString(val);
 			}
 			return;
 		}
+			} catch ( Exception ex ) {
+				throw new ApplicationException(
+					String.Format("Error setting field with index {0}, value \"{1}\" : {2}", 
+							fieldKey, val, ex.Message));
+			}
 		}
 
 		#endregion
 		#region "Overrides of GetHashCode and Equals "
-		public bool Equals(RegionBase other)
+		public bool Equals(Region other)
 		{
 
 			//typesafe equals, checks for equality of fields
@@ -230,9 +249,9 @@ namespace OracleModel {
 
 		public override bool Equals(object Obj) {
 
-			if (Obj != null && Obj is RegionBase) {
+			if (Obj != null && Obj is Region) {
 
-				return this.Equals((RegionBase)Obj);
+				return this.Equals((Region)Obj);
 
 			} else {
 				return false;
@@ -240,13 +259,12 @@ namespace OracleModel {
 
 		}
 
-		public static bool operator ==(RegionBase obj1, RegionBase obj2)
+		public static bool operator ==(Region obj1, Region obj2)
 		{
 			return object.Equals(obj1, obj2);
 		}
 
-		public static bool operator !=(RegionBase obj1, RegionBase obj2)
-		{
+		public static bool operator !=(Region obj1, Region obj2) {
 			return !(obj1 == obj2);
 		}
 
@@ -254,18 +272,11 @@ namespace OracleModel {
 
 		#region "Copy and sort"
 
-		public override IModelObject copy()
-		{
+		public override IModelObject copy() {
 			//creates a copy
-
-			//NOTE: we can't cast from RegionBase to Region, so below we 
-			//instantiate a Region, NOT a RegionBase object
 			Region ret = new Region();
-
 		ret.PrRegionId = this.PrRegionId;
 		ret.PrRegionName = this.PrRegionName;
-
-
 
 			return ret;
 
