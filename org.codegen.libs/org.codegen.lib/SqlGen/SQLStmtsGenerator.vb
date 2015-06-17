@@ -181,7 +181,7 @@ Public Class SQLStmtsGenerator
 
         For Each field As DBField In vec.Values
 
-            If field.isBinaryField AndAlso Not (field.FieldName().ToLower.Equals(Me.dbTable.getPrimaryKeyName().ToLower)) Then
+            If field.IsTableField AndAlso Not field.isBinaryField AndAlso Not (field.isPrimaryKey) Then
 
                 If (Not sbf.ToString().Equals("")) Then
                     sbf.Append(",")
