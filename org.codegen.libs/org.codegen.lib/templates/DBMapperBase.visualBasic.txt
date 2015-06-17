@@ -17,7 +17,7 @@
 Namespace <DBMAPPER_NAMESPACE>
 	<System.Runtime.InteropServices.ComVisible(False)><IS_PRIMARY_KEY_AUOGEN_FALSE> _
     <CLASS_ACCESS_LEVEL> Class <MODEL_CLASS_NAME>DBMapper
-        Inherits DBMapper
+        Inherits <MAPPER_BASE_CLASS>
 		
 #Region "Constructors "
     Public Sub New(ByVal _dbConn As DBUtils)

@@ -8,19 +8,18 @@
   </stmt>
   <stmt>
     <key>selectall</key>
-    <ORACLE>SELECT CODE,DESCR_GR,DESCR_EN FROM "training_courses"</ORACLE>
+    <ORACLE>SELECT CODE,DESCR_GR,DESCR_EN FROM training_courses</ORACLE>
   </stmt>
   <stmt>
     <key>delete</key>
-    <ORACLE>DELETE FROM "training_courses" WHERE CODE=:0</ORACLE>
+    <ORACLE>DELETE FROM training_courses WHERE CODE=:0</ORACLE>
   </stmt>
   <stmt>
     <key>insert</key>
-    <ORACLE>BEGIN insert into "training_courses" (
-DESCR_GR,DESCR_EN) values (?,?) RETURNING CODE INTO ?;END;</ORACLE>
+    <ORACLE>insert into training_courses (DESCR_GR,DESCR_EN,CODE) values (?,?,?)</ORACLE>
   </stmt>
   <stmt>
     <key>update</key>
-    <ORACLE>UPDATE "training_courses" SET CODE=:CODE,DESCR_GR=:DescrGr,DESCR_EN=:DescrEn WHERE CODE=:CODE</ORACLE>
+    <ORACLE>UPDATE training_courses SET CODE=:CODE,DESCR_GR=:DescrGr,DESCR_EN=:DescrEn WHERE CODE=:CODE</ORACLE>
   </stmt>
 </SQLStatements>

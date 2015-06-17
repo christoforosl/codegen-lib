@@ -487,11 +487,15 @@ Public Class DBTable
         Return String.Empty
     End Function
 
-
+    ''' <summary>
+    ''' If Oracle, just return table name, If SQL server enclose in []
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Function quotedTableName() As String Implements IDBTable.quotedTableName
 
         If ModelGenerator.Current.dbConn.sqldialect = DBUtils.enumSqlDialect.ORACLE Then
-            Return """" & Me.TableName.Trim & """"
+            Return Me.TableName.Trim
         Else
             Return "[" & Me.TableName.Trim & "]"
         End If

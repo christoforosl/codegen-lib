@@ -27,7 +27,7 @@ using <NAMESPACE>;
 namespace <DBMAPPER_NAMESPACE> {
 
 	[System.Runtime.InteropServices.ComVisible(false)]<IS_PRIMARY_KEY_AUOGEN_FALSE>
-	public class <MODEL_CLASS_NAME>DBMapper : DBMapper {
+	public class <MODEL_CLASS_NAME>DBMapper : <MAPPER_BASE_CLASS> {
 
 		#region "Constructors "
 		public <MODEL_CLASS_NAME>DBMapper(DBUtils _dbConn) : base(_dbConn) {
