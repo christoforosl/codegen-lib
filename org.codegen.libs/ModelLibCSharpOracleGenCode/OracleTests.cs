@@ -52,9 +52,13 @@ namespace GeneratorTests {
 			ModelContext.Current.addGlobalModelValidator(typeof(Employee), typeof(EmployeeValidator));
 
 			try {
-								
+				
 				Employee e = EmployeeFactory.Create();
-				e.PrFirstName= "test";
+                e.PrDepartment = DepartmentFactory.Create();
+                e.PrDepartment.PrDepartmentName = "My New Dept";
+                e.PrDepartment.PrLocationId = LocationDataUtils.findList()[0].PrLocationId;
+
+                e.PrFirstName= "test";
                 e.PrLastName = "Lastname";
 				e.PrSALARY = 100m;
                 e.PrEMAIL = "test@test.com.cy";
@@ -151,17 +155,17 @@ namespace GeneratorTests {
 
 				Country et1 = CountryFactory.Create();
                 et1.PrCountryName = "A Description 1";
-                et1.PrCountryId = "XX1";
+                et1.PrCountryId = "Y7";
 
 				Country et2 = CountryFactory.Create();
                 et2.PrCountryName = "A Description 2";
-                et2.PrCountryId = "XX2";
+                et2.PrCountryId = "H8";
 
 				CountryDataUtils.saveCountry(et, et1, et2);
 
-				et2 = CountryDataUtils.findByKey("XX2");
+				et2 = CountryDataUtils.findByKey("H8");
 				Assert.IsNotNull(et2, "New Country must have been created!");
-				et1 = CountryDataUtils.findByKey("XX1");
+				et1 = CountryDataUtils.findByKey("Y7");
 				Assert.IsNotNull(et1, "New Country must have been created!");
 
 			} finally {

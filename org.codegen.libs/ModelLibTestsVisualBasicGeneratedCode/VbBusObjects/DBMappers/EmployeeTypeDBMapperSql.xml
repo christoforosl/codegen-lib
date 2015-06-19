@@ -20,6 +20,6 @@
   </stmt>
   <stmt>
     <key>update</key>
-    <MSSQL>UPDATE [EmployeeType] SET EmployeeTypeCode=@EmployeeTypeCode,EmployeeType=@EmployeeType WHERE EmployeeTypeCode=@EmployeeTypeCode</MSSQL>
+    <MSSQL>UPDATE [EmployeeType] SET EmployeeType=@EmployeeType WHERE EmployeeTypeCode=@EmployeeTypeCode</MSSQL>
   </stmt>
 </SQLStatements>

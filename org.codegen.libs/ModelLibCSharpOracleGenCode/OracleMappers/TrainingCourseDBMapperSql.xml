@@ -12,7 +12,7 @@
   </stmt>
   <stmt>
     <key>delete</key>
-    <ORACLE>DELETE FROM training_courses WHERE CODE=:0</ORACLE>
+    <ORACLE>DELETE FROM training_courses WHERE CODE=?</ORACLE>
   </stmt>
   <stmt>
     <key>insert</key>
@@ -20,6 +20,6 @@
   </stmt>
   <stmt>
     <key>update</key>
-    <ORACLE>UPDATE training_courses SET CODE=:CODE,DESCR_GR=:DescrGr,DESCR_EN=:DescrEn WHERE CODE=:CODE</ORACLE>
+    <ORACLE>UPDATE training_courses SET DESCR_GR=?,DESCR_EN=? WHERE CODE=?</ORACLE>
   </stmt>
 </SQLStatements>

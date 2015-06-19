@@ -38,7 +38,7 @@
 				'IMPORTANT:call setter here, not the private variable
 				Me.<prop_prefix><association_name> = _ 
 					new <db_mapper>().findWhere( _ 
-					   "<child_field>={0}", Me.<prop_prefix><parent_field_runtime>)
+					   "<child_field>=?", Me.<prop_prefix><parent_field_runtime>)
 				
 				
 			End If 

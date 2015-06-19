@@ -93,7 +93,7 @@
 			this._<association_name> = new List< <datatype>>();
 
 			if (! this.isNew ) {
-                this.addTo<association_name>List( new <db_mapper>().findList("<child_field>={0}", this.<parent_field_runtime>));
+                this.addTo<association_name>List( new <db_mapper>().findList("<child_field>=?", this.<parent_field_runtime>));
             }
             
 			this.<association_name>Loaded = true;

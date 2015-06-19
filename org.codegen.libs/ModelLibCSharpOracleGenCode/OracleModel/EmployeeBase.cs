@@ -756,7 +756,7 @@ namespace OracleModel {
 			this._JobHistory = new List< OracleModel.JobHistory>();
 
 			if (! this.isNew ) {
-                this.addToJobHistoryList( new OracleMappers.JobHistoryDBMapper().findList("employee_id={0}", this.PrEmployeeId));
+                this.addToJobHistoryList( new OracleMappers.JobHistoryDBMapper().findList("employee_id=?", this.PrEmployeeId));
             }
             
 			this.JobHistoryLoaded = true;
@@ -910,7 +910,7 @@ namespace OracleModel {
 			this._Courses = new List< OracleModel.EmployeeTrainingHistory>();
 
 			if (! this.isNew ) {
-                this.addToCoursesList( new OracleMappers.EmployeeTrainingHistoryDBMapper().findList("employee_id={0}", this.PrEmployeeId));
+                this.addToCoursesList( new OracleMappers.EmployeeTrainingHistoryDBMapper().findList("employee_id=?", this.PrEmployeeId));
             }
             
 			this.CoursesLoaded = true;
@@ -1012,7 +1012,7 @@ namespace OracleModel {
 			this._TrainingHistory = new List< OracleModel.EmployeeTrainingHistory>();
 
 			if (! this.isNew ) {
-                this.addToTrainingHistoryList( new OracleMappers.EmployeeTrainingHistoryDBMapper().findList("employee_id={0}", this.PrEmployeeId));
+                this.addToTrainingHistoryList( new OracleMappers.EmployeeTrainingHistoryDBMapper().findList("employee_id=?", this.PrEmployeeId));
             }
             
 			this.TrainingHistoryLoaded = true;

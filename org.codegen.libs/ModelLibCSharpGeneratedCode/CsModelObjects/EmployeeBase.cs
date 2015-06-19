@@ -673,7 +673,7 @@ namespace CsModelObjects {
 			if ( this._EmployeeInfo == null )  {
 				//IMPORTANT: call setter here, not the private variable
 				this.PrEmployeeInfo = 
-					new CsModelMappers.EmployeeInfoDBMapper().findWhere("EIEmployeeId={0}", this.PrEmployeeId);
+					new CsModelMappers.EmployeeInfoDBMapper().findWhere("EIEmployeeId=?", this.PrEmployeeId);
 				
 			} 
 
@@ -779,7 +779,7 @@ namespace CsModelObjects {
 			this._EmployeeProjects = new List< CsModelObjects.EmployeeProject>();
 
 			if (! this.isNew ) {
-                this.addToEmployeeProjectsList( new CsModelMappers.EmployeeProjectDBMapper().findList("EPEmployeeId={0}", this.PrEmployeeId));
+                this.addToEmployeeProjectsList( new CsModelMappers.EmployeeProjectDBMapper().findList("EPEmployeeId=?", this.PrEmployeeId));
             }
             
 			this.EmployeeProjectsLoaded = true;

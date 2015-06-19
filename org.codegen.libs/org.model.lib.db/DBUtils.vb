@@ -420,6 +420,10 @@ Public MustInherit Class DBUtils
     ''' <remarks></remarks>
     Public Overridable Function replaceParameterPlaceHolders(ByVal sql As String, ByVal ParamArray params() As Object) As String
 
+        If Me.sqldialect <> DBUtils.enumSqlDialect.MSSQL Then
+            Return sql
+        End If
+
         Dim ret As String = String.Empty
 
         stmtCache.TryGetValue(sql, ret)

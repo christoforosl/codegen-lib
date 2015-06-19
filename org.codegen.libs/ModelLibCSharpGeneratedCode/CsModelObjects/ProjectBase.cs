@@ -291,7 +291,7 @@ namespace CsModelObjects {
 			this._EmployeeProjects = new List< CsModelObjects.EmployeeProject>();
 
 			if (! this.isNew ) {
-                this.addToEmployeeProjectsList( new CsModelMappers.EmployeeProjectDBMapper().findList("EPProjectId={0}", this.PrProjectId));
+                this.addToEmployeeProjectsList( new CsModelMappers.EmployeeProjectDBMapper().findList("EPProjectId=?", this.PrProjectId));
             }
             
 			this.EmployeeProjectsLoaded = true;
