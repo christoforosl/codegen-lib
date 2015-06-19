@@ -313,7 +313,7 @@ Namespace Tokens
                 End If
 
                 ret.Append(vbTab).Append(vbTab).Append(vbTab).Append("Else").Append(vbCrLf)
-                ret.Append(vbTab).Append(vbTab).Append(vbTab & "//only add primary key if we are updating and as the last parameter").Append(vbCrLf)
+                ret.Append(vbTab).Append(vbTab).Append(vbTab & "'only add primary key if we are updating and as the last parameter").Append(vbCrLf)
                 ret.Append(vbTab).Append(pkParam)
                 ret.Append(vbTab & vbTab & vbTab & "End if" & vbCrLf)
             End If

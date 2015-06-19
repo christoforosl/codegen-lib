@@ -494,14 +494,17 @@ Public Class DBTable
     ''' <remarks></remarks>
     Public Function quotedTableName() As String Implements IDBTable.quotedTableName
 
-        If ModelGenerator.Current.dbConn.sqldialect = DBUtils.enumSqlDialect.ORACLE Then
-            Return Me.TableName.Trim
-        Else
-            Return "[" & Me.TableName.Trim & "]"
-        End If
-
+        Return quoteObjectName(Me.TableName.Trim)
 
     End Function
 
+    Public Shared Function quoteObjectName(oname As String) As String
+        If ModelGenerator.Current.dbConn.sqldialect = DBUtils.enumSqlDialect.MSSQL Then
+            Return "[" & oname & "]"
+        Else
+            Return oname
+        End If
+
+    End Function
 
 End Class

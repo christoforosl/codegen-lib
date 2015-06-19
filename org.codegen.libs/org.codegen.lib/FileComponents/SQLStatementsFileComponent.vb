@@ -29,9 +29,8 @@ Namespace FileComponents
             Dim sqlGen As SQLStmtsGenerator = New SQLStmtsGenerator(ogen.DbTable)
             Dim cSQLStmts As DBMapperStatementsFile = DBMapperStatementsFile.getStmtsFromResource("org.codegen.lib.SqlTemplate.txt")
 
-            Call cSQLStmts.setStatement("selectall", sqlGen.getSelectStatement(False), ModelGenerator.Current.DbConnStringDialect)
-            'Call cSQLStmts.setStatement("selectone", sqlGen.getSelectStatement(True), ModelGenerator.Current.DbConnStringDialect)
-
+            Call cSQLStmts.setStatement("selectall", sqlGen.getSelectStatement(), ModelGenerator.Current.DbConnStringDialect)
+            
             If (Not ogen.DbTable().isReadOnly()) Then
                 Call cSQLStmts.setStatement("delete", sqlGen.deleteStatement(), ModelGenerator.Current.DbConnStringDialect)
                 Call cSQLStmts.setStatement("insert", sqlGen.insertStatement(), ModelGenerator.Current.DbConnStringDialect)
