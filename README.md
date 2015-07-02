@@ -29,21 +29,19 @@ The project is a Visual Studio 10 solution. The solution consits of the followin
 
 <p>
 <h3>Getting the binaries into your project</h3>
-Using the Nu Package Manager menu in Visual Studio, search for <b>CodeGen.Model.Library</b>, select it and include iy in your project.  
+Using the Nu Package Manager menu in Visual Studio, search for <b>CodeGen.Model.Library</b>, select it and include it in your projects.  
 </p>
 
 <p>
 <h3>Configure "Tools" in Visual Studio for Code Generation</h3>
-To run the class generator when you click on an xml generator file, you can configure the Tools option in Visual Studio:
+After get the binaries with Nu Package Manager, folder packages\CodeGen.Model.Library.4.x.x.x\tools is created with the orm's Code Generator executable CodeGenWin4.exe.  To run this code generator when you click on an xml generator control file, you can configure the Tools option in Visual Studio.
 <ol>
-<li> Download and copy files <a href="https://github.com/christoforosl/codegen-lib/releases/download/v4.0.1/codeGenWin4.exe">codeGen.win.exe</a>  and <a href="https://github.com/christoforosl/codegen-lib/releases/download/v4.0.1/org.codegen.lib.4.0.dll">org.codegen.lib.4.0.dll</a> to a folder
+<li>
 <li>Click Tools/External Tools..., and then click Add
 <li>Specify the following: 
 <ul><li>Title: Generator
-<li>Command: [path you specify in step 1]\CodeGenWin4.exe
+<li>Command: [path in step 1]\CodeGenWin4.exe
 <li>Arguments $(ItemPath)
 </ul>
-
 </ol>
-
 </p>
