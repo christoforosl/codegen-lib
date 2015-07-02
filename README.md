@@ -28,7 +28,12 @@ The project is a Visual Studio 10 solution. The solution consits of the followin
 </ul>
 
 <p>
-<h3>Configure "Tools" in Visual Studio:</h3>
+<h3>Getting the binaries into your project</h3>
+Using the Nu Package Manager menu in Visual Studio, search for <b>CodeGen.Model.Library</b>, select it and include iy in your project.  
+</p>
+
+<p>
+<h3>Configure "Tools" in Visual Studio for Code Generation</h3>
 To run the class generator when you click on an xml generator file, you can configure the Tools option in Visual Studio:
 <ol>
 <li> Download and copy files <a href="https://github.com/christoforosl/codegen-lib/releases/download/v4.0.1/codeGenWin4.exe">codeGen.win.exe</a>  and <a href="https://github.com/christoforosl/codegen-lib/releases/download/v4.0.1/org.codegen.lib.4.0.dll">org.codegen.lib.4.0.dll</a> to a folder
