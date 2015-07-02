@@ -36,12 +36,12 @@ Using the Nu Package Manager menu in Visual Studio, search for <b>CodeGen.Model.
 <h3>Configure "Tools" in Visual Studio for Code Generation</h3>
 After get the binaries with Nu Package Manager, folder packages\CodeGen.Model.Library.4.x.x.x\tools is created with the orm's Code Generator executable CodeGenWin4.exe.  To run this code generator when you click on an xml generator control file, you can configure the Tools option in Visual Studio.
 <ol>
-<li>
-<li>Click Tools/External Tools..., and then click Add
-<li>Specify the following: 
-<ul><li>Title: Generator
-<li>Command: [path in step 1]\CodeGenWin4.exe
-<li>Arguments $(ItemPath)
+<li>Click Tools/External Tools..., and then click Add</li>
+<li>Specify the following: </li>
+<ul><li>Title: Generator</li>
+<li>Command: [path in step 1]\CodeGenWin4.exe</li>
+<li>Arguments $(ItemPath)</li>
+</li>
 </ul>
 </ol>
 </p>
