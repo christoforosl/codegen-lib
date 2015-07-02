@@ -1,20 +1,30 @@
 
-This is an .net ORM project, capable of generating c# or vb plain old objects from database tables. 
+<h1>CodeGen ORM</h1>
+<h5>Yes, this is yet another ORM.  When to use it?
+<ol >
+<li>When you need COMPLETE control as to what tables and what table relationships are mapped to objects</li>
+<li>When you need COMPLETE control on the inheritance on each mapped object. For example, CodeGen ORM allows a group of mapped objects to inherit from a base class and another group of objects from another class.</li>
+<li>When you need COMPLETE control on the mapped orm classes without having to worry about lost code when mapped objects are re-generated after schema change. For example, you need to add custom properties and methods to a mapped object.</li>
+<li>When you need <u>Complete Code Generation</u> from database tables. The generator  detects schema changes and regenerates without loss of custom code</li>
+</ol>
+</h5>
+
+
 The project is a Visual Studio 10 solution. The solution consits of the following projects:
 <ul>
 
-<li>org.codegen.lib: A class library project containing classes, interfaces and templates for generating code.</li>
+<li>org.codegen.model.lib: A class library project containing base classes and interfaces used by the generated ORM classes.
 
-<li>org.codegen.win: A windows forms application that is the UI for generating code.</li>
+<li>org.codegen.lib.db: A class library project containing base classes and interfaces used for database access.
 
-<li>org.codegen.model.lib: A class library project containing base classes and interfaces used by the generated classes.
-
-<li>org.codegen.lib.db: A class library project containing base classes and interfaces used for database access. Used by the generated classes.
-
-<li>org.codegen.common: A class library project containing common utility classes.
-
-<li>4 test projects: GeneratorTests, ModelLibCSharpGeneratedCode, ModelLibCSharpOracleGenCode, ModelLibTestsVisualBasicGeneratedCode </li>
-
+<li>4 test projects: 
+<table>
+<tr><td>GeneratorTests</td><td>Project Units Tests</td></tr>
+<tr><td>ModelLibCSharpGeneratedCode</td><td>Units Tests for generated C# classes (MSSQL Database)</td></tr>
+<tr><td>ModelLibCSharpOracleGenCode</td><td>Units Tests for generated c# classes for Oracle database</td></tr>
+<tr><td>ModelLibTestsVisualBasicGeneratedCode </td><td>Units Tests for generated Visual Basic classes  (MSSQL Database)</td></tr>
+</table>
+</li>
 </ul>
 
 <p>
