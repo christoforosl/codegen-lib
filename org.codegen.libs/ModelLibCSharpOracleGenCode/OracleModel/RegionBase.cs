@@ -28,7 +28,7 @@ using System.ComponentModel.DataAnnotations;
 namespace OracleModel {
 
 	[Table(Name = "REGIONS")]
-	[DataContract]
+	[DataContract][SelectObject("REGIONS")][KeyFieldName("REGION_ID")]
 	[DefaultMapperAttr(typeof(OracleMappers.RegionDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 	partial class Region:ModelObject,IEquatable<Region>  {
 

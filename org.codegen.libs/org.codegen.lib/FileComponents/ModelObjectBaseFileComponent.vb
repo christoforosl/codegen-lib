@@ -8,7 +8,9 @@ Namespace FileComponents
        GetType(XOrFieldsToken), _
        GetType(DBMapperClassNameSpaceToken), _
        GetType(ClassNameSpaceToken), _
-       GetType(ModelImplementedInterfacesToken), GetType(ModelBaseClassToken), _
+       GetType(ModelImplementedInterfacesToken), _
+       GetType(ModelBaseClassToken), _
+       GetType(PrimaryKeyFieldnameToken), _
        GetType(RequiredFieldValidatorToken), _
        GetType(SorterToken), _
        GetType(UpdateChildrenFieldCodeToken), _
@@ -26,7 +28,7 @@ Namespace FileComponents
        GetType(SetAttrToken), _
        GetType(ObjectCopyToken), _
        GetType(ModelExtraCodeToken), _
-       GetType(ModelObjectChildArrayToken), GetType(TableNameToken), _
+       GetType(ModelObjectChildArrayToken), GetType(TableNameToken), GetType(SelectNameToken), _
        GetType(LoadObjectHierarchyToken), GetType(IfaceNameToken), _
        GetType(ModelObjectParentArrayToken), _
        GetType(GeneratorToken), _

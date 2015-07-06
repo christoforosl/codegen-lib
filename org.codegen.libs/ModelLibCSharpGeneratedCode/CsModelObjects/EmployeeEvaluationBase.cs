@@ -28,7 +28,7 @@ using System.ComponentModel.DataAnnotations;
 namespace CsModelObjects {
 
 	[Table(Name = "Employee_Evaluation")]
-	[DataContract]
+	[DataContract][SelectObject("Employee_Evaluation")][KeyFieldName("Employee_Evaluation_Id")]
 	[DefaultMapperAttr(typeof(CsModelMappers.EmployeeEvaluationDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 	partial class EmployeeEvaluation:ModelObject,IEquatable<EmployeeEvaluation>  {
 
@@ -108,8 +108,8 @@ namespace CsModelObjects {
 
 		#region "Field Properties"
 
-	//Field Employee_Evaluation_Id
-[Required][Column(Name="Employee_Evaluation_Id",Storage = "_EmployeeEvaluationId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
+		//Field Employee_Evaluation_Id
+	[Required][Column(Name="Employee_Evaluation_Id",Storage = "_EmployeeEvaluationId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64 PrEmployeeEvaluationId{
 	get{
 		return _EmployeeEvaluationId;
@@ -127,8 +127,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	//Field evaluator_id
-[Key][Column(Name="evaluator_id",Storage = "_EvaluatorId", IsPrimaryKey=false,DbType = "int",CanBeNull = true)]
+		//Field evaluator_id
+	[Key][Column(Name="evaluator_id",Storage = "_EvaluatorId", IsPrimaryKey=false,DbType = "int",CanBeNull = true)]
 	[DataMember]public virtual System.Int64? PrEvaluatorId{
 	get{
 		return _EvaluatorId;
@@ -144,8 +144,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	//Field evaluation_date
-[Key][Column(Name="evaluation_date",Storage = "_EvaluationDate", IsPrimaryKey=false,DbType = "datetime",CanBeNull = true)]
+		//Field evaluation_date
+	[Key][Column(Name="evaluation_date",Storage = "_EvaluationDate", IsPrimaryKey=false,DbType = "datetime",CanBeNull = true)]
 	[DataMember]public virtual System.DateTime? PrEvaluationDate{
 	get{
 		return _EvaluationDate;
@@ -161,8 +161,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	//Field employee_id
-[Key][Column(Name="employee_id",Storage = "_EmployeeId", IsPrimaryKey=false,DbType = "int",CanBeNull = true)]
+		//Field employee_id
+	[Key][Column(Name="employee_id",Storage = "_EmployeeId", IsPrimaryKey=false,DbType = "int",CanBeNull = true)]
 	[DataMember]public virtual System.Int64? PrEmployeeId{
 	get{
 		return _EmployeeId;

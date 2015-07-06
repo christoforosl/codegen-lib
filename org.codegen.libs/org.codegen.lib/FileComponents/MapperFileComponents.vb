@@ -8,13 +8,16 @@ Imports org.codegen.lib.Tokens
 Namespace FileComponents
 
     <ReplacementTokenAttribute(GetType(ClassAccessLevelToken), _
-                    GetType(GeneratorToken), GetType(DBMapperClassNameSpaceToken), _
+                    GetType(GeneratorToken), _
+                    GetType(DBMapperClassNameSpaceToken), _
                     GetType(ModelObjectClassNameToken), _
                     GetType(TableNameToken), _
                     GetType(ClassNameSpaceToken), _
                     GetType(PKFieldRuntimeNameToken), _
                     GetType(DataReaderConstantsToken), _
-                    GetType(LoadFromRSToken), GetType(PrimaryKeyFieldnameToken), GetType(DBMapperBaseClassToken), _
+                    GetType(LoadFromRSToken), _
+                    GetType(PrimaryKeyFieldnameToken), _
+                    GetType(DBMapperBaseClassToken), _
                     GetType(FillStatementToken), _
                     GetType(LoadFromDataRowToken), _
                     GetType(PrimaryKeyAutogenAttr), _

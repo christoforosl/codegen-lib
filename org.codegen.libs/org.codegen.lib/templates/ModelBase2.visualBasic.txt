@@ -21,7 +21,7 @@ Imports System.ComponentModel.DataAnnotations
 '************************************************************
 '</comments>
 Namespace <NAMESPACE>
-<Table(Name := "<TABLE_NAME>")>
+<Table(Name := "<TABLE_NAME>")><SelectObject("<SELECT_FROM_NAME>")><KeyFieldName("<PK_FIELD_NAME>")> _
 <DefaultMapperAttr(GetType(<MODEL_CLASS_NAME>DBMapper)), DataContract, _
 ComVisible(False),Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)> _
 partial class <MODEL_CLASS_NAME>

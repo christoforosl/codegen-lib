@@ -26,7 +26,7 @@ using <NAMESPACE>;
 
 namespace <DBMAPPER_NAMESPACE> {
 
-	[System.Runtime.InteropServices.ComVisible(false)]<IS_PRIMARY_KEY_AUOGEN_FALSE>
+	[System.Runtime.InteropServices.ComVisible(false)]<IS_PRIMARY_KEY_AUOGEN_FALSE>[SelectObject("<SELECT_FROM_NAME>")][KeyFieldName("<PK_FIELD_NAME>")]
 	public class <MODEL_CLASS_NAME>DBMapper : <MAPPER_BASE_CLASS> {
 
 		#region "Constructors "
@@ -125,10 +125,6 @@ namespace <DBMAPPER_NAMESPACE> {
 
 		#endregion
 
-		protected override String pkFieldName(){
-			return "<PK_FIELD_NAME>";
-		}
-		
 		public override IModelObject getModelInstance() {
 			return new <MODEL_CLASS_NAME>();
 		}

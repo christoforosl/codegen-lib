@@ -28,7 +28,7 @@ using System.ComponentModel.DataAnnotations;
 namespace OracleModel {
 
 	[Table(Name = "COUNTRIES")]
-	[DataContract]
+	[DataContract][SelectObject("COUNTRIES")][KeyFieldName("COUNTRY_ID")]
 	[DefaultMapperAttr(typeof(OracleMappers.CountryDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 	partial class Country:ModelObject,IEquatable<Country>  {
 

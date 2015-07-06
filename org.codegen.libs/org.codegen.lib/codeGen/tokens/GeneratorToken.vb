@@ -82,6 +82,18 @@ Namespace Tokens
         End Function
     End Class
 
+    Public Class SelectNameToken
+        Inherits ReplacementToken
+
+        Sub New()
+            Me.StringToReplace = "SELECT_FROM_NAME"
+        End Sub
+
+        Public Overrides Function getReplacementCode(ByVal og As IObjectToGenerate) As String
+            Return og.DbTable.SelectObject
+        End Function
+    End Class
+
     Public Class TableNameToken
         Inherits ReplacementToken
 

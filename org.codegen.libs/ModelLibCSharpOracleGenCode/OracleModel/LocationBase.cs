@@ -28,7 +28,7 @@ using System.ComponentModel.DataAnnotations;
 namespace OracleModel {
 
 	[Table(Name = "LOCATIONS")]
-	[DataContract]
+	[DataContract][SelectObject("LOCATIONS")][KeyFieldName("LOCATION_ID")]
 	[DefaultMapperAttr(typeof(OracleMappers.LocationDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 	partial class Location:ModelObject,IEquatable<Location> ,IAuditable {
 

@@ -28,7 +28,7 @@ using System.ComponentModel.DataAnnotations;
 namespace CsModelObjects {
 
 	[Table(Name = "EmployeeProject")]
-	[DataContract]
+	[DataContract][SelectObject("EmployeeProject")][KeyFieldName("EmployeeProjectId")]
 	[DefaultMapperAttr(typeof(CsModelMappers.EmployeeProjectDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 	partial class EmployeeProject:ModelObject,IEquatable<EmployeeProject>  {
 
@@ -123,8 +123,8 @@ namespace CsModelObjects {
 
 		#region "Field Properties"
 
-	//Field EmployeeProjectId
-[Required][Column(Name="EmployeeProjectId",Storage = "_EmployeeProjectId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
+		//Field EmployeeProjectId
+	[Required][Column(Name="EmployeeProjectId",Storage = "_EmployeeProjectId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64 PrEmployeeProjectId{
 	get{
 		return _EmployeeProjectId;
@@ -142,8 +142,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	//Field EPEmployeeId
-[Key][Required][Column(Name="EPEmployeeId",Storage = "_EPEmployeeId", IsPrimaryKey=false,DbType = "int NOT NULL",CanBeNull = false)]
+		//Field EPEmployeeId
+	[Key][Required][Column(Name="EPEmployeeId",Storage = "_EPEmployeeId", IsPrimaryKey=false,DbType = "int NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64? PrEPEmployeeId{
 	get{
 		return _EPEmployeeId;
@@ -159,8 +159,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	//Field EPProjectId
-[Key][Required][Column(Name="EPProjectId",Storage = "_EPProjectId", IsPrimaryKey=false,DbType = "int NOT NULL",CanBeNull = false)]
+		//Field EPProjectId
+	[Key][Required][Column(Name="EPProjectId",Storage = "_EPProjectId", IsPrimaryKey=false,DbType = "int NOT NULL",CanBeNull = false)]
 	[DataMember]public virtual System.Int64? PrEPProjectId{
 	get{
 		return _EPProjectId;
@@ -176,8 +176,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	//Field AssignDate
-[Key][Column(Name="AssignDate",Storage = "_AssignDate", IsPrimaryKey=false,DbType = "date",CanBeNull = true)]
+		//Field AssignDate
+	[Key][Column(Name="AssignDate",Storage = "_AssignDate", IsPrimaryKey=false,DbType = "date",CanBeNull = true)]
 	[DataMember]public virtual System.DateTime? PrAssignDate{
 	get{
 		return _AssignDate;
@@ -193,8 +193,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	//Field EndDate
-[Key][Column(Name="EndDate",Storage = "_EndDate", IsPrimaryKey=false,DbType = "date",CanBeNull = true)]
+		//Field EndDate
+	[Key][Column(Name="EndDate",Storage = "_EndDate", IsPrimaryKey=false,DbType = "date",CanBeNull = true)]
 	[DataMember]public virtual System.DateTime? PrEndDate{
 	get{
 		return _EndDate;
@@ -210,8 +210,8 @@ namespace CsModelObjects {
 		}
 		}
 	}
-	//Field Rate
-[Key][Column(Name="Rate",Storage = "_Rate", IsPrimaryKey=false,DbType = "decimal",CanBeNull = true)]
+		//Field Rate
+	[Key][Column(Name="Rate",Storage = "_Rate", IsPrimaryKey=false,DbType = "decimal",CanBeNull = true)]
 	[DataMember]public virtual System.Decimal? PrRate{
 	get{
 		return _Rate;

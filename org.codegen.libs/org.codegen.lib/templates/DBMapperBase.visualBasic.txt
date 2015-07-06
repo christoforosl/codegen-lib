@@ -15,7 +15,7 @@
 '</comments>
 
 Namespace <DBMAPPER_NAMESPACE>
-	<System.Runtime.InteropServices.ComVisible(False)><IS_PRIMARY_KEY_AUOGEN_FALSE> _
+	<System.Runtime.InteropServices.ComVisible(False)><IS_PRIMARY_KEY_AUOGEN_FALSE><SelectObject("<SELECT_FROM_NAME>")><KeyFieldName("<PK_FIELD_NAME>")> _
     <CLASS_ACCESS_LEVEL> Class <MODEL_CLASS_NAME>DBMapper
         Inherits <MAPPER_BASE_CLASS>
 		
@@ -148,10 +148,6 @@ Namespace <DBMAPPER_NAMESPACE>
     End Property
 
 #End Region
-
-	protected Overrides Function pkFieldName() As String
-		return "<PK_FIELD_NAME>"
-    End Function
 		
 	Public Overrides Function getModelInstance() As IModelObject
 		return new <MODEL_CLASS_NAME>()

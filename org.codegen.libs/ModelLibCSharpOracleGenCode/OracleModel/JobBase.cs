@@ -28,7 +28,7 @@ using System.ComponentModel.DataAnnotations;
 namespace OracleModel {
 
 	[Table(Name = "JOBS")]
-	[DataContract]
+	[DataContract][SelectObject("JOBS")][KeyFieldName("JOB_ID")]
 	[DefaultMapperAttr(typeof(OracleMappers.JobDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 	partial class Job:ModelObject,IEquatable<Job> ,IAuditable {
 

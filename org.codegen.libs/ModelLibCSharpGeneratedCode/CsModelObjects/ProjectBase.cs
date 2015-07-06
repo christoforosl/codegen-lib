@@ -28,7 +28,7 @@ using System.ComponentModel.DataAnnotations;
 namespace CsModelObjects {
 
 	[Table(Name = "Project")]
-	[DataContract]
+	[DataContract][SelectObject("Project")][KeyFieldName("ProjectId")]
 	[DefaultMapperAttr(typeof(CsModelMappers.ProjectDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 	partial class Project:ModelObject,IEquatable<Project>  {
 

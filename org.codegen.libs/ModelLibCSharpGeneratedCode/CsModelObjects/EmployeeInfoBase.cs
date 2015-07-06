@@ -28,7 +28,7 @@ using System.ComponentModel.DataAnnotations;
 namespace CsModelObjects {
 
 	[Table(Name = "EmployeeInfo")]
-	[DataContract]
+	[DataContract][SelectObject("EmployeeInfo")][KeyFieldName("EmployeeInfoId")]
 	[DefaultMapperAttr(typeof(CsModelMappers.EmployeeInfoDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 	partial class EmployeeInfo:ModelObject,IEquatable<EmployeeInfo>  {
 

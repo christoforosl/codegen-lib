@@ -541,8 +541,6 @@ Namespace Tokens
 
     Public Class PrimaryKeyFieldnameToken
         Inherits ReplacementToken
-
-
         Sub New()
             Me.StringToReplace = "PK_FIELD_NAME"
         End Sub

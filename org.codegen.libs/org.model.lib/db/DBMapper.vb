@@ -53,10 +53,7 @@ Public MustInherit Class DBMapper
         End If
     End Sub
 
-
-
 #End Region
-
 
     Public Overridable Function getSqlWithWhereClause(ByVal sWhereClause As String) As String
 
@@ -394,7 +391,17 @@ Public MustInherit Class DBMapper
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Protected MustOverride Function pkFieldName() As String
+    Protected Function pkFieldName() As String
+
+        Dim sattr As KeyFieldName = CType(Attribute.GetCustomAttribute(Me.GetType, GetType(KeyFieldName)), KeyFieldName)
+
+        If sattr Is Nothing Then
+            Throw New ApplicationException("Attribute KeyFieldName is required but not found on this mappers")
+        End If
+
+        Return sattr.KeyFieldName
+
+    End Function
 
     ''' <summary>
     ''' Returns an IDBCommand object, filled with parameters for insert or update.

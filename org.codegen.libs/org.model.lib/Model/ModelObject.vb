@@ -447,6 +447,18 @@ Namespace Model
 
         End Function
 
+        Public Shared Function getSelectFromObjectName(ByVal modelType As Type) As String
+
+            Dim sattr As SelectObject = CType(Attribute.GetCustomAttribute(modelType, GetType(SelectObject)), SelectObject)
+
+            If sattr Is Nothing Then
+                Return Nothing
+            End If
+
+            Return sattr.SelectObjectName
+
+        End Function
+
         Public Function getChangedFields() As List(Of String)
 
             Return changedFields.Keys.ToList

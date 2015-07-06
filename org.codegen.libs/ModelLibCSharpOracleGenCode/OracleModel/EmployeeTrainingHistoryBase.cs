@@ -28,7 +28,7 @@ using System.ComponentModel.DataAnnotations;
 namespace OracleModel {
 
 	[Table(Name = "EMPLOYEE_TRAINING_HISTORY")]
-	[DataContract]
+	[DataContract][SelectObject("EMPLOYEE_TRAINING_HISTORY")][KeyFieldName("EMPLOYEE_TRAINING_HISTORY_ID")]
 	[DefaultMapperAttr(typeof(OracleMappers.EmployeeTrainingHistoryDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 	partial class EmployeeTrainingHistory:ModelObject,IEquatable<EmployeeTrainingHistory>  {
 
