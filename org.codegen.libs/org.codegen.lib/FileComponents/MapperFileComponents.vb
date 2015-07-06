@@ -16,7 +16,7 @@ Namespace FileComponents
                     GetType(PKFieldRuntimeNameToken), _
                     GetType(DataReaderConstantsToken), _
                     GetType(LoadFromRSToken), _
-                    GetType(PrimaryKeyFieldnameToken), _
+                    GetType(PrimaryKeyFieldnameToken), GetType(SelectNameToken), _
                     GetType(DBMapperBaseClassToken), _
                     GetType(FillStatementToken), _
                     GetType(LoadFromDataRowToken), _
