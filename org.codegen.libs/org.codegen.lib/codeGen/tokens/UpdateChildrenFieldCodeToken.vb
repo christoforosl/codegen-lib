@@ -20,19 +20,18 @@ Namespace Tokens
             Dim sAssociationsCode As System.Text.StringBuilder = New System.Text.StringBuilder()
             Dim sClassKey As String = CType(t, ObjectToGenerate).FullyQualifiedClassName
 
-            For Each association As IAssociation In ModelGenerator.Current.SystemAssociations
+            For Each association As Association In ModelGenerator.Current.SystemAssociations
 
                 Dim dtype As String = association.ChildDatatype()
                 If (dtype.Equals(sClassKey)) Then
 
                     Dim parentMoObjType As String = association.ParentDatatype()
-                    Dim meField As String = DBTable.getRuntimeName(association.ChildFieldName)
-                    Dim relField As String = DBTable.getRuntimeName(association.ParentFieldName)
+                    Dim meField As String = association.ChildField.PropertyName
+                    Dim relField As String = association.ParentField.PropertyName
 
                     sAssociationsCode.Append(TWO_TABS & "// Assocations from " & parentMoObjType & vbCrLf)
                     sAssociationsCode.Append(TWO_TABS & "if ( parentMo is " & parentMoObjType & ") {" & vbCrLf)
-					sAssociationsCode.Append(TWO_TABS & vbTab & "this." & ModelGenerator.Current.FieldPropertyPrefix & meField & _
-			"= ((" & parentMoObjType & ")parentMo)." & ModelGenerator.Current.FieldPropertyPrefix & relField & ";" & vbCrLf)
+                    sAssociationsCode.Append(TWO_TABS & vbTab & "this." & meField).Append("= ((" & parentMoObjType & ")parentMo)." & relField & ";" & vbCrLf)
                     sAssociationsCode.Append(TWO_TABS & "}" & vbCrLf)
 
                 End If
@@ -43,7 +42,7 @@ Namespace Tokens
 
                 Dim s As System.Text.StringBuilder = New System.Text.StringBuilder()
                 s.Append("#region ""parentIdChanged""" & vbCrLf)
-                s.Append(vbTab & "//below sub is called when parentIdChanged" & vbCrLf)
+                s.Append(vbTab & "///below sub is called when parentIdChanged" & vbCrLf)
                 s.Append(vbTab & "public override void handleParentIdChanged(Object parentMo, IDChangedEventArgs e){" & vbCrLf)
                 s.Append(sAssociationsCode.ToString)
                 s.Append(vbTab & "}" & vbCrLf)

@@ -239,14 +239,33 @@ Public Class DBField
 
     End Function
 
+    Private Shared Function normalizeAuditFieldPropertyName(x As String) As String
+
+        If x.ToLower = "updatedate" Then Return "UpdateDate"
+        If x.ToLower = "updateuser" Then Return "UpdateUser"
+        If x.ToLower = "createdate" Then Return "CreateDate"
+        If x.ToLower = "createuser" Then Return "CreateUser"
+        Return String.Empty
+
+    End Function
+
+
     Public Overridable ReadOnly Property PropertyName() As String Implements IDBField.PropertyName
         Get
+            Dim propertyFieldname As String
             If Me.isAuditField Then
-                Return DBTable.getRuntimeName(Me.FieldName())
+                propertyFieldname = normalizeAuditFieldPropertyName(DBTable.getRuntimeName(Me.FieldName()))
             Else
-                Return ModelGenerator.Current.FieldPropertyPrefix & DBTable.getRuntimeName(Me.FieldName())
+                propertyFieldname = ModelGenerator.Current.FieldPropertyPrefix & DBTable.getRuntimeName(Me.FieldName())
             End If
 
+            If propertyFieldname = ModelGenerator.Current.CurrentObjectBeingGenerated.ClassName Then
+                propertyFieldname = propertyFieldname & "Prop"
+            End If
+            If propertyFieldname.ToLower = "id" Then
+                propertyFieldname = "Id"
+            End If
+            Return propertyFieldname
         End Get
     End Property
 

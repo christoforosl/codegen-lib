@@ -224,11 +224,21 @@ Public Class DBTable
     End Sub
 
 
-    Public ReadOnly Property hasFieldName(ByVal fname As String) As Boolean Implements IDBTable.hasFieldName
-        Get
-            Return Me.Fields.ContainsKey(fname.ToLower)
-        End Get
-    End Property
+    Public Function hasFieldName(ByVal fname As String) As Boolean Implements IDBTable.hasFieldName
+
+        Return Me.Fields.ContainsKey(fname.ToLower)
+
+    End Function
+
+    Public Function getFieldName(ByVal fname As String) As IDBField Implements IDBTable.getFieldByName
+
+        If Me.Fields.ContainsKey(fname.ToLower) Then
+            Return Me.Fields(fname.ToLower)
+        Else
+            Return Nothing
+        End If
+
+    End Function
 
     Public ReadOnly Property hasAuditFields() As Boolean Implements IDBTable.hasAuditFields
 
@@ -281,7 +291,7 @@ Public Class DBTable
                 If f.AccessLevel <> String.Empty Then
                     fld.AccessLevel = f.AccessLevel
                 End If
-                
+
                 fld.XMLSerializationIgnore = f.XMLSerializationIgnore
 
             End If
@@ -338,7 +348,7 @@ Public Class DBTable
             javaName.Append(first + name.Substring(1))
         End If
 
-		Return javaName.ToString()
+        Return javaName.ToString()
 
     End Function
 
@@ -471,7 +481,7 @@ Public Class DBTable
                     End If
                 End If
             End If
-            
+
 
         End If
     End Sub

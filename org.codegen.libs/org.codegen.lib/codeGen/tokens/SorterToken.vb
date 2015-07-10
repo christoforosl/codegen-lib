@@ -17,17 +17,18 @@ Namespace Tokens
 			Dim sortExpression As String = ModelGenerator.Current.FieldPropertyPrefix
 
             If t.DbTable.hasFieldName(SortField.ToLower) Then
-                If t.DbTable.Fields(SortField.ToLower).isNullableProperty Then
-                    sortExpression = SortField & ".Value"
+                Dim sfield = t.DbTable.getFieldByName(SortField.ToLower)
+                If sfield.isNullableProperty Then
+                    sortExpression = sfield.PropertyName & ".Value"
                 Else
-                    sortExpression = SortField
+                    sortExpression = sfield.PropertyName
                 End If
 
             Else
                 sortExpression = SortField
             End If
 
-            Dim ret As String = vbCrLf & vbTab & "public int CompareTo(" & CType(t, ObjectToGenerate).ClassName & " other ) {" & vbCrLf
+            Dim ret As String = vbCrLf & vbTab & "public int CompareTo(" & CType(t, ObjectToGenerate).ClassName & " other ) {" & vbCrLf & vbTab & "// generated sort" & vbCrLf
 
             Dim sortAscDesc As String = CStr(IIf(SortAsc = False, "-1 * ", ""))
 			ret += vbTab & vbTab & "return " & sortAscDesc & " this." & ModelGenerator.Current.FieldPropertyPrefix & _

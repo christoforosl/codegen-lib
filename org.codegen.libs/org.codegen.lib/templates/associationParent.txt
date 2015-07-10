@@ -12,10 +12,10 @@
             Set(ByVal value As <datatype>)
                 Me._<association_name> = value
 				If value isnot Nothing then
-					me.<prop_prefix><child_field_runtime> = value.<prop_prefix><parent_field_runtime>
+					me.<child_field_runtime> = value.<parent_field_runtime>
 					AddHandler value.IDChanged, AddressOf Me.handleParentIdChanged
                 Else
-					me.<prop_prefix><child_field_runtime> = Nothing
+					me.<child_field_runtime> = Nothing
 				End If
 
             End Set
@@ -40,11 +40,11 @@
 			
 			'check if object is not loaded
 			If Me._<association_name> Is Nothing AndAlso _
-                   Me.<prop_prefix><child_field_runtime> IsNot Nothing Then
+                   Me.<child_field_runtime> IsNot Nothing Then
                 
 				'call the setter here, not the private variable!
                 Me.<prop_prefix><association_name> = new <db_mapper>().FindByKey( _ 
-				                 Me.<prop_prefix><child_field_runtime>.Value)
+				                 Me.<child_field_runtime>.Value)
                 
             End If
 

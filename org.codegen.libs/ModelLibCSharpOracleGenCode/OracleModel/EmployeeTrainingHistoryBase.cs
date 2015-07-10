@@ -25,6 +25,8 @@ using System.ComponentModel.DataAnnotations;
 //
 //************************************************************
 //</comments>
+//
+//
 namespace OracleModel {
 
 	[Table(Name = "EMPLOYEE_TRAINING_HISTORY")]

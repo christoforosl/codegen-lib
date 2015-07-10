@@ -8,7 +8,7 @@
             Set(ByVal value As <datatype>)
                 Me._<association_name> = value
 				If  Me._<association_name> isnot Nothing then
-					Me._<association_name>.<prop_prefix><child_field_runtime> = me.<prop_prefix><parent_field_runtime>
+					Me._<association_name>.<child_field_runtime> = me.<parent_field_runtime>
 					AddHandler Me.IDChanged, AddressOf value.handleParentIdChanged
 				
 				End If     
@@ -38,7 +38,7 @@
 				'IMPORTANT:call setter here, not the private variable
 				Me.<prop_prefix><association_name> = _ 
 					new <db_mapper>().findWhere( _ 
-					   "<child_field>=?", Me.<prop_prefix><parent_field_runtime>)
+					   "<child_field>=?", Me.<parent_field_runtime>)
 				
 				
 			End If 

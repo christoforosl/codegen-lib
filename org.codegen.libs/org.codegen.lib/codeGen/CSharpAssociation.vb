@@ -69,7 +69,7 @@ Public Class CSharpAssociation
         sb.Append(Me.getDataTypeVariable())
         sb.Append(" _")
         sb.Append(Me.getVariableName)
-        sb.Append(" = null;  // initialize to nothing, for lazy load logic below !!!")
+        sb.Append(" = null;  //initialize to nothing, for lazy load logic below !!!")
         sb.Append(vbCrLf)
         Return sb.ToString()
     End Function
@@ -79,7 +79,7 @@ Public Class CSharpAssociation
         If Me.isCardinalityMany Then
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder() ' TODO type initialisation here
 
-            sb.Append(vbTab & " private List< " & Me.DataType & ">").Append(" _deleted").Append(Me.associationName)
+            sb.Append(vbTab & " private List< " & Me.DataType & ">").Append(" _deleted").Append(Me.getVariableName)
             sb.Append(" = new ").Append("List< " & Me.DataType & ">();").Append("// initialize to empty list !!!")
             sb.Append(vbCrLf)
             Return sb.ToString()
@@ -106,7 +106,7 @@ Public Class CSharpAssociation
 				Dim pfx As String = ModelGenerator.Current.FieldPropertyPrefix
                 Dim mapperClassName As String = GetAssociatedMapperClassName()
                 Dim mappervar As String = Me.associationName.ToLower() & "Mapper"
-				ret += vbTab + vbTab & "//*** Parent Association:" & Me.associationName.ToLower() & vbCrLf
+                ret += vbTab + vbTab & "//**** Parent Association:" & Me.associationName.ToLower() & vbCrLf
 				If Me.isCardinalityMany Then
 					ret += vbTab + vbTab & "if (thisMo." & Me.getGet() & "Loaded && thisMo." & Me.getGet() & ".NeedsSave) {" & vbCrLf
 				Else
@@ -115,7 +115,7 @@ Public Class CSharpAssociation
 
 				ret += vbTab + vbTab + vbTab + mapperClassName & " mappervar = new " & mapperClassName & "(this.dbConn);" & vbCrLf
 				ret += vbTab + vbTab + vbTab + "mappervar.save(thisMo." & Me.getGet() & ");" & vbCrLf
-				ret += vbTab + vbTab & vbTab + "thisMo." & pfx & DBTable.getRuntimeName(Me.ChildFieldName()) & " = thisMo." & Me.getGet() & "." & pfx & DBTable.getRuntimeName(Me.ParentFieldName()) & ";" & vbCrLf
+                ret += vbTab + vbTab & vbTab + "thisMo." & Me.ChildField.PropertyName & " = thisMo." & Me.getGet() & "." & Me.ParentField.PropertyName & ";" & vbCrLf
 				ret += vbTab + vbTab & "}" & vbCrLf
 				ret += vbTab + vbTab + vbCrLf
 
@@ -136,19 +136,19 @@ Public Class CSharpAssociation
 
         Else
             If Me.IsReadOnly Then
-                ret += vbTab + vbTab & "//***Readonly Child Association:" & Me.associationName.ToLower() & " ***!" & vbCrLf
+                ret += vbTab + vbTab & "//* Readonly Child Association:" & Me.associationName.ToLower() & " ***!" & vbCrLf
             Else
 
                 Dim mapperClassName As String = GetAssociatedMapperClassName()
                 Dim mappervar As String = Me.associationName.ToLower() & "Mapper"
-                ret = vbTab + vbTab & "//***Child Association:" & Me.associationName.ToLower() & vbCrLf
-                ret &= vbTab & vbTab & "if (ret." & Me.associationName & "Loaded) {" & vbCrLf
+                ret = vbTab + vbTab & "// Child Association:" & Me.associationName.ToLower() & vbCrLf
+                ret &= vbTab & vbTab & "if (ret." & Me.getGet & "Loaded) {" & vbCrLf
                 ret &= vbTab & vbTab & vbTab & mapperClassName & " " & mappervar & _
                                 " = new " & mapperClassName & "(this.dbConn);" & vbCrLf
 
                 If Me.isCardinalityMany Then
                     ret &= vbTab & vbTab & vbTab & mappervar & ".saveList(ret." & Me.getGet() & ");" & vbCrLf
-                    ret &= vbTab & vbTab & vbTab & mappervar & ".deleteList(ret." & ModelGenerator.Current.FieldPropertyPrefix & Me.associationName() & "GetDeleted());" & vbCrLf
+                    ret &= vbTab & vbTab & vbTab & mappervar & ".deleteList(ret." & ModelGenerator.Current.FieldPropertyPrefix & Me.getGet() & "GetDeleted());" & vbCrLf
                 Else
                     ret &= vbTab & vbTab & vbTab & mappervar & ".save(ret." & Me.getGet() & ");" & vbCrLf
                 End If
@@ -167,18 +167,17 @@ Public Class CSharpAssociation
     Public Overrides Function getSetterGetter() As String
 
         Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
-        Dim fieldName As String = Me.associationName
+        Dim fieldName As String = Me.getGet
        
 
         If Me.isCardinalityMany And Me.RelationType = STR_RELATION_PARENT Then
             Throw New ApplicationException("PARENT relationship with cardinality ""MANY"" not allowed!")
         End If
 
-
         Dim stmpl As String = templateText
 
         stmpl = stmpl.Replace("<sort>", CStr(IIf(String.IsNullOrEmpty(Me.SortField) = False, _
-                                                 "this._<association_name>.Sort()", "")))
+                                                 "this._<association_name>.Sort();", "")))
 
 		stmpl = stmpl.Replace("<association_name_singular>", Me.associationNameSingular)
 		stmpl = stmpl.Replace("<prop_prefix>", ModelGenerator.Current.FieldPropertyPrefix)
@@ -186,10 +185,11 @@ Public Class CSharpAssociation
         stmpl = stmpl.Replace("<db_mapper>", _
                 Me.GetAssociatedMapperClassName)
         stmpl = stmpl.Replace("<datatype>", Me.DataType)
-		stmpl = stmpl.Replace("<parent_field_runtime>", ModelGenerator.Current.FieldPropertyPrefix & DBTable.getRuntimeName(Me.ParentFieldName))
-		stmpl = stmpl.Replace("<child_field_runtime>", ModelGenerator.Current.FieldPropertyPrefix & DBTable.getRuntimeName(Me.ChildFieldName))
-		stmpl = stmpl.Replace("<child_field_runtime_as_integer>", _
-							  "CInt(this." & ModelGenerator.Current.FieldPropertyPrefix & DBTable.getRuntimeName(Me.ChildFieldName) & ")")
+
+        stmpl = stmpl.Replace("<parent_field_runtime>", Me.ParentField.PropertyName)
+        stmpl = stmpl.Replace("<child_field_runtime>", Me.ChildField.PropertyName)
+        stmpl = stmpl.Replace("<child_field_runtime_as_integer>", _
+                              "CInt(this." & Me.ChildField.PropertyName & ")")
 
         stmpl = stmpl.Replace("<child_field>", Me.ChildFieldName)
         stmpl = stmpl.Replace("<parent_field>", Me.ParentFieldName)

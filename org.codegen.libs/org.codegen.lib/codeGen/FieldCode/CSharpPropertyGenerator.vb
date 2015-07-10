@@ -12,11 +12,9 @@ Public Class CSharpPropertyGenerator
 		Dim sImplements As String = String.Empty
         Dim sLengthChecker As String = String.Empty
         Dim xmlIgnore As String = String.Empty
-        Dim runtimeFieldName As String = field.RuntimeFieldName()
-        Dim propertyFieldname As String = field.RuntimeFieldName
 
-        If runtimeFieldName.ToLower = "readonly" Then runtimeFieldName = "[ReadOnly]"
-        If runtimeFieldName.ToLower = "new" Then runtimeFieldName = "[new]"
+        Dim runtimeFieldName As String = field.RuntimeFieldName()
+        Dim fieldPropertyName As String = field.PropertyName()
 
         If field.RuntimeTypeStr = "System.String" Then
             sLengthChecker = vbTab & vbTab & "if (value != null && value.Length > " & field.Size & "){" & vbCrLf
@@ -28,12 +26,8 @@ Public Class CSharpPropertyGenerator
             xmlIgnore = "[XmlIgnore()]" & vbCrLf
         End If
 
-        Dim pfx As String = ModelGenerator.Current.FieldPropertyPrefix
-        If (field.isAuditField) Then pfx = String.Empty
-
         Dim sproperty As StringBuilder = New StringBuilder(xmlIgnore).Append(vbTab). _
-              Append(getLinqDataAttribute(field)).Append(vbTab).Append("[DataMember]public virtual ").Append(field.getPropertyDataType).Append(" "). _
-        Append(pfx).Append(runtimeFieldName).Append("{").Append(vbCrLf). _
+              Append(getLinqDataAttribute(field)).Append(vbTab).Append("[DataMember]public virtual ").Append(field.getPropertyDataType).Append(" ").Append(fieldPropertyName).Append("{").Append(vbCrLf). _
         Append(vbTab).Append("get{").Append(vbCrLf)
 
         sproperty.Append(vbTab & vbTab & "return " & Me.Converter(field) & ";" & vbCrLf)

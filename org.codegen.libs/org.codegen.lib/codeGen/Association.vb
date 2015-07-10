@@ -88,9 +88,11 @@ Public Class Association
         Return ret
 
     End Function
+
     Public Overridable Function getVariableName() As String Implements IAssociation.getVariableName
-        Return Me.associationName
+        Return Me.getGet
     End Function
+
     Public Overridable Function getVariable() As String Implements IAssociation.getVariable
 
         Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder() ' TODO type initialisation here
@@ -98,7 +100,7 @@ Public Class Association
         sb.Append(Me.getVariableName)
         sb.Append(" as ")
         sb.Append(Me.getDataTypeVariable())
-        sb.Append(" = nothing ''''' initialize to nothing, for lazy load logic below !!!")
+        sb.Append(" = nothing '' initialize to nothing, for lazy load logic below !!!")
         sb.Append(vbCrLf)
         Return sb.ToString()
     End Function
@@ -144,7 +146,7 @@ Public Class Association
 
 				ret += vbTab + vbTab + vbTab + "Dim mappervar as " & mapperClassName & "= new " & mapperClassName & "(me.dbConn)" & vbCrLf
 				ret += vbTab + vbTab + vbTab + "mappervar.save(thisMo." & Me.getGet() & ")" & vbCrLf
-				ret += vbTab + vbTab & vbTab + "thisMo." & ModelGenerator.Current.FieldPropertyPrefix & DBTable.getRuntimeName(Me.ChildFieldName()) & " = thisMo." & Me.getGet() & "." & ModelGenerator.Current.FieldPropertyPrefix & DBTable.getRuntimeName(Me.ParentFieldName()) & vbCrLf
+                ret += vbTab + vbTab & vbTab + "thisMo." & Me.ChildField.PropertyName & " = thisMo." & Me.getGet() & "." & Me.ParentField.PropertyName & vbCrLf
 				ret += vbTab + vbTab & "end if" & vbCrLf
 				ret += vbTab + vbTab + vbCrLf
 
@@ -230,31 +232,67 @@ Public Class Association
 
     Public Property PropertiesImplementInterface() As String Implements IAssociation.PropertiesImplementInterface
 
+    Public Function ParentObjectToGenerate() As ObjectToGenerate
+
+        Dim parentOg As ObjectToGenerate = ModelGenerator.Current.getObjectOfDataType(Me.ParentDatatype)
+        If (parentOg Is Nothing) Then Throw New ApplicationException(String.Format("No PARENT object for generation exists with name {0}", Me.ParentDatatype))
+        Return parentOg
+
+    End Function
+
+
+    Public Function ChildObjectToGenerate() As ObjectToGenerate
+
+        Dim childOg As ObjectToGenerate = ModelGenerator.Current.getObjectOfDataType(Me.ChildDatatype)
+        If (childOg Is Nothing) Then Throw New ApplicationException(String.Format("No CHILD object for generation exists with name {0}", Me.ChildDatatype))
+        Return childOg
+
+    End Function
+
+    ''' <summary>
+    ''' Returns the IDBField instance of the child field of the association
+    ''' </summary>
+    Public Function ChildField() As IDBField
+
+        Dim cfield = Me.ChildObjectToGenerate.DbTable.getFieldByName(Me.ChildFieldName)
+        If (cfield Is Nothing) Then Throw New ApplicationException(String.Format("CHILD object {0} does not have a field with name {1}", Me.ChildDatatype, Me.ChildFieldName))
+        Return cfield
+
+    End Function
+
+    Public Function ParentField() As IDBField
+
+        Dim pfield = Me.ParentObjectToGenerate.DbTable.getFieldByName(Me.ParentFieldName)
+        If (pfield Is Nothing) Then Throw New ApplicationException(String.Format("PARENT object {0} does not have a field with name {1}", Me.ParentDatatype, Me.ParentFieldName))
+        Return pfield
+
+    End Function
     Public Overridable Function getSetterGetter() As String Implements IAssociation.getSetterGetter
 
         Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
-        Dim fieldName As String = Me.associationName
-       
+        Dim associationPropertyName As String = Me.getGet
 
         If Me.isCardinalityMany And Me.RelationType = STR_RELATION_PARENT Then
             Throw New ApplicationException("PARENT relationship with cardinality ""MANY"" not allowed!")
         End If
 
-        
         Dim stmpl As String = templateText
 
         stmpl = stmpl.Replace("<sort>", CStr(IIf(String.IsNullOrEmpty(Me.SortField) = False, _
                                                  "Me._<association_name>.Sort()", "")))
-		stmpl = stmpl.Replace("<prop_prefix>", ModelGenerator.Current.FieldPropertyPrefix)
+        stmpl = stmpl.Replace("<prop_prefix>", ModelGenerator.Current.FieldPropertyPrefix)
         stmpl = stmpl.Replace("<association_name_singular>", Me.associationNameSingular)
-        stmpl = stmpl.Replace("<association_name>", fieldName)
+        stmpl = stmpl.Replace("<association_name>", associationPropertyName)
         stmpl = stmpl.Replace("<db_mapper>", _
                 Me.GetAssociatedMapperClassName)
         stmpl = stmpl.Replace("<datatype>", Me.DataType)
-        stmpl = stmpl.Replace("<parent_field_runtime>", DBTable.getRuntimeName(Me.ParentFieldName))
-        stmpl = stmpl.Replace("<child_field_runtime>", DBTable.getRuntimeName(Me.ChildFieldName))
+
+        stmpl = stmpl.Replace("<parent_field_runtime>", Me.ParentField.PropertyName)
+
+        stmpl = stmpl.Replace("<child_field_runtime>", Me.ChildField.PropertyName)
+
         stmpl = stmpl.Replace("<child_field_runtime_as_integer>", _
-                              "CInt(Me." & DBTable.getRuntimeName(Me.ChildFieldName) & ")")
+                              "CInt(Me." & Me.ChildField.PropertyName & ")")
 
         stmpl = stmpl.Replace("<child_field>", Me.ChildFieldName)
         stmpl = stmpl.Replace("<parent_field>", Me.ParentFieldName)
@@ -291,71 +329,71 @@ Public Class Association
     Public Property isSortAsc() As Boolean Implements IAssociation.isSortAsc
     Public Property SortField() As String Implements IAssociation.SortField
 
-	Public ReadOnly Property templateText() As String Implements IAssociation.templateText
-		Get
-			If Me._relationType = STR_RELATION_CLIENT Then
-				If Me.isCardinalityMany Then
-					Return ChildManyTemplate
-				Else
-					Return ChildOneTemplate
-				End If
-			Else
-				Return ParentTemplate
-			End If
-		End Get
+    Public ReadOnly Property templateText() As String Implements IAssociation.templateText
+        Get
+            If Me._relationType = STR_RELATION_CLIENT Then
+                If Me.isCardinalityMany Then
+                    Return ChildManyTemplate
+                Else
+                    Return ChildOneTemplate
+                End If
+            Else
+                Return ParentTemplate
+            End If
+        End Get
 
-	End Property
+    End Property
 
-	Public Property ChildManyTemplate() As String
-		Get
-			If _childManyTemplate Is Nothing Then
-				If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
+    Public Property ChildManyTemplate() As String
+        Get
+            If _childManyTemplate Is Nothing Then
+                If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
                     _childManyTemplate = Utilities.getResourceFileText(GetType(Association), "org.codegen.lib.associationChildMany.txt")
-				Else
+                Else
                     _childManyTemplate = Utilities.getResourceFileText(GetType(Association), "org.codegen.lib.associationChildManyCSharp.txt")
-				End If
-			End If
-			Return _childManyTemplate
-		End Get
-		Set(ByVal value As String)
-			_childManyTemplate = value
-		End Set
-	End Property
+                End If
+            End If
+            Return _childManyTemplate
+        End Get
+        Set(ByVal value As String)
+            _childManyTemplate = value
+        End Set
+    End Property
 
-	Public Property ChildOneTemplate() As String
-		Get
-			If _childOneTemplate Is Nothing Then
-				If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
+    Public Property ChildOneTemplate() As String
+        Get
+            If _childOneTemplate Is Nothing Then
+                If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
                     _childOneTemplate = Utilities.getResourceFileText(GetType(Association), "org.codegen.lib.associationChildOne.txt")
-				Else
+                Else
                     _childOneTemplate = Utilities.getResourceFileText(GetType(Association), "org.codegen.lib.associationChildOneCSharp.txt")
-				End If
+                End If
 
-			End If
-			Return _childOneTemplate
-		End Get
-		Set(ByVal value As String)
-			_childOneTemplate = value
-		End Set
-	End Property
+            End If
+            Return _childOneTemplate
+        End Get
+        Set(ByVal value As String)
+            _childOneTemplate = value
+        End Set
+    End Property
 
-	Public Property ParentTemplate() As String
-		Get
-			If _parentTemplate Is Nothing Then
-				If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
+    Public Property ParentTemplate() As String
+        Get
+            If _parentTemplate Is Nothing Then
+                If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB Then
                     _parentTemplate = Utilities.getResourceFileText(GetType(Association), "org.codegen.lib.associationParent.txt")
-				Else
+                Else
                     _parentTemplate = Utilities.getResourceFileText(GetType(Association), "org.codegen.lib.associationParentCSharp.txt")
-				End If
+                End If
 
 
-			End If
-			Return _parentTemplate
-		End Get
-		Set(ByVal value As String)
-			_parentTemplate = value
-		End Set
-	End Property
+            End If
+            Return _parentTemplate
+        End Get
+        Set(ByVal value As String)
+            _parentTemplate = value
+        End Set
+    End Property
 
     Public Function isCardinalityMany() As Boolean Implements IAssociation.isCardinalityMany
         Return Not String.IsNullOrEmpty(Me._cardinality) AndAlso Me._cardinality = "*"

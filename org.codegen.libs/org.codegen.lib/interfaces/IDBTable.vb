@@ -30,7 +30,8 @@ Public Interface IDBTable
     Property SelectObject() As String
     Property TableName() As String
 
-    ReadOnly Property hasFieldName(ByVal fname As String) As Boolean
+    Function getFieldByName(ByVal fname As String) As IDBField
+    Function hasFieldName(ByVal fname As String) As Boolean
     ReadOnly Property hasAuditFields() As Boolean
     Property Fields() As Dictionary(Of String, IDBField)
 
