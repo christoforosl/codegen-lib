@@ -260,7 +260,7 @@ Public Class DBField
             End If
 
             If propertyFieldname = ModelGenerator.Current.CurrentObjectBeingGenerated.ClassName Then
-                propertyFieldname = propertyFieldname & "Prop"
+                propertyFieldname = propertyFieldname & "Property"
             End If
             If propertyFieldname.ToLower = "id" Then
                 propertyFieldname = "Id"
