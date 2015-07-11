@@ -233,7 +233,7 @@ Public Class XMLClassGenerator
                 Dim childTableLinkField As String = getRowValue(assRow, XML_ASS_CHILD_FIELD, parentTableLinkField)
                 Dim accLevel As String = getRowValue(assRow, XML_FIELD_ATTR_ACCESS_LEVEL, STR_PUBLIC)
 
-                Dim n As IAssociation = ModelGenerator.Current.getAssociationInstance()
+                Dim n As Association = ModelGenerator.Current.getAssociationInstance()
                 n.DataType = associationDatatype
                 n.associationName = assname
                 n.associationNameSingular = assnameSingle

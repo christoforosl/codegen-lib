@@ -48,8 +48,6 @@ Public Class ucEmployeeList
 	me.SampleSmallInt = new DataGridViewTextBoxColumn
 	me.SampleNumericFieldInt = new DataGridViewTextBoxColumn
 	me.SampleNumericField2Decimals = new DataGridViewTextBoxColumn
-	me.CvFileContent = new DataGridViewTextBoxColumn
-	me.Photo = new DataGridViewTextBoxColumn
 
         Me.grdEmployee = New org.codegen.win.controls.Grid.CGSQLGrid()
         Me.SuspendLayout()
@@ -383,34 +381,6 @@ Public Class ucEmployeeList
 	'**** End Setup of column: SampleNumericField2Decimals
 
 
-	' column: CvFileContent
-	CvFileContent.CellTemplate = New DataGridViewTextBoxCell
-	CvFileContent.Name = "CvFileContent"
-	CvFileContent.DataPropertyName = "CvFileContent"
-	CvFileContent.ReadOnly = True
-	CvFileContent.HeaderText = "CvFileContent"
-	CvFileContent.HeaderCell.value = "CvFileContent"
-	CvFileContent.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft
-	CvFileContent.HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopLeft
-	CvFileContent.Width = 100
-	CvFileContent.Visible = True
-	'**** End Setup of column: CvFileContent
-
-
-	' column: Photo
-	Photo.CellTemplate = New DataGridViewTextBoxCell
-	Photo.Name = "Photo"
-	Photo.DataPropertyName = "photo"
-	Photo.ReadOnly = True
-	Photo.HeaderText = "Photo"
-	Photo.HeaderCell.value = "Photo"
-	Photo.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft
-	Photo.HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopLeft
-	Photo.Width = 100
-	Photo.Visible = True
-	'**** End Setup of column: Photo
-
-
 
 
         '
@@ -443,8 +413,6 @@ Public Class ucEmployeeList
 	me.grdEmployee.Columns.Add(SampleSmallInt)
 	me.grdEmployee.Columns.Add(SampleNumericFieldInt)
 	me.grdEmployee.Columns.Add(SampleNumericField2Decimals)
-	me.grdEmployee.Columns.Add(CvFileContent)
-	me.grdEmployee.Columns.Add(Photo)
 
         Me.Name = "ucEmployeeList"
         Me.Text = "ucEmployeeList"
@@ -475,8 +443,6 @@ Public Class ucEmployeeList
 	Private WithEvents SampleSmallInt As DataGridViewTextBoxColumn
 	Private WithEvents SampleNumericFieldInt As DataGridViewTextBoxColumn
 	Private WithEvents SampleNumericField2Decimals As DataGridViewTextBoxColumn
-	Private WithEvents CvFileContent As DataGridViewTextBoxColumn
-	Private WithEvents Photo As DataGridViewTextBoxColumn
 
 
 #End Region

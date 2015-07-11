@@ -25,8 +25,6 @@ using System.ComponentModel.DataAnnotations;
 //
 //************************************************************
 //</comments>
-//
-//
 namespace CsModelObjects {
 
 	[Table(Name = "Project")]
@@ -46,7 +44,7 @@ namespace CsModelObjects {
 		#region "Children and Parents"
 		
 		public override void loadObjectHierarchy() {
-		loadEmployeeProjects();
+		LoadPrEmployeeProjects();
 
 		}
 
@@ -113,7 +111,7 @@ namespace CsModelObjects {
 	private System.Int64? _IsActive;
 	private System.Int64? _ProjectTypeId = null;
 	// ****** CHILD OBJECTS ********************
-	private List< CsModelObjects.EmployeeProject> _EmployeeProjects = null;  // initialize to nothing, for lazy load logic below !!!
+	private List< CsModelObjects.EmployeeProject> _EmployeeProjects = null;  //initialize to nothing, for lazy load logic below !!!
 	 private List< CsModelObjects.EmployeeProject> _deletedEmployeeProjects = new List< CsModelObjects.EmployeeProject>();// initialize to empty list !!!
 
 	// *****************************************
@@ -205,7 +203,7 @@ namespace CsModelObjects {
 
 		public virtual CsModelObjects.EmployeeProject PrEmployeeProjectGetAt( int i ) {
 
-            this.loadEmployeeProjects();
+            this.LoadPrEmployeeProjects();
             if( this._EmployeeProjects.Count >= (i - 1)) {
                 return this._EmployeeProjects[i];
             }
@@ -215,7 +213,7 @@ namespace CsModelObjects {
 		
 		public virtual void PrEmployeeProjectAdd( CsModelObjects.EmployeeProject val )  {
 			//1-Many , add a single item!
-			this.loadEmployeeProjects();
+			this.LoadPrEmployeeProjects();
 			val.PrEPProjectId = this.PrProjectId;
 			//AddHandler this.IDChanged, AddressOf val.handleParentIdChanged;
 			this.IDChanged += val.handleParentIdChanged;
@@ -225,15 +223,15 @@ namespace CsModelObjects {
 
 		public virtual void PrEmployeeProjectsClear() {
 
-            this.loadEmployeeProjects();
+            this.LoadPrEmployeeProjects();
             this._deletedEmployeeProjects.AddRange(this._EmployeeProjects);
             this._EmployeeProjects.Clear();
 
         }
 
-		public virtual void PrEmployeeProjectRemove( CsModelObjects.EmployeeProject val ) {
+		public virtual void EmployeeProjectRemove( CsModelObjects.EmployeeProject val ) {
 			
-			this.loadEmployeeProjects();
+			this.LoadPrEmployeeProjects();
 			this._deletedEmployeeProjects.Add(val);
 			this._EmployeeProjects.Remove(val);
 
@@ -251,7 +249,7 @@ namespace CsModelObjects {
 				//'1 to many relation
                 //'LAZY LOADING! Only hit the database to get the child object if we need it
                 if ( this._EmployeeProjects == null ) {
-                    this.loadEmployeeProjects();
+                    this.LoadPrEmployeeProjects();
                 } 
 				
                 return this._EmployeeProjects;
@@ -286,7 +284,7 @@ namespace CsModelObjects {
         /// <summary>
         /// Loads child objects from dabatabase, if not loaded already
         /// </summary>
-        private void loadEmployeeProjects() {
+        private void LoadPrEmployeeProjects() {
 			
 			if (this.EmployeeProjectsLoaded)return;
 			//init list

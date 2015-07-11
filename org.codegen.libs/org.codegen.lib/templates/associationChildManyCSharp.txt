@@ -1,11 +1,11 @@
 ﻿		//associationChildManyCSharp.txt
 		#region "Association <association_name>"
 
-		public bool <association_name>Loaded  {get; private set;}
+		public bool <LoadedFlagVariableName>  {get; private set;}
 
 		public virtual <datatype> <prop_prefix><association_name_singular>GetAt( int i ) {
 
-            this.load<association_name>();
+            this.<LoadAssociationMethodName>();
             if( this._<association_name>.Count >= (i - 1)) {
                 return this._<association_name>[i];
             }
@@ -15,7 +15,7 @@
 		
 		public virtual void <prop_prefix><association_name_singular>Add( <datatype> val )  {
 			//1-Many , add a single item!
-			this.load<association_name>();
+			this.<LoadAssociationMethodName>();
 			val.<child_field_runtime> = this.<parent_field_runtime>;
 			//AddHandler this.IDChanged, AddressOf val.handleParentIdChanged;
 			this.IDChanged += val.handleParentIdChanged;
@@ -25,33 +25,33 @@
 
 		public virtual void <prop_prefix><association_name>Clear() {
 
-            this.load<association_name>();
+            this.<LoadAssociationMethodName>();
             this._deleted<association_name>.AddRange(this._<association_name>);
             this._<association_name>.Clear();
 
         }
 
-		public virtual void <prop_prefix><association_name_singular>Remove( <datatype> val ) {
+		public virtual void <association_name_singular>Remove( <datatype> val ) {
 			
-			this.load<association_name>();
+			this.<LoadAssociationMethodName>();
 			this._deleted<association_name>.Add(val);
 			this._<association_name>.Remove(val);
 
         }
 		
-		public virtual IEnumerable< <datatype> ><prop_prefix><association_name>GetDeleted() {
+		public virtual IEnumerable< <datatype> ><getDeletedMethodName>() {
 			
 			return this._deleted<association_name>;
 
         }
 
-        public virtual IEnumerable< <datatype> > <prop_prefix><association_name> {
+        public virtual IEnumerable< <datatype> > <property_name> {
 
             get {
 				//'1 to many relation
                 //'LAZY LOADING! Only hit the database to get the child object if we need it
                 if ( this._<association_name> == null ) {
-                    this.load<association_name>();
+                    this.<LoadAssociationMethodName>();
                 } 
 				<sort>
                 return this._<association_name>;
@@ -86,9 +86,9 @@
         /// <summary>
         /// Loads child objects from dabatabase, if not loaded already
         /// </summary>
-        private void load<association_name>() {
+        private void <LoadAssociationMethodName>() {
 			
-			if (this.<association_name>Loaded)return;
+			if (this.<LoadedFlagVariableName>)return;
 			//init list
 			this._<association_name> = new List< <datatype>>();
 
@@ -96,6 +96,6 @@
                 this.addTo<association_name>List( new <db_mapper>().findList("<child_field>=?", this.<parent_field_runtime>));
             }
             
-			this.<association_name>Loaded = true;
+			this.<LoadedFlagVariableName> = true;
         } 
 		#endregion

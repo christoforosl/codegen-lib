@@ -1260,7 +1260,6 @@ Public MustInherit Class DBUtils
         icomm.Transaction = Me.Transaction
         icomm.CommandType = CommandType.Text
 
-
         setParamValues(icomm, params)
         Try
             rs = icomm.ExecuteReader
@@ -1336,12 +1335,24 @@ Public MustInherit Class DBUtils
             err &= "Parameters: " & vbCrLf
             For Each iparam As IDataParameter In pstmt.Parameters
                 err &= "Name  :" & iparam.ParameterName & vbCrLf
-                err &= "DBType:" & iparam.DbType.ToString & vbCrLf
+                Try
+                    err &= "DBType:" & iparam.DbType.ToString & vbCrLf
+
+                Catch ex As Exception
+                    err &= "DBType:UNKNOWN" & vbCrLf
+                End Try
+
                 If IsDBNull(iparam.Value) Then
                     err &= "Value : NULL" & vbCrLf
                 Else
-                    err &= "Value :" & CStr(iparam.Value) & vbCrLf
+                    Try
+                        err &= "Value :" & CStr(iparam.Value) & vbCrLf
+                    Catch ex As Exception
+                        err &= "Value : Could not convert to String" & vbCrLf
+                    End Try
+
                 End If
+               
 
                 err &= "------------" & vbCrLf
             Next

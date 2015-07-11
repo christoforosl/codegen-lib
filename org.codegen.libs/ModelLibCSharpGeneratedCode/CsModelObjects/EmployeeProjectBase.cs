@@ -25,8 +25,6 @@ using System.ComponentModel.DataAnnotations;
 //
 //************************************************************
 //</comments>
-//
-//
 namespace CsModelObjects {
 
 	[Table(Name = "EmployeeProject")]
@@ -46,7 +44,7 @@ namespace CsModelObjects {
 		#region "Children and Parents"
 		
 		public override void loadObjectHierarchy() {
-		loadProject();
+		LoadPrProject();
 
 		}
 
@@ -116,7 +114,7 @@ namespace CsModelObjects {
 	private System.DateTime? _EndDate = null;
 	private System.Decimal? _Rate = null;
 	// ****** CHILD OBJECTS ********************
-	private CsModelObjects.Project _Project = null;  // initialize to nothing, for lazy load logic below !!!
+	private CsModelObjects.Project _Project = null;  //initialize to nothing, for lazy load logic below !!!
 
 	// *****************************************
 	// ****** END CHILD OBJECTS ********************
@@ -257,7 +255,7 @@ namespace CsModelObjects {
             get {
                 //LAZY LOADING! Only hit the database to get the child object if we need it
                 if ( this._Project == null ) {
-					this.loadProject();
+					this.LoadPrProject();
                 }
 				
                 return this._Project;
@@ -267,7 +265,7 @@ namespace CsModelObjects {
         /// <summary>
         /// Loads parent object and sets the appropriate properties
         /// </summary>
-        private void loadProject() {
+        private void LoadPrProject() {
 			
 			if (this.ProjectLoaded) return;
 			
@@ -511,7 +509,7 @@ namespace CsModelObjects {
 		#endregion
 
 #region "parentIdChanged"
-	//below sub is called when parentIdChanged
+	///below sub is called when parentIdChanged
 	public override void handleParentIdChanged(Object parentMo, IDChangedEventArgs e){
 		// Assocations from CsModelObjects.Employee
 		if ( parentMo is CsModelObjects.Employee) {

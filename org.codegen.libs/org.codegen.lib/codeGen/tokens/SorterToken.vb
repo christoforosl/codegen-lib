@@ -31,8 +31,8 @@ Namespace Tokens
             Dim ret As String = vbCrLf & vbTab & "public int CompareTo(" & CType(t, ObjectToGenerate).ClassName & " other ) {" & vbCrLf & vbTab & "// generated sort" & vbCrLf
 
             Dim sortAscDesc As String = CStr(IIf(SortAsc = False, "-1 * ", ""))
-			ret += vbTab & vbTab & "return " & sortAscDesc & " this." & ModelGenerator.Current.FieldPropertyPrefix & _
-				sortExpression & ".CompareTo(other." & ModelGenerator.Current.FieldPropertyPrefix & sortExpression & ");" & vbCrLf
+            ret += vbTab & vbTab & "return " & sortAscDesc & " this." & _
+                sortExpression & ".CompareTo(other." & sortExpression & ");" & vbCrLf
 
             ret += vbTab & "}" & vbCrLf
             Return ret
@@ -47,10 +47,11 @@ Namespace Tokens
 			Dim sortExpression As String
 
             If t.DbTable.hasFieldName(SortField.ToLower) Then
+                Dim sfield = t.DbTable.getFieldByName(SortField.ToLower)
                 If t.DbTable.Fields(SortField.ToLower).isNullableProperty Then
-                    sortExpression = SortField & ".Value"
+                    sortExpression = sfield.PropertyName & ".Value"
                 Else
-                    sortExpression = SortField
+                    sortExpression = sfield.PropertyName
                 End If
 
             Else
@@ -61,8 +62,8 @@ Namespace Tokens
                                vbTab & vbTab & " Implements System.IComparable(Of " & CType(t, ObjectToGenerate).ClassName & ").CompareTo" & vbCrLf & vbCrLf
 
             Dim sortAscDesc As String = CStr(IIf(SortAsc = False, "-1 * ", ""))
-			ret += vbTab & vbTab & "Return " & sortAscDesc & " Me." & ModelGenerator.Current.FieldPropertyPrefix & _
-			 sortExpression & ".CompareTo(other." & ModelGenerator.Current.FieldPropertyPrefix & sortExpression & ")" & vbCrLf
+            ret += vbTab & vbTab & "Return " & sortAscDesc & " Me." & _
+             sortExpression & ".CompareTo(other." & sortExpression & ")" & vbCrLf
 
             ret += vbTab & "End Function" & vbCrLf
             Return ret

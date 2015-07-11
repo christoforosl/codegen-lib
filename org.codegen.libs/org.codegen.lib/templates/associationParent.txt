@@ -1,12 +1,12 @@
 ﻿		
 		'associationParent.txt
 		#Region "Association <association_name>"
-		friend _<association_name>Loaded as Boolean
+		friend <LoadedFlagVariableName> as Boolean
 
 		''' <summary>
         ''' Gets/Sets parent object
         ''' </summary>
-		Public Overridable Property <prop_prefix><association_name>() As <datatype> 
+		Public Overridable Property <property_name>() As <datatype> 
 
 		    '1-1 parent association
             Set(ByVal value As <datatype>)
@@ -24,7 +24,7 @@
             Get
                 'LAZY LOADING! Only hit the database to get the child object if we need it
                 If Me._<association_name> Is Nothing Then
-					Me.load<association_name>
+					Me.<LoadAssociationMethodName>
                 End If 
 				
                 Return Me._<association_name>
@@ -34,9 +34,9 @@
         ''' <summary>
         ''' Loads parent object and sets the appropriate properties
         ''' </summary>x
-        private Sub load<association_name>
+        private Sub <LoadAssociationMethodName>
 			
-			If me._<association_name>Loaded then return
+			If me.<LoadedFlagVariableName> then return
 			
 			'check if object is not loaded
 			If Me._<association_name> Is Nothing AndAlso _
@@ -48,7 +48,7 @@
                 
             End If
 
-            me._<association_name>Loaded=true
+            me.<LoadedFlagVariableName>=true
 			            
         End Sub
 

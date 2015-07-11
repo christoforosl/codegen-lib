@@ -1,8 +1,8 @@
 ﻿        
-        friend _<association_name>Loaded as Boolean
+        friend <LoadedFlagVariableName> as Boolean
 		'associationChildOne.txt
 
-		Public Overridable Property <prop_prefix><association_name>() As <datatype> 
+		Public Overridable Property <property_name>() As <datatype> 
 
 			'1-1 child association
             Set(ByVal value As <datatype>)
@@ -17,8 +17,8 @@
 
             Get
 			    'LAZY LOADING! Only hit the database to get the child object if we need it
-                If not  Me._<association_name>Loaded Then
-					Call Me.load<association_name>
+                If not  Me.<LoadedFlagVariableName> Then
+					Call Me.<LoadAssociationMethodName>
                 End If 
 								
                 Return Me._<association_name>
@@ -29,14 +29,14 @@
         ''' <summary>
         ''' Loads child object from dabatabase, if not loaded already
         ''' </summary>
-        private Sub load<association_name>
+        private Sub <LoadAssociationMethodName>
 						
-			If Me._<association_name>Loaded then return
+			If Me.<LoadedFlagVariableName> then return
 
 			If Me._<association_name> Is Nothing Then
 
 				'IMPORTANT:call setter here, not the private variable
-				Me.<prop_prefix><association_name> = _ 
+				Me.<property_name> = _ 
 					new <db_mapper>().findWhere( _ 
 					   "<child_field>=?", Me.<parent_field_runtime>)
 				
@@ -44,7 +44,7 @@
 			End If 
 
 			'set the loaded flag here
-			me._<association_name>Loaded = true
+			me.<LoadedFlagVariableName> = true
             
         End Sub
 

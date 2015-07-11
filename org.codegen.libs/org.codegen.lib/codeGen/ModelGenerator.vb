@@ -57,7 +57,7 @@ Public Class ModelGenerator
 	Property NumOfNewGeneratedFiles As Integer
 	Property CurrentObjectBeingGenerated As ObjectToGenerate
 
-	Private _systemAssociations As List(Of IAssociation) = New List(Of IAssociation)
+    Private _systemAssociations As List(Of Association) = New List(Of Association)
 
 	''' <summary>
 	''' relative directory to decide paths when using . and .. in output directories
@@ -68,18 +68,18 @@ Public Class ModelGenerator
 
     Property EnumFieldsCollection As EnumFieldsCollection
 
-	Public Sub addAssociation(ByVal ass As IAssociation)
-		Me._systemAssociations.Add(ass)
-	End Sub
+    Public Sub addAssociation(ByVal ass As Association)
+        Me._systemAssociations.Add(ass)
+    End Sub
 
-	Public Property SystemAssociations() As List(Of IAssociation)
-		Get
-			Return _systemAssociations
-		End Get
-		Private Set(ByVal value As List(Of IAssociation))
-			_systemAssociations = value
-		End Set
-	End Property
+    Public Property SystemAssociations() As List(Of Association)
+        Get
+            Return _systemAssociations
+        End Get
+        Private Set(ByVal value As List(Of Association))
+            _systemAssociations = value
+        End Set
+    End Property
 
 	Public Function getObjectOfDataType(ByVal stableName As String) As ObjectToGenerate
 
@@ -260,13 +260,13 @@ Public Class ModelGenerator
 
 	End Sub
 
-	Function getAssociationInstance() As IAssociation
-		If Me.dotNetLanguage = enumLanguage.CSHARP Then
-			Return New CSharpAssociation
-		Else
-			Return New Association
-		End If
+    Function getAssociationInstance() As Association
+        If Me.dotNetLanguage = enumLanguage.CSHARP Then
+            Return New CSharpAssociation
+        Else
+            Return New Association
+        End If
 
-	End Function
+    End Function
 
 End Class

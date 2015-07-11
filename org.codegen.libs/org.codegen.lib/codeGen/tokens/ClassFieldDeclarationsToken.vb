@@ -62,10 +62,10 @@ Namespace Tokens
             If t.Associations().Count() > 0 Then
 
                 sb.Append(vbTab & "// ****** CHILD OBJECTS ********************" & vbCrLf)
-                Dim vec As List(Of IAssociation) = t.Associations()
+                Dim vec As List(Of Association) = t.Associations()
 
-                For Each association As IAssociation In vec
-                    sb.Append(association.getVariable())
+                For Each association As Association In vec
+                    sb.Append(association.getVariableDeclarationCode())
                     sb.Append(association.getDeletedVariable())
                 Next
 
@@ -85,10 +85,10 @@ Namespace Tokens
 
                 sb.Append(vbCrLf & vbTab & "' *****************************************" & vbCrLf)
                 sb.Append(vbTab & "' ****** CHILD OBJECTS ********************" & vbCrLf)
-                Dim vec As List(Of IAssociation) = t.Associations()
+                Dim vec As List(Of Association) = t.Associations()
 
-                For Each association As IAssociation In vec
-                    sb.Append(association.getVariable())
+                For Each association As Association In vec
+                    sb.Append(association.getVariableDeclarationCode)
                     sb.Append(association.getDeletedVariable())
                 Next
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Linq;
+using System.Data;
 using System.Linq;
 using System.Text;
 using CsModelObjects;
@@ -8,6 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using org.model.lib.db;
 using org.model.lib.Model;
+
 
 namespace GeneratorTests {
 
@@ -35,6 +37,21 @@ namespace GeneratorTests {
 			
 
 			
+		}
+
+
+		[TestMethod]
+		public void testParametersArray() {
+			List<IDataParameter> parameters = new List<IDataParameter>();
+			parameters.Add(ModelContext.CurrentDBUtils.getParameter("1", "XX"));
+			parameters.Add(ModelContext.CurrentDBUtils.getParameter("2", 1300D));
+
+			var pdb = new ModelLibVBGenCode.VbBusObjects.DBMappers.EmployeeDBMapper();
+			var lstResults = pdb.findList("EmployeeName=@1 and Salary=@2 ", parameters);
+
+			var pdbCs = new CsModelMappers.EmployeeDBMapper();
+			var lstResultsCs = pdbCs.findList("EmployeeName=@1 and Salary=@2 ", parameters);
+
 		}
 
 		[TestMethod]

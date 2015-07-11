@@ -25,8 +25,6 @@ using System.ComponentModel.DataAnnotations;
 //
 //************************************************************
 //</comments>
-//
-//
 namespace CsModelObjects {
 
 	[Table(Name = "EmployeeType")]

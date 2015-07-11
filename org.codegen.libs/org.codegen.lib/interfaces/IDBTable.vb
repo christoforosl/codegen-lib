@@ -11,7 +11,7 @@ Public Interface IDBTable
 
     Property LookupInfo() As Dictionary(Of String, FieldLookupInfo)
 
-    Sub addAssociation(ByVal n As IAssociation)
+    Sub addAssociation(ByVal n As Association)
     'Sub addAssociation(ByVal datatype As String, ByVal associationName As String, ByVal cardinality As String, ByVal linkField As String, ByVal dbMapperClass As String, ByVal relType As String, ByVal childLinkField As String, ByVal parentLinkField As String, ByVal acessLevel As String, ByVal isReadOnly As Boolean, ByVal sortField As String, ByVal sortAsc As Boolean)
     Sub addCustomizedField(ByVal fld As IDBField)
 
@@ -42,7 +42,7 @@ Public Interface IDBTable
     ''' <returns></returns>
     ''' <remarks></remarks>
     Property CustomizedFields() As Dictionary(Of String, IDBField)
-    Property Associations() As List(Of IAssociation)
+    Property Associations() As List(Of Association)
 
     Property PrimaryKeyFieldName() As String
     Function quotedTableName() As String

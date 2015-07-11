@@ -105,6 +105,40 @@ namespace <DBMAPPER_NAMESPACE> {
 
 		}
 
+		///	<summary>Given an sql statement, it opens a result set, and for each record returned, 
+		///	it creates and loads a ModelObject. </summary>
+		///	<param name="sWhereClause">where clause to be applied to "selectall" statement 
+		/// that returns one or more records from the database, corresponding to the ModelObject we are going to load </param>
+		///	 <param name="params"> List of IDataParameters to be passed to sql statement </param>
+		///	 <returns> A List(Of <MODEL_CLASS_NAME>) object containing all objects loaded </returns>
+		///	 
+		public new List<<MODEL_CLASS_NAME>> findList(string sWhereClause, List<IDataParameter> @params) {
+
+			string sql = this.getSqlWithWhereClause(sWhereClause);
+			IDataReader rs = null;
+			List<<MODEL_CLASS_NAME>> molist = new List<<MODEL_CLASS_NAME>>();
+
+			try {
+				rs = dbConn.getDataReader(sql, @params);
+				this.Loader.DataSource = rs;
+
+				while (rs.Read()) {
+					IModelObject mo = this.getModelInstance();
+					this.Loader.load(mo);
+					molist.Add((<MODEL_CLASS_NAME>)mo);
+
+				}
+
+
+			} finally {
+				this.dbConn.closeDataReader(rs);
+			}
+
+			return molist;
+
+		}
+
+
 		///    
 		///	 <summary>Returns all records from database for a coresponding ModelObject </summary>
 		/// <returns>List(Of <MODEL_CLASS_NAME>) </returns>
@@ -163,10 +197,17 @@ namespace <DBMAPPER_NAMESPACE> {
 
 		#region "Shared ""get"" Functions "
 
-		public static List<<MODEL_CLASS_NAME>> findList(string @where, params object[] @params){
+		public static List<<MODEL_CLASS_NAME>> findList(string @where, params object[] @params) {
 
 			<MODEL_CLASS_NAME>DBMapper dbm = new <MODEL_CLASS_NAME>DBMapper();
 			return dbm.findList(@where, @params);
+
+		}
+
+		public static List<<MODEL_CLASS_NAME>> findList(string @where, List<IDataParameter> listOfIParams) {
+
+			<MODEL_CLASS_NAME>DBMapper dbm = new <MODEL_CLASS_NAME>DBMapper();
+			return dbm.findList(@where,listOfIParams);
 
 		}
 

@@ -54,7 +54,10 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 				Assert.Inconclusive("No EmployeeEvaluation in database, table is empty")
 			Else
 
-				Dim pdb As New EmployeeEvaluationDBMapper()
+                Dim pdb As New EmployeeEvaluationDBMapper()
+
+
+
 				Dim p As EmployeeEvaluation = pdb.findByKey(pid)
 				Dim p2 As EmployeeEvaluation = directCast(p.copy(),EmployeeEvaluation)
 

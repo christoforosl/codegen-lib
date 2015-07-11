@@ -1,12 +1,12 @@
 ﻿		//associationParentCSharp.txt
 		#region "Association <association_name>"
 
-		private bool <association_name>Loaded {get;set;}
+		private bool <LoadedFlagVariableName> {get;set;}
 
 		/// <summary>
         /// Gets/Sets parent object
         /// </summary>
-		public virtual <datatype> <prop_prefix><association_name> {
+		public virtual <datatype> <property_name> {
 		    //1-1 parent association
             set {
                 this._<association_name> = value;
@@ -24,7 +24,7 @@
             get {
                 //LAZY LOADING! Only hit the database to get the child object if we need it
                 if ( this._<association_name> == null ) {
-					this.load<association_name>();
+					this.<LoadAssociationMethodName>();
                 }
 				
                 return this._<association_name>;
@@ -34,9 +34,9 @@
         /// <summary>
         /// Loads parent object and sets the appropriate properties
         /// </summary>
-        private void load<association_name>() {
+        private void <LoadAssociationMethodName>() {
 			
-			if (this.<association_name>Loaded) return;
+			if (this.<LoadedFlagVariableName>) return;
 			
 			if ( this._<association_name> == null && this.<child_field_runtime> != null ) {
                 
@@ -45,7 +45,7 @@
                 
             }
 
-            this.<association_name>Loaded=true;
+            this.<LoadedFlagVariableName>=true;
 			            
        }
 		#endregion

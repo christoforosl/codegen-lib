@@ -35,12 +35,12 @@ Namespace Tokens
 
             If t.DbTable.Associations().Count() > 0 Then
 
-                Dim vec As List(Of IAssociation) = t.DbTable.Associations()
+                Dim vec As List(Of Association) = t.DbTable.Associations()
 
-                For Each association As IAssociation In vec
+                For Each association As Association In vec
                     If association.isParent Then
-                        sb.Append("if  ( this._" & association.getVariableName() & "!=null && this." & association.getVariableName() & "Loaded) {" & vbCrLf)
-                        sb.Append(vbTab).Append("ret.Add(this.").Append(ModelGenerator.Current.FieldPropertyPrefix).Append(association.getVariableName()).Append(");").Append(vbCrLf)
+                        sb.Append("if  ( this." & association.getVariableName() & "!=null && this." & association.LoadedFlagVariableName & ") {" & vbCrLf)
+                        sb.Append(vbTab).Append("ret.Add(this.").Append(association.PropertyName()).Append(");").Append(vbCrLf)
                         sb.Append("}" & vbCrLf)
 
                     End If
@@ -60,12 +60,12 @@ Namespace Tokens
 
             If t.DbTable.Associations().Count() > 0 Then
 
-                Dim vec As List(Of IAssociation) = t.DbTable.Associations()
+                Dim vec As List(Of Association) = t.DbTable.Associations()
 
-                For Each association As IAssociation In vec
+                For Each association As Association In vec
                     If association.isParent Then
-                        sb.Append("if  Me._" & association.getVariableName() & " isNot Nothing AndAlso Me._" & association.getVariableName() & "Loaded Then" & vbCrLf)
-                        sb.Append(vbTab).Append("ret.Add(me." & ModelGenerator.Current.FieldPropertyPrefix & association.getVariableName() & ")" & vbCrLf)
+                        sb.Append("if  Me." & association.getVariableName() & " isNot Nothing AndAlso Me." & association.LoadedFlagVariableName & " Then" & vbCrLf)
+                        sb.Append(vbTab).Append("ret.Add(me." & association.PropertyName() & ")" & vbCrLf)
                         sb.Append("End If" & vbCrLf)
 
                     End If
@@ -96,10 +96,10 @@ Namespace Tokens
             End If
 
             If t.DbTable.Associations().Count() > 0 Then
-                Dim vec As List(Of IAssociation) = t.DbTable.Associations()
+                Dim vec As List(Of Association) = t.DbTable.Associations()
 
-                For Each association As IAssociation In vec
-                    sb.Append(vbTab).Append(vbTab).Append("load").Append(association.associationName()).Append(endOfLine).Append(vbCrLf)
+                For Each association As Association In vec
+                    sb.Append(vbTab).Append(vbTab).Append(association.getLoadAssociationMethodName()).Append(endOfLine).Append(vbCrLf)
                 Next
             End If
 
@@ -119,15 +119,15 @@ Namespace Tokens
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
 
             If t.DbTable.Associations().Count() > 0 Then
-                Dim vec As List(Of IAssociation) = t.DbTable.Associations()
+                Dim vec As List(Of Association) = t.DbTable.Associations()
 
-                For Each association As IAssociation In vec
+                For Each association As Association In vec
                     If Not association.isParent Then
                         If association.isCardinalityMany Then
                             Dim dtype As String = association.ChildDatatype
                             'sb.Append(vbTab & "ret.add(me." & association.getVariableName() & ")" & vbCrLf)
-                            sb.Append(vbTab & "if  (this." & association.getVariableName() & "Loaded) { // check if loaded first!" & vbCrLf)
-                            sb.Append(vbTab & vbTab & "List< ModelObject > lp = this._" & association.getVariableName() & ".ConvertAll(" & vbCrLf)
+                            sb.Append(vbTab & "if  (this." & association.LoadedFlagVariableName() & ") { // check if loaded first!" & vbCrLf)
+                            sb.Append(vbTab & vbTab & "List< ModelObject > lp = this." & association.getVariableName() & ".ConvertAll(" & vbCrLf)
                             sb.Append(vbTab & vbTab & vbTab & vbTab & "new Converter< " & dtype & ", ModelObject>((" & vbCrLf)
                             sb.Append(vbTab & vbTab & vbTab & dtype & " pf )=> {")
                             sb.Append(vbTab & vbTab & vbTab & vbTab & "return (ModelObject)pf;}));" & vbCrLf)
@@ -135,8 +135,8 @@ Namespace Tokens
                             sb.Append(vbTab & vbTab & "ret.AddRange(lp);" & vbCrLf)
                             sb.Append(vbTab & "}" & vbCrLf)
                         Else
-                            sb.Append(vbTab & "if  (this." & ModelGenerator.Current.FieldPropertyPrefix & association.getVariableName() & "!=null) {" & vbCrLf)
-                            sb.Append(vbTab & vbTab & "ret.Add(this." & ModelGenerator.Current.FieldPropertyPrefix & association.getVariableName() & ");" & vbCrLf)
+                            sb.Append(vbTab & "if  (this." & association.getVariableName() & "!=null) {" & vbCrLf)
+                            sb.Append(vbTab & vbTab & "ret.Add(this." & association.PropertyName() & ");" & vbCrLf)
                             sb.Append(vbTab & "}" & vbCrLf)
                         End If
 
@@ -151,15 +151,15 @@ Namespace Tokens
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
 
             If t.DbTable.Associations().Count() > 0 Then
-                Dim vec As List(Of IAssociation) = t.DbTable.Associations()
+                Dim vec As List(Of Association) = t.DbTable.Associations()
 
-                For Each association As IAssociation In vec
+                For Each association As Association In vec
                     If Not association.isParent Then
                         If association.isCardinalityMany Then
                             Dim dtype As String = association.ChildDatatype
                             'sb.Append(vbTab & "ret.add(me." & association.getVariableName() & ")" & vbCrLf)
-                            sb.Append(vbTab & "if  Me._" & association.getVariableName() & "Loaded Then ' check if loaded first!" & vbCrLf)
-                            sb.Append(vbTab & vbTab & "Dim lp As List(Of ModelObject) = Me._" & association.getVariableName() & ".ConvertAll( _" & vbCrLf)
+                            sb.Append(vbTab & "if  Me." & association.LoadedFlagVariableName() & " Then 'check if loaded first!" & vbCrLf)
+                            sb.Append(vbTab & vbTab & "Dim lp As List(Of ModelObject) = Me." & association.getVariableName() & ".ConvertAll( _" & vbCrLf)
                             sb.Append(vbTab & vbTab & vbTab & vbTab & "New Converter(Of " & dtype & ", ModelObject)(" & vbCrLf)
                             sb.Append(vbTab & vbTab & vbTab & "Function(pf As " & dtype & ")" & vbCrLf)
                             sb.Append(vbTab & vbTab & vbTab & vbTab & "Return DirectCast(pf, ModelObject)" & vbCrLf)
@@ -167,8 +167,8 @@ Namespace Tokens
                             sb.Append(vbTab & vbTab & "ret.AddRange(lp)" & vbCrLf)
                             sb.Append(vbTab & "End If" & vbCrLf)
                         Else
-                            sb.Append(vbTab & "if  Me._" & association.getVariableName() & " isNot Nothing then" & vbCrLf)
-                            sb.Append(vbTab & vbTab & "ret.Add(me." & ModelGenerator.Current.FieldPropertyPrefix & association.getVariableName() & ")" & vbCrLf)
+                            sb.Append(vbTab & "if  Me." & association.getVariableName() & " isNot Nothing then" & vbCrLf)
+                            sb.Append(vbTab & vbTab & "ret.Add(me." & association.PropertyName() & ")" & vbCrLf)
                             sb.Append(vbTab & "End If" & vbCrLf)
                         End If
 
@@ -459,7 +459,7 @@ Namespace Tokens
 
         Private Function getAssociationProperties(ByVal t As DBTable) As String
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
-            Dim vec As List(Of IAssociation)
+            Dim vec As List(Of Association)
             Dim commentSymbol As String = CStr(IIf(ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB, "'", "//"))
             If t.Associations().Count() > 0 Then
                 sb.Append(vbCrLf & vbTab & vbTab & commentSymbol & " ASSOCIATIONS GETTERS/SETTERS BELOW!" & vbCrLf)
@@ -467,8 +467,8 @@ Namespace Tokens
 
             vec = t.Associations()
 
-            For Each association As IAssociation In vec
-                sb.Append(association.getSetterGetter())
+            For Each association As Association In vec
+                sb.Append(association.getCodeFromTemplate())
             Next
 
             Return sb.ToString()

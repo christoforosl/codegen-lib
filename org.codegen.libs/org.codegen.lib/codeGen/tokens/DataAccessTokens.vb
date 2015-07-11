@@ -17,9 +17,9 @@ Namespace Tokens
             Dim cname As String = CType(t, ObjectToGenerate).ClassName
             ret &= vbTab & vbTab & cname & " thisMo " & " = ( " & cname & ")mo;" & vbCrLf
 
-            Dim vec As List(Of IAssociation) = t.DbTable.Associations()
+            Dim vec As List(Of Association) = t.DbTable.Associations()
 
-            For Each association As IAssociation In vec
+            For Each association As Association In vec
                 If association.isParent() Then
                     ret &= association.getSaveParentCode(CType(t, ObjectToGenerate).ClassName())
                 End If
@@ -38,9 +38,9 @@ Namespace Tokens
             Dim cname As String = CType(t, ObjectToGenerate).ClassName
             ret &= vbTab & vbTab & "Dim thisMo as " & cname & " = directCast(mo, " & cname & ")" & vbCrLf
 
-            Dim vec As List(Of IAssociation) = t.DbTable.Associations()
+            Dim vec As List(Of Association) = t.DbTable.Associations()
 
-            For Each association As IAssociation In vec
+            For Each association As Association In vec
                 If association.isParent() Then
                     ret &= association.getSaveParentCode(CType(t, ObjectToGenerate).ClassName())
                 End If
@@ -73,9 +73,9 @@ Namespace Tokens
             ret &= vbTab & vbTab & CType(t, ObjectToGenerate).ClassName & _
                         " ret = (" & CType(t, ObjectToGenerate).ClassName & ")mo;" & vbCrLf
 
-            Dim vec As List(Of IAssociation) = t.DbTable.Associations()
+            Dim vec As List(Of Association) = t.DbTable.Associations()
 
-            For Each association As IAssociation In vec
+            For Each association As Association In vec
 
                 If association.isParent() = False Then
                     ret += association.getSaveChildrenCode()
@@ -101,9 +101,9 @@ Namespace Tokens
             ret &= vbTab & vbTab & " dim ret as " & CType(t, ObjectToGenerate).ClassName & _
                         " = DirectCast(mo, " & CType(t, ObjectToGenerate).ClassName & ")" & vbCrLf
 
-            Dim vec As List(Of IAssociation) = t.DbTable.Associations()
+            Dim vec As List(Of Association) = t.DbTable.Associations()
 
-            For Each association As IAssociation In vec
+            For Each association As Association In vec
 
                 If association.isParent() = False Then
                     ret += association.getSaveChildrenCode()

@@ -110,8 +110,8 @@ Namespace Tokens
 
             If og.DbTable.Associations().Count() > 0 Then
 
-                Dim vec As List(Of IAssociation) = og.DbTable.Associations()
-                For Each association As IAssociation In vec
+                Dim vec As List(Of Association) = og.DbTable.Associations()
+                For Each association As Association In vec
                     sb.Append(vbTab & association.getTestCode() & vbCrLf)
                 Next
 

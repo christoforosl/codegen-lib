@@ -25,8 +25,6 @@ using System.ComponentModel.DataAnnotations;
 //
 //************************************************************
 //</comments>
-//
-//
 namespace CsModelObjects {
 
 	[Table(Name = "EmployeeInfo")]
@@ -369,7 +367,7 @@ namespace CsModelObjects {
 		#endregion
 
 #region "parentIdChanged"
-	//below sub is called when parentIdChanged
+	///below sub is called when parentIdChanged
 	public override void handleParentIdChanged(Object parentMo, IDChangedEventArgs e){
 		// Assocations from CsModelObjects.Employee
 		if ( parentMo is CsModelObjects.Employee) {

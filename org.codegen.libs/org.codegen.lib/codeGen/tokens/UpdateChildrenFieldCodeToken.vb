@@ -65,19 +65,19 @@ Namespace Tokens
             Dim sAssociationsCode As System.Text.StringBuilder = New System.Text.StringBuilder()
             Dim sClassKey As String = CType(t, ObjectToGenerate).FullyQualifiedClassName
 
-            For Each association As IAssociation In ModelGenerator.Current.SystemAssociations
+            For Each association As Association In ModelGenerator.Current.SystemAssociations
 
                 Dim dtype As String = association.ChildDatatype()
                 If (dtype.Equals(sClassKey)) Then
 
                     Dim parentMoObjType As String = association.ParentDatatype()
-					Dim meField As String = DBTable.getRuntimeName(association.ChildFieldName)
+                    Dim meField As String = DBTable.getRuntimeName(association.ChildFieldName)
                     Dim relField As String = DBTable.getRuntimeName(association.ParentFieldName)
 
                     sAssociationsCode.Append(TWO_TABS & "' Assocations from " & parentMoObjType & vbCrLf)
                     sAssociationsCode.Append(TWO_TABS & "if (typeof parentMo is " & parentMoObjType & ") Then" & vbCrLf)
-					sAssociationsCode.Append(TWO_TABS & vbTab & "me." & ModelGenerator.Current.FieldPropertyPrefix & meField & _
-						   "= DirectCast(parentMo, " & parentMoObjType & ")." & ModelGenerator.Current.FieldPropertyPrefix & relField & vbCrLf)
+                    sAssociationsCode.Append(TWO_TABS & vbTab & "me." & ModelGenerator.Current.FieldPropertyPrefix & meField & _
+                           "= DirectCast(parentMo, " & parentMoObjType & ")." & ModelGenerator.Current.FieldPropertyPrefix & relField & vbCrLf)
                     sAssociationsCode.Append(TWO_TABS & "End If" & vbCrLf)
 
                 End If

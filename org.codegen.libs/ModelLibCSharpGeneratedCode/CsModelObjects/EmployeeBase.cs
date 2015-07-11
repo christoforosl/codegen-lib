@@ -25,8 +25,6 @@ using System.ComponentModel.DataAnnotations;
 //
 //************************************************************
 //</comments>
-//
-//
 namespace CsModelObjects {
 
 	[Table(Name = "Employee")]
@@ -46,9 +44,9 @@ namespace CsModelObjects {
 		#region "Children and Parents"
 		
 		public override void loadObjectHierarchy() {
-		loadRank();
-		loadEmployeeInfo();
-		loadEmployeeProjects();
+		LoadPrRank();
+		LoadPrEmployeeInfo();
+		LoadPrEmployeeProjects();
 
 		}
 
@@ -59,7 +57,7 @@ namespace CsModelObjects {
 		/// </summary>
 		public override List<ModelObject> getChildren() {
 			List<ModelObject> ret = new List<ModelObject>();
-				if  (this.PrEmployeeInfo!=null) {
+				if  (this._EmployeeInfo!=null) {
 		ret.Add(this.PrEmployeeInfo);
 	}
 	if  (this.EmployeeProjectsLoaded) { // check if loaded first!
@@ -175,9 +173,9 @@ namespace CsModelObjects {
 	private System.Int64? _SampleNumericFieldInt = null;
 	private System.Decimal? _SampleNumericField2Decimals = null;
 	// ****** CHILD OBJECTS ********************
-	private CsModelObjects.EmployeeRank _Rank = null;  // initialize to nothing, for lazy load logic below !!!
-	private CsModelObjects.EmployeeInfo _EmployeeInfo = null;  // initialize to nothing, for lazy load logic below !!!
-	private List< CsModelObjects.EmployeeProject> _EmployeeProjects = null;  // initialize to nothing, for lazy load logic below !!!
+	private CsModelObjects.EmployeeRank _Rank = null;  //initialize to nothing, for lazy load logic below !!!
+	private CsModelObjects.EmployeeInfo _EmployeeInfo = null;  //initialize to nothing, for lazy load logic below !!!
+	private List< CsModelObjects.EmployeeProject> _EmployeeProjects = null;  //initialize to nothing, for lazy load logic below !!!
 	 private List< CsModelObjects.EmployeeProject> _deletedEmployeeProjects = new List< CsModelObjects.EmployeeProject>();// initialize to empty list !!!
 
 	// *****************************************
@@ -618,7 +616,7 @@ namespace CsModelObjects {
             get {
                 //LAZY LOADING! Only hit the database to get the child object if we need it
                 if ( this._Rank == null ) {
-					this.loadRank();
+					this.LoadPrRank();
                 }
 				
                 return this._Rank;
@@ -628,7 +626,7 @@ namespace CsModelObjects {
         /// <summary>
         /// Loads parent object and sets the appropriate properties
         /// </summary>
-        private void loadRank() {
+        private void LoadPrRank() {
 			
 			if (this.RankLoaded) return;
 			
@@ -653,13 +651,13 @@ namespace CsModelObjects {
                 this._EmployeeInfo = value;
 				if (  this._EmployeeInfo != null) {
 					this._EmployeeInfo.PrEIEmployeeId = this.PrEmployeeId;
-					value.IDChanged += this.handleParentIdChanged;
+					this._EmployeeInfo.IDChanged += this.handleParentIdChanged;
 				}     
             }
             get {
 			    //LAZY LOADING! Only hit the database to get the child object if we need it
                 if (! this.EmployeeInfoLoaded) {
-					this.loadEmployeeInfo();
+					this.LoadPrEmployeeInfo();
                 } 
                 return this._EmployeeInfo;
             } 
@@ -668,14 +666,13 @@ namespace CsModelObjects {
         /// <summary>
         /// Loads child object from dabatabase, if not loaded already
         /// <//summary>
-        private void loadEmployeeInfo() {
+        private void LoadPrEmployeeInfo() {
 						
 			if ( this.EmployeeInfoLoaded) { return; }
 
 			if ( this._EmployeeInfo == null )  {
 				//IMPORTANT: call setter here, not the private variable
-				this.PrEmployeeInfo = 
-					new CsModelMappers.EmployeeInfoDBMapper().findWhere("EIEmployeeId=?", this.PrEmployeeId);
+				this.PrEmployeeInfo = new CsModelMappers.EmployeeInfoDBMapper().findWhere("EIEmployeeId=?", this.PrEmployeeId);
 				
 			} 
 
@@ -693,7 +690,7 @@ namespace CsModelObjects {
 
 		public virtual CsModelObjects.EmployeeProject PrEmployeeProjectGetAt( int i ) {
 
-            this.loadEmployeeProjects();
+            this.LoadPrEmployeeProjects();
             if( this._EmployeeProjects.Count >= (i - 1)) {
                 return this._EmployeeProjects[i];
             }
@@ -703,7 +700,7 @@ namespace CsModelObjects {
 		
 		public virtual void PrEmployeeProjectAdd( CsModelObjects.EmployeeProject val )  {
 			//1-Many , add a single item!
-			this.loadEmployeeProjects();
+			this.LoadPrEmployeeProjects();
 			val.PrEPEmployeeId = this.PrEmployeeId;
 			//AddHandler this.IDChanged, AddressOf val.handleParentIdChanged;
 			this.IDChanged += val.handleParentIdChanged;
@@ -713,15 +710,15 @@ namespace CsModelObjects {
 
 		public virtual void PrEmployeeProjectsClear() {
 
-            this.loadEmployeeProjects();
+            this.LoadPrEmployeeProjects();
             this._deletedEmployeeProjects.AddRange(this._EmployeeProjects);
             this._EmployeeProjects.Clear();
 
         }
 
-		public virtual void PrEmployeeProjectRemove( CsModelObjects.EmployeeProject val ) {
+		public virtual void EmployeeProjectRemove( CsModelObjects.EmployeeProject val ) {
 			
-			this.loadEmployeeProjects();
+			this.LoadPrEmployeeProjects();
 			this._deletedEmployeeProjects.Add(val);
 			this._EmployeeProjects.Remove(val);
 
@@ -739,7 +736,7 @@ namespace CsModelObjects {
 				//'1 to many relation
                 //'LAZY LOADING! Only hit the database to get the child object if we need it
                 if ( this._EmployeeProjects == null ) {
-                    this.loadEmployeeProjects();
+                    this.LoadPrEmployeeProjects();
                 } 
 				
                 return this._EmployeeProjects;
@@ -774,7 +771,7 @@ namespace CsModelObjects {
         /// <summary>
         /// Loads child objects from dabatabase, if not loaded already
         /// </summary>
-        private void loadEmployeeProjects() {
+        private void LoadPrEmployeeProjects() {
 			
 			if (this.EmployeeProjectsLoaded)return;
 			//init list
@@ -1350,13 +1347,14 @@ namespace CsModelObjects {
 		}
 
 	public int CompareTo(Employee other ) {
+	// generated sort
 		return  this.PrEmployeeName.CompareTo(other.PrEmployeeName);
 	}
 
 		#endregion
 
 #region "parentIdChanged"
-	//below sub is called when parentIdChanged
+	///below sub is called when parentIdChanged
 	public override void handleParentIdChanged(Object parentMo, IDChangedEventArgs e){
 		// Assocations from CsModelObjects.EmployeeRank
 		if ( parentMo is CsModelObjects.EmployeeRank) {

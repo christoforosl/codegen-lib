@@ -1,11 +1,11 @@
 ﻿		
 		#Region "Association <association_name>"
 		'associationChildMany.txt
-		friend _<association_name>Loaded as Boolean
+		Friend <LoadedFlagVariableName> as Boolean
 
 		Public Overridable Function <prop_prefix><association_name_singular>GetAt(ByVal i As Integer) As <datatype>
 
-            me.load<association_name>
+            me.<LoadAssociationMethodName>
             If Me._<association_name>.Count >= (i - 1) Then
                 Return Me._<association_name>.Item(i)
             End If
@@ -16,7 +16,7 @@
 		Public Overridable Sub <prop_prefix><association_name_singular>Add(val As <datatype>) 
 
 			'1-Many , add a single item!
-			me.load<association_name>
+			me.<LoadAssociationMethodName>
 			val.<child_field_runtime> = me.<parent_field_runtime>
 			AddHandler Me.IDChanged, AddressOf val.handleParentIdChanged
 			me._<association_name>.add(val)
@@ -25,35 +25,34 @@
 
 		 Public Overridable Sub <prop_prefix><association_name>Clear()
 
-            Me.load<association_name>()
+            Me.<LoadAssociationMethodName>
             Me._deleted<association_name>.AddRange(Me._<association_name>)
             Me._<association_name>.Clear()
 
         End Sub
 
-		Public Overridable Sub <prop_prefix><association_name_singular>Remove(val As <datatype>) 
+		Public Overridable Sub <association_name_singular>Remove(val As <datatype>) 
 			
-			me.load<association_name>
+			me.<LoadAssociationMethodName>
 			me._deleted<association_name>.add(val)
 			me._<association_name>.remove(val)
 
         End Sub
 
 		
-		Public Overridable Function <prop_prefix><association_name>GetDeleted() As IEnumerable(Of <datatype>)  
+		Public Overridable Function <getDeletedMethodName>() As IEnumerable(Of <datatype>)  
 			
 			return me._deleted<association_name>
 
         End Function
 
-        Public Overridable Property <prop_prefix><association_name>() _ 
-					As IEnumerable(Of <datatype>) 
+        Public Overridable Property <property_name>() As IEnumerable(Of <datatype>) 
 
             Get
 				'1 to many relation
                 'LAZY LOADING! Only hit the database to get the child object if we need it
                 If Me._<association_name> Is Nothing Then
-                    me.load<association_name>
+                    me.<LoadAssociationMethodName>
                 End If ' me._<association_name> is Nothing
 				<sort>
                 Return Me._<association_name>
@@ -89,9 +88,9 @@
         ''' <summary>
         ''' Loads child objects from dabatabase, if not loaded already
         ''' </summary>
-        private Sub load<association_name>
+        private Sub <LoadAssociationMethodName>
 			
-			if me._<association_name>Loaded then return
+			if me.<LoadedFlagVariableName> then return
 			'init list
 			Me._<association_name> = New List(Of <datatype>)
 
@@ -101,6 +100,6 @@
 																		"<child_field>=?", Me.<parent_field_runtime>))
             End If
             
-			me._<association_name>Loaded = true
+			me.<LoadedFlagVariableName> = true
         End Sub
 		#End Region
