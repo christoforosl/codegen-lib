@@ -661,7 +661,7 @@ namespace OracleModel {
 	}
 
 		// ASSOCIATIONS GETTERS/SETTERS BELOW!
-		//associationChildManyCSharp.txt
+		//** associationChildManyCSharp.txt
 		#region "Association JobHistory"
 
 		public bool JobHistoryLoaded  {get; private set;}
@@ -815,7 +815,7 @@ namespace OracleModel {
        }
 		#endregion
 
-		//associationChildManyCSharp.txt
+		//** associationChildManyCSharp.txt
 		#region "Association Courses"
 
 		public bool CoursesLoaded  {get; private set;}
@@ -917,7 +917,7 @@ namespace OracleModel {
         } 
 		#endregion
 
-		//associationChildManyCSharp.txt
+		//** associationChildManyCSharp.txt
 		#region "Association TrainingHistory"
 
 		public bool TrainingHistoryLoaded  {get; private set;}

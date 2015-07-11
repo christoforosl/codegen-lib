@@ -697,7 +697,7 @@ namespace CsModelObjects {
                 this._EmployeeInfo = value;
 				if (  this._EmployeeInfo != null) {
 					this._EmployeeInfo.PrEIEmployeeId = this.PrEmployeeId;
-					this._EmployeeInfo.IDChanged += this.handleParentIdChanged;
+					this.IDChanged += this._EmployeeInfo.handleParentIdChanged;
 				}     
             }
             get {

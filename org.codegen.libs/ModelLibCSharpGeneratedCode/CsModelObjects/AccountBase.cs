@@ -336,7 +336,7 @@ namespace CsModelObjects {
                 this._BankAccountInfo = value;
 				if (  this._BankAccountInfo != null) {
 					this._BankAccountInfo.PrAccountID = this.PrAccountid;
-					this._BankAccountInfo.IDChanged += this.handleParentIdChanged;
+					this.IDChanged += this._BankAccountInfo.handleParentIdChanged;
 				}     
             }
             get {
