@@ -141,6 +141,10 @@ namespace GeneratorTests {
                 Assert.AreEqual(employee.PrEmployeeProjectGetAt(0).PrProject.PrProjectName, "MyProject Updated", "Expected to have parent record of child updated!");
 
 				employee.PrSSINumber = "XXXXX";
+				employee.PrEmployeeInfo = EmployeeInfoFactory.Create();
+				employee.PrEmployeeInfo.PrAddress = "2 nikoy thefanous street";
+				employee.PrEmployeeInfo.PrSalary = 3000;
+				
 				Assert.IsTrue(employee.NeedsSave, "After changing value, e.NeedsSave must be true");
 				Assert.IsTrue(employee.isDirty, "After changing value e.isDirty must be true");
 
@@ -219,6 +223,29 @@ namespace GeneratorTests {
 				EmployeeEvaluationDataUtils.deleteEmployeeEvaluation(ep2); //delete 
 				ep2 = EmployeeEvaluationDataUtils.findByKey(eid);
 				Assert.IsNull(ep2);
+
+				Bank alphaBank = BankDataUtils.findOne("bankcode='09'");
+				if (alphaBank == null) {
+					alphaBank = BankFactory.Create();
+					alphaBank.PrBankCode = "09";
+					alphaBank.PrBankName = "ALPHA Bank";
+					BankDataUtils.saveBank(alphaBank);
+				}
+
+				Account pa = AccountDataUtils.findOne("Account='ALPHA'");
+				if ((pa == null)) {
+					pa = AccountFactory.Create();
+					pa.PrAccount = "ALPHA";
+					pa.PrDescription = "ALPHA TEST";
+					pa.PrAccountTypeid = 1;
+					pa.PrBankaccnumber = "000000000004";
+					pa.PrBankAccountInfo = AccountBankInfoFactory.Create();
+					pa.PrBankAccountInfo.PrBankId = alphaBank.PrBANKID;
+					pa.PrBankAccountInfo.PrCompanyName = "UNIT TESTS LTD";
+					pa.PrBankAccountInfo.PrCompanyBankCode = "111";
+					AccountDataUtils.saveAccount(pa);
+
+				}
 
 			} finally {
 				ModelContext.rollbackTrans();

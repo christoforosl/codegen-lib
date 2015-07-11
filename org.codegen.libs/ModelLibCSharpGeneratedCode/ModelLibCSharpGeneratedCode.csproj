@@ -160,6 +160,30 @@
     <Compile Include="CsModelObjects\EmployeeEvaluationBase.cs">
       <DependentUpon>EmployeeEvaluation.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CsModelMappers\AccountDBMapperSql.xml">
+      <DependentUpon>AccountDBMapper.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="CsModelMappers\AccountDBMapper.cs" />
+    <Compile Include="CsModelObjects\Account.cs" />
+    <Compile Include="CsModelObjects\AccountBase.cs">
+      <DependentUpon>Account.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="CsModelMappers\BankDBMapperSql.xml">
+      <DependentUpon>BankDBMapper.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="CsModelMappers\BankDBMapper.cs" />
+    <Compile Include="CsModelObjects\Bank.cs" />
+    <Compile Include="CsModelObjects\BankBase.cs">
+      <DependentUpon>Bank.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="CsModelMappers\AccountBankInfoDBMapperSql.xml">
+      <DependentUpon>AccountBankInfoDBMapper.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="CsModelMappers\AccountBankInfoDBMapper.cs" />
+    <Compile Include="CsModelObjects\AccountBankInfo.cs" />
+    <Compile Include="CsModelObjects\AccountBankInfoBase.cs">
+      <DependentUpon>AccountBankInfo.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="CSharpModelGenerator.xml">

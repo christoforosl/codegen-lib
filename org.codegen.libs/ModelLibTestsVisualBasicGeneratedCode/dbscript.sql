@@ -292,3 +292,110 @@ FROM            Employee LEFT OUTER JOIN
                          EmployeeType ON Employee.EmployeeTypeCode = EmployeeType.EmployeeTypeCode LEFT OUTER JOIN
                          EmployeeRank ON Employee.EmployeeRankId = EmployeeRank.RankId
 go
+----------------------------------------
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[AccountType]') AND type in (N'U'))
+DROP TABLE [AccountType]
+GO
+
+
+CREATE TABLE [AccountType](
+	[accountTypeid] [int] IDENTITY(1,1) NOT NULL,
+	[AccountType] [nvarchar](50) NULL,
+	[qbTypeCode] [nvarchar](50) NULL,
+	[positiveAmtIsDebit] [int] NULL,
+ CONSTRAINT [PK_AccountType] PRIMARY KEY CLUSTERED 
+(
+	[accountTypeid] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON, FILLFACTOR = 90) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Bank]') AND type in (N'U'))
+DROP TABLE [Bank]
+GO
+CREATE TABLE [Bank](
+	[BANKID] [int] IDENTITY(1,1) NOT NULL,
+	[BankName] [nvarchar](50) NULL,
+	[BankCode] [nvarchar](20) NULL,
+	[BankSWIFTCode] [varchar](200) NULL,
+ CONSTRAINT [PK_Bank] PRIMARY KEY CLUSTERED 
+(
+	[BANKID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON, FILLFACTOR = 90) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Account]') AND type in (N'U'))
+DROP TABLE [Account]
+GO
+
+CREATE TABLE [Account](
+	[accountid] [int] IDENTITY(1,1) NOT NULL,
+	[account] [nvarchar](50) NULL,
+	[accountTypeid] [int] NULL,
+	[bankaccnumber] [nvarchar](100) NULL,
+	[nextCheckNumber] [nvarchar](50) NULL,
+	[Description] [nvarchar](255) NULL,
+	[createdate] [datetime] NOT NULL,
+	[updatedate] [datetime] NOT NULL,
+	[updateuser] varchar(10) NOT NULL,
+	[createuser] varchar(10) NOT NULL,
+ CONSTRAINT [PK_Account] PRIMARY KEY CLUSTERED 
+(
+	[accountid] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON, FILLFACTOR = 90) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [Account]  WITH NOCHECK ADD  CONSTRAINT [FK_ACCOUNT_ACCOUNT_ACCOUNTTY] FOREIGN KEY([accountTypeid])
+REFERENCES [AccountType] ([accountTypeid])
+GO
+
+ALTER TABLE [Account] CHECK CONSTRAINT [FK_ACCOUNT_ACCOUNT_ACCOUNTTY]
+GO
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[AccountInfo]') AND type in (N'U'))
+DROP TABLE [AccountInfo]
+GO
+CREATE TABLE [AccountInfo](
+	[AccInfoId] [int] IDENTITY(1,1) NOT NULL,
+	[ContactName] [nvarchar](100) NULL,
+	[ContactPhone] [nvarchar](20) NULL,
+	[ContactFax] [nvarchar](20) NULL,
+	[accountID] [int] NULL,
+	[signeeEmployee] [nvarchar](100) NULL,
+	[CompanyName] [nvarchar](255) NULL,
+	[CompanyBankCode] [nvarchar](20) NULL,
+	[BankId] [int] NULL,
+	[COOPCode] [nvarchar](100) NULL,
+	[createdate] [datetime] NOT NULL,
+	[updatedate] [datetime] NOT NULL,
+	[updateuser] varchar(50) NOT NULL,
+	[createuser] varchar(50) NOT NULL,
+ CONSTRAINT [PK_AccountInfo] PRIMARY KEY CLUSTERED 
+(
+	[AccInfoId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON, FILLFACTOR = 90) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [AccountInfo]  WITH CHECK ADD  CONSTRAINT [AccountInfo_R01] FOREIGN KEY([BankId])
+REFERENCES [Bank] ([BANKID])
+GO
+
+ALTER TABLE [AccountInfo] CHECK CONSTRAINT [AccountInfo_R01]
+GO
+
+ALTER TABLE [AccountInfo]  WITH NOCHECK ADD  CONSTRAINT [FK_ACCOUNT_INFO_ACCOUNTID] FOREIGN KEY([accountID])
+REFERENCES [Account] ([accountid])
+GO
+
+ALTER TABLE [AccountInfo] CHECK CONSTRAINT [FK_ACCOUNT_INFO_ACCOUNTID]
+GO
+
+INSERT INTO [AccountType]([AccountType],[qbTypeCode],[positiveAmtIsDebit])
+     VALUES ('BANK','BANK',0)
+GO

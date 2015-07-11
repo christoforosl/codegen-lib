@@ -1,0 +1,25 @@
+﻿<SQLStatements>
+  <stmt>
+    <key>key</key>
+    <MSSQL />
+    <ORACLE />
+    <COMMON />
+    <JET />
+  </stmt>
+  <stmt>
+    <key>selectall</key>
+    <MSSQL>SELECT AccInfoId,ContactName,ContactPhone,ContactFax,accountID,signeeEmployee,CompanyName,CompanyBankCode,BankId,COOPCode,createdate,updatedate,updateuser,createuser FROM [AccountInfo]</MSSQL>
+  </stmt>
+  <stmt>
+    <key>delete</key>
+    <MSSQL>DELETE FROM [AccountInfo] WHERE AccInfoId=@0</MSSQL>
+  </stmt>
+  <stmt>
+    <key>insert</key>
+    <MSSQL>insert into AccountInfo (ContactName,ContactPhone,ContactFax,accountID,signeeEmployee,CompanyName,CompanyBankCode,BankId,COOPCode,createdate,updatedate,updateuser,createuser) values (@ContactName,@ContactPhone,@ContactFax,@AccountID,@SigneeEmployee,@CompanyName,@CompanyBankCode,@BankId,@COOPCode,@Createdate,@Updatedate,@Updateuser,@Createuser)</MSSQL>
+  </stmt>
+  <stmt>
+    <key>update</key>
+    <MSSQL>UPDATE [AccountInfo] SET ContactName=@ContactName,ContactPhone=@ContactPhone,ContactFax=@ContactFax,accountID=@AccountID,signeeEmployee=@SigneeEmployee,CompanyName=@CompanyName,CompanyBankCode=@CompanyBankCode,BankId=@BankId,COOPCode=@COOPCode,createdate=@Createdate,updatedate=@Updatedate,updateuser=@Updateuser,createuser=@Createuser WHERE AccInfoId=@AccInfoId</MSSQL>
+  </stmt>
+</SQLStatements>

@@ -148,6 +148,21 @@
     <Compile Include="VbBusObjects\EmployeeEvaluationBase.vb">
       <DependentUpon>EmployeeEvaluation.vb</DependentUpon>
     </Compile>
+    <Compile Include="VbBusObjects\DBMappers\AccountDBMapper.vb" />
+    <Compile Include="VbBusObjects\Account.vb" />
+    <Compile Include="VbBusObjects\AccountBase.vb">
+      <DependentUpon>Account.vb</DependentUpon>
+    </Compile>
+    <Compile Include="VbBusObjects\DBMappers\BankDBMapper.vb" />
+    <Compile Include="VbBusObjects\Bank.vb" />
+    <Compile Include="VbBusObjects\BankBase.vb">
+      <DependentUpon>Bank.vb</DependentUpon>
+    </Compile>
+    <Compile Include="VbBusObjects\DBMappers\AccountBankInfoDBMapper.vb" />
+    <Compile Include="VbBusObjects\AccountBankInfo.vb" />
+    <Compile Include="VbBusObjects\AccountBankInfoBase.vb">
+      <DependentUpon>AccountBankInfo.vb</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="dbscript.sql" />
@@ -174,6 +189,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VbBusObjects\DBMappers\EmployeeEvaluationDBMapperSql.xml">
       <DependentUpon>EmployeeEvaluationDBMapper.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VbBusObjects\DBMappers\AccountDBMapperSql.xml">
+      <DependentUpon>AccountDBMapper.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VbBusObjects\DBMappers\BankDBMapperSql.xml">
+      <DependentUpon>BankDBMapper.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VbBusObjects\DBMappers\AccountBankInfoDBMapperSql.xml">
+      <DependentUpon>AccountBankInfoDBMapper.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

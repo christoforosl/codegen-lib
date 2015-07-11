@@ -133,5 +133,41 @@
     <!-- testing of undescores in name -->
     <TableName>Employee_Evaluation</TableName>
   </table>
-  
+
+
+  <table>
+    <TableName>Account</TableName>
+    <ClassName>Account</ClassName>
+    <GenerateUI>0</GenerateUI>
+    
+    <association>
+      <relationType>CHILD</relationType>
+      <DataType>VbBusObjects.AccountBankInfo</DataType>
+      <AssociationName>BankAccountInfo</AssociationName>
+      <cardinality>1</cardinality>
+      <parentFieldName>accountid</parentFieldName>
+    </association>
+
+
+  </table>
+
+  <table>
+    <TableName>Bank</TableName>
+    <ClassName>Bank</ClassName>
+    
+  </table>
+
+  <table>
+    <TableName>AccountInfo</TableName>
+    <ClassName>AccountBankInfo</ClassName>
+    
+    <association>
+      <relationType>PARENT</relationType>
+      <DataType>VbBusObjects.Bank</DataType>
+      <AssociationName>Bank</AssociationName>
+      <cardinality>1</cardinality>
+      <parentFieldName>bankid</parentFieldName>
+    </association>
+  </table>
+
 </project>

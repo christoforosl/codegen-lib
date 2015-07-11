@@ -1,0 +1,25 @@
+﻿<SQLStatements>
+  <stmt>
+    <key>key</key>
+    <MSSQL />
+    <ORACLE />
+    <COMMON />
+    <JET />
+  </stmt>
+  <stmt>
+    <key>selectall</key>
+    <MSSQL>SELECT accountid,account,accountTypeid,bankaccnumber,nextCheckNumber,Description,createdate,updatedate,updateuser,createuser FROM [Account]</MSSQL>
+  </stmt>
+  <stmt>
+    <key>delete</key>
+    <MSSQL>DELETE FROM [Account] WHERE accountid=@0</MSSQL>
+  </stmt>
+  <stmt>
+    <key>insert</key>
+    <MSSQL>insert into Account (account,accountTypeid,bankaccnumber,nextCheckNumber,Description,createdate,updatedate,updateuser,createuser) values (@Account,@AccountTypeid,@Bankaccnumber,@NextCheckNumber,@Description,@Createdate,@Updatedate,@Updateuser,@Createuser)</MSSQL>
+  </stmt>
+  <stmt>
+    <key>update</key>
+    <MSSQL>UPDATE [Account] SET account=@Account,accountTypeid=@AccountTypeid,bankaccnumber=@Bankaccnumber,nextCheckNumber=@NextCheckNumber,Description=@Description,createdate=@Createdate,updatedate=@Updatedate,updateuser=@Updateuser,createuser=@Createuser WHERE accountid=@Accountid</MSSQL>
+  </stmt>
+</SQLStatements>

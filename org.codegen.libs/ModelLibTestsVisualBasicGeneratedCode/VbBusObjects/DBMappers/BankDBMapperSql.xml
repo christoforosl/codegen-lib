@@ -1,0 +1,25 @@
+﻿<SQLStatements>
+  <stmt>
+    <key>key</key>
+    <MSSQL />
+    <ORACLE />
+    <COMMON />
+    <JET />
+  </stmt>
+  <stmt>
+    <key>selectall</key>
+    <MSSQL>SELECT BANKID,BankName,BankCode,BankSWIFTCode FROM [Bank]</MSSQL>
+  </stmt>
+  <stmt>
+    <key>delete</key>
+    <MSSQL>DELETE FROM [Bank] WHERE BANKID=@0</MSSQL>
+  </stmt>
+  <stmt>
+    <key>insert</key>
+    <MSSQL>insert into Bank (BankName,BankCode,BankSWIFTCode) values (@BankName,@BankCode,@BankSWIFTCode)</MSSQL>
+  </stmt>
+  <stmt>
+    <key>update</key>
+    <MSSQL>UPDATE [Bank] SET BankName=@BankName,BankCode=@BankCode,BankSWIFTCode=@BankSWIFTCode WHERE BANKID=@BANKID</MSSQL>
+  </stmt>
+</SQLStatements>
