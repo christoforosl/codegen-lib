@@ -4,7 +4,7 @@
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xsi:schemaLocation="ClassGenerator4 https://raw.githubusercontent.com/christoforosl/codegen-lib/master/org.codegen.libs/org.codegen.lib/classGenerator.4.xsd" >
 
-  <GeneratorVersion>4</GeneratorVersion>
+  <generatorVersion>4</generatorVersion>
   <projectFile>.\ModelLibVBGeneratedCode.vbproj</projectFile>
   <projectName>ModelLibTests</projectName>
   <outputDir>.</outputDir>
@@ -36,7 +36,7 @@
     <SortField>EmployeeName</SortField>
     <SortAscending>true</SortAscending>
     <GenerateUI>1</GenerateUI>
-
+    <selectObject>vEmployee</selectObject>
     <Lookups>
       <FieldName>EmployeeRankId</FieldName>
       <DataSource>VbBusObjects.EmployeeRank</DataSource>

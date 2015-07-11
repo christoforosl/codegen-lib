@@ -25,8 +25,6 @@ using System.ComponentModel.DataAnnotations;
 //
 //************************************************************
 //</comments>
-//
-//
 namespace OracleModel {
 
 	[Table(Name = "EMPLOYEES")]
@@ -46,10 +44,10 @@ namespace OracleModel {
 		#region "Children and Parents"
 		
 		public override void loadObjectHierarchy() {
-		loadJobHistory();
-		loadDepartment();
-		loadCourses();
-		loadTrainingHistory();
+		LoadPrJobHistory();
+		LoadPrDepartment();
+		LoadPrCourses();
+		LoadPrTrainingHistory();
 
 		}
 
@@ -191,12 +189,12 @@ namespace OracleModel {
 	private System.String _RegionName;
 	private System.String _ManagerName;
 	// ****** CHILD OBJECTS ********************
-	private List< OracleModel.JobHistory> _JobHistory = null;  // initialize to nothing, for lazy load logic below !!!
+	private List< OracleModel.JobHistory> _JobHistory = null;  //initialize to nothing, for lazy load logic below !!!
 	 private List< OracleModel.JobHistory> _deletedJobHistory = new List< OracleModel.JobHistory>();// initialize to empty list !!!
-	private OracleModel.Department _Department = null;  // initialize to nothing, for lazy load logic below !!!
-	private List< OracleModel.EmployeeTrainingHistory> _Courses = null;  // initialize to nothing, for lazy load logic below !!!
+	private OracleModel.Department _Department = null;  //initialize to nothing, for lazy load logic below !!!
+	private List< OracleModel.EmployeeTrainingHistory> _Courses = null;  //initialize to nothing, for lazy load logic below !!!
 	 private List< OracleModel.EmployeeTrainingHistory> _deletedCourses = new List< OracleModel.EmployeeTrainingHistory>();// initialize to empty list !!!
-	private List< OracleModel.EmployeeTrainingHistory> _TrainingHistory = null;  // initialize to nothing, for lazy load logic below !!!
+	private List< OracleModel.EmployeeTrainingHistory> _TrainingHistory = null;  //initialize to nothing, for lazy load logic below !!!
 	 private List< OracleModel.EmployeeTrainingHistory> _deletedTrainingHistory = new List< OracleModel.EmployeeTrainingHistory>();// initialize to empty list !!!
 
 	// *****************************************
@@ -670,7 +668,7 @@ namespace OracleModel {
 
 		public virtual OracleModel.JobHistory PrJobHistoryGetAt( int i ) {
 
-            this.loadJobHistory();
+            this.LoadPrJobHistory();
             if( this._JobHistory.Count >= (i - 1)) {
                 return this._JobHistory[i];
             }
@@ -680,7 +678,7 @@ namespace OracleModel {
 		
 		public virtual void PrJobHistoryAdd( OracleModel.JobHistory val )  {
 			//1-Many , add a single item!
-			this.loadJobHistory();
+			this.LoadPrJobHistory();
 			val.PrEmployeeId = this.PrEmployeeId;
 			//AddHandler this.IDChanged, AddressOf val.handleParentIdChanged;
 			this.IDChanged += val.handleParentIdChanged;
@@ -690,15 +688,15 @@ namespace OracleModel {
 
 		public virtual void PrJobHistoryClear() {
 
-            this.loadJobHistory();
+            this.LoadPrJobHistory();
             this._deletedJobHistory.AddRange(this._JobHistory);
             this._JobHistory.Clear();
 
         }
 
-		public virtual void PrJobHistoryRemove( OracleModel.JobHistory val ) {
+		public virtual void JobHistoryRemove( OracleModel.JobHistory val ) {
 			
-			this.loadJobHistory();
+			this.LoadPrJobHistory();
 			this._deletedJobHistory.Add(val);
 			this._JobHistory.Remove(val);
 
@@ -716,7 +714,7 @@ namespace OracleModel {
 				//'1 to many relation
                 //'LAZY LOADING! Only hit the database to get the child object if we need it
                 if ( this._JobHistory == null ) {
-                    this.loadJobHistory();
+                    this.LoadPrJobHistory();
                 } 
 				
                 return this._JobHistory;
@@ -751,7 +749,7 @@ namespace OracleModel {
         /// <summary>
         /// Loads child objects from dabatabase, if not loaded already
         /// </summary>
-        private void loadJobHistory() {
+        private void LoadPrJobHistory() {
 			
 			if (this.JobHistoryLoaded)return;
 			//init list
@@ -791,7 +789,7 @@ namespace OracleModel {
             get {
                 //LAZY LOADING! Only hit the database to get the child object if we need it
                 if ( this._Department == null ) {
-					this.loadDepartment();
+					this.LoadPrDepartment();
                 }
 				
                 return this._Department;
@@ -801,7 +799,7 @@ namespace OracleModel {
         /// <summary>
         /// Loads parent object and sets the appropriate properties
         /// </summary>
-        private void loadDepartment() {
+        private void LoadPrDepartment() {
 			
 			if (this.DepartmentLoaded) return;
 			
@@ -824,7 +822,7 @@ namespace OracleModel {
 
 		public virtual OracleModel.EmployeeTrainingHistory PrCoursesGetAt( int i ) {
 
-            this.loadCourses();
+            this.LoadPrCourses();
             if( this._Courses.Count >= (i - 1)) {
                 return this._Courses[i];
             }
@@ -834,7 +832,7 @@ namespace OracleModel {
 		
 		public virtual void PrCoursesAdd( OracleModel.EmployeeTrainingHistory val )  {
 			//1-Many , add a single item!
-			this.loadCourses();
+			this.LoadPrCourses();
 			val.PrEmployeeId = this.PrEmployeeId;
 			//AddHandler this.IDChanged, AddressOf val.handleParentIdChanged;
 			this.IDChanged += val.handleParentIdChanged;
@@ -844,15 +842,15 @@ namespace OracleModel {
 
 		public virtual void PrCoursesClear() {
 
-            this.loadCourses();
+            this.LoadPrCourses();
             this._deletedCourses.AddRange(this._Courses);
             this._Courses.Clear();
 
         }
 
-		public virtual void PrCoursesRemove( OracleModel.EmployeeTrainingHistory val ) {
+		public virtual void CoursesRemove( OracleModel.EmployeeTrainingHistory val ) {
 			
-			this.loadCourses();
+			this.LoadPrCourses();
 			this._deletedCourses.Add(val);
 			this._Courses.Remove(val);
 
@@ -870,7 +868,7 @@ namespace OracleModel {
 				//'1 to many relation
                 //'LAZY LOADING! Only hit the database to get the child object if we need it
                 if ( this._Courses == null ) {
-                    this.loadCourses();
+                    this.LoadPrCourses();
                 } 
 				
                 return this._Courses;
@@ -905,7 +903,7 @@ namespace OracleModel {
         /// <summary>
         /// Loads child objects from dabatabase, if not loaded already
         /// </summary>
-        private void loadCourses() {
+        private void LoadPrCourses() {
 			
 			if (this.CoursesLoaded)return;
 			//init list
@@ -926,7 +924,7 @@ namespace OracleModel {
 
 		public virtual OracleModel.EmployeeTrainingHistory PrTrainingHistoryGetAt( int i ) {
 
-            this.loadTrainingHistory();
+            this.LoadPrTrainingHistory();
             if( this._TrainingHistory.Count >= (i - 1)) {
                 return this._TrainingHistory[i];
             }
@@ -936,7 +934,7 @@ namespace OracleModel {
 		
 		public virtual void PrTrainingHistoryAdd( OracleModel.EmployeeTrainingHistory val )  {
 			//1-Many , add a single item!
-			this.loadTrainingHistory();
+			this.LoadPrTrainingHistory();
 			val.PrEmployeeId = this.PrEmployeeId;
 			//AddHandler this.IDChanged, AddressOf val.handleParentIdChanged;
 			this.IDChanged += val.handleParentIdChanged;
@@ -946,15 +944,15 @@ namespace OracleModel {
 
 		public virtual void PrTrainingHistoryClear() {
 
-            this.loadTrainingHistory();
+            this.LoadPrTrainingHistory();
             this._deletedTrainingHistory.AddRange(this._TrainingHistory);
             this._TrainingHistory.Clear();
 
         }
 
-		public virtual void PrTrainingHistoryRemove( OracleModel.EmployeeTrainingHistory val ) {
+		public virtual void TrainingHistoryRemove( OracleModel.EmployeeTrainingHistory val ) {
 			
-			this.loadTrainingHistory();
+			this.LoadPrTrainingHistory();
 			this._deletedTrainingHistory.Add(val);
 			this._TrainingHistory.Remove(val);
 
@@ -972,7 +970,7 @@ namespace OracleModel {
 				//'1 to many relation
                 //'LAZY LOADING! Only hit the database to get the child object if we need it
                 if ( this._TrainingHistory == null ) {
-                    this.loadTrainingHistory();
+                    this.LoadPrTrainingHistory();
                 } 
 				
                 return this._TrainingHistory;
@@ -1007,7 +1005,7 @@ namespace OracleModel {
         /// <summary>
         /// Loads child objects from dabatabase, if not loaded already
         /// </summary>
-        private void loadTrainingHistory() {
+        private void LoadPrTrainingHistory() {
 			
 			if (this.TrainingHistoryLoaded)return;
 			//init list
@@ -1627,7 +1625,7 @@ namespace OracleModel {
 		#endregion
 
 #region "parentIdChanged"
-	//below sub is called when parentIdChanged
+	///below sub is called when parentIdChanged
 	public override void handleParentIdChanged(Object parentMo, IDChangedEventArgs e){
 		// Assocations from OracleModel.Department
 		if ( parentMo is OracleModel.Department) {

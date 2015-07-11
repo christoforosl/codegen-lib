@@ -25,8 +25,6 @@ using System.ComponentModel.DataAnnotations;
 //
 //************************************************************
 //</comments>
-//
-//
 namespace OracleModel {
 
 	[Table(Name = "EMPLOYEE_TRAINING_HISTORY")]
@@ -46,7 +44,7 @@ namespace OracleModel {
 		#region "Children and Parents"
 		
 		public override void loadObjectHierarchy() {
-		loadTrainingCourse();
+		LoadPrTrainingCourse();
 
 		}
 
@@ -113,7 +111,7 @@ namespace OracleModel {
 	private System.DateTime? _DateTo = null;
 	private System.String _TrainingCourseCode;
 	// ****** CHILD OBJECTS ********************
-	private OracleModel.TrainingCourse _TrainingCourse = null;  // initialize to nothing, for lazy load logic below !!!
+	private OracleModel.TrainingCourse _TrainingCourse = null;  //initialize to nothing, for lazy load logic below !!!
 
 	// *****************************************
 	// ****** END CHILD OBJECTS ********************
@@ -240,7 +238,7 @@ namespace OracleModel {
             get {
                 //LAZY LOADING! Only hit the database to get the child object if we need it
                 if ( this._TrainingCourse == null ) {
-					this.loadTrainingCourse();
+					this.LoadPrTrainingCourse();
                 }
 				
                 return this._TrainingCourse;
@@ -250,7 +248,7 @@ namespace OracleModel {
         /// <summary>
         /// Loads parent object and sets the appropriate properties
         /// </summary>
-        private void loadTrainingCourse() {
+        private void LoadPrTrainingCourse() {
 			
 			if (this.TrainingCourseLoaded) return;
 			
@@ -473,7 +471,7 @@ namespace OracleModel {
 		#endregion
 
 #region "parentIdChanged"
-	//below sub is called when parentIdChanged
+	///below sub is called when parentIdChanged
 	public override void handleParentIdChanged(Object parentMo, IDChangedEventArgs e){
 		// Assocations from OracleModel.TrainingCourse
 		if ( parentMo is OracleModel.TrainingCourse) {

@@ -28,7 +28,7 @@ using System.ComponentModel.DataAnnotations;
 namespace CsModelObjects {
 
 	[Table(Name = "Employee")]
-	[DataContract][SelectObject("Employee")][KeyFieldName("EmployeeId")]
+	[DataContract][SelectObject("vEmployee")][KeyFieldName("EmployeeId")]
 	[DefaultMapperAttr(typeof(CsModelMappers.EmployeeDBMapper)), ComVisible(false), Serializable(), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 	partial class Employee:ModelObject,IEquatable<Employee> ,IAuditable,System.IComparable< Employee> {
 
@@ -109,6 +109,8 @@ namespace CsModelObjects {
 			public const String STR_FLD_SAMPLESMALLINT = "SampleSmallInt";
 			public const String STR_FLD_SAMPLENUMERICFIELDINT = "SampleNumericFieldInt";
 			public const String STR_FLD_SAMPLENUMERICFIELD2DECIMALS = "SampleNumericField2Decimals";
+			public const String STR_FLD_EMPLOYEETYPEDESCR = "EmployeeTypeDescr";
+			public const String STR_FLD_RANKDESCR = "RankDescr";
 
 
 				public const int FLD_EMPLOYEEID = 0;
@@ -133,6 +135,8 @@ namespace CsModelObjects {
 		public const int FLD_SAMPLESMALLINT = 19;
 		public const int FLD_SAMPLENUMERICFIELDINT = 20;
 		public const int FLD_SAMPLENUMERICFIELD2DECIMALS = 21;
+		public const int FLD_EMPLOYEETYPEDESCR = 22;
+		public const int FLD_RANKDESCR = 23;
 
 
 
@@ -142,7 +146,7 @@ namespace CsModelObjects {
 		public override string[] getFieldList()
 		{
 			return new string[] {
-				STR_FLD_EMPLOYEEID,STR_FLD_EMPLOYEENAME,STR_FLD_EMPLOYEERANKID,STR_FLD_SALARY,STR_FLD_ADDRESS,STR_FLD_TELEPHONE,STR_FLD_MOBILE,STR_FLD_IDNUMBER,STR_FLD_SSINUMBER,STR_FLD_HIREDATE,STR_FLD_NUMDEPENDENTS,STR_FLD_EMPLOYEETYPECODE,STR_FLD_CREATEDATE,STR_FLD_UPDATEDATE,STR_FLD_CREATEUSER,STR_FLD_UPDATEUSER,STR_FLD_SAMPLEGUIDFIELD,STR_FLD_ISACTIVE,STR_FLD_SAMPLEBIGINT,STR_FLD_SAMPLESMALLINT,STR_FLD_SAMPLENUMERICFIELDINT,STR_FLD_SAMPLENUMERICFIELD2DECIMALS
+				STR_FLD_EMPLOYEEID,STR_FLD_EMPLOYEENAME,STR_FLD_EMPLOYEERANKID,STR_FLD_SALARY,STR_FLD_ADDRESS,STR_FLD_TELEPHONE,STR_FLD_MOBILE,STR_FLD_IDNUMBER,STR_FLD_SSINUMBER,STR_FLD_HIREDATE,STR_FLD_NUMDEPENDENTS,STR_FLD_EMPLOYEETYPECODE,STR_FLD_CREATEDATE,STR_FLD_UPDATEDATE,STR_FLD_CREATEUSER,STR_FLD_UPDATEUSER,STR_FLD_SAMPLEGUIDFIELD,STR_FLD_ISACTIVE,STR_FLD_SAMPLEBIGINT,STR_FLD_SAMPLESMALLINT,STR_FLD_SAMPLENUMERICFIELDINT,STR_FLD_SAMPLENUMERICFIELD2DECIMALS,STR_FLD_EMPLOYEETYPEDESCR,STR_FLD_RANKDESCR
 			};
 		}
 
@@ -172,6 +176,8 @@ namespace CsModelObjects {
 	private System.Int64? _SampleSmallInt = null;
 	private System.Int64? _SampleNumericFieldInt = null;
 	private System.Decimal? _SampleNumericField2Decimals = null;
+	private System.String _EmployeeTypeDescr;
+	private System.String _RankDescr;
 	// ****** CHILD OBJECTS ********************
 	private CsModelObjects.EmployeeRank _Rank = null;  //initialize to nothing, for lazy load logic below !!!
 	private CsModelObjects.EmployeeInfo _EmployeeInfo = null;  //initialize to nothing, for lazy load logic below !!!
@@ -588,6 +594,46 @@ namespace CsModelObjects {
 		}
 		}
 	}
+		//Field EmployeeTypeDescr
+	[Key][StringLength(50, ErrorMessage="EmployeeTypeDescr must be 50 characters or less")][Column(Name="EmployeeTypeDescr",Storage = "_EmployeeTypeDescr", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
+	[DataMember]public virtual System.String PrEmployeeTypeDescr{
+	get{
+		return _EmployeeTypeDescr;
+	}
+	set {
+		if (ModelObject.valueChanged(_EmployeeTypeDescr, value)){
+		if (value != null && value.Length > 50){
+			throw new ModelObjectFieldTooLongException("EmployeeTypeDescr");
+		}
+			if (!this.IsObjectLoading) {
+				this.isDirty = true;
+				this.setFieldChanged(STR_FLD_EMPLOYEETYPEDESCR);
+			}
+		this._EmployeeTypeDescr = value;
+
+		}
+		}
+	}
+		//Field RankDescr
+	[Key][StringLength(50, ErrorMessage="RankDescr must be 50 characters or less")][Column(Name="RankDescr",Storage = "_RankDescr", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
+	[DataMember]public virtual System.String PrRankDescr{
+	get{
+		return _RankDescr;
+	}
+	set {
+		if (ModelObject.valueChanged(_RankDescr, value)){
+		if (value != null && value.Length > 50){
+			throw new ModelObjectFieldTooLongException("RankDescr");
+		}
+			if (!this.IsObjectLoading) {
+				this.isDirty = true;
+				this.setFieldChanged(STR_FLD_RANKDESCR);
+			}
+		this._RankDescr = value;
+
+		}
+		}
+	}
 
 		// ASSOCIATIONS GETTERS/SETTERS BELOW!
 		//associationParentCSharp.txt
@@ -836,6 +882,10 @@ namespace CsModelObjects {
 			return this.PrSampleNumericFieldInt;
 		case FLD_SAMPLENUMERICFIELD2DECIMALS:
 			return this.PrSampleNumericField2Decimals;
+		case FLD_EMPLOYEETYPEDESCR:
+			return this.PrEmployeeTypeDescr;
+		case FLD_RANKDESCR:
+			return this.PrRankDescr;
 		default:
 			return null;
 		} //end switch
@@ -889,6 +939,10 @@ namespace CsModelObjects {
 			return this.PrSampleNumericFieldInt;
 		} else if (fieldKey==STR_FLD_SAMPLENUMERICFIELD2DECIMALS.ToLower() ) {
 			return this.PrSampleNumericField2Decimals;
+		} else if (fieldKey==STR_FLD_EMPLOYEETYPEDESCR.ToLower() ) {
+			return this.PrEmployeeTypeDescr;
+		} else if (fieldKey==STR_FLD_RANKDESCR.ToLower() ) {
+			return this.PrRankDescr;
 		} else {
 			return null;
 		}
@@ -1049,6 +1103,20 @@ namespace CsModelObjects {
 				this.PrSampleNumericField2Decimals = null;
 			} else {
 				this.PrSampleNumericField2Decimals=(System.Decimal?)val;
+			} //
+			return;
+		case FLD_EMPLOYEETYPEDESCR:
+			if (val == DBNull.Value || val == null ){
+				this.PrEmployeeTypeDescr = null;
+			} else {
+				this.PrEmployeeTypeDescr=(System.String)val;
+			} //
+			return;
+		case FLD_RANKDESCR:
+			if (val == DBNull.Value || val == null ){
+				this.PrRankDescr = null;
+			} else {
+				this.PrRankDescr=(System.String)val;
 			} //
 			return;
 		default:
@@ -1219,6 +1287,20 @@ namespace CsModelObjects {
 				this.PrSampleNumericField2Decimals=Convert.ToDecimal(val);
 			}
 			return;
+		} else if ( fieldKey==STR_FLD_EMPLOYEETYPEDESCR.ToLower()){
+			if (val == DBNull.Value || val ==null ){
+				this.PrEmployeeTypeDescr = null;
+			} else {
+				this.PrEmployeeTypeDescr=Convert.ToString(val);
+			}
+			return;
+		} else if ( fieldKey==STR_FLD_RANKDESCR.ToLower()){
+			if (val == DBNull.Value || val ==null ){
+				this.PrRankDescr = null;
+			} else {
+				this.PrRankDescr=Convert.ToString(val);
+			}
+			return;
 		}
 			} catch ( Exception ex ) {
 				throw new ApplicationException(
@@ -1259,7 +1341,9 @@ namespace CsModelObjects {
 				&& this.PrSampleBigInt.GetValueOrDefault() == other.PrSampleBigInt.GetValueOrDefault()
 				&& this.PrSampleSmallInt.GetValueOrDefault() == other.PrSampleSmallInt.GetValueOrDefault()
 				&& this.PrSampleNumericFieldInt.GetValueOrDefault() == other.PrSampleNumericFieldInt.GetValueOrDefault()
-				&& this.PrSampleNumericField2Decimals.GetValueOrDefault() == other.PrSampleNumericField2Decimals.GetValueOrDefault();;
+				&& this.PrSampleNumericField2Decimals.GetValueOrDefault() == other.PrSampleNumericField2Decimals.GetValueOrDefault()
+				&& this.PrEmployeeTypeDescr == other.PrEmployeeTypeDescr
+				&& this.PrRankDescr == other.PrRankDescr;;
 
 		}
 
@@ -1287,7 +1371,9 @@ namespace CsModelObjects {
 				 ^ this.PrSampleBigInt.GetHashCode()
 				 ^ this.PrSampleSmallInt.GetHashCode()
 				 ^ this.PrSampleNumericFieldInt.GetHashCode()
-				 ^ this.PrSampleNumericField2Decimals.GetHashCode();;
+				 ^ this.PrSampleNumericField2Decimals.GetHashCode()
+				 ^ this.getStringHashCode(this.PrEmployeeTypeDescr)
+				 ^ this.getStringHashCode(this.PrRankDescr);;
 
 		}
 
@@ -1341,6 +1427,8 @@ namespace CsModelObjects {
 		ret.PrSampleSmallInt = this.PrSampleSmallInt;
 		ret.PrSampleNumericFieldInt = this.PrSampleNumericFieldInt;
 		ret.PrSampleNumericField2Decimals = this.PrSampleNumericField2Decimals;
+		ret.PrEmployeeTypeDescr = this.PrEmployeeTypeDescr;
+		ret.PrRankDescr = this.PrRankDescr;
 
 			return ret;
 

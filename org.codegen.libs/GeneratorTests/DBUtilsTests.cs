@@ -50,7 +50,10 @@ namespace GeneratorTests {
 			var lstResults = pdb.findList("EmployeeName=@1 and Salary=@2 ", parameters);
 
 			var pdbCs = new CsModelMappers.EmployeeDBMapper();
-			var lstResultsCs = pdbCs.findList("EmployeeName=@1 and Salary=@2 ", parameters);
+            List<IDataParameter> parameters2 = new List<IDataParameter>();
+            parameters2.Add(ModelContext.CurrentDBUtils.getParameter("1", "XX"));
+            parameters2.Add(ModelContext.CurrentDBUtils.getParameter("2", 1300D));
+			var lstResultsCs = pdbCs.findList("EmployeeName=@1 and Salary=@2 ", parameters2);
 
 		}
 

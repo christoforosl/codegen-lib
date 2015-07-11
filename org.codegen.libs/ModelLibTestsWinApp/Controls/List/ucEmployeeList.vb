@@ -48,6 +48,10 @@ Public Class ucEmployeeList
 	me.SampleSmallInt = new DataGridViewTextBoxColumn
 	me.SampleNumericFieldInt = new DataGridViewTextBoxColumn
 	me.SampleNumericField2Decimals = new DataGridViewTextBoxColumn
+	me.CvFileContent = new DataGridViewTextBoxColumn
+	me.Photo = new DataGridViewTextBoxColumn
+	me.EmployeeTypeDescr = new DataGridViewTextBoxColumn
+	me.RankDescr = new DataGridViewTextBoxColumn
 
         Me.grdEmployee = New org.codegen.win.controls.Grid.CGSQLGrid()
         Me.SuspendLayout()
@@ -381,6 +385,62 @@ Public Class ucEmployeeList
 	'**** End Setup of column: SampleNumericField2Decimals
 
 
+	' column: CvFileContent
+	CvFileContent.CellTemplate = New DataGridViewTextBoxCell
+	CvFileContent.Name = "CvFileContent"
+	CvFileContent.DataPropertyName = "CvFileContent"
+	CvFileContent.ReadOnly = True
+	CvFileContent.HeaderText = "CvFileContent"
+	CvFileContent.HeaderCell.value = "CvFileContent"
+	CvFileContent.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft
+	CvFileContent.HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopLeft
+	CvFileContent.Width = 100
+	CvFileContent.Visible = True
+	'**** End Setup of column: CvFileContent
+
+
+	' column: Photo
+	Photo.CellTemplate = New DataGridViewTextBoxCell
+	Photo.Name = "Photo"
+	Photo.DataPropertyName = "photo"
+	Photo.ReadOnly = True
+	Photo.HeaderText = "Photo"
+	Photo.HeaderCell.value = "Photo"
+	Photo.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft
+	Photo.HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopLeft
+	Photo.Width = 100
+	Photo.Visible = True
+	'**** End Setup of column: Photo
+
+
+	' column: EmployeeTypeDescr
+	EmployeeTypeDescr.CellTemplate = New DataGridViewTextBoxCell
+	EmployeeTypeDescr.Name = "EmployeeTypeDescr"
+	EmployeeTypeDescr.DataPropertyName = "EmployeeTypeDescr"
+	EmployeeTypeDescr.ReadOnly = True
+	EmployeeTypeDescr.HeaderText = "EmployeeTypeDescr"
+	EmployeeTypeDescr.HeaderCell.value = "EmployeeTypeDescr"
+	EmployeeTypeDescr.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft
+	EmployeeTypeDescr.HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopLeft
+	EmployeeTypeDescr.Width = 100
+	EmployeeTypeDescr.Visible = True
+	'**** End Setup of column: EmployeeTypeDescr
+
+
+	' column: RankDescr
+	RankDescr.CellTemplate = New DataGridViewTextBoxCell
+	RankDescr.Name = "RankDescr"
+	RankDescr.DataPropertyName = "RankDescr"
+	RankDescr.ReadOnly = True
+	RankDescr.HeaderText = "RankDescr"
+	RankDescr.HeaderCell.value = "RankDescr"
+	RankDescr.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft
+	RankDescr.HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopLeft
+	RankDescr.Width = 100
+	RankDescr.Visible = True
+	'**** End Setup of column: RankDescr
+
+
 
 
         '
@@ -413,6 +473,10 @@ Public Class ucEmployeeList
 	me.grdEmployee.Columns.Add(SampleSmallInt)
 	me.grdEmployee.Columns.Add(SampleNumericFieldInt)
 	me.grdEmployee.Columns.Add(SampleNumericField2Decimals)
+	me.grdEmployee.Columns.Add(CvFileContent)
+	me.grdEmployee.Columns.Add(Photo)
+	me.grdEmployee.Columns.Add(EmployeeTypeDescr)
+	me.grdEmployee.Columns.Add(RankDescr)
 
         Me.Name = "ucEmployeeList"
         Me.Text = "ucEmployeeList"
@@ -443,6 +507,10 @@ Public Class ucEmployeeList
 	Private WithEvents SampleSmallInt As DataGridViewTextBoxColumn
 	Private WithEvents SampleNumericFieldInt As DataGridViewTextBoxColumn
 	Private WithEvents SampleNumericField2Decimals As DataGridViewTextBoxColumn
+	Private WithEvents CvFileContent As DataGridViewTextBoxColumn
+	Private WithEvents Photo As DataGridViewTextBoxColumn
+	Private WithEvents EmployeeTypeDescr As DataGridViewTextBoxColumn
+	Private WithEvents RankDescr As DataGridViewTextBoxColumn
 
 
 #End Region

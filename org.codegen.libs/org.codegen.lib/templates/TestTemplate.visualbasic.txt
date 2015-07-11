@@ -49,12 +49,21 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 		ModelContext.beginTrans()
 		Try
 
-			Dim pid As Object = ModelContext.CurrentDBUtils.getObjectValue("select top 1 <PK_TABKE_FIELD_NAME> from <TABLE_NAME>")
-			If pid is Nothing Then
+			Dim pdb As New <MODEL_CLASS_NAME>DBMapper()
+			dim count as Long = pdb.RecordCount()
+			
+			If pdb.SelectFromObjectName <> pdb.ManagedTableName Then
+                Dim countFromSelectObject As Long = pdb.dbConn.getLngValue("select count(*) from " & pdb.SelectFromObjectName)
+                Assert.AreEqual(count, countFromSelectObject, _ 
+					"Count of records in managedTableName {0} and SelectFromObjectName {1} should be equal, as there needs to be exactly 1 to 1 match between records in managed table and selectFromObject.", _
+						pdb.ManagedTableName, pdb.SelectFromObjectName)
+            End If
+		
+			If count = 0 Then
 				Assert.Inconclusive("No <MODEL_CLASS_NAME> in database, table is empty")
 			Else
-
-				Dim pdb As New <MODEL_CLASS_NAME>DBMapper()
+				Dim pid As Object = ModelContext.CurrentDBUtils.getObjectValue("select top 1 <PK_TABKE_FIELD_NAME> from <TABLE_NAME>")
+				
 				Dim p As <MODEL_CLASS_NAME> = pdb.findByKey(pid)
 				Dim p2 As <MODEL_CLASS_NAME> = directCast(p.copy(),<MODEL_CLASS_NAME>)
 

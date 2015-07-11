@@ -53,13 +53,24 @@ using <NAMESPACE>;
 		
 		ModelContext.beginTrans();
 		try {
+			
+			<DBMAPPER_NAMESPACE>.<MODEL_CLASS_NAME>DBMapper pdb = new <DBMAPPER_NAMESPACE>.<MODEL_CLASS_NAME>DBMapper();
+			
+		    long count = pdb.RecordCount();
+			
+			if (pdb.SelectFromObjectName != pdb.ManagedTableName) {
+				long countFromSelectObject = pdb.dbConn.getLngValue("select count(*) from " + pdb.SelectFromObjectName);
+				Assert.AreEqual(count, countFromSelectObject, 
+					"Count of records in managedTableName {0} and SelectFromObjectName {1} should be equal, as there needs to be exactly 1 to 1 match between records in managed table and selectFromObject.", 
+					pdb.ManagedTableName, pdb.SelectFromObjectName);
+			}
 
-			object pid  = ModelContext.CurrentDBUtils.getObjectValue("select top 1 <PK_TABKE_FIELD_NAME> from <TABLE_NAME>");
-			if (pid == null) {
+			if (count == 0) {
 				Assert.Inconclusive("No <MODEL_CLASS_NAME> in database, table is empty");
 			} else {
-
-				<DBMAPPER_NAMESPACE>.<MODEL_CLASS_NAME>DBMapper pdb = new <DBMAPPER_NAMESPACE>.<MODEL_CLASS_NAME>DBMapper();
+				
+				object pid  = ModelContext.CurrentDBUtils.getObjectValue("select top 1 <PK_TABKE_FIELD_NAME> from <TABLE_NAME>");
+				
 				<MODEL_CLASS_NAME> p = pdb.findByKey(pid);
 				<MODEL_CLASS_NAME> p2 = (<MODEL_CLASS_NAME>)p.copy();
 

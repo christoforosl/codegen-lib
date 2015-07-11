@@ -25,8 +25,6 @@ using System.ComponentModel.DataAnnotations;
 //
 //************************************************************
 //</comments>
-//
-//
 namespace OracleModel {
 
 	[Table(Name = "JOB_HISTORY")]
@@ -621,7 +619,7 @@ namespace OracleModel {
 		#endregion
 
 #region "parentIdChanged"
-	//below sub is called when parentIdChanged
+	///below sub is called when parentIdChanged
 	public override void handleParentIdChanged(Object parentMo, IDChangedEventArgs e){
 		// Assocations from OracleModel.Employee
 		if ( parentMo is OracleModel.Employee) {

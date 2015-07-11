@@ -9,6 +9,7 @@ using org.model.lib.db;
 
 using System.Linq;
 using <NAMESPACE>;
+using System.Data.Linq.Mapping;
 
 //<comments>
 // Template: DBMapperBase.csharp.txt
@@ -26,7 +27,9 @@ using <NAMESPACE>;
 
 namespace <DBMAPPER_NAMESPACE> {
 
-	[System.Runtime.InteropServices.ComVisible(false)]<IS_PRIMARY_KEY_AUOGEN_FALSE>[SelectObject("<SELECT_FROM_NAME>")][KeyFieldName("<PK_FIELD_NAME>")]
+	[System.Runtime.InteropServices.ComVisible(false)]<IS_PRIMARY_KEY_AUOGEN_FALSE>
+	[Table(Name = "<TABLE_NAME>")]
+	[SelectObject("<SELECT_FROM_NAME>")][KeyFieldName("<PK_FIELD_NAME>")]
 	public class <MODEL_CLASS_NAME>DBMapper : <MAPPER_BASE_CLASS> {
 
 		#region "Constructors "

@@ -282,3 +282,13 @@ go
 insert into [EmployeeType] ([EmployeeTypeCode],[EmployeeType]) 
 values ('X1','Test Me')
 go
+create view vEmployee as 
+SELECT        Employee.EmployeeId, Employee.EmployeeName, Employee.EmployeeRankId, Employee.Salary, Employee.Address, Employee.Telephone, Employee.Mobile, 
+                         Employee.IdNumber, Employee.SSINumber, Employee.HireDate, Employee.NumDependents, Employee.EmployeeTypeCode, Employee.createDate, 
+                         Employee.updateDate, Employee.createUser, Employee.updateUser, Employee.sampleGuidField, Employee.isActive, Employee.sampleBigInt, 
+                         Employee.sampleSmallInt, Employee.sampleNumericFieldInt, Employee.sampleNumericField2Decimals, Employee.CvFileContent, Employee.photo, 
+                         EmployeeType.EmployeeType as EmployeeTypeDescr, EmployeeRank.Rank as RankDescr
+FROM            Employee LEFT OUTER JOIN
+                         EmployeeType ON Employee.EmployeeTypeCode = EmployeeType.EmployeeTypeCode LEFT OUTER JOIN
+                         EmployeeRank ON Employee.EmployeeRankId = EmployeeRank.RankId
+go

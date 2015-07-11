@@ -1,6 +1,8 @@
 'NOTE: DO NOT ADD REFERENCES TO COM.NETU.LIB HERE, INSTEAD ADD
 'THE IMPORT ON THE REFERENCES OF THE PROJECT
 
+Imports System.Data.Linq.Mapping
+
 '<comments>
 'Template: DBMapperBase.visualBasic.txt
 '************************************************************
@@ -13,9 +15,11 @@
 '
 '************************************************************
 '</comments>
-
+''
 Namespace <DBMAPPER_NAMESPACE>
-	<System.Runtime.InteropServices.ComVisible(False)><IS_PRIMARY_KEY_AUOGEN_FALSE><SelectObject("<SELECT_FROM_NAME>")><KeyFieldName("<PK_FIELD_NAME>")> _
+	<System.Runtime.InteropServices.ComVisible(False)>
+	<Table(Name := "<TABLE_NAME>")> _
+	<IS_PRIMARY_KEY_AUOGEN_FALSE><SelectObject("<SELECT_FROM_NAME>")><KeyFieldName("<PK_FIELD_NAME>")> _
     <CLASS_ACCESS_LEVEL> Class <MODEL_CLASS_NAME>DBMapper
         Inherits <MAPPER_BASE_CLASS>
 		

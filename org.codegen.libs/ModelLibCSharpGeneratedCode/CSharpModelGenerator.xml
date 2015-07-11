@@ -65,7 +65,7 @@
     
     <SortField>EmployeeName</SortField>
     <SortAscending>true</SortAscending>
-    
+    <selectObject>vEmployee</selectObject>
     <!-- Optional, definition of one or more lookup fields, ie fields that have encoded values 
     corresponding to a description sored in a parent table-->
     <Lookups>
