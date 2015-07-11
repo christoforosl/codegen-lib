@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>CodeGen.Model.Library</id>
-        <version>4.0.9.7</version>
+        <version>4.0.10.0</version>
         <title>CodeGen Model Library</title>
         <authors>christoforosl</authors>
         <projectUrl>https://github.com/christoforosl/codegen-lib</projectUrl>
@@ -11,9 +11,12 @@
         <description>See GitHub wiki for more information: 
 https://github.com/christoforosl/codegen-lib/wiki</description>
         <summary>Simple ORM that supports saving Object Hieratchies in a single transaction.  Includes a code generator to generate ORM classes from database.</summary>
+        <releaseNotes>Exposed annotations as readonly properties in DBMapper and added test additional methods to validate select objects</releaseNotes>
+        <tags>orm</tags>
         <frameworkAssemblies>
             <frameworkAssembly assemblyName="System.Runtime.Serialization" targetFramework=".NETFramework4.0" />
             <frameworkAssembly assemblyName="System.Data.Linq" targetFramework=".NETFramework4.0" />
+            <frameworkAssembly assemblyName="System.Linq" targetFramework=".NETFramework4.0" />
             <frameworkAssembly assemblyName="System.ComponentModel.DataAnnotations" targetFramework=".NETFramework4.0" />
         </frameworkAssemblies>
     </metadata>

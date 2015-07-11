@@ -76,11 +76,12 @@ namespace <DBMAPPER_NAMESPACE> {
 		#region "Find functions"
 
 		///	<summary>Given an sql statement, it opens a result set, and for each record returned, 
-		///	it creates and loads a ModelObject. </summary>
+		///	it creates and loads a ModelObject. 
+		/// </summary>
 		///	<param name="sWhereClause">where clause to be applied to "selectall" statement 
 		/// that returns one or more records from the database, corresponding to the ModelObject we are going to load </param>
-		///	 <param name="params"> Parameter values to be passed to sql statement </param>
-		///	 <returns> A List(Of <MODEL_CLASS_NAME>) object containing all objects loaded </returns>
+		///	<param name="params"> Parameter values to be passed to sql statement </param>
+		///	<returns> A List(Of <MODEL_CLASS_NAME>) object containing all objects loaded </returns>
 		///	 
 		public new List<<MODEL_CLASS_NAME>> findList(string sWhereClause, params object[] @params) {
 
@@ -112,10 +113,10 @@ namespace <DBMAPPER_NAMESPACE> {
 		///	it creates and loads a ModelObject. </summary>
 		///	<param name="sWhereClause">where clause to be applied to "selectall" statement 
 		/// that returns one or more records from the database, corresponding to the ModelObject we are going to load </param>
-		///	 <param name="params"> List of IDataParameters to be passed to sql statement </param>
-		///	 <returns> A List(Of <MODEL_CLASS_NAME>) object containing all objects loaded </returns>
+		///	<param name="params"> List of IDataParameters to be passed to sql statement </param>
+		///	<returns> A List(Of <MODEL_CLASS_NAME>) object containing all objects loaded </returns>
 		///	 
-		public new List<<MODEL_CLASS_NAME>> findList(string sWhereClause, List<IDataParameter> @params) {
+		public List<<MODEL_CLASS_NAME>> findList(string sWhereClause, List<IDataParameter> @params) {
 
 			string sql = this.getSqlWithWhereClause(sWhereClause);
 			IDataReader rs = null;

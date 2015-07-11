@@ -16,10 +16,10 @@
   </stmt>
   <stmt>
     <key>insert</key>
-    <MSSQL>insert into Project (ProjectName,isActive,ProjectTypeId) values (@ProjectName,@isActive,@ProjectTypeId)</MSSQL>
+    <MSSQL>insert into Project (ProjectName,isActive,ProjectTypeId) values (@ProjectName,@IsActive,@ProjectTypeId)</MSSQL>
   </stmt>
   <stmt>
     <key>update</key>
-    <MSSQL>UPDATE [Project] SET ProjectName=@ProjectName,isActive=@isActive,ProjectTypeId=@ProjectTypeId WHERE ProjectId=@ProjectId</MSSQL>
+    <MSSQL>UPDATE [Project] SET ProjectName=@ProjectName,isActive=@IsActive,ProjectTypeId=@ProjectTypeId WHERE ProjectId=@ProjectId</MSSQL>
   </stmt>
 </SQLStatements>

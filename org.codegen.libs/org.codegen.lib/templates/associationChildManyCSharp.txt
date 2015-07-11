@@ -1,4 +1,4 @@
-﻿		//associationChildManyCSharp.txt
+﻿		//** associationChildManyCSharp.txt
 		#region "Association <association_name>"
 
 		public bool <LoadedFlagVariableName>  {get; private set;}

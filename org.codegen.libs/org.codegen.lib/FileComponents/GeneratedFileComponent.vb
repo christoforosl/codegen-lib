@@ -179,8 +179,11 @@ Namespace FileComponents
                 sExCode = r.Replace(sExCode, String.Empty)
                 compCode = r.Replace(compCode, String.Empty)
 
-                If sExCode.ToLower = compCode.ToLower Then
+                If ModelGenerator.Current.ignoreCase AndAlso sExCode.ToLower = compCode.ToLower Then
                     'Console.WriteLine("Skipped: " & f.Name & " : No Code Changes")
+                    ModelGenerator.Current.NumOfUnchangedFiles += 1
+
+                ElseIf (Not ModelGenerator.Current.ignoreCase) AndAlso sExCode = compCode Then
                     ModelGenerator.Current.NumOfUnchangedFiles += 1
                 Else
                     Console.WriteLine("Write: " & f.Name & " : Code Changed")

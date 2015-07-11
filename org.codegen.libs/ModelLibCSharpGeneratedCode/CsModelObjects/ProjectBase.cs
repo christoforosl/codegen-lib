@@ -196,7 +196,7 @@ namespace CsModelObjects {
 	}
 
 		// ASSOCIATIONS GETTERS/SETTERS BELOW!
-		//associationChildManyCSharp.txt
+		//** associationChildManyCSharp.txt
 		#region "Association EmployeeProjects"
 
 		public bool EmployeeProjectsLoaded  {get; private set;}

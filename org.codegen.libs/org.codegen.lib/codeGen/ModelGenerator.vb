@@ -29,11 +29,27 @@ Public Class ModelGenerator
     End Enum
 
     Private Const STR_CODE_GEN_ASSEMBLY As String = "org.codegen.lib.codeGen"
+    Private _dotNetLanguage As enumLanguage
 
-    Public Property dotNetLanguage As enumLanguage = enumLanguage.CSHARP
+    Public Property dotNetLanguage As enumLanguage
+        Get
+            Return _dotNetLanguage
+        End Get
+        Set(value As enumLanguage)
+            _dotNetLanguage = value
+            If (_dotNetLanguage = enumLanguage.CSHARP) Then
+                _IgnoreCase = False
+            Else
+                _IgnoreCase = True
+            End If
+        End Set
+    End Property
+
 	Public Property FieldPropertyPrefix As String
 
-	Public Property DefaultMapperNameSpace() As String
+    Private _IgnoreCase As Boolean
+
+    Public Property DefaultMapperNameSpace() As String
 
 	Private _GeneratorVersion As Integer
 	Private _vbNetProjectFile As String
@@ -67,6 +83,21 @@ Public Class ModelGenerator
     Property BooleanFieldsCollection As BooleanFieldsCollection
 
     Property EnumFieldsCollection As EnumFieldsCollection
+
+
+    ''' <summary>
+    ''' If true, files are checked for changes in genearted code by ignoring case
+    ''' Default is false (for CSharp) and true for VB
+    ''' </summary>
+    Public Property IgnoreCase() As Boolean
+        Get
+            Return _IgnoreCase
+        End Get
+        Set(value As Boolean)
+            _IgnoreCase = value
+        End Set
+    End Property
+
 
     Public Sub addAssociation(ByVal ass As Association)
         Me._systemAssociations.Add(ass)
@@ -268,5 +299,7 @@ Public Class ModelGenerator
         End If
 
     End Function
+
+
 
 End Class

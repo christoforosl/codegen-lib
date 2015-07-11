@@ -110,8 +110,8 @@ Public Class CSharpAssociation
 
                 Dim mapperClassName As String = GetAssociatedMapperClassName()
                 Dim mappervar As String = Me.associationName.ToLower() & "Mapper"
-                ret = vbTab + vbTab & "// Child Association:" & Me.associationName.ToLower() & vbCrLf
-                ret &= vbTab & vbTab & "if (ret." & Me.LoadedFlagVariableName & ") {" & vbCrLf
+                ret = vbTab + vbTab & "//*Child Association:" & Me.associationName.ToLower() & vbCrLf
+                ret &= vbTab & vbTab & "if (ret." & Me.LoadedFlagVariableName & ") { //scc " & vbCrLf
                 ret &= vbTab & vbTab & vbTab & mapperClassName & " " & mappervar & _
                                 " = new " & mapperClassName & "(this.dbConn);" & vbCrLf
 
