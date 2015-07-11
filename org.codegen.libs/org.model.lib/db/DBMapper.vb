@@ -48,7 +48,8 @@ Public MustInherit Class DBMapper
     End Property
 
     ''' <summary>
-    ''' Name of the primary key field name of the managed table
+    ''' Name of the primary key field name of the managed table.
+    ''' Note that this is the DATABASE field name, not the vb/csharp field name
     ''' </summary>
     Public Property pkFieldName As String
         Get

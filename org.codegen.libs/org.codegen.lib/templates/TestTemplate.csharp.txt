@@ -3,6 +3,10 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using org.model.lib.Model;
+using System.Data.Linq;
+using System.Linq;
+using org.model.lib.db;
+using Newtonsoft.Json;
 using <NAMESPACE>;
 
 ///<comments>
@@ -68,7 +72,17 @@ using <NAMESPACE>;
 			if (count == 0) {
 				Assert.Inconclusive("No <MODEL_CLASS_NAME> in database, table is empty");
 			} else {
-				
+				/**
+				using (DataContext ctx = DBUtils.Current().dbContext()) {
+
+					var query = ctx.ExecuteQuery<<MODEL_CLASS_NAME>>(@"SELECT * FROM " + pdb.SelectFromObjectName ).Skip(1).Take(1);
+					var lst = query.ToList();
+
+					Assert.AreEqual(lst.Count, 1, "Expected to receive 1 record, got: " + lst.Count);
+					
+				}
+				todo: fix boolean fields by generating properties of original fields
+				**/
 				object pid  = ModelContext.CurrentDBUtils.getObjectValue("select top 1 <PK_TABKE_FIELD_NAME> from <TABLE_NAME>");
 				
 				<MODEL_CLASS_NAME> p = pdb.findByKey(pid);
@@ -93,7 +107,9 @@ using <NAMESPACE>;
 				ModelContext.Current.saveModelObject(p);
 
 				p = ModelContext.Current.loadModelObject< <MODEL_CLASS_NAME> >(p.Id);
-				p.loadObjectHierarchy();<TEST_ASSERT_RANDOM_FIELDS>
+				p.loadObjectHierarchy();
+				string output = JsonConvert.SerializeObject(p);
+				<TEST_ASSERT_RANDOM_FIELDS>
 			}
 
 		} finally {
