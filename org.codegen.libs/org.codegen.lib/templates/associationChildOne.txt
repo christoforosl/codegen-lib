@@ -1,7 +1,7 @@
 ﻿        
         friend <LoadedFlagVariableName> as Boolean
 		'associationChildOne.txt
-		<DataMember> _
+		<DataMember><JsonProperty(ItemReferenceLoopHandling := ReferenceLoopHandling.Ignore)> _
 		Public Overridable Property <property_name>() As <datatype> 
 
 			'1-1 child association
