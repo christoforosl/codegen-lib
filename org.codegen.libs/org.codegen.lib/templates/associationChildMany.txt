@@ -46,7 +46,7 @@
 
         End Function
 
-		<DataMember><JsonProperty(ItemReferenceLoopHandling := ReferenceLoopHandling.Ignore)>
+		<DataMember>
         Public Overridable Property <property_name>() As IEnumerable(Of <datatype>) 
 
             Get

@@ -45,7 +45,7 @@
 
         }
 
-		[DataMember][JsonProperty(ItemReferenceLoopHandling = ReferenceLoopHandling.Ignore)]
+		[DataMember]
         public virtual IEnumerable< <datatype> > <property_name> {
 
             get {

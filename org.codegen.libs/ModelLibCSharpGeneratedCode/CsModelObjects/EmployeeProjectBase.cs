@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 using System.Data.Linq.Mapping;
 using System.ComponentModel.DataAnnotations;
-using Newtonsoft.Json;
+
 
 //<comments>
 //************************************************************
@@ -47,7 +47,7 @@ namespace CsModelObjects {
 		}
 
 		/// <summary>
-		/// Returns the **loaded** children of this model object.
+		/// Returns the *loaded* children of this model object.
 		/// Any records that are not loaded (ie the getter method was not called) are not returned.
 		/// To get all child records tied to this object, call loadObjectHierarchy() method
 		/// </summary>
@@ -235,7 +235,7 @@ namespace CsModelObjects {
 		/// <summary>
         /// Gets/Sets parent object
         /// </summary>
-		[DataMember][JsonProperty(ItemReferenceLoopHandling = ReferenceLoopHandling.Ignore)]
+		[DataMember]
 		public virtual CsModelObjects.Project PrProject {
 		    //1-1 parent association
             set {

@@ -30,5 +30,5 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 
 <Assembly: ComVisibleAttribute(False)> 
-<Assembly: AssemblyVersion("4.0.10.1")> 
-<Assembly: AssemblyFileVersion("4.0.10.1")> 
+<Assembly: AssemblyVersion("4.0.10.2")> 
+<Assembly: AssemblyFileVersion("4.0.10.2")> 

@@ -2,7 +2,7 @@
         //associationChildOneCSharp.txt
         public bool <LoadedFlagVariableName> {get; private set;}
 
-		[DataMember][JsonProperty(ItemReferenceLoopHandling = ReferenceLoopHandling.Ignore)]
+		[DataMember]
 		public virtual <datatype> <property_name> {
 			//1-1 child association
             set {

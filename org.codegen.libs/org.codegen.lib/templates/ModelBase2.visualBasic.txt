@@ -7,7 +7,7 @@ Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 Imports System.Data.Linq.Mapping
 Imports System.ComponentModel.DataAnnotations
-Imports Newtonsoft.Json
+
 '<comments>
 '************************************************************
 ' Temnplate: ModelBase2.visualBasic.txt
@@ -63,7 +63,7 @@ partial class <MODEL_CLASS_NAME>
 <CONSTANTS>
 
 
-        '''<summary> Returns the names of fields in the object as a string array.
+        '''<summary>Returns the names of fields in the object as a string array.
         ''' Useful in automatically setting/getting values from UI objects (windows or web Form)</summary>
         ''' <returns> string array </returns>	 
         Public Overrides Function getFieldList() As String()
@@ -82,7 +82,7 @@ partial class <MODEL_CLASS_NAME>
 <CLASS_PROPERTIES>
 #End Region
 
-#Region "Getters/Setters of values by field index/name"
+#Region "Getters/Setters of values by field index / name"
     Public Overloads Overrides Function getAttribute(ByVal fieldKey As Integer) As Object
 		
 <GET_ATTRS>
@@ -114,7 +114,7 @@ partial class <MODEL_CLASS_NAME>
     End Sub
 
 #End Region
-#Region "Overrides of GetHashCode and Equals "
+#Region "Overrides of GetHashCode, Equals "
 	Public Overloads Function Equals(ByVal other As <MODEL_CLASS_NAME>) As Boolean _     
 		Implements System.IEquatable(Of <MODEL_CLASS_NAME>).Equals       
 		

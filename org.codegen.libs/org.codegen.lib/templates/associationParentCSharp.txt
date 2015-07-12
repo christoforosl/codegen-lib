@@ -6,7 +6,7 @@
 		/// <summary>
         /// Gets/Sets parent object
         /// </summary>
-		[DataMember][JsonProperty(ItemReferenceLoopHandling = ReferenceLoopHandling.Ignore)]
+		[DataMember]
 		public virtual <datatype> <property_name> {
 		    //1-1 parent association
             set {
