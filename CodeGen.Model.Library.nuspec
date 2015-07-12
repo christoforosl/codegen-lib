@@ -16,7 +16,6 @@ https://github.com/christoforosl/codegen-lib/wiki</description>
         <frameworkAssemblies>
             <frameworkAssembly assemblyName="System.Runtime.Serialization" targetFramework=".NETFramework4.0" />
             <frameworkAssembly assemblyName="System.Data.Linq" targetFramework=".NETFramework4.0" />
-            <frameworkAssembly assemblyName="System.Linq" targetFramework=".NETFramework4.0" />
             <frameworkAssembly assemblyName="System.ComponentModel.DataAnnotations" targetFramework=".NETFramework4.0" />
         </frameworkAssemblies>
     </metadata>
