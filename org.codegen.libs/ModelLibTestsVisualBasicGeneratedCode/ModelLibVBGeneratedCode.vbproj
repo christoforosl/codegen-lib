@@ -70,6 +70,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core">
@@ -106,6 +110,9 @@
   <ItemGroup>
     <Compile Include="EnumProjectType.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="Tests\AccountBankInfoTestBase.vb" />
+    <Compile Include="Tests\AccountTestBase.vb" />
+    <Compile Include="Tests\BankTestBase.vb" />
     <Compile Include="Tests\EmployeeEvaluationTestBase.vb" />
     <Compile Include="Tests\EmployeeInfoTestBase.vb" />
     <Compile Include="Tests\EmployeeProjectTestBase.vb" />
@@ -202,6 +209,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

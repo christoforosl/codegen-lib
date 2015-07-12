@@ -12,6 +12,7 @@ using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 using System.Data.Linq.Mapping;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 //<comments>
 //************************************************************
@@ -21,9 +22,6 @@ using System.ComponentModel.DataAnnotations;
 // *** DO NOT change code in this class.  
 //     It will be re-generated and 
 //     overwritten by the code generator ****
-// Instead, change code in the extender class AccountBankInfo
-//
-//************************************************************
 //</comments>
 namespace CsModelObjects {
 
@@ -414,24 +412,24 @@ namespace CsModelObjects {
 		}
 		}
 	}
-
-		// ASSOCIATIONS GETTERS/SETTERS BELOW!
-		//associationParentCSharp.txt
+		#endregion
+		#region "Associations"
+		
 		#region "Association Bank"
-
+		//associationParentCSharp.txt
 		private bool BankLoaded {get;set;}
 
 		/// <summary>
         /// Gets/Sets parent object
         /// </summary>
+		[DataMember][JsonProperty(ItemReferenceLoopHandling = ReferenceLoopHandling.Ignore)]
 		public virtual CsModelObjects.Bank PrBank {
 		    //1-1 parent association
             set {
                 this._Bank = value;
 				if ( value != null ) {
-					this.PrBankId = value.PrBANKID;
-					//AddHandler value.IDChanged, AddressOf this.handleParentIdChanged;
-					value.IDChanged += this.handleParentIdChanged;
+					this.PrBankId = this._Bank.PrBANKID;
+					this._Bank.IDChanged += this.handleParentIdChanged;
                 } else {
 					this.PrBankId = null;
 				}

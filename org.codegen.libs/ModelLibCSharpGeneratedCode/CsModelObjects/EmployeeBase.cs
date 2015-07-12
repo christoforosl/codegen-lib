@@ -12,6 +12,7 @@ using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 using System.Data.Linq.Mapping;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 //<comments>
 //************************************************************
@@ -21,9 +22,6 @@ using System.ComponentModel.DataAnnotations;
 // *** DO NOT change code in this class.  
 //     It will be re-generated and 
 //     overwritten by the code generator ****
-// Instead, change code in the extender class Employee
-//
-//************************************************************
 //</comments>
 namespace CsModelObjects {
 
@@ -634,24 +632,24 @@ namespace CsModelObjects {
 		}
 		}
 	}
-
-		// ASSOCIATIONS GETTERS/SETTERS BELOW!
-		//associationParentCSharp.txt
+		#endregion
+		#region "Associations"
+		
 		#region "Association Rank"
-
+		//associationParentCSharp.txt
 		private bool RankLoaded {get;set;}
 
 		/// <summary>
         /// Gets/Sets parent object
         /// </summary>
+		[DataMember][JsonProperty(ItemReferenceLoopHandling = ReferenceLoopHandling.Ignore)]
 		public virtual CsModelObjects.EmployeeRank PrRank {
 		    //1-1 parent association
             set {
                 this._Rank = value;
 				if ( value != null ) {
-					this.PrEmployeeRankId = value.PrRankId;
-					//AddHandler value.IDChanged, AddressOf this.handleParentIdChanged;
-					value.IDChanged += this.handleParentIdChanged;
+					this.PrEmployeeRankId = this._Rank.PrRankId;
+					this._Rank.IDChanged += this.handleParentIdChanged;
                 } else {
 					this.PrEmployeeRankId = null;
 				}
@@ -688,9 +686,11 @@ namespace CsModelObjects {
        }
 		#endregion
 
+		#region "Association EmployeeInfo"
         //associationChildOneCSharp.txt
         public bool EmployeeInfoLoaded {get; private set;}
 
+		[DataMember][JsonProperty(ItemReferenceLoopHandling = ReferenceLoopHandling.Ignore)]
 		public virtual CsModelObjects.EmployeeInfo PrEmployeeInfo {
 			//1-1 child association
             set {
@@ -727,11 +727,11 @@ namespace CsModelObjects {
             
         } //End Sub
 
+		#endregion
+
 		
-
-		//** associationChildManyCSharp.txt
 		#region "Association EmployeeProjects"
-
+		// associationChildManyCSharp.txt
 		public bool EmployeeProjectsLoaded  {get; private set;}
 
 		public virtual CsModelObjects.EmployeeProject PrEmployeeProjectGetAt( int i ) {
@@ -776,6 +776,7 @@ namespace CsModelObjects {
 
         }
 
+		[DataMember][JsonProperty(ItemReferenceLoopHandling = ReferenceLoopHandling.Ignore)]
         public virtual IEnumerable< CsModelObjects.EmployeeProject > PrEmployeeProjects {
 
             get {

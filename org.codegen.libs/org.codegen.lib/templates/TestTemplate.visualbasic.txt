@@ -62,7 +62,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 			If count = 0 Then
 				Assert.Inconclusive("No <MODEL_CLASS_NAME> in database, table is empty")
 			Else
-				Dim pid As Object = ModelContext.CurrentDBUtils.getObjectValue("select top 1 <PK_TABKE_FIELD_NAME> from <TABLE_NAME>")
+				Dim pid As Object = ModelContext.CurrentDBUtils.getObjectValue("select top 1 " + pdb.pkFieldName + " from " + pdb.ManagedTableName)
 				
 				Dim p As <MODEL_CLASS_NAME> = pdb.findByKey(pid)
 				Dim p2 As <MODEL_CLASS_NAME> = directCast(p.copy(),<MODEL_CLASS_NAME>)
@@ -79,16 +79,13 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 				p = pdb.findByKey(pid)
             
 				'test fields to be equal before and after save
-				<ASSERT_EQUAL_FIELDS>
-				<ASSERT_ASSOCIATIONS>
-				<TEST_CHANGE_RANDOM_FIELDS>
+<ASSERT_EQUAL_FIELDS><ASSERT_ASSOCIATIONS>
+				
 				p.isDirty = True 'to force save
 				ModelContext.Current.saveModelObject(p)
 				p = ModelContext.Current.loadModelObject(Of <MODEL_CLASS_NAME>)(p.Id)
 				
 				p.loadObjectHierarchy()
-
-				<TEST_ASSERT_RANDOM_FIELDS>
 
 			End If
 

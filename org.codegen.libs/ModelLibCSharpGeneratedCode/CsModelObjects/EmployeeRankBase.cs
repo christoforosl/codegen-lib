@@ -12,6 +12,7 @@ using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 using System.Data.Linq.Mapping;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 //<comments>
 //************************************************************
@@ -21,9 +22,6 @@ using System.ComponentModel.DataAnnotations;
 // *** DO NOT change code in this class.  
 //     It will be re-generated and 
 //     overwritten by the code generator ****
-// Instead, change code in the extender class EmployeeRank
-//
-//************************************************************
 //</comments>
 namespace CsModelObjects {
 

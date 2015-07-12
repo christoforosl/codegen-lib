@@ -21,8 +21,8 @@ namespace GeneratorTests {
 		public void testPagedList() {
 
             int x = DBUtils.Current().getIntValue("select count(*) from employee");
-            if (x > 5) {
-                x = 5;
+            if (x > 3) {
+                x = 3;
             }
 
 			using (DataContext ctx = DBUtils.Current().dbContext()) {
@@ -30,7 +30,7 @@ namespace GeneratorTests {
 				var query = ctx.ExecuteQuery<Employee>(@"SELECT Employeeid,EmployeeName FROM employee").Skip(1).Take(x);
 				var lst = query.ToList();
 
-				Assert.AreEqual(lst.Count, (x-1), "Expected to receive " + (x-1) +" employee records, got: " + lst.Count);
+				Assert.AreEqual(lst.Count, x, "Expected to receive " + x +" employee records, got: " + lst.Count);
 				string output = JsonConvert.SerializeObject(lst);
 				System.Diagnostics.Debug.WriteLine(output);
 			}

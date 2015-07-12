@@ -18,12 +18,10 @@ Public Class CSharpAssociation
 
     Public Overrides Function getTestCode() As String
 
-        Dim ret As String = "Assert."
+        Dim ret As String = String.Empty
         If Me._cardinality.Equals("*") Then
-            ret &= "IsTrue(p." & Me.PropertyName & " != null);"
-
-        Else
-            ret &= "IsTrue(p." & Me.PropertyName & " != null);"
+            ret = vbTab & "Assert.IsTrue(p." & Me.PropertyName & " != null);"
+       
         End If
 
         Return ret

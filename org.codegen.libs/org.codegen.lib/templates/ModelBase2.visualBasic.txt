@@ -7,7 +7,7 @@ Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 Imports System.Data.Linq.Mapping
 Imports System.ComponentModel.DataAnnotations
-
+Imports Newtonsoft.Json
 '<comments>
 '************************************************************
 ' Temnplate: ModelBase2.visualBasic.txt
@@ -76,7 +76,7 @@ partial class <MODEL_CLASS_NAME>
 
 <FIELD_DECLARATIONS>
 
-#END Region
+#end Region
 
 #Region "Field Properties"
 <CLASS_PROPERTIES>

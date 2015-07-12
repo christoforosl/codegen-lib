@@ -1,6 +1,6 @@
-﻿		//** associationChildManyCSharp.txt
+﻿		
 		#region "Association <association_name>"
-
+		// associationChildManyCSharp.txt
 		public bool <LoadedFlagVariableName>  {get; private set;}
 
 		public virtual <datatype> <prop_prefix><association_name_singular>GetAt( int i ) {
@@ -45,6 +45,7 @@
 
         }
 
+		[DataMember][JsonProperty(ItemReferenceLoopHandling = ReferenceLoopHandling.Ignore)]
         public virtual IEnumerable< <datatype> > <property_name> {
 
             get {

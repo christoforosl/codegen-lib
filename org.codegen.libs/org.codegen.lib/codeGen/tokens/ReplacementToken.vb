@@ -20,17 +20,26 @@ Namespace Tokens
     Public MustInherit Class ReplacementToken
         Implements IReplacementToken
 
+        Public Sub New()
+            If (codegen.lib.ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB) Then
+                strEquals = "="
+                lineEnd = ""
+                commentMarker = "'"
+            End If
+        End Sub
+
         Private Const STR_GT As String = ">"
         Private Const STR_LT As String = "<"
 
         Private _StringToReplace As String
 
+        Protected strEquals As String = "=="
+        Protected lineEnd As String = ";"
+        Protected commentMarker As String = "//"
+
         ''' <summary>
         ''' The code that will replace the token
         ''' </summary>
-        ''' <param name="t"></param>
-        ''' <returns></returns>
-        ''' <remarks></remarks>
         Public MustOverride Function getReplacementCode(ByVal t As IObjectToGenerate) As String _
                                 Implements IReplacementToken.getReplacementCode
 

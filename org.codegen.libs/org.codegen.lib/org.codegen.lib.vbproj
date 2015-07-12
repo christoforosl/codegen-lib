@@ -164,7 +164,7 @@
     <Compile Include="interfaces\IPropertyGenerator.vb" />
     <Compile Include="SqlGen\SQLStmtsGenerator.vb" />
     <Compile Include="codeGen\tokens\ClassFieldDeclarationsToken.vb" />
-    <Compile Include="codeGen\tokens\ClassPropertiesToken.vb" />
+    <Compile Include="codeGen\tokens\ModelTokens.vb" />
     <Compile Include="codeGen\tokens\DataAccessTokens.vb" />
     <Compile Include="codeGen\tokens\GeneratorToken.vb" />
     <Compile Include="codeGen\tokens\AttributesToken.vb" />

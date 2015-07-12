@@ -396,6 +396,56 @@ GO
 ALTER TABLE [AccountInfo] CHECK CONSTRAINT [FK_ACCOUNT_INFO_ACCOUNTID]
 GO
 
-INSERT INTO [AccountType]([AccountType],[qbTypeCode],[positiveAmtIsDebit])
-     VALUES ('BANK','BANK',0)
+INSERT INTO [AccountType]([AccountType],[qbTypeCode],[positiveAmtIsDebit]) VALUES ('BANK','BANK',0);
+INSERT INTO [Bank]([BankName],[BankCode],[BankSWIFTCode]) VALUES ('BOC','02','XBCOdkdk');
+INSERT INTO [Account]
+           ([account]
+           ,[accountTypeid]
+           ,[bankaccnumber]
+           ,[nextCheckNumber]
+           ,[Description]
+           ,[createdate]
+           ,[updatedate]
+           ,[updateuser]
+           ,[createuser])
+     VALUES
+           ( 'BOC' 
+           , 1
+           , '019039999'
+           , '1'
+           , 'bank'
+           , getdate() 
+           , getDate() 
+           , 'admin'
+           , 'admin' )
 GO
+INSERT INTO [modelTest].[dbo].[AccountInfo]
+           ([ContactName]
+           ,[ContactPhone]
+           ,[ContactFax]
+           ,[accountID]
+           ,[signeeEmployee]
+           ,[CompanyName]
+           ,[CompanyBankCode]
+           ,[BankId]
+           ,[COOPCode]
+           ,[createdate]
+           ,[updatedate]
+           ,[updateuser]
+           ,[createuser])
+     VALUES
+           ('Test name'
+           ,'22-909930'
+           ,null
+           ,10
+           ,'test employee'
+           ,'Microsoft'
+           ,'MS'
+           ,9
+           ,null
+           ,getDate()
+           ,getDate()
+           ,'admin'
+           ,'admin')
+GO
+

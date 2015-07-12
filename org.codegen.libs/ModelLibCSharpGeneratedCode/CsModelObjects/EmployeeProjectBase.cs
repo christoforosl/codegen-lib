@@ -12,6 +12,7 @@ using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 using System.Data.Linq.Mapping;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 //<comments>
 //************************************************************
@@ -21,9 +22,6 @@ using System.ComponentModel.DataAnnotations;
 // *** DO NOT change code in this class.  
 //     It will be re-generated and 
 //     overwritten by the code generator ****
-// Instead, change code in the extender class EmployeeProject
-//
-//************************************************************
 //</comments>
 namespace CsModelObjects {
 
@@ -227,24 +225,24 @@ namespace CsModelObjects {
 		}
 		}
 	}
-
-		// ASSOCIATIONS GETTERS/SETTERS BELOW!
-		//associationParentCSharp.txt
+		#endregion
+		#region "Associations"
+		
 		#region "Association Project"
-
+		//associationParentCSharp.txt
 		private bool ProjectLoaded {get;set;}
 
 		/// <summary>
         /// Gets/Sets parent object
         /// </summary>
+		[DataMember][JsonProperty(ItemReferenceLoopHandling = ReferenceLoopHandling.Ignore)]
 		public virtual CsModelObjects.Project PrProject {
 		    //1-1 parent association
             set {
                 this._Project = value;
 				if ( value != null ) {
-					this.PrEPProjectId = value.PrProjectId;
-					//AddHandler value.IDChanged, AddressOf this.handleParentIdChanged;
-					value.IDChanged += this.handleParentIdChanged;
+					this.PrEPProjectId = this._Project.PrProjectId;
+					this._Project.IDChanged += this.handleParentIdChanged;
                 } else {
 					this.PrEPProjectId = null;
 				}

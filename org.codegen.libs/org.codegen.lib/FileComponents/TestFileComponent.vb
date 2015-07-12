@@ -5,7 +5,6 @@ Imports org.codegen.lib.FileComponents
 <ReplacementTokenAttribute(GetType(CurentDateToken), GetType(PKFieldRuntimeNameToken), _
             GetType(GeneratorToken), GetType(TableNameToken), _
             GetType(TestAssertAssociationsToken), _
-            GetType(ModifyRandomFields), GetType(AssertRandomFields), _
             GetType(TestAssertEqualToken), _
             GetType(ClassAccessLevelToken), _
             GetType(PKFieldTableNameToken), _

@@ -402,23 +402,39 @@ Namespace Tokens
     Public Class ClassPropertiesToken
         Inherits ReplacementToken
 
+
         Sub New()
             Me.StringToReplace = "CLASS_PROPERTIES"
         End Sub
 
-        Public Overrides Function getReplacementCode(ByVal t As IObjectToGenerate) As String
+      
+        Private Function getAssociationProperties(ByVal t As DBTable) As String
+            Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
 
-            If ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.CSHARP Then
-                Return Me.getReplacementCodeCSharp(t)
-            Else
-                Return Me.getReplacementCodeVB(t)
+            Dim commentSymbol As String = CStr(IIf(ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB, "'", "//"))
+            Dim endregion As String = CStr(IIf(ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB, "#end region", "#endregion"))
+            'Dim startregion As String = CStr(IIf(ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB, "'", "//"))
+
+            If t.Associations().Count() > 0 Then
+
+                sb.Append(vbTab).Append(vbTab).Append(endregion).Append(vbCrLf)
+                sb.Append(vbTab).Append(vbTab).Append("#region ""Associations""").Append(vbCrLf)
+
+                Dim vec As List(Of Association) = t.Associations()
+
+                For Each association As Association In vec
+                    sb.Append(association.getCodeFromTemplate())
+                Next
+
             End If
+
+
+            Return sb.ToString()
 
         End Function
 
 
-        Public Function getReplacementCodeCSharp(ByVal t As IObjectToGenerate) As String
-            ' sJcode = sJcode.Replace("<>", getProperties())
+        Public Overrides Function getReplacementCode(t As IObjectToGenerate) As String
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder(vbCrLf)
             Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
 
@@ -436,45 +452,6 @@ Namespace Tokens
 
             Return sb.ToString()
         End Function
-
-        Public Function getReplacementCodeVB(ByVal t As IObjectToGenerate) As String
-            ' sJcode = sJcode.Replace("<>", getProperties())
-            Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder(vbCrLf)
-            Dim vec As Dictionary(Of String, IDBField) = t.DbTable.Fields()
-
-            Dim i As Integer = 0
-            For Each field As DBField In vec.Values
-                'no need to generate anything for "id" field.  it is overriden
-                If field.FieldName.ToLower.Equals("id") = False AndAlso Not field.isBinaryField Then
-                    'field.PropertiesImplementedInterface = Me.GenerateInterface
-                    sb.Append(field.getProperty())
-                End If
-
-            Next
-
-            sb.Append(Me.getAssociationProperties(CType(t.DbTable, DBTable)))
-
-            Return sb.ToString()
-        End Function
-
-        Private Function getAssociationProperties(ByVal t As DBTable) As String
-            Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
-            Dim vec As List(Of Association)
-            Dim commentSymbol As String = CStr(IIf(ModelGenerator.Current.dotNetLanguage = ModelGenerator.enumLanguage.VB, "'", "//"))
-            If t.Associations().Count() > 0 Then
-                sb.Append(vbCrLf & vbTab & vbTab & commentSymbol & " ASSOCIATIONS GETTERS/SETTERS BELOW!" & vbCrLf)
-            End If
-
-            vec = t.Associations()
-
-            For Each association As Association In vec
-                sb.Append(association.getCodeFromTemplate())
-            Next
-
-            Return sb.ToString()
-
-        End Function
-
     End Class
 
    
