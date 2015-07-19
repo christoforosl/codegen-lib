@@ -2,9 +2,13 @@
 <h1>CodeGen ORM</h1>
 <h5>Yes, this is yet another ORM.  When to use it?
 <ol >
-<li>When you need COMPLETE control as to what tables and what table relationships are mapped to objects</li>
+<li>When you need COMPLETE control as to what tables and what table relationships are mapped to objects.
+On other words, nothing is generated unless you want it to.</li>
+
 <li>When you need COMPLETE control on the inheritance on each mapped object. For example, CodeGen ORM allows a group of mapped objects to inherit from a base class and another group of objects from another class.</li>
+
 <li>When you need COMPLETE control on the mapped orm classes without having to worry about lost code when mapped objects are re-generated after schema change. For example, you need to add custom properties and methods to a mapped object.</li>
+
 <li>When you need <u>Complete Code Generation</u> from database tables. The generator  detects schema changes and regenerates without loss of custom code</li>
 </ol>
 </h5>
