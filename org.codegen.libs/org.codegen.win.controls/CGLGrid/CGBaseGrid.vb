@@ -325,14 +325,6 @@ Namespace Grid
 
 #End Region
 
-
-        'Public Sub SaveRowToStore(ByVal dataRow As DataGridViewRow)
-
-        '    _traceSrc.TraceInformation("Calling SaveRowToStore")
-        '    Me.GridRowPersistor.SaveRowToStore(Me, Me.CurrentRow)
-
-        'End Sub
-
         Protected MustOverride Sub bindToData()
 
         ''' <summary>
@@ -396,8 +388,7 @@ Namespace Grid
             Me.AllowUserToResizeRows = False
 
             Me.EditMode = DataGridViewEditMode.EditProgrammatically
-            'Me.Font = ApplicationContext.current.ApplicationDefaultFont 'New Font("Tahoma", 8.25!, FontStyle.Regular, GraphicsUnit.Point, 0)
-
+            
         End Sub
 
         Private Sub grdBindSource_ListChanged(ByVal sender As Object, _

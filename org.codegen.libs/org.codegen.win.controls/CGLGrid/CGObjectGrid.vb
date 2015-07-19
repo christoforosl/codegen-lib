@@ -1,9 +1,9 @@
 ﻿
 Namespace Grid
 
-    Public Class ucObjectListGrid
+    Public Class CGObjectGrid
         Inherits CGBaseGrid
-        
+
         Protected Overrides Sub bindToData()
 
             Me.BindingSource = New BindingSource
