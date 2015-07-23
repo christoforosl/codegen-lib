@@ -44,8 +44,7 @@
 			return this._deleted<association_name>;
 
         }
-
-		[DataMember]
+				
         public virtual IEnumerable< <datatype> > <property_name> {
 
             get {

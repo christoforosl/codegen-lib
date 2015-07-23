@@ -177,9 +177,9 @@ namespace CsModelObjects {
 	private System.String _EmployeeTypeDescr;
 	private System.String _RankDescr;
 	// ****** CHILD OBJECTS ********************
-	private CsModelObjects.EmployeeRank _Rank = null;  //initialize to nothing, for lazy load logic below !!!
-	private CsModelObjects.EmployeeInfo _EmployeeInfo = null;  //initialize to nothing, for lazy load logic below !!!
-	private List< CsModelObjects.EmployeeProject> _EmployeeProjects = null;  //initialize to nothing, for lazy load logic below !!!
+[DataMember(Name="PrRank")]	private CsModelObjects.EmployeeRank _Rank = null;  //initialize to nothing, for lazy load logic below !!!
+[DataMember(Name="PrEmployeeInfo")]	private CsModelObjects.EmployeeInfo _EmployeeInfo = null;  //initialize to nothing, for lazy load logic below !!!
+[DataMember(Name="PrEmployeeProjects")]	private List< CsModelObjects.EmployeeProject> _EmployeeProjects = null;  //initialize to nothing, for lazy load logic below !!!
 	 private List< CsModelObjects.EmployeeProject> _deletedEmployeeProjects = new List< CsModelObjects.EmployeeProject>();// initialize to empty list !!!
 
 	// *****************************************
@@ -642,7 +642,6 @@ namespace CsModelObjects {
 		/// <summary>
         /// Gets/Sets parent object
         /// </summary>
-		[DataMember]
 		public virtual CsModelObjects.EmployeeRank PrRank {
 		    //1-1 parent association
             set {
@@ -690,7 +689,6 @@ namespace CsModelObjects {
         //associationChildOneCSharp.txt
         public bool EmployeeInfoLoaded {get; private set;}
 
-		[DataMember]
 		public virtual CsModelObjects.EmployeeInfo PrEmployeeInfo {
 			//1-1 child association
             set {
@@ -775,8 +773,7 @@ namespace CsModelObjects {
 			return this._deletedEmployeeProjects;
 
         }
-
-		[DataMember]
+				
         public virtual IEnumerable< CsModelObjects.EmployeeProject > PrEmployeeProjects {
 
             get {

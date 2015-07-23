@@ -31,7 +31,8 @@ Public Class CSharpAssociation
 
     Public Overrides Function getVariableDeclarationCode() As String
 
-        Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder() ' TODO type initialisation here
+        Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+        sb.Append("[DataMember(Name=""" + Me.PropertyName + """)]")
         sb.Append(vbTab & "private ")
         sb.Append(Me.DataTypeVariable())
         sb.Append(" ")

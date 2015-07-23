@@ -46,7 +46,6 @@
 
         End Function
 
-		<DataMember>
         Public Overridable Property <property_name>() As IEnumerable(Of <datatype>) 
 
             Get

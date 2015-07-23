@@ -13,6 +13,7 @@ using System.Xml.Serialization;
 using System.Data.Linq.Mapping;
 using System.ComponentModel.DataAnnotations;
 
+
 //<comments>
 //************************************************************
 // Template: ModelBase2.csharp.txt
@@ -21,9 +22,6 @@ using System.ComponentModel.DataAnnotations;
 // *** DO NOT change code in this class.  
 //     It will be re-generated and 
 //     overwritten by the code generator ****
-// Instead, change code in the extender class Department
-//
-//************************************************************
 //</comments>
 namespace OracleModel {
 
@@ -48,7 +46,7 @@ namespace OracleModel {
 		}
 
 		/// <summary>
-		/// Returns the **loaded** children of this model object.
+		/// Returns the *loaded* children of this model object.
 		/// Any records that are not loaded (ie the getter method was not called) are not returned.
 		/// To get all child records tied to this object, call loadObjectHierarchy() method
 		/// </summary>

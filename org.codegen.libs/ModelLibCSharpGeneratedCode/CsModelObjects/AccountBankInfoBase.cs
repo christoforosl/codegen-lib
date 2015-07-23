@@ -136,7 +136,7 @@ namespace CsModelObjects {
 	private System.String _Updateuser;
 	private System.String _Createuser;
 	// ****** CHILD OBJECTS ********************
-	private CsModelObjects.Bank _Bank = null;  //initialize to nothing, for lazy load logic below !!!
+[DataMember(Name="PrBank")]	private CsModelObjects.Bank _Bank = null;  //initialize to nothing, for lazy load logic below !!!
 
 	// *****************************************
 	// ****** END CHILD OBJECTS ********************
@@ -422,7 +422,6 @@ namespace CsModelObjects {
 		/// <summary>
         /// Gets/Sets parent object
         /// </summary>
-		[DataMember]
 		public virtual CsModelObjects.Bank PrBank {
 		    //1-1 parent association
             set {

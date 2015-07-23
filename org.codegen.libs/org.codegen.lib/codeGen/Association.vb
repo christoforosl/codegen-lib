@@ -89,14 +89,16 @@ Public Class Association
     ''' <remarks></remarks>
     Public Overridable Function getVariableDeclarationCode() As String
 
-        Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder() ' TODO type initialisation here
-        sb.Append(vbTab & "private ")
+        Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+        sb.Append(vbTab).Append("<DataMember(Name:=""" + Me.PropertyName + """)>").Append(vbCrLf)
+        sb.Append(vbTab).Append("private ")
         sb.Append(Me.getVariableName)
         sb.Append(" as ")
         sb.Append(Me.DataTypeVariable())
         sb.Append(" = nothing '' initialize to nothing, for lazy load logic below !!!")
         sb.Append(vbCrLf)
         Return sb.ToString()
+
     End Function
 
     Public Function getDeletedMethodName() As String

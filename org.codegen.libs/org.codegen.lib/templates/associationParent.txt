@@ -6,7 +6,6 @@
 		''' <summary>
         ''' Gets/Sets parent object <property_name>
         ''' </summary>
-		<DataMember> _
 		Public Overridable Property <property_name>() As <datatype> 
 
 		    '1-1 parent association

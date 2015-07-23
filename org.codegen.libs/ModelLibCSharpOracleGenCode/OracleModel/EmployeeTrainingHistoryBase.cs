@@ -13,6 +13,7 @@ using System.Xml.Serialization;
 using System.Data.Linq.Mapping;
 using System.ComponentModel.DataAnnotations;
 
+
 //<comments>
 //************************************************************
 // Template: ModelBase2.csharp.txt
@@ -21,9 +22,6 @@ using System.ComponentModel.DataAnnotations;
 // *** DO NOT change code in this class.  
 //     It will be re-generated and 
 //     overwritten by the code generator ****
-// Instead, change code in the extender class EmployeeTrainingHistory
-//
-//************************************************************
 //</comments>
 namespace OracleModel {
 
@@ -49,7 +47,7 @@ namespace OracleModel {
 		}
 
 		/// <summary>
-		/// Returns the **loaded** children of this model object.
+		/// Returns the *loaded* children of this model object.
 		/// Any records that are not loaded (ie the getter method was not called) are not returned.
 		/// To get all child records tied to this object, call loadObjectHierarchy() method
 		/// </summary>
@@ -111,7 +109,7 @@ namespace OracleModel {
 	private System.DateTime? _DateTo = null;
 	private System.String _TrainingCourseCode;
 	// ****** CHILD OBJECTS ********************
-	private OracleModel.TrainingCourse _TrainingCourse = null;  //initialize to nothing, for lazy load logic below !!!
+[DataMember(Name="PrTrainingCourse")]	private OracleModel.TrainingCourse _TrainingCourse = null;  //initialize to nothing, for lazy load logic below !!!
 
 	// *****************************************
 	// ****** END CHILD OBJECTS ********************
@@ -210,11 +208,11 @@ namespace OracleModel {
 		}
 		}
 	}
-
-		// ASSOCIATIONS GETTERS/SETTERS BELOW!
-		//associationParentCSharp.txt
+		#endregion
+		#region "Associations"
+		
 		#region "Association TrainingCourse"
-
+		//associationParentCSharp.txt
 		private bool TrainingCourseLoaded {get;set;}
 
 		/// <summary>
@@ -225,9 +223,8 @@ namespace OracleModel {
             set {
                 this._TrainingCourse = value;
 				if ( value != null ) {
-					this.PrTrainingCourseCode = value.PrCODE;
-					//AddHandler value.IDChanged, AddressOf this.handleParentIdChanged;
-					value.IDChanged += this.handleParentIdChanged;
+					this.PrTrainingCourseCode = this._TrainingCourse.PrCODE;
+					this._TrainingCourse.IDChanged += this.handleParentIdChanged;
                 } else {
 					this.PrTrainingCourseCode = null;
 				}

@@ -112,7 +112,7 @@ namespace CsModelObjects {
 	private System.DateTime? _EndDate = null;
 	private System.Decimal? _Rate = null;
 	// ****** CHILD OBJECTS ********************
-	private CsModelObjects.Project _Project = null;  //initialize to nothing, for lazy load logic below !!!
+[DataMember(Name="PrProject")]	private CsModelObjects.Project _Project = null;  //initialize to nothing, for lazy load logic below !!!
 
 	// *****************************************
 	// ****** END CHILD OBJECTS ********************
@@ -235,7 +235,6 @@ namespace CsModelObjects {
 		/// <summary>
         /// Gets/Sets parent object
         /// </summary>
-		[DataMember]
 		public virtual CsModelObjects.Project PrProject {
 		    //1-1 parent association
             set {

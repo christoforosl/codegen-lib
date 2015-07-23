@@ -13,6 +13,7 @@ using System.Xml.Serialization;
 using System.Data.Linq.Mapping;
 using System.ComponentModel.DataAnnotations;
 
+
 //<comments>
 //************************************************************
 // Template: ModelBase2.csharp.txt
@@ -21,9 +22,6 @@ using System.ComponentModel.DataAnnotations;
 // *** DO NOT change code in this class.  
 //     It will be re-generated and 
 //     overwritten by the code generator ****
-// Instead, change code in the extender class Employee
-//
-//************************************************************
 //</comments>
 namespace OracleModel {
 
@@ -52,7 +50,7 @@ namespace OracleModel {
 		}
 
 		/// <summary>
-		/// Returns the **loaded** children of this model object.
+		/// Returns the *loaded* children of this model object.
 		/// Any records that are not loaded (ie the getter method was not called) are not returned.
 		/// To get all child records tied to this object, call loadObjectHierarchy() method
 		/// </summary>
@@ -189,12 +187,12 @@ namespace OracleModel {
 	private System.String _RegionName;
 	private System.String _ManagerName;
 	// ****** CHILD OBJECTS ********************
-	private List< OracleModel.JobHistory> _JobHistory = null;  //initialize to nothing, for lazy load logic below !!!
+[DataMember(Name="PrJobHistory")]	private List< OracleModel.JobHistory> _JobHistory = null;  //initialize to nothing, for lazy load logic below !!!
 	 private List< OracleModel.JobHistory> _deletedJobHistory = new List< OracleModel.JobHistory>();// initialize to empty list !!!
-	private OracleModel.Department _Department = null;  //initialize to nothing, for lazy load logic below !!!
-	private List< OracleModel.EmployeeTrainingHistory> _Courses = null;  //initialize to nothing, for lazy load logic below !!!
+[DataMember(Name="PrDepartment")]	private OracleModel.Department _Department = null;  //initialize to nothing, for lazy load logic below !!!
+[DataMember(Name="PrCourses")]	private List< OracleModel.EmployeeTrainingHistory> _Courses = null;  //initialize to nothing, for lazy load logic below !!!
 	 private List< OracleModel.EmployeeTrainingHistory> _deletedCourses = new List< OracleModel.EmployeeTrainingHistory>();// initialize to empty list !!!
-	private List< OracleModel.EmployeeTrainingHistory> _TrainingHistory = null;  //initialize to nothing, for lazy load logic below !!!
+[DataMember(Name="PrTrainingHistory")]	private List< OracleModel.EmployeeTrainingHistory> _TrainingHistory = null;  //initialize to nothing, for lazy load logic below !!!
 	 private List< OracleModel.EmployeeTrainingHistory> _deletedTrainingHistory = new List< OracleModel.EmployeeTrainingHistory>();// initialize to empty list !!!
 
 	// *****************************************
@@ -659,11 +657,11 @@ namespace OracleModel {
 		}
 		}
 	}
-
-		// ASSOCIATIONS GETTERS/SETTERS BELOW!
-		//** associationChildManyCSharp.txt
+		#endregion
+		#region "Associations"
+		
 		#region "Association JobHistory"
-
+		// associationChildManyCSharp.txt
 		public bool JobHistoryLoaded  {get; private set;}
 
 		public virtual OracleModel.JobHistory PrJobHistoryGetAt( int i ) {
@@ -707,7 +705,7 @@ namespace OracleModel {
 			return this._deletedJobHistory;
 
         }
-
+				
         public virtual IEnumerable< OracleModel.JobHistory > PrJobHistory {
 
             get {
@@ -763,9 +761,9 @@ namespace OracleModel {
         } 
 		#endregion
 
-		//associationParentCSharp.txt
+		
 		#region "Association Department"
-
+		//associationParentCSharp.txt
 		private bool DepartmentLoaded {get;set;}
 
 		/// <summary>
@@ -776,9 +774,8 @@ namespace OracleModel {
             set {
                 this._Department = value;
 				if ( value != null ) {
-					this.PrDepartmentId = value.PrDepartmentId;
-					//AddHandler value.IDChanged, AddressOf this.handleParentIdChanged;
-					value.IDChanged += this.handleParentIdChanged;
+					this.PrDepartmentId = this._Department.PrDepartmentId;
+					this._Department.IDChanged += this.handleParentIdChanged;
                 } else {
 					this.PrDepartmentId = null;
 				}
@@ -815,9 +812,9 @@ namespace OracleModel {
        }
 		#endregion
 
-		//** associationChildManyCSharp.txt
+		
 		#region "Association Courses"
-
+		// associationChildManyCSharp.txt
 		public bool CoursesLoaded  {get; private set;}
 
 		public virtual OracleModel.EmployeeTrainingHistory PrCoursesGetAt( int i ) {
@@ -861,7 +858,7 @@ namespace OracleModel {
 			return this._deletedCourses;
 
         }
-
+				
         public virtual IEnumerable< OracleModel.EmployeeTrainingHistory > PrCourses {
 
             get {
@@ -917,9 +914,9 @@ namespace OracleModel {
         } 
 		#endregion
 
-		//** associationChildManyCSharp.txt
+		
 		#region "Association TrainingHistory"
-
+		// associationChildManyCSharp.txt
 		public bool TrainingHistoryLoaded  {get; private set;}
 
 		public virtual OracleModel.EmployeeTrainingHistory PrTrainingHistoryGetAt( int i ) {
@@ -963,7 +960,7 @@ namespace OracleModel {
 			return this._deletedTrainingHistory;
 
         }
-
+				
         public virtual IEnumerable< OracleModel.EmployeeTrainingHistory > PrTrainingHistory {
 
             get {
