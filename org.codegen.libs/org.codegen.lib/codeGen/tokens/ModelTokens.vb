@@ -210,8 +210,7 @@ Namespace Tokens
                 'Dim field As DBField = CType(vec(i), DBField)
                 Dim field As IDBField = vec.Item(vec.Keys(i))
 
-                If field.IsTableField() AndAlso Not field.isBinaryField AndAlso Not field.isPrimaryKey _
-                        AndAlso field.isDBFieldNullable = False Then
+                If Me.needToCheckField(field) Then
 
                     If field.isString Then
 
@@ -245,8 +244,7 @@ Namespace Tokens
 
                 Dim field As IDBField = vec.Item(vec.Keys(i))
 
-                If field.IsTableField() AndAlso Not field.isBinaryField AndAlso Not field.isBoolean AndAlso Not field.isPrimaryKey _
-                        AndAlso field.isDBFieldNullable = False Then
+                If Me.needToCheckField(field) Then
 
                     If field.isString Then
                         sb.Append("if String.isNullOrEmpty( mo.").Append(field.PropertyName).Append(") Then")
@@ -264,6 +262,11 @@ Namespace Tokens
             Next
 
             Return sb.ToString()
+        End Function
+
+        Private Function needToCheckField(field As IDBField) As Boolean
+            Return field.IsTableField() AndAlso (Not field.isBoolean) AndAlso (Not field.isBinaryField) _
+                        AndAlso (Not field.isPrimaryKey) AndAlso field.isDBFieldNullable = False
         End Function
 
 

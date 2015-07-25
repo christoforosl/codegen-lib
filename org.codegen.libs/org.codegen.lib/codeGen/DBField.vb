@@ -26,9 +26,6 @@ Public Class DBField
     ''' <summary>
     ''' Is the field in the database nullable?
     ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
     Public Property isDBFieldNullable() As Boolean Implements IDBField.isDBFieldNullable
 
     Public Property XMLSerializationIgnore() As Boolean Implements IDBField.XMLSerializationIgnore

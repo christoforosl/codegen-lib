@@ -205,13 +205,11 @@ namespace <NAMESPACE> {
 
 	#region "Req Fields validator"
 	[System.Runtime.InteropServices.ComVisible(false)]
-	public class <MODEL_CLASS_NAME>RequiredFieldsValidator : IModelObjectValidator
-	{
-
+	public class <MODEL_CLASS_NAME>RequiredFieldsValidator : IModelObjectValidator {
 
 		public void validate(org.model.lib.Model.IModelObject imo) {
 			<MODEL_CLASS_NAME> mo = (<MODEL_CLASS_NAME>)imo;
-<REQ_FIELDS_VALIDATOR>
+			<REQ_FIELDS_VALIDATOR>
 		}
 
 	}

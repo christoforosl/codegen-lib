@@ -6,8 +6,8 @@ Namespace Grid
     Public Class CGSQLGrid
         Inherits CGBaseGrid
 
-        Private _sqlSelectStm As String = String.Empty
-        Private _SelectWhereClause As String = String.Empty
+
+
 
 
         ' Methods
@@ -23,32 +23,32 @@ Namespace Grid
             Dim retSQL As String = String.Empty
             Dim str As String = String.Empty
 
-            If (Me._sqlSelectStm <> String.Empty) Then
-                retSQL = Me._sqlSelectStm
+           If (Me._SelectSQLStatement <> String.Empty) Then
+				retSQL = Me._SelectSQLStatement
 
-            ElseIf (retSQL = String.Empty) Then
+			ElseIf (retSQL = String.Empty) Then
 
-                str = Me.gpSelectFields
+				str = Me.gpSelectFields
 
-                If str.EndsWith(",") Then
-                    str = Strings.Mid(str, 1, (Strings.Len(str) - 1))
-                End If
-                If (String.IsNullOrEmpty(str)) Then
-                    str = "*"
-                End If
+				If str.EndsWith(",") Then
+					str = Strings.Mid(str, 1, (Strings.Len(str) - 1))
+				End If
+				If (String.IsNullOrEmpty(str)) Then
+					str = "*"
+				End If
 
-                retSQL = String.Concat(New String() {"SELECT ", str, " FROM ", Me.gpSelectFrom, " ", Me.gpWhereclause})
-            End If
+				retSQL = String.Concat(New String() {"SELECT ", str, " FROM ", Me.gpSelectFrom, " ", Me.gpWhereclause})
+			End If
 
-            If ((retSQL.ToLower.IndexOf("where") = -1) And (Me.gpWhereclause.Trim <> String.Empty)) Then
-                If (retSQL.ToLower.IndexOf("order by") > -1) Then
-                    retSQL = String.Concat(New String() {retSQL.Substring(0, retSQL.ToLower.IndexOf("order by")), " ", Me.gpWhereclause, " ", retSQL.Substring(retSQL.ToLower.IndexOf("order by"))})
-                Else
-                    retSQL = String.Format("{0} {1}", retSQL, Me.gpWhereclause)
-                End If
-            End If
+			If ((retSQL.ToLower.IndexOf("where") = -1) And (Me.gpWhereclause.Trim <> String.Empty)) Then
+				If (retSQL.ToLower.IndexOf("order by") > -1) Then
+					retSQL = String.Concat(New String() {retSQL.Substring(0, retSQL.ToLower.IndexOf("order by")), " ", Me.gpWhereclause, " ", retSQL.Substring(retSQL.ToLower.IndexOf("order by"))})
+				Else
+					retSQL = String.Format("{0} {1}", retSQL, Me.gpWhereclause)
+				End If
+			End If
 
-            Return retSQL
+			Return retSQL
 
         End Function
 
@@ -94,7 +94,12 @@ Namespace Grid
         <Description("Data Table name to get data from.")> _
         Public Property gpSelectFrom() As String
 
-     
+        ''' <summary>
+        ''' Backing field of property gpWhereclause
+        ''' </summary>
+        ''' <remarks></remarks>
+        Private _SelectWhereClause As String = String.Empty
+
         <Description("Gets/Sets the where clause, without the ""WHERE"".")> _
         Public Property gpWhereclause() As String
             Get
