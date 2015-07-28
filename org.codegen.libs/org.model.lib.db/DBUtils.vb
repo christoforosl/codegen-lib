@@ -14,6 +14,7 @@ Public MustInherit Class DBUtils
 #Region "db provider"
 
     Private Shared _dbrovider As IDBUtilsProvider
+    Private Shared _current As DBUtils
 
     Public Shared Property dbProvider As IDBUtilsProvider
         Get
@@ -23,7 +24,10 @@ Public MustInherit Class DBUtils
             Return _dbrovider
         End Get
         Set(ByVal value As IDBUtilsProvider)
+
             _dbrovider = value
+            _current = Nothing
+
         End Set
     End Property
 
@@ -31,11 +35,12 @@ Public MustInherit Class DBUtils
     ''' Constructs a DBUtilsBase class from the connection string stored in the configuration file.
     ''' <seealso cref="DBConfig"></seealso>
     ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
     Public Shared Function Current() As DBUtils
 
-        Return dbProvider.getDBUtils
+        If _current Is Nothing Then
+            _current = dbProvider.getDBUtils
+        End If
+        Return _current
 
     End Function
 
@@ -391,6 +396,7 @@ Public MustInherit Class DBUtils
 
             adapter = Me.getAdapter(sql)
             If Me.inTrans Then
+                Trace.TraceInformation("getDataSet In ongloing transaction, assigning p_trans variable")
                 adapter.SelectCommand.Transaction = p_Trans
             End If
 
