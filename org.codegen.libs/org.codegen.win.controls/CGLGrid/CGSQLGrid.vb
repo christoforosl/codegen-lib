@@ -54,13 +54,14 @@ Namespace Grid
         ''' </summary>
         ''' <remarks></remarks>
         Protected Overrides Sub bindToData()
-            If (Me.DesignMode = False) Then
-                Me.DataSource = Nothing
-                Me.BindingSource = New BindingSource
-                Me.BindingSource.DataSource = DBUtils.Current.getDataTable(Me.buildStatement, "table1")
-                Me.DataSource = Me.BindingSource
-                Me.lastLoadedSQL = Me.buildStatement
-            End If
+			If (Me.DesignMode = False) Then
+				Dim sql As String = Me.buildStatement
+				Me.DataSource = Nothing
+				Me.BindingSource = New BindingSource
+				Me.BindingSource.DataSource = DBUtils.Current.getDataTable(sql, "table1")
+				Me.DataSource = Me.BindingSource
+				Me.lastLoadedSQL = sql
+			End If
 
         End Sub
 
