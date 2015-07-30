@@ -454,13 +454,19 @@ Public Class frmBaseGrid
 
     Private Sub mnAdd_Click(ByVal sender As Object, ByVal e As EventArgs)
 
+        If Me.GridMode = enumGridFormMode.MODE_SELECT Then Return
         Call ListEditRecord(0)
 
     End Sub
 
     Private Sub Grid_DoubleClick(ByVal sender As Object, ByVal e As EventArgs)
 
-        Call ListEditRecord(Me.grdData.IdValue)
+        If Me.GridMode = enumGridFormMode.MODE_SELECT Then
+            'in select mode, double click means "select"
+            Me.DialogResult = Windows.Forms.DialogResult.OK
+        Else
+            Call ListEditRecord(Me.grdData.IdValue)
+        End If
 
     End Sub
 

@@ -6,17 +6,13 @@ Namespace Grid
     Public Class CGSQLGrid
         Inherits CGBaseGrid
 
-
-
-
-
         ' Methods
         Public Sub New()
             MyBase.New()
 
         End Sub
 
-
+        Private lastLoadedSQL As String = String.Empty
 
         Private Function buildStatement() As String
 
@@ -58,13 +54,13 @@ Namespace Grid
         ''' </summary>
         ''' <remarks></remarks>
         Protected Overrides Sub bindToData()
-
-            Me.DataSource = Nothing
-            Me.BindingSource = New BindingSource
-            Me.BindingSource.DataSource = DBUtils.Current.getDataTable(Me.buildStatement, "table1")
-            Me.DataSource = Me.BindingSource
-
-            Me.lastLoadedSQL = Me.buildStatement
+            If (Me.DesignMode = False) Then
+                Me.DataSource = Nothing
+                Me.BindingSource = New BindingSource
+                Me.BindingSource.DataSource = DBUtils.Current.getDataTable(Me.buildStatement, "table1")
+                Me.DataSource = Me.BindingSource
+                Me.lastLoadedSQL = Me.buildStatement
+            End If
 
         End Sub
 
@@ -122,8 +118,6 @@ Namespace Grid
         End Property
 
 
-        <Browsable(False), Description("Gets/Sets the last loaded SQL statement.")> _
-        Public Property lastLoadedSQL() As String = String.Empty
 
         <Description("Sets/Gets the SQL statement used to load data to the grid."), Browsable(True)> _
         Public Property SelectSQLStatement() As String
