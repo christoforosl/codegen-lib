@@ -119,6 +119,10 @@ Namespace Model
         End Sub
 
         Public Shared Sub release()
+            If CurrentDBUtils.inTrans Then
+                CurrentDBUtils.rollbackTrans()
+                CurrentDBUtils.Dispose()
+            End If
             setCurrent(Nothing)
         End Sub
 

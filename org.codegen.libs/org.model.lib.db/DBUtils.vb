@@ -76,7 +76,7 @@ Public MustInherit Class DBUtils
         End Select
 
         ret.ConnString = connString
-        logFilePath = logFile
+
         Return ret
 
     End Function
@@ -115,19 +115,18 @@ Public MustInherit Class DBUtils
 
     Protected p_connstring As String
     Protected p_conntype As enumConnType
-    Protected p_string_quote_prefix As String
+
     Protected p_date_pattern As String
     Protected p_dbNow As String
     Protected p_like_char As String
-    Protected p_paramPrefix As String
+
     Protected p_sqldialect As enumSqlDialect
-    Protected p_Trans As System.Data.IDbTransaction
+
     Protected p_Conn As IDbConnection
     Protected p_params As IDataParameterCollection
 
-    Private Shared p_logStnms As Boolean
-    Private Shared p_logFilePath As String
-
+    Public Property doLogging As Boolean = False
+    
 #End Region
 
 #Region "Class constructors"
@@ -139,21 +138,11 @@ Public MustInherit Class DBUtils
 #End Region
 
 #Region "properties"
+
     ''' <summary>
     ''' Parameter prefix
     ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
     Protected Friend Property paramPrefix() As String
-        Get
-            Return p_paramPrefix
-        End Get
-        Set(ByVal Value As String)
-            p_paramPrefix = Value
-        End Set
-
-    End Property
 
     Public Function dbContext() As DataContext
 
@@ -186,37 +175,15 @@ Public MustInherit Class DBUtils
         End Set
     End Property
 
-    Private Shared Property logFilePath() As String
-        Get
-            Return p_logFilePath
-        End Get
-        Set(ByVal Value As String)
-            p_logFilePath = Value
-            p_logStnms = p_logFilePath.Trim <> ""
-        End Set
 
-    End Property
+    Private Sub logMessage(ByVal msg As String, ParamArray args() As String)
 
-    Friend Shared Sub logStatement(ByVal msg As String)
-
-        If p_logStnms Then
-            Dim _file As StreamWriter
-            If File.Exists(p_logFilePath) = False Then
-                ' Create a file to write to.
-                _file = File.CreateText(p_logFilePath)
+        If doLogging Then
+            If args.Length > 0 Then
+                Trace.TraceInformation(String.Format(msg, args))
             Else
-                _file = File.AppendText(p_logFilePath)
+                Trace.TraceInformation(msg)
             End If
-
-            Try
-                _file.WriteLine(Format(Now, "dd/MM/yyyy hh:mm:ss tt:") & msg)
-                _file.Flush()
-
-            Catch ex As Exception
-                'just ignore the error
-            Finally
-                If Not _file Is Nothing Then _file.Close()
-            End Try
 
         End If
 
@@ -227,13 +194,6 @@ Public MustInherit Class DBUtils
 #Region "Transactions"
 
     Public Property Transaction() As IDbTransaction
-        Get
-            Return p_Trans
-        End Get
-        Set(ByVal Value As IDbTransaction)
-            p_Trans = Value
-        End Set
-    End Property
 
     ''' <summary>
     ''' Commits the current transaction and closes the connection to the database.
@@ -244,11 +204,11 @@ Public MustInherit Class DBUtils
     ''' <remarks></remarks>
     Public Function commitTrans() As Boolean
 
-        If Not p_Trans Is Nothing Then
-
-            p_Trans.Commit()
-            p_Trans.Dispose()
-            p_Trans = Nothing
+        If Not Me.Transaction Is Nothing Then
+            logMessage("Commit Transaction")
+            Me.Transaction.Commit()
+            Me.Transaction.Dispose()
+            Me.Transaction = Nothing
 
         End If
         Me.closeConnection()
@@ -265,15 +225,15 @@ Public MustInherit Class DBUtils
     ''' <remarks></remarks>
     Public Function rollbackTrans() As Boolean
 
-        If Not p_Trans Is Nothing Then
+        If Not Me.Transaction Is Nothing Then
             Try
-                'p_Trans.Connection.State = ConnectionState.Fetching
-                p_Trans.Rollback()
-                p_Trans.Dispose()
+                logMessage("Rolling Back Transaction")
+
+                Me.Transaction.Rollback()
+                Me.Transaction.Dispose()
 
             Finally
-
-                p_Trans = Nothing
+                Me.Transaction = Nothing
             End Try
 
         End If
@@ -292,7 +252,9 @@ Public MustInherit Class DBUtils
     ''' <remarks></remarks>
     Public ReadOnly Property inTrans() As Boolean
         Get
-            Return (p_Trans Is Nothing = False)
+            Dim bl As Boolean = (Me.Transaction Is Nothing = False)
+            If (bl) Then logMessage("In Transaction")
+            Return bl
         End Get
     End Property
 
@@ -304,11 +266,16 @@ Public MustInherit Class DBUtils
     ''' <remarks></remarks>
     Public Function beginTrans() As Boolean
 
-        If Not p_Trans Is Nothing Then
+        If Not Me.Transaction Is Nothing Then
             Throw New ApplicationException("Nested Transactions not supported")
         End If
 
-        p_Trans = Me.Connection.BeginTransaction
+        If (doLogging) Then
+            Dim t As System.Diagnostics.StackTrace = New System.Diagnostics.StackTrace()
+            logMessage("BeginTransaction Transaction:" & t.ToString())
+        End If
+
+        Me.Transaction = Me.Connection.BeginTransaction
 
     End Function
 #End Region
@@ -317,13 +284,17 @@ Public MustInherit Class DBUtils
 
     Protected Friend Sub closeConnection()
 
-        If Me.Connection Is Nothing Then Exit Sub
+        If Me.inTrans Then
+            Call logMessage("In closeConnection: in a transaction so no close the connection")
+            Exit Sub 'if we are in a transaction, do not close the connection.  It is closed in rollback/commit
+        End If
 
-        If Me.inTrans Then Exit Sub 'if we are in a transaction, do not close the connection.  It is closed in rollback/commit
 
         If Me.Connection.State = ConnectionState.Open Then
             Me.Connection.Close()
-            Call logStatement("close connection")
+            Call logMessage("In closeConnection: closed connection")
+        Else
+
         End If
 
     End Sub
@@ -396,8 +367,8 @@ Public MustInherit Class DBUtils
 
             adapter = Me.getAdapter(sql)
             If Me.inTrans Then
-                Trace.TraceInformation("getDataSet In ongloing transaction, assigning p_trans variable")
-                adapter.SelectCommand.Transaction = p_Trans
+                logMessage("getDataSet In ongloing transaction, assigning p_trans variable")
+                adapter.SelectCommand.Transaction = Me.Transaction
             End If
 
             adapter.Fill(ds)
@@ -470,14 +441,14 @@ Public MustInherit Class DBUtils
 
             Dim adapter As IDbDataAdapter = Me.getAdapter(sql)
             If Me.inTrans Then
-                adapter.SelectCommand.Transaction = p_Trans
+                adapter.SelectCommand.Transaction = Me.Transaction
             End If
 
             For i As Integer = 0 To params.Length - 1
                 adapter.SelectCommand.Parameters.Add(params(i))
             Next
             adapter.Fill(ds)
-            logStatement("getDataSetWithParams:" & sql)
+            logMessage("getDataSetWithParams:" & sql)
 
         Catch ex As Exception
             Throw New ApplicationException(ex.Message & vbCrLf & sql)
@@ -501,7 +472,7 @@ Public MustInherit Class DBUtils
 
             adapter = Me.getAdapter(sql)
             If Me.inTrans Then
-                adapter.SelectCommand.Transaction = p_Trans
+                adapter.SelectCommand.Transaction = Me.Transaction
 
             End If
 
@@ -512,7 +483,7 @@ Public MustInherit Class DBUtils
                 adapter.SelectCommand.Parameters.Add(iParam)
             Next
             adapter.Fill(ds)
-            logStatement("getDataSetWithParams:" & sql)
+            logMessage("getDataSetWithParams:" & sql)
 
         Catch ex As Exception
             Throw New ApplicationException(ex.Message & vbCrLf & sql)
@@ -1040,7 +1011,7 @@ Public MustInherit Class DBUtils
         Finally
             icomm.Dispose()
         End Try
-        logStatement("getDataSetWithParams:" & sql)
+        logMessage("getDataSetWithParams:" & sql)
 
     End Sub
 
@@ -1107,7 +1078,7 @@ Public MustInherit Class DBUtils
         Finally
             icomm.Dispose()
         End Try
-        logStatement("getDataSetWithParams:" & sql)
+        logMessage("getDataSetWithParams:" & sql)
 
     End Sub
 
@@ -1146,7 +1117,7 @@ Public MustInherit Class DBUtils
         Try
 
             icomm = Me.Connection.CreateCommand()
-            icomm.Transaction = p_Trans
+            icomm.Transaction = Me.Transaction
             icomm.CommandText = spSql
             icomm.CommandType = CommandType.StoredProcedure
 
@@ -1157,7 +1128,7 @@ Public MustInherit Class DBUtils
 
             Me.p_params = Nothing
             Me.p_params = icomm.Parameters
-            logStatement("Execute:" & spSql)
+            logMessage("Execute:" & spSql)
 
         Catch e As Exception
             Throw New ApplicationException(e.Message & vbCrLf & _
@@ -1183,12 +1154,12 @@ Public MustInherit Class DBUtils
         Try
 
             icomm = Me.Connection.CreateCommand()
-            icomm.Transaction = p_Trans
+            icomm.Transaction = Me.Transaction
             icomm.CommandText = sql
             icomm.CommandType = CommandType.Text
             icomm.ExecuteNonQuery()
 
-            logStatement("Execute:" & sql)
+            logMessage("Execute:" & sql)
 
         Catch e As Exception
             Throw New ApplicationException(e.Message & vbCrLf & _
@@ -1222,13 +1193,13 @@ Public MustInherit Class DBUtils
                 icomm.Parameters.Add(param)
             Next
             If Me.inTrans Then
-                icomm.Transaction = p_Trans
+                icomm.Transaction = Me.Transaction
                 rsado = icomm.ExecuteReader(CommandBehavior.Default)
             Else
                 rsado = icomm.ExecuteReader(CommandBehavior.CloseConnection)
             End If
 
-            logStatement("getDataReader:" & sql)
+            logMessage("getDataReader:" & sql)
             icomm.Dispose()
             icomm = Nothing
 
@@ -1278,7 +1249,7 @@ Public MustInherit Class DBUtils
         Finally
             icomm.Dispose()
         End Try
-        logStatement("getDataReaderWithParams:" & sql)
+        logMessage("getDataReaderWithParams:" & sql)
         Return rs
 
     End Function
@@ -1299,16 +1270,17 @@ Public MustInherit Class DBUtils
         Try
 
             icomm = Me.Connection.CreateCommand()
-            logStatement("getDataReader:" & sql)
+            logMessage("getDataReader:" & sql)
             icomm.CommandText = sql
             icomm.CommandType = CommandType.Text
 
             If Me.inTrans Then
-                icomm.Transaction = p_Trans
+                Call logMessage("Close Connection")
+                icomm.Transaction = Me.Transaction
                 rsado = icomm.ExecuteReader(CommandBehavior.Default)
             Else
                 rsado = icomm.ExecuteReader(CommandBehavior.CloseConnection)
-                Call logStatement("Close Connection")
+
             End If
 
         Catch e As Exception
@@ -1358,7 +1330,7 @@ Public MustInherit Class DBUtils
                     End Try
 
                 End If
-               
+
 
                 err &= "------------" & vbCrLf
             Next
@@ -1401,6 +1373,7 @@ Public MustInherit Class DBUtils
     Protected Overridable Sub Dispose(disposing As Boolean)
         If Not Me.disposedValue Then
             If disposing Then
+                logMessage("DBUtils Disposing...")
                 Me.rollbackTrans()
                 Me.closeConnection()
             End If
@@ -1425,5 +1398,7 @@ Public MustInherit Class DBUtils
         GC.SuppressFinalize(Me)
     End Sub
 #End Region
+
+
 
 End Class

@@ -40,7 +40,7 @@ Public Class OLEDBUtils
         Dim adapter As IDbDataAdapter
         Try
             adapter = New OleDbDataAdapter(sql, DirectCast(Me.Connection, OleDbConnection))
-            Call logStatement(sql)
+            'Trace.TraceInformation(sql)
         Catch ex As Exception
             Throw
 
@@ -59,14 +59,14 @@ Public Class OLEDBUtils
             MyBase.p_dbNow = "sysdate"
             MyBase.p_date_pattern = "'{0}'"
             MyBase.p_like_char = "%"
-            MyBase.p_string_quote_prefix = ""
-            MyBase.p_paramPrefix = ":"
+
+            MyBase.paramPrefix = ":"
         Else
             MyBase.p_dbNow = "getDate()"
             MyBase.p_date_pattern = "'{0}'"
             MyBase.p_like_char = "%"
-            MyBase.p_string_quote_prefix = "N"
-            MyBase.p_paramPrefix = "@"
+
+            MyBase.paramPrefix = "@"
         End If
         
 
@@ -82,9 +82,9 @@ Public Class OLEDBUtils
 
             If p_Conn.State <> ConnectionState.Open Then
                 p_Conn.Open()
-                Call logStatement("Open connection")
+                'Trace.TraceInformation("Open connection")
             Else
-                Call logStatement("On open connection: already open")
+                'Trace.TraceInformation("On open connection: already open")
             End If
 
             Return p_Conn

@@ -3,7 +3,6 @@ Imports System.Data.SqlClient
 Public Class MSSQLUtils
     Inherits DBUtils
 
-
     Public Overrides Function fillTypedDataSet(ByVal ds As DataSet, _
                                                ByVal tablename As String, _
                                                ByVal sql As String) As DataSet
@@ -31,7 +30,7 @@ Public Class MSSQLUtils
         Dim adapter As IDbDataAdapter
         Try
             adapter = New SqlDataAdapter(sql, DirectCast(Me.Connection, SqlClient.SqlConnection))
-            Call logStatement(sql)
+            'Trace.TraceInformation(sql)
         Catch ex As Exception
             Throw
 
@@ -75,8 +74,8 @@ Public Class MSSQLUtils
         MyBase.p_dbNow = "getDate()"
         MyBase.p_date_pattern = "'{0}'"
         MyBase.p_like_char = "%"
-        MyBase.p_string_quote_prefix = "N"
-        MyBase.p_paramPrefix = "@"
+
+        MyBase.paramPrefix = "@"
 
     End Sub
 
@@ -89,9 +88,9 @@ Public Class MSSQLUtils
 
             If p_Conn.State <> ConnectionState.Open Then
                 p_Conn.Open()
-                Call logStatement("Open connection")
+                Debug.WriteLine("Opening connection")
             Else
-                Call logStatement("On open connection: already open")
+                Debug.WriteLine("In open connection: already open")
             End If
 
             Return p_Conn

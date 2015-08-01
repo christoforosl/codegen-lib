@@ -21,7 +21,7 @@ Public Class DBUtilsProviderFromRegistry
         Dim iDialect As enumSqlDialect = CType(GetSetting(dbConfigSect.dbRegAppname, dbConfigSect.dbRegSection, _
                                               dbConfigSect.dbRegKeyDialect, "1"), enumSqlDialect)
 
-        logStatement("Get DBUtilsBase From registry with connstring:" & connString)
+        'Trace.TraceInformation("Get DBUtilsBase From registry with connstring:" & connString)
 
         Return DBUtils.getFromConnString(connString, sqlConnType, iDialect, dbConfigSect.logFile)
 
