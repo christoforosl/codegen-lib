@@ -6,7 +6,7 @@ Public Interface IMessageBoxHandler
 
     Sub showInformationMessageBox(ByVal msg As String)
     Sub showErrorBox(ByVal msg As String)
-    Function showQuestionBox(ByVal msg As String) As MsgBoxResult
+    Function showQuestionBox(ByVal msg As String) As DialogResult
 
 End Interface
 
@@ -21,12 +21,12 @@ Public NotInheritable Class DefaultMessageBoxHandler
         Call MsgBox(msg, MsgBoxStyle.Information, FormsApplicationContext.current.ApplicationTitle)
     End Sub
 
-    Public Function showQuestionBox(msg As String) As MsgBoxResult _
+    Public Function showQuestionBox(msg As String) As DialogResult _
             Implements IMessageBoxHandler.showQuestionBox
 
-        Return MsgBox(msg, _
-            CType(MsgBoxStyle.Question + MsgBoxStyle.YesNo, MsgBoxStyle), _
-            FormsApplicationContext.current.ApplicationTitle)
+        Return MessageBox.Show(msg, FormsApplicationContext.current.ApplicationTitle, _
+            MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
 
     End Function
 End Class
@@ -56,7 +56,7 @@ Public NotInheritable Class winUtils
 
     End Sub
 
-    Public Shared Function MsgboxQuestion(ByVal msg As String, ParamArray params() As Object) As MsgBoxResult
+    Public Shared Function MsgboxQuestion(ByVal msg As String, ParamArray params() As Object) As DialogResult
         Dim lmsg As String
         If params.Length > 0 Then
             lmsg = String.Format(msg, params)

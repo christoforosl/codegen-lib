@@ -557,9 +557,9 @@ Public Class frmBaseEdit
         If Me.UcEditToolar.cmdSave.Enabled Then
             Dim dirty As Boolean = Me.dataChanged
             If dirty Then
-                Dim mresd As MsgBoxResult = winUtils.MsgboxQuestion(confirMsg)
+                Dim mresd As DialogResult = winUtils.MsgboxQuestion(confirMsg)
                 'MsgBox(mresd.ToString)
-                If mresd = MsgBoxResult.No Then
+                If mresd = DialogResult.No Then
                     Return False
                 End If
             End If
