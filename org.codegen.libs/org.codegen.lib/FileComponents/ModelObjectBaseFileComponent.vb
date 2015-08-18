@@ -31,7 +31,7 @@ Namespace FileComponents
        GetType(ModelObjectChildArrayToken), _
        GetType(TableNameToken), _
        GetType(SelectNameToken), _
-       GetType(LoadObjectHierarchyToken), GetType(IfaceNameToken), _
+       GetType(LoadObjectHierarchyToken), GetType(IfaceNameToken), GetType(OnDeserializedMethodToken), _
        GetType(ModelObjectParentArrayToken), _
        GetType(GeneratorToken), _
        GetType(CurentDateToken), GetType(ModelObjectClassNameToken) _

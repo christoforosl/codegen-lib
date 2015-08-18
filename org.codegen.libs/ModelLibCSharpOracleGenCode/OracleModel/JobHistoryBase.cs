@@ -41,6 +41,11 @@ namespace OracleModel {
 
 		#region "Children and Parents"
 		
+		[OnDeserialized]
+        public void OnDeserializedMethod(StreamingContext context) {
+
+        }
+
 		public override void loadObjectHierarchy() {
 
 		}
@@ -647,13 +652,11 @@ namespace OracleModel {
 
 	#region "Req Fields validator"
 	[System.Runtime.InteropServices.ComVisible(false)]
-	public class JobHistoryRequiredFieldsValidator : IModelObjectValidator
-	{
-
+	public class JobHistoryRequiredFieldsValidator : IModelObjectValidator {
 
 		public void validate(org.model.lib.Model.IModelObject imo) {
 			JobHistory mo = (JobHistory)imo;
-if (mo.PrEmployeeId == null ) {
+			if (mo.PrEmployeeId == null ) {
 		throw new ModelObjectRequiredFieldException("EmployeeId");
 }
 if (mo.PrStartDate == null ) {

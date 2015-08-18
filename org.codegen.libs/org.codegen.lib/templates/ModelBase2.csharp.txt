@@ -41,6 +41,11 @@ namespace <NAMESPACE> {
 
 		#region "Children and Parents"
 		
+		[OnDeserialized]
+        public void OnDeserializedMethod(StreamingContext context) {
+<OnDeserializedMethod>
+        }
+
 		public override void loadObjectHierarchy() {
 <loadObjectHierarchy>
 		}

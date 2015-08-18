@@ -41,6 +41,19 @@ namespace CsModelObjects {
 
 		#region "Children and Parents"
 		
+		[OnDeserialized]
+        public void OnDeserializedMethod(StreamingContext context) {
+			if ( this.EmployeeInfoLoaded){
+				this.IDChanged += this._EmployeeInfo.handleParentIdChanged;
+			}
+			if ( this.EmployeeProjectsLoaded){
+				foreach (CsModelObjects.EmployeeProject ep in this._EmployeeProjects) {
+					this.IDChanged += ep.handleParentIdChanged;
+				}
+			}
+
+        }
+
 		public override void loadObjectHierarchy() {
 		LoadPrRank();
 		LoadPrEmployeeInfo();
@@ -637,6 +650,8 @@ namespace CsModelObjects {
 		
 		#region "Association Rank"
 		//associationParentCSharp.txt
+
+		[System.Runtime.Serialization.DataMember]
 		private bool RankLoaded {get;set;}
 
 		/// <summary>
@@ -687,6 +702,8 @@ namespace CsModelObjects {
 
 		#region "Association EmployeeInfo"
         //associationChildOneCSharp.txt
+
+		[System.Runtime.Serialization.DataMember]
         public bool EmployeeInfoLoaded {get; private set;}
 
 		public virtual CsModelObjects.EmployeeInfo PrEmployeeInfo {
@@ -730,6 +747,7 @@ namespace CsModelObjects {
 		
 		#region "Association EmployeeProjects"
 		// associationChildManyCSharp.txt
+		[System.Runtime.Serialization.DataMember]
 		public bool EmployeeProjectsLoaded  {get; private set;}
 
 		public virtual CsModelObjects.EmployeeProject PrEmployeeProjectGetAt( int i ) {
@@ -740,13 +758,12 @@ namespace CsModelObjects {
             }
             return null;
 
-        } //End Function        
+        } 
 		
 		public virtual void PrEmployeeProjectAdd( CsModelObjects.EmployeeProject val )  {
-			//1-Many , add a single item!
+			// 1-Many , add a single item!
 			this.LoadPrEmployeeProjects();
 			val.PrEPEmployeeId = this.PrEmployeeId;
-			//AddHandler this.IDChanged, AddressOf val.handleParentIdChanged;
 			this.IDChanged += val.handleParentIdChanged;
 			this._EmployeeProjects.Add(val);
 
@@ -1470,13 +1487,11 @@ namespace CsModelObjects {
 
 	#region "Req Fields validator"
 	[System.Runtime.InteropServices.ComVisible(false)]
-	public class EmployeeRequiredFieldsValidator : IModelObjectValidator
-	{
-
+	public class EmployeeRequiredFieldsValidator : IModelObjectValidator {
 
 		public void validate(org.model.lib.Model.IModelObject imo) {
 			Employee mo = (Employee)imo;
-if (string.IsNullOrEmpty( mo.PrEmployeeName)) {
+			if (string.IsNullOrEmpty( mo.PrEmployeeName)) {
 		throw new ModelObjectRequiredFieldException("EmployeeName");
 }
 if (mo.PrEmployeeRankId == null ) {

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Data.Linq.Mapping;
+using System.Runtime.Serialization;
+using org.model.lib.Model;
 
 //<comments>
 //************************************************************
@@ -19,24 +21,37 @@ using System.Data.Linq.Mapping;
 
 namespace CsModelObjects {
 
-	public class EmployeeFactory {
+    public class EmployeeFactory {
 
-		//Shared function to create a new instance of the class and return it.
-		//you can create other shared functions to return a new 
-		//instance with parameters
-		public static Employee Create() {
-			return new Employee();
-		}
+        //Shared function to create a new instance of the class and return it.
+        //you can create other shared functions to return a new 
+        //instance with parameters
+        public static Employee Create() {
+            return new Employee();
+        }
 
-	}
+    }
 
-	public partial class Employee  {
+    public partial class Employee {
 
-		#region "Custom Methods "
+        #region "Custom Methods "
 
-		#endregion
+        //[OnDeserialized]
+        //public void OnDeserializedMethod(StreamingContext context) {
+            
+        //    if (this.EmployeeProjectsLoaded) {
+        //        foreach (EmployeeProject ep in this._EmployeeProjects) {
+        //            this.IDChanged += ep.handleParentIdChanged;
+        //        }
+        //    }
+        //    if (this.EmployeeInfoLoaded) {
+        //        this.IDChanged += this._EmployeeInfo.handleParentIdChanged;
+        //    }
+        //}
+        #endregion
 
-	}
+    }
+
 
 }
 

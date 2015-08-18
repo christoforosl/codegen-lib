@@ -80,6 +80,81 @@ Namespace Tokens
         End Function
     End Class
 
+    Public Class OnDeserializedMethodToken
+        Inherits MultiLingualReplacementToken
+        Sub New()
+            Me.StringToReplace = "OnDeserializedMethod"
+        End Sub
+        Public Overrides Function getReplacementCodeCSharp(t As IObjectToGenerate) As String
+
+            Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+            If t.DbTable.ChildrenAssociationCount() > 0 Then
+                Dim vec As List(Of Association) = t.DbTable.Associations
+
+                For Each association As Association In vec
+                    If (Not association.isParent) Then
+                        sb.Append(vbTab).Append(vbTab).Append(vbTab)
+                        sb.Append("if ( this.").Append(association.LoadedFlagVariableName()).Append("){").Append(vbCrLf)
+                        sb.Append(vbTab).Append(vbTab).Append(vbTab).Append(vbTab)
+                        If (association.isCardinalityMany) Then
+
+                            sb.Append("foreach (").Append(association.DataType)
+                            sb.Append(" ep in this.").Append(association.getVariableName())
+                            sb.Append(") {").Append(vbCrLf)
+                            sb.Append(vbTab).Append(vbTab).Append(vbTab).Append(vbTab).Append(vbTab)
+                            sb.Append("this.IDChanged += ep.handleParentIdChanged;").Append(vbCrLf)
+                            sb.Append(vbTab).Append(vbTab).Append(vbTab).Append(vbTab)
+                            sb.Append("}").Append(vbCrLf)
+                        Else
+                            
+                            sb.Append("this.IDChanged += this.").Append(association.getVariableName())
+                            sb.Append(".handleParentIdChanged;").Append(vbCrLf)
+                        End If
+                        sb.Append(vbTab).Append(vbTab).Append(vbTab)
+                        sb.Append("}").Append(vbCrLf)
+                    End If
+
+                Next
+            End If
+
+            Return sb.ToString()
+
+        End Function
+
+        Public Overrides Function getReplacementCodeVB(t As IObjectToGenerate) As String
+            Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+            If t.DbTable.ChildrenAssociationCount() > 0 Then
+                Dim vec As List(Of Association) = t.DbTable.Associations
+
+                For Each association As Association In vec
+                    If (Not association.isParent) Then
+                        sb.Append(vbTab).Append(vbTab).Append(vbTab)
+                        sb.Append("if ( me.").Append(association.LoadedFlagVariableName()).Append(") Then").Append(vbCrLf)
+                        sb.Append(vbTab).Append(vbTab).Append(vbTab).Append(vbTab)
+                        If (association.isCardinalityMany) Then
+
+                            sb.Append("For Each ep as ").Append(association.DataType)
+                            sb.Append("  in me.").Append(association.getVariableName())
+                            sb.Append(vbCrLf)
+                            sb.Append(vbTab).Append(vbTab).Append(vbTab).Append(vbTab).Append(vbTab)
+                            sb.Append("AddHandler me.IDChanged, AddressOf ep.handleParentIdChanged").Append(vbCrLf)
+                            sb.Append(vbTab).Append(vbTab).Append(vbTab).Append(vbTab)
+                            sb.Append("Next '").Append(vbCrLf)
+                        Else
+
+                            sb.Append("AddHandler me.IDChanged, AddressOf me.").Append(association.getVariableName())
+                            sb.Append(".handleParentIdChanged").Append(vbCrLf)
+                        End If
+                        sb.Append(vbTab).Append(vbTab).Append(vbTab)
+                        sb.Append("End If").Append(vbCrLf)
+                    End If
+
+                Next
+            End If
+
+            Return sb.ToString()
+        End Function
+    End Class
 
     Public Class LoadObjectHierarchyToken
         Inherits ReplacementToken

@@ -41,6 +41,14 @@ namespace CsModelObjects {
 
 		#region "Children and Parents"
 		
+		[OnDeserialized]
+        public void OnDeserializedMethod(StreamingContext context) {
+			if ( this.BankAccountInfoLoaded){
+				this.IDChanged += this._BankAccountInfo.handleParentIdChanged;
+			}
+
+        }
+
 		public override void loadObjectHierarchy() {
 		LoadPrBankAccountInfo();
 
@@ -327,6 +335,8 @@ namespace CsModelObjects {
 		#region "Associations"
 		#region "Association BankAccountInfo"
         //associationChildOneCSharp.txt
+
+		[System.Runtime.Serialization.DataMember]
         public bool BankAccountInfoLoaded {get; private set;}
 
 		public virtual CsModelObjects.AccountBankInfo PrBankAccountInfo {
@@ -700,13 +710,11 @@ namespace CsModelObjects {
 
 	#region "Req Fields validator"
 	[System.Runtime.InteropServices.ComVisible(false)]
-	public class AccountRequiredFieldsValidator : IModelObjectValidator
-	{
-
+	public class AccountRequiredFieldsValidator : IModelObjectValidator {
 
 		public void validate(org.model.lib.Model.IModelObject imo) {
 			Account mo = (Account)imo;
-if (mo.CreateDate == null ) {
+			if (mo.CreateDate == null ) {
 		throw new ModelObjectRequiredFieldException("Createdate");
 }
 if (mo.UpdateDate == null ) {

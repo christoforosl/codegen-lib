@@ -41,6 +41,26 @@ namespace OracleModel {
 
 		#region "Children and Parents"
 		
+		[OnDeserialized]
+        public void OnDeserializedMethod(StreamingContext context) {
+			if ( this.JobHistoryLoaded){
+				foreach (OracleModel.JobHistory ep in this._JobHistory) {
+					this.IDChanged += ep.handleParentIdChanged;
+				}
+			}
+			if ( this.CoursesLoaded){
+				foreach (OracleModel.EmployeeTrainingHistory ep in this._Courses) {
+					this.IDChanged += ep.handleParentIdChanged;
+				}
+			}
+			if ( this.TrainingHistoryLoaded){
+				foreach (OracleModel.EmployeeTrainingHistory ep in this._TrainingHistory) {
+					this.IDChanged += ep.handleParentIdChanged;
+				}
+			}
+
+        }
+
 		public override void loadObjectHierarchy() {
 		LoadPrJobHistory();
 		LoadPrDepartment();
@@ -662,6 +682,7 @@ namespace OracleModel {
 		
 		#region "Association JobHistory"
 		// associationChildManyCSharp.txt
+		[System.Runtime.Serialization.DataMember]
 		public bool JobHistoryLoaded  {get; private set;}
 
 		public virtual OracleModel.JobHistory PrJobHistoryGetAt( int i ) {
@@ -672,13 +693,12 @@ namespace OracleModel {
             }
             return null;
 
-        } //End Function        
+        } 
 		
 		public virtual void PrJobHistoryAdd( OracleModel.JobHistory val )  {
-			//1-Many , add a single item!
+			// 1-Many , add a single item!
 			this.LoadPrJobHistory();
 			val.PrEmployeeId = this.PrEmployeeId;
-			//AddHandler this.IDChanged, AddressOf val.handleParentIdChanged;
 			this.IDChanged += val.handleParentIdChanged;
 			this._JobHistory.Add(val);
 
@@ -764,6 +784,8 @@ namespace OracleModel {
 		
 		#region "Association Department"
 		//associationParentCSharp.txt
+
+		[System.Runtime.Serialization.DataMember]
 		private bool DepartmentLoaded {get;set;}
 
 		/// <summary>
@@ -815,6 +837,7 @@ namespace OracleModel {
 		
 		#region "Association Courses"
 		// associationChildManyCSharp.txt
+		[System.Runtime.Serialization.DataMember]
 		public bool CoursesLoaded  {get; private set;}
 
 		public virtual OracleModel.EmployeeTrainingHistory PrCoursesGetAt( int i ) {
@@ -825,13 +848,12 @@ namespace OracleModel {
             }
             return null;
 
-        } //End Function        
+        } 
 		
 		public virtual void PrCoursesAdd( OracleModel.EmployeeTrainingHistory val )  {
-			//1-Many , add a single item!
+			// 1-Many , add a single item!
 			this.LoadPrCourses();
 			val.PrEmployeeId = this.PrEmployeeId;
-			//AddHandler this.IDChanged, AddressOf val.handleParentIdChanged;
 			this.IDChanged += val.handleParentIdChanged;
 			this._Courses.Add(val);
 
@@ -917,6 +939,7 @@ namespace OracleModel {
 		
 		#region "Association TrainingHistory"
 		// associationChildManyCSharp.txt
+		[System.Runtime.Serialization.DataMember]
 		public bool TrainingHistoryLoaded  {get; private set;}
 
 		public virtual OracleModel.EmployeeTrainingHistory PrTrainingHistoryGetAt( int i ) {
@@ -927,13 +950,12 @@ namespace OracleModel {
             }
             return null;
 
-        } //End Function        
+        } 
 		
 		public virtual void PrTrainingHistoryAdd( OracleModel.EmployeeTrainingHistory val )  {
-			//1-Many , add a single item!
+			// 1-Many , add a single item!
 			this.LoadPrTrainingHistory();
 			val.PrEmployeeId = this.PrEmployeeId;
-			//AddHandler this.IDChanged, AddressOf val.handleParentIdChanged;
 			this.IDChanged += val.handleParentIdChanged;
 			this._TrainingHistory.Add(val);
 
@@ -1652,13 +1674,11 @@ namespace OracleModel {
 
 	#region "Req Fields validator"
 	[System.Runtime.InteropServices.ComVisible(false)]
-	public class EmployeeRequiredFieldsValidator : IModelObjectValidator
-	{
-
+	public class EmployeeRequiredFieldsValidator : IModelObjectValidator {
 
 		public void validate(org.model.lib.Model.IModelObject imo) {
 			Employee mo = (Employee)imo;
-if (string.IsNullOrEmpty( mo.PrLastName)) {
+			if (string.IsNullOrEmpty( mo.PrLastName)) {
 		throw new ModelObjectRequiredFieldException("LastName");
 }
 if (string.IsNullOrEmpty( mo.PrEMAIL)) {

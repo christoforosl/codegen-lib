@@ -39,7 +39,12 @@ partial class <MODEL_CLASS_NAME>
 
 #Region "Children and Parents"
 	
-	public Overrides sub loadObjectHierarchy()
+	<OnDeserialized>
+    Public sub OnDeserializedMethod( context as StreamingContext)
+<OnDeserializedMethod>
+    End Sub
+
+	Public Overrides sub loadObjectHierarchy()
 		<loadObjectHierarchy>
 	End Sub
 

@@ -1,7 +1,9 @@
 ﻿        
-        friend <LoadedFlagVariableName> as Boolean
 		'associationChildOne.txt
-	
+
+		<DataMember>
+        friend <LoadedFlagVariableName> as Boolean
+		
 		Public Overridable Property <property_name>() As <datatype> 
 
 			'1-1 child association

@@ -41,6 +41,11 @@ namespace CsModelObjects {
 
 		#region "Children and Parents"
 		
+		[OnDeserialized]
+        public void OnDeserializedMethod(StreamingContext context) {
+
+        }
+
 		public override void loadObjectHierarchy() {
 		LoadPrProject();
 
@@ -230,6 +235,8 @@ namespace CsModelObjects {
 		
 		#region "Association Project"
 		//associationParentCSharp.txt
+
+		[System.Runtime.Serialization.DataMember]
 		private bool ProjectLoaded {get;set;}
 
 		/// <summary>
@@ -544,13 +551,11 @@ namespace CsModelObjects {
 
 	#region "Req Fields validator"
 	[System.Runtime.InteropServices.ComVisible(false)]
-	public class EmployeeProjectRequiredFieldsValidator : IModelObjectValidator
-	{
-
+	public class EmployeeProjectRequiredFieldsValidator : IModelObjectValidator {
 
 		public void validate(org.model.lib.Model.IModelObject imo) {
 			EmployeeProject mo = (EmployeeProject)imo;
-if (mo.PrEPEmployeeId == null ) {
+			if (mo.PrEPEmployeeId == null ) {
 		throw new ModelObjectRequiredFieldException("EPEmployeeId");
 }
 if (mo.PrEPProjectId == null ) {

@@ -41,6 +41,11 @@ namespace OracleModel {
 
 		#region "Children and Parents"
 		
+		[OnDeserialized]
+        public void OnDeserializedMethod(StreamingContext context) {
+
+        }
+
 		public override void loadObjectHierarchy() {
 		LoadPrTrainingCourse();
 
@@ -213,6 +218,8 @@ namespace OracleModel {
 		
 		#region "Association TrainingCourse"
 		//associationParentCSharp.txt
+
+		[System.Runtime.Serialization.DataMember]
 		private bool TrainingCourseLoaded {get;set;}
 
 		/// <summary>
@@ -506,13 +513,11 @@ namespace OracleModel {
 
 	#region "Req Fields validator"
 	[System.Runtime.InteropServices.ComVisible(false)]
-	public class EmployeeTrainingHistoryRequiredFieldsValidator : IModelObjectValidator
-	{
-
+	public class EmployeeTrainingHistoryRequiredFieldsValidator : IModelObjectValidator {
 
 		public void validate(org.model.lib.Model.IModelObject imo) {
 			EmployeeTrainingHistory mo = (EmployeeTrainingHistory)imo;
-if (mo.PrEmployeeId == null ) {
+			if (mo.PrEmployeeId == null ) {
 		throw new ModelObjectRequiredFieldException("EmployeeId");
 }
 

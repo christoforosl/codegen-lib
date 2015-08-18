@@ -41,6 +41,16 @@ namespace CsModelObjects {
 
 		#region "Children and Parents"
 		
+		[OnDeserialized]
+        public void OnDeserializedMethod(StreamingContext context) {
+			if ( this.EmployeeProjectsLoaded){
+				foreach (CsModelObjects.EmployeeProject ep in this._EmployeeProjects) {
+					this.IDChanged += ep.handleParentIdChanged;
+				}
+			}
+
+        }
+
 		public override void loadObjectHierarchy() {
 		LoadPrEmployeeProjects();
 
@@ -197,6 +207,7 @@ namespace CsModelObjects {
 		
 		#region "Association EmployeeProjects"
 		// associationChildManyCSharp.txt
+		[System.Runtime.Serialization.DataMember]
 		public bool EmployeeProjectsLoaded  {get; private set;}
 
 		public virtual CsModelObjects.EmployeeProject PrEmployeeProjectGetAt( int i ) {
@@ -207,13 +218,12 @@ namespace CsModelObjects {
             }
             return null;
 
-        } //End Function        
+        } 
 		
 		public virtual void PrEmployeeProjectAdd( CsModelObjects.EmployeeProject val )  {
-			//1-Many , add a single item!
+			// 1-Many , add a single item!
 			this.LoadPrEmployeeProjects();
 			val.PrEPProjectId = this.PrProjectId;
-			//AddHandler this.IDChanged, AddressOf val.handleParentIdChanged;
 			this.IDChanged += val.handleParentIdChanged;
 			this._EmployeeProjects.Add(val);
 
@@ -503,17 +513,12 @@ namespace CsModelObjects {
 
 	#region "Req Fields validator"
 	[System.Runtime.InteropServices.ComVisible(false)]
-	public class ProjectRequiredFieldsValidator : IModelObjectValidator
-	{
-
+	public class ProjectRequiredFieldsValidator : IModelObjectValidator {
 
 		public void validate(org.model.lib.Model.IModelObject imo) {
 			Project mo = (Project)imo;
-if (string.IsNullOrEmpty( mo.PrProjectName)) {
+			if (string.IsNullOrEmpty( mo.PrProjectName)) {
 		throw new ModelObjectRequiredFieldException("ProjectName");
-}
-if (mo.PrIsActive == null ) {
-		throw new ModelObjectRequiredFieldException("IsActive");
 }
 
 		}

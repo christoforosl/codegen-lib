@@ -41,6 +41,11 @@ namespace OracleModel {
 
 		#region "Children and Parents"
 		
+		[OnDeserialized]
+        public void OnDeserializedMethod(StreamingContext context) {
+
+        }
+
 		public override void loadObjectHierarchy() {
 
 		}
@@ -556,13 +561,11 @@ namespace OracleModel {
 
 	#region "Req Fields validator"
 	[System.Runtime.InteropServices.ComVisible(false)]
-	public class DepartmentRequiredFieldsValidator : IModelObjectValidator
-	{
-
+	public class DepartmentRequiredFieldsValidator : IModelObjectValidator {
 
 		public void validate(org.model.lib.Model.IModelObject imo) {
 			Department mo = (Department)imo;
-if (string.IsNullOrEmpty( mo.PrDepartmentName)) {
+			if (string.IsNullOrEmpty( mo.PrDepartmentName)) {
 		throw new ModelObjectRequiredFieldException("DepartmentName");
 }
 

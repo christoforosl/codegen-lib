@@ -1,6 +1,8 @@
 ﻿		
 		#region "Association <association_name>"
 		//associationParentCSharp.txt
+
+		[System.Runtime.Serialization.DataMember]
 		private bool <LoadedFlagVariableName> {get;set;}
 
 		/// <summary>

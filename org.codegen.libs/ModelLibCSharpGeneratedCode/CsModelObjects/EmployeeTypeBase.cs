@@ -41,6 +41,11 @@ namespace CsModelObjects {
 
 		#region "Children and Parents"
 		
+		[OnDeserialized]
+        public void OnDeserializedMethod(StreamingContext context) {
+
+        }
+
 		public override void loadObjectHierarchy() {
 
 		}
@@ -307,13 +312,11 @@ namespace CsModelObjects {
 
 	#region "Req Fields validator"
 	[System.Runtime.InteropServices.ComVisible(false)]
-	public class EmployeeTypeRequiredFieldsValidator : IModelObjectValidator
-	{
-
+	public class EmployeeTypeRequiredFieldsValidator : IModelObjectValidator {
 
 		public void validate(org.model.lib.Model.IModelObject imo) {
 			EmployeeType mo = (EmployeeType)imo;
-if (string.IsNullOrEmpty( mo.PrEmployeeType)) {
+			if (string.IsNullOrEmpty( mo.PrEmployeeType)) {
 		throw new ModelObjectRequiredFieldException("EmployeeType");
 }
 

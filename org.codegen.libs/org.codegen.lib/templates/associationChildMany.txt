@@ -1,6 +1,7 @@
 ﻿		
 		#Region "Association <association_name>"
 		'associationChildMany.txt
+		<DataMember>
 		Friend <LoadedFlagVariableName> as Boolean
 
 		Public Overridable Function <prop_prefix><association_name_singular>GetAt(ByVal i As Integer) As <datatype>

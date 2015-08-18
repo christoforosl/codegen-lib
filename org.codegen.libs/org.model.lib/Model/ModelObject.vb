@@ -304,10 +304,11 @@ Namespace Model
 #End Region
 
 #Region "ID maintenace"
+
         '''    
         '''	 <summary>  
         ''' Procedure to handle event IDChanged, fired after a ModelObject is
-        ''' saved to the database, and a new primary key as been created.  
+        ''' saved to the database, and a new primary key was generated / created.  
         ''' Clients should override this and do necessarry operations when 
         ''' parent object changes ID. 
         ''' </summary>
@@ -338,8 +339,6 @@ Namespace Model
 #End Region
 
 #Region "Validation"
-
-
 
         '''    
         '''	<summary>  
@@ -388,11 +387,6 @@ Namespace Model
         Public Overridable Sub afterLoad() Implements IModelObject.afterLoad
             Return
         End Sub
-
-
-
-
-
 
         ''' <summary>
         ''' Sub to set the audit fields CreateDate, UpdateDate, CreateUser, UpdateUser

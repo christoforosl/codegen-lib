@@ -1,6 +1,8 @@
 ﻿		
 		'associationParent.txt
 		#Region "Association <association_name>"
+
+		<DataMember>
 		friend <LoadedFlagVariableName> as Boolean
 
 		''' <summary>
