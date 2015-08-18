@@ -251,6 +251,7 @@ Namespace Model
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
+        <DataMember>
         Public Property isNew() As Boolean Implements IModelObject.isNew
             Get
                 Return _New
