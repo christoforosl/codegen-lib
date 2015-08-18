@@ -37,10 +37,11 @@ Public MustInherit Class DBUtils
     ''' </summary>
     Public Shared Function Current() As DBUtils
 
-        If _current Is Nothing Then
-            _current = dbProvider.getDBUtils
-        End If
-        Return _current
+        'If _current Is Nothing Then
+        '    _current = dbProvider.getDBUtils
+        'End If
+        'Return _current
+        Return dbProvider.getDBUtils
 
     End Function
 
@@ -290,8 +291,8 @@ Public MustInherit Class DBUtils
         End If
 
 
-        If Me.Connection.State = ConnectionState.Open Then
-            Me.Connection.Close()
+        If Me.p_Conn.State = ConnectionState.Open Then
+            Me.p_Conn.Close()
             Call logMessage("In closeConnection: closed connection")
         Else
 
