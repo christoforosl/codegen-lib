@@ -35,8 +35,6 @@ namespace GeneratorTests {
 				System.Diagnostics.Debug.WriteLine(output);
 			}
 			
-
-			
 		}
 
 
