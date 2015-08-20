@@ -1,6 +1,7 @@
 Imports System.Reflection
 Imports System.Text
 Imports System.Globalization
+Imports org.codegen.common.TranslationServices
 
 Public Interface IMessageBoxHandler
 
@@ -32,7 +33,10 @@ Public NotInheritable Class DefaultMessageBoxHandler
 End Class
 
 Public NotInheritable Class winUtils
-
+    Public Shared Sub MsgboxInfoTranslated(ByVal langKey As String, ParamArray params() As String)
+        Dim msg As String = Translator.getString(langKey, params)
+        Call MsgboxInfo(msg)
+    End Sub
     Public Shared Sub MsgboxInfo(ByVal msg As String, ParamArray params() As String)
         Dim lmsg As String
         If params.Length > 0 Then
@@ -44,7 +48,10 @@ Public NotInheritable Class winUtils
         FormsApplicationContext.current().MessageBoxHandler.showInformationMessageBox(lmsg)
     End Sub
 
-
+    Public Shared Sub MsgboxStopTranslated(ByVal langKey As String, ParamArray params() As String)
+        Dim msg As String = Translator.getString(langKey, params)
+        Call MsgboxStop(msg)
+    End Sub
     Public Shared Sub MsgboxStop(ByVal msg As String, ParamArray params() As String)
         Dim lmsg As String
         If params.Length > 0 Then
@@ -56,7 +63,12 @@ Public NotInheritable Class winUtils
 
     End Sub
 
-    Public Shared Function MsgboxQuestion(ByVal msg As String, ParamArray params() As Object) As DialogResult
+    Public Shared Function MsgboxQuestionTranslated(ByVal langKey As String, ParamArray params() As String) As DialogResult
+        Dim msg As String = Translator.getString(langKey, params)
+        Return MsgboxQuestion(msg)
+    End Function
+
+    Public Shared Function MsgboxQuestion(ByVal msg As String, ParamArray params() As String) As DialogResult
         Dim lmsg As String
         If params.Length > 0 Then
             lmsg = String.Format(msg, params)

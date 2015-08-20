@@ -167,6 +167,14 @@ Public Class CGDateTextBox
 
     End Sub
 
+    Private Sub CGDateTextBox_LostFocus(sender As Object, e As EventArgs) Handles Me.LostFocus
+        If IsDate(value) AndAlso CDate(value) > MINIMUM_DATE Then
+            MyBase.Text = Format(CDate(value), Me.FormatPattern)
+        Else
+            MyBase.Text = String.Empty
+        End If
+    End Sub
+
 
     Private Sub _Validating(ByVal sender As Object, _
                             ByVal e As System.ComponentModel.CancelEventArgs) Handles Me.Validating

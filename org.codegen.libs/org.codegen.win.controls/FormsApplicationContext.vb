@@ -1,5 +1,6 @@
 ﻿Imports System.Configuration.ConfigurationManager
 Imports org.codegen.common.TranslationServices
+Imports System.Collections.Generic
 
 ''' <summary>
 ''' Singleton class
@@ -15,7 +16,7 @@ Public Class FormsApplicationContext
 
     End Sub
 
-    
+
     Public Shared Function current() As FormsApplicationContext
         If context Is Nothing Then
             context = New FormsApplicationContext
@@ -136,6 +137,92 @@ Public Class FormsApplicationContext
     End Property
 
 
+
     Public Property MessageBoxHandler As IMessageBoxHandler = New DefaultMessageBoxHandler
+
+End Class
+
+
+
+
+''' <summary>
+''' Validation of using the fluent api. Example:
+''' <para>
+''' if (new UIValidate().
+'''				addTranslatedValidationCondition(conditionA, "select_at_least_one_employee").
+'''				addValidationCondition(conditionB, "some message {0}", this.CheckdateLabel.Text).
+'''				validateAndShowErrors() == false) {
+'''					return;
+'''			}
+''' </para>
+''' </summary>
+''' <remarks></remarks>
+Public Class UIValidate
+
+    Private Class UIValidateCondition
+
+        Property isValid As Boolean = True
+        Property errorMessage As String
+
+        Public Overrides Function toString() As String
+            Return errorMessage
+        End Function
+
+    End Class
+
+    Private failedConditions As List(Of UIValidateCondition) = New List(Of UIValidateCondition)
+
+    ''' <summary>
+    ''' Adds a validation condition using the message as error message
+    ''' </summary>
+    ''' <param name="condition">If false, then the validation failed</param>
+    ''' <param name="errorMessage">The error message</param>
+    ''' <param name="vals">values to apply to string.format in errorMessage parameter</param>
+    Public Function addValidateCondition(condition As Boolean, errorMessage As String, ParamArray vals() As String) As UIValidate
+
+        If (Not condition) Then
+            Dim uiv As New UIValidateCondition()
+            uiv.isValid = False
+            uiv.errorMessage = String.Format(errorMessage, vals)
+            Me.failedConditions.Add(uiv)
+        End If
+
+        Return Me
+
+    End Function
+
+    ''' <summary>
+    ''' Adds a validation condition with the specified language key and parameters for a translated message
+    ''' </summary>
+    ''' <param name="condition">boolean condition, if true then validation passes</param>
+    ''' <param name="languageKey">a key with which a call to Translator.getString() will be called</param>
+    ''' <param name="vals">Parameter values, if any to pass to translated string</param>
+    Public Function addTranslatedValidationCondition(condition As Boolean, languageKey As String, ParamArray vals() As String) As UIValidate
+
+        If (Not condition) Then
+            Dim uiv As New UIValidateCondition()
+            uiv.isValid = False
+            uiv.errorMessage = String.Format(Translator.getString(languageKey, vals))
+            Me.failedConditions.Add(uiv)
+        End If
+        Return Me
+
+    End Function
+
+    ''' <summary>
+    ''' Validation occurs as the client adds condtions.  This call should be 
+    ''' kept last in the chain, so that it shows the message box with all the errors.
+    ''' Function returns true if all conditions are valid, otherwise it returns false
+    ''' </summary>
+    Public Function validateAndShowErrors() As Boolean
+
+        If Me.failedConditions.Count > 0 Then
+            winUtils.MsgboxStop(String.Join(vbCrLf, failedConditions))
+            Return False
+        End If
+
+        Return True
+
+    End Function
 
 End Class

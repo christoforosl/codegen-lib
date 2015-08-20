@@ -24,39 +24,6 @@ Namespace TranslationServices
             'prevent public instantiations
         End Sub
 
-        ' ''' <summary>
-        ' ''' Returns a culture with Greek language and the pound as currency symbol, if 
-        ' ''' current date is before 31/12/07, else it returns the Euro
-        ' ''' </summary>
-        ' ''' <returns></returns>
-        ' ''' <remarks>
-        ' ''' </remarks>
-        'Private Shared Function CYGreekCulture() As CultureInfo
-
-        '    Const STR_POUND As String = "£"
-        '    Const STR_EURO As String = "€"
-
-        '    Dim ret As CultureInfo = New CultureInfo("el", False)
-        '    If Date.Today > DateSerial(2007, 31, 1) Then
-        '        ret.NumberFormat.CurrencySymbol = STR_EURO
-        '    Else
-        '        ret.NumberFormat.CurrencySymbol = STR_POUND
-        '    End If
-
-        '    ret.NumberFormat.CurrencyPositivePattern = 2
-        '    ret.NumberFormat.CurrencyNegativePattern = 12
-        '    ret.NumberFormat.CurrencyDecimalDigits = 2
-        '    ret.NumberFormat.CurrencyDecimalSeparator = "."
-        '    ret.NumberFormat.CurrencyGroupSeparator = ","
-
-        '    ret.NumberFormat.NumberGroupSeparator = ","
-        '    ret.NumberFormat.NumberDecimalSeparator = "."
-
-        '    ret.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy"
-
-        '    Return ret
-
-        'End Function
 
         ''' <summary>
         ''' Sets the system language
@@ -104,6 +71,7 @@ Namespace TranslationServices
         ''' <returns>True/False</returns>
         ''' <remarks>The current system language is the Curent Thread's </remarks>
         Public Function isEnglish() As Boolean
+            Validate.isNotNull(_stringsProvider, "_stringsProvider not set")
             Return _stringsProvider.CurrentLanguageCode = Translator.LANG_ENGLISH
         End Function
 
@@ -117,7 +85,10 @@ Namespace TranslationServices
         End Function
 
         Public Shared Function getString(ByVal key As String, ParamArray args() As String) As String
+
+            Validate.isNotNull(current.StringsProvider, "_stringsProvider not set")
             Return String.Format(current.StringsProvider.getString(key), args)
+
         End Function
 
         Public Shared Function getFromConfig() As TranslatedStringsProvider

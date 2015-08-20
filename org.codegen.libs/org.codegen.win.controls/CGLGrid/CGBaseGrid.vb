@@ -42,7 +42,7 @@ Namespace Grid
 
         Public Sub New()
             MyBase.New()
-            Me.Dock = System.Windows.Forms.DockStyle.Fill
+            'Me.Dock = System.Windows.Forms.DockStyle.Fill
             _traceSrc = New TraceSource("CGBaseGrid")
             ' This call is required by the designer.
             InitializeComponent()

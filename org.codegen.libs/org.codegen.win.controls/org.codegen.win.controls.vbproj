@@ -87,9 +87,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic.Compatibility" />
-    <Reference Include="org.codegen.common.4.0">
-      <HintPath>..\packages\org.codegen.common.4.0.0.2\lib\org.codegen.common.4.0.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="org.codegen.common.4.0, Version=4.0.0.4, Culture=neutral, PublicKeyToken=44c29659cab133d9, processorArchitecture=MSIL">
+      <HintPath>..\packages\org.codegen.common.4.0.0.5\lib\org.codegen.common.4.0.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="org.model.lib.4.0, Version=4.0.10.13, Culture=neutral, PublicKeyToken=44c29659cab133d9, processorArchitecture=MSIL">
