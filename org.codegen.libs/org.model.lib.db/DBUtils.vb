@@ -14,6 +14,8 @@ Public MustInherit Class DBUtils
 #Region "db provider"
 
     Private Shared _dbrovider As IDBUtilsProvider
+
+    <ThreadStatic()> _
     Private Shared _current As DBUtils
 
     Public Shared Property dbProvider As IDBUtilsProvider
@@ -193,6 +195,11 @@ Public MustInherit Class DBUtils
     Public Property Transaction() As IDbTransaction
 
     ''' <summary>
+    ''' the database connection attached to the transaction object
+    ''' </summary>
+    Private _connTransation As IDbConnection
+
+    ''' <summary>
     ''' Commits the current transaction and closes the connection to the database.
     ''' before committing, the class checks if a transaction is active.
     ''' If not, statement is ignored.
@@ -205,8 +212,11 @@ Public MustInherit Class DBUtils
             logMessage("Commit Transaction")
             Me.Transaction.Commit()
             Me.Transaction.Dispose()
-            Me.Transaction = Nothing
+            Me.Transaction = Nothing 'explicitely set it to nothing
+        End If
 
+        If (_connTransation.State = ConnectionState.Open) Then
+            _connTransation.Close()
         End If
 
         commitTrans = True
@@ -227,12 +237,13 @@ Public MustInherit Class DBUtils
             logMessage("Rolling Back Transaction")
 
             Me.Transaction.Rollback()
-            Me.Transaction.Connection.Close()
             Me.Transaction.Dispose()
-            Me.Transaction = Nothing
+            Me.Transaction = Nothing 'explicitely set it to nothing
 
         End If
-
+        If (_connTransation.State = ConnectionState.Open) Then
+            _connTransation.Close()
+        End If
         rollbackTrans = True
 
     End Function
@@ -268,9 +279,9 @@ Public MustInherit Class DBUtils
             logMessage("BeginTransaction Transaction:" & t.ToString())
         End If
 
-        Dim dbconn As IDbConnection = Me.Connection
-        dbconn.Open()
-        Me.Transaction = dbconn.BeginTransaction
+        _connTransation = Me.Connection
+        _connTransation.Open()
+        Me.Transaction = _connTransation.BeginTransaction
 
     End Function
 #End Region

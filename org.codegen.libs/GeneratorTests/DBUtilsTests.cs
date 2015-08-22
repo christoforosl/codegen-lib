@@ -21,7 +21,6 @@ namespace GeneratorTests {
 		public void testexecuteSQL() {
 
 			int connectionCount = this.getConnectionCount();
-
 			int employeeCount = DBUtils.Current().getLngValue("select count(*) from employee");
 
 			List<IDataParameter> lst = new List<IDataParameter>();
@@ -47,12 +46,36 @@ namespace GeneratorTests {
 			Assert.AreEqual(connectionCount, this.getConnectionCount(), "Expected same connection count after execution of executeSQLWithParams");
 			Assert.AreEqual(DBUtils.Current().getLngValue("select count(*) from employee where isActive is null"), 0);
 			Assert.AreEqual(DBUtils.Current().getLngValue("select count(*) from employee where isActive=? and employeeid=?", 0, 1), 1);
+		}
+
+		[TestMethod]
+		public void testTransactions() {
+
+			int employeeCount = DBUtils.Current().getLngValue("select count(*) from employee");
+			DBUtils.Current().executeSQLWithParams("update employee set isActive=1");
+			int connectionCount = this.getConnectionCount();
+			
+			DBUtils.Current().beginTrans();
+			Assert.IsTrue(DBUtils.Current().inTrans, "after beginTrans, intrans shouldbe true");
+			DBUtils.Current().executeSQLWithParams("update employee set isActive=0");
+			DBUtils.Current().commitTrans();
+
+			Assert.IsFalse(DBUtils.Current().inTrans, "after commit, intrans should be false");
+			Assert.AreEqual(
+				DBUtils.Current().getLngValue("select count(*) from employee where isActive=0"), 
+				employeeCount, "after commit, all employees should be active=0");
 
 
 			DBUtils.Current().beginTrans();
+			DBUtils.Current().executeSQLWithParams("update employee set isActive=1");
+			Assert.AreEqual(
+				DBUtils.Current().getLngValue("select count(*) from employee where isActive=1"),
+				employeeCount, "in transaction, selecting employees where active=1 should return all employees");
 
-			DBUtils.Current().commitTrans();
-			Assert.AreEqual(connectionCount, this.getConnectionCount(), "Expected same connection count after commit");
+			DBUtils.Current().rollbackTrans();
+			Assert.AreEqual(
+				DBUtils.Current().getLngValue("select count(*) from employee where isActive=0"),
+				employeeCount, "after rollback, all employees should be active=0");
 
 		}
 
@@ -65,11 +88,7 @@ namespace GeneratorTests {
 
 		}
 
-		[TestMethod]
-		public void testTransactions() {
-
-		}
-
+		
 		[TestMethod]
 		public void testPagedList() {
 
