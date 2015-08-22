@@ -32,7 +32,6 @@ Namespace Model
         Private _locale As System.Globalization.CultureInfo = System.Globalization.CultureInfo.CurrentCulture
         Private _principal As IPrincipal = Nothing
         Private _attributes As Hashtable = Nothing
-        Private _dbUtils As DBUtils
 
         Public Property config As ModelConfig = New ModelConfig
 
@@ -182,16 +181,11 @@ Namespace Model
         End Property
 
 
-        Public Shared Property CurrentDBUtils() As DBUtils
+        Public Shared ReadOnly Property CurrentDBUtils() As DBUtils
             Get
-                If Current._dbUtils Is Nothing Then
-                    Current._dbUtils = DBUtils.Current
-                End If
-                Return Current._dbUtils
+                Return DBUtils.Current
             End Get
-            Set(ByVal value As DBUtils)
-                Current._dbUtils = value
-            End Set
+
         End Property
 
 
