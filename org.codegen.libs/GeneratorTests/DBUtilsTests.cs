@@ -112,7 +112,18 @@ namespace GeneratorTests {
 			Assert.AreEqual(
 				DBUtils.Current().getLngValue("select count(*) from employee where isActive=1"),
 				employeeCount, "in transaction, selecting employees where active=1 should return all employees");
-			
+
+			DataSet ds = new DataSet();
+			DBUtils.Current().fillTypedDataSet(ds, "employees", "select * from employee where isActive=1");
+			Assert.AreEqual(ds.Tables[0].Rows.Count, employeeCount);
+
+			ds = DBUtils.Current().getDataSet("select * from employee where isActive=1");
+			Assert.AreEqual(ds.Tables[0].Rows.Count, employeeCount);
+
+			ds = DBUtils.Current().getDataSetWithParams("select * from employee where isActive=?", 1);
+			Assert.AreEqual(ds.Tables.Count, 1);
+			Assert.AreEqual(ds.Tables[0].Rows.Count, employeeCount);
+
 			using (IDataReader rs = DBUtils.Current().getDataReaderWithParams(
 					"select employeeid, address from employee where isActive=?", 1)) {
 				Assert.IsFalse(rs.IsClosed);
@@ -123,6 +134,9 @@ namespace GeneratorTests {
 				DBUtils.Current().getLngValue("select count(*) from employee where isActive=0"),
 				employeeCount, "after rollback, all employees should be active=0");
 
+			ds = DBUtils.Current().getDataSetWithParams("select * from employee where isActive=?", 0);
+			Assert.AreEqual(ds.Tables.Count, 1);
+			Assert.AreEqual(ds.Tables[0].Rows.Count, employeeCount);
 		}
 
 		private int getConnectionCount() {

@@ -3,31 +3,10 @@ Imports System.Data.SqlClient
 Public Class MSSQLUtils
     Inherits DBUtils
 
-    Public Overrides Function fillTypedDataSet(ByVal ds As DataSet, _
-                                               ByVal tablename As String, _
-                                               ByVal sql As String) As DataSet
 
-        Dim adapter As SqlDataAdapter
+    Public Overrides Function getAdapter() As IDbDataAdapter
 
-        Try
-
-            adapter = DirectCast(Me.getAdapter(sql), SqlDataAdapter)
-            adapter.Fill(ds, tablename)
-
-        Catch ex As Exception
-            Throw New ApplicationException(ex.Message & vbCrLf & sql)
-        Finally
-
-        End Try
-
-        Return ds
-
-    End Function
-
-
-    Public Overrides Function getAdapter(ByVal sql As String) As IDbDataAdapter
-
-        Return New SqlDataAdapter(sql, DirectCast(Me.Connection, SqlClient.SqlConnection))
+        Return New SqlDataAdapter()
 
     End Function
 
@@ -90,4 +69,7 @@ Public Class MSSQLUtils
 
     End Function
 
+    Public Overloads Overrides Function getCommand() As IDbCommand
+        Return New SqlCommand
+    End Function
 End Class

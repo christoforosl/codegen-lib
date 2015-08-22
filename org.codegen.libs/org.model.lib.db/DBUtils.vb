@@ -116,7 +116,7 @@ Public MustInherit Class DBUtils
     Protected Shared stmtCache As ConditionalWeakTable(Of String, String) = New ConditionalWeakTable(Of String, String)
 
     Protected p_connstring As String
-    Protected p_conntype As enumConnType
+
 
     Protected p_date_pattern As String
     Protected p_dbNow As String
@@ -165,9 +165,9 @@ Public MustInherit Class DBUtils
             p_sqldialect = Value
             If p_sqldialect = enumSqlDialect.JET Then
             ElseIf p_sqldialect = enumSqlDialect.MSSQL Then
-                p_conntype = enumConnType.CONN_MSSQL
+                Me.ConnType = enumConnType.CONN_MSSQL
             ElseIf p_sqldialect = enumSqlDialect.ORACLE Then
-                p_conntype = enumConnType.CONN_ORACLE
+                Me.ConnType = enumConnType.CONN_ORACLE
             End If
             Me.setSpecialChars()
 
@@ -204,9 +204,8 @@ Public MustInherit Class DBUtils
     ''' before committing, the class checks if a transaction is active.
     ''' If not, statement is ignored.
     ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public Function commitTrans() As Boolean
+    ''' <remarks>Tested</remarks>
+    Public Sub commitTrans()
 
         If Not Me.Transaction Is Nothing Then
             logMessage("Commit Transaction")
@@ -219,18 +218,15 @@ Public MustInherit Class DBUtils
             _connTransation.Close()
         End If
 
-        commitTrans = True
-
-    End Function
+    End Sub
 
     ''' <summary>
     ''' Rollbacks the current transaction and closes the connection to the database.
     ''' Before Rollback, the class checks if a transaction is active.
     ''' If not, statement is ignored.
     ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public Function rollbackTrans() As Boolean
+    ''' <remarks>Tested</remarks>
+    Public Sub rollbackTrans()
 
         If Not Me.Transaction Is Nothing Then
 
@@ -244,16 +240,16 @@ Public MustInherit Class DBUtils
         If (_connTransation.State = ConnectionState.Open) Then
             _connTransation.Close()
         End If
-        rollbackTrans = True
 
-    End Function
+
+    End Sub
 
     ''' <summary>
     ''' Returns true if a transaction is active (ie started by a beginTrans call).
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
-    ''' <remarks></remarks>
+    ''' <remarks>Tested</remarks>
     Public ReadOnly Property inTrans() As Boolean
         Get
             Dim bl As Boolean = (Me.Transaction Is Nothing = False)
@@ -266,9 +262,8 @@ Public MustInherit Class DBUtils
     ''' Starts a transaction and 
     ''' Sets the flag true that transaction is active.
     ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public Function beginTrans() As Boolean
+    ''' <remarks>Tested</remarks>
+    Public Sub beginTrans()
 
         If Not Me.Transaction Is Nothing Then
             Throw New ApplicationException("Nested Transactions not supported")
@@ -283,11 +278,15 @@ Public MustInherit Class DBUtils
         _connTransation.Open()
         Me.Transaction = _connTransation.BeginTransaction
 
-    End Function
+    End Sub
 #End Region
 
 #Region "Connection"
 
+    ''' <summary>
+    ''' Returns a connection to the database.  This does not open the connection
+    ''' </summary>
+    ''' <remarks>tested</remarks>
     Public ReadOnly Property Connection() As IDbConnection
         Get
             If (inTrans) Then
@@ -301,9 +300,7 @@ Public MustInherit Class DBUtils
     ''' <summary>
     ''' Connection String of database connection
     ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
+    ''' <remarks>tested</remarks>
     Public Property ConnString() As String
         Get
             Return p_connstring
@@ -319,8 +316,6 @@ Public MustInherit Class DBUtils
     ''' <summary>
     ''' Sets/Returns a concrete ADO.NET connection object
     ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
     ''' <remarks></remarks>
     Protected MustOverride ReadOnly Property ConnectionInternal() As IDbConnection
 
@@ -329,25 +324,39 @@ Public MustInherit Class DBUtils
     ''' <summary>
     ''' Gets/Sets the connection type
     ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
     ''' <remarks></remarks>
     Public Property ConnType() As enumConnType
-        Get
-            Return p_conntype
-        End Get
-        Set(ByVal Value As enumConnType)
-            p_conntype = Value
-        End Set
-    End Property
 
 #End Region
 
 #Region "Utility Functions"
 
-    Public MustOverride Function getAdapter(ByVal sql As String) As IDbDataAdapter
-    Public MustOverride Function fillTypedDataSet(ByVal ds As DataSet, ByVal tablename As String, ByVal sql As String) As DataSet
+    Public MustOverride Function getAdapter() As IDbDataAdapter
+    Public MustOverride Function getCommand() As IDbCommand
 
+    ''' <summary>
+    ''' Fills a typed dataset from the sql provided
+    ''' </summary>
+    ''' <param name="ds"></param>
+    ''' <param name="tablename"></param>
+    ''' <param name="sql"></param>
+    ''' <returns>Dataset</returns>
+    ''' <remarks>tested</remarks>
+    Public Function fillTypedDataSet(ByVal ds As DataSet, ByVal tablename As String, ByVal sql As String) As DataSet
+        Try
+
+            Dim adapter As IDbDataAdapter = Me.getAdapter
+            adapter.SelectCommand = Me.getCommand(sql)
+            adapter.Fill(ds)
+            ds.Tables(0).TableName = tablename
+
+        Catch ex As Exception
+            Throw New ApplicationException(ex.Message & vbCrLf & sql)
+
+        End Try
+
+        Return ds
+    End Function
 
     Public Function getDataSet(ByVal sql As String) As DataSet
 
@@ -356,7 +365,8 @@ Public MustInherit Class DBUtils
 
         Try
 
-            adapter = Me.getAdapter(sql)
+            adapter = Me.getAdapter()
+            adapter.SelectCommand = Me.getCommand(sql)
             If Me.inTrans Then
                 logMessage("getDataSet In ongloing transaction, assigning p_trans variable")
                 adapter.SelectCommand.Transaction = Me.Transaction
@@ -431,7 +441,9 @@ Public MustInherit Class DBUtils
 
         Try
 
-            Dim adapter As IDbDataAdapter = Me.getAdapter(sql)
+            Dim adapter As IDbDataAdapter = Me.getAdapter()
+            adapter.SelectCommand = Me.getCommand(sql)
+
             If Me.inTrans Then
                 adapter.SelectCommand.Transaction = Me.Transaction
             End If
@@ -462,7 +474,8 @@ Public MustInherit Class DBUtils
 
             sql = replaceParameterPlaceHolders(sql, params.Length - 1)
 
-            adapter = Me.getAdapter(sql)
+            adapter = Me.getAdapter()
+            adapter.SelectCommand = Me.getCommand(sql)
             If Me.inTrans Then
                 adapter.SelectCommand.Transaction = Me.Transaction
 

@@ -11,41 +11,10 @@ Imports Microsoft.VisualBasic
 Public Class OLEDBUtils
     Inherits DBUtils
 
-    Public Overrides Function fillTypedDataSet(ByVal ds As DataSet, _
-                                                  ByVal tablename As String, _
-                                                  ByVal sql As String) As DataSet
 
-        Try
+    Public Overrides Function getAdapter() As IDbDataAdapter
 
-            Using adapter As OleDbDataAdapter = DirectCast(Me.getAdapter(sql), OleDbDataAdapter)
-                adapter.Fill(ds, tablename)
-            End Using
-
-        Catch ex As Exception
-            Throw New ApplicationException(ex.Message & vbCrLf & sql)
-
-        End Try
-
-        Return ds
-
-    End Function
-
-
-    Public Overrides Function getAdapter(ByVal sql As String) As IDbDataAdapter
-
-        Dim adapter As IDbDataAdapter
-        Try
-            adapter = New OleDbDataAdapter(sql, DirectCast(Me.Connection, OleDbConnection))
-            'Trace.TraceInformation(sql)
-        Catch ex As Exception
-            Throw
-
-        Finally
-
-
-        End Try
-
-        Return adapter
+        Return New OleDbDataAdapter()
 
     End Function
 
@@ -64,11 +33,11 @@ Public Class OLEDBUtils
 
             MyBase.paramPrefix = "@"
         End If
-        
+
 
     End Sub
 
-    
+
     Protected Overrides ReadOnly Property ConnectionInternal() As IDbConnection
         Get
 
@@ -91,4 +60,7 @@ Public Class OLEDBUtils
 
     End Function
 
+    Public Overloads Overrides Function getCommand() As IDbCommand
+        Return New OleDbCommand
+    End Function
 End Class
