@@ -24,7 +24,7 @@ https://github.com/christoforosl/codegen-lib/wiki</description>
         <file src=".\org.codegen.libs\release\org.model.lib.db.4.0.dll" target="lib\net40\org.model.lib.db.4.0.dll" />
         <file src=".\org.codegen.libs\release\codeGenWin4.exe" target="tools\codeGenWin4.exe" />
         <file src=".\org.codegen.libs\release\org.codegen.common.4.0.dll" target="tools\org.codegen.common.4.0.dll" />
-        <file src="org.codegen.libs\release\org.codegen.lib.4.0.dll" target="tools\org.codegen.lib.4.0.dll" />
         <file src=".\org.codegen.libs\release\org.model.lib.4.0.dll" target="tools\org.model.lib.4.0.dll" />
+        <file src="org.codegen.libs\release\org.model.lib.db.4.0.dll" target="tools\org.model.lib.db.4.0.dll" />
     </files>
 </package>
