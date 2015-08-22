@@ -90,5 +90,4 @@ Public Class MSSQLUtils
 
     End Function
 
-    
 End Class

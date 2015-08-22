@@ -437,11 +437,11 @@ INSERT INTO [modelTest].[dbo].[AccountInfo]
            ('Test name'
            ,'22-909930'
            ,null
-           ,10
+           ,1
            ,'test employee'
            ,'Microsoft'
            ,'MS'
-           ,9
+           ,1
            ,null
            ,getDate()
            ,getDate()
