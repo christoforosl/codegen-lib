@@ -13,6 +13,11 @@ Public MustInherit Class DBUtils
 
 #Region "db provider"
 
+    ''' <summary>
+    ''' Temporary flag to take care of thread safety issues 
+    ''' </summary>
+    Public Shared Property inMultiThreadingEnvironment As Boolean = True
+
     Private Shared _dbrovider As IDBUtilsProvider
     Private Shared _current As DBUtils
 
@@ -37,11 +42,14 @@ Public MustInherit Class DBUtils
     ''' </summary>
     Public Shared Function Current() As DBUtils
 
-        'If _current Is Nothing Then
-        '    _current = dbProvider.getDBUtils
-        'End If
-        'Return _current
-        Return dbProvider.getDBUtils
+        If inMultiThreadingEnvironment Then
+            _current = dbProvider.getDBUtils
+        Else
+            If _current Is Nothing Then
+                _current = dbProvider.getDBUtils
+            End If
+        End If
+        Return _current
 
     End Function
 
@@ -127,7 +135,7 @@ Public MustInherit Class DBUtils
     Protected p_params As IDataParameterCollection
 
     Public Property doLogging As Boolean = False
-    
+
 #End Region
 
 #Region "Class constructors"
