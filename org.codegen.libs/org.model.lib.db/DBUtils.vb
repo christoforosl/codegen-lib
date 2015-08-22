@@ -1057,6 +1057,8 @@ Public MustInherit Class DBUtils
 
     Private Sub setParamValues(ByVal icomm As IDbCommand, ByVal ParamArray params() As Object)
 
+        If params Is Nothing Then Exit Sub
+
         For i As Integer = 0 To params.Length - 1
             Dim iParam As System.Data.IDataParameter
             If TypeOf (params(i)) Is Date AndAlso CDate(params(i)) = NullChecker.NULL_DATE Then
@@ -1226,8 +1228,9 @@ Public MustInherit Class DBUtils
         End If
 
         Using icomm As IDbCommand = conn.CreateCommand()
-
-            sql = replaceParameterPlaceHolders(sql, params)
+            If params IsNot Nothing Then
+                sql = replaceParameterPlaceHolders(sql, params)
+            End If
 
             icomm.CommandText = sql
             icomm.CommandType = CommandType.Text

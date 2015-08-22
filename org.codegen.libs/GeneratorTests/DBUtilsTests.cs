@@ -18,6 +18,45 @@ namespace GeneratorTests {
 	public class DBUtilsTests {
 
 		[TestMethod]
+		public void testDataReaders() {
+			int connectionCount = this.getConnectionCount();
+			using (IDataReader rs = DBUtils.Current().getDataReader("select employeeid, address from employee")) {
+				Assert.IsFalse(rs.IsClosed);
+				if (rs.Read()) { 
+					string address = rs.GetString(1); 
+				}
+			}
+			Assert.AreEqual(connectionCount, this.getConnectionCount(),
+				"Expected same connection count after execution of getDataReader");
+
+
+			List<IDataParameter> lst = new List<IDataParameter>();
+			lst.Add(DBUtils.Current().getParameter("@eid", 1));
+			lst.Add(DBUtils.Current().getParameter("@address", "nikoy theofanous 3a, nicosia"));
+
+			using (IDataReader rs = DBUtils.Current().getDataReader("select employeeid, address from employee where employeeid=@eid and address=@address", lst)) {
+				Assert.IsFalse(rs.IsClosed);
+				if (rs.Read()) {
+					string address = rs.GetString(1);
+				}
+			}
+			Assert.AreEqual(connectionCount, this.getConnectionCount(),
+				"Expected same connection count after execution of getDataReader(List<IDataParameter>)");
+
+			using (IDataReader rs = DBUtils.Current().getDataReaderWithParams(
+					"select employeeid, address from employee where employeeid=? and address=?", 
+						1, "nikoy theofanous 3a, nicosia")) {
+						Assert.IsFalse(rs.IsClosed);
+						if (rs.Read()) {
+							string address = rs.GetString(1);
+						}
+			}
+			Assert.AreEqual(connectionCount, this.getConnectionCount(),
+				"Expected same connection count after execution of getDataReader(object[])");
+
+		}
+
+		[TestMethod]
 		public void testexecuteSQL() {
 
 			int connectionCount = this.getConnectionCount();
@@ -46,6 +85,8 @@ namespace GeneratorTests {
 			Assert.AreEqual(connectionCount, this.getConnectionCount(), "Expected same connection count after execution of executeSQLWithParams");
 			Assert.AreEqual(DBUtils.Current().getLngValue("select count(*) from employee where isActive is null"), 0);
 			Assert.AreEqual(DBUtils.Current().getLngValue("select count(*) from employee where isActive=? and employeeid=?", 0, 1), 1);
+			Assert.AreEqual(connectionCount, this.getConnectionCount());
+
 		}
 
 		[TestMethod]
@@ -71,7 +112,12 @@ namespace GeneratorTests {
 			Assert.AreEqual(
 				DBUtils.Current().getLngValue("select count(*) from employee where isActive=1"),
 				employeeCount, "in transaction, selecting employees where active=1 should return all employees");
-
+			
+			using (IDataReader rs = DBUtils.Current().getDataReaderWithParams(
+					"select employeeid, address from employee where isActive=?", 1)) {
+				Assert.IsFalse(rs.IsClosed);
+				Assert.IsTrue(rs.Read(), "Datareader must return rows where isActive=?");
+			}
 			DBUtils.Current().rollbackTrans();
 			Assert.AreEqual(
 				DBUtils.Current().getLngValue("select count(*) from employee where isActive=0"),
