@@ -1229,7 +1229,6 @@ Public MustInherit Class DBUtils
     ''' <param name="params"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    ''' 
     Public Function getDataReaderWithParams(ByVal sql As String, ByVal ParamArray params() As Object) As IDataReader
 
         Dim rs As IDataReader
@@ -1260,6 +1259,11 @@ Public MustInherit Class DBUtils
             Catch e As Exception
                 Throw New ApplicationException(e.Message & vbCrLf & _
                                                "Error SQL:" & getStmtAndParamsAsString(icomm))
+            Finally
+                'NOTE: do not close database connection! see icomm.ExecuteReader(CommandBehavior) above!
+                'If Not Me.inTrans Then
+                '    conn.Close()
+                'End If
             End Try
 
         End Using
