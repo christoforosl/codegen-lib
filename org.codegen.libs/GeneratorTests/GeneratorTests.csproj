@@ -74,11 +74,13 @@
     <Compile Include="cstests\EmployeeTestBase.cs" />
     <Compile Include="cstests\EmployeeTypeTestBase.cs" />
     <Compile Include="cstests\ProjectTestBase.cs" />
+    <Compile Include="DBMapperTests.cs" />
     <Compile Include="DBUtilsTests.cs" />
     <Compile Include="CSharpObjectTests.cs" />
     <Compile Include="GenAndRunObjectTests.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ModelContextTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VbObjectTestsTmp.cs">
       <SubType>Code</SubType>
