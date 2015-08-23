@@ -13,12 +13,9 @@ Public MustInherit Class DBUtils
 
 #Region "db provider"
 
-    ''' <summary>
-    ''' Temporary flag to take care of thread safety issues 
-    ''' </summary>
-    Public Shared Property inMultiThreadingEnvironment As Boolean = True
-
     Private Shared _dbrovider As IDBUtilsProvider
+
+    <ThreadStatic()> _
     Private Shared _current As DBUtils
 
     Public Shared Property dbProvider As IDBUtilsProvider
@@ -42,12 +39,8 @@ Public MustInherit Class DBUtils
     ''' </summary>
     Public Shared Function Current() As DBUtils
 
-        If inMultiThreadingEnvironment Then
+        If _current Is Nothing Then
             _current = dbProvider.getDBUtils
-        Else
-            If _current Is Nothing Then
-                _current = dbProvider.getDBUtils
-            End If
         End If
         Return _current
 
@@ -123,15 +116,12 @@ Public MustInherit Class DBUtils
     Protected Shared stmtCache As ConditionalWeakTable(Of String, String) = New ConditionalWeakTable(Of String, String)
 
     Protected p_connstring As String
-    Protected p_conntype As enumConnType
+
 
     Protected p_date_pattern As String
     Protected p_dbNow As String
     Protected p_like_char As String
-
     Protected p_sqldialect As enumSqlDialect
-
-    Protected p_Conn As IDbConnection
     Protected p_params As IDataParameterCollection
 
     Public Property doLogging As Boolean = False
@@ -175,9 +165,9 @@ Public MustInherit Class DBUtils
             p_sqldialect = Value
             If p_sqldialect = enumSqlDialect.JET Then
             ElseIf p_sqldialect = enumSqlDialect.MSSQL Then
-                p_conntype = enumConnType.CONN_MSSQL
+                Me.ConnType = enumConnType.CONN_MSSQL
             ElseIf p_sqldialect = enumSqlDialect.ORACLE Then
-                p_conntype = enumConnType.CONN_ORACLE
+                Me.ConnType = enumConnType.CONN_ORACLE
             End If
             Me.setSpecialChars()
 
@@ -205,60 +195,61 @@ Public MustInherit Class DBUtils
     Public Property Transaction() As IDbTransaction
 
     ''' <summary>
+    ''' the database connection attached to the transaction object
+    ''' </summary>
+    Private _connTransation As IDbConnection
+
+    ''' <summary>
     ''' Commits the current transaction and closes the connection to the database.
     ''' before committing, the class checks if a transaction is active.
     ''' If not, statement is ignored.
     ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public Function commitTrans() As Boolean
+    ''' <remarks>Tested</remarks>
+    Public Sub commitTrans()
 
         If Not Me.Transaction Is Nothing Then
             logMessage("Commit Transaction")
             Me.Transaction.Commit()
             Me.Transaction.Dispose()
-            Me.Transaction = Nothing
-
+            Me.Transaction = Nothing 'explicitely set it to nothing
         End If
-        Me.closeConnection()
-        commitTrans = True
 
-    End Function
+        If (_connTransation.State = ConnectionState.Open) Then
+            _connTransation.Close()
+        End If
+
+    End Sub
 
     ''' <summary>
     ''' Rollbacks the current transaction and closes the connection to the database.
     ''' Before Rollback, the class checks if a transaction is active.
     ''' If not, statement is ignored.
     ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public Function rollbackTrans() As Boolean
+    ''' <remarks>Tested</remarks>
+    Public Sub rollbackTrans()
 
         If Not Me.Transaction Is Nothing Then
-            Try
-                logMessage("Rolling Back Transaction")
 
-                Me.Transaction.Rollback()
-                Me.Transaction.Dispose()
+            logMessage("Rolling Back Transaction")
 
-            Finally
-                Me.Transaction = Nothing
-            End Try
+            Me.Transaction.Rollback()
+            Me.Transaction.Dispose()
+            Me.Transaction = Nothing 'explicitely set it to nothing
 
         End If
+        If (_connTransation.State = ConnectionState.Open) Then
+            _connTransation.Close()
+        End If
 
-        Me.closeConnection()
 
-        rollbackTrans = True
-
-    End Function
+    End Sub
 
     ''' <summary>
     ''' Returns true if a transaction is active (ie started by a beginTrans call).
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
-    ''' <remarks></remarks>
+    ''' <remarks>Tested</remarks>
     Public ReadOnly Property inTrans() As Boolean
         Get
             Dim bl As Boolean = (Me.Transaction Is Nothing = False)
@@ -271,9 +262,8 @@ Public MustInherit Class DBUtils
     ''' Starts a transaction and 
     ''' Sets the flag true that transaction is active.
     ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public Function beginTrans() As Boolean
+    ''' <remarks>Tested</remarks>
+    Public Sub beginTrans()
 
         If Not Me.Transaction Is Nothing Then
             Throw New ApplicationException("Nested Transactions not supported")
@@ -284,36 +274,33 @@ Public MustInherit Class DBUtils
             logMessage("BeginTransaction Transaction:" & t.ToString())
         End If
 
-        Me.Transaction = Me.Connection.BeginTransaction
+        _connTransation = Me.Connection
+        _connTransation.Open()
+        Me.Transaction = _connTransation.BeginTransaction
 
-    End Function
+    End Sub
 #End Region
 
 #Region "Connection"
 
-    Protected Friend Sub closeConnection()
+    ''' <summary>
+    ''' Returns a connection to the database.  This does not open the connection
+    ''' </summary>
+    ''' <remarks>tested</remarks>
+    Public ReadOnly Property Connection() As IDbConnection
+        Get
+            If (inTrans) Then
+                Return Me.Transaction.Connection
+            Else
+                Return ConnectionInternal
+            End If
+        End Get
 
-        If Me.inTrans Then
-            Call logMessage("In closeConnection: in a transaction so no close the connection")
-            Exit Sub 'if we are in a transaction, do not close the connection.  It is closed in rollback/commit
-        End If
-
-
-        If Me.p_Conn.State = ConnectionState.Open Then
-            Me.p_Conn.Close()
-            Call logMessage("In closeConnection: closed connection")
-        Else
-
-        End If
-
-    End Sub
-
+    End Property
     ''' <summary>
     ''' Connection String of database connection
     ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
+    ''' <remarks>tested</remarks>
     Public Property ConnString() As String
         Get
             Return p_connstring
@@ -321,51 +308,55 @@ Public MustInherit Class DBUtils
 
         Set(ByVal Value As String)
             p_connstring = Value
-
-            If Not p_Conn Is Nothing Then
-                If p_Conn.State = ConnectionState.Open Then
-                    p_Conn.Close()
-                End If
-
-            End If
-            Me.Connection = Nothing
         End Set
 
     End Property
 
 
     ''' <summary>
-    ''' Sets/Returns a ADO.NET connection object
+    ''' Sets/Returns a concrete ADO.NET connection object
     ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
     ''' <remarks></remarks>
-    Public MustOverride Property Connection() As IDbConnection
+    Protected MustOverride ReadOnly Property ConnectionInternal() As IDbConnection
 
     Protected Friend MustOverride Sub setSpecialChars()
 
     ''' <summary>
     ''' Gets/Sets the connection type
     ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
     ''' <remarks></remarks>
     Public Property ConnType() As enumConnType
-        Get
-            Return p_conntype
-        End Get
-        Set(ByVal Value As enumConnType)
-            p_conntype = Value
-        End Set
-    End Property
 
 #End Region
 
 #Region "Utility Functions"
 
-    Public MustOverride Function getAdapter(ByVal sql As String) As IDbDataAdapter
-    Public MustOverride Function fillTypedDataSet(ByVal ds As DataSet, ByVal tablename As String, ByVal sql As String) As DataSet
+    Public MustOverride Function getAdapter() As IDbDataAdapter
+    Public MustOverride Function getCommand() As IDbCommand
 
+    ''' <summary>
+    ''' Fills a typed dataset from the sql provided
+    ''' </summary>
+    ''' <param name="ds"></param>
+    ''' <param name="tablename"></param>
+    ''' <param name="sql"></param>
+    ''' <returns>Dataset</returns>
+    ''' <remarks>tested</remarks>
+    Public Function fillTypedDataSet(ByVal ds As DataSet, ByVal tablename As String, ByVal sql As String) As DataSet
+        Try
+
+            Dim adapter As IDbDataAdapter = Me.getAdapter
+            adapter.SelectCommand = Me.getCommand(sql)
+            adapter.Fill(ds)
+            ds.Tables(0).TableName = tablename
+
+        Catch ex As Exception
+            Throw New ApplicationException(ex.Message & vbCrLf & sql)
+
+        End Try
+
+        Return ds
+    End Function
 
     Public Function getDataSet(ByVal sql As String) As DataSet
 
@@ -374,7 +365,8 @@ Public MustInherit Class DBUtils
 
         Try
 
-            adapter = Me.getAdapter(sql)
+            adapter = Me.getAdapter()
+            adapter.SelectCommand = Me.getCommand(sql)
             If Me.inTrans Then
                 logMessage("getDataSet In ongloing transaction, assigning p_trans variable")
                 adapter.SelectCommand.Transaction = Me.Transaction
@@ -387,7 +379,7 @@ Public MustInherit Class DBUtils
 
         Finally
 
-            Me.closeConnection()
+
         End Try
 
         Return ds
@@ -398,7 +390,8 @@ Public MustInherit Class DBUtils
 
     ''' <summary>
     ''' Support for positional placeholders in sql server.
-    ''' By default, the sql server driver supprorts only **named** parameters
+    ''' By default, the sql server driver supprorts only **named** parameters.  This function will replace 
+    ''' and question marks (?) with sql server parameters (@1, @2, etc)
     ''' </summary>
     ''' <param name="sql">SQL to execute.  Symbols ? and {i} are supported</param>
     ''' <param name="params">Paraneters of sql</param>
@@ -448,7 +441,9 @@ Public MustInherit Class DBUtils
 
         Try
 
-            Dim adapter As IDbDataAdapter = Me.getAdapter(sql)
+            Dim adapter As IDbDataAdapter = Me.getAdapter()
+            adapter.SelectCommand = Me.getCommand(sql)
+
             If Me.inTrans Then
                 adapter.SelectCommand.Transaction = Me.Transaction
             End If
@@ -464,7 +459,7 @@ Public MustInherit Class DBUtils
 
         Finally
 
-            Me.closeConnection()
+
         End Try
 
         Return ds
@@ -479,7 +474,8 @@ Public MustInherit Class DBUtils
 
             sql = replaceParameterPlaceHolders(sql, params.Length - 1)
 
-            adapter = Me.getAdapter(sql)
+            adapter = Me.getAdapter()
+            adapter.SelectCommand = Me.getCommand(sql)
             If Me.inTrans Then
                 adapter.SelectCommand.Transaction = Me.Transaction
 
@@ -499,7 +495,7 @@ Public MustInherit Class DBUtils
 
         Finally
 
-            Me.closeConnection()
+
         End Try
 
         Return ds
@@ -521,7 +517,7 @@ Public MustInherit Class DBUtils
             dr.Close()
         End If
 
-        Me.closeConnection()
+
         dr = Nothing
 
     End Sub
@@ -1002,55 +998,79 @@ Public MustInherit Class DBUtils
     ''' <param name="params">Parameters collection</param>
     ''' <remarks></remarks>
     ''' 
-    Public Sub executeSQLWithParams(ByVal sql As String, ByVal params As System.Collections.Generic.List(Of IDataParameter))
+    Public Function executeSQLWithParams(ByVal sql As String, ByVal params As List(Of IDataParameter)) As Integer
 
-        Dim icomm As IDbCommand = Me.Connection.CreateCommand()
-        icomm.CommandText = sql
-        icomm.Transaction = Me.Transaction
-        icomm.CommandType = CommandType.Text
-
-        For i As Integer = 0 To params.Count - 1
-            Dim iParam As System.Data.IDataParameter = params(i)
-            icomm.Parameters.Add(iParam)
-        Next
-
+        Dim dbconn As IDbConnection = Me.Connection
         Try
-            icomm.ExecuteNonQuery()
+
+            If (dbconn.State <> ConnectionState.Open) Then dbconn.Open()
+
+            Using icomm As IDbCommand = dbconn.CreateCommand()
+
+                icomm.CommandText = replaceParameterPlaceHolders(sql, params)
+                If Me.inTrans Then
+                    icomm.Transaction = Me.Transaction
+                End If
+                icomm.CommandType = CommandType.Text
+
+                For i As Integer = 0 To params.Count - 1
+                    Dim iParam As System.Data.IDataParameter = params(i)
+                    icomm.Parameters.Add(iParam)
+                Next
+
+                Return icomm.ExecuteNonQuery()
+
+            End Using
+
+            logMessage("getDataSetWithParams:" & sql)
 
         Finally
-            icomm.Dispose()
+            If Not Me.inTrans Then
+                dbconn.Close()
+            End If
         End Try
-        logMessage("getDataSetWithParams:" & sql)
 
-    End Sub
-
-
+    End Function
 
     ''' <summary>
-    ''' Executes an sql statement of type UPDATE, INSERT or DELETE, but allows for paramerized sql
+    ''' Executes an sql statement of type UPDATE, INSERT or DELETE, allows for paramerized sql
+    ''' Each parameter in the params Object array is converted into System.Data.IDataParameter
     ''' </summary>
-    ''' <param name="sql"></param>
-    ''' <param name="params"></param>
+    ''' <param name="sql">sql statement</param>
+    ''' <param name="params">object array of parameter values</param>
     ''' <remarks></remarks>
-    Public Sub executeSQLWithParams(ByVal sql As String, ByVal ParamArray params() As Object)
+    Public Function executeSQLWithParams(ByVal sql As String, ByVal ParamArray params() As Object) As Integer
 
-        Dim icomm As IDbCommand = Me.Connection.CreateCommand()
-        icomm.CommandText = replaceParameterPlaceHolders(sql, params)
-        icomm.Transaction = Me.Transaction
-        icomm.CommandType = CommandType.Text
-        Me.setParamValues(icomm, params)
-
+        Dim dbconn As IDbConnection = Me.Connection
         Try
-            icomm.ExecuteNonQuery()
 
+
+
+
+            If (dbconn.State <> ConnectionState.Open) Then dbconn.Open()
+
+            Using icomm As IDbCommand = dbconn.CreateCommand()
+
+                icomm.CommandText = replaceParameterPlaceHolders(sql, params)
+                If Me.inTrans Then
+                    icomm.Transaction = Me.Transaction
+                End If
+                icomm.CommandType = CommandType.Text
+                Me.setParamValues(icomm, params)
+                Return icomm.ExecuteNonQuery()
+
+            End Using
         Finally
-            icomm.Dispose()
+            If Not Me.inTrans Then
+                dbconn.Close()
+            End If
         End Try
 
-
-    End Sub
+    End Function
 
     Private Sub setParamValues(ByVal icomm As IDbCommand, ByVal ParamArray params() As Object)
+
+        If params Is Nothing Then Exit Sub
 
         For i As Integer = 0 To params.Length - 1
             Dim iParam As System.Data.IDataParameter
@@ -1123,105 +1143,80 @@ Public MustInherit Class DBUtils
 
         Dim icomm As IDbCommand
 
-        Try
 
-            icomm = Me.Connection.CreateCommand()
-            icomm.Transaction = Me.Transaction
-            icomm.CommandText = spSql
-            icomm.CommandType = CommandType.StoredProcedure
+        Using conn As IDbConnection = Me.Connection
+            Try
+                icomm = conn.CreateCommand()
+                icomm.Transaction = Me.Transaction
+                icomm.CommandText = spSql
+                icomm.CommandType = CommandType.StoredProcedure
 
-            For Each param As IDataParameter In spParams
-                icomm.Parameters.Add(param)
-            Next
-            icomm.ExecuteNonQuery()
+                For Each param As IDataParameter In spParams
+                    icomm.Parameters.Add(param)
+                Next
+                icomm.ExecuteNonQuery()
 
-            Me.p_params = Nothing
-            Me.p_params = icomm.Parameters
-            logMessage("Execute:" & spSql)
+                Me.p_params = Nothing
+                Me.p_params = icomm.Parameters
+                logMessage("Execute:" & spSql)
 
-        Catch e As Exception
-            Throw New ApplicationException(e.Message & vbCrLf & _
-                                           "Error SQL:" & getStmtAndParamsAsString(icomm))
+            Catch e As Exception
+                Throw New ApplicationException(e.Message & vbCrLf & _
+                                               "Error SQL:" & getStmtAndParamsAsString(icomm))
 
-        Finally
-            Me.closeConnection()
-            icomm.Dispose()
+            Finally
 
-        End Try
+                icomm.Dispose()
+
+            End Try
+        End Using
+
 
     End Sub
+
     ''' <summary>
-    ''' Executes an sql statement of type UPDATE, INSERT or DELETE
+    ''' Executes an sql statement of type UPDATE, INSERT or DELETE, no parameters
     ''' </summary>
-    ''' <param name="sql"></param>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public Function executeSQL(ByVal sql As String) As Boolean
-
-        Dim icomm As IDbCommand
-
-        Try
-
-            icomm = Me.Connection.CreateCommand()
-            icomm.Transaction = Me.Transaction
-            icomm.CommandText = sql
-            icomm.CommandType = CommandType.Text
-            icomm.ExecuteNonQuery()
-
-            logMessage("Execute:" & sql)
-
-        Catch e As Exception
-            Throw New ApplicationException(e.Message & vbCrLf & _
-                                           "Error SQL:" & getStmtAndParamsAsString(icomm))
-
-        Finally
-            Me.closeConnection()
-            icomm.Dispose()
-
-        End Try
-
+    Public Function executeSQL(ByVal sql As String) As Integer
+        Return Me.executeSQLWithParams(sql)
     End Function
+
     ''' <summary>
     ''' 
     ''' </summary>
     ''' <param name="sql"></param>
-    ''' <param name="spParams"></param>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
     Public Function getDataReader(ByVal sql As String, ByVal spParams As List(Of IDataParameter)) As IDataReader
 
         Dim rsado As IDataReader
-        Dim icomm As IDbCommand
 
-        Try
+        Dim conn As IDbConnection = Me.Connection
 
-            icomm = Me.Connection.CreateCommand()
-            icomm.CommandText = sql
-            icomm.CommandType = CommandType.Text
-            For Each param As IDataParameter In spParams
-                icomm.Parameters.Add(param)
-            Next
-            If Me.inTrans Then
-                icomm.Transaction = Me.Transaction
-                rsado = icomm.ExecuteReader(CommandBehavior.Default)
-            Else
-                rsado = icomm.ExecuteReader(CommandBehavior.CloseConnection)
-            End If
 
-            logMessage("getDataReader:" & sql)
-            icomm.Dispose()
-            icomm = Nothing
+        Using icomm As IDbCommand = conn.CreateCommand()
+            Try
+                If (conn.State <> ConnectionState.Open) Then conn.Open()
+                icomm.CommandText = sql
+                icomm.CommandType = CommandType.Text
+                For Each param As IDataParameter In spParams
+                    icomm.Parameters.Add(param)
+                Next
+                If Me.inTrans Then
+                    icomm.Transaction = Me.Transaction
+                    rsado = icomm.ExecuteReader(CommandBehavior.Default)
+                Else
+                    rsado = icomm.ExecuteReader(CommandBehavior.CloseConnection)
+                End If
 
-        Catch e As Exception
-            Throw New ApplicationException(e.Message & vbCrLf & _
-                                           "Error SQL:" & getStmtAndParamsAsString(icomm))
+                logMessage("getDataReader:" & sql)
 
-        Finally
-            If Not icomm Is Nothing Then
-                icomm.Dispose()
-            End If
+            Catch e As Exception
+                Throw New ApplicationException(e.Message & vbCrLf & _
+                                               "Error SQL:" & getStmtAndParamsAsString(icomm))
 
-        End Try
+
+            End Try
+        End Using
+
 
         Return rsado
 
@@ -1234,30 +1229,45 @@ Public MustInherit Class DBUtils
     ''' <param name="params"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    ''' 
     Public Function getDataReaderWithParams(ByVal sql As String, ByVal ParamArray params() As Object) As IDataReader
 
         Dim rs As IDataReader
-        Dim icomm As IDbCommand = Me.Connection.CreateCommand()
 
-        sql = replaceParameterPlaceHolders(sql, params)
+        Dim conn As IDbConnection = Me.Connection
 
-        icomm.CommandText = sql
-        icomm.Transaction = Me.Transaction
-        icomm.CommandType = CommandType.Text
+        If conn.State <> ConnectionState.Open Then
+            conn.Open()
+        End If
 
-        setParamValues(icomm, params)
-        Try
-            rs = icomm.ExecuteReader
+        Using icomm As IDbCommand = conn.CreateCommand()
+            If params IsNot Nothing Then
+                sql = replaceParameterPlaceHolders(sql, params)
+            End If
 
-        Catch e As Exception
-            Throw New ApplicationException(e.Message & vbCrLf & _
-                                           "Error SQL:" & getStmtAndParamsAsString(icomm))
+            icomm.CommandText = sql
+            icomm.CommandType = CommandType.Text
 
+            setParamValues(icomm, params)
+            Try
+                If Me.inTrans Then
+                    icomm.Transaction = Me.Transaction
+                    rs = icomm.ExecuteReader(CommandBehavior.Default)
+                Else
+                    rs = icomm.ExecuteReader(CommandBehavior.CloseConnection)
+                End If
 
-        Finally
-            icomm.Dispose()
-        End Try
+            Catch e As Exception
+                Throw New ApplicationException(e.Message & vbCrLf & _
+                                               "Error SQL:" & getStmtAndParamsAsString(icomm))
+            Finally
+                'NOTE: do not close database connection! see icomm.ExecuteReader(CommandBehavior) above!
+                'If Not Me.inTrans Then
+                '    conn.Close()
+                'End If
+            End Try
+
+        End Using
+
         logMessage("getDataReaderWithParams:" & sql)
         Return rs
 
@@ -1273,37 +1283,7 @@ Public MustInherit Class DBUtils
     ''' <remarks></remarks>
     Public Function getDataReader(ByVal sql As String) As IDataReader
 
-        Dim rsado As IDataReader
-        Dim icomm As IDbCommand
-
-        Try
-
-            icomm = Me.Connection.CreateCommand()
-            logMessage("getDataReader:" & sql)
-            icomm.CommandText = sql
-            icomm.CommandType = CommandType.Text
-
-            If Me.inTrans Then
-                Call logMessage("Close Connection")
-                icomm.Transaction = Me.Transaction
-                rsado = icomm.ExecuteReader(CommandBehavior.Default)
-            Else
-                rsado = icomm.ExecuteReader(CommandBehavior.CloseConnection)
-
-            End If
-
-        Catch e As Exception
-            Throw New ApplicationException(e.Message & vbCrLf & _
-                                           "Error SQL:" & getStmtAndParamsAsString(icomm))
-
-        Finally
-            If Not icomm Is Nothing Then
-                icomm.Dispose()
-            End If
-
-        End Try
-
-        Return rsado
+        Return getDataReaderWithParams(sql, Nothing)
 
     End Function
 
@@ -1384,7 +1364,6 @@ Public MustInherit Class DBUtils
             If disposing Then
                 logMessage("DBUtils Disposing...")
                 Me.rollbackTrans()
-                Me.closeConnection()
             End If
 
             ' TODO: free unmanaged resources (unmanaged objects) and override Finalize() below.

@@ -3,43 +3,10 @@ Imports System.Data.SqlClient
 Public Class MSSQLUtils
     Inherits DBUtils
 
-    Public Overrides Function fillTypedDataSet(ByVal ds As DataSet, _
-                                               ByVal tablename As String, _
-                                               ByVal sql As String) As DataSet
 
-        Dim adapter As SqlDataAdapter
+    Public Overrides Function getAdapter() As IDbDataAdapter
 
-        Try
-
-            adapter = DirectCast(Me.getAdapter(sql), SqlDataAdapter)
-            adapter.Fill(ds, tablename)
-
-        Catch ex As Exception
-            Throw New ApplicationException(ex.Message & vbCrLf & sql)
-        Finally
-            Me.closeConnection()
-        End Try
-
-        Return ds
-
-    End Function
-
-
-    Public Overrides Function getAdapter(ByVal sql As String) As IDbDataAdapter
-
-        Dim adapter As IDbDataAdapter
-        Try
-            adapter = New SqlDataAdapter(sql, DirectCast(Me.Connection, SqlClient.SqlConnection))
-            'Trace.TraceInformation(sql)
-        Catch ex As Exception
-            Throw
-
-        Finally
-            Me.closeConnection()
-
-        End Try
-
-        Return adapter
+        Return New SqlDataAdapter()
 
     End Function
 
@@ -48,22 +15,25 @@ Public Class MSSQLUtils
         Dim ds As New DataTable(stablename)
         Dim adapter As SqlDataAdapter
 
-        Try
+        Using conn As SqlConnection = DirectCast(Me.Connection, SqlClient.SqlConnection)
 
-            adapter = New SqlDataAdapter(sql, DirectCast(Me.Connection, SqlClient.SqlConnection))
-            If Me.inTrans Then
-                adapter.SelectCommand.Transaction = DirectCast(Me.Transaction, SqlClient.SqlTransaction)
-            End If
+            Try
 
-            adapter.Fill(ds)
+                adapter = New SqlDataAdapter(sql, conn)
+                If Me.inTrans Then
+                    adapter.SelectCommand.Transaction = DirectCast(Me.Transaction, SqlClient.SqlTransaction)
+                End If
 
-        Catch ex As Exception
-            Throw New ApplicationException(ex.Message & vbCrLf & sql)
+                adapter.Fill(ds)
 
-        Finally
+            Catch ex As Exception
+                Throw New ApplicationException(ex.Message & vbCrLf & sql)
 
-            Me.closeConnection()
-        End Try
+            Finally
+
+
+            End Try
+        End Using
 
         Return ds
 
@@ -79,28 +49,10 @@ Public Class MSSQLUtils
 
     End Sub
 
-    Public Overrides Property Connection() As IDbConnection
+    Protected Overrides ReadOnly Property ConnectionInternal() As IDbConnection
         Get
-
-            If p_Conn Is Nothing Then
-                p_Conn = New SqlConnection(p_connstring)
-            End If
-
-            If p_Conn.State <> ConnectionState.Open Then
-                p_Conn.Open()
-                Debug.WriteLine("Opening connection")
-            Else
-                Debug.WriteLine("In open connection: already open")
-            End If
-
-            Return p_Conn
-
-
+            Return New SqlConnection(p_connstring)
         End Get
-
-        Set(ByVal Value As IDbConnection)
-            p_Conn = Value
-        End Set
 
     End Property
 
@@ -117,5 +69,7 @@ Public Class MSSQLUtils
 
     End Function
 
-    
+    Public Overloads Overrides Function getCommand() As IDbCommand
+        Return New SqlCommand
+    End Function
 End Class

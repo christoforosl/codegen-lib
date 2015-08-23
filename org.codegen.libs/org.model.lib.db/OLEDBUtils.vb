@@ -11,45 +11,10 @@ Imports Microsoft.VisualBasic
 Public Class OLEDBUtils
     Inherits DBUtils
 
-  
 
-    Public Overrides Function fillTypedDataSet(ByVal ds As DataSet, _
-                                                  ByVal tablename As String, _
-                                                  ByVal sql As String) As DataSet
+    Public Overrides Function getAdapter() As IDbDataAdapter
 
-        Dim adapter As OleDbDataAdapter
-
-        Try
-
-            adapter = DirectCast(Me.getAdapter(sql), OleDbDataAdapter)
-            adapter.Fill(ds, tablename)
-
-        Catch ex As Exception
-            Throw New ApplicationException(ex.Message & vbCrLf & sql)
-        Finally
-            Me.closeConnection()
-        End Try
-
-        Return ds
-
-    End Function
-
-
-    Public Overrides Function getAdapter(ByVal sql As String) As IDbDataAdapter
-
-        Dim adapter As IDbDataAdapter
-        Try
-            adapter = New OleDbDataAdapter(sql, DirectCast(Me.Connection, OleDbConnection))
-            'Trace.TraceInformation(sql)
-        Catch ex As Exception
-            Throw
-
-        Finally
-            Me.closeConnection()
-
-        End Try
-
-        Return adapter
+        Return New OleDbDataAdapter()
 
     End Function
 
@@ -68,33 +33,17 @@ Public Class OLEDBUtils
 
             MyBase.paramPrefix = "@"
         End If
-        
+
 
     End Sub
 
-    
-    Public Overrides Property Connection() As IDbConnection
+
+    Protected Overrides ReadOnly Property ConnectionInternal() As IDbConnection
         Get
 
-            If p_Conn Is Nothing Then
-                p_Conn = New OleDbConnection(p_connstring)
-            End If
-
-            If p_Conn.State <> ConnectionState.Open Then
-                p_Conn.Open()
-                'Trace.TraceInformation("Open connection")
-            Else
-                'Trace.TraceInformation("On open connection: already open")
-            End If
-
-            Return p_Conn
-
+            Return New OleDbConnection(p_connstring)
 
         End Get
-
-        Set(ByVal Value As IDbConnection)
-            p_Conn = Value
-        End Set
 
     End Property
 
@@ -111,4 +60,7 @@ Public Class OLEDBUtils
 
     End Function
 
+    Public Overloads Overrides Function getCommand() As IDbCommand
+        Return New OleDbCommand
+    End Function
 End Class
