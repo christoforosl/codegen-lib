@@ -39,7 +39,7 @@ namespace GeneratorTests.VB {
         [NUnit.Framework.SetUp]
         public static void MyClassInitialize() {
 
-            org.model.lib.db.DBUtils.Current().ConnString="Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=modelTest;Data Source=.\\SQLEXPRESS";
+            org.model.lib.db.DBUtils.Current().ConnString="Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=modelTest;Data Source=.\\SQLEXPRESS2014";
             ModelContext.newForUnitTests();
         }
 

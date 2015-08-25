@@ -43,7 +43,7 @@ namespace CsModelObjects {
 		
 		[OnDeserialized]
         public void OnDeserializedMethod(StreamingContext context) {
-			if ( this.BankAccountInfoLoaded){
+			if ( this.BankAccountInfoLoaded &&  this._BankAccountInfo!=null){
 				this.IDChanged += this._BankAccountInfo.handleParentIdChanged;
 			}
 
@@ -364,7 +364,7 @@ namespace CsModelObjects {
 						
 			if ( this.BankAccountInfoLoaded) { return; }
 
-			if ( this._BankAccountInfo == null )  {
+			if ( this._BankAccountInfo == null && this.PrAccountid !=null)  {
 				//IMPORTANT: call setter here, not the private variable
 				this.PrBankAccountInfo = new CsModelMappers.AccountBankInfoDBMapper().findWhere("accountid=?", this.PrAccountid);
 				
@@ -373,8 +373,7 @@ namespace CsModelObjects {
 			//set the loaded flag here
 			this.BankAccountInfoLoaded = true;
             
-        } //End Sub
-
+        }
 		#endregion
 
 

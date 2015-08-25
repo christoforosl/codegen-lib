@@ -43,7 +43,7 @@ namespace <NAMESPACE> {
 		
 		[OnDeserialized]
         public void OnDeserializedMethod(StreamingContext context) {
-<OnDeserializedMethod>
+<ON_DESERIALIZED_METHOD>
         }
 
 		public override void loadObjectHierarchy() {

@@ -83,7 +83,7 @@ Namespace Tokens
     Public Class OnDeserializedMethodToken
         Inherits MultiLingualReplacementToken
         Sub New()
-            Me.StringToReplace = "OnDeserializedMethod"
+            Me.StringToReplace = "ON_DESERIALIZED_METHOD"
         End Sub
         Public Overrides Function getReplacementCodeCSharp(t As IObjectToGenerate) As String
 
@@ -94,7 +94,8 @@ Namespace Tokens
                 For Each association As Association In vec
                     If (Not association.isParent) Then
                         sb.Append(vbTab).Append(vbTab).Append(vbTab)
-                        sb.Append("if ( this.").Append(association.LoadedFlagVariableName()).Append("){").Append(vbCrLf)
+                        sb.Append("if ( this.").Append(association.LoadedFlagVariableName()).Append(" &&  this.")
+                        sb.Append(association.getVariableName()).Append("!=null){").Append(vbCrLf)
                         sb.Append(vbTab).Append(vbTab).Append(vbTab).Append(vbTab)
                         If (association.isCardinalityMany) Then
 

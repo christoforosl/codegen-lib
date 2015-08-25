@@ -41,7 +41,7 @@ partial class <MODEL_CLASS_NAME>
 	
 	<OnDeserialized>
     Public sub OnDeserializedMethod( context as StreamingContext)
-<OnDeserializedMethod>
+<ON_DESERIALIZED_METHOD>
     End Sub
 
 	Public Overrides sub loadObjectHierarchy()

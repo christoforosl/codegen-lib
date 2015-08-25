@@ -43,10 +43,10 @@ namespace CsModelObjects {
 		
 		[OnDeserialized]
         public void OnDeserializedMethod(StreamingContext context) {
-			if ( this.EmployeeInfoLoaded){
+			if ( this.EmployeeInfoLoaded &&  this._EmployeeInfo!=null){
 				this.IDChanged += this._EmployeeInfo.handleParentIdChanged;
 			}
-			if ( this.EmployeeProjectsLoaded){
+			if ( this.EmployeeProjectsLoaded &&  this._EmployeeProjects!=null){
 				foreach (CsModelObjects.EmployeeProject ep in this._EmployeeProjects) {
 					this.IDChanged += ep.handleParentIdChanged;
 				}
@@ -731,7 +731,7 @@ namespace CsModelObjects {
 						
 			if ( this.EmployeeInfoLoaded) { return; }
 
-			if ( this._EmployeeInfo == null )  {
+			if ( this._EmployeeInfo == null && this.PrEmployeeId !=null)  {
 				//IMPORTANT: call setter here, not the private variable
 				this.PrEmployeeInfo = new CsModelMappers.EmployeeInfoDBMapper().findWhere("EIEmployeeId=?", this.PrEmployeeId);
 				
@@ -740,8 +740,7 @@ namespace CsModelObjects {
 			//set the loaded flag here
 			this.EmployeeInfoLoaded = true;
             
-        } //End Sub
-
+        }
 		#endregion
 
 		

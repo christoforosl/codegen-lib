@@ -43,7 +43,7 @@ namespace CsModelObjects {
 		
 		[OnDeserialized]
         public void OnDeserializedMethod(StreamingContext context) {
-			if ( this.EmployeeProjectsLoaded){
+			if ( this.EmployeeProjectsLoaded &&  this._EmployeeProjects!=null){
 				foreach (CsModelObjects.EmployeeProject ep in this._EmployeeProjects) {
 					this.IDChanged += ep.handleParentIdChanged;
 				}
