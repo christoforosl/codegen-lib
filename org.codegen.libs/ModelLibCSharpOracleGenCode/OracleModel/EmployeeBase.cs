@@ -43,17 +43,17 @@ namespace OracleModel {
 		
 		[OnDeserialized]
         public void OnDeserializedMethod(StreamingContext context) {
-			if ( this.JobHistoryLoaded &&  this._JobHistory!=null){
+			if (this._JobHistory!=null){
 				foreach (OracleModel.JobHistory ep in this._JobHistory) {
 					this.IDChanged += ep.handleParentIdChanged;
 				}
 			}
-			if ( this.CoursesLoaded &&  this._Courses!=null){
+			if (this._Courses!=null){
 				foreach (OracleModel.EmployeeTrainingHistory ep in this._Courses) {
 					this.IDChanged += ep.handleParentIdChanged;
 				}
 			}
-			if ( this.TrainingHistoryLoaded &&  this._TrainingHistory!=null){
+			if (this._TrainingHistory!=null){
 				foreach (OracleModel.EmployeeTrainingHistory ep in this._TrainingHistory) {
 					this.IDChanged += ep.handleParentIdChanged;
 				}

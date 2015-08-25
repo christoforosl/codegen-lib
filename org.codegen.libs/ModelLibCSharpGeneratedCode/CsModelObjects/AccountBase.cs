@@ -43,7 +43,7 @@ namespace CsModelObjects {
 		
 		[OnDeserialized]
         public void OnDeserializedMethod(StreamingContext context) {
-			if ( this.BankAccountInfoLoaded &&  this._BankAccountInfo!=null){
+			if (this._BankAccountInfo!=null){
 				this.IDChanged += this._BankAccountInfo.handleParentIdChanged;
 			}
 

@@ -41,7 +41,7 @@ namespace GeneratorTests {
 		#endregion
 
 		[TestMethod]
-		public void dbMapperThreadTests() {
+		public void ModelContextThreadTests() {
 
 			List<Thread> ts = new List<Thread>();
 

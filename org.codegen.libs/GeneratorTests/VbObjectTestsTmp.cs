@@ -50,7 +50,7 @@ namespace GeneratorTests.VB {
         }
 
         [NUnit.Framework.Test]
-        public void testSerializationAndDeserialization() {
+        public void testCsSerializationAndDeserialization() {
             ModelContext.beginTrans();
             try {
 

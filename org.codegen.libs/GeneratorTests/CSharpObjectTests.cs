@@ -50,7 +50,7 @@ namespace GeneratorTests {
         }
 
         [TestMethod]
-        public void testSerializationAndDeserialization() {
+        public void testCsSerializationAndDeserialization() {
             ModelContext.beginTrans();
             try {
 

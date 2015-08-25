@@ -94,7 +94,8 @@ Namespace Tokens
                 For Each association As Association In vec
                     If (Not association.isParent) Then
                         sb.Append(vbTab).Append(vbTab).Append(vbTab)
-                        sb.Append("if ( this.").Append(association.LoadedFlagVariableName()).Append(" &&  this.")
+                        'this.").Append(association.LoadedFlagVariableName()).Append(" && 
+                        sb.Append("if (this.")
                         sb.Append(association.getVariableName()).Append("!=null){").Append(vbCrLf)
                         sb.Append(vbTab).Append(vbTab).Append(vbTab).Append(vbTab)
                         If (association.isCardinalityMany) Then
@@ -130,7 +131,7 @@ Namespace Tokens
                 For Each association As Association In vec
                     If (Not association.isParent) Then
                         sb.Append(vbTab).Append(vbTab).Append(vbTab)
-                        sb.Append("if ( me.").Append(association.LoadedFlagVariableName()).Append(") Then").Append(vbCrLf)
+                        sb.Append("if me.").Append(association.getVariableName()).Append(" isNot Nothing Then").Append(vbCrLf)
                         sb.Append(vbTab).Append(vbTab).Append(vbTab).Append(vbTab)
                         If (association.isCardinalityMany) Then
 
