@@ -38,10 +38,16 @@ partial class <MODEL_CLASS_NAME>
 #End Region
 
 #Region "Children and Parents"
-	
+	<OnDeserializing>
+    Public sub OnDeserializingMethod(context as StreamingContext) 
+		me.IsObjectLoading = true
+    End Sub
+
 	<OnDeserialized>
     Public sub OnDeserializedMethod( context as StreamingContext)
 <ON_DESERIALIZED_METHOD>
+		me.IsObjectLoading = false
+		me.isDirty = true
     End Sub
 
 	Public Overrides sub loadObjectHierarchy()

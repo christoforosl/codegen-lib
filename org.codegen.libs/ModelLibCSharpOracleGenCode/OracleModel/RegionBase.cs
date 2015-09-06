@@ -41,9 +41,16 @@ namespace OracleModel {
 
 		#region "Children and Parents"
 		
+		[OnDeserializing]
+        public void OnDeserializingMethod(StreamingContext context) {
+            this.IsObjectLoading = true;
+        }
+
 		[OnDeserialized]
         public void OnDeserializedMethod(StreamingContext context) {
 
+			this.IsObjectLoading = false;
+			this.isDirty = true;
         }
 
 		public override void loadObjectHierarchy() {
@@ -106,44 +113,46 @@ namespace OracleModel {
 		#region "Field Properties"
 
 		//Field REGION_ID
-	[Required][Column(Name="REGION_ID",Storage = "_RegionId", IsPrimaryKey=true,DbType = " NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.Int64 PrRegionId{
-	get{
-		return _RegionId;
-	}
-	set {
-		if (ModelObject.valueChanged(_RegionId, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_REGION_ID);
+		[Required]
+		[Column(Name="REGION_ID",Storage = "_RegionId", IsPrimaryKey=true,DbType = " NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.Int64 PrRegionId{
+			get{			
+				return _RegionId;
 			}
-		this._RegionId = value;
-
-			this.raiseBroadcastIdChange();
-
+			set {
+				if (ModelObject.valueChanged(_RegionId, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_REGION_ID);
+					}
+					this._RegionId = value;
+					this.raiseBroadcastIdChange();
+				}
+			}
 		}
-		}
-	}
 		//Field REGION_NAME
-	[Key][StringLength(25, ErrorMessage="REGION_NAME must be 25 characters or less")][Column(Name="REGION_NAME",Storage = "_RegionName", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.String PrRegionName{
-	get{
-		return _RegionName;
-	}
-	set {
-		if (ModelObject.valueChanged(_RegionName, value)){
-		if (value != null && value.Length > 25){
-			throw new ModelObjectFieldTooLongException("REGION_NAME");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_REGION_NAME);
+		[Key]
+		[StringLength(25, ErrorMessage="REGION_NAME must be 25 characters or less")]
+		[Column(Name="REGION_NAME",Storage = "_RegionName", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String PrRegionName{
+			get{			
+				return _RegionName;
 			}
-		this._RegionName = value;
-
+			set {
+				if (ModelObject.valueChanged(_RegionName, value)){
+					if (value != null && value.Length > 25){
+						throw new ModelObjectFieldTooLongException("REGION_NAME");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_REGION_NAME);
+					}
+					this._RegionName = value;
+				}
+			}
 		}
-		}
-	}
 
 		#endregion
 

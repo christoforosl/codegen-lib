@@ -41,9 +41,16 @@ namespace <NAMESPACE> {
 
 		#region "Children and Parents"
 		
+		[OnDeserializing]
+        public void OnDeserializingMethod(StreamingContext context) {
+            this.IsObjectLoading = true;
+        }
+
 		[OnDeserialized]
         public void OnDeserializedMethod(StreamingContext context) {
 <ON_DESERIALIZED_METHOD>
+			this.IsObjectLoading = false;
+			this.isDirty = true;
         }
 
 		public override void loadObjectHierarchy() {

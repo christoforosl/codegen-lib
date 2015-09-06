@@ -41,6 +41,11 @@ namespace CsModelObjects {
 
 		#region "Children and Parents"
 		
+		[OnDeserializing]
+        public void OnDeserializingMethod(StreamingContext context) {
+            this.IsObjectLoading = true;
+        }
+
 		[OnDeserialized]
         public void OnDeserializedMethod(StreamingContext context) {
 			if (this._EmployeeProjects!=null){
@@ -49,6 +54,8 @@ namespace CsModelObjects {
 				}
 			}
 
+			this.IsObjectLoading = false;
+			this.isDirty = true;
         }
 
 		public override void loadObjectHierarchy() {
@@ -130,78 +137,84 @@ namespace CsModelObjects {
 		#region "Field Properties"
 
 		//Field ProjectId
-	[Required][Column(Name="ProjectId",Storage = "_ProjectId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.Int64 PrProjectId{
-	get{
-		return _ProjectId;
-	}
-	set {
-		if (ModelObject.valueChanged(_ProjectId, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_PROJECTID);
+		[Required]
+		[Column(Name="ProjectId",Storage = "_ProjectId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.Int64 PrProjectId{
+			get{			
+				return _ProjectId;
 			}
-		this._ProjectId = value;
-
-			this.raiseBroadcastIdChange();
-
+			set {
+				if (ModelObject.valueChanged(_ProjectId, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_PROJECTID);
+					}
+					this._ProjectId = value;
+					this.raiseBroadcastIdChange();
+				}
+			}
 		}
-		}
-	}
 		//Field ProjectName
-	[Key][Required][StringLength(250, ErrorMessage="ProjectName must be 250 characters or less")][Column(Name="ProjectName",Storage = "_ProjectName", IsPrimaryKey=false,DbType = "nvarchar NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.String PrProjectName{
-	get{
-		return _ProjectName;
-	}
-	set {
-		if (ModelObject.valueChanged(_ProjectName, value)){
-		if (value != null && value.Length > 250){
-			throw new ModelObjectFieldTooLongException("ProjectName");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_PROJECTNAME);
+		[Key]
+		[Required]
+		[StringLength(250, ErrorMessage="ProjectName must be 250 characters or less")]
+		[Column(Name="ProjectName",Storage = "_ProjectName", IsPrimaryKey=false,DbType = "nvarchar NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.String PrProjectName{
+			get{			
+				return _ProjectName;
 			}
-		this._ProjectName = value;
-
+			set {
+				if (ModelObject.valueChanged(_ProjectName, value)){
+					if (value != null && value.Length > 250){
+						throw new ModelObjectFieldTooLongException("ProjectName");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_PROJECTNAME);
+					}
+					this._ProjectName = value;
+				}
+			}
 		}
-		}
-	}
 		//Field isActive
-	[Key][Required][Column(Name="isActive",Storage = "_IsActive", IsPrimaryKey=false,DbType = "int NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual bool PrIsActive{
-	get{
-		return _IsActive.GetValueOrDefault() != 0 ? true: false;
-	}
-	set {
-		if (ModelObject.valueChanged(_IsActive, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_ISACTIVE);
+		[Key]
+		[Required]
+		[Column(Name="isActive",Storage = "_IsActive", IsPrimaryKey=false,DbType = "int NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual bool PrIsActive{
+			get{			
+				return _IsActive.GetValueOrDefault() != 0 ? true: false;
 			}
-		this._IsActive = value ? 1 : 0;
-
+			set {
+				if (ModelObject.valueChanged(_IsActive, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_ISACTIVE);
+					}
+					this._IsActive = value ? 1 : 0;
+				}
+			}
 		}
-		}
-	}
 		//Field ProjectTypeId
-	[Key][Column(Name="ProjectTypeId",Storage = "_ProjectTypeId", IsPrimaryKey=false,DbType = "int",CanBeNull = true)]
-	[DataMember]public virtual EnumProjectType? PrProjectTypeId{
-	get{
-		return (EnumProjectType?)_ProjectTypeId;
-	}
-	set {
-		if (ModelObject.valueChanged(_ProjectTypeId, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_PROJECTTYPEID);
+		[Key]
+		[Column(Name="ProjectTypeId",Storage = "_ProjectTypeId", IsPrimaryKey=false,DbType = "int",CanBeNull = true)]
+		[DataMember]
+		public virtual EnumProjectType? PrProjectTypeId{
+			get{			
+				return (EnumProjectType?)_ProjectTypeId;
 			}
-		this._ProjectTypeId=(System.Int64?)value;
-
+			set {
+				if (ModelObject.valueChanged(_ProjectTypeId, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_PROJECTTYPEID);
+					}
+					this._ProjectTypeId=(System.Int64?)value;
+				}
+			}
 		}
-		}
-	}
 		#endregion
 		#region "Associations"
 		

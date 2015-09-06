@@ -12,7 +12,6 @@ using System.Threading;
 using System.Globalization;
 using org.model.lib.db;
 using Newtonsoft.Json;
-using System.Web.Script.Serialization;
 using System.Diagnostics;
 
 namespace GeneratorTests {
@@ -38,8 +37,6 @@ namespace GeneratorTests {
         /// Use ClassInitialize to run code before running the first test in the class
         [ClassInitialize()]
         public static void MyClassInitialize(TestContext testContext) {
-
-            //DBUtils.Current().ConnString=
             ModelContext.newForUnitTests();
         }
 
@@ -50,7 +47,7 @@ namespace GeneratorTests {
         }
 
         [TestMethod]
-        public void testCsSerializationAndDeserialization() {
+        public void testCSharpSerializationAndDeserialization() {
             ModelContext.beginTrans();
             try {
 
@@ -116,8 +113,43 @@ namespace GeneratorTests {
             }
         }
 
+        /// <summary>
+        /// Test case: Object is completely loaded.  There exists 
+        /// 1-1 associations between this object and other tables.  
+        /// The association objects are loaded.
+        /// if any of the link fields change, we need to reload associated object
+        /// </summary>
         [TestMethod]
-        public void createCsRecords() {
+        public void testCSharpUpdateOfParentIds() {
+            ModelContext.beginTrans();
+            try {
+                Employee employee = EmployeeDataUtils.findByKey(1);
+                Assert.IsNotNull(employee);
+                employee.loadObjectHierarchy();
+                employee.PrEmployeeRankId = 1; // set to "president"
+                EmployeeDataUtils.saveEmployee(employee);
+
+                employee = EmployeeDataUtils.findByKey(1); // reload from db
+                employee.loadObjectHierarchy();
+                Assert.IsTrue( employee.PrEmployeeRankId == 1, "Employee must be PrEmployeeRankId=1"); // president 
+                Assert.IsTrue(employee.PrRank.PrRankId == 1, "Employee PrRank related object must be of PrRankId = 1"); // president 
+
+                employee.PrEmployeeRankId = 2; // modify to "Associate Consultant"
+                Assert.IsTrue(employee.PrEmployeeRankId == 2, "Employee must be PrEmployeeRankId=2"); 
+                Assert.IsTrue(employee.PrRank.PrRankId == 2, "Employee PrRank related object must be of PrRankId =2");
+                EmployeeDataUtils.saveEmployee(employee);
+
+                employee = EmployeeDataUtils.findByKey(1); // reload from db
+                Assert.IsTrue(employee.PrEmployeeRankId == 2, "Employee must be PrEmployeeRankId=2"); 
+
+            } finally {
+                ModelContext.rollbackTrans();
+            }
+
+        }
+
+        [TestMethod]
+        public void testCSharpCreateRecords() {
 
             ModelContext.Current.config.DoCascadeDeletes = true;
             ModelContext.beginTrans();
@@ -149,7 +181,6 @@ namespace GeneratorTests {
                 emplProj.PrEPProjectId = 1;
                 emplProj.PrProject = ProjectFactory.Create();
                 emplProj.PrProject.PrProjectName = "MyProject";
-
 
                 Assert.IsTrue(employee.isNew);
                 Assert.IsTrue(employee.isDirty);

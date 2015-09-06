@@ -41,9 +41,16 @@ namespace CsModelObjects {
 
 		#region "Children and Parents"
 		
+		[OnDeserializing]
+        public void OnDeserializingMethod(StreamingContext context) {
+            this.IsObjectLoading = true;
+        }
+
 		[OnDeserialized]
         public void OnDeserializedMethod(StreamingContext context) {
 
+			this.IsObjectLoading = false;
+			this.isDirty = true;
         }
 
 		public override void loadObjectHierarchy() {
@@ -106,47 +113,51 @@ namespace CsModelObjects {
 		#region "Field Properties"
 
 		//Field EmployeeTypeCode
-	[Required][StringLength(10, ErrorMessage="EmployeeTypeCode must be 10 characters or less")][Column(Name="EmployeeTypeCode",Storage = "_EmployeeTypeCode", IsPrimaryKey=true,DbType = "varchar NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.String PrEmployeeTypeCode{
-	get{
-		return _EmployeeTypeCode;
-	}
-	set {
-		if (ModelObject.valueChanged(_EmployeeTypeCode, value)){
-		if (value != null && value.Length > 10){
-			throw new ModelObjectFieldTooLongException("EmployeeTypeCode");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_EMPLOYEETYPECODE);
+		[Required]
+		[StringLength(10, ErrorMessage="EmployeeTypeCode must be 10 characters or less")]
+		[Column(Name="EmployeeTypeCode",Storage = "_EmployeeTypeCode", IsPrimaryKey=true,DbType = "varchar NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.String PrEmployeeTypeCode{
+			get{			
+				return _EmployeeTypeCode;
 			}
-		this._EmployeeTypeCode = value;
-
-			this.raiseBroadcastIdChange();
-
+			set {
+				if (ModelObject.valueChanged(_EmployeeTypeCode, value)){
+					if (value != null && value.Length > 10){
+						throw new ModelObjectFieldTooLongException("EmployeeTypeCode");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_EMPLOYEETYPECODE);
+					}
+					this._EmployeeTypeCode = value;
+					this.raiseBroadcastIdChange();
+				}
+			}
 		}
-		}
-	}
 		//Field EmployeeType
-	[Key][Required][StringLength(50, ErrorMessage="EmployeeType must be 50 characters or less")][Column(Name="EmployeeType",Storage = "_EmployeeType", IsPrimaryKey=false,DbType = "nvarchar NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.String PrEmployeeType{
-	get{
-		return _EmployeeType;
-	}
-	set {
-		if (ModelObject.valueChanged(_EmployeeType, value)){
-		if (value != null && value.Length > 50){
-			throw new ModelObjectFieldTooLongException("EmployeeType");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_EMPLOYEETYPE);
+		[Key]
+		[Required]
+		[StringLength(50, ErrorMessage="EmployeeType must be 50 characters or less")]
+		[Column(Name="EmployeeType",Storage = "_EmployeeType", IsPrimaryKey=false,DbType = "nvarchar NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.String PrEmployeeType{
+			get{			
+				return _EmployeeType;
 			}
-		this._EmployeeType = value;
-
+			set {
+				if (ModelObject.valueChanged(_EmployeeType, value)){
+					if (value != null && value.Length > 50){
+						throw new ModelObjectFieldTooLongException("EmployeeType");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_EMPLOYEETYPE);
+					}
+					this._EmployeeType = value;
+				}
+			}
 		}
-		}
-	}
 
 		#endregion
 

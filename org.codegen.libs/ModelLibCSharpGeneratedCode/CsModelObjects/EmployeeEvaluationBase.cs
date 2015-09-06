@@ -41,9 +41,16 @@ namespace CsModelObjects {
 
 		#region "Children and Parents"
 		
+		[OnDeserializing]
+        public void OnDeserializingMethod(StreamingContext context) {
+            this.IsObjectLoading = true;
+        }
+
 		[OnDeserialized]
         public void OnDeserializedMethod(StreamingContext context) {
 
+			this.IsObjectLoading = false;
+			this.isDirty = true;
         }
 
 		public override void loadObjectHierarchy() {
@@ -112,75 +119,78 @@ namespace CsModelObjects {
 		#region "Field Properties"
 
 		//Field Employee_Evaluation_Id
-	[Required][Column(Name="Employee_Evaluation_Id",Storage = "_EmployeeEvaluationId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.Int64 PrEmployeeEvaluationId{
-	get{
-		return _EmployeeEvaluationId;
-	}
-	set {
-		if (ModelObject.valueChanged(_EmployeeEvaluationId, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_EMPLOYEE_EVALUATION_ID);
+		[Required]
+		[Column(Name="Employee_Evaluation_Id",Storage = "_EmployeeEvaluationId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.Int64 PrEmployeeEvaluationId{
+			get{			
+				return _EmployeeEvaluationId;
 			}
-		this._EmployeeEvaluationId = value;
-
-			this.raiseBroadcastIdChange();
-
+			set {
+				if (ModelObject.valueChanged(_EmployeeEvaluationId, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_EMPLOYEE_EVALUATION_ID);
+					}
+					this._EmployeeEvaluationId = value;
+					this.raiseBroadcastIdChange();
+				}
+			}
 		}
-		}
-	}
 		//Field evaluator_id
-	[Key][Column(Name="evaluator_id",Storage = "_EvaluatorId", IsPrimaryKey=false,DbType = "int",CanBeNull = true)]
-	[DataMember]public virtual System.Int64? PrEvaluatorId{
-	get{
-		return _EvaluatorId;
-	}
-	set {
-		if (ModelObject.valueChanged(_EvaluatorId, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_EVALUATOR_ID);
+		[Key]
+		[Column(Name="evaluator_id",Storage = "_EvaluatorId", IsPrimaryKey=false,DbType = "int",CanBeNull = true)]
+		[DataMember]
+		public virtual System.Int64? PrEvaluatorId{
+			get{			
+				return _EvaluatorId;
 			}
-		this._EvaluatorId = value;
-
+			set {
+				if (ModelObject.valueChanged(_EvaluatorId, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_EVALUATOR_ID);
+					}
+					this._EvaluatorId = value;
+				}
+			}
 		}
-		}
-	}
 		//Field evaluation_date
-	[Key][Column(Name="evaluation_date",Storage = "_EvaluationDate", IsPrimaryKey=false,DbType = "datetime",CanBeNull = true)]
-	[DataMember]public virtual System.DateTime? PrEvaluationDate{
-	get{
-		return _EvaluationDate;
-	}
-	set {
-		if (ModelObject.valueChanged(_EvaluationDate, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_EVALUATION_DATE);
+		[Key]
+		[Column(Name="evaluation_date",Storage = "_EvaluationDate", IsPrimaryKey=false,DbType = "datetime",CanBeNull = true)]
+		[DataMember]
+		public virtual System.DateTime? PrEvaluationDate{
+			get{			
+				return _EvaluationDate;
 			}
-		this._EvaluationDate = value;
-
+			set {
+				if (ModelObject.valueChanged(_EvaluationDate, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_EVALUATION_DATE);
+					}
+					this._EvaluationDate = value;
+				}
+			}
 		}
-		}
-	}
 		//Field employee_id
-	[Key][Column(Name="employee_id",Storage = "_EmployeeId", IsPrimaryKey=false,DbType = "int",CanBeNull = true)]
-	[DataMember]public virtual System.Int64? PrEmployeeId{
-	get{
-		return _EmployeeId;
-	}
-	set {
-		if (ModelObject.valueChanged(_EmployeeId, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_EMPLOYEE_ID);
+		[Key]
+		[Column(Name="employee_id",Storage = "_EmployeeId", IsPrimaryKey=false,DbType = "int",CanBeNull = true)]
+		[DataMember]
+		public virtual System.Int64? PrEmployeeId{
+			get{			
+				return _EmployeeId;
 			}
-		this._EmployeeId = value;
-
+			set {
+				if (ModelObject.valueChanged(_EmployeeId, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_EMPLOYEE_ID);
+					}
+					this._EmployeeId = value;
+				}
+			}
 		}
-		}
-	}
 
 		#endregion
 

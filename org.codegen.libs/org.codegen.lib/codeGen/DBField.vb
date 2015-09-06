@@ -141,7 +141,7 @@ Public Class DBField
 
     Public Overridable Function getProperty() As String Implements IDBField.getProperty
 
-        Return ModelGenerator.Current.IPropertyGenerator.generateCode(Me)
+        Return ModelGenerator.Current.IPropertyGenerator.generatePropertyCode(Me)
 
     End Function
 

@@ -289,6 +289,7 @@ Public Class Association
         stmpl = stmpl.Replace("<prop_prefix>", ModelGenerator.Current.FieldPropertyPrefix)
         stmpl = stmpl.Replace("<association_name>", Me.associationName)
         stmpl = stmpl.Replace("<property_name>", Me.PropertyName)
+        stmpl = stmpl.Replace("<child_field>", "_" & Me.ChildField.RuntimeFieldName)
         stmpl = stmpl.Replace("<db_mapper>", _
                 Me.GetAssociatedMapperClassName)
         stmpl = stmpl.Replace("<datatype>", Me.DataType)
@@ -298,8 +299,8 @@ Public Class Association
         stmpl = stmpl.Replace("<child_field_runtime_as_integer>", _
                               "CInt(this." & Me.ChildField.PropertyName & ")")
 
-        stmpl = stmpl.Replace("<child_field>", Me.ChildFieldName)
-        stmpl = stmpl.Replace("<parent_field>", Me.ParentFieldName)
+        stmpl = stmpl.Replace("<child_db_field>", Me.ChildFieldName)
+        'stmpl = stmpl.Replace("<parent_field>", Me.ParentFieldName)
         stmpl = stmpl.Replace("<implements>", String.Empty)
         stmpl = stmpl.Replace("<iface>", String.Empty)
         sb.Append(stmpl)

@@ -41,9 +41,16 @@ namespace OracleModel {
 
 		#region "Children and Parents"
 		
+		[OnDeserializing]
+        public void OnDeserializingMethod(StreamingContext context) {
+            this.IsObjectLoading = true;
+        }
+
 		[OnDeserialized]
         public void OnDeserializedMethod(StreamingContext context) {
 
+			this.IsObjectLoading = false;
+			this.isDirty = true;
         }
 
 		public override void loadObjectHierarchy() {
@@ -109,67 +116,72 @@ namespace OracleModel {
 		#region "Field Properties"
 
 		//Field CODE
-	[Required][StringLength(5, ErrorMessage="CODE must be 5 characters or less")][Column(Name="CODE",Storage = "_CODE", IsPrimaryKey=true,DbType = " NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.String PrCODE{
-	get{
-		return _CODE;
-	}
-	set {
-		if (ModelObject.valueChanged(_CODE, value)){
-		if (value != null && value.Length > 5){
-			throw new ModelObjectFieldTooLongException("CODE");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_CODE);
+		[Required]
+		[StringLength(5, ErrorMessage="CODE must be 5 characters or less")]
+		[Column(Name="CODE",Storage = "_CODE", IsPrimaryKey=true,DbType = " NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.String PrCODE{
+			get{			
+				return _CODE;
 			}
-		this._CODE = value;
-
-			this.raiseBroadcastIdChange();
-
+			set {
+				if (ModelObject.valueChanged(_CODE, value)){
+					if (value != null && value.Length > 5){
+						throw new ModelObjectFieldTooLongException("CODE");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_CODE);
+					}
+					this._CODE = value;
+					this.raiseBroadcastIdChange();
+				}
+			}
 		}
-		}
-	}
 		//Field DESCR_GR
-	[Key][StringLength(100, ErrorMessage="DESCR_GR must be 100 characters or less")][Column(Name="DESCR_GR",Storage = "_DescrGr", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.String PrDescrGr{
-	get{
-		return _DescrGr;
-	}
-	set {
-		if (ModelObject.valueChanged(_DescrGr, value)){
-		if (value != null && value.Length > 100){
-			throw new ModelObjectFieldTooLongException("DESCR_GR");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_DESCR_GR);
+		[Key]
+		[StringLength(100, ErrorMessage="DESCR_GR must be 100 characters or less")]
+		[Column(Name="DESCR_GR",Storage = "_DescrGr", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String PrDescrGr{
+			get{			
+				return _DescrGr;
 			}
-		this._DescrGr = value;
-
+			set {
+				if (ModelObject.valueChanged(_DescrGr, value)){
+					if (value != null && value.Length > 100){
+						throw new ModelObjectFieldTooLongException("DESCR_GR");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_DESCR_GR);
+					}
+					this._DescrGr = value;
+				}
+			}
 		}
-		}
-	}
 		//Field DESCR_EN
-	[Key][StringLength(100, ErrorMessage="DESCR_EN must be 100 characters or less")][Column(Name="DESCR_EN",Storage = "_DescrEn", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.String PrDescrEn{
-	get{
-		return _DescrEn;
-	}
-	set {
-		if (ModelObject.valueChanged(_DescrEn, value)){
-		if (value != null && value.Length > 100){
-			throw new ModelObjectFieldTooLongException("DESCR_EN");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_DESCR_EN);
+		[Key]
+		[StringLength(100, ErrorMessage="DESCR_EN must be 100 characters or less")]
+		[Column(Name="DESCR_EN",Storage = "_DescrEn", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String PrDescrEn{
+			get{			
+				return _DescrEn;
 			}
-		this._DescrEn = value;
-
+			set {
+				if (ModelObject.valueChanged(_DescrEn, value)){
+					if (value != null && value.Length > 100){
+						throw new ModelObjectFieldTooLongException("DESCR_EN");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_DESCR_EN);
+					}
+					this._DescrEn = value;
+				}
+			}
 		}
-		}
-	}
 
 		#endregion
 

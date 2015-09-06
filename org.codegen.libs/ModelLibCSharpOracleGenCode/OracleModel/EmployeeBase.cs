@@ -41,12 +41,20 @@ namespace OracleModel {
 
 		#region "Children and Parents"
 		
+		[OnDeserializing]
+        public void OnDeserializingMethod(StreamingContext context) {
+            this.IsObjectLoading = true;
+        }
+
 		[OnDeserialized]
         public void OnDeserializedMethod(StreamingContext context) {
 			if (this._JobHistory!=null){
 				foreach (OracleModel.JobHistory ep in this._JobHistory) {
 					this.IDChanged += ep.handleParentIdChanged;
 				}
+			}
+			if (this._Department!=null){
+				this._Department.IDChanged += this.handleParentIdChanged;
 			}
 			if (this._Courses!=null){
 				foreach (OracleModel.EmployeeTrainingHistory ep in this._Courses) {
@@ -59,6 +67,8 @@ namespace OracleModel {
 				}
 			}
 
+			this.IsObjectLoading = false;
+			this.isDirty = true;
         }
 
 		public override void loadObjectHierarchy() {
@@ -223,460 +233,502 @@ namespace OracleModel {
 		#region "Field Properties"
 
 		//Field EMPLOYEE_ID
-	[Required][Column(Name="EMPLOYEE_ID",Storage = "_EmployeeId", IsPrimaryKey=true,DbType = " NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.Int64 PrEmployeeId{
-	get{
-		return _EmployeeId;
-	}
-	set {
-		if (ModelObject.valueChanged(_EmployeeId, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_EMPLOYEE_ID);
+		[Required]
+		[Column(Name="EMPLOYEE_ID",Storage = "_EmployeeId", IsPrimaryKey=true,DbType = " NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.Int64 PrEmployeeId{
+			get{			
+				return _EmployeeId;
 			}
-		this._EmployeeId = value;
-
-			this.raiseBroadcastIdChange();
-
+			set {
+				if (ModelObject.valueChanged(_EmployeeId, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_EMPLOYEE_ID);
+					}
+					this._EmployeeId = value;
+					this.raiseBroadcastIdChange();
+				}
+			}
 		}
-		}
-	}
 		//Field FIRST_NAME
-	[Key][StringLength(20, ErrorMessage="FIRST_NAME must be 20 characters or less")][Column(Name="FIRST_NAME",Storage = "_FirstName", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.String PrFirstName{
-	get{
-		return _FirstName;
-	}
-	set {
-		if (ModelObject.valueChanged(_FirstName, value)){
-		if (value != null && value.Length > 20){
-			throw new ModelObjectFieldTooLongException("FIRST_NAME");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_FIRST_NAME);
+		[Key]
+		[StringLength(20, ErrorMessage="FIRST_NAME must be 20 characters or less")]
+		[Column(Name="FIRST_NAME",Storage = "_FirstName", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String PrFirstName{
+			get{			
+				return _FirstName;
 			}
-		this._FirstName = value;
-
+			set {
+				if (ModelObject.valueChanged(_FirstName, value)){
+					if (value != null && value.Length > 20){
+						throw new ModelObjectFieldTooLongException("FIRST_NAME");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_FIRST_NAME);
+					}
+					this._FirstName = value;
+				}
+			}
 		}
-		}
-	}
 		//Field LAST_NAME
-	[Key][Required][StringLength(25, ErrorMessage="LAST_NAME must be 25 characters or less")][Column(Name="LAST_NAME",Storage = "_LastName", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.String PrLastName{
-	get{
-		return _LastName;
-	}
-	set {
-		if (ModelObject.valueChanged(_LastName, value)){
-		if (value != null && value.Length > 25){
-			throw new ModelObjectFieldTooLongException("LAST_NAME");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_LAST_NAME);
+		[Key]
+		[Required]
+		[StringLength(25, ErrorMessage="LAST_NAME must be 25 characters or less")]
+		[Column(Name="LAST_NAME",Storage = "_LastName", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.String PrLastName{
+			get{			
+				return _LastName;
 			}
-		this._LastName = value;
-
+			set {
+				if (ModelObject.valueChanged(_LastName, value)){
+					if (value != null && value.Length > 25){
+						throw new ModelObjectFieldTooLongException("LAST_NAME");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_LAST_NAME);
+					}
+					this._LastName = value;
+				}
+			}
 		}
-		}
-	}
 		//Field EMAIL
-	[Key][Required][StringLength(25, ErrorMessage="EMAIL must be 25 characters or less")][Column(Name="EMAIL",Storage = "_EMAIL", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.String PrEMAIL{
-	get{
-		return _EMAIL;
-	}
-	set {
-		if (ModelObject.valueChanged(_EMAIL, value)){
-		if (value != null && value.Length > 25){
-			throw new ModelObjectFieldTooLongException("EMAIL");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_EMAIL);
+		[Key]
+		[Required]
+		[StringLength(25, ErrorMessage="EMAIL must be 25 characters or less")]
+		[Column(Name="EMAIL",Storage = "_EMAIL", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.String PrEMAIL{
+			get{			
+				return _EMAIL;
 			}
-		this._EMAIL = value;
-
+			set {
+				if (ModelObject.valueChanged(_EMAIL, value)){
+					if (value != null && value.Length > 25){
+						throw new ModelObjectFieldTooLongException("EMAIL");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_EMAIL);
+					}
+					this._EMAIL = value;
+				}
+			}
 		}
-		}
-	}
 		//Field PHONE_NUMBER
-	[Key][StringLength(20, ErrorMessage="PHONE_NUMBER must be 20 characters or less")][Column(Name="PHONE_NUMBER",Storage = "_PhoneNumber", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.String PrPhoneNumber{
-	get{
-		return _PhoneNumber;
-	}
-	set {
-		if (ModelObject.valueChanged(_PhoneNumber, value)){
-		if (value != null && value.Length > 20){
-			throw new ModelObjectFieldTooLongException("PHONE_NUMBER");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_PHONE_NUMBER);
+		[Key]
+		[StringLength(20, ErrorMessage="PHONE_NUMBER must be 20 characters or less")]
+		[Column(Name="PHONE_NUMBER",Storage = "_PhoneNumber", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String PrPhoneNumber{
+			get{			
+				return _PhoneNumber;
 			}
-		this._PhoneNumber = value;
-
+			set {
+				if (ModelObject.valueChanged(_PhoneNumber, value)){
+					if (value != null && value.Length > 20){
+						throw new ModelObjectFieldTooLongException("PHONE_NUMBER");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_PHONE_NUMBER);
+					}
+					this._PhoneNumber = value;
+				}
+			}
 		}
-		}
-	}
 		//Field HIRE_DATE
-	[Key][Required][Column(Name="HIRE_DATE",Storage = "_HireDate", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.DateTime? PrHireDate{
-	get{
-		return _HireDate;
-	}
-	set {
-		if (ModelObject.valueChanged(_HireDate, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_HIRE_DATE);
+		[Key]
+		[Required]
+		[Column(Name="HIRE_DATE",Storage = "_HireDate", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.DateTime? PrHireDate{
+			get{			
+				return _HireDate;
 			}
-		this._HireDate = value;
-
+			set {
+				if (ModelObject.valueChanged(_HireDate, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_HIRE_DATE);
+					}
+					this._HireDate = value;
+				}
+			}
 		}
-		}
-	}
 		//Field JOB_ID
-	[Key][Required][StringLength(10, ErrorMessage="JOB_ID must be 10 characters or less")][Column(Name="JOB_ID",Storage = "_JobId", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.String PrJobId{
-	get{
-		return _JobId;
-	}
-	set {
-		if (ModelObject.valueChanged(_JobId, value)){
-		if (value != null && value.Length > 10){
-			throw new ModelObjectFieldTooLongException("JOB_ID");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_JOB_ID);
+		[Key]
+		[Required]
+		[StringLength(10, ErrorMessage="JOB_ID must be 10 characters or less")]
+		[Column(Name="JOB_ID",Storage = "_JobId", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.String PrJobId{
+			get{			
+				return _JobId;
 			}
-		this._JobId = value;
-
+			set {
+				if (ModelObject.valueChanged(_JobId, value)){
+					if (value != null && value.Length > 10){
+						throw new ModelObjectFieldTooLongException("JOB_ID");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_JOB_ID);
+					}
+					this._JobId = value;
+				}
+			}
 		}
-		}
-	}
 		//Field SALARY
-	[Key][Column(Name="SALARY",Storage = "_SALARY", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.Decimal? PrSALARY{
-	get{
-		return _SALARY;
-	}
-	set {
-		if (ModelObject.valueChanged(_SALARY, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_SALARY);
+		[Key]
+		[Column(Name="SALARY",Storage = "_SALARY", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.Decimal? PrSALARY{
+			get{			
+				return _SALARY;
 			}
-		this._SALARY = value;
-
+			set {
+				if (ModelObject.valueChanged(_SALARY, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_SALARY);
+					}
+					this._SALARY = value;
+				}
+			}
 		}
-		}
-	}
 		//Field COMMISSION_PCT
-	[Key][Column(Name="COMMISSION_PCT",Storage = "_CommissionPct", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.Decimal? PrCommissionPct{
-	get{
-		return _CommissionPct;
-	}
-	set {
-		if (ModelObject.valueChanged(_CommissionPct, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_COMMISSION_PCT);
+		[Key]
+		[Column(Name="COMMISSION_PCT",Storage = "_CommissionPct", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.Decimal? PrCommissionPct{
+			get{			
+				return _CommissionPct;
 			}
-		this._CommissionPct = value;
-
+			set {
+				if (ModelObject.valueChanged(_CommissionPct, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_COMMISSION_PCT);
+					}
+					this._CommissionPct = value;
+				}
+			}
 		}
-		}
-	}
 		//Field MANAGER_ID
-	[Key][Column(Name="MANAGER_ID",Storage = "_ManagerId", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.Int64? PrManagerId{
-	get{
-		return _ManagerId;
-	}
-	set {
-		if (ModelObject.valueChanged(_ManagerId, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_MANAGER_ID);
+		[Key]
+		[Column(Name="MANAGER_ID",Storage = "_ManagerId", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.Int64? PrManagerId{
+			get{			
+				return _ManagerId;
 			}
-		this._ManagerId = value;
-
+			set {
+				if (ModelObject.valueChanged(_ManagerId, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_MANAGER_ID);
+					}
+					this._ManagerId = value;
+				}
+			}
 		}
-		}
-	}
 		//Field DEPARTMENT_ID
-	[Key][Column(Name="DEPARTMENT_ID",Storage = "_DepartmentId", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.Int64? PrDepartmentId{
-	get{
-		return _DepartmentId;
-	}
-	set {
-		if (ModelObject.valueChanged(_DepartmentId, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_DEPARTMENT_ID);
+		[Key]
+		[Column(Name="DEPARTMENT_ID",Storage = "_DepartmentId", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.Int64? PrDepartmentId{
+			get{			
+				return _DepartmentId;
 			}
-		this._DepartmentId = value;
-
+			set {
+				if (ModelObject.valueChanged(_DepartmentId, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_DEPARTMENT_ID);
+					}
+					this._DepartmentId = value;
+				}
+			}
 		}
-		}
-	}
 		//Field CREATE_DATE
-	[Key][Column(Name="CREATE_DATE",Storage = "_CreateDate", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.DateTime? CreateDate{
-	get{
-		return _CreateDate;
-	}
-	set {
-		if (ModelObject.valueChanged(_CreateDate, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_CREATE_DATE);
+		[Key]
+		[Column(Name="CREATE_DATE",Storage = "_CreateDate", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.DateTime? CreateDate{
+			get{			
+				return _CreateDate;
 			}
-		this._CreateDate = value;
-
+			set {
+				if (ModelObject.valueChanged(_CreateDate, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_CREATE_DATE);
+					}
+					this._CreateDate = value;
+				}
+			}
 		}
-		}
-	}
 		//Field UPDATE_DATE
-	[Key][Column(Name="UPDATE_DATE",Storage = "_UpdateDate", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.DateTime? UpdateDate{
-	get{
-		return _UpdateDate;
-	}
-	set {
-		if (ModelObject.valueChanged(_UpdateDate, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_UPDATE_DATE);
+		[Key]
+		[Column(Name="UPDATE_DATE",Storage = "_UpdateDate", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.DateTime? UpdateDate{
+			get{			
+				return _UpdateDate;
 			}
-		this._UpdateDate = value;
-
+			set {
+				if (ModelObject.valueChanged(_UpdateDate, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_UPDATE_DATE);
+					}
+					this._UpdateDate = value;
+				}
+			}
 		}
-		}
-	}
 		//Field CREATE_USER
-	[Key][StringLength(20, ErrorMessage="CREATE_USER must be 20 characters or less")][Column(Name="CREATE_USER",Storage = "_CreateUser", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.String CreateUser{
-	get{
-		return _CreateUser;
-	}
-	set {
-		if (ModelObject.valueChanged(_CreateUser, value)){
-		if (value != null && value.Length > 20){
-			throw new ModelObjectFieldTooLongException("CREATE_USER");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_CREATE_USER);
+		[Key]
+		[StringLength(20, ErrorMessage="CREATE_USER must be 20 characters or less")]
+		[Column(Name="CREATE_USER",Storage = "_CreateUser", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String CreateUser{
+			get{			
+				return _CreateUser;
 			}
-		this._CreateUser = value;
-
+			set {
+				if (ModelObject.valueChanged(_CreateUser, value)){
+					if (value != null && value.Length > 20){
+						throw new ModelObjectFieldTooLongException("CREATE_USER");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_CREATE_USER);
+					}
+					this._CreateUser = value;
+				}
+			}
 		}
-		}
-	}
 		//Field UPDATE_USER
-	[Key][StringLength(20, ErrorMessage="UPDATE_USER must be 20 characters or less")][Column(Name="UPDATE_USER",Storage = "_UpdateUser", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.String UpdateUser{
-	get{
-		return _UpdateUser;
-	}
-	set {
-		if (ModelObject.valueChanged(_UpdateUser, value)){
-		if (value != null && value.Length > 20){
-			throw new ModelObjectFieldTooLongException("UPDATE_USER");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_UPDATE_USER);
+		[Key]
+		[StringLength(20, ErrorMessage="UPDATE_USER must be 20 characters or less")]
+		[Column(Name="UPDATE_USER",Storage = "_UpdateUser", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String UpdateUser{
+			get{			
+				return _UpdateUser;
 			}
-		this._UpdateUser = value;
-
+			set {
+				if (ModelObject.valueChanged(_UpdateUser, value)){
+					if (value != null && value.Length > 20){
+						throw new ModelObjectFieldTooLongException("UPDATE_USER");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_UPDATE_USER);
+					}
+					this._UpdateUser = value;
+				}
+			}
 		}
-		}
-	}
 		//Field LOCATION_ID
-	[Key][Column(Name="LOCATION_ID",Storage = "_LocationId", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.Int64? PrLocationId{
-	get{
-		return _LocationId;
-	}
-	set {
-		if (ModelObject.valueChanged(_LocationId, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_LOCATION_ID);
+		[Key]
+		[Column(Name="LOCATION_ID",Storage = "_LocationId", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.Int64? PrLocationId{
+			get{			
+				return _LocationId;
 			}
-		this._LocationId = value;
-
+			set {
+				if (ModelObject.valueChanged(_LocationId, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_LOCATION_ID);
+					}
+					this._LocationId = value;
+				}
+			}
 		}
-		}
-	}
 		//Field COUNTRY_ID
-	[Key][StringLength(2, ErrorMessage="COUNTRY_ID must be 2 characters or less")][Column(Name="COUNTRY_ID",Storage = "_CountryId", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.String PrCountryId{
-	get{
-		return _CountryId;
-	}
-	set {
-		if (ModelObject.valueChanged(_CountryId, value)){
-		if (value != null && value.Length > 2){
-			throw new ModelObjectFieldTooLongException("COUNTRY_ID");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_COUNTRY_ID);
+		[Key]
+		[StringLength(2, ErrorMessage="COUNTRY_ID must be 2 characters or less")]
+		[Column(Name="COUNTRY_ID",Storage = "_CountryId", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String PrCountryId{
+			get{			
+				return _CountryId;
 			}
-		this._CountryId = value;
-
+			set {
+				if (ModelObject.valueChanged(_CountryId, value)){
+					if (value != null && value.Length > 2){
+						throw new ModelObjectFieldTooLongException("COUNTRY_ID");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_COUNTRY_ID);
+					}
+					this._CountryId = value;
+				}
+			}
 		}
-		}
-	}
 		//Field DEPARTMENT_NAME
-	[Key][StringLength(30, ErrorMessage="DEPARTMENT_NAME must be 30 characters or less")][Column(Name="DEPARTMENT_NAME",Storage = "_DepartmentName", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.String PrDepartmentName{
-	get{
-		return _DepartmentName;
-	}
-	set {
-		if (ModelObject.valueChanged(_DepartmentName, value)){
-		if (value != null && value.Length > 30){
-			throw new ModelObjectFieldTooLongException("DEPARTMENT_NAME");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_DEPARTMENT_NAME);
+		[Key]
+		[StringLength(30, ErrorMessage="DEPARTMENT_NAME must be 30 characters or less")]
+		[Column(Name="DEPARTMENT_NAME",Storage = "_DepartmentName", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String PrDepartmentName{
+			get{			
+				return _DepartmentName;
 			}
-		this._DepartmentName = value;
-
+			set {
+				if (ModelObject.valueChanged(_DepartmentName, value)){
+					if (value != null && value.Length > 30){
+						throw new ModelObjectFieldTooLongException("DEPARTMENT_NAME");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_DEPARTMENT_NAME);
+					}
+					this._DepartmentName = value;
+				}
+			}
 		}
-		}
-	}
 		//Field JOB_TITLE
-	[Key][StringLength(35, ErrorMessage="JOB_TITLE must be 35 characters or less")][Column(Name="JOB_TITLE",Storage = "_JobTitle", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.String PrJobTitle{
-	get{
-		return _JobTitle;
-	}
-	set {
-		if (ModelObject.valueChanged(_JobTitle, value)){
-		if (value != null && value.Length > 35){
-			throw new ModelObjectFieldTooLongException("JOB_TITLE");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_JOB_TITLE);
+		[Key]
+		[StringLength(35, ErrorMessage="JOB_TITLE must be 35 characters or less")]
+		[Column(Name="JOB_TITLE",Storage = "_JobTitle", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String PrJobTitle{
+			get{			
+				return _JobTitle;
 			}
-		this._JobTitle = value;
-
+			set {
+				if (ModelObject.valueChanged(_JobTitle, value)){
+					if (value != null && value.Length > 35){
+						throw new ModelObjectFieldTooLongException("JOB_TITLE");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_JOB_TITLE);
+					}
+					this._JobTitle = value;
+				}
+			}
 		}
-		}
-	}
 		//Field CITY
-	[Key][StringLength(30, ErrorMessage="CITY must be 30 characters or less")][Column(Name="CITY",Storage = "_CITY", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.String PrCITY{
-	get{
-		return _CITY;
-	}
-	set {
-		if (ModelObject.valueChanged(_CITY, value)){
-		if (value != null && value.Length > 30){
-			throw new ModelObjectFieldTooLongException("CITY");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_CITY);
+		[Key]
+		[StringLength(30, ErrorMessage="CITY must be 30 characters or less")]
+		[Column(Name="CITY",Storage = "_CITY", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String PrCITY{
+			get{			
+				return _CITY;
 			}
-		this._CITY = value;
-
+			set {
+				if (ModelObject.valueChanged(_CITY, value)){
+					if (value != null && value.Length > 30){
+						throw new ModelObjectFieldTooLongException("CITY");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_CITY);
+					}
+					this._CITY = value;
+				}
+			}
 		}
-		}
-	}
 		//Field STATE_PROVINCE
-	[Key][StringLength(25, ErrorMessage="STATE_PROVINCE must be 25 characters or less")][Column(Name="STATE_PROVINCE",Storage = "_StateProvince", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.String PrStateProvince{
-	get{
-		return _StateProvince;
-	}
-	set {
-		if (ModelObject.valueChanged(_StateProvince, value)){
-		if (value != null && value.Length > 25){
-			throw new ModelObjectFieldTooLongException("STATE_PROVINCE");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_STATE_PROVINCE);
+		[Key]
+		[StringLength(25, ErrorMessage="STATE_PROVINCE must be 25 characters or less")]
+		[Column(Name="STATE_PROVINCE",Storage = "_StateProvince", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String PrStateProvince{
+			get{			
+				return _StateProvince;
 			}
-		this._StateProvince = value;
-
+			set {
+				if (ModelObject.valueChanged(_StateProvince, value)){
+					if (value != null && value.Length > 25){
+						throw new ModelObjectFieldTooLongException("STATE_PROVINCE");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_STATE_PROVINCE);
+					}
+					this._StateProvince = value;
+				}
+			}
 		}
-		}
-	}
 		//Field COUNTRY_NAME
-	[Key][StringLength(40, ErrorMessage="COUNTRY_NAME must be 40 characters or less")][Column(Name="COUNTRY_NAME",Storage = "_CountryName", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.String PrCountryName{
-	get{
-		return _CountryName;
-	}
-	set {
-		if (ModelObject.valueChanged(_CountryName, value)){
-		if (value != null && value.Length > 40){
-			throw new ModelObjectFieldTooLongException("COUNTRY_NAME");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_COUNTRY_NAME);
+		[Key]
+		[StringLength(40, ErrorMessage="COUNTRY_NAME must be 40 characters or less")]
+		[Column(Name="COUNTRY_NAME",Storage = "_CountryName", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String PrCountryName{
+			get{			
+				return _CountryName;
 			}
-		this._CountryName = value;
-
+			set {
+				if (ModelObject.valueChanged(_CountryName, value)){
+					if (value != null && value.Length > 40){
+						throw new ModelObjectFieldTooLongException("COUNTRY_NAME");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_COUNTRY_NAME);
+					}
+					this._CountryName = value;
+				}
+			}
 		}
-		}
-	}
 		//Field REGION_NAME
-	[Key][StringLength(25, ErrorMessage="REGION_NAME must be 25 characters or less")][Column(Name="REGION_NAME",Storage = "_RegionName", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.String PrRegionName{
-	get{
-		return _RegionName;
-	}
-	set {
-		if (ModelObject.valueChanged(_RegionName, value)){
-		if (value != null && value.Length > 25){
-			throw new ModelObjectFieldTooLongException("REGION_NAME");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_REGION_NAME);
+		[Key]
+		[StringLength(25, ErrorMessage="REGION_NAME must be 25 characters or less")]
+		[Column(Name="REGION_NAME",Storage = "_RegionName", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String PrRegionName{
+			get{			
+				return _RegionName;
 			}
-		this._RegionName = value;
-
+			set {
+				if (ModelObject.valueChanged(_RegionName, value)){
+					if (value != null && value.Length > 25){
+						throw new ModelObjectFieldTooLongException("REGION_NAME");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_REGION_NAME);
+					}
+					this._RegionName = value;
+				}
+			}
 		}
-		}
-	}
 		//Field MANAGER_NAME
-	[Key][StringLength(46, ErrorMessage="MANAGER_NAME must be 46 characters or less")][Column(Name="MANAGER_NAME",Storage = "_ManagerName", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.String PrManagerName{
-	get{
-		return _ManagerName;
-	}
-	set {
-		if (ModelObject.valueChanged(_ManagerName, value)){
-		if (value != null && value.Length > 46){
-			throw new ModelObjectFieldTooLongException("MANAGER_NAME");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_MANAGER_NAME);
+		[Key]
+		[StringLength(46, ErrorMessage="MANAGER_NAME must be 46 characters or less")]
+		[Column(Name="MANAGER_NAME",Storage = "_ManagerName", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String PrManagerName{
+			get{			
+				return _ManagerName;
 			}
-		this._ManagerName = value;
-
+			set {
+				if (ModelObject.valueChanged(_ManagerName, value)){
+					if (value != null && value.Length > 46){
+						throw new ModelObjectFieldTooLongException("MANAGER_NAME");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_MANAGER_NAME);
+					}
+					this._ManagerName = value;
+				}
+			}
 		}
-		}
-	}
 		#endregion
 		#region "Associations"
 		
@@ -794,16 +846,17 @@ namespace OracleModel {
 		public virtual OracleModel.Department PrDepartment {
 		    //1-1 parent association
             set {
-                this._Department = value;
+                
 				if ( value != null ) {
-					this.PrDepartmentId = this._Department.PrDepartmentId;
-					this._Department.IDChanged += this.handleParentIdChanged;
+					// note: do not set property, but the field!!
+					this._DepartmentId = value.PrDepartmentId;
+					value.IDChanged += this.handleParentIdChanged;
                 } else {
-					this.PrDepartmentId = null;
+					this._DepartmentId = null;
 				}
+				this._Department = value;
 
             }
-
 
             get {
                 //LAZY LOADING! Only hit the database to get the child object if we need it

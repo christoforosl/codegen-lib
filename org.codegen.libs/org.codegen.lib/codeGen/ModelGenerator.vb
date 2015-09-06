@@ -73,12 +73,12 @@ Public Class ModelGenerator
 	Property NumOfNewGeneratedFiles As Integer
 	Property CurrentObjectBeingGenerated As ObjectToGenerate
 
-    Private _systemAssociations As List(Of Association) = New List(Of Association)
+    Private _Associations As List(Of Association) = New List(Of Association)
 
-	''' <summary>
-	''' relative directory to decide paths when using . and .. in output directories
-	''' </summary>
-	Property relativeDirectory As String
+    ''' <summary>
+    ''' relative directory to decide paths when using . and .. in output directories
+    ''' </summary>
+    Property relativeDirectory As String
 
     Property BooleanFieldsCollection As BooleanFieldsCollection
 
@@ -98,17 +98,22 @@ Public Class ModelGenerator
         End Set
     End Property
 
-
+    ''' <summary>
+    ''' add an association as  defined in the orm control xml
+    ''' </summary>
     Public Sub addAssociation(ByVal ass As Association)
-        Me._systemAssociations.Add(ass)
+        Me._Associations.Add(ass)
     End Sub
 
+    ''' <summary>
+    ''' gets/sets the Associations defined in the orm control xml
+    ''' </summary>
     Public Property SystemAssociations() As List(Of Association)
         Get
-            Return _systemAssociations
+            Return _Associations
         End Get
         Private Set(ByVal value As List(Of Association))
-            _systemAssociations = value
+            _Associations = value
         End Set
     End Property
 

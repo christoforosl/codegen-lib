@@ -68,7 +68,7 @@ namespace GeneratorTests {
 					"org.model.lib.db.DBUtils.Current().ConnString=\"" + DBUtils.Current().ConnString.Replace("\\", "\\\\") + "\";");
 
             readText = readText.Replace("EnumProjectType.EXTERNAL", "ModelLibVBGenCode.EnumProjectType.EXTERNAL");
-           
+            readText = readText.Replace("void testCSharp", "void testVBNet");
 
 			File.WriteAllText(path, readText);
 
@@ -86,13 +86,15 @@ namespace GeneratorTests {
 						Assembly.ReflectionOnlyLoad(a.FullName).Location);
 
 			var lstAssemblyLocations = assemblyLocations.Where(a => !a.Contains("Microsoft.VisualStudio.QualityTools.UnitTestFramework")).ToList();
-
+            //Assembly.ReflectionOnlyLoad("")
 			cp.ReferencedAssemblies.AddRange(lstAssemblyLocations.ToArray());
 
 			cp.GenerateInMemory = false;// True - memory generation, false - external file generation
 			cp.GenerateExecutable = false;// True - exe file generation, false - dll file generation
 			CompilerResults results = provider.CompileAssemblyFromSource(cp, readText);
-			Assert.AreEqual(0, results.Errors.Count, "There should be no compilation errors");
+			Assert.AreEqual(0, results.Errors.Count, 
+                    "There should be no compilation errors, first error was:" +
+                    (results.Errors.Count>0 ? results.Errors[0].ErrorText : ""));
 
 			CoreExtensions.Host.InitializeService();
 			TestPackage package = new TestPackage(results.CompiledAssembly.Location);

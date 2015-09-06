@@ -41,9 +41,16 @@ namespace CsModelObjects {
 
 		#region "Children and Parents"
 		
+		[OnDeserializing]
+        public void OnDeserializingMethod(StreamingContext context) {
+            this.IsObjectLoading = true;
+        }
+
 		[OnDeserialized]
         public void OnDeserializedMethod(StreamingContext context) {
 
+			this.IsObjectLoading = false;
+			this.isDirty = true;
         }
 
 		public override void loadObjectHierarchy() {
@@ -112,84 +119,90 @@ namespace CsModelObjects {
 		#region "Field Properties"
 
 		//Field BANKID
-	[Required][Column(Name="BANKID",Storage = "_BANKID", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.Int64 PrBANKID{
-	get{
-		return _BANKID;
-	}
-	set {
-		if (ModelObject.valueChanged(_BANKID, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_BANKID);
+		[Required]
+		[Column(Name="BANKID",Storage = "_BANKID", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.Int64 PrBANKID{
+			get{			
+				return _BANKID;
 			}
-		this._BANKID = value;
-
-			this.raiseBroadcastIdChange();
-
+			set {
+				if (ModelObject.valueChanged(_BANKID, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_BANKID);
+					}
+					this._BANKID = value;
+					this.raiseBroadcastIdChange();
+				}
+			}
 		}
-		}
-	}
 		//Field BankName
-	[Key][StringLength(50, ErrorMessage="BankName must be 50 characters or less")][Column(Name="BankName",Storage = "_BankName", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
-	[DataMember]public virtual System.String PrBankName{
-	get{
-		return _BankName;
-	}
-	set {
-		if (ModelObject.valueChanged(_BankName, value)){
-		if (value != null && value.Length > 50){
-			throw new ModelObjectFieldTooLongException("BankName");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_BANKNAME);
+		[Key]
+		[StringLength(50, ErrorMessage="BankName must be 50 characters or less")]
+		[Column(Name="BankName",Storage = "_BankName", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String PrBankName{
+			get{			
+				return _BankName;
 			}
-		this._BankName = value;
-
+			set {
+				if (ModelObject.valueChanged(_BankName, value)){
+					if (value != null && value.Length > 50){
+						throw new ModelObjectFieldTooLongException("BankName");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_BANKNAME);
+					}
+					this._BankName = value;
+				}
+			}
 		}
-		}
-	}
 		//Field BankCode
-	[Key][StringLength(20, ErrorMessage="BankCode must be 20 characters or less")][Column(Name="BankCode",Storage = "_BankCode", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
-	[DataMember]public virtual System.String PrBankCode{
-	get{
-		return _BankCode;
-	}
-	set {
-		if (ModelObject.valueChanged(_BankCode, value)){
-		if (value != null && value.Length > 20){
-			throw new ModelObjectFieldTooLongException("BankCode");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_BANKCODE);
+		[Key]
+		[StringLength(20, ErrorMessage="BankCode must be 20 characters or less")]
+		[Column(Name="BankCode",Storage = "_BankCode", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String PrBankCode{
+			get{			
+				return _BankCode;
 			}
-		this._BankCode = value;
-
+			set {
+				if (ModelObject.valueChanged(_BankCode, value)){
+					if (value != null && value.Length > 20){
+						throw new ModelObjectFieldTooLongException("BankCode");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_BANKCODE);
+					}
+					this._BankCode = value;
+				}
+			}
 		}
-		}
-	}
 		//Field BankSWIFTCode
-	[Key][StringLength(200, ErrorMessage="BankSWIFTCode must be 200 characters or less")][Column(Name="BankSWIFTCode",Storage = "_BankSWIFTCode", IsPrimaryKey=false,DbType = "varchar",CanBeNull = true)]
-	[DataMember]public virtual System.String PrBankSWIFTCode{
-	get{
-		return _BankSWIFTCode;
-	}
-	set {
-		if (ModelObject.valueChanged(_BankSWIFTCode, value)){
-		if (value != null && value.Length > 200){
-			throw new ModelObjectFieldTooLongException("BankSWIFTCode");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_BANKSWIFTCODE);
+		[Key]
+		[StringLength(200, ErrorMessage="BankSWIFTCode must be 200 characters or less")]
+		[Column(Name="BankSWIFTCode",Storage = "_BankSWIFTCode", IsPrimaryKey=false,DbType = "varchar",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String PrBankSWIFTCode{
+			get{			
+				return _BankSWIFTCode;
 			}
-		this._BankSWIFTCode = value;
-
+			set {
+				if (ModelObject.valueChanged(_BankSWIFTCode, value)){
+					if (value != null && value.Length > 200){
+						throw new ModelObjectFieldTooLongException("BankSWIFTCode");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_BANKSWIFTCODE);
+					}
+					this._BankSWIFTCode = value;
+				}
+			}
 		}
-		}
-	}
 
 		#endregion
 

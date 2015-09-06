@@ -41,9 +41,16 @@ namespace CsModelObjects {
 
 		#region "Children and Parents"
 		
+		[OnDeserializing]
+        public void OnDeserializingMethod(StreamingContext context) {
+            this.IsObjectLoading = true;
+        }
+
 		[OnDeserialized]
         public void OnDeserializedMethod(StreamingContext context) {
 
+			this.IsObjectLoading = false;
+			this.isDirty = true;
         }
 
 		public override void loadObjectHierarchy() {
@@ -106,44 +113,47 @@ namespace CsModelObjects {
 		#region "Field Properties"
 
 		//Field RankId
-	[Required][Column(Name="RankId",Storage = "_RankId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.Int64 PrRankId{
-	get{
-		return _RankId;
-	}
-	set {
-		if (ModelObject.valueChanged(_RankId, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_RANKID);
+		[Required]
+		[Column(Name="RankId",Storage = "_RankId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.Int64 PrRankId{
+			get{			
+				return _RankId;
 			}
-		this._RankId = value;
-
-			this.raiseBroadcastIdChange();
-
+			set {
+				if (ModelObject.valueChanged(_RankId, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_RANKID);
+					}
+					this._RankId = value;
+					this.raiseBroadcastIdChange();
+				}
+			}
 		}
-		}
-	}
 		//Field Rank
-	[Key][Required][StringLength(50, ErrorMessage="Rank must be 50 characters or less")][Column(Name="Rank",Storage = "_Rank", IsPrimaryKey=false,DbType = "nvarchar NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.String PrRank{
-	get{
-		return _Rank;
-	}
-	set {
-		if (ModelObject.valueChanged(_Rank, value)){
-		if (value != null && value.Length > 50){
-			throw new ModelObjectFieldTooLongException("Rank");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_RANK);
+		[Key]
+		[Required]
+		[StringLength(50, ErrorMessage="Rank must be 50 characters or less")]
+		[Column(Name="Rank",Storage = "_Rank", IsPrimaryKey=false,DbType = "nvarchar NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.String PrRank{
+			get{			
+				return _Rank;
 			}
-		this._Rank = value;
-
+			set {
+				if (ModelObject.valueChanged(_Rank, value)){
+					if (value != null && value.Length > 50){
+						throw new ModelObjectFieldTooLongException("Rank");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_RANK);
+					}
+					this._Rank = value;
+				}
+			}
 		}
-		}
-	}
 
 		#endregion
 

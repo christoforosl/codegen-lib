@@ -41,12 +41,19 @@ namespace CsModelObjects {
 
 		#region "Children and Parents"
 		
+		[OnDeserializing]
+        public void OnDeserializingMethod(StreamingContext context) {
+            this.IsObjectLoading = true;
+        }
+
 		[OnDeserialized]
         public void OnDeserializedMethod(StreamingContext context) {
 			if (this._BankAccountInfo!=null){
 				this.IDChanged += this._BankAccountInfo.handleParentIdChanged;
 			}
 
+			this.IsObjectLoading = false;
+			this.isDirty = true;
         }
 
 		public override void loadObjectHierarchy() {
@@ -142,195 +149,214 @@ namespace CsModelObjects {
 		#region "Field Properties"
 
 		//Field accountid
-	[Required][Column(Name="accountid",Storage = "_Accountid", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.Int64 PrAccountid{
-	get{
-		return _Accountid;
-	}
-	set {
-		if (ModelObject.valueChanged(_Accountid, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_ACCOUNTID);
+		[Required]
+		[Column(Name="accountid",Storage = "_Accountid", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.Int64 PrAccountid{
+			get{			
+				return _Accountid;
 			}
-		this._Accountid = value;
-
-			this.raiseBroadcastIdChange();
-
+			set {
+				if (ModelObject.valueChanged(_Accountid, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_ACCOUNTID);
+					}
+					this._Accountid = value;
+					this.raiseBroadcastIdChange();
+				}
+			}
 		}
-		}
-	}
 		//Field account
-	[Key][StringLength(50, ErrorMessage="account must be 50 characters or less")][Column(Name="account",Storage = "_Account", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
-	[DataMember]public virtual System.String PrAccount{
-	get{
-		return _Account;
-	}
-	set {
-		if (ModelObject.valueChanged(_Account, value)){
-		if (value != null && value.Length > 50){
-			throw new ModelObjectFieldTooLongException("account");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_ACCOUNT);
+		[Key]
+		[StringLength(50, ErrorMessage="account must be 50 characters or less")]
+		[Column(Name="account",Storage = "_Account", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String PrAccount{
+			get{			
+				return _Account;
 			}
-		this._Account = value;
-
+			set {
+				if (ModelObject.valueChanged(_Account, value)){
+					if (value != null && value.Length > 50){
+						throw new ModelObjectFieldTooLongException("account");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_ACCOUNT);
+					}
+					this._Account = value;
+				}
+			}
 		}
-		}
-	}
 		//Field accountTypeid
-	[Key][Column(Name="accountTypeid",Storage = "_AccountTypeid", IsPrimaryKey=false,DbType = "int",CanBeNull = true)]
-	[DataMember]public virtual System.Int64? PrAccountTypeid{
-	get{
-		return _AccountTypeid;
-	}
-	set {
-		if (ModelObject.valueChanged(_AccountTypeid, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_ACCOUNTTYPEID);
+		[Key]
+		[Column(Name="accountTypeid",Storage = "_AccountTypeid", IsPrimaryKey=false,DbType = "int",CanBeNull = true)]
+		[DataMember]
+		public virtual System.Int64? PrAccountTypeid{
+			get{			
+				return _AccountTypeid;
 			}
-		this._AccountTypeid = value;
-
+			set {
+				if (ModelObject.valueChanged(_AccountTypeid, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_ACCOUNTTYPEID);
+					}
+					this._AccountTypeid = value;
+				}
+			}
 		}
-		}
-	}
 		//Field bankaccnumber
-	[Key][StringLength(100, ErrorMessage="bankaccnumber must be 100 characters or less")][Column(Name="bankaccnumber",Storage = "_Bankaccnumber", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
-	[DataMember]public virtual System.String PrBankaccnumber{
-	get{
-		return _Bankaccnumber;
-	}
-	set {
-		if (ModelObject.valueChanged(_Bankaccnumber, value)){
-		if (value != null && value.Length > 100){
-			throw new ModelObjectFieldTooLongException("bankaccnumber");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_BANKACCNUMBER);
+		[Key]
+		[StringLength(100, ErrorMessage="bankaccnumber must be 100 characters or less")]
+		[Column(Name="bankaccnumber",Storage = "_Bankaccnumber", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String PrBankaccnumber{
+			get{			
+				return _Bankaccnumber;
 			}
-		this._Bankaccnumber = value;
-
+			set {
+				if (ModelObject.valueChanged(_Bankaccnumber, value)){
+					if (value != null && value.Length > 100){
+						throw new ModelObjectFieldTooLongException("bankaccnumber");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_BANKACCNUMBER);
+					}
+					this._Bankaccnumber = value;
+				}
+			}
 		}
-		}
-	}
 		//Field nextCheckNumber
-	[Key][StringLength(50, ErrorMessage="nextCheckNumber must be 50 characters or less")][Column(Name="nextCheckNumber",Storage = "_NextCheckNumber", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
-	[DataMember]public virtual System.String PrNextCheckNumber{
-	get{
-		return _NextCheckNumber;
-	}
-	set {
-		if (ModelObject.valueChanged(_NextCheckNumber, value)){
-		if (value != null && value.Length > 50){
-			throw new ModelObjectFieldTooLongException("nextCheckNumber");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_NEXTCHECKNUMBER);
+		[Key]
+		[StringLength(50, ErrorMessage="nextCheckNumber must be 50 characters or less")]
+		[Column(Name="nextCheckNumber",Storage = "_NextCheckNumber", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String PrNextCheckNumber{
+			get{			
+				return _NextCheckNumber;
 			}
-		this._NextCheckNumber = value;
-
+			set {
+				if (ModelObject.valueChanged(_NextCheckNumber, value)){
+					if (value != null && value.Length > 50){
+						throw new ModelObjectFieldTooLongException("nextCheckNumber");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_NEXTCHECKNUMBER);
+					}
+					this._NextCheckNumber = value;
+				}
+			}
 		}
-		}
-	}
 		//Field Description
-	[Key][StringLength(255, ErrorMessage="Description must be 255 characters or less")][Column(Name="Description",Storage = "_Description", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
-	[DataMember]public virtual System.String PrDescription{
-	get{
-		return _Description;
-	}
-	set {
-		if (ModelObject.valueChanged(_Description, value)){
-		if (value != null && value.Length > 255){
-			throw new ModelObjectFieldTooLongException("Description");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_DESCRIPTION);
+		[Key]
+		[StringLength(255, ErrorMessage="Description must be 255 characters or less")]
+		[Column(Name="Description",Storage = "_Description", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String PrDescription{
+			get{			
+				return _Description;
 			}
-		this._Description = value;
-
+			set {
+				if (ModelObject.valueChanged(_Description, value)){
+					if (value != null && value.Length > 255){
+						throw new ModelObjectFieldTooLongException("Description");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_DESCRIPTION);
+					}
+					this._Description = value;
+				}
+			}
 		}
-		}
-	}
 		//Field createdate
-	[Key][Required][Column(Name="createdate",Storage = "_Createdate", IsPrimaryKey=false,DbType = "datetime NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.DateTime? CreateDate{
-	get{
-		return _Createdate;
-	}
-	set {
-		if (ModelObject.valueChanged(_Createdate, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_CREATEDATE);
+		[Key]
+		[Required]
+		[Column(Name="createdate",Storage = "_Createdate", IsPrimaryKey=false,DbType = "datetime NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.DateTime? CreateDate{
+			get{			
+				return _Createdate;
 			}
-		this._Createdate = value;
-
+			set {
+				if (ModelObject.valueChanged(_Createdate, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_CREATEDATE);
+					}
+					this._Createdate = value;
+				}
+			}
 		}
-		}
-	}
 		//Field updatedate
-	[Key][Required][Column(Name="updatedate",Storage = "_Updatedate", IsPrimaryKey=false,DbType = "datetime NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.DateTime? UpdateDate{
-	get{
-		return _Updatedate;
-	}
-	set {
-		if (ModelObject.valueChanged(_Updatedate, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_UPDATEDATE);
+		[Key]
+		[Required]
+		[Column(Name="updatedate",Storage = "_Updatedate", IsPrimaryKey=false,DbType = "datetime NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.DateTime? UpdateDate{
+			get{			
+				return _Updatedate;
 			}
-		this._Updatedate = value;
-
+			set {
+				if (ModelObject.valueChanged(_Updatedate, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_UPDATEDATE);
+					}
+					this._Updatedate = value;
+				}
+			}
 		}
-		}
-	}
 		//Field updateuser
-	[Key][Required][StringLength(10, ErrorMessage="updateuser must be 10 characters or less")][Column(Name="updateuser",Storage = "_Updateuser", IsPrimaryKey=false,DbType = "varchar NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.String UpdateUser{
-	get{
-		return _Updateuser;
-	}
-	set {
-		if (ModelObject.valueChanged(_Updateuser, value)){
-		if (value != null && value.Length > 10){
-			throw new ModelObjectFieldTooLongException("updateuser");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_UPDATEUSER);
+		[Key]
+		[Required]
+		[StringLength(10, ErrorMessage="updateuser must be 10 characters or less")]
+		[Column(Name="updateuser",Storage = "_Updateuser", IsPrimaryKey=false,DbType = "varchar NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.String UpdateUser{
+			get{			
+				return _Updateuser;
 			}
-		this._Updateuser = value;
-
+			set {
+				if (ModelObject.valueChanged(_Updateuser, value)){
+					if (value != null && value.Length > 10){
+						throw new ModelObjectFieldTooLongException("updateuser");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_UPDATEUSER);
+					}
+					this._Updateuser = value;
+				}
+			}
 		}
-		}
-	}
 		//Field createuser
-	[Key][Required][StringLength(10, ErrorMessage="createuser must be 10 characters or less")][Column(Name="createuser",Storage = "_Createuser", IsPrimaryKey=false,DbType = "varchar NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.String CreateUser{
-	get{
-		return _Createuser;
-	}
-	set {
-		if (ModelObject.valueChanged(_Createuser, value)){
-		if (value != null && value.Length > 10){
-			throw new ModelObjectFieldTooLongException("createuser");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_CREATEUSER);
+		[Key]
+		[Required]
+		[StringLength(10, ErrorMessage="createuser must be 10 characters or less")]
+		[Column(Name="createuser",Storage = "_Createuser", IsPrimaryKey=false,DbType = "varchar NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.String CreateUser{
+			get{			
+				return _Createuser;
 			}
-		this._Createuser = value;
-
+			set {
+				if (ModelObject.valueChanged(_Createuser, value)){
+					if (value != null && value.Length > 10){
+						throw new ModelObjectFieldTooLongException("createuser");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_CREATEUSER);
+					}
+					this._Createuser = value;
+				}
+			}
 		}
-		}
-	}
 		#endregion
 		#region "Associations"
 		#region "Association BankAccountInfo"

@@ -101,13 +101,22 @@ Public Class XMLClassGenerator
 
         Dim gen As XMLClassGenerator
         Dim cds As DataSet = Nothing
-
+        Dim f As FileInfo = New FileInfo(xmlConfFile)
+        If (Not f.Exists) Then
+            Throw New ApplicationException(String.Format("File {0} does not exist", xmlConfFile))
+        End If
         Using strm As Stream = GetType(XMLClassGenerator).Assembly.GetManifestResourceStream("org.codegen.lib.classGenerator.4.xsd")
             gen = New XMLClassGenerator(xmlConfFile)
             cds = New DataSet
             cds.Namespace = "ClassGenerator4"
             cds.ReadXmlSchema(strm)
-            cds.ReadXml(xmlConfFile)
+            Try
+                cds.ReadXml(xmlConfFile)
+            Catch ex As Exception
+                Throw New ApplicationException(String.Format(" Error parsing file {0}", xmlConfFile), ex)
+            End Try
+
+
             gen.parseConfFile(cds, New System.Version(4, 0, 9, 0))
             gen.genClasses()
         End Using

@@ -4,12 +4,13 @@ Imports org.codegen.lib.Tokens
 Imports System.Collections.Generic
 
 Public Class CSharpPropertyGenerator
-	Implements IPropertyGenerator
+    Inherits IPropertyGenerator
 
-	Public Function generateCode(ByVal field As IDBField) As String _
-			Implements IPropertyGenerator.generateCode
+   
 
-		Dim sImplements As String = String.Empty
+    Public Overrides Function generatePropertyCode(ByVal field As IDBField) As String 
+
+        Dim sImplements As String = String.Empty
         Dim sLengthChecker As String = String.Empty
         Dim xmlIgnore As String = String.Empty
 
@@ -17,9 +18,9 @@ Public Class CSharpPropertyGenerator
         Dim fieldPropertyName As String = field.PropertyName()
 
         If field.RuntimeTypeStr = "System.String" Then
-            sLengthChecker = vbTab & vbTab & "if (value != null && value.Length > " & field.Size & "){" & vbCrLf
-            sLengthChecker &= vbTab & vbTab & vbTab & "throw new ModelObjectFieldTooLongException(""" & field.FieldName & """);" & vbCrLf
-            sLengthChecker &= vbTab & vbTab & "}" & vbCrLf
+            sLengthChecker = FIVE_TABS & "if (value != null && value.Length > " & field.Size & "){" & vbCrLf
+            sLengthChecker &= SIX_TABS & "throw new ModelObjectFieldTooLongException(""" & field.FieldName & """);" & vbCrLf
+            sLengthChecker &= FIVE_TABS & "}" & vbCrLf
         End If
 
         If field.XMLSerializationIgnore Then
@@ -27,29 +28,36 @@ Public Class CSharpPropertyGenerator
         End If
 
         Dim sproperty As StringBuilder = New StringBuilder(xmlIgnore).Append(vbTab). _
-              Append(getLinqDataAttribute(field)).Append(vbTab).Append("[DataMember]public virtual ").Append(field.getPropertyDataType).Append(" ").Append(fieldPropertyName).Append("{").Append(vbCrLf). _
-        Append(vbTab).Append("get{").Append(vbCrLf)
+              Append(getLinqDataAttribute(field)).Append(TWO_TABS).Append("[DataMember]").Append(vbCrLf)
 
-        sproperty.Append(vbTab & vbTab & "return " & Me.Converter(field) & ";" & vbCrLf)
+        sproperty.Append(TWO_TABS).Append("public virtual ").Append(field.getPropertyDataType).Append(" ").Append(fieldPropertyName).Append("{").Append(vbCrLf)
+        sproperty.Append(THREE_TABS).Append("get{").Append(THREE_TABS).Append(vbCrLf)
+        sproperty.Append(THREE_TABS & vbTab & "return " & Me.Converter(field) & ";" & vbCrLf)
+        sproperty.Append(THREE_TABS & "}" & vbCrLf)
 
-        sproperty.Append(vbTab & "}" & vbCrLf)
-
-        sproperty.Append(vbTab).Append("set {").Append(vbCrLf)
-        sproperty.Append(vbTab).Append(vbTab).Append("if (ModelObject.valueChanged(_").Append(runtimeFieldName).Append(", value)){").Append(vbCrLf)
+        sproperty.Append(THREE_TABS).Append("set {").Append(vbCrLf)
+        sproperty.Append(FOUR_TABS).Append("if (ModelObject.valueChanged(_").Append(runtimeFieldName).Append(", value)){").Append(vbCrLf)
         sproperty.Append(sLengthChecker)
-        sproperty.Append(vbTab).Append(vbTab).Append(vbTab & "if (!this.IsObjectLoading) {").Append(vbCrLf)
-        sproperty.Append(vbTab).Append(vbTab).Append(vbTab & vbTab).Append("this.isDirty = true;").Append(vbCrLf)
-        sproperty.Append(vbTab).Append(vbTab).Append(vbTab & vbTab).Append("this.setFieldChanged(").Append(field.getConstantStr).Append(");").Append(vbCrLf)
-        sproperty.Append(vbTab).Append(vbTab).Append(vbTab & "}").Append(vbCrLf)
-        sproperty.Append(vbTab).Append(vbTab).Append(Me.setConverter(field)).Append(";").Append(vbCrLf)
+        sproperty.Append(FIVE_TABS).Append("if (!this.IsObjectLoading) {").Append(vbCrLf)
+        sproperty.Append(SIX_TABS).Append("this.isDirty = true; //").Append(vbCrLf)
+        sproperty.Append(SIX_TABS).Append("this.setFieldChanged(").Append(field.getConstantStr).Append(");").Append(vbCrLf)
 
-        If field.isPrimaryKey Then
-            sproperty.Append(vbCrLf & vbTab & vbTab & vbTab & "this.raiseBroadcastIdChange();" & vbCrLf)
+        Dim xass As Association = Me.getParentAssociationOfField(field)
+        If xass IsNot Nothing Then
+            sproperty.Append(SIX_TABS).Append("this." & xass.getVariableName()).Append("= null; // reset if id of parent object has changed").Append(vbCrLf)
+            sproperty.Append(SIX_TABS).Append("this." & xass.LoadedFlagVariableName()).Append("= false;").Append(vbCrLf)
         End If
 
-        sproperty.Append(vbCrLf & vbTab & vbTab & "}" & vbCrLf & _
-           vbTab & vbTab & "}" & vbCrLf & _
-           vbTab & "}" & vbCrLf)
+        sproperty.Append(FIVE_TABS).Append("}").Append(vbCrLf)
+        sproperty.Append(FIVE_TABS).Append(Me.setConverter(field)).Append(";").Append(vbCrLf)
+
+        If field.isPrimaryKey Then
+            sproperty.Append(FIVE_TABS).Append("this.raiseBroadcastIdChange();").Append(vbCrLf)
+        End If
+
+        sproperty.Append(FOUR_TABS).Append("}").Append(vbCrLf)
+        sproperty.Append(THREE_TABS).Append("}").Append(vbCrLf)
+        sproperty.Append(TWO_TABS).Append("}").Append(vbCrLf)
 
         'Me.generateStringSetters(sproperty, field)
 
@@ -57,8 +65,7 @@ Public Class CSharpPropertyGenerator
 
     End Function
 
-    Public Function generateInterfaceDeclaration(ByVal field As IDBField) As String _
-                    Implements IPropertyGenerator.generateInterfaceDeclaration
+    Public Overrides Function generateInterfaceDeclaration(ByVal field As IDBField) As String 
 
         Dim sb As StringBuilder = New StringBuilder()
         Dim fname As String = field.PropertyName()
@@ -147,11 +154,11 @@ Public Class CSharpPropertyGenerator
     Private Function getLinqDataAttribute(field As IDBField) As String
 
         Dim nl As String = CStr(IIf(field.isDBFieldNullable, "", " NOT NULL"))
-        Dim keyattr = CStr(IIf(field.isPrimaryKey, String.Empty, "[Key]"))
-        Dim reqAttr = CStr(IIf(field.isDBFieldNullable, String.Empty, "[Required]"))
-        Dim strAttr = CStr(IIf(field.isString, String.Format("[StringLength({0}, ErrorMessage=""{1} must be {0} characters or less"")]", field.Size, field.FieldName), String.Empty))
+        Dim keyattr = CStr(IIf(field.isPrimaryKey, String.Empty, TWO_TABS & "[Key]" & vbCrLf))
+        Dim reqAttr = CStr(IIf(field.isDBFieldNullable, String.Empty, TWO_TABS & "[Required]" & vbCrLf))
+        Dim strAttr = CStr(IIf(field.isString, String.Format(TWO_TABS & "[StringLength({0}, ErrorMessage=""{1} must be {0} characters or less"")]" & vbCrLf, field.Size, field.FieldName), String.Empty))
 
-        Return vbTab & "//Field " & field.FieldName & vbCrLf & vbTab & keyattr & reqAttr & strAttr & "[Column(Name=""" & field.FieldName & """,Storage = ""_" & field.RuntimeFieldName & """, IsPrimaryKey=" & field.isPrimaryKey.ToString.ToLower & ",DbType = """ & field.DBType & nl & """,CanBeNull = " & field.isDBFieldNullable.ToString.ToLower & ")]" & vbCrLf
+        Return vbTab & "//Field " & field.FieldName & vbCrLf & keyattr & reqAttr & strAttr & TWO_TABS & "[Column(Name=""" & field.FieldName & """,Storage = ""_" & field.RuntimeFieldName & """, IsPrimaryKey=" & field.isPrimaryKey.ToString.ToLower & ",DbType = """ & field.DBType & nl & """,CanBeNull = " & field.isDBFieldNullable.ToString.ToLower & ")]" & vbCrLf
 
     End Function
 

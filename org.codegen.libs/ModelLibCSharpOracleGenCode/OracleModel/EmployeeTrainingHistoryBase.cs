@@ -41,9 +41,16 @@ namespace OracleModel {
 
 		#region "Children and Parents"
 		
+		[OnDeserializing]
+        public void OnDeserializingMethod(StreamingContext context) {
+            this.IsObjectLoading = true;
+        }
+
 		[OnDeserialized]
         public void OnDeserializedMethod(StreamingContext context) {
 
+			this.IsObjectLoading = false;
+			this.isDirty = true;
         }
 
 		public override void loadObjectHierarchy() {
@@ -124,95 +131,101 @@ namespace OracleModel {
 		#region "Field Properties"
 
 		//Field EMPLOYEE_TRAINING_HISTORY_ID
-	[Required][Column(Name="EMPLOYEE_TRAINING_HISTORY_ID",Storage = "_EmployeeTrainingHistoryId", IsPrimaryKey=true,DbType = " NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.Int64 PrEmployeeTrainingHistoryId{
-	get{
-		return _EmployeeTrainingHistoryId;
-	}
-	set {
-		if (ModelObject.valueChanged(_EmployeeTrainingHistoryId, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_EMPLOYEE_TRAINING_HISTORY_ID);
+		[Required]
+		[Column(Name="EMPLOYEE_TRAINING_HISTORY_ID",Storage = "_EmployeeTrainingHistoryId", IsPrimaryKey=true,DbType = " NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.Int64 PrEmployeeTrainingHistoryId{
+			get{			
+				return _EmployeeTrainingHistoryId;
 			}
-		this._EmployeeTrainingHistoryId = value;
-
-			this.raiseBroadcastIdChange();
-
+			set {
+				if (ModelObject.valueChanged(_EmployeeTrainingHistoryId, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_EMPLOYEE_TRAINING_HISTORY_ID);
+					}
+					this._EmployeeTrainingHistoryId = value;
+					this.raiseBroadcastIdChange();
+				}
+			}
 		}
-		}
-	}
 		//Field EMPLOYEE_ID
-	[Key][Required][Column(Name="EMPLOYEE_ID",Storage = "_EmployeeId", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.Int64? PrEmployeeId{
-	get{
-		return _EmployeeId;
-	}
-	set {
-		if (ModelObject.valueChanged(_EmployeeId, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_EMPLOYEE_ID);
+		[Key]
+		[Required]
+		[Column(Name="EMPLOYEE_ID",Storage = "_EmployeeId", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.Int64? PrEmployeeId{
+			get{			
+				return _EmployeeId;
 			}
-		this._EmployeeId = value;
-
+			set {
+				if (ModelObject.valueChanged(_EmployeeId, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_EMPLOYEE_ID);
+					}
+					this._EmployeeId = value;
+				}
+			}
 		}
-		}
-	}
 		//Field DATE_FROM
-	[Key][Column(Name="DATE_FROM",Storage = "_DateFrom", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.DateTime? PrDateFrom{
-	get{
-		return _DateFrom;
-	}
-	set {
-		if (ModelObject.valueChanged(_DateFrom, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_DATE_FROM);
+		[Key]
+		[Column(Name="DATE_FROM",Storage = "_DateFrom", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.DateTime? PrDateFrom{
+			get{			
+				return _DateFrom;
 			}
-		this._DateFrom = value;
-
+			set {
+				if (ModelObject.valueChanged(_DateFrom, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_DATE_FROM);
+					}
+					this._DateFrom = value;
+				}
+			}
 		}
-		}
-	}
 		//Field DATE_TO
-	[Key][Column(Name="DATE_TO",Storage = "_DateTo", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.DateTime? PrDateTo{
-	get{
-		return _DateTo;
-	}
-	set {
-		if (ModelObject.valueChanged(_DateTo, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_DATE_TO);
+		[Key]
+		[Column(Name="DATE_TO",Storage = "_DateTo", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.DateTime? PrDateTo{
+			get{			
+				return _DateTo;
 			}
-		this._DateTo = value;
-
+			set {
+				if (ModelObject.valueChanged(_DateTo, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_DATE_TO);
+					}
+					this._DateTo = value;
+				}
+			}
 		}
-		}
-	}
 		//Field TRAINING_COURSE_CODE
-	[Key][StringLength(5, ErrorMessage="TRAINING_COURSE_CODE must be 5 characters or less")][Column(Name="TRAINING_COURSE_CODE",Storage = "_TrainingCourseCode", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.String PrTrainingCourseCode{
-	get{
-		return _TrainingCourseCode;
-	}
-	set {
-		if (ModelObject.valueChanged(_TrainingCourseCode, value)){
-		if (value != null && value.Length > 5){
-			throw new ModelObjectFieldTooLongException("TRAINING_COURSE_CODE");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_TRAINING_COURSE_CODE);
+		[Key]
+		[StringLength(5, ErrorMessage="TRAINING_COURSE_CODE must be 5 characters or less")]
+		[Column(Name="TRAINING_COURSE_CODE",Storage = "_TrainingCourseCode", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String PrTrainingCourseCode{
+			get{			
+				return _TrainingCourseCode;
 			}
-		this._TrainingCourseCode = value;
-
+			set {
+				if (ModelObject.valueChanged(_TrainingCourseCode, value)){
+					if (value != null && value.Length > 5){
+						throw new ModelObjectFieldTooLongException("TRAINING_COURSE_CODE");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_TRAINING_COURSE_CODE);
+					}
+					this._TrainingCourseCode = value;
+				}
+			}
 		}
-		}
-	}
 		#endregion
 		#region "Associations"
 		
@@ -228,16 +241,17 @@ namespace OracleModel {
 		public virtual OracleModel.TrainingCourse PrTrainingCourse {
 		    //1-1 parent association
             set {
-                this._TrainingCourse = value;
+                
 				if ( value != null ) {
-					this.PrTrainingCourseCode = this._TrainingCourse.PrCODE;
-					this._TrainingCourse.IDChanged += this.handleParentIdChanged;
+					// note: do not set property, but the field!!
+					this._TrainingCourseCode = value.PrCODE;
+					value.IDChanged += this.handleParentIdChanged;
                 } else {
-					this.PrTrainingCourseCode = null;
+					this._TrainingCourseCode = null;
 				}
+				this._TrainingCourse = value;
 
             }
-
 
             get {
                 //LAZY LOADING! Only hit the database to get the child object if we need it

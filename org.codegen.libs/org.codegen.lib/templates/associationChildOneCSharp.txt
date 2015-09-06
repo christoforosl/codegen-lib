@@ -31,7 +31,7 @@
 
 			if ( this._<association_name> == null && this.<parent_field_runtime> !=null)  {
 				//IMPORTANT: call setter here, not the private variable
-				this.<property_name> = new <db_mapper>().findWhere("<child_field>=?", this.<parent_field_runtime>);
+				this.<property_name> = new <db_mapper>().findWhere("<child_db_field>=?", this.<parent_field_runtime>);
 				
 			} 
 

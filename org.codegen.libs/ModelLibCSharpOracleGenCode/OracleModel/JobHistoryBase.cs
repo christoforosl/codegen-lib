@@ -41,9 +41,16 @@ namespace OracleModel {
 
 		#region "Children and Parents"
 		
+		[OnDeserializing]
+        public void OnDeserializingMethod(StreamingContext context) {
+            this.IsObjectLoading = true;
+        }
+
 		[OnDeserialized]
         public void OnDeserializedMethod(StreamingContext context) {
 
+			this.IsObjectLoading = false;
+			this.isDirty = true;
         }
 
 		public override void loadObjectHierarchy() {
@@ -130,186 +137,202 @@ namespace OracleModel {
 		#region "Field Properties"
 
 		//Field JOB_HISTORY_ID
-	[Required][Column(Name="JOB_HISTORY_ID",Storage = "_JobHistoryId", IsPrimaryKey=true,DbType = " NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.Int64 PrJobHistoryId{
-	get{
-		return _JobHistoryId;
-	}
-	set {
-		if (ModelObject.valueChanged(_JobHistoryId, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_JOB_HISTORY_ID);
+		[Required]
+		[Column(Name="JOB_HISTORY_ID",Storage = "_JobHistoryId", IsPrimaryKey=true,DbType = " NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.Int64 PrJobHistoryId{
+			get{			
+				return _JobHistoryId;
 			}
-		this._JobHistoryId = value;
-
-			this.raiseBroadcastIdChange();
-
+			set {
+				if (ModelObject.valueChanged(_JobHistoryId, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_JOB_HISTORY_ID);
+					}
+					this._JobHistoryId = value;
+					this.raiseBroadcastIdChange();
+				}
+			}
 		}
-		}
-	}
 		//Field EMPLOYEE_ID
-	[Key][Required][Column(Name="EMPLOYEE_ID",Storage = "_EmployeeId", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.Int64? PrEmployeeId{
-	get{
-		return _EmployeeId;
-	}
-	set {
-		if (ModelObject.valueChanged(_EmployeeId, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_EMPLOYEE_ID);
+		[Key]
+		[Required]
+		[Column(Name="EMPLOYEE_ID",Storage = "_EmployeeId", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.Int64? PrEmployeeId{
+			get{			
+				return _EmployeeId;
 			}
-		this._EmployeeId = value;
-
+			set {
+				if (ModelObject.valueChanged(_EmployeeId, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_EMPLOYEE_ID);
+					}
+					this._EmployeeId = value;
+				}
+			}
 		}
-		}
-	}
 		//Field START_DATE
-	[Key][Required][Column(Name="START_DATE",Storage = "_StartDate", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.DateTime? PrStartDate{
-	get{
-		return _StartDate;
-	}
-	set {
-		if (ModelObject.valueChanged(_StartDate, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_START_DATE);
+		[Key]
+		[Required]
+		[Column(Name="START_DATE",Storage = "_StartDate", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.DateTime? PrStartDate{
+			get{			
+				return _StartDate;
 			}
-		this._StartDate = value;
-
+			set {
+				if (ModelObject.valueChanged(_StartDate, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_START_DATE);
+					}
+					this._StartDate = value;
+				}
+			}
 		}
-		}
-	}
 		//Field END_DATE
-	[Key][Required][Column(Name="END_DATE",Storage = "_EndDate", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.DateTime? PrEndDate{
-	get{
-		return _EndDate;
-	}
-	set {
-		if (ModelObject.valueChanged(_EndDate, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_END_DATE);
+		[Key]
+		[Required]
+		[Column(Name="END_DATE",Storage = "_EndDate", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.DateTime? PrEndDate{
+			get{			
+				return _EndDate;
 			}
-		this._EndDate = value;
-
+			set {
+				if (ModelObject.valueChanged(_EndDate, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_END_DATE);
+					}
+					this._EndDate = value;
+				}
+			}
 		}
-		}
-	}
 		//Field JOB_ID
-	[Key][Required][StringLength(10, ErrorMessage="JOB_ID must be 10 characters or less")][Column(Name="JOB_ID",Storage = "_JobId", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.String PrJobId{
-	get{
-		return _JobId;
-	}
-	set {
-		if (ModelObject.valueChanged(_JobId, value)){
-		if (value != null && value.Length > 10){
-			throw new ModelObjectFieldTooLongException("JOB_ID");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_JOB_ID);
+		[Key]
+		[Required]
+		[StringLength(10, ErrorMessage="JOB_ID must be 10 characters or less")]
+		[Column(Name="JOB_ID",Storage = "_JobId", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.String PrJobId{
+			get{			
+				return _JobId;
 			}
-		this._JobId = value;
-
+			set {
+				if (ModelObject.valueChanged(_JobId, value)){
+					if (value != null && value.Length > 10){
+						throw new ModelObjectFieldTooLongException("JOB_ID");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_JOB_ID);
+					}
+					this._JobId = value;
+				}
+			}
 		}
-		}
-	}
 		//Field DEPARTMENT_ID
-	[Key][Column(Name="DEPARTMENT_ID",Storage = "_DepartmentId", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.Int64? PrDepartmentId{
-	get{
-		return _DepartmentId;
-	}
-	set {
-		if (ModelObject.valueChanged(_DepartmentId, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_DEPARTMENT_ID);
+		[Key]
+		[Column(Name="DEPARTMENT_ID",Storage = "_DepartmentId", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.Int64? PrDepartmentId{
+			get{			
+				return _DepartmentId;
 			}
-		this._DepartmentId = value;
-
+			set {
+				if (ModelObject.valueChanged(_DepartmentId, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_DEPARTMENT_ID);
+					}
+					this._DepartmentId = value;
+				}
+			}
 		}
-		}
-	}
 		//Field CREATE_DATE
-	[Key][Column(Name="CREATE_DATE",Storage = "_CreateDate", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.DateTime? CreateDate{
-	get{
-		return _CreateDate;
-	}
-	set {
-		if (ModelObject.valueChanged(_CreateDate, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_CREATE_DATE);
+		[Key]
+		[Column(Name="CREATE_DATE",Storage = "_CreateDate", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.DateTime? CreateDate{
+			get{			
+				return _CreateDate;
 			}
-		this._CreateDate = value;
-
+			set {
+				if (ModelObject.valueChanged(_CreateDate, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_CREATE_DATE);
+					}
+					this._CreateDate = value;
+				}
+			}
 		}
-		}
-	}
 		//Field UPDATE_DATE
-	[Key][Column(Name="UPDATE_DATE",Storage = "_UpdateDate", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.DateTime? UpdateDate{
-	get{
-		return _UpdateDate;
-	}
-	set {
-		if (ModelObject.valueChanged(_UpdateDate, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_UPDATE_DATE);
+		[Key]
+		[Column(Name="UPDATE_DATE",Storage = "_UpdateDate", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.DateTime? UpdateDate{
+			get{			
+				return _UpdateDate;
 			}
-		this._UpdateDate = value;
-
+			set {
+				if (ModelObject.valueChanged(_UpdateDate, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_UPDATE_DATE);
+					}
+					this._UpdateDate = value;
+				}
+			}
 		}
-		}
-	}
 		//Field CREATE_USER
-	[Key][StringLength(10, ErrorMessage="CREATE_USER must be 10 characters or less")][Column(Name="CREATE_USER",Storage = "_CreateUser", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.String CreateUser{
-	get{
-		return _CreateUser;
-	}
-	set {
-		if (ModelObject.valueChanged(_CreateUser, value)){
-		if (value != null && value.Length > 10){
-			throw new ModelObjectFieldTooLongException("CREATE_USER");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_CREATE_USER);
+		[Key]
+		[StringLength(10, ErrorMessage="CREATE_USER must be 10 characters or less")]
+		[Column(Name="CREATE_USER",Storage = "_CreateUser", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String CreateUser{
+			get{			
+				return _CreateUser;
 			}
-		this._CreateUser = value;
-
+			set {
+				if (ModelObject.valueChanged(_CreateUser, value)){
+					if (value != null && value.Length > 10){
+						throw new ModelObjectFieldTooLongException("CREATE_USER");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_CREATE_USER);
+					}
+					this._CreateUser = value;
+				}
+			}
 		}
-		}
-	}
 		//Field UPDATE_USER
-	[Key][StringLength(10, ErrorMessage="UPDATE_USER must be 10 characters or less")][Column(Name="UPDATE_USER",Storage = "_UpdateUser", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.String UpdateUser{
-	get{
-		return _UpdateUser;
-	}
-	set {
-		if (ModelObject.valueChanged(_UpdateUser, value)){
-		if (value != null && value.Length > 10){
-			throw new ModelObjectFieldTooLongException("UPDATE_USER");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_UPDATE_USER);
+		[Key]
+		[StringLength(10, ErrorMessage="UPDATE_USER must be 10 characters or less")]
+		[Column(Name="UPDATE_USER",Storage = "_UpdateUser", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String UpdateUser{
+			get{			
+				return _UpdateUser;
 			}
-		this._UpdateUser = value;
-
+			set {
+				if (ModelObject.valueChanged(_UpdateUser, value)){
+					if (value != null && value.Length > 10){
+						throw new ModelObjectFieldTooLongException("UPDATE_USER");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_UPDATE_USER);
+					}
+					this._UpdateUser = value;
+				}
+			}
 		}
-		}
-	}
 
 		#endregion
 

@@ -41,9 +41,16 @@ namespace OracleModel {
 
 		#region "Children and Parents"
 		
+		[OnDeserializing]
+        public void OnDeserializingMethod(StreamingContext context) {
+            this.IsObjectLoading = true;
+        }
+
 		[OnDeserialized]
         public void OnDeserializedMethod(StreamingContext context) {
 
+			this.IsObjectLoading = false;
+			this.isDirty = true;
         }
 
 		public override void loadObjectHierarchy() {
@@ -118,118 +125,126 @@ namespace OracleModel {
 		#region "Field Properties"
 
 		//Field COUNTRY_ID
-	[Required][StringLength(2, ErrorMessage="COUNTRY_ID must be 2 characters or less")][Column(Name="COUNTRY_ID",Storage = "_CountryId", IsPrimaryKey=true,DbType = " NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.String PrCountryId{
-	get{
-		return _CountryId;
-	}
-	set {
-		if (ModelObject.valueChanged(_CountryId, value)){
-		if (value != null && value.Length > 2){
-			throw new ModelObjectFieldTooLongException("COUNTRY_ID");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_COUNTRY_ID);
+		[Required]
+		[StringLength(2, ErrorMessage="COUNTRY_ID must be 2 characters or less")]
+		[Column(Name="COUNTRY_ID",Storage = "_CountryId", IsPrimaryKey=true,DbType = " NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.String PrCountryId{
+			get{			
+				return _CountryId;
 			}
-		this._CountryId = value;
-
-			this.raiseBroadcastIdChange();
-
+			set {
+				if (ModelObject.valueChanged(_CountryId, value)){
+					if (value != null && value.Length > 2){
+						throw new ModelObjectFieldTooLongException("COUNTRY_ID");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_COUNTRY_ID);
+					}
+					this._CountryId = value;
+					this.raiseBroadcastIdChange();
+				}
+			}
 		}
-		}
-	}
 		//Field COUNTRY_NAME
-	[Key][StringLength(40, ErrorMessage="COUNTRY_NAME must be 40 characters or less")][Column(Name="COUNTRY_NAME",Storage = "_CountryName", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.String PrCountryName{
-	get{
-		return _CountryName;
-	}
-	set {
-		if (ModelObject.valueChanged(_CountryName, value)){
-		if (value != null && value.Length > 40){
-			throw new ModelObjectFieldTooLongException("COUNTRY_NAME");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_COUNTRY_NAME);
+		[Key]
+		[StringLength(40, ErrorMessage="COUNTRY_NAME must be 40 characters or less")]
+		[Column(Name="COUNTRY_NAME",Storage = "_CountryName", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String PrCountryName{
+			get{			
+				return _CountryName;
 			}
-		this._CountryName = value;
-
+			set {
+				if (ModelObject.valueChanged(_CountryName, value)){
+					if (value != null && value.Length > 40){
+						throw new ModelObjectFieldTooLongException("COUNTRY_NAME");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_COUNTRY_NAME);
+					}
+					this._CountryName = value;
+				}
+			}
 		}
-		}
-	}
 		//Field REGION_ID
-	[Key][Column(Name="REGION_ID",Storage = "_RegionId", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.Int64? PrRegionId{
-	get{
-		return _RegionId;
-	}
-	set {
-		if (ModelObject.valueChanged(_RegionId, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_REGION_ID);
+		[Key]
+		[Column(Name="REGION_ID",Storage = "_RegionId", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.Int64? PrRegionId{
+			get{			
+				return _RegionId;
 			}
-		this._RegionId = value;
-
+			set {
+				if (ModelObject.valueChanged(_RegionId, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_REGION_ID);
+					}
+					this._RegionId = value;
+				}
+			}
 		}
-		}
-	}
 		//Field SKIP_FIELD
-	[Key][StringLength(40, ErrorMessage="SKIP_FIELD must be 40 characters or less")][Column(Name="SKIP_FIELD",Storage = "_SkipField", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.String PrSkipField{
-	get{
-		return _SkipField;
-	}
-	set {
-		if (ModelObject.valueChanged(_SkipField, value)){
-		if (value != null && value.Length > 40){
-			throw new ModelObjectFieldTooLongException("SKIP_FIELD");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_SKIP_FIELD);
+		[Key]
+		[StringLength(40, ErrorMessage="SKIP_FIELD must be 40 characters or less")]
+		[Column(Name="SKIP_FIELD",Storage = "_SkipField", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String PrSkipField{
+			get{			
+				return _SkipField;
 			}
-		this._SkipField = value;
-
+			set {
+				if (ModelObject.valueChanged(_SkipField, value)){
+					if (value != null && value.Length > 40){
+						throw new ModelObjectFieldTooLongException("SKIP_FIELD");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_SKIP_FIELD);
+					}
+					this._SkipField = value;
+				}
+			}
 		}
-		}
-	}
 		//Field LONG_FLD
-	[Key][Column(Name="LONG_FLD",Storage = "_LongFld", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.Int64? PrLongFld{
-	get{
-		return _LongFld;
-	}
-	set {
-		if (ModelObject.valueChanged(_LongFld, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_LONG_FLD);
+		[Key]
+		[Column(Name="LONG_FLD",Storage = "_LongFld", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.Int64? PrLongFld{
+			get{			
+				return _LongFld;
 			}
-		this._LongFld = value;
-
+			set {
+				if (ModelObject.valueChanged(_LongFld, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_LONG_FLD);
+					}
+					this._LongFld = value;
+				}
+			}
 		}
-		}
-	}
 		//Field LONG_FLD2
-	[Key][Column(Name="LONG_FLD2",Storage = "_LongFld2", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
-	[DataMember]public virtual System.Int64? PrLongFld2{
-	get{
-		return _LongFld2;
-	}
-	set {
-		if (ModelObject.valueChanged(_LongFld2, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_LONG_FLD2);
+		[Key]
+		[Column(Name="LONG_FLD2",Storage = "_LongFld2", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[DataMember]
+		public virtual System.Int64? PrLongFld2{
+			get{			
+				return _LongFld2;
 			}
-		this._LongFld2 = value;
-
+			set {
+				if (ModelObject.valueChanged(_LongFld2, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_LONG_FLD2);
+					}
+					this._LongFld2 = value;
+				}
+			}
 		}
-		}
-	}
 
 		#endregion
 

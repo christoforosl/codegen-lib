@@ -12,14 +12,14 @@
 
 		    '1-1 parent association
             Set(ByVal value As <datatype>)
-                Me._<association_name> = value
-				If value isnot Nothing then
-					me.<child_field_runtime> = value.<parent_field_runtime>
+                If value isnot Nothing then
+					'' note: do not set property, but the field!!
+					me.<child_field> = value.<parent_field_runtime>
 					AddHandler value.IDChanged, AddressOf Me.handleParentIdChanged
                 Else
-					me.<child_field_runtime> = Nothing
+					me.<child_field> = Nothing
 				End If
-
+				Me._<association_name> = value
             End Set
 
 

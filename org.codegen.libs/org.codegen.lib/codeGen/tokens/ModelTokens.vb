@@ -92,9 +92,16 @@ Namespace Tokens
                 Dim vec As List(Of Association) = t.DbTable.Associations
 
                 For Each association As Association In vec
-                    If (Not association.isParent) Then
+                    If (association.isParent) Then
                         sb.Append(vbTab).Append(vbTab).Append(vbTab)
-                        'this.").Append(association.LoadedFlagVariableName()).Append(" && 
+                        sb.Append("if (this.")
+                        sb.Append(association.getVariableName()).Append("!=null){").Append(vbCrLf)
+                        sb.Append(vbTab).Append(vbTab).Append(vbTab).Append(vbTab)
+                        sb.Append("this.").Append(association.getVariableName()).Append(".IDChanged += this.handleParentIdChanged;").Append(vbCrLf)
+                        sb.Append(vbTab).Append(vbTab).Append(vbTab)
+                        sb.Append("}").Append(vbCrLf)
+                    Else
+                        sb.Append(vbTab).Append(vbTab).Append(vbTab)
                         sb.Append("if (this.")
                         sb.Append(association.getVariableName()).Append("!=null){").Append(vbCrLf)
                         sb.Append(vbTab).Append(vbTab).Append(vbTab).Append(vbTab)
@@ -108,7 +115,7 @@ Namespace Tokens
                             sb.Append(vbTab).Append(vbTab).Append(vbTab).Append(vbTab)
                             sb.Append("}").Append(vbCrLf)
                         Else
-                            
+
                             sb.Append("this.IDChanged += this.").Append(association.getVariableName())
                             sb.Append(".handleParentIdChanged;").Append(vbCrLf)
                         End If
@@ -129,7 +136,17 @@ Namespace Tokens
                 Dim vec As List(Of Association) = t.DbTable.Associations
 
                 For Each association As Association In vec
-                    If (Not association.isParent) Then
+                    If (association.isParent) Then
+
+                        sb.Append(vbTab).Append(vbTab).Append(vbTab)
+                        sb.Append("if me.")
+                        sb.Append(association.getVariableName()).Append(" isNot Nothing Then").Append(vbCrLf)
+                        sb.Append(vbTab).Append(vbTab).Append(vbTab).Append(vbTab)
+                        sb.Append("AddHandler me.").Append(association.getVariableName()).Append(".IDChanged, AddressOf me.handleParentIdChanged").Append(vbCrLf)
+                        sb.Append(vbTab).Append(vbTab).Append(vbTab)
+                        sb.Append("End If").Append(vbCrLf)
+
+                    Else
                         sb.Append(vbTab).Append(vbTab).Append(vbTab)
                         sb.Append("if me.").Append(association.getVariableName()).Append(" isNot Nothing Then").Append(vbCrLf)
                         sb.Append(vbTab).Append(vbTab).Append(vbTab).Append(vbTab)

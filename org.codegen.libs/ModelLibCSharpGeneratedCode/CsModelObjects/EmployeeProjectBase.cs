@@ -41,9 +41,16 @@ namespace CsModelObjects {
 
 		#region "Children and Parents"
 		
+		[OnDeserializing]
+        public void OnDeserializingMethod(StreamingContext context) {
+            this.IsObjectLoading = true;
+        }
+
 		[OnDeserialized]
         public void OnDeserializedMethod(StreamingContext context) {
 
+			this.IsObjectLoading = false;
+			this.isDirty = true;
         }
 
 		public override void loadObjectHierarchy() {
@@ -127,109 +134,118 @@ namespace CsModelObjects {
 		#region "Field Properties"
 
 		//Field EmployeeProjectId
-	[Required][Column(Name="EmployeeProjectId",Storage = "_EmployeeProjectId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.Int64 PrEmployeeProjectId{
-	get{
-		return _EmployeeProjectId;
-	}
-	set {
-		if (ModelObject.valueChanged(_EmployeeProjectId, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_EMPLOYEEPROJECTID);
+		[Required]
+		[Column(Name="EmployeeProjectId",Storage = "_EmployeeProjectId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.Int64 PrEmployeeProjectId{
+			get{			
+				return _EmployeeProjectId;
 			}
-		this._EmployeeProjectId = value;
-
-			this.raiseBroadcastIdChange();
-
+			set {
+				if (ModelObject.valueChanged(_EmployeeProjectId, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_EMPLOYEEPROJECTID);
+					}
+					this._EmployeeProjectId = value;
+					this.raiseBroadcastIdChange();
+				}
+			}
 		}
-		}
-	}
 		//Field EPEmployeeId
-	[Key][Required][Column(Name="EPEmployeeId",Storage = "_EPEmployeeId", IsPrimaryKey=false,DbType = "int NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.Int64? PrEPEmployeeId{
-	get{
-		return _EPEmployeeId;
-	}
-	set {
-		if (ModelObject.valueChanged(_EPEmployeeId, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_EPEMPLOYEEID);
+		[Key]
+		[Required]
+		[Column(Name="EPEmployeeId",Storage = "_EPEmployeeId", IsPrimaryKey=false,DbType = "int NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.Int64? PrEPEmployeeId{
+			get{			
+				return _EPEmployeeId;
 			}
-		this._EPEmployeeId = value;
-
+			set {
+				if (ModelObject.valueChanged(_EPEmployeeId, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_EPEMPLOYEEID);
+					}
+					this._EPEmployeeId = value;
+				}
+			}
 		}
-		}
-	}
 		//Field EPProjectId
-	[Key][Required][Column(Name="EPProjectId",Storage = "_EPProjectId", IsPrimaryKey=false,DbType = "int NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.Int64? PrEPProjectId{
-	get{
-		return _EPProjectId;
-	}
-	set {
-		if (ModelObject.valueChanged(_EPProjectId, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_EPPROJECTID);
+		[Key]
+		[Required]
+		[Column(Name="EPProjectId",Storage = "_EPProjectId", IsPrimaryKey=false,DbType = "int NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.Int64? PrEPProjectId{
+			get{			
+				return _EPProjectId;
 			}
-		this._EPProjectId = value;
-
+			set {
+				if (ModelObject.valueChanged(_EPProjectId, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_EPPROJECTID);
+						this._Project= null; // reset if id of parent object has changed
+						this.ProjectLoaded= false;
+					}
+					this._EPProjectId = value;
+				}
+			}
 		}
-		}
-	}
 		//Field AssignDate
-	[Key][Column(Name="AssignDate",Storage = "_AssignDate", IsPrimaryKey=false,DbType = "date",CanBeNull = true)]
-	[DataMember]public virtual System.DateTime? PrAssignDate{
-	get{
-		return _AssignDate;
-	}
-	set {
-		if (ModelObject.valueChanged(_AssignDate, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_ASSIGNDATE);
+		[Key]
+		[Column(Name="AssignDate",Storage = "_AssignDate", IsPrimaryKey=false,DbType = "date",CanBeNull = true)]
+		[DataMember]
+		public virtual System.DateTime? PrAssignDate{
+			get{			
+				return _AssignDate;
 			}
-		this._AssignDate = value;
-
+			set {
+				if (ModelObject.valueChanged(_AssignDate, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_ASSIGNDATE);
+					}
+					this._AssignDate = value;
+				}
+			}
 		}
-		}
-	}
 		//Field EndDate
-	[Key][Column(Name="EndDate",Storage = "_EndDate", IsPrimaryKey=false,DbType = "date",CanBeNull = true)]
-	[DataMember]public virtual System.DateTime? PrEndDate{
-	get{
-		return _EndDate;
-	}
-	set {
-		if (ModelObject.valueChanged(_EndDate, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_ENDDATE);
+		[Key]
+		[Column(Name="EndDate",Storage = "_EndDate", IsPrimaryKey=false,DbType = "date",CanBeNull = true)]
+		[DataMember]
+		public virtual System.DateTime? PrEndDate{
+			get{			
+				return _EndDate;
 			}
-		this._EndDate = value;
-
+			set {
+				if (ModelObject.valueChanged(_EndDate, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_ENDDATE);
+					}
+					this._EndDate = value;
+				}
+			}
 		}
-		}
-	}
 		//Field Rate
-	[Key][Column(Name="Rate",Storage = "_Rate", IsPrimaryKey=false,DbType = "decimal",CanBeNull = true)]
-	[DataMember]public virtual System.Decimal? PrRate{
-	get{
-		return _Rate;
-	}
-	set {
-		if (ModelObject.valueChanged(_Rate, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_RATE);
+		[Key]
+		[Column(Name="Rate",Storage = "_Rate", IsPrimaryKey=false,DbType = "decimal",CanBeNull = true)]
+		[DataMember]
+		public virtual System.Decimal? PrRate{
+			get{			
+				return _Rate;
 			}
-		this._Rate = value;
-
+			set {
+				if (ModelObject.valueChanged(_Rate, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_RATE);
+					}
+					this._Rate = value;
+				}
+			}
 		}
-		}
-	}
 		#endregion
 		#region "Associations"
 		
@@ -245,16 +261,17 @@ namespace CsModelObjects {
 		public virtual CsModelObjects.Project PrProject {
 		    //1-1 parent association
             set {
-                this._Project = value;
+                
 				if ( value != null ) {
-					this.PrEPProjectId = this._Project.PrProjectId;
-					this._Project.IDChanged += this.handleParentIdChanged;
+					// note: do not set property, but the field!!
+					this._EPProjectId = value.PrProjectId;
+					value.IDChanged += this.handleParentIdChanged;
                 } else {
-					this.PrEPProjectId = null;
+					this._EPProjectId = null;
 				}
+				this._Project = value;
 
             }
-
 
             get {
                 //LAZY LOADING! Only hit the database to get the child object if we need it

@@ -1,13 +1,14 @@
-﻿Imports System.Text
+﻿
+Imports System.Text
 Imports org.codegen.lib.FileComponents
 Imports org.codegen.lib.Tokens
 Imports System.Collections.Generic
+Imports System.Linq
 
 Public Class PropertyGenerator
-    Implements IPropertyGenerator
+    Inherits IPropertyGenerator
 
-    Public Function generateCode(ByVal field As IDBField) As String _
-            Implements IPropertyGenerator.generateCode
+    Public Overrides Function generatePropertyCode(ByVal field As IDBField) As String 
 
         Dim sImplements As String = String.Empty
         Dim sLengthChecker As String = String.Empty
@@ -53,6 +54,13 @@ Public Class PropertyGenerator
         sproperty.Append(vbTab).Append(vbTab).Append(vbTab & "if me.IsObjectLoading = false then").Append(vbCrLf)
         sproperty.Append(vbTab).Append(vbTab).Append(vbTab & vbTab).Append("me.isDirty = true").Append(vbCrLf)
         sproperty.Append(vbTab).Append(vbTab).Append(vbTab & vbTab).Append("me.setFieldChanged(").Append(field.getConstantStr).Append(")").Append(vbCrLf)
+
+        Dim xass As Association = Me.getParentAssociationOfField(field)
+        If xass IsNot Nothing Then
+            sproperty.Append(SIX_TABS).Append("me." & xass.getVariableName()).Append("= nothing ' reset if id of parent object has changed").Append(vbCrLf)
+            sproperty.Append(SIX_TABS).Append("me." & xass.LoadedFlagVariableName()).Append("= false").Append(vbCrLf)
+        End If
+
         sproperty.Append(vbTab).Append(vbTab).Append(vbTab & "End If").Append(vbCrLf)
         sproperty.Append(vbTab).Append(vbTab & vbTab).Append(Me.setConverter(field)).Append(vbCrLf)
 
@@ -71,11 +79,10 @@ Public Class PropertyGenerator
 
     End Function
 
-    Public Function generateInterfaceDeclaration(ByVal field As IDBField) As String _
-                    Implements IPropertyGenerator.generateInterfaceDeclaration
+    Public Overrides Function generateInterfaceDeclaration(ByVal field As IDBField) As String
 
         Dim sb As StringBuilder = New StringBuilder()
-		Dim fname As String = field.PropertyName()
+        Dim fname As String = field.PropertyName()
         If fname.ToLower = "readonly" OrElse fname.ToLower = "new" Then
             fname = "[" & fname & "]"
         End If

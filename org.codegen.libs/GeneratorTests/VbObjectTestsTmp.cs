@@ -12,7 +12,6 @@ using System.Threading;
 using System.Globalization;
 using org.model.lib.db;
 using Newtonsoft.Json;
-using System.Web.Script.Serialization;
 using System.Diagnostics;
 
 namespace GeneratorTests.VB {
@@ -38,8 +37,6 @@ namespace GeneratorTests.VB {
         /// Use ClassInitialize to run code before running the first test in the class
         [NUnit.Framework.SetUp]
         public static void MyClassInitialize() {
-
-            org.model.lib.db.DBUtils.Current().ConnString="Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=modelTest;Data Source=.\\SQLEXPRESS2014";
             ModelContext.newForUnitTests();
         }
 
@@ -50,7 +47,7 @@ namespace GeneratorTests.VB {
         }
 
         [NUnit.Framework.Test]
-        public void testCsSerializationAndDeserialization() {
+        public void testVBNetSerializationAndDeserialization() {
             ModelContext.beginTrans();
             try {
 
@@ -116,8 +113,43 @@ namespace GeneratorTests.VB {
             }
         }
 
+        /// <summary>
+        /// Test case: Object is completely loaded.  There exists 
+        /// 1-1 associations between this object and other tables.  
+        /// The association objects are loaded.
+        /// if any of the link fields change, we need to reload associated object
+        /// </summary>
         [NUnit.Framework.Test]
-        public void createVbRecords() {
+        public void testVBNetUpdateOfParentIds() {
+            ModelContext.beginTrans();
+            try {
+                Employee employee = EmployeeDataUtils.findByKey(1);
+                NUnit.Framework.Assert.IsNotNull(employee);
+                employee.loadObjectHierarchy();
+                employee.PrEmployeeRankId = 1; // set to "president"
+                EmployeeDataUtils.saveEmployee(employee);
+
+                employee = EmployeeDataUtils.findByKey(1); // reload from db
+                employee.loadObjectHierarchy();
+                NUnit.Framework.Assert.IsTrue( employee.PrEmployeeRankId == 1, "Employee must be PrEmployeeRankId=1"); // president 
+                NUnit.Framework.Assert.IsTrue(employee.PrRank.PrRankId == 1, "Employee PrRank related object must be of PrRankId = 1"); // president 
+
+                employee.PrEmployeeRankId = 2; // modify to "Associate Consultant"
+                NUnit.Framework.Assert.IsTrue(employee.PrEmployeeRankId == 2, "Employee must be PrEmployeeRankId=2"); 
+                NUnit.Framework.Assert.IsTrue(employee.PrRank.PrRankId == 2, "Employee PrRank related object must be of PrRankId =2");
+                EmployeeDataUtils.saveEmployee(employee);
+
+                employee = EmployeeDataUtils.findByKey(1); // reload from db
+                NUnit.Framework.Assert.IsTrue(employee.PrEmployeeRankId == 2, "Employee must be PrEmployeeRankId=2"); 
+
+            } finally {
+                ModelContext.rollbackTrans();
+            }
+
+        }
+
+        [NUnit.Framework.Test]
+        public void testVBNetCreateRecords() {
 
             ModelContext.Current.config.DoCascadeDeletes = true;
             ModelContext.beginTrans();
@@ -149,7 +181,6 @@ namespace GeneratorTests.VB {
                 emplProj.PrEPProjectId = 1;
                 emplProj.PrProject = ProjectFactory.Create();
                 emplProj.PrProject.PrProjectName = "MyProject";
-
 
                 NUnit.Framework.Assert.IsTrue(employee.isNew);
                 NUnit.Framework.Assert.IsTrue(employee.isDirty);

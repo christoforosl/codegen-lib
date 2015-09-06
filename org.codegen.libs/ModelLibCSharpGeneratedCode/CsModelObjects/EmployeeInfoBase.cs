@@ -41,9 +41,16 @@ namespace CsModelObjects {
 
 		#region "Children and Parents"
 		
+		[OnDeserializing]
+        public void OnDeserializingMethod(StreamingContext context) {
+            this.IsObjectLoading = true;
+        }
+
 		[OnDeserialized]
         public void OnDeserializedMethod(StreamingContext context) {
 
+			this.IsObjectLoading = false;
+			this.isDirty = true;
         }
 
 		public override void loadObjectHierarchy() {
@@ -112,78 +119,83 @@ namespace CsModelObjects {
 		#region "Field Properties"
 
 		//Field EmployeeInfoId
-	[Required][Column(Name="EmployeeInfoId",Storage = "_EmployeeInfoId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.Int64 PrEmployeeInfoId{
-	get{
-		return _EmployeeInfoId;
-	}
-	set {
-		if (ModelObject.valueChanged(_EmployeeInfoId, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_EMPLOYEEINFOID);
+		[Required]
+		[Column(Name="EmployeeInfoId",Storage = "_EmployeeInfoId", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.Int64 PrEmployeeInfoId{
+			get{			
+				return _EmployeeInfoId;
 			}
-		this._EmployeeInfoId = value;
-
-			this.raiseBroadcastIdChange();
-
+			set {
+				if (ModelObject.valueChanged(_EmployeeInfoId, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_EMPLOYEEINFOID);
+					}
+					this._EmployeeInfoId = value;
+					this.raiseBroadcastIdChange();
+				}
+			}
 		}
-		}
-	}
 		//Field EIEmployeeId
-	[Key][Required][Column(Name="EIEmployeeId",Storage = "_EIEmployeeId", IsPrimaryKey=false,DbType = "int NOT NULL",CanBeNull = false)]
-	[DataMember]public virtual System.Int64? PrEIEmployeeId{
-	get{
-		return _EIEmployeeId;
-	}
-	set {
-		if (ModelObject.valueChanged(_EIEmployeeId, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_EIEMPLOYEEID);
+		[Key]
+		[Required]
+		[Column(Name="EIEmployeeId",Storage = "_EIEmployeeId", IsPrimaryKey=false,DbType = "int NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.Int64? PrEIEmployeeId{
+			get{			
+				return _EIEmployeeId;
 			}
-		this._EIEmployeeId = value;
-
+			set {
+				if (ModelObject.valueChanged(_EIEmployeeId, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_EIEMPLOYEEID);
+					}
+					this._EIEmployeeId = value;
+				}
+			}
 		}
-		}
-	}
 		//Field Salary
-	[Key][Column(Name="Salary",Storage = "_Salary", IsPrimaryKey=false,DbType = "decimal",CanBeNull = true)]
-	[DataMember]public virtual System.Decimal? PrSalary{
-	get{
-		return _Salary;
-	}
-	set {
-		if (ModelObject.valueChanged(_Salary, value)){
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_SALARY);
+		[Key]
+		[Column(Name="Salary",Storage = "_Salary", IsPrimaryKey=false,DbType = "decimal",CanBeNull = true)]
+		[DataMember]
+		public virtual System.Decimal? PrSalary{
+			get{			
+				return _Salary;
 			}
-		this._Salary = value;
-
+			set {
+				if (ModelObject.valueChanged(_Salary, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_SALARY);
+					}
+					this._Salary = value;
+				}
+			}
 		}
-		}
-	}
 		//Field Address
-	[Key][StringLength(600, ErrorMessage="Address must be 600 characters or less")][Column(Name="Address",Storage = "_Address", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
-	[DataMember]public virtual System.String PrAddress{
-	get{
-		return _Address;
-	}
-	set {
-		if (ModelObject.valueChanged(_Address, value)){
-		if (value != null && value.Length > 600){
-			throw new ModelObjectFieldTooLongException("Address");
-		}
-			if (!this.IsObjectLoading) {
-				this.isDirty = true;
-				this.setFieldChanged(STR_FLD_ADDRESS);
+		[Key]
+		[StringLength(600, ErrorMessage="Address must be 600 characters or less")]
+		[Column(Name="Address",Storage = "_Address", IsPrimaryKey=false,DbType = "nvarchar",CanBeNull = true)]
+		[DataMember]
+		public virtual System.String PrAddress{
+			get{			
+				return _Address;
 			}
-		this._Address = value;
-
+			set {
+				if (ModelObject.valueChanged(_Address, value)){
+					if (value != null && value.Length > 600){
+						throw new ModelObjectFieldTooLongException("Address");
+					}
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_ADDRESS);
+					}
+					this._Address = value;
+				}
+			}
 		}
-		}
-	}
 
 		#endregion
 
