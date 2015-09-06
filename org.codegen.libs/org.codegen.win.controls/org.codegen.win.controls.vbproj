@@ -91,12 +91,12 @@
       <HintPath>..\packages\org.codegen.common.4.0.0.5\lib\org.codegen.common.4.0.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="org.model.lib.4.0, Version=4.0.10.13, Culture=neutral, PublicKeyToken=44c29659cab133d9, processorArchitecture=MSIL">
-      <HintPath>..\packages\CodeGen.Model.Library.4.0.10.13\lib\net40\org.model.lib.4.0.dll</HintPath>
+    <Reference Include="org.model.lib.4.0, Version=4.1.0.2, Culture=neutral, PublicKeyToken=44c29659cab133d9, processorArchitecture=MSIL">
+      <HintPath>..\packages\CodeGen.Model.Library.4.1.0.2\lib\net40\org.model.lib.4.0.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="org.model.lib.db.4.0, Version=4.0.10.13, Culture=neutral, PublicKeyToken=44c29659cab133d9, processorArchitecture=MSIL">
-      <HintPath>..\packages\CodeGen.Model.Library.4.0.10.13\lib\net40\org.model.lib.db.4.0.dll</HintPath>
+    <Reference Include="org.model.lib.db.4.0, Version=4.1.0.2, Culture=neutral, PublicKeyToken=44c29659cab133d9, processorArchitecture=MSIL">
+      <HintPath>..\packages\CodeGen.Model.Library.4.1.0.2\lib\net40\org.model.lib.db.4.0.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System">
