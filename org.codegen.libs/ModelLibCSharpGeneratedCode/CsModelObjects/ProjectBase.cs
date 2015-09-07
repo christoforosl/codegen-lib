@@ -125,12 +125,10 @@ namespace CsModelObjects {
 	private System.String _ProjectName;
 	private System.Int64? _IsActive;
 	private System.Int64? _ProjectTypeId = null;
-	// ****** CHILD OBJECTS ********************
+	// ****** Associated OBJECTS ********************
 [DataMember(Name="PrEmployeeProjects")]	private List< CsModelObjects.EmployeeProject> _EmployeeProjects = null;  //initialize to nothing, for lazy load logic below !!!
 	 private List< CsModelObjects.EmployeeProject> _deletedEmployeeProjects = new List< CsModelObjects.EmployeeProject>();// initialize to empty list !!!
-
-	// *****************************************
-	// ****** END CHILD OBJECTS ********************
+	// ****** END Associated OBJECTS ********************
 
 		#endregion
 

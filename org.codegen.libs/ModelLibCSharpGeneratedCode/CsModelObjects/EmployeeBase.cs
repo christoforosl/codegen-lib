@@ -199,14 +199,12 @@ namespace CsModelObjects {
 	private System.Decimal? _SampleNumericField2Decimals = null;
 	private System.String _EmployeeTypeDescr;
 	private System.String _RankDescr;
-	// ****** CHILD OBJECTS ********************
+	// ****** Associated OBJECTS ********************
 [DataMember(Name="PrRank")]	private CsModelObjects.EmployeeRank _Rank = null;  //initialize to nothing, for lazy load logic below !!!
 [DataMember(Name="PrEmployeeInfo")]	private CsModelObjects.EmployeeInfo _EmployeeInfo = null;  //initialize to nothing, for lazy load logic below !!!
 [DataMember(Name="PrEmployeeProjects")]	private List< CsModelObjects.EmployeeProject> _EmployeeProjects = null;  //initialize to nothing, for lazy load logic below !!!
 	 private List< CsModelObjects.EmployeeProject> _deletedEmployeeProjects = new List< CsModelObjects.EmployeeProject>();// initialize to empty list !!!
-
-	// *****************************************
-	// ****** END CHILD OBJECTS ********************
+	// ****** END Associated OBJECTS ********************
 
 		#endregion
 

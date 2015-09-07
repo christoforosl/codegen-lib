@@ -14,7 +14,7 @@
   <defaultDBMapperNameSpace>VbBusObjects.DBMappers</defaultDBMapperNameSpace>
   <propertiesPrefix>Pr</propertiesPrefix>
   <dbConnectionString>
-    Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=modelTest;Data Source=.\SQLEXPRESS
+    Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=modelTest;Data Source=.\SQLEXPRESS2014
   </dbConnectionString>
   <dbConnectionDialect>MSSQL</dbConnectionDialect>
   <dbConnectionType>CONN_MSSQL</dbConnectionType>

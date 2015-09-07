@@ -147,11 +147,9 @@ namespace CsModelObjects {
 	private System.DateTime? _Updatedate = null;
 	private System.String _Updateuser;
 	private System.String _Createuser;
-	// ****** CHILD OBJECTS ********************
+	// ****** Associated OBJECTS ********************
 [DataMember(Name="PrBank")]	private CsModelObjects.Bank _Bank = null;  //initialize to nothing, for lazy load logic below !!!
-
-	// *****************************************
-	// ****** END CHILD OBJECTS ********************
+	// ****** END Associated OBJECTS ********************
 
 		#endregion
 

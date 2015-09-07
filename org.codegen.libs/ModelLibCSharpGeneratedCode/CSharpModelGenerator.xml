@@ -4,44 +4,45 @@
 	   xsi:schemaLocation="ClassGenerator4 https://raw.githubusercontent.com/christoforosl/codegen-lib/master/org.codegen.libs/org.codegen.lib/classGenerator.4.xsd" >
 
 
-  <GeneratorVersion>4</GeneratorVersion><!-- do not change -->
-  
+  <GeneratorVersion>4</GeneratorVersion>
+  <!-- do not change -->
+
   <!-- 
   projectFile: provide the full file path and file name of the .net project that will include the generated ORM Classes 
   The path can be relative to the path where this xml file exists
   -->
   <projectFile>.\ModelLibCSharpGeneratedCode.csproj</projectFile>
-  
+
   <projectName>ModelLibCSharpTests</projectName>
-  
+
   <!-- 
   outputDir: provide the full path where the generated ORM classes will be saved to.  
   The path can be relative to the path where this xml file exists
   -->
   <outputDir>.\</outputDir>
-  
+
   <!-- dotNetLanguage: Enumaration, VB or CSHARP -->
   <dotNetLanguage>CSHARP</dotNetLanguage>
-  
+
   <!-- 
   testProjectOutputDir: provide the full path where the generated unit tests 
   for the generated ORM classes will be saved to.  
   The path can be relative to the path where this xml file exists
   -->
   <testProjectOutputDir>..\GeneratorTests\cstests</testProjectOutputDir>
-  
+
   <!-- the namespace of the generated POCOs -->
   <defaultNamespace>CsModelObjects</defaultNamespace>
   <!-- the namespace of the generated db mapper POCOs. DB mappers save the POCOs to the database -->
   <defaultDBMapperNameSpace>CsModelMappers</defaultDBMapperNameSpace>
-  
+
   <!-- Every field in the database will become a property.  Specify a property prefix to have 
-  all field proprties grouped together in Intellisense prompts--> 
+  all field proprties grouped together in Intellisense prompts-->
   <propertiesPrefix>Pr</propertiesPrefix>
-  
+
   <!-- Connection String, Dialect and Connection Type to database -->
   <dbConnectionString>
-    Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=modelTest;Data Source=.\SQLEXPRESS
+    Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=modelTest;Data Source=.\SQLEXPRESS2014
   </dbConnectionString>
   <dbConnectionDialect>MSSQL</dbConnectionDialect>
   <dbConnectionType>CONN_MSSQL</dbConnectionType>
@@ -54,15 +55,16 @@
     <enumarationField tableName="Project" fieldName="ProjectTypeId" enumType="EnumProjectType" />
 
   </enumerationFields>
-  
+
   <!-- Following is the list of tables you want to generate -->
   <table>
-    
-    <TableName>Employee</TableName><!-- Table name as is in the database -->
-    
+
+    <TableName>Employee</TableName>
+    <!-- Table name as is in the database -->
+
     <ClassName>Employee</ClassName>
     <!-- Optional, the generated POCO class name. If omitted, a name is derived from the database table -->
-    
+
     <SortField>EmployeeName</SortField>
     <SortAscending>true</SortAscending>
     <selectObject>vEmployee</selectObject>
@@ -74,23 +76,23 @@
       <ValueMember>RankId</ValueMember>
       <DisplayMember>Rank</DisplayMember>
     </Lookups>
-    
+
     <!-- Optional, associations between other generated tables -->
     <association>
-      
+
       <!-- Can be PARENT or CHILD -->
       <relationType>PARENT</relationType>
-      
+
       <!-- fully qualified datatype of associated object -->
       <DataType>CsModelObjects.EmployeeRank</DataType>
       <!-- an association name -->
       <AssociationName>Rank</AssociationName>
       <!-- cardinality is either 1 or * (many) -->
       <cardinality>1</cardinality>
-      
-      <!-- specify parent table field name that links the 2 tables together and forms the association --> 
+
+      <!-- specify parent table field name that links the 2 tables together and forms the association -->
       <parentFieldName>RankId</parentFieldName>
-      <!-- specify child table field name that links the 2 tables together and forms the association --> 
+      <!-- specify child table field name that links the 2 tables together and forms the association -->
       <childFieldName>EmployeeRankId</childFieldName>
 
     </association>
@@ -114,7 +116,7 @@
 
       <parentFieldName>EmployeeId</parentFieldName>
       <childFieldName>EPEmployeeId</childFieldName>
-      
+
     </association>
 
   </table>
@@ -123,18 +125,18 @@
     <TableName>EmployeeProject</TableName>
     <ClassName>EmployeeProject</ClassName>
     <GenerateUI>1</GenerateUI>
-	<association>
-	  <relationType>PARENT</relationType>
-	  <DataType>CsModelObjects.Project</DataType>
-	  <AssociationName>Project</AssociationName>
-	  <AssociationSingular>Project</AssociationSingular>
-	  <cardinality>1</cardinality>
+    <association>
+      <relationType>PARENT</relationType>
+      <DataType>CsModelObjects.Project</DataType>
+      <AssociationName>Project</AssociationName>
+      <AssociationSingular>Project</AssociationSingular>
+      <cardinality>1</cardinality>
 
-	  <parentFieldName>ProjectId</parentFieldName>
-	  <childFieldName>EPProjectId</childFieldName>
+      <parentFieldName>ProjectId</parentFieldName>
+      <childFieldName>EPProjectId</childFieldName>
 
-	</association>
-	
+    </association>
+
   </table>
 
   <table>
@@ -151,7 +153,7 @@
     <TableName>Project</TableName>
     <ClassName>Project</ClassName>
     <GenerateUI>1</GenerateUI>
-    
+
     <association>
       <relationType>CHILD</relationType>
       <DataType>CsModelObjects.EmployeeProject</DataType>
@@ -163,7 +165,7 @@
     </association>
 
   </table>
-  
+
   <table>
     <TableName>EmployeeType</TableName>
   </table>

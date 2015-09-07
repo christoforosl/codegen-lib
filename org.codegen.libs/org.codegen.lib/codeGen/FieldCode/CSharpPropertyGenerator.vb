@@ -6,8 +6,6 @@ Imports System.Collections.Generic
 Public Class CSharpPropertyGenerator
     Inherits IPropertyGenerator
 
-   
-
     Public Overrides Function generatePropertyCode(ByVal field As IDBField) As String 
 
         Dim sImplements As String = String.Empty

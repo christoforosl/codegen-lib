@@ -15,9 +15,9 @@ Public MustInherit Class IPropertyGenerator
 
     Public Function getParentAssociationOfField(ByVal field As IDBField) As Association
 
-        Dim parents As IEnumerable(Of Association) = ModelGenerator.Current.SystemAssociations.Where(Function(x)
-                                                                                                         Return x.isParent
-                                                                                                     End Function)
+        Dim parents As IEnumerable(Of Association) = field.ParentTable.Associations.Where(Function(x)
+                                                                                              Return x.isParent
+                                                                                          End Function)
 
         For Each association As Association In parents
 
