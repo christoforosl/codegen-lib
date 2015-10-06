@@ -1,7 +1,7 @@
-
-Imports system.io
+Imports System.IO
 Imports system.Reflection
 Imports system.Threading
+Imports System.Linq
 
 Friend Class ORADBUpdater
     Inherits DBUpdater
@@ -41,7 +41,9 @@ Friend Class MSSQLDBUpdater
     End Function
 
     Protected Friend Overrides Function getSQLCommandFileName(ByVal iVersion As Integer) As String
+
         Return "dbUpdate_" & CStr(iVersion) & "_MS.SQL"
+
     End Function
 
     Protected Friend Overrides Function getVersionAndLockTable() As Int32
@@ -49,11 +51,8 @@ Friend Class MSSQLDBUpdater
         Dim rs As IDataReader
         Dim dbversion As Int32
 
-        'Try
-        '    Call _dbconn.executeSQL("backup log " & _dbconn.Connection.Database & " with truncate_only ")
-        'Catch ex As Exception
-        '    'ErrorLogging.addError("Backup log failed.", "logon")
-        'End Try
+        ' the following creates the DatabaseVersion table if it does not exist
+        _dbconn.executeSQL("if not exists(select * from sysobjects where id=object_id('DatabaseVersion'))CREATE TABLE [dbo].[DatabaseVersion]([version] [int] NOT NULL,[VersionDate] [datetime] NOT NULL DEFAULT (getdate()))")
 
         rs = _dbconn.getDataReader("SELECT isnull(max(version), 0) from DatabaseVersion WITH (TABLOCKX)") 'lock table exclusively
         If rs.Read Then
@@ -144,6 +143,8 @@ Public MustInherit Class DBUpdater
     Protected _codeDatabaseVersion As Integer
     Protected _assemblyName As Assembly
 
+    Public Property encoding() As System.Text.Encoding = System.Text.Encoding.GetEncoding("Windows-1253")
+
     Protected Friend MustOverride Function getVersionAndLockTable() As Int32
 
     'the character or string that the sql commands are separated with
@@ -159,27 +160,30 @@ Public MustInherit Class DBUpdater
 
     Private Shared Function getResourceStream(ByVal resname As String, ByVal assembly As Assembly) As Stream
 
-        Return assembly.GetManifestResourceStream(assembly.GetName.Name & "." & resname)
+        Dim resourceName As String = assembly.GetManifestResourceNames().FirstOrDefault(Function(xc)
+                                                                                            Return xc.EndsWith("." & resname)
+                                                                                        End Function)
+
+
+        Return assembly.GetManifestResourceStream(resourceName)
 
     End Function
 
-    Private Shared Function getResourceFileText(ByVal resname As String, ByVal assembly As Assembly) As String
+    Private Function getResourceFileText(ByVal resname As String, ByVal assembly As Assembly) As String
 
         Dim templ As String = String.Empty
         Dim d As Stream = getResourceStream(resname, assembly)
-        Dim ds As StreamReader = New StreamReader(d, System.Text.Encoding.GetEncoding("Windows-1253"))
-        Dim tline As String
-        Try
-
+        Using ds As StreamReader = New StreamReader(d, Me.encoding)
+            Dim tline As String
             Do
                 tline = ds.ReadLine()
                 templ &= tline & vbCrLf
-            Loop Until tline Is Nothing
-            Return templ
-        Finally
-            d.Close()
 
-        End Try
+            Loop Until tline Is Nothing
+
+            Return templ
+
+        End Using
 
     End Function
 
@@ -197,7 +201,6 @@ Public MustInherit Class DBUpdater
         Dim dbName As String
 
         System.Threading.Monitor.Enter(oLock)
-
 
         Try
             dbversion = Me.getVersionAndLockTable
@@ -221,6 +224,7 @@ Public MustInherit Class DBUpdater
                 'and we compare it with dbversion. the version stored
                 'in the database.  If dbversion is less than _codeDatabaseVersion
                 Do While dbversion < _codeDatabaseVersion
+
                     scriptFile = Me.getSQLCommandFileName(CShort(dbversion))
                     sqlFile = getResourceFileText(scriptFile, Me._assemblyName)
                     arrSQL = Split(sqlFile, Me.getSQLCommandSeparator, , CompareMethod.Text)
@@ -264,14 +268,6 @@ Public MustInherit Class DBUpdater
 
 #Region "Public class interface"
 
-    Public Shared Sub dbUpdateVersion(ByVal _dbconn As DBUtils, _
-                                        ByVal _dbversion As Integer, _
-                                        ByVal type As Type, _
-                                        ByVal _backupSQLStatement As String)
-
-        Call dbUpdateVersion(_dbconn, _dbversion, type.Assembly, _backupSQLStatement)
-
-    End Sub
     ''' <summary>
     ''' Creates an updater class instance and brings the database to the target version
     ''' </summary>
@@ -282,6 +278,7 @@ Public MustInherit Class DBUpdater
     Public Shared Sub dbUpdateVersion(ByVal _dbconn As DBUtils, _
                                            ByVal _dbversion As Integer, _
                                            ByVal _assembly As Assembly, _
+                                           Optional ByVal encoding As System.Text.Encoding = Nothing, _
                                            Optional ByVal _backupSQLStatement As String = "")
 
         Dim dbu As DBUpdater = Nothing
@@ -299,10 +296,17 @@ Public MustInherit Class DBUpdater
         dbu._dbconn = _dbconn
         dbu._codeDatabaseVersion = _dbversion
         dbu._assemblyName = _assembly
+        dbu.encoding = CType(IIf(encoding Is Nothing, System.Text.Encoding.UTF8, encoding), System.Text.Encoding)
+
+
+
         dbu.upgradeDatabase()
 
     End Sub
 
 #End Region
+
+
+
 End Class
 
