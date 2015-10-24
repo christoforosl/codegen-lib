@@ -137,9 +137,9 @@ Namespace Model
         '''
         Public Shared ReadOnly Property Current As ModelContext
             Get
-                If _current Is Nothing Then
-                    newCurrent()
-                End If
+                'If _current Is Nothing Then
+                '    newCurrent()
+                'End If
                 Return _current
             End Get
         End Property
