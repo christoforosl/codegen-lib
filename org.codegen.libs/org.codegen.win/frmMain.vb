@@ -149,7 +149,7 @@ Public Class frmMain
 
         Me.Show()
         Me.TopLevel = True
-        Me.TopMost = True
+        Me.TopMost = False
 
         'Application.DoEvents()
 
