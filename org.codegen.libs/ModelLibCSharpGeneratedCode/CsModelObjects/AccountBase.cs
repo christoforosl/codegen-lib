@@ -139,7 +139,8 @@ namespace CsModelObjects {
 	private System.String _Updateuser;
 	private System.String _Createuser;
 	// ****** Associated OBJECTS ********************
-[DataMember(Name="PrBankAccountInfo")]	private CsModelObjects.AccountBankInfo _BankAccountInfo = null;  //initialize to nothing, for lazy load logic below !!!
+	[DataMember(Name="PrBankAccountInfo")]
+	private CsModelObjects.AccountBankInfo _BankAccountInfo = null;//initialize to nothing, for lazy load logic below !!
 	// ****** END Associated OBJECTS ********************
 
 		#endregion

@@ -108,12 +108,28 @@ Public Class XMLClassGenerator
         Using strm As Stream = GetType(XMLClassGenerator).Assembly.GetManifestResourceStream("org.codegen.lib.classGenerator.4.xsd")
             gen = New XMLClassGenerator(xmlConfFile)
             cds = New DataSet
-            cds.Namespace = "ClassGenerator4"
+            'cds.Namespace = "ClassGenerator4"
             cds.ReadXmlSchema(strm)
             Try
                 cds.ReadXml(xmlConfFile)
             Catch ex As Exception
-                Throw New ApplicationException(String.Format(" Error parsing file {0}", xmlConfFile), ex)
+                Dim err As New List(Of String)
+
+                If cds IsNot Nothing AndAlso cds.HasErrors Then
+
+                    For Each t As DataTable In cds.Tables
+                        If t.HasErrors Then
+                            For Each x As DataRow In t.GetErrors
+                                err.Add(x.RowError)
+                            Next
+                        End If
+                    Next
+                    Throw New ApplicationException(String.Format("Error parsing XML in file {0}. Errors: {1}{2}", xmlConfFile, vbCrLf, String.Join(",", err)), ex)
+                Else
+                    Throw New ApplicationException(String.Format("Error parsing file {0}", xmlConfFile), ex)
+                End If
+
+
             End Try
 
 

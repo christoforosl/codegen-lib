@@ -124,7 +124,8 @@ namespace CsModelObjects {
 	private System.DateTime? _EndDate = null;
 	private System.Decimal? _Rate = null;
 	// ****** Associated OBJECTS ********************
-[DataMember(Name="PrProject")]	private CsModelObjects.Project _Project = null;  //initialize to nothing, for lazy load logic below !!!
+	[DataMember(Name="PrProject")]
+	private CsModelObjects.Project _Project = null;//initialize to nothing, for lazy load logic below !!
 	// ****** END Associated OBJECTS ********************
 
 		#endregion

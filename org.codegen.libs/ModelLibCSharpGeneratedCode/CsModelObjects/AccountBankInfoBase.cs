@@ -148,7 +148,8 @@ namespace CsModelObjects {
 	private System.String _Updateuser;
 	private System.String _Createuser;
 	// ****** Associated OBJECTS ********************
-[DataMember(Name="PrBank")]	private CsModelObjects.Bank _Bank = null;  //initialize to nothing, for lazy load logic below !!!
+	[DataMember(Name="PrBank")]
+	private CsModelObjects.Bank _Bank = null;//initialize to nothing, for lazy load logic below !!
 	// ****** END Associated OBJECTS ********************
 
 		#endregion
