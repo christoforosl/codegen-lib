@@ -782,7 +782,7 @@ namespace CsModelObjects {
 						
 			if ( this.EmployeeInfoLoaded) { return; }
 
-			if ( this._EmployeeInfo == null && this.PrEmployeeId !=null)  {
+			if ( this._EmployeeInfo == null && this.PrEmployeeId !=0)  {
 				//IMPORTANT: call setter here, not the private variable
 				this.PrEmployeeInfo = new CsModelMappers.EmployeeInfoDBMapper().findWhere("EIEmployeeId=?", this.PrEmployeeId);
 				

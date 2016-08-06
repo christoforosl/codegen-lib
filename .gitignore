@@ -22,3 +22,8 @@
 
 
 
+org.codegen.libs/packages/Bud.NUnit.ConsoleRunner.0.0.1/Bud.NUnit.ConsoleRunner.0.0.1.nupkg
+org.codegen.libs/packages/Bud.NUnit.ConsoleRunner.0.0.1/lib/net40/nunit-console-runner.dll
+org.codegen.libs/packages/Bud.NUnit.ConsoleRunner.0.0.1/lib/net40/nunit.core.dll
+org.codegen.libs/packages/Bud.NUnit.ConsoleRunner.0.0.1/lib/net40/nunit.util.dll
+org.codegen.libs/packages/Bud.NUnit.ConsoleRunner.0.0.1/lib/net40/nunit.core.interfaces.dll
