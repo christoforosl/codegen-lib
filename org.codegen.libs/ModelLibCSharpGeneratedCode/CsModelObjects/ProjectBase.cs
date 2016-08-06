@@ -126,8 +126,10 @@ namespace CsModelObjects {
 	private System.Int64? _IsActive;
 	private System.Int64? _ProjectTypeId = null;
 	// ****** Associated OBJECTS ********************
-[DataMember(Name="PrEmployeeProjects")]	private List< CsModelObjects.EmployeeProject> _EmployeeProjects = null;  //initialize to nothing, for lazy load logic below !!!
-	 private List< CsModelObjects.EmployeeProject> _deletedEmployeeProjects = new List< CsModelObjects.EmployeeProject>();// initialize to empty list !!!
+	[DataMember(Name="PrEmployeeProjects")]
+	private List< CsModelObjects.EmployeeProject> _EmployeeProjects = null;//initialize to nothing, for lazy load logic below !!
+	[DataMember(Name="PrDeletedEmployeeProjects")]
+	private List<CsModelObjects.EmployeeProject> _deletedEmployeeProjects = new List<CsModelObjects.EmployeeProject>();//initialize to empty list.
 	// ****** END Associated OBJECTS ********************
 
 		#endregion

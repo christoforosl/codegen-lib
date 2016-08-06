@@ -214,7 +214,7 @@ Public MustInherit Class DBUtils
             Me.Transaction = Nothing 'explicitely set it to nothing
         End If
 
-        If (_connTransation.State = ConnectionState.Open) Then
+        If (_connTransation IsNot Nothing AndAlso _connTransation.State = ConnectionState.Open) Then
             _connTransation.Close()
         End If
 
@@ -237,7 +237,7 @@ Public MustInherit Class DBUtils
             Me.Transaction = Nothing 'explicitely set it to nothing
 
         End If
-        If (_connTransation.State = ConnectionState.Open) Then
+        If (_connTransation IsNot Nothing AndAlso _connTransation.State = ConnectionState.Open) Then
             _connTransation.Close()
         End If
 

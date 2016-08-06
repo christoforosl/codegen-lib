@@ -4,7 +4,7 @@
 	   xsi:schemaLocation="ClassGenerator4 https://raw.githubusercontent.com/christoforosl/codegen-lib/master/org.codegen.libs/org.codegen.lib/classGenerator.4.xsd" >
 
 
-  <GeneratorVersion>4</GeneratorVersion>
+  <generatorVersion>4</generatorVersion>
   <!-- do not change -->
 
   <!-- 
@@ -67,7 +67,7 @@
 
     <SortField>EmployeeName</SortField>
     <SortAscending>true</SortAscending>
-    <selectObject>vEmployee</selectObject>
+    <SelectObject>vEmployee</SelectObject>
     <!-- Optional, definition of one or more lookup fields, ie fields that have encoded values 
     corresponding to a description sored in a parent table-->
     <Lookups>
@@ -185,6 +185,7 @@
       <AssociationName>BankAccountInfo</AssociationName>
       <cardinality>1</cardinality>
       <parentFieldName>accountid</parentFieldName>
+      <childFieldName>accountid</childFieldName>
     </association>
 
 
@@ -206,6 +207,7 @@
       <AssociationName>Bank</AssociationName>
       <cardinality>1</cardinality>
       <parentFieldName>bankid</parentFieldName>
+      <childFieldName>bankid</childFieldName>
     </association>
   </table>
 </project>

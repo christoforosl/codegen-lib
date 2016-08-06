@@ -18,7 +18,7 @@
   </dbConnectionString>
   <dbConnectionDialect>MSSQL</dbConnectionDialect>
   <dbConnectionType>CONN_MSSQL</dbConnectionType>
-  <UIProjectOutputDir>..\ModelLibTestsWinApp\</UIProjectOutputDir>
+  <!--<UIProjectOutputDir>..\ModelLibTestsWinApp\</UIProjectOutputDir>-->
 
   <booleanFields>
     <booleanField tableName="Project" fieldName="isActive" />
@@ -36,7 +36,7 @@
     <SortField>EmployeeName</SortField>
     <SortAscending>true</SortAscending>
     <GenerateUI>1</GenerateUI>
-    <selectObject>vEmployee</selectObject>
+    <SelectObject>vEmployee</SelectObject>
     <Lookups>
       <FieldName>EmployeeRankId</FieldName>
       <DataSource>VbBusObjects.EmployeeRank</DataSource>
@@ -146,6 +146,7 @@
       <AssociationName>BankAccountInfo</AssociationName>
       <cardinality>1</cardinality>
       <parentFieldName>accountid</parentFieldName>
+      <childFieldName>accountid</childFieldName>
     </association>
 
 
@@ -167,6 +168,7 @@
       <AssociationName>Bank</AssociationName>
       <cardinality>1</cardinality>
       <parentFieldName>bankid</parentFieldName>
+      <childFieldName>bankId</childFieldName>
     </association>
   </table>
 

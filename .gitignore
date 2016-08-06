@@ -9,7 +9,7 @@
 **/FluentSharp.Roslyn.5.3.121
 **/release/*
 **/NUnit.Runners.2.6.4.nupkg/*
-**/packages/NUnit.2.6.4/*
+**/packages/NUnit*/*
 **/packages/NUnit.Runners.*/*
 **/packages/EWSoftware.SHFB.*/*
 **/packages/Oracle.ManagedDataAccess*/*
@@ -19,5 +19,6 @@
 **/packages/Newtonsoft.Json.*/**
 **/packages/Nlog*/**
 **/VbObjectTestsTmp.cs
+
 
 

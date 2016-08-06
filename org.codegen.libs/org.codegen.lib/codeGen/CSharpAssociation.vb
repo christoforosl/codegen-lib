@@ -32,12 +32,13 @@ Public Class CSharpAssociation
     Public Overrides Function getVariableDeclarationCode() As String
 
         Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
-        sb.Append("[DataMember(Name=""" + Me.PropertyName + """)]")
-        sb.Append(vbTab & "private ")
+        sb.Append(vbTab)
+        sb.Append("[DataMember(Name=""" + Me.PropertyName + """)]").Append(vbCrLf)
+        sb.Append(vbTab).Append("private ")
         sb.Append(Me.DataTypeVariable())
         sb.Append(" ")
         sb.Append(Me.getVariableName)
-        sb.Append(" = null;  //initialize to nothing, for lazy load logic below !!!")
+        sb.Append(" = null;//initialize to nothing, for lazy load logic below !!")
         sb.Append(vbCrLf)
         Return sb.ToString()
     End Function
@@ -46,9 +47,10 @@ Public Class CSharpAssociation
 
         If Me.isCardinalityMany Then
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder() ' TODO type initialisation here
-
-            sb.Append(vbTab & " private List< " & Me.DataType & ">").Append(" _deleted").Append(Me.associationName)
-            sb.Append(" = new ").Append("List< " & Me.DataType & ">();").Append("// initialize to empty list !!!")
+            sb.Append(vbTab)
+            sb.Append("[DataMember(Name=""").Append(ModelGenerator.Current.FieldPropertyPrefix).Append("Deleted").Append(Me.associationName).Append(""")]").Append(vbCrLf)
+            sb.Append(vbTab).Append("private List<").Append(Me.DataType).Append(">").Append(" _deleted").Append(Me.associationName)
+            sb.Append(" = new ").Append("List<").Append(Me.DataType).Append(">();").Append("//initialize to empty list.")
             sb.Append(vbCrLf)
             Return sb.ToString()
         Else

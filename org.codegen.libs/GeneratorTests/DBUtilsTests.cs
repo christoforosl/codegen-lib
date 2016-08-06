@@ -91,7 +91,7 @@ namespace GeneratorTests {
 		[TestMethod]
 		public void testDataReaders() {
 			int connectionCount = this.getConnectionCount();
-			using (IDataReader rs = DBUtils.Current().getDataReader("select employeeid, address from employee")) {
+			using (IDataReader rs = DBUtils.Current().getDataReader("select employeeid, address from employee where address is not null")) {
 				Assert.IsFalse(rs.IsClosed);
 				if (rs.Read()) {
 					string address = rs.GetString(1);
