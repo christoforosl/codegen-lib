@@ -49,7 +49,7 @@ namespace GeneratorTests {
 
             ModelContext.Current.config.DoCascadeDeletes = true;
 			ModelContext.beginTrans();
-			ModelContext.Current.addGlobalModelValidator(typeof(Employee), typeof(EmployeeValidator));
+			ModelContext.addGlobalModelValidator(typeof(Employee), typeof(EmployeeValidator));
 
 			try {
 				

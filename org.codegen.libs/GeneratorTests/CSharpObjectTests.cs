@@ -153,7 +153,7 @@ namespace GeneratorTests {
 
             ModelContext.Current.config.DoCascadeDeletes = true;
             ModelContext.beginTrans();
-            ModelContext.Current.addGlobalModelValidator(typeof(Employee), typeof(CsharpEmployeeValidator));
+            ModelContext.addGlobalModelValidator(typeof(Employee), typeof(CsharpEmployeeValidator));
             DateTime hireDate = new DateTime(DateTime.Now.Year + 10, 1, 1);
 
             try {

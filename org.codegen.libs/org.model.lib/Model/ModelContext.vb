@@ -249,7 +249,7 @@ Namespace Model
         ''' The key should be a modelObject and the value should be a IModelObjectValidator type 
         ''' </summary>
         ''' <remarks></remarks>
-        Private globalModelValidators As Dictionary(Of Type, Type) = New Dictionary(Of Type, Type)
+        Private Shared globalModelValidators As Dictionary(Of Type, List(Of Type)) = New Dictionary(Of Type, List(Of Type))
 
         ''' <summary>
         ''' Adds a global validator for a specific model object.  This allows for separating the model 
@@ -259,7 +259,7 @@ Namespace Model
         ''' <param name="modelObjectType">The type of the model object.  Use GetType(x) where x is the class (not instance) of the model object</param>
         ''' <param name="validatorType">The type of the validator object.  Use GetType(val) where val is the class (not instance) of the validator</param>
         ''' <remarks></remarks>
-        Public Sub addGlobalModelValidator(ByVal modelObjectType As Type, ByVal validatorType As Type)
+        Public Shared Sub addGlobalModelValidator(ByVal modelObjectType As Type, ByVal validatorType As Type)
 
             If Not GetType(IModelObject).IsAssignableFrom(modelObjectType) Then
                 Throw New ApplicationException("modelObjectType param must implement IModelObject")
@@ -268,9 +268,13 @@ Namespace Model
             If Not GetType(IModelObjectValidator).IsAssignableFrom(validatorType) Then
                 Throw New ApplicationException("validatorType param must implement IModelObjectValidator")
             End If
+            If (globalModelValidators.ContainsKey(modelObjectType)) Then
+            Else
+                globalModelValidators.Add(modelObjectType, New List(Of Type))
 
+            End If
+            globalModelValidators.Item(modelObjectType).Add(validatorType)
 
-            Me.globalModelValidators.Add(modelObjectType, validatorType)
 
         End Sub
 
@@ -285,13 +289,18 @@ Namespace Model
         ''' If not validator is configured, it returns null(nothing)
         ''' </returns>
         ''' <remarks></remarks>
-        Public Function getModelValidator(ByVal modelObjectType As Type) As IModelObjectValidator
+        Public Shared Function getModelValidator(ByVal modelObjectType As Type) As List(Of IModelObjectValidator)
 
-            If Me.globalModelValidators.ContainsKey(modelObjectType) Then
-                Return CType(Activator.CreateInstance(Me.globalModelValidators.Item(modelObjectType)),  _
-                    IModelObjectValidator)
+            Dim ret As List(Of IModelObjectValidator) = Nothing
+            If globalModelValidators.ContainsKey(modelObjectType) Then
+                ret = New List(Of IModelObjectValidator)
+                Dim lst As List(Of Type) = globalModelValidators.Item(modelObjectType)
+                For Each tp As Type In lst
+                    ret.Add(CType(Activator.CreateInstance(tp), IModelObjectValidator))
+                Next
+                
             End If
-            Return Nothing
+            Return ret
 
         End Function
 

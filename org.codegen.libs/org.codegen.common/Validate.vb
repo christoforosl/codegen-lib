@@ -9,6 +9,7 @@ Imports System.Configuration
 Public Interface IErrorKeeper
 
     Sub addToErrorMessage(msg As String, ParamArray args As Object())
+    Property ErrorMessage As String
 
 End Interface
 

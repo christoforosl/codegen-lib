@@ -142,9 +142,12 @@ Namespace Model
         '''</remarks>
         Public Sub New()
 
-            Dim lval As IModelObjectValidator = ModelContext.Current.getModelValidator(Me.GetType)
+            Dim lval As List(Of IModelObjectValidator) = ModelContext.getModelValidator(Me.GetType)
             If lval IsNot Nothing Then
-                Me.addValidator(lval)
+                For Each v As IModelObjectValidator In lval
+                    Me.addValidator(v)
+                Next
+
             End If
 
         End Sub

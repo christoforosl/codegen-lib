@@ -78,7 +78,7 @@ namespace GeneratorTests {
 			// this line is here otherwise ModelLibVBGenCode is not returned 
 			// in call to this.GetType().Assembly.GetReferencedAssemblies
 			ModelLibVBGenCode.VbBusObjects.Employee e = null;
-			NUnit.Framework.Guard x = null; // note: DO NOT REMOVE!
+			//NUnit.Framework.Guard x = null; // note: DO NOT REMOVE!
 
 			var assemblies = this.GetType().Assembly.GetReferencedAssemblies().ToList();
 			var assemblyLocations =

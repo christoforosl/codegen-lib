@@ -72,8 +72,9 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="org.codegen.common.4.0">
-      <HintPath>..\..\..\codeGenLibs\org.codegen.common.4.0.dll</HintPath>
+    <Reference Include="org.codegen.common.4.0, Version=4.0.0.6, Culture=neutral, PublicKeyToken=44c29659cab133d9, processorArchitecture=MSIL">
+      <HintPath>..\packages\org.codegen.common.4.0.0.6\lib\org.codegen.common.4.0.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="org.model.lib.4.0">
       <HintPath>..\..\..\codeGenLibs\org.model.lib.4.0.dll</HintPath>
@@ -165,6 +166,7 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\org.codegen.win.controls\org.codegen.win.controls.vbproj">
