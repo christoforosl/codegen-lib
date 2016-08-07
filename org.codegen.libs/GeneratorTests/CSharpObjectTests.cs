@@ -174,8 +174,8 @@ namespace GeneratorTests {
 
                 Guid g = Guid.NewGuid();
                 employee.PrSampleGuidField = g;
-                employee.PrEmployeeProjectAdd(EmployeeProjectFactory.Create());
-                EmployeeProject emplProj = employee.PrEmployeeProjectGetAt(0);
+				EmployeeProject emplProj  = employee.PrEmployeeProjectAdd();
+                
                 emplProj.PrAssignDate = new DateTime(DateTime.Now.Year + 10, 3, 1);
                 emplProj.PrEndDate = new DateTime(DateTime.Now.Year + 10, 6, 1);
                 emplProj.PrEPProjectId = 1;

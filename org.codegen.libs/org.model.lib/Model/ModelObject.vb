@@ -396,9 +396,10 @@ Namespace Model
         ''' </summary>
         ''' <remarks></remarks>
         Public Overridable Sub setAuditFields() Implements IModelObject.setAuditFields
+            Dim auditor As IAuditor = Me.getAuditor
 
-            If Me.getAuditor IsNot Nothing Then
-                Me.getAuditor.setAuditFields(Me)
+            If auditor IsNot Nothing Then
+                auditor.setAuditFields(Me)
             End If
         End Sub
 
@@ -433,11 +434,11 @@ Namespace Model
         ''' </remarks>
         Function getAuditor() As IAuditor Implements IModelObject.getAuditor
 
-            If TypeOf Me Is IAuditable Then
-                Return New Auditor
-
-            ElseIf TypeOf Me Is IAuditable2 Then
+            If TypeOf Me Is IAuditable2 Then
                 Return New Auditor2
+
+            ElseIf TypeOf Me Is IAuditable Then
+                Return New Auditor
 
             Else
                 Return Nothing

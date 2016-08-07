@@ -14,7 +14,7 @@ End Interface
 Public Class Auditor
     Implements IAuditor
 
-    Public Sub setAuditFields(mo As IModelObject) Implements IAuditor.setAuditFields
+    Public Overridable Sub setAuditFields(mo As IModelObject) Implements IAuditor.setAuditFields
         SyncLock mo
 
 
@@ -69,7 +69,7 @@ Public Class Auditor2
     Inherits Auditor
     Implements IAuditor
 
-    Public Overloads Sub setAuditFields(mo As IModelObject)
+    Public Overrides Sub setAuditFields(mo As IModelObject) Implements IAuditor.setAuditFields
         SyncLock mo
 
             If TypeOf mo Is IAuditable2 = False Then
@@ -78,7 +78,6 @@ Public Class Auditor2
 
             If mo.isDirty Then
 
-                
                 Dim userid As Integer = CInt(getPrincipal().Identity.Name)
                 Dim iAudit As IAuditable2 = DirectCast(mo, IAuditable2)
                 If mo.isNew Then

@@ -149,7 +149,6 @@ namespace GeneratorTests {
 			CompilerResults results = provider.CompileAssemblyFromSource(parameters);
 
 			XMLClassGenerator.GenerateClassesFromFile(d.FullName + "ModelLibTestsVisualBasicGeneratedCode\\VisualBasicModelGenerator.xml");
-
 			XMLClassGenerator.GenerateClassesFromFile(d.FullName + "ModelLibCSharpOracleGenCode\\OracleCSharpModelGenerator.xml");
 
 		}

@@ -14,15 +14,19 @@
 
         End Function        
 		
-		Public Overridable Sub <prop_prefix><association_name_singular>Add(val As <datatype>) 
+		Public Overridable Function <prop_prefix><association_name_singular>Add(val As <datatype>)  as <datatype>
 
 			'1-Many , add a single item!
 			me.<LoadAssociationMethodName>
+			If (val Is Nothing) Then
+                val = <datatype>Factory.Create()
+            End If
 			val.<child_field_runtime> = me.<parent_field_runtime>
 			AddHandler Me.IDChanged, AddressOf val.handleParentIdChanged
 			me._<association_name>.add(val)
+			return val
 
-        End Sub
+        End Function
 
 		 Public Overridable Sub <prop_prefix><association_name>Clear()
 

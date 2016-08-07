@@ -782,7 +782,7 @@ namespace CsModelObjects {
 						
 			if ( this.EmployeeInfoLoaded) { return; }
 
-			if ( this._EmployeeInfo == null && this.PrEmployeeId !=0)  {
+			if ( this._EmployeeInfo == null && this.PrEmployeeId !=null)  {
 				//IMPORTANT: call setter here, not the private variable
 				this.PrEmployeeInfo = new CsModelMappers.EmployeeInfoDBMapper().findWhere("EIEmployeeId=?", this.PrEmployeeId);
 				
@@ -810,13 +810,26 @@ namespace CsModelObjects {
 
         } 
 		
-		public virtual void PrEmployeeProjectAdd( CsModelObjects.EmployeeProject val )  {
+		/// <summary>
+		/// Create a new instance of CsModelObjects.EmployeeProject using the Factory, 
+		/// add it to the association collection and then return it.
+		/// </summary>
+		/// <returns>New Instance of CsModelObjects.EmployeeProject</returns>
+		public virtual CsModelObjects.EmployeeProject PrEmployeeProjectAdd()  {
+			return this.PrEmployeeProjectAdd(CsModelObjects.EmployeeProjectFactory.Create());
+		}
+		
+		/// <summary>
+		/// Add the instance of CsModelObjects.EmployeeProject to the association collection and return it.
+		/// </summary>
+		/// <returns>Instance of CsModelObjects.EmployeeProject</returns>
+		public virtual CsModelObjects.EmployeeProject PrEmployeeProjectAdd( CsModelObjects.EmployeeProject val )  {
 			// 1-Many , add a single item!
 			this.LoadPrEmployeeProjects();
 			val.PrEPEmployeeId = this.PrEmployeeId;
 			this.IDChanged += val.handleParentIdChanged;
 			this._EmployeeProjects.Add(val);
-
+			return val;
         }
 
 		public virtual void PrEmployeeProjectsClear() {

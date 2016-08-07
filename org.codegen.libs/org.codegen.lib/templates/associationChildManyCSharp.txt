@@ -14,13 +14,26 @@
 
         } 
 		
-		public virtual void <prop_prefix><association_name_singular>Add( <datatype> val )  {
+		/// <summary>
+		/// Create a new instance of <datatype> using the Factory, 
+		/// add it to the association collection and then return it.
+		/// </summary>
+		/// <returns>New Instance of <datatype></returns>
+		public virtual <datatype> <prop_prefix><association_name_singular>Add()  {
+			return this.<prop_prefix><association_name_singular>Add(<datatype>Factory.Create());
+		}
+		
+		/// <summary>
+		/// Add the instance of <datatype> to the association collection and return it.
+		/// </summary>
+		/// <returns>Instance of <datatype></returns>
+		public virtual <datatype> <prop_prefix><association_name_singular>Add( <datatype> val )  {
 			// 1-Many , add a single item!
 			this.<LoadAssociationMethodName>();
 			val.<child_field_runtime> = this.<parent_field_runtime>;
 			this.IDChanged += val.handleParentIdChanged;
 			this._<association_name>.Add(val);
-
+			return val;
         }
 
 		public virtual void <prop_prefix><association_name>Clear() {
