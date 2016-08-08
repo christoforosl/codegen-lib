@@ -560,6 +560,38 @@ Public MustInherit Class DBUtils
     End Function
 
     ''' <summary>
+    ''' Behaves just like <see cref="DBUtils.getSValue">DBUtilsBase.getSValue</see> but it returns a decimal value
+    ''' </summary>
+    ''' <param name="sql">SQL statement to execute</param>
+    ''' <returns>decimal value returned by first row, first column.  If no rows are returned, returns null. 
+    ''' If value of first column is DBNULL, returns null</returns>
+    ''' <remarks></remarks>
+    ''' <seealso cref="DBUtils.getSValue"></seealso>
+    Public Function getDecimalValue(ByVal sql As String, ByVal ParamArray params() As Object) As Decimal?
+
+        Dim rs As IDataReader
+        Dim ret As Decimal
+
+        Try
+            rs = Me.getDataReaderWithParams(sql, params)
+            If rs.Read Then
+                If IsDBNull(rs.GetValue(0)) OrElse Not IsNumeric(rs.GetValue(0)) Then
+                    Return Nothing
+                Else
+                    ret = CDec(rs.GetValue(0))
+                End If
+
+            End If
+
+        Finally
+            Call Me.closeDataReader(rs)
+        End Try
+
+        Return ret
+
+    End Function
+
+    ''' <summary>
     ''' Behaves just like <see cref="DBUtils.getSValue">DBUtilsBase.getSValue</see> but it returns a Double value
     ''' </summary>
     ''' <param name="sql">SQL statement to execute</param>
