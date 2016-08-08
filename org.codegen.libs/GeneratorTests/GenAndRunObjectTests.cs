@@ -25,21 +25,8 @@ namespace GeneratorTests {
 
 		[NUnit.Framework.Test]
 		public void generateAndRunVBObjectTests() {
-			int i = 0;
-			DirectoryInfo d = new DirectoryInfo(Directory.GetCurrentDirectory());
-			while (true) {
-				i++;
-				if(i>=20){
-					throw new ApplicationException ("could not get a dir with name GeneratorTests");
-				}
-				d = d.Parent;
-				if (d.Name == "GeneratorTests") {
-					break;
-				}
-
-			}
-
-
+			DirectoryInfo d = new DirectoryInfo(Environment.GetEnvironmentVariable("USERPROFILE") + @"\vsprojects\codegen-lib\org.codegen.libs\GeneratorTests\");
+            Assert.IsTrue(Directory.Exists(d.FullName));
 			string path = d.FullName + "\\VbObjectTestsTmp.cs";
 			if (File.Exists(path)) {
 				File.Delete(path);
@@ -71,8 +58,9 @@ namespace GeneratorTests {
             readText = readText.Replace("void testCSharp", "void testVBNet");
 
 			File.WriteAllText(path, readText);
+            var options = new Dictionary<string, string> { { "CompilerVersion", "v4.0" } };
 
-			CSharpCodeProvider provider = new CSharpCodeProvider();
+            CSharpCodeProvider provider = new CSharpCodeProvider(options);
 			CompilerParameters cp = new CompilerParameters();
 
 			// this line is here otherwise ModelLibVBGenCode is not returned 
@@ -88,7 +76,7 @@ namespace GeneratorTests {
 			var lstAssemblyLocations = assemblyLocations.Where(a => !a.Contains("Microsoft.VisualStudio.QualityTools.UnitTestFramework")).ToList();
             //Assembly.ReflectionOnlyLoad("")
 			cp.ReferencedAssemblies.AddRange(lstAssemblyLocations.ToArray());
-
+            
 			cp.GenerateInMemory = false;// True - memory generation, false - external file generation
 			cp.GenerateExecutable = false;// True - exe file generation, false - dll file generation
 			CompilerResults results = provider.CompileAssemblyFromSource(cp, readText);
@@ -112,10 +100,12 @@ namespace GeneratorTests {
 		/// Converts a given assembly containing tests to a runnable TestSuite
 		/// </summary>
 		protected static TestSuite GetTestSuiteFromAssembly(Assembly assembly) {
+
 			var treeBuilder = new NamespaceTreeBuilder(
 				new TestAssembly(assembly, assembly.GetName().FullName));
 			treeBuilder.Add(GetFixtures(assembly));
 			return treeBuilder.RootSuite;
+
 		}
 
 		/// <summary>
