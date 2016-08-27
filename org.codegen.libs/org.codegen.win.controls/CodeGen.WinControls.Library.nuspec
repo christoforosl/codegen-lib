@@ -24,7 +24,7 @@ https://github.com/christoforosl/codegen-lib/wiki</description>
         </frameworkAssemblies>
     </metadata>
     <files>
-        <file src="bin\release\org.codegen.win.controls.4.0.dll" target="lib\net40\org.codegen.win.controls.4.0.dll" />
+        <file src="..\release\org.codegen.win.controls.4.0.dll" target="lib\net40\org.codegen.win.controls.4.0.dll" />
         <file src="tools\_._" target="tools\_._" />
     </files>
 </package>
