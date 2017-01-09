@@ -198,6 +198,11 @@
     <Compile Include="VbBusObjects\AccountBankInfoBase.vb">
       <DependentUpon>AccountBankInfo.vb</DependentUpon>
     </Compile>
+    <Compile Include="VbBusObjects\DBMappers\TestTableNoIncrementDBMapper.vb" />
+    <Compile Include="VbBusObjects\TestTableNoIncrement.vb" />
+    <Compile Include="VbBusObjects\TestTableNoIncrementBase.vb">
+      <DependentUpon>TestTableNoIncrement.vb</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="dbscript.sql" />
@@ -233,6 +238,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VbBusObjects\DBMappers\AccountBankInfoDBMapperSql.xml">
       <DependentUpon>AccountBankInfoDBMapper.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VbBusObjects\DBMappers\TestTableNoIncrementDBMapperSql.xml">
+      <DependentUpon>TestTableNoIncrementDBMapper.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

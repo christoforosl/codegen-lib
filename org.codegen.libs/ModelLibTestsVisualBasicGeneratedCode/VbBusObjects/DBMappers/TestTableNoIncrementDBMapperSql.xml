@@ -1,0 +1,25 @@
+﻿<SQLStatements>
+  <stmt>
+    <key>key</key>
+    <MSSQL />
+    <ORACLE />
+    <COMMON />
+    <JET />
+  </stmt>
+  <stmt>
+    <key>selectall</key>
+    <MSSQL>SELECT TestTableNoIncrementId,TestTableNoIncrement,createdate,updatedate,updateuser,createuser FROM [TestTableNoIncrement]</MSSQL>
+  </stmt>
+  <stmt>
+    <key>delete</key>
+    <MSSQL>DELETE FROM [TestTableNoIncrement] WHERE TestTableNoIncrementId=@0</MSSQL>
+  </stmt>
+  <stmt>
+    <key>insert</key>
+    <MSSQL>insert into TestTableNoIncrement (TestTableNoIncrement,createdate,updatedate,updateuser,createuser) values (@TestTableNoIncrement,@Createdate,@Updatedate,@Updateuser,@Createuser)</MSSQL>
+  </stmt>
+  <stmt>
+    <key>update</key>
+    <MSSQL>UPDATE [TestTableNoIncrement] SET TestTableNoIncrement=@TestTableNoIncrement,createdate=@Createdate,updatedate=@Updatedate,updateuser=@Updateuser,createuser=@Createuser WHERE TestTableNoIncrementId=@TestTableNoIncrementId</MSSQL>
+  </stmt>
+</SQLStatements>

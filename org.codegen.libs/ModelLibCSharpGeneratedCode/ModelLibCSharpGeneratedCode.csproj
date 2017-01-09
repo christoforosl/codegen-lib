@@ -217,6 +217,14 @@
     <Compile Include="CsModelObjects\AccountBankInfoBase.cs">
       <DependentUpon>AccountBankInfo.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CsModelMappers\TestTableNoIncrementDBMapperSql.xml">
+      <DependentUpon>TestTableNoIncrementDBMapper.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="CsModelMappers\TestTableNoIncrementDBMapper.cs" />
+    <Compile Include="CsModelObjects\TestTableNoIncrement.cs" />
+    <Compile Include="CsModelObjects\TestTableNoIncrementBase.cs">
+      <DependentUpon>TestTableNoIncrement.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="CSharpModelGenerator.xml">

@@ -448,4 +448,13 @@ INSERT INTO [modelTest].[dbo].[AccountInfo]
            ,'admin'
            ,'admin')
 GO
+CREATE TABLE TestTableNoIncrement(
+	[TestTableNoIncrementId] [int] NOT NULL,
+	TestTableNoIncrement [nvarchar](50) NULL,
+	[createdate] [datetime] NOT NULL,
+	[updatedate] [datetime] NOT NULL,
+	[updateuser] varchar(10) NOT NULL,
+	[createuser] varchar(10) NOT NULL,
+ CONSTRAINT [PK_TestTableNoIncrement] PRIMARY KEY CLUSTERED ([TestTableNoIncrementId]) )
+ go
 

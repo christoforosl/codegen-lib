@@ -171,5 +171,7 @@
       <childFieldName>bankId</childFieldName>
     </association>
   </table>
-
+  <table>
+    <TableName>TestTableNoIncrement</TableName>
+  </table>
 </project>
