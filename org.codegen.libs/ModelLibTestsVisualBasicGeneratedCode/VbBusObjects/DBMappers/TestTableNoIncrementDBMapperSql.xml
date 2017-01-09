@@ -16,7 +16,7 @@
   </stmt>
   <stmt>
     <key>insert</key>
-    <MSSQL>insert into TestTableNoIncrement (TestTableNoIncrement,createdate,updatedate,updateuser,createuser) values (@TestTableNoIncrement,@Createdate,@Updatedate,@Updateuser,@Createuser)</MSSQL>
+    <MSSQL>insert into TestTableNoIncrement (TestTableNoIncrementId,TestTableNoIncrement,createdate,updatedate,updateuser,createuser) values (@TestTableNoIncrementId,@TestTableNoIncrement,@Createdate,@Updatedate,@Updateuser,@Createuser)</MSSQL>
   </stmt>
   <stmt>
     <key>update</key>
