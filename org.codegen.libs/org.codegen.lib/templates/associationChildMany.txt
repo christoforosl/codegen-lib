@@ -13,6 +13,10 @@
             Return Nothing
 
         End Function        
+
+		Public Overridable Function <prop_prefix><association_name_singular>Add()  as <datatype>
+			return  me.<prop_prefix><association_name_singular>Add(<datatype>Factory.Create())
+		End Function
 		
 		Public Overridable Function <prop_prefix><association_name_singular>Add(val As <datatype>)  as <datatype>
 

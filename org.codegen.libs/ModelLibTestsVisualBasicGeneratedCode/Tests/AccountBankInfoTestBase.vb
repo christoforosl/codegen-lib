@@ -94,9 +94,6 @@ Imports Newtonsoft.Json
 				'skip update user!
 				Assert.IsTrue(p.CreateUser=p2.CreateUser,"Expected Field Createuser to be equal")
 
-	
-
-				
 				p.isDirty = True 'to force save
 				ModelContext.Current.saveModelObject(p)
 				p = ModelContext.Current.loadModelObject(Of AccountBankInfo)(p.Id)
