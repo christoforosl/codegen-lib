@@ -49,7 +49,10 @@ Namespace Grid
             a.load(mo)
             ts.TraceInformation("Loaded Model Object:{0}", mo.valuesToString)
 
-            Me.DBMapper.save(mo)
+            If Me.DBMapper IsNot Nothing Then
+                Me.DBMapper.save(mo)
+            End If
+
             ts.TraceInformation("Saved Model Object:{0}", mo.valuesToString)
 
         End Sub
