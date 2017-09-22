@@ -30,3 +30,4 @@ org.codegen.libs/packages/Bud.NUnit.ConsoleRunner.0.0.1/lib/net40/nunit.core.int
 *.nupkg
 *.sqlite
 *.ide
+*.sqlite-journal
