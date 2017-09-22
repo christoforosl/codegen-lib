@@ -290,6 +290,14 @@ Public Class Association
         stmpl = stmpl.Replace("<prop_prefix>", ModelGenerator.Current.FieldPropertyPrefix)
         stmpl = stmpl.Replace("<association_name>", Me.associationName)
         stmpl = stmpl.Replace("<property_name>", Me.PropertyName)
+
+        If ModelGenerator.Current.PropertiesPrefixOnDataMembers Then
+            stmpl = stmpl.Replace("<data_member_name>", Me.PropertyName)
+        Else
+            stmpl = stmpl.Replace("<data_member_name>", Me.getCanonicalName())
+        End If
+
+
         stmpl = stmpl.Replace("<child_field>", "_" & Me.ChildField.RuntimeFieldName)
         stmpl = stmpl.Replace("<db_mapper>", _
                 Me.GetAssociatedMapperClassName)

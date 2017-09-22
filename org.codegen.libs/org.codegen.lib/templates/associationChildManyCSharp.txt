@@ -4,6 +4,7 @@
 		[System.Runtime.Serialization.DataMember]
 		public bool <LoadedFlagVariableName>  {get; private set;}
 
+		
 		public virtual <datatype> <prop_prefix><association_name_singular>GetAt( int i ) {
 
             this.<LoadAssociationMethodName>();
@@ -57,7 +58,8 @@
 			return this._deleted<association_name>;
 
         }
-				
+		
+		[System.Runtime.Serialization.DataMember(Name="<data_member_name>")]
         public virtual IEnumerable< <datatype> > <property_name> {
 
             get {
