@@ -34,7 +34,10 @@ Public Class XMLClassGenerator
     Public Const XML_TABLE_ATTR_READONLY As String = "isReadOnly"
     Public Const XML_ATTR_REL_TYPE As String = "relationType"
 
-	Public Const XML_PROP_PERFIX As String = "propertiesPrefix"
+    Public Const XML_PROP_PERFIX As String = "propertiesPrefix"
+    Public Const XML_PROP_PERFIX_DATA_MEMBERS As String = "propertiesPrefixOnDataMembers"
+
+
     Public Const XML_PROJECT_ATTR_DEFAULT_NAMESPACE As String = "defaultNamespace"
     Public Const XML_ATTR_DEFAULT_MAPPER_NAMESPACE As String = "defaultDBMapperNameSpace"
     Public Const XML_PROJECT_ATTR_CONN_STRING As String = "dbConnectionString"
@@ -147,7 +150,6 @@ Public Class XMLClassGenerator
 
 
     Public Sub genClasses()
-
 
         Dim objectCount As Integer = ModelGenerator.Current.ObjectsToGenerate.Values.Count
 
@@ -323,6 +325,8 @@ Public Class XMLClassGenerator
         t.ProjectOutputDirTest = getRowValue(projectInfo.Rows(0), XML_ATTR_PROJECT_TEST_OUT_DIR, False)
         t.ProjectOutputDirUI = getRowValue(projectInfo.Rows(0), XML_ATTR_UI_TEST_OUT_DIR, False)
         t.FieldPropertyPrefix = getRowValue(projectInfo.Rows(0), XML_PROP_PERFIX, False)
+        t.PropertiesPrefixOnDataMembers = getBooleanRowValue(projectInfo.Rows(0), XML_PROP_PERFIX_DATA_MEMBERS, True)
+
         t.DefaultMapperNameSpace = getRowValue(projectInfo.Rows(0), XML_ATTR_DEFAULT_MAPPER_NAMESPACE, False)
         t.BooleanFieldsCollection = New BooleanFieldsCollection
         t.EnumFieldsCollection = New EnumFieldsCollection

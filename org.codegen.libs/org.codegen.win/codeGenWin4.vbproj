@@ -32,8 +32,8 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>9</ApplicationRevision>
-    <ApplicationVersion>4.0.18.9</ApplicationVersion>
+    <ApplicationRevision>13</ApplicationRevision>
+    <ApplicationVersion>4.0.18.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -97,7 +97,7 @@
     <WarningsAsErrors>42024,42099</WarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>B8CB3DA2275FCEAAEF6B1B8F4279F7AA5AD0A7E0</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>90D89273A804DF56C225F1508126D3087241FA01</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>codeGenWin4_TemporaryKey.pfx</ManifestKeyFile>

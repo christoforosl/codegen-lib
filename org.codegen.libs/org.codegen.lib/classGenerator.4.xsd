@@ -111,6 +111,14 @@
           </xs:annotation>
         </xs:element>
 
+         <xs:element name="propertiesPrefixOnDataMembers"  minOccurs="0" type="xs:boolean" default="true">
+          <xs:annotation>
+            <xs:documentation>
+              By default DataMember attributes will include the prefix, setting this to false will cause the data member to be the field name. By default this is true for backwrads compatibility but it is reccomended to be set to false, since the propertiesPrefix is to help with intellisense and coding
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        
         <xs:element name="dbConnectionString" type="xs:string" minOccurs="1" />
         <xs:element name="dbConnectionDialect" minOccurs="1">
           <xs:simpleType>

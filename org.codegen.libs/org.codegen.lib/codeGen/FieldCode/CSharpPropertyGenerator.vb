@@ -25,8 +25,14 @@ Public Class CSharpPropertyGenerator
             xmlIgnore = "[XmlIgnore()]" & vbCrLf
         End If
 
-        Dim sproperty As StringBuilder = New StringBuilder(xmlIgnore).Append(vbTab). _
-              Append(getLinqDataAttribute(field)).Append(TWO_TABS).Append("[DataMember]").Append(vbCrLf)
+        Dim sproperty As StringBuilder = New StringBuilder(xmlIgnore).Append(vbTab).
+              Append(getLinqDataAttribute(field)).Append(TWO_TABS).Append("[DataMember")
+
+        If (Not ModelGenerator.Current.PropertiesPrefixOnDataMembers) Then
+            sproperty.Append("(Name=""").Append(runtimeFieldName).Append(""")")
+        End If
+
+        sproperty.Append("]").Append(vbCrLf)
 
         sproperty.Append(TWO_TABS).Append("public virtual ").Append(field.getPropertyDataType).Append(" ").Append(fieldPropertyName).Append("{").Append(vbCrLf)
         sproperty.Append(THREE_TABS).Append("get{").Append(THREE_TABS).Append(vbCrLf)

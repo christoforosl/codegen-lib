@@ -26,6 +26,7 @@ Public Class frmMain
             End If
 
             SaveSetting(STR_REG_SECTION, STR_REG_SECTION, "Path0", Me.cboXMLConfFile.Text)
+
             For i As Integer = 1 To 20
                 SaveSetting(STR_REG_SECTION, STR_REG_SECTION, "Path" & i, String.Empty)
             Next
@@ -69,10 +70,10 @@ Public Class frmMain
 
                 End Using
 
-                MsgBox("Completed: " & vbCrLf & _
-                        "Objects:" & ModelGenerator.Current.ObjectsToGenerate.Count & vbCrLf & _
-                        "New Gen Files:" & ModelGenerator.Current.NumOfNewGeneratedFiles & vbCrLf & _
-                        "Updated Files:" & ModelGenerator.Current.NumOfGeneratedFiles & vbCrLf & _
+                MsgBox("Completed: " & vbCrLf &
+                        "Objects:" & ModelGenerator.Current.ObjectsToGenerate.Count & vbCrLf &
+                        "New Gen Files:" & ModelGenerator.Current.NumOfNewGeneratedFiles & vbCrLf &
+                        "Updated Files:" & ModelGenerator.Current.NumOfGeneratedFiles & vbCrLf &
                         "Skipped Files:" & ModelGenerator.Current.NumOfUnchangedFiles, MsgBoxStyle.Information)
 
             Finally
@@ -84,8 +85,6 @@ Public Class frmMain
             Me.DialogResult = System.Windows.Forms.DialogResult.OK
 
         Catch ex As Exception
-
-
             Dim dsErr As String = String.Empty
             If cds Is Nothing = False Then
                 For Each t As DataTable In cds.Tables
@@ -136,6 +135,7 @@ Public Class frmMain
         writer = New TextBoxWriter(TextBox1)
         Console.SetOut(writer)
         Me.Text = String.Format("{0} V:{1}", Me.Text, System.Reflection.Assembly.GetExecutingAssembly.GetName.Version.ToString)
+        Console.WriteLine("Latest generator is always at: http://www.netugroup.com/wp-content/themes/netu/Devs/CodeGeneratorReleases/publish.htm")
 
         For i As Integer = 0 To 20
             Dim regXmlConfFile As String = GetSetting(STR_REG_SECTION, STR_REG_SECTION, "Path" & i, String.Empty)

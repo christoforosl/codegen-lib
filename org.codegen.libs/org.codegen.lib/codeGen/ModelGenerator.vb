@@ -46,6 +46,7 @@ Public Class ModelGenerator
     End Property
 
 	Public Property FieldPropertyPrefix As String
+    Public Property PropertiesPrefixOnDataMembers As Boolean
 
     Private _IgnoreCase As Boolean
 
@@ -83,6 +84,16 @@ Public Class ModelGenerator
     Property BooleanFieldsCollection As BooleanFieldsCollection
 
     Property EnumFieldsCollection As EnumFieldsCollection
+
+    Public ReadOnly Property FieldPropertyPrefixForDataMember As String
+        Get
+            If Me.PropertiesPrefixOnDataMembers Then
+                Return Me.FieldPropertyPrefix
+            Else
+                Return String.Empty
+            End If
+        End Get
+    End Property
 
 
     ''' <summary>

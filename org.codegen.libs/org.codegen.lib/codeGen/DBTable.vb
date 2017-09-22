@@ -355,8 +355,17 @@ Public Class DBTable
 
             Next i
         Else
-            Dim first As Char = Char.ToUpper(name.Chars(0))
-            javaName.Append(first + name.Substring(1))
+
+            If (name.ToUpper() = name) Then
+                ' we have an all capital letters
+                Dim first As Char = Char.ToUpper(name.Chars(0))
+                javaName.Append(first + name.Substring(1).ToLower)
+            Else
+                Dim first As Char = Char.ToUpper(name.Chars(0))
+                javaName.Append(first + name.Substring(1))
+            End If
+
+
         End If
 
         Return javaName.ToString()

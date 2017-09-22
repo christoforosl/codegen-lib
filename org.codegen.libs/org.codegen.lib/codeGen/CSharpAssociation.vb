@@ -48,7 +48,7 @@ Public Class CSharpAssociation
         If Me.isCardinalityMany Then
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder() ' TODO type initialisation here
             sb.Append(vbTab)
-            sb.Append("[DataMember(Name=""").Append(ModelGenerator.Current.FieldPropertyPrefix).Append("Deleted").Append(Me.associationName).Append(""")]").Append(vbCrLf)
+            sb.Append("[DataMember(Name=""").Append(ModelGenerator.Current.FieldPropertyPrefixForDataMember).Append("Deleted").Append(Me.associationName).Append(""")]").Append(vbCrLf)
             sb.Append(vbTab).Append("private List<").Append(Me.DataType).Append(">").Append(" _deleted").Append(Me.associationName)
             sb.Append(" = new ").Append("List<").Append(Me.DataType).Append(">();").Append("//initialize to empty list.")
             sb.Append(vbCrLf)
