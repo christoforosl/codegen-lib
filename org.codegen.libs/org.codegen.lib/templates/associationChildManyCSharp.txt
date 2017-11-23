@@ -58,8 +58,7 @@
 			return this._deleted<association_name>;
 
         }
-		
-		[System.Runtime.Serialization.DataMember(Name="<data_member_name>")]
+				
         public virtual IEnumerable< <datatype> > <property_name> {
 
             get {

@@ -340,7 +340,7 @@ namespace GeneratorTests {
                     pa.PrAccountTypeid = 1;
                     pa.PrBankaccnumber = "000000000004";
                     pa.PrBankAccountInfo = AccountBankInfoFactory.Create();
-                    pa.PrBankAccountInfo.PrBankId = alphaBank.PrBANKID;
+                    pa.PrBankAccountInfo.PrBankId = alphaBank.PrBankid;
                     pa.PrBankAccountInfo.PrCompanyName = "UNIT TESTS LTD";
                     pa.PrBankAccountInfo.PrCompanyBankCode = "111";
                     AccountDataUtils.saveAccount(pa);

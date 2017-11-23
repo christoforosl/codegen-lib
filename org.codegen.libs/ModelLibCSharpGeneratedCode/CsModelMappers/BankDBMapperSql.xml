@@ -20,6 +20,6 @@
   </stmt>
   <stmt>
     <key>update</key>
-    <MSSQL>UPDATE [Bank] SET BankName=@BankName,BankCode=@BankCode,BankSWIFTCode=@BankSWIFTCode WHERE BANKID=@BANKID</MSSQL>
+    <MSSQL>UPDATE [Bank] SET BankName=@BankName,BankCode=@BankCode,BankSWIFTCode=@BankSWIFTCode WHERE BANKID=@Bankid</MSSQL>
   </stmt>
 </SQLStatements>

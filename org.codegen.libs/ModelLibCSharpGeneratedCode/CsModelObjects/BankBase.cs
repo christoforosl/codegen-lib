@@ -82,7 +82,7 @@ namespace CsModelObjects {
 		#endregion
 		#region "Field CONSTANTS"
 
-					public const String STR_FLD_BANKID = "BANKID";
+					public const String STR_FLD_BANKID = "Bankid";
 			public const String STR_FLD_BANKNAME = "BankName";
 			public const String STR_FLD_BANKCODE = "BankCode";
 			public const String STR_FLD_BANKSWIFTCODE = "BankSWIFTCode";
@@ -109,7 +109,7 @@ namespace CsModelObjects {
 
 		#region "Field Declarations"
 
-	private System.Int64 _BANKID;
+	private System.Int64 _Bankid;
 	private System.String _BankName;
 	private System.String _BankCode;
 	private System.String _BankSWIFTCode;
@@ -120,19 +120,19 @@ namespace CsModelObjects {
 
 		//Field BANKID
 		[Required]
-		[Column(Name="BANKID",Storage = "_BANKID", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
+		[Column(Name="BANKID",Storage = "_Bankid", IsPrimaryKey=true,DbType = "int NOT NULL",CanBeNull = false)]
 		[DataMember]
-		public virtual System.Int64 PrBANKID{
+		public virtual System.Int64 PrBankid{
 			get{			
-				return _BANKID;
+				return _Bankid;
 			}
 			set {
-				if (ModelObject.valueChanged(_BANKID, value)){
+				if (ModelObject.valueChanged(_Bankid, value)){
 					if (!this.IsObjectLoading) {
 						this.isDirty = true; //
 						this.setFieldChanged(STR_FLD_BANKID);
 					}
-					this._BANKID = value;
+					this._Bankid = value;
 					this.raiseBroadcastIdChange();
 				}
 			}
@@ -211,7 +211,7 @@ namespace CsModelObjects {
 
 		switch (fieldKey) {
 		case FLD_BANKID:
-			return this.PrBANKID;
+			return this.PrBankid;
 		case FLD_BANKNAME:
 			return this.PrBankName;
 		case FLD_BANKCODE:
@@ -228,7 +228,7 @@ namespace CsModelObjects {
 			fieldKey = fieldKey.ToLower();
 
 		if (fieldKey==STR_FLD_BANKID.ToLower() ) {
-			return this.PrBANKID;
+			return this.PrBankid;
 		} else if (fieldKey==STR_FLD_BANKNAME.ToLower() ) {
 			return this.PrBankName;
 		} else if (fieldKey==STR_FLD_BANKCODE.ToLower() ) {
@@ -247,7 +247,7 @@ namespace CsModelObjects {
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.PrBANKID=(System.Int64)val;
+				this.PrBankid=(System.Int64)val;
 			} //
 			return;
 		case FLD_BANKNAME:
@@ -289,7 +289,7 @@ namespace CsModelObjects {
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.PrBANKID=Convert.ToInt64(val);
+				this.PrBankid=Convert.ToInt64(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_BANKNAME.ToLower()){
@@ -332,7 +332,7 @@ namespace CsModelObjects {
 			if (object.ReferenceEquals(other, this))
 				return true;
 
-			return this.PrBANKID == other.PrBANKID
+			return this.PrBankid == other.PrBankid
 				&& this.PrBankName == other.PrBankName
 				&& this.PrBankCode == other.PrBankCode
 				&& this.PrBankSWIFTCode == other.PrBankSWIFTCode;;
@@ -342,7 +342,7 @@ namespace CsModelObjects {
 		public override int GetHashCode()
 		{
 			//using Xor has the advantage of not overflowing the integer.
-			return this.PrBANKID.GetHashCode()
+			return this.PrBankid.GetHashCode()
 				 ^ this.getStringHashCode(this.PrBankName)
 				 ^ this.getStringHashCode(this.PrBankCode)
 				 ^ this.getStringHashCode(this.PrBankSWIFTCode);;
@@ -377,7 +377,7 @@ namespace CsModelObjects {
 		public override IModelObject copy() {
 			//creates a copy
 			Bank ret = new Bank();
-		ret.PrBANKID = this.PrBANKID;
+		ret.PrBankid = this.PrBankid;
 		ret.PrBankName = this.PrBankName;
 		ret.PrBankCode = this.PrBankCode;
 		ret.PrBankSWIFTCode = this.PrBankSWIFTCode;
@@ -394,9 +394,9 @@ namespace CsModelObjects {
 		#region "ID Property"
 
 		[DataMember]public sealed override object Id {
-			get { return this._BANKID; }
+			get { return this._Bankid; }
 			set {
-				this._BANKID = Convert.ToInt64(value);
+				this._Bankid = Convert.ToInt64(value);
 				this.raiseBroadcastIdChange();
 			}
 		}

@@ -467,7 +467,7 @@ namespace CsModelObjects {
                 
 				if ( value != null ) {
 					// note: do not set property, but the field!!
-					this._BankId = value.PrBANKID;
+					this._BankId = value.PrBankid;
 					value.IDChanged += this.handleParentIdChanged;
                 } else {
 					this._BankId = null;
@@ -909,7 +909,7 @@ namespace CsModelObjects {
 		}
 		// Assocations from CsModelObjects.Bank
 		if ( parentMo is CsModelObjects.Bank) {
-			this.PrBankId= ((CsModelObjects.Bank)parentMo).PrBANKID;
+			this.PrBankId= ((CsModelObjects.Bank)parentMo).PrBankid;
 		}
 	}
 #endregion

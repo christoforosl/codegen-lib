@@ -800,6 +800,7 @@ namespace CsModelObjects {
 		[System.Runtime.Serialization.DataMember]
 		public bool EmployeeProjectsLoaded  {get; private set;}
 
+		
 		public virtual CsModelObjects.EmployeeProject PrEmployeeProjectGetAt( int i ) {
 
             this.LoadPrEmployeeProjects();
