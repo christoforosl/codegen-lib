@@ -2,6 +2,7 @@ Option Strict On
 
 Imports System.Runtime.CompilerServices
 Imports System.Data.Linq
+Imports System.Collections.Generic
 
 ''' <summary>
 ''' Database Utility class to fascilitate sql statements execution
@@ -448,6 +449,27 @@ Public MustInherit Class DBUtils
 
     End Function
 
+
+    Public Function getDataTableWithParams(ByVal sql As String, ByVal stmtParams As List(Of IDataParameter)) As DataTable
+
+        If (stmtParams IsNot Nothing AndAlso stmtParams.Count > 0) Then
+            Return Me.getDataTableWithParams(sql, stmtParams.ToArray())
+        Else
+            Return Me.getDataTable(sql)
+        End If
+
+    End Function
+    Public Function getDataTableWithParams(ByVal sql As String, ByVal ParamArray params() As IDataParameter) As DataTable
+
+        Dim ds As DataSet = Me.getDataSetWithParams(sql, params)
+
+        If ds IsNot Nothing AndAlso ds.Tables.Count > 0 Then
+            Return ds.Tables(0)
+        Else
+            Return Nothing
+        End If
+
+    End Function
     Public Function getDataSetWithParams(ByVal sql As String, ByVal ParamArray params() As IDataParameter) As DataSet
         Dim ds As New DataSet
 
