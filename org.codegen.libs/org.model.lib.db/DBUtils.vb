@@ -1,6 +1,5 @@
 Option Strict On
 
-Imports System.IO
 Imports System.Runtime.CompilerServices
 Imports System.Data.Linq
 
@@ -486,12 +485,10 @@ Public MustInherit Class DBUtils
         Try
 
             sql = replaceParameterPlaceHolders(sql, params.Length - 1)
-
             adapter = Me.getAdapter()
             adapter.SelectCommand = Me.getCommand(sql)
             If Me.inTrans Then
                 adapter.SelectCommand.Transaction = Me.Transaction
-
             End If
 
             For i As Integer = 0 To params.Length - 1
@@ -563,7 +560,15 @@ Public MustInherit Class DBUtils
     ''' <returns>a DataTable filled with the results of the sql</returns>
     Public Function getDataTableWithParams(ByVal sql As String, ByVal ParamArray params() As Object) As DataTable
 
-        Dim ds As DataSet = Me.getDataSetWithParams(sql, params)
+        Dim ds As DataSet
+        If params IsNot Nothing AndAlso params.Length > 0 Then
+            System.Diagnostics.Debug.WriteLine("yes with params")
+            ds = Me.getDataSetWithParams(sql, params)
+        Else
+            System.Diagnostics.Debug.WriteLine(" ---------- no params yes with params")
+            ds = Me.getDataSet(sql)
+        End If
+
         If ds.Tables.Count > 0 Then
             Return ds.Tables(0)
         Else

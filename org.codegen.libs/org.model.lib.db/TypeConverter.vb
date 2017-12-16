@@ -1,8 +1,4 @@
-﻿Imports System
-Imports System.Collections
-Imports System.Data
-
-''' <summary>
+﻿''' <summary>
 ''' Convert a base data type to another base data type
 ''' </summary>
 Public NotInheritable Class TypeConvertor

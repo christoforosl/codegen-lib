@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D812F799-E78F-4778-84B3-C70E6E14735A}"
 	ProjectSection(SolutionItems) = preProject
@@ -33,6 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{31ACAF
 	ProjectSection(SolutionItems) = preProject
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "org.model.lib.db.OracleDBUtils", "OracleDBUtils\org.model.lib.db.OracleDBUtils.csproj", "{7450A657-11C5-442B-A838-944809453D46}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
@@ -169,6 +171,22 @@ Global
 		{EC0BEE2D-5CA9-478C-B5C7-0270FB49207F}.Release|x64.ActiveCfg = Release|Any CPU
 		{EC0BEE2D-5CA9-478C-B5C7-0270FB49207F}.Release|x86.ActiveCfg = Release|Any CPU
 		{EC0BEE2D-5CA9-478C-B5C7-0270FB49207F}.Release|x86.Build.0 = Release|Any CPU
+		{7450A657-11C5-442B-A838-944809453D46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7450A657-11C5-442B-A838-944809453D46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7450A657-11C5-442B-A838-944809453D46}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7450A657-11C5-442B-A838-944809453D46}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7450A657-11C5-442B-A838-944809453D46}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7450A657-11C5-442B-A838-944809453D46}.Debug|x64.Build.0 = Debug|Any CPU
+		{7450A657-11C5-442B-A838-944809453D46}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7450A657-11C5-442B-A838-944809453D46}.Debug|x86.Build.0 = Debug|Any CPU
+		{7450A657-11C5-442B-A838-944809453D46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7450A657-11C5-442B-A838-944809453D46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7450A657-11C5-442B-A838-944809453D46}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7450A657-11C5-442B-A838-944809453D46}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7450A657-11C5-442B-A838-944809453D46}.Release|x64.ActiveCfg = Release|Any CPU
+		{7450A657-11C5-442B-A838-944809453D46}.Release|x64.Build.0 = Release|Any CPU
+		{7450A657-11C5-442B-A838-944809453D46}.Release|x86.ActiveCfg = Release|Any CPU
+		{7450A657-11C5-442B-A838-944809453D46}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -180,6 +198,9 @@ Global
 		{891F585A-35B8-4BB9-8B40-33DCA98F055E} = {8D5E1231-24B4-45D8-99B3-1118DD5F3D1A}
 		{C042F97C-0904-46AB-B37C-51AC6A5BA5F2} = {E80C18E5-D700-4A25-86F8-1047C5DF52EB}
 		{EC0BEE2D-5CA9-478C-B5C7-0270FB49207F} = {E80C18E5-D700-4A25-86F8-1047C5DF52EB}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A1F9808B-94AE-4C2F-9912-0D26C000FBD6}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = org.codegen.lib.csharp.4.01.vsmdi
