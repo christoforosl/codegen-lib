@@ -118,9 +118,10 @@ Public MustInherit Class DBUtils
     Protected p_connstring As String
 
 
-    Protected p_date_pattern As String
+    Protected p_datePattern As String
     Protected p_dbNow As String
-    Protected p_like_char As String
+    Protected p_likeChar As String
+    Protected p_quoteChar As String
     Protected p_sqldialect As enumSqlDialect
     Protected p_params As IDataParameterCollection
 
@@ -333,6 +334,18 @@ Public MustInherit Class DBUtils
 
     Public MustOverride Function getAdapter() As IDbDataAdapter
     Public MustOverride Function getCommand() As IDbCommand
+
+
+    ''' <summary>
+    ''' Returns a name (fieldname, tablename) from the database
+    ''' </summary>
+    ''' <param name="name">name to quote</param>
+    ''' <returns>name parameter quoted</returns>
+    Public Function getQuotedName(name As String) As String
+
+        Return Me.p_quoteChar & name & Me.p_quoteChar
+
+    End Function
 
     ''' <summary>
     ''' Fills a typed dataset from the sql provided

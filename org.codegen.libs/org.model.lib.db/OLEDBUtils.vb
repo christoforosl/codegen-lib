@@ -1,12 +1,6 @@
 Option Strict On
 
-Imports System.Reflection
-Imports System.Configuration
-Imports System.Xml
-Imports System.Web
-Imports System.IO
 Imports System.Data.OleDb
-Imports Microsoft.VisualBasic
 
 Public Class OLEDBUtils
     Inherits DBUtils
@@ -20,20 +14,20 @@ Public Class OLEDBUtils
 
 
     Protected Friend Overrides Sub setSpecialChars()
+
         If Me.sqldialect = enumSqlDialect.ORACLE Then
             MyBase.p_dbNow = "sysdate"
-            MyBase.p_date_pattern = "'{0}'"
-            MyBase.p_like_char = "%"
-
+            MyBase.p_datePattern = "'{0}'"
+            MyBase.p_likeChar = "%"
+            MyBase.p_quoteChar = """"
             MyBase.paramPrefix = ":"
         Else
             MyBase.p_dbNow = "getDate()"
-            MyBase.p_date_pattern = "'{0}'"
-            MyBase.p_like_char = "%"
-
+            MyBase.p_datePattern = "'{0}'"
+            MyBase.p_likeChar = "%"
+            MyBase.p_quoteChar = "["
             MyBase.paramPrefix = "@"
         End If
-
 
     End Sub
 
