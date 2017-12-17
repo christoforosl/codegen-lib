@@ -17,10 +17,10 @@
 
   <propertiesPrefix>Pr</propertiesPrefix>
   <dbConnectionString>
-    Provider=MSDAORA.1;Data Source=polnewdbsrv0;Persist Security Info=True;User ID=hrnuf;password=hr
+    Data Source=polnewdbsrv0;Persist Security Info=True;User ID=hrnuf;password=hr
   </dbConnectionString>
   <dbConnectionDialect>ORACLE</dbConnectionDialect>
-  <dbConnectionType>CONN_OLEDB</dbConnectionType>
+  <dbConnectionType>ORACLE</dbConnectionType>
   
   <table>
     <TableName>EMPLOYEE_TRAINING_HISTORY</TableName>

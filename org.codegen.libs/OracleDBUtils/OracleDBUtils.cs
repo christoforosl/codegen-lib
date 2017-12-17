@@ -17,7 +17,9 @@ namespace org.model.lib.db.ora {
         }
 
         public override IDbCommand getCommand() {
-            return new OracleCommand();
+            IDbCommand ret = new OracleCommand();
+            //((OracleCommand)ret).BindByName = true;
+            return ret;
         }
 
         public override string getIdentitySQL() {

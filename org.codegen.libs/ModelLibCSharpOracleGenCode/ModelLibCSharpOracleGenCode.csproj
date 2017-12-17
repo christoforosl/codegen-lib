@@ -227,6 +227,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OracleDBUtils\org.model.lib.db.OracleDBUtils.csproj">
+      <Project>{7450a657-11c5-442b-a838-944809453d46}</Project>
+      <Name>org.model.lib.db.OracleDBUtils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\org.model.lib.db\org.model.lib.db.vbproj">
       <Project>{c744d17d-3132-4365-8c44-9d295d942597}</Project>
       <Name>org.model.lib.db</Name>

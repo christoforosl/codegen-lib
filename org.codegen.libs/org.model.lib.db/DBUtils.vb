@@ -117,7 +117,6 @@ Public MustInherit Class DBUtils
 
     Protected p_connstring As String
 
-
     Protected p_datePattern As String
     Protected p_dbNow As String
     Protected p_likeChar As String
@@ -142,8 +141,22 @@ Public MustInherit Class DBUtils
     ''' <summary>
     ''' Parameter prefix
     ''' </summary>
-    Protected Friend Property paramPrefix() As String
+    Public Property paramPrefix() As String
 
+
+    ''' <summary>
+    ''' Returns the name parameter prefixed by the database provider parameter symbol (: for oracle, @ for sql server)
+    ''' </summary>
+    ''' <param name="fldname">The name to add prefix to</param>
+    ''' <returns></returns>
+    Public Function getNamedParameter(fldname As String) As String
+        Return Me.paramPrefix & fldname
+    End Function
+
+    ''' <summary>
+    ''' Returns a data context to use with Linq to SQL operations
+    ''' </summary>
+    ''' <returns>DataContext</returns>
     Public Function dbContext() As DataContext
 
         Return New DataContext(Me.Connection)
@@ -412,7 +425,7 @@ Public MustInherit Class DBUtils
     ''' <remarks></remarks>
     Public Overridable Function replaceParameterPlaceHolders(ByVal sql As String, ByVal ParamArray params() As Object) As String
 
-        If Me.sqldialect <> DBUtils.enumSqlDialect.MSSQL Then
+        If Me.sqldialect <> DBUtils.enumSqlDialect.MSSQL AndAlso Me.sqldialect <> DBUtils.enumSqlDialect.ORACLE Then
             Return sql
         End If
 
@@ -775,7 +788,7 @@ Public MustInherit Class DBUtils
     ''' If value of first column is DBNULL, returns String.Empty</returns>
     ''' <remarks></remarks>
     ''' <seealso cref="DBUtils.getSValue"></seealso>
-    Function getSValueWithParams(ByVal sql As String, _
+    Function getSValueWithParams(ByVal sql As String,
                                  ByVal ParamArray params() As Object) As String
 
         Dim rs As IDataReader
