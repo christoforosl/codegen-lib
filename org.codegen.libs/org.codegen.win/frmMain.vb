@@ -1,7 +1,7 @@
 ﻿Imports System.Windows.Forms
 Imports org.codegen.lib
 Imports System.Reflection
-
+Imports org.model.lib.db.Encryption
 
 Public Class frmMain
 
@@ -213,6 +213,23 @@ Public Class frmMain
             Application.DoEvents()
 
         End If
+
+    End Sub
+
+    Private Sub btnEncryptString_Click(sender As Object, e As EventArgs) Handles btnEncryptString.Click
+        Dim plainConn = InputBox("Enter Clear text conn string:", "Connection String Encryptor")
+        If (String.IsNullOrEmpty(plainConn)) Then Exit Sub
+
+        Dim encrypted = SimpleEncrypt.Cipher(plainConn)
+        Dim f As New frmShowEncrypted
+
+        f.txtEncryptedString.Text = encrypted & vbCrLf & vbCrLf & "-------------" & vbCrLf & "For Oracle Connection paste this" & vbCrLf &
+               "<DBConfig dbconnstring=""" & encrypted & " sqlConnectionType=""2"" sqlDialect=""3""  dbconnstringEncrypted=""1""/>" & vbCrLf & "For MSSQL Connection paste this" & vbCrLf &
+               "<DBConfig dbconnstring=""" & encrypted & " sqlConnectionType=""1"" sqlDialect=""1""  dbconnstringEncrypted=""1""/>" & vbCrLf & vbCrLf &
+               "This should also be placed in the <configuration> section:" & vbCrLf & "<configSections><section name=""DBConfig"" type=""org.model.lib.db.DBConfig,org.model.lib.db.4.0""/></configSections>"
+
+
+        f.ShowDialog()
 
     End Sub
 End Class

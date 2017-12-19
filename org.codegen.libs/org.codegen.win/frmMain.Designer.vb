@@ -35,6 +35,7 @@ Partial Class frmMain
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.tsLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.tsProgress = New System.Windows.Forms.ToolStripProgressBar()
+        Me.btnEncryptString = New System.Windows.Forms.Button()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -42,20 +43,22 @@ Partial Class frmMain
         'TableLayoutPanel1
         '
         Me.TableLayoutPanel1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TableLayoutPanel1.ColumnCount = 4
+        Me.TableLayoutPanel1.ColumnCount = 5
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.btnEncryptString, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.btnView, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.OK_Button, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Cancel_Button, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.btnSelect, 1, 0)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(354, 301)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(192, 301)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(326, 36)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(488, 36)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'btnView
@@ -81,16 +84,16 @@ Partial Class frmMain
         '
         Me.Cancel_Button.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Cancel_Button.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Cancel_Button.Location = New System.Drawing.Point(240, 6)
+        Me.Cancel_Button.Location = New System.Drawing.Point(432, 6)
         Me.Cancel_Button.Name = "Cancel_Button"
-        Me.Cancel_Button.Size = New System.Drawing.Size(55, 23)
+        Me.Cancel_Button.Size = New System.Drawing.Size(53, 23)
         Me.Cancel_Button.TabIndex = 3
         Me.Cancel_Button.Text = "Close"
         '
         'btnSelect
         '
         Me.btnSelect.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btnSelect.Location = New System.Drawing.Point(149, 6)
+        Me.btnSelect.Location = New System.Drawing.Point(368, 6)
         Me.btnSelect.Name = "btnSelect"
         Me.btnSelect.Size = New System.Drawing.Size(58, 23)
         Me.btnSelect.TabIndex = 2
@@ -109,8 +112,8 @@ Partial Class frmMain
         'cboXMLConfFile
         '
         Me.cboXMLConfFile.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cboXMLConfFile.FormattingEnabled = True
         Me.cboXMLConfFile.Location = New System.Drawing.Point(12, 24)
         Me.cboXMLConfFile.Name = "cboXMLConfFile"
@@ -124,8 +127,8 @@ Partial Class frmMain
         'TextBox1
         '
         Me.TextBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TextBox1.Location = New System.Drawing.Point(12, 56)
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
@@ -146,13 +149,22 @@ Partial Class frmMain
         'tsLabel
         '
         Me.tsLabel.Name = "tsLabel"
-        Me.tsLabel.Size = New System.Drawing.Size(38, 17)
+        Me.tsLabel.Size = New System.Drawing.Size(39, 17)
         Me.tsLabel.Text = "Ready"
         '
         'tsProgress
         '
         Me.tsProgress.Name = "tsProgress"
         Me.tsProgress.Size = New System.Drawing.Size(200, 16)
+        '
+        'btnEncryptString
+        '
+        Me.btnEncryptString.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.btnEncryptString.Location = New System.Drawing.Point(149, 6)
+        Me.btnEncryptString.Name = "btnEncryptString"
+        Me.btnEncryptString.Size = New System.Drawing.Size(213, 23)
+        Me.btnEncryptString.TabIndex = 4
+        Me.btnEncryptString.Text = "Encrypt Connection String"
         '
         'frmMain
         '
@@ -191,5 +203,5 @@ Partial Class frmMain
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Friend WithEvents tsProgress As System.Windows.Forms.ToolStripProgressBar
     Friend WithEvents tsLabel As System.Windows.Forms.ToolStripStatusLabel
-
+    Friend WithEvents btnEncryptString As Button
 End Class
