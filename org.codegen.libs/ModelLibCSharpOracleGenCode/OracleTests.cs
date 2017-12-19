@@ -50,8 +50,9 @@ namespace GeneratorTests {
             ModelContext.Current.config.DoCascadeDeletes = true;
 			ModelContext.beginTrans();
 			ModelContext.addGlobalModelValidator(typeof(Employee), typeof(EmployeeValidator));
+            DateTime dhiredate = new DateTime(DateTime.Now.Year, 1, 1);
 
-			try {
+            try {
 				
 				Employee e = EmployeeFactory.Create();
                 e.PrDepartment = DepartmentFactory.Create();
@@ -60,10 +61,10 @@ namespace GeneratorTests {
 
                 e.PrFirstName= "test";
                 e.PrLastName = "Lastname";
-				e.PrSALARY = 100m;
-                e.PrEMAIL = "test@test.com.cy";
+				e.PrSalary = 100m;
+                e.PrEmail = "test@test.com.cy";
 				e.PrPhoneNumber= "1030045";
-				e.PrHireDate = new DateTime(DateTime.Now.Year, 1, 1);
+				e.PrHireDate = dhiredate;
                 e.PrJobId = JobDataUtils.findList()[0].PrJobId;
 
                 e.PrTrainingHistoryAdd( EmployeeTrainingHistoryFactory.Create() );
@@ -72,7 +73,7 @@ namespace GeneratorTests {
                 emplProj.PrDateTo = new DateTime(DateTime.Now.Year, 6, 1);
 
                 emplProj.PrTrainingCourse = TrainingCourseFactory.Create();
-                emplProj.PrTrainingCourse.PrCODE = "X1";
+                emplProj.PrTrainingCourse.PrCode = "X1";
                 emplProj.PrTrainingCourse.PrDescrEn = "New Course";
                 emplProj.PrTrainingCourse.PrDescrGr = "Νέο";
 				Assert.IsTrue(e.isNew);
@@ -105,10 +106,10 @@ namespace GeneratorTests {
 				Assert.IsFalse(e.isDirty, "After load from db, model object isDirty property returns false");
 
                 Assert.AreEqual(e.PrDepartment.PrDepartmentName, "My New Dept");
-				Assert.AreEqual(e.PrSALARY, 100m);
+				Assert.AreEqual(e.PrSalary, 100m);
                 Assert.AreEqual(e.PrLastName, "Lastname");
 				Assert.AreEqual(e.PrPhoneNumber, "12345XX");
-				Assert.AreEqual(e.PrHireDate, new DateTime(2015, 1, 1));
+				Assert.AreEqual(e.PrHireDate, dhiredate);
 				Assert.AreEqual(e.PrTrainingHistory.ToList().Count, 1);
                 Assert.AreEqual(e.PrTrainingHistoryGetAt(0).PrTrainingCourse.PrDescrEn, "New Course");
 				

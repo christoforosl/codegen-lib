@@ -85,7 +85,7 @@ namespace OracleModel {
 					public const String STR_FLD_LOCATION_ID = "LocationId";
 			public const String STR_FLD_STREET_ADDRESS = "StreetAddress";
 			public const String STR_FLD_POSTAL_CODE = "PostalCode";
-			public const String STR_FLD_CITY = "CITY";
+			public const String STR_FLD_CITY = "City";
 			public const String STR_FLD_STATE_PROVINCE = "StateProvince";
 			public const String STR_FLD_COUNTRY_ID = "CountryId";
 			public const String STR_FLD_CREATE_DATE = "CreateDate";
@@ -124,7 +124,7 @@ namespace OracleModel {
 	private System.Int64 _LocationId;
 	private System.String _StreetAddress;
 	private System.String _PostalCode;
-	private System.String _CITY;
+	private System.String _City;
 	private System.String _StateProvince;
 	private System.String _CountryId;
 	private System.DateTime? _CreateDate = null;
@@ -203,14 +203,14 @@ namespace OracleModel {
 		[Key]
 		[Required]
 		[StringLength(30, ErrorMessage="CITY must be 30 characters or less")]
-		[Column(Name="CITY",Storage = "_CITY", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
+		[Column(Name="CITY",Storage = "_City", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
 		[DataMember]
-		public virtual System.String PrCITY{
+		public virtual System.String PrCity{
 			get{			
-				return _CITY;
+				return _City;
 			}
 			set {
-				if (ModelObject.valueChanged(_CITY, value)){
+				if (ModelObject.valueChanged(_City, value)){
 					if (value != null && value.Length > 30){
 						throw new ModelObjectFieldTooLongException("CITY");
 					}
@@ -218,7 +218,7 @@ namespace OracleModel {
 						this.isDirty = true; //
 						this.setFieldChanged(STR_FLD_CITY);
 					}
-					this._CITY = value;
+					this._City = value;
 				}
 			}
 		}
@@ -246,7 +246,7 @@ namespace OracleModel {
 		}
 		//Field COUNTRY_ID
 		[Key]
-		[StringLength(2, ErrorMessage="COUNTRY_ID must be 2 characters or less")]
+		[StringLength(5, ErrorMessage="COUNTRY_ID must be 5 characters or less")]
 		[Column(Name="COUNTRY_ID",Storage = "_CountryId", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 		[DataMember]
 		public virtual System.String PrCountryId{
@@ -255,7 +255,7 @@ namespace OracleModel {
 			}
 			set {
 				if (ModelObject.valueChanged(_CountryId, value)){
-					if (value != null && value.Length > 2){
+					if (value != null && value.Length > 5){
 						throw new ModelObjectFieldTooLongException("COUNTRY_ID");
 					}
 					if (!this.IsObjectLoading) {
@@ -360,7 +360,7 @@ namespace OracleModel {
 		case FLD_POSTAL_CODE:
 			return this.PrPostalCode;
 		case FLD_CITY:
-			return this.PrCITY;
+			return this.PrCity;
 		case FLD_STATE_PROVINCE:
 			return this.PrStateProvince;
 		case FLD_COUNTRY_ID:
@@ -389,7 +389,7 @@ namespace OracleModel {
 		} else if (fieldKey==STR_FLD_POSTAL_CODE.ToLower() ) {
 			return this.PrPostalCode;
 		} else if (fieldKey==STR_FLD_CITY.ToLower() ) {
-			return this.PrCITY;
+			return this.PrCity;
 		} else if (fieldKey==STR_FLD_STATE_PROVINCE.ToLower() ) {
 			return this.PrStateProvince;
 		} else if (fieldKey==STR_FLD_COUNTRY_ID.ToLower() ) {
@@ -433,9 +433,9 @@ namespace OracleModel {
 			return;
 		case FLD_CITY:
 			if (val == DBNull.Value || val == null ){
-				this.PrCITY = null;
+				this.PrCity = null;
 			} else {
-				this.PrCITY=(System.String)val;
+				this.PrCity=(System.String)val;
 			} //
 			return;
 		case FLD_STATE_PROVINCE:
@@ -517,9 +517,9 @@ namespace OracleModel {
 			return;
 		} else if ( fieldKey==STR_FLD_CITY.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.PrCITY = null;
+				this.PrCity = null;
 			} else {
-				this.PrCITY=Convert.ToString(val);
+				this.PrCity=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_STATE_PROVINCE.ToLower()){
@@ -586,7 +586,7 @@ namespace OracleModel {
 			return this.PrLocationId == other.PrLocationId
 				&& this.PrStreetAddress == other.PrStreetAddress
 				&& this.PrPostalCode == other.PrPostalCode
-				&& this.PrCITY == other.PrCITY
+				&& this.PrCity == other.PrCity
 				&& this.PrStateProvince == other.PrStateProvince
 				&& this.PrCountryId == other.PrCountryId
 				&& this.CreateDate.GetValueOrDefault() == other.CreateDate.GetValueOrDefault()
@@ -602,7 +602,7 @@ namespace OracleModel {
 			return this.PrLocationId.GetHashCode()
 				 ^ this.getStringHashCode(this.PrStreetAddress)
 				 ^ this.getStringHashCode(this.PrPostalCode)
-				 ^ this.getStringHashCode(this.PrCITY)
+				 ^ this.getStringHashCode(this.PrCity)
 				 ^ this.getStringHashCode(this.PrStateProvince)
 				 ^ this.getStringHashCode(this.PrCountryId)
 				 ^ this.CreateDate.GetHashCode()
@@ -643,7 +643,7 @@ namespace OracleModel {
 		ret.PrLocationId = this.PrLocationId;
 		ret.PrStreetAddress = this.PrStreetAddress;
 		ret.PrPostalCode = this.PrPostalCode;
-		ret.PrCITY = this.PrCITY;
+		ret.PrCity = this.PrCity;
 		ret.PrStateProvince = this.PrStateProvince;
 		ret.PrCountryId = this.PrCountryId;
 		ret.CreateDate = this.CreateDate;
@@ -683,8 +683,8 @@ namespace OracleModel {
 
 		public void validate(org.model.lib.Model.IModelObject imo) {
 			Location mo = (Location)imo;
-			if (string.IsNullOrEmpty( mo.PrCITY)) {
-		throw new ModelObjectRequiredFieldException("CITY");
+			if (string.IsNullOrEmpty( mo.PrCity)) {
+		throw new ModelObjectRequiredFieldException("City");
 }
 
 		}

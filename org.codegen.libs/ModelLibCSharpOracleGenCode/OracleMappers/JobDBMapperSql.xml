@@ -12,14 +12,14 @@
   </stmt>
   <stmt>
     <key>delete</key>
-    <ORACLE>DELETE FROM JOBS WHERE JOB_ID=?</ORACLE>
+    <ORACLE>DELETE FROM JOBS WHERE JOB_ID=:0</ORACLE>
   </stmt>
   <stmt>
     <key>insert</key>
-    <ORACLE>insert into JOBS (JOB_TITLE,MIN_SALARY,MAX_SALARY,CREATE_DATE,UPDATE_DATE,CREATE_USER,UPDATE_USER,JOB_ID) values (?,?,?,?,?,?,?,?)</ORACLE>
+    <ORACLE>insert into JOBS (JOB_TITLE,MIN_SALARY,MAX_SALARY,CREATE_DATE,UPDATE_DATE,CREATE_USER,UPDATE_USER,JOB_ID) values (:JobTitle,:MinSalary,:MaxSalary,:CreateDate,:UpdateDate,:CreateUser,:UpdateUser,:pk)</ORACLE>
   </stmt>
   <stmt>
     <key>update</key>
-    <ORACLE>UPDATE JOBS SET JOB_TITLE=?,MIN_SALARY=?,MAX_SALARY=?,CREATE_DATE=?,UPDATE_DATE=?,CREATE_USER=?,UPDATE_USER=? WHERE JOB_ID=?</ORACLE>
+    <ORACLE>UPDATE JOBS SET JOB_TITLE=:JobTitle,MIN_SALARY=:MinSalary,MAX_SALARY=:MaxSalary,CREATE_DATE=:CreateDate,UPDATE_DATE=:UpdateDate,CREATE_USER=:CreateUser,UPDATE_USER=:UpdateUser WHERE JOB_ID=:JobId</ORACLE>
   </stmt>
 </SQLStatements>

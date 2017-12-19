@@ -82,7 +82,7 @@ namespace OracleModel {
 		#endregion
 		#region "Field CONSTANTS"
 
-					public const String STR_FLD_CODE = "CODE";
+					public const String STR_FLD_CODE = "Code";
 			public const String STR_FLD_DESCR_GR = "DescrGr";
 			public const String STR_FLD_DESCR_EN = "DescrEn";
 
@@ -107,7 +107,7 @@ namespace OracleModel {
 
 		#region "Field Declarations"
 
-	private System.String _CODE;
+	private System.String _Code;
 	private System.String _DescrGr;
 	private System.String _DescrEn;
 
@@ -118,14 +118,14 @@ namespace OracleModel {
 		//Field CODE
 		[Required]
 		[StringLength(5, ErrorMessage="CODE must be 5 characters or less")]
-		[Column(Name="CODE",Storage = "_CODE", IsPrimaryKey=true,DbType = " NOT NULL",CanBeNull = false)]
+		[Column(Name="CODE",Storage = "_Code", IsPrimaryKey=true,DbType = " NOT NULL",CanBeNull = false)]
 		[DataMember]
-		public virtual System.String PrCODE{
+		public virtual System.String PrCode{
 			get{			
-				return _CODE;
+				return _Code;
 			}
 			set {
-				if (ModelObject.valueChanged(_CODE, value)){
+				if (ModelObject.valueChanged(_Code, value)){
 					if (value != null && value.Length > 5){
 						throw new ModelObjectFieldTooLongException("CODE");
 					}
@@ -133,7 +133,7 @@ namespace OracleModel {
 						this.isDirty = true; //
 						this.setFieldChanged(STR_FLD_CODE);
 					}
-					this._CODE = value;
+					this._Code = value;
 					this.raiseBroadcastIdChange();
 				}
 			}
@@ -190,7 +190,7 @@ namespace OracleModel {
 
 		switch (fieldKey) {
 		case FLD_CODE:
-			return this.PrCODE;
+			return this.PrCode;
 		case FLD_DESCR_GR:
 			return this.PrDescrGr;
 		case FLD_DESCR_EN:
@@ -205,7 +205,7 @@ namespace OracleModel {
 			fieldKey = fieldKey.ToLower();
 
 		if (fieldKey==STR_FLD_CODE.ToLower() ) {
-			return this.PrCODE;
+			return this.PrCode;
 		} else if (fieldKey==STR_FLD_DESCR_GR.ToLower() ) {
 			return this.PrDescrGr;
 		} else if (fieldKey==STR_FLD_DESCR_EN.ToLower() ) {
@@ -222,7 +222,7 @@ namespace OracleModel {
 			if (val == DBNull.Value || val == null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.PrCODE=(System.String)val;
+				this.PrCode=(System.String)val;
 			} //
 			return;
 		case FLD_DESCR_GR:
@@ -257,7 +257,7 @@ namespace OracleModel {
 			if (val == DBNull.Value || val ==null ){
 				throw new ApplicationException("Can't set Primary Key to null");
 			} else {
-				this.PrCODE=Convert.ToString(val);
+				this.PrCode=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_DESCR_GR.ToLower()){
@@ -293,7 +293,7 @@ namespace OracleModel {
 			if (object.ReferenceEquals(other, this))
 				return true;
 
-			return this.PrCODE == other.PrCODE
+			return this.PrCode == other.PrCode
 				&& this.PrDescrGr == other.PrDescrGr
 				&& this.PrDescrEn == other.PrDescrEn;;
 
@@ -302,7 +302,7 @@ namespace OracleModel {
 		public override int GetHashCode()
 		{
 			//using Xor has the advantage of not overflowing the integer.
-			return this.getStringHashCode(this.PrCODE)
+			return this.getStringHashCode(this.PrCode)
 				 ^ this.getStringHashCode(this.PrDescrGr)
 				 ^ this.getStringHashCode(this.PrDescrEn);;
 
@@ -336,7 +336,7 @@ namespace OracleModel {
 		public override IModelObject copy() {
 			//creates a copy
 			TrainingCourse ret = new TrainingCourse();
-		ret.PrCODE = this.PrCODE;
+		ret.PrCode = this.PrCode;
 		ret.PrDescrGr = this.PrDescrGr;
 		ret.PrDescrEn = this.PrDescrEn;
 
@@ -352,9 +352,9 @@ namespace OracleModel {
 		#region "ID Property"
 
 		[DataMember]public sealed override object Id {
-			get { return this._CODE; }
+			get { return this._Code; }
 			set {
-				this._CODE = Convert.ToString(value);
+				this._Code = Convert.ToString(value);
 				this.raiseBroadcastIdChange();
 			}
 		}

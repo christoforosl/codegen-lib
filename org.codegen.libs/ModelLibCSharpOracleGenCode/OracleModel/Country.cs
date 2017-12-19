@@ -25,7 +25,9 @@ namespace OracleModel {
 		//you can create other shared functions to return a new 
 		//instance with parameters
 		public static Country Create() {
-			return new Country();
+            var n = new Country();
+            n.PrIsActive = 1;
+            return n;
 		}
 
 	}

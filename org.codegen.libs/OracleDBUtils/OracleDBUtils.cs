@@ -8,7 +8,7 @@ namespace org.model.lib.db.ora {
 
         protected override IDbConnection ConnectionInternal {
             get {
-                return new OracleConnection(this.ConnString);
+                return new OracleConnection(this.ConnString.Trim());
             }
         }
 
@@ -18,7 +18,6 @@ namespace org.model.lib.db.ora {
 
         public override IDbCommand getCommand() {
             IDbCommand ret = new OracleCommand();
-            //((OracleCommand)ret).BindByName = true;
             return ret;
         }
 
@@ -34,7 +33,8 @@ namespace org.model.lib.db.ora {
             base.p_dbNow = "sysdate";
             base.p_datePattern = "'{0}'";
             base.p_likeChar = "%";
-            base.p_quoteChar = "\"";
+            base.p_leftQuoteChar = "\"";
+            base.p_rightQuoteChar = "\"";
             base.paramPrefix = ":";
         }
     }

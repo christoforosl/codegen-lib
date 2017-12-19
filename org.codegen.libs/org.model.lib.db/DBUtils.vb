@@ -3,6 +3,7 @@ Option Strict On
 Imports System.Runtime.CompilerServices
 Imports System.Data.Linq
 Imports System.Collections.Generic
+Imports System.Reflection
 
 ''' <summary>
 ''' Database Utility class to fascilitate sql statements execution
@@ -15,7 +16,7 @@ Public MustInherit Class DBUtils
 
     Private Shared _dbrovider As IDBUtilsProvider
 
-    <ThreadStatic()> _
+    <ThreadStatic()>
     Private Shared _current As DBUtils
 
     Public Shared Property dbProvider As IDBUtilsProvider
@@ -56,9 +57,9 @@ Public MustInherit Class DBUtils
     ''' <param name="logFile"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Shared Function getFromConnString(ByVal connString As String, _
-                                             ByVal sqlConnType As enumConnType, _
-                                             ByVal iDialect As enumSqlDialect, _
+    Public Shared Function getFromConnString(ByVal connString As String,
+                                             ByVal sqlConnType As enumConnType,
+                                             ByVal iDialect As enumSqlDialect,
                                              Optional ByVal logFile As String = "") As DBUtils
 
         Dim ret As DBUtils
@@ -73,6 +74,11 @@ Public MustInherit Class DBUtils
                 ret = New OLEDBUtils
                 ret.sqldialect = iDialect
 
+            Case enumConnType.CONN_ORACLE
+                Dim tk As Type = Type.GetType("org.model.lib.db.ora.OracleDBUtils,org.model.lib.db.ora")
+                ret = CType(Activator.CreateInstance(tk), DBUtils)
+                ret.sqldialect = enumSqlDialect.ORACLE
+                ret.ConnType = enumConnType.CONN_ORACLE
             Case Else
                 Throw New ArgumentException("Cannot Identify SQL Connection Type.  Enter 1 for SQL or 3 for OLE DB")
         End Select
@@ -120,7 +126,10 @@ Public MustInherit Class DBUtils
     Protected p_datePattern As String
     Protected p_dbNow As String
     Protected p_likeChar As String
-    Protected p_quoteChar As String
+
+    Protected p_leftQuoteChar As String
+    Protected p_rightQuoteChar As String
+
     Protected p_sqldialect As enumSqlDialect
     Protected p_params As IDataParameterCollection
 
@@ -306,7 +315,7 @@ Public MustInherit Class DBUtils
             If (inTrans) Then
                 Return Me.Transaction.Connection
             Else
-                Return ConnectionInternal
+                Return Me.ConnectionInternal
             End If
         End Get
 
@@ -321,7 +330,7 @@ Public MustInherit Class DBUtils
         End Get
 
         Set(ByVal Value As String)
-            p_connstring = Value
+            p_connstring = Value.Trim()
         End Set
 
     End Property
@@ -356,7 +365,7 @@ Public MustInherit Class DBUtils
     ''' <returns>name parameter quoted</returns>
     Public Function getQuotedName(name As String) As String
 
-        Return Me.p_quoteChar & name & Me.p_quoteChar
+        Return Me.p_leftQuoteChar & name & Me.p_rightQuoteChar
 
     End Function
 

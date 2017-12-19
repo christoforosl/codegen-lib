@@ -17,10 +17,10 @@
 
   <propertiesPrefix>Pr</propertiesPrefix>
   <dbConnectionString>
-    Data Source=polnewdbsrv0;Persist Security Info=True;User ID=hrnuf;password=hr
+    Data Source=(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = polnewdbsrv0)(PORT = 1521))(CONNECT_DATA = (SERVER = DEDICATED)(SID = CPCS)));User Id = hrnuf;Password=hr
   </dbConnectionString>
   <dbConnectionDialect>ORACLE</dbConnectionDialect>
-  <dbConnectionType>ORACLE</dbConnectionType>
+  <dbConnectionType>CONN_ORACLE</dbConnectionType>
   
   <table>
     <TableName>EMPLOYEE_TRAINING_HISTORY</TableName>

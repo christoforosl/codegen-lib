@@ -120,11 +120,10 @@ namespace OracleModel {
 	private System.DateTime? _DateFrom = null;
 	private System.DateTime? _DateTo = null;
 	private System.String _TrainingCourseCode;
-	// ****** CHILD OBJECTS ********************
-[DataMember(Name="PrTrainingCourse")]	private OracleModel.TrainingCourse _TrainingCourse = null;  //initialize to nothing, for lazy load logic below !!!
-
-	// *****************************************
-	// ****** END CHILD OBJECTS ********************
+	// ****** Associated OBJECTS ********************
+	[DataMember(Name="PrTrainingCourse")]
+	private OracleModel.TrainingCourse _TrainingCourse = null;//initialize to nothing, for lazy load logic below !!
+	// ****** END Associated OBJECTS ********************
 
 		#endregion
 
@@ -244,7 +243,7 @@ namespace OracleModel {
                 
 				if ( value != null ) {
 					// note: do not set property, but the field!!
-					this._TrainingCourseCode = value.PrCODE;
+					this._TrainingCourseCode = value.PrCode;
 					value.IDChanged += this.handleParentIdChanged;
                 } else {
 					this._TrainingCourseCode = null;
@@ -493,7 +492,7 @@ namespace OracleModel {
 	public override void handleParentIdChanged(Object parentMo, IDChangedEventArgs e){
 		// Assocations from OracleModel.TrainingCourse
 		if ( parentMo is OracleModel.TrainingCourse) {
-			this.PrTrainingCourseCode= ((OracleModel.TrainingCourse)parentMo).PrCODE;
+			this.PrTrainingCourseCode= ((OracleModel.TrainingCourse)parentMo).PrCode;
 		}
 		// Assocations from OracleModel.Employee
 		if ( parentMo is OracleModel.Employee) {

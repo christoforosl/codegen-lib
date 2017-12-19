@@ -19,13 +19,15 @@ Public Class OLEDBUtils
             MyBase.p_dbNow = "sysdate"
             MyBase.p_datePattern = "'{0}'"
             MyBase.p_likeChar = "%"
-            MyBase.p_quoteChar = """"
+            MyBase.p_leftQuoteChar = """"
+            MyBase.p_rightQuoteChar = """"
             MyBase.paramPrefix = ":"
         Else
             MyBase.p_dbNow = "getDate()"
             MyBase.p_datePattern = "'{0}'"
             MyBase.p_likeChar = "%"
-            MyBase.p_quoteChar = "["
+            MyBase.p_leftQuoteChar = "["
+            MyBase.p_rightQuoteChar = "]"
             MyBase.paramPrefix = "@"
         End If
 

@@ -121,7 +121,7 @@ Public Class DBTable
             Me.determineIAuditable()
             Me.applyXMLCustomizations()
 
-           
+
         Finally
             ModelGenerator.Current.dbConn.closeDataReader(objStmt)
         End Try
@@ -139,7 +139,7 @@ Public Class DBTable
 
         If Me.Fields.ContainsKey(fname.ToLower) = False Then
             'Throw New ApplicationException("Field " & f.FieldName & " Not Found! Remember to specify field by Canonical, Runtime Name.")
-            Throw New ApplicationException("Field " & Me.TableName & "." & fname & _
+            Throw New ApplicationException("Field " & Me.TableName & "." & fname &
                                            "Not Found! Remember to specify field by database Name.")
         End If
 
@@ -156,15 +156,17 @@ Public Class DBTable
         Dim numberOfColumns As Integer = rsMetaData.Rows.Count()
         Dim dr As DataRow
 
+
+
         For i As Integer = 0 To numberOfColumns - 1
             dr = rsMetaData.Rows(i)
             dbField = New DBField()
             dbField.ParentTable = Me
             dbField.FieldName = CStr(dr.Item("ColumnName"))
 
-            dbField.Scale = CInt(dr.Item("NumericScale"))
-            dbField.Precision = CInt(dr.Item("NumericPrecision"))
-            dbField.Size = CInt(dr.Item("ColumnSize"))
+            dbField.Scale = NullChecker.intNull(dr.Item("NumericScale"))
+            dbField.Precision = NullChecker.intNull(dr.Item("NumericPrecision"))
+            dbField.Size = NullChecker.intNull(dr.Item("ColumnSize"))
             dbField.isDBFieldNullable = CBool(NullChecker.intNull(dr.Item("AllowDBNull")))
             'dbField.SQLType = CInt(dr.Item("ProviderType"))
             dbField.isPrimaryKey = dbField.FieldName.ToUpper = Me.getPrimaryKeyName.ToUpper
@@ -183,6 +185,8 @@ Public Class DBTable
             End If
 
         Next i
+
+
 
         Return vec
 
@@ -203,10 +207,10 @@ Public Class DBTable
             ElseIf ModelGenerator.Current.dbConn.sqldialect = DBUtils.enumSqlDialect.MSSQL Then
                 pkFieldName = ModelGenerator.Current.dbConn.getSValue("SELECT a.Column_Name FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS a CROSS JOIN INFORMATION_SCHEMA.TABLE_CONSTRAINTS AS b WHERE (b.constraint_type = 'PRIMARY KEY') AND (a.constraint_name = b.constraint_name) AND a.table_name ='" & _TableName & "'")  'order by a.table_name, a.column_name
 
-            ElseIf ModelGenerator.Current.dbConn.sqldialect = DBUtils.enumSqlDialect.JET Or _
+            ElseIf ModelGenerator.Current.dbConn.sqldialect = DBUtils.enumSqlDialect.JET Or
                    ModelGenerator.Current.dbConn.sqldialect = DBUtils.enumSqlDialect.MSSQL Then
 
-                Dim mySchema As DataTable = CType(ModelGenerator.Current.dbConn.Connection, OleDb.OleDbConnection).GetOleDbSchemaTable(OleDb.OleDbSchemaGuid.Primary_Keys, _
+                Dim mySchema As DataTable = CType(ModelGenerator.Current.dbConn.Connection, OleDb.OleDbConnection).GetOleDbSchemaTable(OleDb.OleDbSchemaGuid.Primary_Keys,
                     New Object() {Nothing, Nothing, Me._TableName})
 
                 If mySchema.Rows.Count = 0 Then
@@ -220,14 +224,14 @@ Public Class DBTable
 
 
         Catch ex As Exception
-            Throw New ApplicationException("Failed to get Primary Key field name for table:**" & Me._TableName & "**" & _
-                                           Constants.vbCrLf & "DBObject requires the table to have a primary key field, consisting of just one column." & ex.Message())
+            Throw New ApplicationException("Error getting Primary Key field name for table:**" & Me._TableName & "**" &
+                                           Constants.vbCrLf & ex.Message())
 
 
         End Try
 
         If pkFieldName.Equals(String.Empty) Then
-            Throw New ApplicationException("Faield to get Primary Key field name for table **" & Me._TableName & "**" & Constants.vbCrLf & "DBObject requires the table to have a primary key field, consisting of just one column.")
+            Throw New ApplicationException("Failed to get Primary Key field name for table **" & Me._TableName & "**" & Constants.vbCrLf & "DBObject requires the table to have a primary key field, consisting of just one column.")
         End If
 
         Me.PrimaryKeyFieldName = pkFieldName
@@ -254,15 +258,15 @@ Public Class DBTable
     Public ReadOnly Property hasAuditFields() As Boolean Implements IDBTable.hasAuditFields
 
         Get
-            Dim hasAudit As Boolean = Me.hasFieldName("create_date") AndAlso _
-                    Me.hasFieldName("update_date") AndAlso _
-                    Me.hasFieldName("create_user") AndAlso _
+            Dim hasAudit As Boolean = Me.hasFieldName("create_date") AndAlso
+                    Me.hasFieldName("update_date") AndAlso
+                    Me.hasFieldName("create_user") AndAlso
                     Me.hasFieldName("update_user")
 
-            hasAudit = hasAudit Or _
-                    Me.hasFieldName("createdate") AndAlso _
-                    Me.hasFieldName("updatedate") AndAlso _
-                    Me.hasFieldName("createuser") AndAlso _
+            hasAudit = hasAudit Or
+                    Me.hasFieldName("createdate") AndAlso
+                    Me.hasFieldName("updatedate") AndAlso
+                    Me.hasFieldName("createuser") AndAlso
                     Me.hasFieldName("updateuser")
             Return hasAudit
         End Get

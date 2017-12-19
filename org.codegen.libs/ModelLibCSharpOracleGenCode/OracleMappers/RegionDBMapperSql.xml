@@ -12,14 +12,14 @@
   </stmt>
   <stmt>
     <key>delete</key>
-    <ORACLE>DELETE FROM REGIONS WHERE REGION_ID=?</ORACLE>
+    <ORACLE>DELETE FROM REGIONS WHERE REGION_ID=:0</ORACLE>
   </stmt>
   <stmt>
     <key>insert</key>
-    <ORACLE>BEGIN insert into REGIONS (REGION_NAME) values (?) RETURNING REGION_ID INTO ?;END;</ORACLE>
+    <ORACLE>BEGIN insert into REGIONS (REGION_NAME) values (:RegionName) RETURNING REGION_ID INTO :pk;END;</ORACLE>
   </stmt>
   <stmt>
     <key>update</key>
-    <ORACLE>UPDATE REGIONS SET REGION_NAME=? WHERE REGION_ID=?</ORACLE>
+    <ORACLE>UPDATE REGIONS SET REGION_NAME=:RegionName WHERE REGION_ID=:RegionId</ORACLE>
   </stmt>
 </SQLStatements>

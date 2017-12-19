@@ -43,7 +43,8 @@ Public Class MSSQLUtils
         MyBase.p_dbNow = "getDate()"
         MyBase.p_datePattern = "'{0}'"
         MyBase.p_likeChar = "%"
-        MyBase.p_quoteChar = "["
+        MyBase.p_leftQuoteChar = "["
+        MyBase.p_rightQuoteChar = "]"
         MyBase.paramPrefix = "@"
 
     End Sub

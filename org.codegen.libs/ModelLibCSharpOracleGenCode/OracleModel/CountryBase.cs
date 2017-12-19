@@ -88,6 +88,7 @@ namespace OracleModel {
 			public const String STR_FLD_SKIP_FIELD = "SkipField";
 			public const String STR_FLD_LONG_FLD = "LongFld";
 			public const String STR_FLD_LONG_FLD2 = "LongFld2";
+			public const String STR_FLD_IS_ACTIVE = "IsActive";
 
 
 				public const int FLD_COUNTRY_ID = 0;
@@ -96,6 +97,7 @@ namespace OracleModel {
 		public const int FLD_SKIP_FIELD = 3;
 		public const int FLD_LONG_FLD = 4;
 		public const int FLD_LONG_FLD2 = 5;
+		public const int FLD_IS_ACTIVE = 6;
 
 
 
@@ -105,7 +107,7 @@ namespace OracleModel {
 		public override string[] getFieldList()
 		{
 			return new string[] {
-				STR_FLD_COUNTRY_ID,STR_FLD_COUNTRY_NAME,STR_FLD_REGION_ID,STR_FLD_SKIP_FIELD,STR_FLD_LONG_FLD,STR_FLD_LONG_FLD2
+				STR_FLD_COUNTRY_ID,STR_FLD_COUNTRY_NAME,STR_FLD_REGION_ID,STR_FLD_SKIP_FIELD,STR_FLD_LONG_FLD,STR_FLD_LONG_FLD2,STR_FLD_IS_ACTIVE
 			};
 		}
 
@@ -119,6 +121,7 @@ namespace OracleModel {
 	private System.String _SkipField;
 	private System.Int64? _LongFld = null;
 	private System.Int64? _LongFld2 = null;
+	private System.Int64? _IsActive = null;
 
 		#endregion
 
@@ -126,7 +129,7 @@ namespace OracleModel {
 
 		//Field COUNTRY_ID
 		[Required]
-		[StringLength(2, ErrorMessage="COUNTRY_ID must be 2 characters or less")]
+		[StringLength(5, ErrorMessage="COUNTRY_ID must be 5 characters or less")]
 		[Column(Name="COUNTRY_ID",Storage = "_CountryId", IsPrimaryKey=true,DbType = " NOT NULL",CanBeNull = false)]
 		[DataMember]
 		public virtual System.String PrCountryId{
@@ -135,7 +138,7 @@ namespace OracleModel {
 			}
 			set {
 				if (ModelObject.valueChanged(_CountryId, value)){
-					if (value != null && value.Length > 2){
+					if (value != null && value.Length > 5){
 						throw new ModelObjectFieldTooLongException("COUNTRY_ID");
 					}
 					if (!this.IsObjectLoading) {
@@ -245,6 +248,25 @@ namespace OracleModel {
 				}
 			}
 		}
+		//Field IS_ACTIVE
+		[Key]
+		[Required]
+		[Column(Name="IS_ACTIVE",Storage = "_IsActive", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
+		[DataMember]
+		public virtual System.Int64? PrIsActive{
+			get{			
+				return _IsActive;
+			}
+			set {
+				if (ModelObject.valueChanged(_IsActive, value)){
+					if (!this.IsObjectLoading) {
+						this.isDirty = true; //
+						this.setFieldChanged(STR_FLD_IS_ACTIVE);
+					}
+					this._IsActive = value;
+				}
+			}
+		}
 
 		#endregion
 
@@ -264,6 +286,8 @@ namespace OracleModel {
 			return this.PrLongFld;
 		case FLD_LONG_FLD2:
 			return this.PrLongFld2;
+		case FLD_IS_ACTIVE:
+			return this.PrIsActive;
 		default:
 			return null;
 		} //end switch
@@ -285,6 +309,8 @@ namespace OracleModel {
 			return this.PrLongFld;
 		} else if (fieldKey==STR_FLD_LONG_FLD2.ToLower() ) {
 			return this.PrLongFld2;
+		} else if (fieldKey==STR_FLD_IS_ACTIVE.ToLower() ) {
+			return this.PrIsActive;
 		} else {
 			return null;
 		}
@@ -333,6 +359,13 @@ namespace OracleModel {
 				this.PrLongFld2 = null;
 			} else {
 				this.PrLongFld2=(System.Int64?)val;
+			} //
+			return;
+		case FLD_IS_ACTIVE:
+			if (val == DBNull.Value || val == null ){
+				this.PrIsActive = null;
+			} else {
+				this.PrIsActive=(System.Int64?)val;
 			} //
 			return;
 		default:
@@ -391,6 +424,13 @@ namespace OracleModel {
 				this.PrLongFld2=Convert.ToInt64(val);
 			}
 			return;
+		} else if ( fieldKey==STR_FLD_IS_ACTIVE.ToLower()){
+			if (val == DBNull.Value || val ==null ){
+				this.PrIsActive = null;
+			} else {
+				this.PrIsActive=Convert.ToInt64(val);
+			}
+			return;
 		}
 			} catch ( Exception ex ) {
 				throw new ApplicationException(
@@ -415,7 +455,8 @@ namespace OracleModel {
 				&& this.PrRegionId.GetValueOrDefault() == other.PrRegionId.GetValueOrDefault()
 				&& this.PrSkipField == other.PrSkipField
 				&& this.PrLongFld.GetValueOrDefault() == other.PrLongFld.GetValueOrDefault()
-				&& this.PrLongFld2.GetValueOrDefault() == other.PrLongFld2.GetValueOrDefault();;
+				&& this.PrLongFld2.GetValueOrDefault() == other.PrLongFld2.GetValueOrDefault()
+				&& this.PrIsActive.GetValueOrDefault() == other.PrIsActive.GetValueOrDefault();;
 
 		}
 
@@ -427,7 +468,8 @@ namespace OracleModel {
 				 ^ this.PrRegionId.GetHashCode()
 				 ^ this.getStringHashCode(this.PrSkipField)
 				 ^ this.PrLongFld.GetHashCode()
-				 ^ this.PrLongFld2.GetHashCode();;
+				 ^ this.PrLongFld2.GetHashCode()
+				 ^ this.PrIsActive.GetHashCode();;
 
 		}
 
@@ -465,6 +507,7 @@ namespace OracleModel {
 		ret.PrSkipField = this.PrSkipField;
 		ret.PrLongFld = this.PrLongFld;
 		ret.PrLongFld2 = this.PrLongFld2;
+		ret.PrIsActive = this.PrIsActive;
 
 			return ret;
 
@@ -498,7 +541,10 @@ namespace OracleModel {
 
 		public void validate(org.model.lib.Model.IModelObject imo) {
 			Country mo = (Country)imo;
-			
+			if (mo.PrIsActive == null ) {
+		throw new ModelObjectRequiredFieldException("IsActive");
+}
+
 		}
 
 	}

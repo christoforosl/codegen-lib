@@ -128,11 +128,11 @@ namespace OracleModel {
 					public const String STR_FLD_EMPLOYEE_ID = "EmployeeId";
 			public const String STR_FLD_FIRST_NAME = "FirstName";
 			public const String STR_FLD_LAST_NAME = "LastName";
-			public const String STR_FLD_EMAIL = "EMAIL";
+			public const String STR_FLD_EMAIL = "Email";
 			public const String STR_FLD_PHONE_NUMBER = "PhoneNumber";
 			public const String STR_FLD_HIRE_DATE = "HireDate";
 			public const String STR_FLD_JOB_ID = "JobId";
-			public const String STR_FLD_SALARY = "SALARY";
+			public const String STR_FLD_SALARY = "Salary";
 			public const String STR_FLD_COMMISSION_PCT = "CommissionPct";
 			public const String STR_FLD_MANAGER_ID = "ManagerId";
 			public const String STR_FLD_DEPARTMENT_ID = "DepartmentId";
@@ -144,7 +144,7 @@ namespace OracleModel {
 			public const String STR_FLD_COUNTRY_ID = "CountryId";
 			public const String STR_FLD_DEPARTMENT_NAME = "DepartmentName";
 			public const String STR_FLD_JOB_TITLE = "JobTitle";
-			public const String STR_FLD_CITY = "CITY";
+			public const String STR_FLD_CITY = "City";
 			public const String STR_FLD_STATE_PROVINCE = "StateProvince";
 			public const String STR_FLD_COUNTRY_NAME = "CountryName";
 			public const String STR_FLD_REGION_NAME = "RegionName";
@@ -195,11 +195,11 @@ namespace OracleModel {
 	private System.Int64 _EmployeeId;
 	private System.String _FirstName;
 	private System.String _LastName;
-	private System.String _EMAIL;
+	private System.String _Email;
 	private System.String _PhoneNumber;
 	private System.DateTime? _HireDate = null;
 	private System.String _JobId;
-	private System.Decimal? _SALARY = null;
+	private System.Decimal? _Salary = null;
 	private System.Decimal? _CommissionPct = null;
 	private System.Int64? _ManagerId = null;
 	private System.Int64? _DepartmentId = null;
@@ -211,22 +211,27 @@ namespace OracleModel {
 	private System.String _CountryId;
 	private System.String _DepartmentName;
 	private System.String _JobTitle;
-	private System.String _CITY;
+	private System.String _City;
 	private System.String _StateProvince;
 	private System.String _CountryName;
 	private System.String _RegionName;
 	private System.String _ManagerName;
-	// ****** CHILD OBJECTS ********************
-[DataMember(Name="PrJobHistory")]	private List< OracleModel.JobHistory> _JobHistory = null;  //initialize to nothing, for lazy load logic below !!!
-	 private List< OracleModel.JobHistory> _deletedJobHistory = new List< OracleModel.JobHistory>();// initialize to empty list !!!
-[DataMember(Name="PrDepartment")]	private OracleModel.Department _Department = null;  //initialize to nothing, for lazy load logic below !!!
-[DataMember(Name="PrCourses")]	private List< OracleModel.EmployeeTrainingHistory> _Courses = null;  //initialize to nothing, for lazy load logic below !!!
-	 private List< OracleModel.EmployeeTrainingHistory> _deletedCourses = new List< OracleModel.EmployeeTrainingHistory>();// initialize to empty list !!!
-[DataMember(Name="PrTrainingHistory")]	private List< OracleModel.EmployeeTrainingHistory> _TrainingHistory = null;  //initialize to nothing, for lazy load logic below !!!
-	 private List< OracleModel.EmployeeTrainingHistory> _deletedTrainingHistory = new List< OracleModel.EmployeeTrainingHistory>();// initialize to empty list !!!
-
-	// *****************************************
-	// ****** END CHILD OBJECTS ********************
+	// ****** Associated OBJECTS ********************
+	[DataMember(Name="PrJobHistory")]
+	private List< OracleModel.JobHistory> _JobHistory = null;//initialize to nothing, for lazy load logic below !!
+	[DataMember(Name="PrDeletedJobHistory")]
+	private List<OracleModel.JobHistory> _deletedJobHistory = new List<OracleModel.JobHistory>();//initialize to empty list.
+	[DataMember(Name="PrDepartment")]
+	private OracleModel.Department _Department = null;//initialize to nothing, for lazy load logic below !!
+	[DataMember(Name="PrCourses")]
+	private List< OracleModel.EmployeeTrainingHistory> _Courses = null;//initialize to nothing, for lazy load logic below !!
+	[DataMember(Name="PrDeletedCourses")]
+	private List<OracleModel.EmployeeTrainingHistory> _deletedCourses = new List<OracleModel.EmployeeTrainingHistory>();//initialize to empty list.
+	[DataMember(Name="PrTrainingHistory")]
+	private List< OracleModel.EmployeeTrainingHistory> _TrainingHistory = null;//initialize to nothing, for lazy load logic below !!
+	[DataMember(Name="PrDeletedTrainingHistory")]
+	private List<OracleModel.EmployeeTrainingHistory> _deletedTrainingHistory = new List<OracleModel.EmployeeTrainingHistory>();//initialize to empty list.
+	// ****** END Associated OBJECTS ********************
 
 		#endregion
 
@@ -300,14 +305,14 @@ namespace OracleModel {
 		[Key]
 		[Required]
 		[StringLength(25, ErrorMessage="EMAIL must be 25 characters or less")]
-		[Column(Name="EMAIL",Storage = "_EMAIL", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
+		[Column(Name="EMAIL",Storage = "_Email", IsPrimaryKey=false,DbType = " NOT NULL",CanBeNull = false)]
 		[DataMember]
-		public virtual System.String PrEMAIL{
+		public virtual System.String PrEmail{
 			get{			
-				return _EMAIL;
+				return _Email;
 			}
 			set {
-				if (ModelObject.valueChanged(_EMAIL, value)){
+				if (ModelObject.valueChanged(_Email, value)){
 					if (value != null && value.Length > 25){
 						throw new ModelObjectFieldTooLongException("EMAIL");
 					}
@@ -315,7 +320,7 @@ namespace OracleModel {
 						this.isDirty = true; //
 						this.setFieldChanged(STR_FLD_EMAIL);
 					}
-					this._EMAIL = value;
+					this._Email = value;
 				}
 			}
 		}
@@ -385,19 +390,19 @@ namespace OracleModel {
 		}
 		//Field SALARY
 		[Key]
-		[Column(Name="SALARY",Storage = "_SALARY", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[Column(Name="SALARY",Storage = "_Salary", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 		[DataMember]
-		public virtual System.Decimal? PrSALARY{
+		public virtual System.Decimal? PrSalary{
 			get{			
-				return _SALARY;
+				return _Salary;
 			}
 			set {
-				if (ModelObject.valueChanged(_SALARY, value)){
+				if (ModelObject.valueChanged(_Salary, value)){
 					if (!this.IsObjectLoading) {
 						this.isDirty = true; //
 						this.setFieldChanged(STR_FLD_SALARY);
 					}
-					this._SALARY = value;
+					this._Salary = value;
 				}
 			}
 		}
@@ -555,7 +560,7 @@ namespace OracleModel {
 		}
 		//Field COUNTRY_ID
 		[Key]
-		[StringLength(2, ErrorMessage="COUNTRY_ID must be 2 characters or less")]
+		[StringLength(5, ErrorMessage="COUNTRY_ID must be 5 characters or less")]
 		[Column(Name="COUNTRY_ID",Storage = "_CountryId", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 		[DataMember]
 		public virtual System.String PrCountryId{
@@ -564,7 +569,7 @@ namespace OracleModel {
 			}
 			set {
 				if (ModelObject.valueChanged(_CountryId, value)){
-					if (value != null && value.Length > 2){
+					if (value != null && value.Length > 5){
 						throw new ModelObjectFieldTooLongException("COUNTRY_ID");
 					}
 					if (!this.IsObjectLoading) {
@@ -622,14 +627,14 @@ namespace OracleModel {
 		//Field CITY
 		[Key]
 		[StringLength(30, ErrorMessage="CITY must be 30 characters or less")]
-		[Column(Name="CITY",Storage = "_CITY", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
+		[Column(Name="CITY",Storage = "_City", IsPrimaryKey=false,DbType = "",CanBeNull = true)]
 		[DataMember]
-		public virtual System.String PrCITY{
+		public virtual System.String PrCity{
 			get{			
-				return _CITY;
+				return _City;
 			}
 			set {
-				if (ModelObject.valueChanged(_CITY, value)){
+				if (ModelObject.valueChanged(_City, value)){
 					if (value != null && value.Length > 30){
 						throw new ModelObjectFieldTooLongException("CITY");
 					}
@@ -637,7 +642,7 @@ namespace OracleModel {
 						this.isDirty = true; //
 						this.setFieldChanged(STR_FLD_CITY);
 					}
-					this._CITY = value;
+					this._City = value;
 				}
 			}
 		}
@@ -737,6 +742,7 @@ namespace OracleModel {
 		[System.Runtime.Serialization.DataMember]
 		public bool JobHistoryLoaded  {get; private set;}
 
+		
 		public virtual OracleModel.JobHistory PrJobHistoryGetAt( int i ) {
 
             this.LoadPrJobHistory();
@@ -747,13 +753,26 @@ namespace OracleModel {
 
         } 
 		
-		public virtual void PrJobHistoryAdd( OracleModel.JobHistory val )  {
+		/// <summary>
+		/// Create a new instance of OracleModel.JobHistory using the Factory, 
+		/// add it to the association collection and then return it.
+		/// </summary>
+		/// <returns>New Instance of OracleModel.JobHistory</returns>
+		public virtual OracleModel.JobHistory PrJobHistoryAdd()  {
+			return this.PrJobHistoryAdd(OracleModel.JobHistoryFactory.Create());
+		}
+		
+		/// <summary>
+		/// Add the instance of OracleModel.JobHistory to the association collection and return it.
+		/// </summary>
+		/// <returns>Instance of OracleModel.JobHistory</returns>
+		public virtual OracleModel.JobHistory PrJobHistoryAdd( OracleModel.JobHistory val )  {
 			// 1-Many , add a single item!
 			this.LoadPrJobHistory();
 			val.PrEmployeeId = this.PrEmployeeId;
 			this.IDChanged += val.handleParentIdChanged;
 			this._JobHistory.Add(val);
-
+			return val;
         }
 
 		public virtual void PrJobHistoryClear() {
@@ -893,6 +912,7 @@ namespace OracleModel {
 		[System.Runtime.Serialization.DataMember]
 		public bool CoursesLoaded  {get; private set;}
 
+		
 		public virtual OracleModel.EmployeeTrainingHistory PrCoursesGetAt( int i ) {
 
             this.LoadPrCourses();
@@ -903,13 +923,26 @@ namespace OracleModel {
 
         } 
 		
-		public virtual void PrCoursesAdd( OracleModel.EmployeeTrainingHistory val )  {
+		/// <summary>
+		/// Create a new instance of OracleModel.EmployeeTrainingHistory using the Factory, 
+		/// add it to the association collection and then return it.
+		/// </summary>
+		/// <returns>New Instance of OracleModel.EmployeeTrainingHistory</returns>
+		public virtual OracleModel.EmployeeTrainingHistory PrCoursesAdd()  {
+			return this.PrCoursesAdd(OracleModel.EmployeeTrainingHistoryFactory.Create());
+		}
+		
+		/// <summary>
+		/// Add the instance of OracleModel.EmployeeTrainingHistory to the association collection and return it.
+		/// </summary>
+		/// <returns>Instance of OracleModel.EmployeeTrainingHistory</returns>
+		public virtual OracleModel.EmployeeTrainingHistory PrCoursesAdd( OracleModel.EmployeeTrainingHistory val )  {
 			// 1-Many , add a single item!
 			this.LoadPrCourses();
 			val.PrEmployeeId = this.PrEmployeeId;
 			this.IDChanged += val.handleParentIdChanged;
 			this._Courses.Add(val);
-
+			return val;
         }
 
 		public virtual void PrCoursesClear() {
@@ -995,6 +1028,7 @@ namespace OracleModel {
 		[System.Runtime.Serialization.DataMember]
 		public bool TrainingHistoryLoaded  {get; private set;}
 
+		
 		public virtual OracleModel.EmployeeTrainingHistory PrTrainingHistoryGetAt( int i ) {
 
             this.LoadPrTrainingHistory();
@@ -1005,13 +1039,26 @@ namespace OracleModel {
 
         } 
 		
-		public virtual void PrTrainingHistoryAdd( OracleModel.EmployeeTrainingHistory val )  {
+		/// <summary>
+		/// Create a new instance of OracleModel.EmployeeTrainingHistory using the Factory, 
+		/// add it to the association collection and then return it.
+		/// </summary>
+		/// <returns>New Instance of OracleModel.EmployeeTrainingHistory</returns>
+		public virtual OracleModel.EmployeeTrainingHistory PrTrainingHistoryAdd()  {
+			return this.PrTrainingHistoryAdd(OracleModel.EmployeeTrainingHistoryFactory.Create());
+		}
+		
+		/// <summary>
+		/// Add the instance of OracleModel.EmployeeTrainingHistory to the association collection and return it.
+		/// </summary>
+		/// <returns>Instance of OracleModel.EmployeeTrainingHistory</returns>
+		public virtual OracleModel.EmployeeTrainingHistory PrTrainingHistoryAdd( OracleModel.EmployeeTrainingHistory val )  {
 			// 1-Many , add a single item!
 			this.LoadPrTrainingHistory();
 			val.PrEmployeeId = this.PrEmployeeId;
 			this.IDChanged += val.handleParentIdChanged;
 			this._TrainingHistory.Add(val);
-
+			return val;
         }
 
 		public virtual void PrTrainingHistoryClear() {
@@ -1105,7 +1152,7 @@ namespace OracleModel {
 		case FLD_LAST_NAME:
 			return this.PrLastName;
 		case FLD_EMAIL:
-			return this.PrEMAIL;
+			return this.PrEmail;
 		case FLD_PHONE_NUMBER:
 			return this.PrPhoneNumber;
 		case FLD_HIRE_DATE:
@@ -1113,7 +1160,7 @@ namespace OracleModel {
 		case FLD_JOB_ID:
 			return this.PrJobId;
 		case FLD_SALARY:
-			return this.PrSALARY;
+			return this.PrSalary;
 		case FLD_COMMISSION_PCT:
 			return this.PrCommissionPct;
 		case FLD_MANAGER_ID:
@@ -1137,7 +1184,7 @@ namespace OracleModel {
 		case FLD_JOB_TITLE:
 			return this.PrJobTitle;
 		case FLD_CITY:
-			return this.PrCITY;
+			return this.PrCity;
 		case FLD_STATE_PROVINCE:
 			return this.PrStateProvince;
 		case FLD_COUNTRY_NAME:
@@ -1162,7 +1209,7 @@ namespace OracleModel {
 		} else if (fieldKey==STR_FLD_LAST_NAME.ToLower() ) {
 			return this.PrLastName;
 		} else if (fieldKey==STR_FLD_EMAIL.ToLower() ) {
-			return this.PrEMAIL;
+			return this.PrEmail;
 		} else if (fieldKey==STR_FLD_PHONE_NUMBER.ToLower() ) {
 			return this.PrPhoneNumber;
 		} else if (fieldKey==STR_FLD_HIRE_DATE.ToLower() ) {
@@ -1170,7 +1217,7 @@ namespace OracleModel {
 		} else if (fieldKey==STR_FLD_JOB_ID.ToLower() ) {
 			return this.PrJobId;
 		} else if (fieldKey==STR_FLD_SALARY.ToLower() ) {
-			return this.PrSALARY;
+			return this.PrSalary;
 		} else if (fieldKey==STR_FLD_COMMISSION_PCT.ToLower() ) {
 			return this.PrCommissionPct;
 		} else if (fieldKey==STR_FLD_MANAGER_ID.ToLower() ) {
@@ -1194,7 +1241,7 @@ namespace OracleModel {
 		} else if (fieldKey==STR_FLD_JOB_TITLE.ToLower() ) {
 			return this.PrJobTitle;
 		} else if (fieldKey==STR_FLD_CITY.ToLower() ) {
-			return this.PrCITY;
+			return this.PrCity;
 		} else if (fieldKey==STR_FLD_STATE_PROVINCE.ToLower() ) {
 			return this.PrStateProvince;
 		} else if (fieldKey==STR_FLD_COUNTRY_NAME.ToLower() ) {
@@ -1234,9 +1281,9 @@ namespace OracleModel {
 			return;
 		case FLD_EMAIL:
 			if (val == DBNull.Value || val == null ){
-				this.PrEMAIL = null;
+				this.PrEmail = null;
 			} else {
-				this.PrEMAIL=(System.String)val;
+				this.PrEmail=(System.String)val;
 			} //
 			return;
 		case FLD_PHONE_NUMBER:
@@ -1262,9 +1309,9 @@ namespace OracleModel {
 			return;
 		case FLD_SALARY:
 			if (val == DBNull.Value || val == null ){
-				this.PrSALARY = null;
+				this.PrSalary = null;
 			} else {
-				this.PrSALARY=(System.Decimal?)val;
+				this.PrSalary=(System.Decimal?)val;
 			} //
 			return;
 		case FLD_COMMISSION_PCT:
@@ -1346,9 +1393,9 @@ namespace OracleModel {
 			return;
 		case FLD_CITY:
 			if (val == DBNull.Value || val == null ){
-				this.PrCITY = null;
+				this.PrCity = null;
 			} else {
-				this.PrCITY=(System.String)val;
+				this.PrCity=(System.String)val;
 			} //
 			return;
 		case FLD_STATE_PROVINCE:
@@ -1416,9 +1463,9 @@ namespace OracleModel {
 			return;
 		} else if ( fieldKey==STR_FLD_EMAIL.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.PrEMAIL = null;
+				this.PrEmail = null;
 			} else {
-				this.PrEMAIL=Convert.ToString(val);
+				this.PrEmail=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_PHONE_NUMBER.ToLower()){
@@ -1444,9 +1491,9 @@ namespace OracleModel {
 			return;
 		} else if ( fieldKey==STR_FLD_SALARY.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.PrSALARY = null;
+				this.PrSalary = null;
 			} else {
-				this.PrSALARY=Convert.ToDecimal(val);
+				this.PrSalary=Convert.ToDecimal(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_COMMISSION_PCT.ToLower()){
@@ -1528,9 +1575,9 @@ namespace OracleModel {
 			return;
 		} else if ( fieldKey==STR_FLD_CITY.ToLower()){
 			if (val == DBNull.Value || val ==null ){
-				this.PrCITY = null;
+				this.PrCity = null;
 			} else {
-				this.PrCITY=Convert.ToString(val);
+				this.PrCity=Convert.ToString(val);
 			}
 			return;
 		} else if ( fieldKey==STR_FLD_STATE_PROVINCE.ToLower()){
@@ -1583,11 +1630,11 @@ namespace OracleModel {
 			return this.PrEmployeeId == other.PrEmployeeId
 				&& this.PrFirstName == other.PrFirstName
 				&& this.PrLastName == other.PrLastName
-				&& this.PrEMAIL == other.PrEMAIL
+				&& this.PrEmail == other.PrEmail
 				&& this.PrPhoneNumber == other.PrPhoneNumber
 				&& this.PrHireDate.GetValueOrDefault() == other.PrHireDate.GetValueOrDefault()
 				&& this.PrJobId == other.PrJobId
-				&& this.PrSALARY.GetValueOrDefault() == other.PrSALARY.GetValueOrDefault()
+				&& this.PrSalary.GetValueOrDefault() == other.PrSalary.GetValueOrDefault()
 				&& this.PrCommissionPct.GetValueOrDefault() == other.PrCommissionPct.GetValueOrDefault()
 				&& this.PrManagerId.GetValueOrDefault() == other.PrManagerId.GetValueOrDefault()
 				&& this.PrDepartmentId.GetValueOrDefault() == other.PrDepartmentId.GetValueOrDefault()
@@ -1599,7 +1646,7 @@ namespace OracleModel {
 				&& this.PrCountryId == other.PrCountryId
 				&& this.PrDepartmentName == other.PrDepartmentName
 				&& this.PrJobTitle == other.PrJobTitle
-				&& this.PrCITY == other.PrCITY
+				&& this.PrCity == other.PrCity
 				&& this.PrStateProvince == other.PrStateProvince
 				&& this.PrCountryName == other.PrCountryName
 				&& this.PrRegionName == other.PrRegionName
@@ -1613,11 +1660,11 @@ namespace OracleModel {
 			return this.PrEmployeeId.GetHashCode()
 				 ^ this.getStringHashCode(this.PrFirstName)
 				 ^ this.getStringHashCode(this.PrLastName)
-				 ^ this.getStringHashCode(this.PrEMAIL)
+				 ^ this.getStringHashCode(this.PrEmail)
 				 ^ this.getStringHashCode(this.PrPhoneNumber)
 				 ^ this.PrHireDate.GetHashCode()
 				 ^ this.getStringHashCode(this.PrJobId)
-				 ^ this.PrSALARY.GetHashCode()
+				 ^ this.PrSalary.GetHashCode()
 				 ^ this.PrCommissionPct.GetHashCode()
 				 ^ this.PrManagerId.GetHashCode()
 				 ^ this.PrDepartmentId.GetHashCode()
@@ -1629,7 +1676,7 @@ namespace OracleModel {
 				 ^ this.getStringHashCode(this.PrCountryId)
 				 ^ this.getStringHashCode(this.PrDepartmentName)
 				 ^ this.getStringHashCode(this.PrJobTitle)
-				 ^ this.getStringHashCode(this.PrCITY)
+				 ^ this.getStringHashCode(this.PrCity)
 				 ^ this.getStringHashCode(this.PrStateProvince)
 				 ^ this.getStringHashCode(this.PrCountryName)
 				 ^ this.getStringHashCode(this.PrRegionName)
@@ -1668,11 +1715,11 @@ namespace OracleModel {
 		ret.PrEmployeeId = this.PrEmployeeId;
 		ret.PrFirstName = this.PrFirstName;
 		ret.PrLastName = this.PrLastName;
-		ret.PrEMAIL = this.PrEMAIL;
+		ret.PrEmail = this.PrEmail;
 		ret.PrPhoneNumber = this.PrPhoneNumber;
 		ret.PrHireDate = this.PrHireDate;
 		ret.PrJobId = this.PrJobId;
-		ret.PrSALARY = this.PrSALARY;
+		ret.PrSalary = this.PrSalary;
 		ret.PrCommissionPct = this.PrCommissionPct;
 		ret.PrManagerId = this.PrManagerId;
 		ret.PrDepartmentId = this.PrDepartmentId;
@@ -1684,7 +1731,7 @@ namespace OracleModel {
 		ret.PrCountryId = this.PrCountryId;
 		ret.PrDepartmentName = this.PrDepartmentName;
 		ret.PrJobTitle = this.PrJobTitle;
-		ret.PrCITY = this.PrCITY;
+		ret.PrCity = this.PrCity;
 		ret.PrStateProvince = this.PrStateProvince;
 		ret.PrCountryName = this.PrCountryName;
 		ret.PrRegionName = this.PrRegionName;
@@ -1734,8 +1781,8 @@ namespace OracleModel {
 			if (string.IsNullOrEmpty( mo.PrLastName)) {
 		throw new ModelObjectRequiredFieldException("LastName");
 }
-if (string.IsNullOrEmpty( mo.PrEMAIL)) {
-		throw new ModelObjectRequiredFieldException("EMAIL");
+if (string.IsNullOrEmpty( mo.PrEmail)) {
+		throw new ModelObjectRequiredFieldException("Email");
 }
 if (mo.PrHireDate == null ) {
 		throw new ModelObjectRequiredFieldException("HireDate");
