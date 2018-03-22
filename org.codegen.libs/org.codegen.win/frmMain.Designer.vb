@@ -29,6 +29,7 @@ Partial Class frmMain
         Me.OK_Button = New System.Windows.Forms.Button()
         Me.Cancel_Button = New System.Windows.Forms.Button()
         Me.btnSelect = New System.Windows.Forms.Button()
+        Me.btnDecrypt = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cboXMLConfFile = New System.Windows.Forms.ComboBox()
         Me.ofSelectXMLConfFile = New System.Windows.Forms.OpenFileDialog()
@@ -36,7 +37,6 @@ Partial Class frmMain
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.tsLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.tsProgress = New System.Windows.Forms.ToolStripProgressBar()
-        Me.btnDecrypt = New System.Windows.Forms.Button()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -113,6 +113,15 @@ Partial Class frmMain
         Me.btnSelect.Text = "Select"
         Me.btnSelect.UseVisualStyleBackColor = True
         '
+        'btnDecrypt
+        '
+        Me.btnDecrypt.Location = New System.Drawing.Point(371, 3)
+        Me.btnDecrypt.Name = "btnDecrypt"
+        Me.btnDecrypt.Size = New System.Drawing.Size(75, 23)
+        Me.btnDecrypt.TabIndex = 5
+        Me.btnDecrypt.Text = "Decrypt"
+        Me.btnDecrypt.UseVisualStyleBackColor = True
+        '
         'Label1
         '
         Me.Label1.AutoSize = True
@@ -169,15 +178,6 @@ Partial Class frmMain
         '
         Me.tsProgress.Name = "tsProgress"
         Me.tsProgress.Size = New System.Drawing.Size(200, 16)
-        '
-        'btnDecrypt
-        '
-        Me.btnDecrypt.Location = New System.Drawing.Point(371, 6)
-        Me.btnDecrypt.Name = "btnDecrypt"
-        Me.btnDecrypt.Size = New System.Drawing.Size(75, 23)
-        Me.btnDecrypt.TabIndex = 5
-        Me.btnDecrypt.Text = "Decrypt"
-        Me.btnDecrypt.UseVisualStyleBackColor = True
         '
         'frmMain
         '

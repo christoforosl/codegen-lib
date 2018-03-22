@@ -233,8 +233,7 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub btnDecrypt_Click(sender As Object, e As EventArgs)
-
+    Private Sub btnDecrypt_Click_1(sender As Object, e As EventArgs) Handles btnDecrypt.Click
         Dim encyptedConnString = InputBox("Enter encrypted conn string:", "Connection String Decryptor")
         If (String.IsNullOrEmpty(encyptedConnString)) Then Exit Sub
 
@@ -243,7 +242,5 @@ Public Class frmMain
 
         f.txtEncryptedString.Text = deencrypted
         f.ShowDialog()
-
-
     End Sub
 End Class
