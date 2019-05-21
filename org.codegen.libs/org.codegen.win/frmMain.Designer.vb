@@ -171,7 +171,7 @@ Partial Class frmMain
         'tsLabel
         '
         Me.tsLabel.Name = "tsLabel"
-        Me.tsLabel.Size = New System.Drawing.Size(38, 17)
+        Me.tsLabel.Size = New System.Drawing.Size(39, 17)
         Me.tsLabel.Text = "Ready"
         '
         'tsProgress

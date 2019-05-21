@@ -16,7 +16,7 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <IsWebBootstrapper>true</IsWebBootstrapper>
-    <PublishUrl>\\web.netugroup.lan\Devs\CodeGeneratorReleases\</PublishUrl>
+    <PublishUrl>\\netuweb\c%24\NetUNewWebsite\wp-content\themes\netu\Devs\CodeGeneratorReleases\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -26,13 +26,13 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://www.netu.com.cy/wp-content/themes/netu/Devs/CodeGeneratorReleases/</InstallUrl>
+    <InstallUrl>http://www.netugroup.com/wp-content/themes/netu/Devs/CodeGeneratorReleases/</InstallUrl>
     <ProductName>CodeGen ORM Code Generator</ProductName>
     <PublisherName>CodeGen.org</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>23</ApplicationRevision>
+    <ApplicationRevision>30</ApplicationRevision>
     <ApplicationVersion>4.0.18.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -97,10 +97,10 @@
     <WarningsAsErrors>42024,42099</WarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>90D89273A804DF56C225F1508126D3087241FA01</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>65FF1A965ADA749625A18155206743B60A48A059</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>codeGenWin4_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>codeGenWin4_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -218,6 +218,7 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="codeGenWin4_1_TemporaryKey.pfx" />
     <None Include="codeGenWin4_TemporaryKey.pfx" />
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
