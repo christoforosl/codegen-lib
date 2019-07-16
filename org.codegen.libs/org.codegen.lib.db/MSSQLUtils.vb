@@ -70,7 +70,7 @@ Public Class MSSQLUtils
 
     End Function
 
-    Protected Friend Overrides Sub setSpecialChars()
+    Protected Overrides Sub setSpecialChars()
 
         MyBase.p_dbNow = "getDate()"
         MyBase.p_date_pattern = "'{0}'"
@@ -120,5 +120,18 @@ Public Class MSSQLUtils
 
     Public Overrides Function quoteObjectName(ByVal objName As String) As String
         Return "[" & objName.Trim & "]"
+    End Function
+
+    Public Overrides Function GetDbObjectsDataTable() As DataTable
+
+        Dim dt As DataTable
+        Dim sql As String = String.Empty
+
+        sql = "select '0' as id,' -- none -- ' as objName from sysobjects union SELECT [name] as id, [name] AS OBJNAME FROM sysobjects O WHERE (xtype = 'V') OR (xtype = 'U') ORDER BY 2"
+
+        dt = Me.getDataTable(sql)
+        Return dt
+
+
     End Function
 End Class

@@ -55,6 +55,7 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
@@ -81,7 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="My Project\AssemblyInfo.vb" />
-    <Compile Include="ModelGeneratorTests.vb" />
+    <Compile Include="MySqlTests.vb" />
     <Compile Include="TestParseDateTime.vb" />
     <Compile Include="Tests\EmployeeInfoTestBase.vb" />
     <Compile Include="Tests\EmployeeProjectTestBase.vb" />
@@ -99,6 +100,10 @@
     <ProjectReference Include="..\ModelLibTestsWinApp\ModelLibTestsWinApp.vbproj">
       <Project>{C74737DF-2306-4605-9D15-C4BF4ED6788C}</Project>
       <Name>ModelLibTestsWinApp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\org.codegen.lib.db.mysql\org.model.lib.db.mysql.vbproj">
+      <Project>{753f43f2-b572-49fc-b03d-aa5832f2dbd9}</Project>
+      <Name>org.model.lib.db.mysql</Name>
     </ProjectReference>
     <ProjectReference Include="..\org.codegen.lib.db\org.model.lib.db.vbproj">
       <Project>{C744D17D-3132-4365-8C44-9D295D942597}</Project>

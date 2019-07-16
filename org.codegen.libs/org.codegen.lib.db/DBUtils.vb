@@ -36,7 +36,28 @@ Public MustInherit Class DBUtils
 
     End Function
 
+    Public Shared Function getFromConnString(ByVal connString As String,
+                                             ByVal NameOfMyClass As String,
+                                             Optional ByVal logFile As String = "") As DBUtils
 
+
+        Dim tp As Type = Type.GetType(NameOfMyClass)
+        Return getFromConnString(connString, tp, logFile)
+
+
+    End Function
+
+    Public Shared Function getFromConnString(ByVal connString As String,
+                                             ByVal typeOfMyClass As Type,
+                                             Optional ByVal logFile As String = "") As DBUtils
+
+
+        Dim MyInstance As Object = Activator.CreateInstance(typeOfMyClass)
+        Dim ret As DBUtils = CType(MyInstance, DBUtils)
+        ret.ConnString = connString
+        Return ret
+
+    End Function
     ''' <summary>
     ''' Constructs a DBUtils class from the connection string passed.
     ''' </summary>
@@ -84,6 +105,7 @@ Public MustInherit Class DBUtils
         CONN_MSSQL = 1
         CONN_ORACLE = 2
         CONN_OLEDB = 3
+        CONN_MYSQl = 4
     End Enum
 
     ''' <summary>
@@ -195,7 +217,7 @@ Public MustInherit Class DBUtils
 
     End Property
 
-    Friend Shared Sub logStatement(ByVal msg As String)
+    Public Shared Sub logStatement(ByVal msg As String)
 
         If p_logStnms Then
             Dim _file As StreamWriter
@@ -362,7 +384,7 @@ Public MustInherit Class DBUtils
     Public MustOverride Property Connection() As IDbConnection
 
 
-    Protected Friend MustOverride Sub setSpecialChars()
+    Protected MustOverride Sub setSpecialChars()
 
     ''' <summary>
     ''' Gets/Sets the connection type
@@ -1401,25 +1423,27 @@ Public MustInherit Class DBUtils
 
 #Region "Schema"
 
-    Public Overridable Function GetDbObjectsDataTable() As DataTable
+    Public MustOverride Function GetDbObjectsDataTable() As DataTable
 
-        Dim dt As DataTable
-        Dim sql As String = String.Empty
+    'Public Overridable Function GetDbObjectsDataTable() As DataTable
 
-        If Me.sqldialect = DBUtils.enumSqlDialect.MSSQL Then
-            sql = "select '0' as id,' -- none -- ' as objName from sysobjects union SELECT [name] as id, [name] AS OBJNAME FROM sysobjects O WHERE (xtype = 'V') OR (xtype = 'U') ORDER BY 2"
+    '    Dim dt As DataTable
+    '    Dim sql As String = String.Empty
 
-        ElseIf Me.sqldialect = DBUtils.enumSqlDialect.ORACLE Then
-            sql = "select '0' as id,' -- none -- ' as ""objName"" from dual union SELECT table_name as id, table_name AS ""objName"" FROM user_tables ORDER BY 2"
+    '    If Me.sqldialect = DBUtils.enumSqlDialect.MSSQL Then
+    '        sql = "select '0' as id,' -- none -- ' as objName from sysobjects union SELECT [name] as id, [name] AS OBJNAME FROM sysobjects O WHERE (xtype = 'V') OR (xtype = 'U') ORDER BY 2"
 
-        Else
-            Throw New NotSupportedException()
+    '    ElseIf Me.sqldialect = DBUtils.enumSqlDialect.ORACLE Then
+    '        sql = "select '0' as id,' -- none -- ' as ""objName"" from dual union SELECT table_name as id, table_name AS ""objName"" FROM user_tables ORDER BY 2"
 
-        End If
-        dt = Me.getDataTable(sql)
-        Return dt
+    '    Else
+    '        Throw New NotSupportedException()
 
-    End Function
+    '    End If
+    '    dt = Me.getDataTable(sql)
+    '    Return dt
+
+    'End Function
 
 #End Region
 

@@ -1,12 +1,7 @@
 Option Strict On
 
-Imports System.Reflection
-Imports System.Configuration
-Imports System.Xml
-Imports System.Web
-Imports System.IO
 Imports System.Data.OleDb
-Imports Microsoft.VisualBasic
+
 
 Public Class OLEDBUtils
     Inherits DBUtils
@@ -56,7 +51,7 @@ Public Class OLEDBUtils
     End Function
 
 
-    Protected Friend Overrides Sub setSpecialChars()
+    Protected Overrides Sub setSpecialChars()
 
         MyBase.p_dbNow = "getDate()"
         MyBase.p_date_pattern = "'{0}'"
@@ -66,7 +61,7 @@ Public Class OLEDBUtils
 
     End Sub
 
-    
+
     Public Overrides Property Connection() As IDbConnection
         Get
 
@@ -105,4 +100,7 @@ Public Class OLEDBUtils
 
     End Function
 
+    Public Overrides Function GetDbObjectsDataTable() As DataTable
+        Throw New NotImplementedException()
+    End Function
 End Class

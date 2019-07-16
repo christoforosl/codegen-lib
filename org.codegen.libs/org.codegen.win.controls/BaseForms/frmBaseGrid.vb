@@ -790,7 +790,7 @@ Public Class frmBaseGrid
 
         If winUtils.MsgboxQuestion(msg) = MsgBoxResult.Yes Then
 
-            RaiseEvent gridDeleteRecordConfirmed(Me.grdData)
+			RaiseEvent gridDeleteRecordConfirmed(Me.grdData)
             Me.grdData.requery()
             RaiseEvent gridRowCountChanged(Me.grdData)
 

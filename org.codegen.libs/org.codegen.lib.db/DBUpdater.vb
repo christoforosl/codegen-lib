@@ -250,7 +250,6 @@ Public MustInherit Class DBUpdater
             End If
             _dbconn.commitTrans()
 
-
         Catch ex As Exception
             Dim errMsg As String = scriptFile & vbCrLf & "Error Updating database """ & dbName & """ to version " & dbversion & vbCrLf & ex.Message & vbCrLf & ex.StackTrace
             'ErrorLogging.addError(errMsg, "", "", ErrorLogging.enumErrType.ERR_INFO)
