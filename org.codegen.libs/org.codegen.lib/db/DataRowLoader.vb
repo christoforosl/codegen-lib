@@ -1,4 +1,5 @@
 
+Imports org.codegen.model.lib.Model
 ''' <summary>
 ''' Loads a model object from a System.Data.DataRow
 ''' </summary>

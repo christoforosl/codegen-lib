@@ -1,0 +1,823 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+org.codegen.common.3.0
+</name>
+</assembly>
+<members>
+<member name="P:org.codegen.common.ProgressIndicator.IProgressable.wasCancelled">
+ <summary>
+ Shows if the process has been cancelled by the user
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="E:org.codegen.common.ProgressIndicator.IProgressable.processStart">
+ <summary>
+ raised when process to be tracked by progress indicator has been started
+ </summary>
+ <param name="sender">Object of type IProgressable</param>
+ <param name="e">ProgressableEventArgs</param>
+ <remarks></remarks>
+</member>
+<member name="E:org.codegen.common.ProgressIndicator.IProgressable.processGoing">
+ <summary>
+ raised when process to be tracked by progress indicator is "in flight"
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="E:org.codegen.common.ProgressIndicator.IProgressable.processFinished">
+ <summary>
+ Raised when process has finished
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:org.codegen.common.ProgressIndicator.ProgressableEventArgs.#ctor(System.Int64,System.Int64,System.String)">
+ <summary>
+ Constructor to be used during running of process, 
+ to indicate progress and user message
+ </summary>
+ <param name="current">Current Step</param>
+ <param name="message">Message to be shown to the user</param>
+ <remarks></remarks>
+</member>
+<member name="M:org.codegen.common.ProgressIndicator.ProgressableEventArgs.#ctor(System.Int64,System.Int64)">
+ <summary>
+ Constructor to be used during running of process, 
+ to indicate progress and user message
+ </summary>
+ <param name="current">Current Step</param>
+ <param name="totalSteps">Total Steps</param>
+ <remarks></remarks>
+</member>
+<member name="M:org.codegen.common.ProgressIndicator.ProgressableEventArgs.#ctor">
+ <summary>
+ Emptry constructor
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:org.codegen.common.ProgressIndicator.ProgressableEventArgs.#ctor(System.Int64)">
+ <summary>
+ Constructor to be called at start of process, to set total steps
+ </summary>
+ <param name="totalSteps">Total steps of the progress</param>
+ <remarks></remarks>
+</member>
+<member name="P:org.codegen.common.ProgressIndicator.ProgressableEventArgs.wasCancelled">
+ <summary>
+ Boolean indicating that whether the progress operation has been cancelled by the user
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="P:org.codegen.common.ProgressIndicator.ProgressableEventArgs.currentStep">
+ <summary>
+ The current step number of the progress
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="P:org.codegen.common.ProgressIndicator.ProgressableEventArgs.totalSteps">
+ <summary>
+ The total steps of the progress
+ </summary>
+</member>
+<member name="P:org.codegen.common.ProgressIndicator.ProgressableEventArgs.progressMessage">
+ <summary>
+ The progress message to show to the user
+ </summary>
+</member>
+<member name="T:org.codegen.common.TranslationServices.TranslatedStringsProvider">
+ <summary>
+ Abstract class to provide an interface for Language translation of key-value pair
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:org.codegen.common.TranslationServices.TranslatedStringsProvider.deleteString(System.String)">
+ <summary>
+ Deletes a string to the store where translated strings are stored.
+ </summary>
+</member>
+<member name="M:org.codegen.common.TranslationServices.TranslatedStringsProvider.insertOrUpdate(System.String,System.String,System.String)">
+ <summary>
+ Inserts or Updated a string to the store where translated strings are stored.
+ </summary>
+ <param name="key">Key of string to save/update</param>
+ <param name="valueEL">Value in Greek</param>
+ <param name="valueEN">Value in English</param>
+ <remarks></remarks>
+</member>
+<member name="M:org.codegen.common.TranslationServices.TranslatedStringsProvider.retrieveStringFromStore(System.String,System.String)">
+ <summary>
+ Rertrieves a string from the store where translated strings are stored.
+ </summary>
+ <param name="key">Key of string to retrieve</param>
+ <param name="inLang">Language code - This is the TwoLetterISOLanguageName</param>
+ <returns>Translated string</returns>
+ <remarks></remarks>
+</member>
+<member name="P:org.codegen.common.TranslationServices.TranslatedStringsProvider.CurrentLanguageCode">
+ <summary>
+ Returns the TwoLetterISOLanguageName of the current thread
+ </summary>
+</member>
+<member name="T:org.codegen.common.TranslationServices.Translator">
+ <summary>
+ Global System translator.  This is a singleton class
+ </summary>
+</member>
+<member name="M:org.codegen.common.TranslationServices.Translator.setSystemLanguage(System.String)">
+ <summary>
+ Sets the system language
+ </summary>
+ <param name="slang"></param>
+ <remarks></remarks>
+</member>
+<member name="P:org.codegen.common.TranslationServices.Translator.StringsProvider">
+ <summary>
+ Gets/Sets the instance of a TranslatedStringsProvider to retieve translated strings
+ </summary>
+</member>
+<member name="P:org.codegen.common.TranslationServices.Translator.current">
+ <summary>
+ Current instance of system translator
+ </summary>
+</member>
+<member name="M:org.codegen.common.TranslationServices.Translator.isEnglish">
+ <summary>
+ Retrurns true if the current systen language is English
+ </summary>
+ <returns>True/False</returns>
+ <remarks>The current system language is the Curent Thread's </remarks>
+</member>
+<member name="M:org.codegen.common.TranslationServices.Translator.isGreek">
+ <summary>
+ Retrurns true if the current systen language is Greek
+ </summary>
+ <returns>True/False</returns>
+ <remarks>The current system language is the Curent Thread's </remarks>
+</member>
+<member name="T:org.codegen.common.TranslationServices.XMLanguageStrings">
+ <summary>
+ Class to fascilitate translation services from an XML file.
+ The xml structure must be the same as the database table structure:
+ <example>
+ <code lang="xml">
+ <![CDATA[
+  <langString>
+    <langKey>0</langKey>
+    <langValueEN>Please enter a valid date in field '%1'.</langValueEN>
+    <langValueEL>Παρακαλώ Καταχωρείστε Ημερομηνία στο πεδίο: '%1'</langValueEL>
+  </langString>]]>
+ </code>
+ </example>
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:org.codegen.common.Encryption.Hash">
+ <summary>
+ Hash functions are fundamental to modern cryptography. These functions map binary 
+ strings of an arbitrary length to small binary strings of a fixed length, known as 
+ hash values. A cryptographic hash function has the property that it is computationally
+ infeasible to find two distinct inputs that hash to the same value. Hash functions 
+ are commonly used with digital signatures and for data integrity.
+ </summary>
+</member>
+<member name="T:org.codegen.common.Encryption.Hash.Provider">
+ <summary>
+ Type of hash; some are security oriented, others are fast and simple
+ </summary>
+</member>
+<member name="F:org.codegen.common.Encryption.Hash.Provider.CRC32">
+ <summary>
+ Cyclic Redundancy Check provider, 32-bit
+ </summary>
+</member>
+<member name="F:org.codegen.common.Encryption.Hash.Provider.SHA1">
+ <summary>
+ Secure Hashing Algorithm provider, SHA-1 variant, 160-bit
+ </summary>
+</member>
+<member name="F:org.codegen.common.Encryption.Hash.Provider.SHA256">
+ <summary>
+ Secure Hashing Algorithm provider, SHA-2 variant, 256-bit
+ </summary>
+</member>
+<member name="F:org.codegen.common.Encryption.Hash.Provider.SHA384">
+ <summary>
+ Secure Hashing Algorithm provider, SHA-2 variant, 384-bit
+ </summary>
+</member>
+<member name="F:org.codegen.common.Encryption.Hash.Provider.SHA512">
+ <summary>
+ Secure Hashing Algorithm provider, SHA-2 variant, 512-bit
+ </summary>
+</member>
+<member name="F:org.codegen.common.Encryption.Hash.Provider.MD5">
+ <summary>
+ Message Digest algorithm 5, 128-bit
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Hash.#ctor(org.codegen.common.Encryption.Hash.Provider)">
+ <summary>
+ Instantiate a new hash of the specified type
+ </summary>
+</member>
+<member name="P:org.codegen.common.Encryption.Hash.Value">
+ <summary>
+ Returns the previously calculated hash
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Hash.Calculate(System.IO.Stream@)">
+ <summary>
+ Calculates hash on a stream of arbitrary length
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Hash.Calculate(org.codegen.common.Encryption.Data)">
+ <summary>
+ Calculates hash for fixed length <see cref="T:org.codegen.common.Encryption.Data"/>
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Hash.Calculate(org.codegen.common.Encryption.Data,org.codegen.common.Encryption.Data)">
+ <summary>
+ Calculates hash for a string with a prefixed salt value. 
+ A "salt" is random data prefixed to every hashed value to prevent 
+ common dictionary attacks.
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Hash.CalculatePrivate(System.Byte[])">
+ <summary>
+ Calculates hash for an array of bytes
+ </summary>
+</member>
+<member name="T:org.codegen.common.Encryption.Symmetric">
+ <summary>
+ Symmetric encryption uses a single key to encrypt and decrypt. 
+ Both parties (encryptor and decryptor) must share the same secret key.
+ </summary>
+</member>
+<member name="F:org.codegen.common.Encryption.Symmetric.Provider.DES">
+ <summary>
+ The Data Encryption Standard provider supports a 64 bit key only
+ </summary>
+</member>
+<member name="F:org.codegen.common.Encryption.Symmetric.Provider.RC2">
+ <summary>
+ The Rivest Cipher 2 provider supports keys ranging from 40 to 128 bits, default is 128 bits
+ </summary>
+</member>
+<member name="F:org.codegen.common.Encryption.Symmetric.Provider.Rijndael">
+ <summary>
+ The Rijndael (also known as AES) provider supports keys of 128, 192, or 256 bits with a default of 256 bits
+ </summary>
+</member>
+<member name="F:org.codegen.common.Encryption.Symmetric.Provider.TripleDES">
+ <summary>
+ The TripleDES provider (also known as 3DES) supports keys of 128 or 192 bits with a default of 192 bits
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Symmetric.#ctor(org.codegen.common.Encryption.Symmetric.Provider,System.Boolean)">
+ <summary>
+ Instantiates a new symmetric encryption object using the specified provider.
+ </summary>
+</member>
+<member name="P:org.codegen.common.Encryption.Symmetric.KeySizeBytes">
+ <summary>
+ Key size in bytes. We use the default key size for any given provider; if you 
+ want to force a specific key size, set this property
+ </summary>
+</member>
+<member name="P:org.codegen.common.Encryption.Symmetric.KeySizeBits">
+ <summary>
+ Key size in bits. We use the default key size for any given provider; if you 
+ want to force a specific key size, set this property
+ </summary>
+</member>
+<member name="P:org.codegen.common.Encryption.Symmetric.Key">
+ <summary>
+ The key used to encrypt/decrypt data
+ </summary>
+</member>
+<member name="P:org.codegen.common.Encryption.Symmetric.IntializationVector">
+ <summary>
+ Using the default Cipher Block Chaining (CBC) mode, all data blocks are processed using
+ the value derived from the previous block; the first data block has no previous data block
+ to use, so it needs an InitializationVector to feed the first block
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Symmetric.RandomInitializationVector">
+ <summary>
+ generates a random Initialization Vector, if one was not provided
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Symmetric.RandomKey">
+ <summary>
+ generates a random Key, if one was not provided
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Symmetric.ValidateKeyAndIv(System.Boolean)">
+ <summary>
+ Ensures that _crypto object has valid Key and IV
+ prior to any attempt to encrypt/decrypt anything
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Symmetric.Encrypt(org.codegen.common.Encryption.Data,org.codegen.common.Encryption.Data)">
+ <summary>
+ Encrypts the specified Data using provided key
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Symmetric.Encrypt(org.codegen.common.Encryption.Data)">
+ <summary>
+ Encrypts the specified Data using preset key and preset initialization vector
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Symmetric.Encrypt(System.IO.Stream,org.codegen.common.Encryption.Data,org.codegen.common.Encryption.Data)">
+ <summary>
+ Encrypts the stream to memory using provided key and provided initialization vector
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Symmetric.Encrypt(System.IO.Stream,org.codegen.common.Encryption.Data)">
+ <summary>
+ Encrypts the stream to memory using specified key
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Symmetric.Encrypt(System.IO.Stream)">
+ <summary>
+ Encrypts the specified stream to memory using preset key and preset initialization vector
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Symmetric.Decrypt(org.codegen.common.Encryption.Data,org.codegen.common.Encryption.Data)">
+ <summary>
+ Decrypts the specified data using provided key and preset initialization vector
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Symmetric.Decrypt(System.IO.Stream,org.codegen.common.Encryption.Data)">
+ <summary>
+ Decrypts the specified stream using provided key and preset initialization vector
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Symmetric.Decrypt(System.IO.Stream)">
+ <summary>
+ Decrypts the specified stream using preset key and preset initialization vector
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Symmetric.Decrypt(org.codegen.common.Encryption.Data)">
+ <summary>
+ Decrypts the specified data using preset key and preset initialization vector
+ </summary>
+</member>
+<member name="T:org.codegen.common.Encryption.Asymmetric">
+ <summary>
+ Asymmetric encryption uses a pair of keys to encrypt and decrypt.
+ There is a "public" key which is used to encrypt. Decrypting, on the other hand, 
+ requires both the "public" key and an additional "private" key. The advantage is 
+ that people can send you encrypted messages without being able to decrypt them.
+ </summary>
+ <remarks>
+ The only provider supported is the <see cref="T:System.Security.Cryptography.RSACryptoServiceProvider"/>
+ </remarks>
+</member>
+<member name="T:org.codegen.common.Encryption.Asymmetric.PublicKey">
+ <summary>
+ Represents a public encryption key. Intended to be shared, it 
+ contains only the Modulus and Exponent.
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Asymmetric.PublicKey.LoadFromConfig">
+ <summary>
+ Load public key from App.config or Web.config file
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Asymmetric.PublicKey.ToConfigSection">
+ <summary>
+ Returns *.config file XML section representing this public key
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Asymmetric.PublicKey.ExportToConfigFile(System.String)">
+ <summary>
+ Writes the *.config file representation of this public key to a file
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Asymmetric.PublicKey.LoadFromXml(System.String)">
+ <summary>
+ Loads the public key from its XML string
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Asymmetric.PublicKey.ToParameters">
+ <summary>
+ Converts this public key to an RSAParameters object
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Asymmetric.PublicKey.ToXml">
+ <summary>
+ Converts this public key to its XML string representation
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Asymmetric.PublicKey.ExportToXmlFile(System.String)">
+ <summary>
+ Writes the Xml representation of this public key to a file
+ </summary>
+</member>
+<member name="T:org.codegen.common.Encryption.Asymmetric.PrivateKey">
+ <summary>
+ Represents a private encryption key. Not intended to be shared, as it 
+ contains all the elements that make up the key.
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Asymmetric.PrivateKey.LoadFromConfig">
+ <summary>
+ Load private key from App.config or Web.config file
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Asymmetric.PrivateKey.ToParameters">
+ <summary>
+ Converts this private key to an RSAParameters object
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Asymmetric.PrivateKey.ToConfigSection">
+ <summary>
+ Returns *.config file XML section representing this private key
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Asymmetric.PrivateKey.ExportToConfigFile(System.String)">
+ <summary>
+ Writes the *.config file representation of this private key to a file
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Asymmetric.PrivateKey.LoadFromXml(System.String)">
+ <summary>
+ Loads the private key from its XML string
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Asymmetric.PrivateKey.ToXml">
+ <summary>
+ Converts this private key to its XML string representation
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Asymmetric.PrivateKey.ExportToXmlFile(System.String)">
+ <summary>
+ Writes the Xml representation of this private key to a file
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Asymmetric.#ctor">
+ <summary>
+ Instantiates a new asymmetric encryption session using the default key size; 
+ this is usally 1024 bits
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Asymmetric.#ctor(System.Int32)">
+ <summary>
+ Instantiates a new asymmetric encryption session using a specific key size
+ </summary>
+</member>
+<member name="P:org.codegen.common.Encryption.Asymmetric.KeyContainerName">
+ <summary>
+ Sets the name of the key container used to store this key on disk; this is an 
+ unavoidable side effect of the underlying Microsoft CryptoAPI. 
+ </summary>
+ <remarks>
+ http://support.microsoft.com/default.aspx?scid=http://support.microsoft.com:80/support/kb/articles/q322/3/71.asp&amp;NoWebContent=1
+ </remarks>
+</member>
+<member name="P:org.codegen.common.Encryption.Asymmetric.KeySizeBits">
+ <summary>
+ Returns the current key size, in bits
+ </summary>
+</member>
+<member name="P:org.codegen.common.Encryption.Asymmetric.KeySizeMaxBits">
+ <summary>
+ Returns the maximum supported key size, in bits
+ </summary>
+</member>
+<member name="P:org.codegen.common.Encryption.Asymmetric.KeySizeMinBits">
+ <summary>
+ Returns the minimum supported key size, in bits
+ </summary>
+</member>
+<member name="P:org.codegen.common.Encryption.Asymmetric.KeySizeStepBits">
+ <summary>
+ Returns valid key step sizes, in bits
+ </summary>
+</member>
+<member name="P:org.codegen.common.Encryption.Asymmetric.DefaultPublicKey">
+ <summary>
+ Returns the default public key as stored in the *.config file
+ </summary>
+</member>
+<member name="P:org.codegen.common.Encryption.Asymmetric.DefaultPrivateKey">
+ <summary>
+ Returns the default private key as stored in the *.config file
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Asymmetric.GenerateNewKeyset(org.codegen.common.Encryption.Asymmetric.PublicKey@,org.codegen.common.Encryption.Asymmetric.PrivateKey@)">
+ <summary>
+ Generates a new public/private key pair as objects
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Asymmetric.GenerateNewKeyset(System.String@,System.String@)">
+ <summary>
+ Generates a new public/private key pair as XML strings
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Asymmetric.Encrypt(org.codegen.common.Encryption.Data)">
+ <summary>
+ Encrypts data using the default public key
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Asymmetric.Encrypt(org.codegen.common.Encryption.Data,org.codegen.common.Encryption.Asymmetric.PublicKey)">
+ <summary>
+ Encrypts data using the provided public key
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Asymmetric.Encrypt(org.codegen.common.Encryption.Data,System.String)">
+ <summary>
+ Encrypts data using the provided public key as XML
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Asymmetric.Decrypt(org.codegen.common.Encryption.Data)">
+ <summary>
+ Decrypts data using the default private key
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Asymmetric.Decrypt(org.codegen.common.Encryption.Data,org.codegen.common.Encryption.Asymmetric.PrivateKey)">
+ <summary>
+ Decrypts data using the provided private key
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Asymmetric.Decrypt(org.codegen.common.Encryption.Data,System.String)">
+ <summary>
+ Decrypts data using the provided private key as XML
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Asymmetric.GetRSAProvider">
+ <summary>
+ gets the default RSA provider using the specified key size; 
+ note that Microsoft's CryptoAPI has an underlying file system dependency that is unavoidable
+ </summary>
+ <remarks>
+ http://support.microsoft.com/default.aspx?scid=http://support.microsoft.com:80/support/kb/articles/q322/3/71.asp&amp;NoWebContent=1
+ </remarks>
+</member>
+<member name="T:org.codegen.common.Encryption.Data">
+ <summary>
+ represents Hex, Byte, Base64, or String data to encrypt/decrypt;
+ use the .Text property to set/get a string representation 
+ use the .Hex property to set/get a string-based Hexadecimal representation 
+ use the .Base64 to set/get a string-based Base64 representation 
+ </summary>
+</member>
+<member name="F:org.codegen.common.Encryption.Data.DefaultEncoding">
+ <summary>
+ Determines the default text encoding across ALL Data instances
+ </summary>
+</member>
+<member name="F:org.codegen.common.Encryption.Data.Encoding">
+ <summary>
+ Determines the default text encoding for this Data instance
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Data.#ctor">
+ <summary>
+ Creates new, empty encryption data
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Data.#ctor(System.Byte[])">
+ <summary>
+ Creates new encryption data with the specified byte array
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Data.#ctor(System.String)">
+ <summary>
+ Creates new encryption data with the specified string; 
+ will be converted to byte array using default encoding
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Data.#ctor(System.String,System.Text.Encoding)">
+ <summary>
+ Creates new encryption data using the specified string and the 
+ specified encoding to convert the string to a byte array.
+ </summary>
+</member>
+<member name="P:org.codegen.common.Encryption.Data.IsEmpty">
+ <summary>
+ returns true if no data is present
+ </summary>
+</member>
+<member name="P:org.codegen.common.Encryption.Data.StepBytes">
+ <summary>
+ allowed step interval, in bytes, for this data; if 0, no limit
+ </summary>
+</member>
+<member name="P:org.codegen.common.Encryption.Data.StepBits">
+ <summary>
+ allowed step interval, in bits, for this data; if 0, no limit
+ </summary>
+</member>
+<member name="P:org.codegen.common.Encryption.Data.MinBytes">
+ <summary>
+ minimum number of bytes allowed for this data; if 0, no limit
+ </summary>
+</member>
+<member name="P:org.codegen.common.Encryption.Data.MinBits">
+ <summary>
+ minimum number of bits allowed for this data; if 0, no limit
+ </summary>
+</member>
+<member name="P:org.codegen.common.Encryption.Data.MaxBytes">
+ <summary>
+ maximum number of bytes allowed for this data; if 0, no limit
+ </summary>
+</member>
+<member name="P:org.codegen.common.Encryption.Data.MaxBits">
+ <summary>
+ maximum number of bits allowed for this data; if 0, no limit
+ </summary>
+</member>
+<member name="P:org.codegen.common.Encryption.Data.Bytes">
+ <summary>
+ Returns the byte representation of the data; 
+ This will be padded to MinBytes and trimmed to MaxBytes as necessary!
+ </summary>
+</member>
+<member name="P:org.codegen.common.Encryption.Data.Text">
+ <summary>
+ Sets or returns text representation of bytes using the default text encoding
+ </summary>
+</member>
+<member name="P:org.codegen.common.Encryption.Data.Hex">
+ <summary>
+ Sets or returns Hex string representation of this data
+ </summary>
+</member>
+<member name="P:org.codegen.common.Encryption.Data.Base64">
+ <summary>
+ Sets or returns Base64 string representation of this data
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Data.ToString">
+ <summary>
+ Returns text representation of bytes using the default text encoding
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Data.ToBase64">
+ <summary>
+ returns Base64 string representation of this data
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Data.ToHex">
+ <summary>
+ returns Hex string representation of this data
+ </summary>
+</member>
+<member name="T:org.codegen.common.Encryption.Utils">
+ <summary>
+ Friend class for shared utility methods used by multiple Encryption classes
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Utils.ToHex(System.Byte[])">
+ <summary>
+ converts an array of bytes to a string Hex representation
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Utils.FromHex(System.String)">
+ <summary>
+ converts from a string Hex representation to an array of bytes
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Utils.FromBase64(System.String)">
+ <summary>
+ converts from a string Base64 representation to an array of bytes
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Utils.ToBase64(System.Byte[])">
+ <summary>
+ converts from an array of bytes to a string Base64 representation
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Utils.GetXmlElement(System.String,System.String)">
+ <summary>
+ retrieve an element from an XML string
+ </summary>
+</member>
+<member name="M:org.codegen.common.Encryption.Utils.GetConfigString(System.String,System.Boolean)">
+ <summary>
+ Returns the specified string value from the application .config file
+ </summary>
+</member>
+<member name="M:org.codegen.common.CommonUtils.GetAssemblyTitle(System.Reflection.Assembly)">
+ <summary>
+ Retrieves the Assembly "Title" attribite as defined in the assembly.vb/assembly.cs file
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.codegen.common.CommonUtils.getResourceStream(System.String,System.String)">
+ <summary>
+ Returns a resource in an assembly as a Stream
+ </summary>
+ <param name="resname">Resource File Name</param>
+ <param name="assemblyName">Assembly Name</param>
+ <returns></returns>
+ <remarks>The file must be marked as "Embedded Resource"</remarks>
+</member>
+<member name="M:org.codegen.common.CommonUtils.getResourceStream(System.String,System.Type)">
+ <summary>
+ Returns a resource in an assembly as a Stream
+ </summary>
+ <param name="resname">Fully qualified name of Resource File (assembly.name)</param>
+ <param name="typeInAssembly">A type that exists in the assembly to load the resource from</param>
+ <returns></returns>
+ <remarks>The file must be marked as "Embedded Resource"</remarks>
+</member>
+<member name="M:org.codegen.common.CommonUtils.getResourceStream(System.String)">
+ <summary>
+ Returns a resource in an assembly as a Stream
+ </summary>
+ <param name="resname">Fully qualified file name in the assembly</param>
+ <returns></returns>
+ <remarks>The file must be marked as "Embedded Resource"</remarks>
+</member>
+<member name="M:org.codegen.common.CommonUtils.getResourceFileText(System.String,System.String)">
+ <summary>
+  Returns a resource in an assembly as a String
+ </summary>
+ <param name="resname"></param>
+ <param name="assemblyName"></param>
+ <returns></returns>
+ <remarks>The file must be marked as "Embedded Resource"</remarks>
+</member>
+<member name="M:org.codegen.common.CommonUtils.getResourceFileText(System.String,System.Type)">
+ <summary>
+  Returns a resource file in an assembly as a String
+ </summary>
+ <param name="resname">Fully qualified resource file name</param>
+ <param name="typeInAssembly">Any Type that exists in the assembly that has the resource file</param>
+ <returns></returns>
+ <remarks>The file must be marked as "Embedded Resource"</remarks>
+</member>
+<member name="M:org.codegen.common.CommonUtils.GetWindowsIdentityRoles(System.Security.Principal.WindowsIdentity)">
+ <summary>
+ This functions returns the roles the current windows identity user belongs to.
+ </summary>
+ <param name="identity"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.codegen.common.CommonUtils.FileToString(System.String)">
+ <summary>
+ Opens a file as UTF-8 and returs its contents as string
+ </summary>
+ <param name="sFilePath"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.codegen.common.CommonUtils.FileToString(System.String,System.Text.Encoding)">
+ <summary>
+ Opens a file and returns the contents as String
+ </summary>
+ <param name="sFilePath"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.codegen.common.CommonUtils.TextToFile(System.String,System.String,System.Text.Encoding)">
+ <summary>
+ Saves a string into a file
+ </summary>
+ <param name="sFilePath"></param>
+ <param name="sFileContents"></param>
+ <remarks></remarks>
+</member>
+<member name="M:org.codegen.common.CommonUtils.DataTableFromStringList(System.String)">
+ <summary>
+ Creates a DataTable from a string.
+ </summary>
+ <param name="sList">String of delimited values</param>
+ <returns>a 2 column Datatable.  First Column Name: ID, Second Column Name: value</returns>
+ <remarks>
+ The input string must have records separated by "|" and field values 
+ separated by ";". There can be up to 2 columns (fields)
+ Example input string: "1;Test|2;Test2"
+ Will create a datatable with 2 rows. 1st row , column ID will have 
+ value 1 and column "value" will have value "Test"
+ </remarks>
+</member>
+<member name="M:org.codegen.common.Validate.isNotEmptyString(System.String,org.codegen.common.IErrorKeeper,System.String,System.String[])">
+ <summary>
+ Checks if val is null or empty, and if it is it adds it to the error string of IErrorKeeper
+ </summary>
+ <param name="val">value to check</param>
+ <param name="errkeeper">object to receive error string</param>
+ <param name="template">Message Template of error</param>
+ <param name="args">Message Template arguments of error</param>
+ <remarks></remarks>
+</member>
+</members>
+</doc>

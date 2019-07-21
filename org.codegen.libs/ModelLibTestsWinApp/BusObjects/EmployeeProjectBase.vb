@@ -551,18 +551,18 @@ End If
     Public Class EmployeeProjectRequiredFieldsValidator
         Implements IModelObjectValidator
 
-        Public Sub validate(ByVal imo As org.model.lib.Model.IModelObject) _
-                    Implements org.model.lib.IModelObjectValidator.validate
+        Public Sub validate(ByVal imo As org.codegen.model.lib.Model.IModelObject) _
+                    Implements org.codegen.model.lib.IModelObjectValidator.validate
 
             Dim mo As EmployeeProject = CType(imo, EmployeeProject)
-			if mo.EPEmployeeId is Nothing then
-		Throw new ModelObjectRequiredFieldException("EPEmployeeId")
-End if 
-if mo.EPProjectId is Nothing then
-		Throw new ModelObjectRequiredFieldException("EPProjectId")
-End if 
+            If mo.EPEmployeeId Is Nothing Then
+                Throw New ModelObjectRequiredFieldException("EPEmployeeId")
+            End If
+            If mo.EPProjectId Is Nothing Then
+                Throw New ModelObjectRequiredFieldException("EPProjectId")
+            End If
 
-			
+
         End Sub
 
     End Class

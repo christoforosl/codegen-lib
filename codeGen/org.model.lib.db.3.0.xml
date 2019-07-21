@@ -1,0 +1,813 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+org.model.lib.db.3.0
+</name>
+</assembly>
+<members>
+<member name="T:org.model.lib.db.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:org.model.lib.db.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:org.model.lib.db.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="T:org.model.lib.db.DBTranslator">
+ <summary>
+ Class to fascilitate translation services from a database table
+ The table structure must be
+ <code>
+ CREATE TABLE [dbo].sysLanguageStrings(
+	[langKey] [varchar](70) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[langValueEN] [nvarchar(500)] COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[langValueEL] [nvarchar(500)] COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+ CONSTRAINT [PK_sysLanguageStrings] PRIMARY KEY ([langKey])
+) 
+
+ </code>
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.DBTranslator.insertInitialLangValue(System.String)">
+ <summary>
+ Inserts the initial value in the database
+ </summary>
+ <param name="skey"></param>
+ <remarks></remarks>
+</member>
+<member name="T:org.model.lib.db.DBUpdater">
+ <summary>
+ Class to fascilitate easy upgrade of a database.
+ </summary>
+ <remarks>
+ Requirements:
+ <ol>
+ <li>Create a table in your database called <b>sysDatabaseVersion</b>
+ with 2 columns: 
+ <ul><li>DatabaseVersion, integer</li>
+ <li>VersionDate, datetime, default: current date (getDate() in MSSQL, 
+ sysdate in Oracle.</li>
+ </ul>
+ </li>
+ <li>
+ Define a constant in your application that defines the database version
+ that your code expects.
+ </li>
+ <li>
+ In your assembly, create a directory where you will place the script files that contain 
+ the sql statements to execute to bring the database to the required version.  The sql statements 
+ must be separated by the "new line" + go + "new Line", ie  the word "go" or "GO" in a line by itself.
+ For oracle, the command separator is "/" on a line by it self.
+ <b>Important: all your sql script files should be marked as <b>embedded resource</b>.</b>
+ Naming conventions: 
+ <ul><li>For MS SQL files: "dbUpdate_&lt;version&gt;_MS.SQL".<br/>For example: dbUpdate_400_MS.SQL</li>
+ <li>For Oracle files: dbUpdate_&lt;version&gt;_ORA.SQL.<br/>For example: dbUpdate_400_ORA.SQL</li>
+ </ul>
+ </li>
+ </ol>
+ 
+ At your system startup, create a new DBUtils object, <see cref="T:org.model.lib.db.DBUtils">DBUtils object</see>, 
+ and call public shared sub DBUpdater.dbUpdateVersion. See also <seealso cref="M:org.model.lib.db.DBUpdater.dbUpdateVersion(org.model.lib.db.DBUtils,System.Int32,System.Reflection.Assembly,System.String)">dbUpdateVersion</seealso>
+ dbUpdateVersion works by comparing the application database version with the database version stored in
+ the sysDatabaseVersion table.  If the application database version is greater than the latest version number 
+ in sysDatabaseVersion, then a loop is executed while  [sysDatabaseVersion] &lt; [application database version]
+ opening sql script files and executing the commands for each version.
+ After each version sql file is done, a new row is inserted in table sysDatabaseVersion, updating the version,
+ until the versions come to the same lebel.
+ </remarks>
+</member>
+<member name="P:org.model.lib.db.DBUpdater.backupSQLStatement">
+ <summary>
+ Command to execute for backing up the database.  Only applies for sql server.
+ </summary>
+</member>
+<member name="M:org.model.lib.db.DBUpdater.dbUpdateVersion(org.model.lib.db.DBUtils,System.Int32,System.Reflection.Assembly,System.String)">
+ <summary>
+ Creates an updater class instance and brings the database to the target version
+ </summary>
+ <param name="_dbconn">Database connection to your database</param>
+ <param name="_dbversion">The target version</param>
+ <param name="_backupSQLStatement">SQL to execute before the upgrade to backup database</param>
+ <param name="_assembly">the assembly that contains the embedded resource sql files</param>
+</member>
+<member name="T:org.model.lib.db.DBUtilsProviderFromConfig">
+ <summary>
+ Returns a DBUtils instance from the connection string stored in the configuration file.
+ <seealso cref="T:org.model.lib.db.DBConfig"></seealso>
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.DBUtilsProviderFromConfig.getDBUtils">
+ <summary>
+ Returns a DBUtils instance from the connection string stored in the configuration file.
+ <seealso cref="T:org.model.lib.db.DBConfig"></seealso>
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="T:org.model.lib.db.DBUtilsProviderFromRegistry">
+ <summary>
+ Returns a DBUtils instance from the connection string stored in the registry.
+ <seealso cref="T:org.model.lib.db.DBConfig"></seealso>
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:org.model.lib.db.examples">
+ <summary>
+ <exclude />
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:org.model.lib.db.DBConfig">
+ <summary>
+ Configuration Reader Class for DBUtils.
+ This class loads the following configuration settings from app.config or web.config
+ file: dbconnstring, logFile, sqlDialect,sqlConnectionType,dbconnstringEncrypted
+ <example>
+ <ol>
+ <li>Define a config section in Config Sections as follows:<br/>
+ &lt;configSections&gt;<br/>
+ ...<br/>
+ &lt;section name="DBConfig" type="org.codegen.lib.db.DBConfig,org.codegen.lib.db"/&gt;<br/>
+ &lt;/configSections&gt;<br/>
+ </li>
+ <li>
+ &lt;DBConfig <br/>
+          dbconnstring="User ID=payroll;password=apoel123;Initial Catalog=prl_dcom;Data Source=sparta" <br/>
+          dbconnstringEncrypted="0" <br/>
+          sqlDialect="0" <br/>
+          sqlConnectionType="0"&gt;<br/></li>
+</ol>
+ </example>
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="P:org.model.lib.db.DBConfig.dbconnstring">
+ <summary>
+ Sets the ADO.NET connection string.  This can be encypted.
+ <see cref="P:org.model.lib.db.DBConfig.dbConnStringEncrypted">DBConfig.dbConnStringEncrypted</see>
+ </summary>
+ <value></value>
+ <returns>Complete Connection String to connect to Database</returns>
+ <remarks>Required Setting</remarks>
+</member>
+<member name="P:org.model.lib.db.DBConfig.logFile">
+ <summary>
+ DBUtils can log each sql statement executed along with the time taken to execute the statement.
+ </summary>
+ <value></value>
+ <returns>String of file used to log SQL Stetaments executed by DBUtils</returns>
+ <remarks>Not Required Setting</remarks>
+</member>
+<member name="P:org.model.lib.db.DBConfig.sqlDialect">
+ <summary>
+ Sets the sql flavor (syntax) used by DBUtils.
+ </summary>
+ <value></value>
+ <returns>
+    0 = MSSQL
+    1 = JET/MS Access
+    2 = ORACLE
+    3 = MYSQL
+ </returns>
+ <remarks>Required Setting</remarks>
+</member>
+<member name="P:org.model.lib.db.DBConfig.sqlConnectionType">
+ <summary>
+ Sets the SQL Connection type (NOT The syntax!!) used by DBUtils.
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="P:org.model.lib.db.DBConfig.dbConnStringEncrypted">
+ <summary>
+ Con
+ </summary>
+ <value></value>
+ <returns>
+ 1 = Connection String is encypted
+ 0 = Connection String is <b>NOT</b> encypted</returns>
+ <remarks></remarks>
+</member>
+<member name="T:org.model.lib.db.DBConfigRegistry">
+ <summary>
+ Configuration Reader Class for DBConfigRegistry.
+ This class loads the following configuration settings from app.config 
+ file: appname, section, key
+ These are then passed to a GetSetting() call to retrieve a connection string
+ <example>
+ <ol>
+ <li>Define a config section in Config Sections as follows:<br/>
+ &lt;configSections&gt;<br/>
+ ...<br/>
+ &lt;section name="DBConfigRegistry" type="org.codegen.lib.db.DBConfigRegistry,org.codegen.lib.db"/&gt;<br/>
+ &lt;/configSections&gt;<br/>
+ </li>
+ <li>
+ &lt;DBConfigRegistry <br/>
+          dbRegAppname="AppName" <br/>
+          dbRegSection="section" <br/>
+          dbRegKey="somekey" <br/>
+          dbconnstringEncrypted="0" <br/>
+          sqlDialect="0" <br/>
+          sqlConnectionType="0"&gt;<br/></li>
+</ol>
+ </example>
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="P:org.model.lib.db.DBConfigRegistry.dbRegAppname">
+ <summary>
+ Sets the App name to be passed as a first argument in GetSetting()
+ </summary>
+ <value></value>
+ <remarks>Required Setting</remarks>
+</member>
+<member name="P:org.model.lib.db.DBConfigRegistry.logFile">
+ <summary>
+ DBUtils can log each sql statement executed along with the time taken to execute the statement.
+ </summary>
+ <value></value>
+ <returns>String of file used to log SQL Stetaments executed by DBUtils</returns>
+ <remarks>Not Required Setting</remarks>
+</member>
+<member name="P:org.model.lib.db.DBConfigRegistry.dbRegKeyDialect">
+ <summary>
+ Sets the sql flavor (syntax) used by DBUtils.
+ </summary>
+ <value></value>
+ <returns>
+    0 = MSSQL
+    1 = JET/MS Access
+    2 = ORACLE
+    3 = MYSQL
+ </returns>
+ <remarks>Required Setting</remarks>
+</member>
+<member name="P:org.model.lib.db.DBConfigRegistry.dbRegKeySqlConnectionType">
+ <summary>
+ Sets the SQL Connection type (NOT The syntax!!) used by DBUtils.
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="P:org.model.lib.db.DBConfigRegistry.dbConnStringEncrypted">
+ <summary>
+ Con
+ </summary>
+ <value></value>
+ <returns>
+ 1 = Connection String is encypted
+ 0 = Connection String is <b>NOT</b> encypted</returns>
+ <remarks></remarks>
+</member>
+<member name="T:org.model.lib.db.DBUtils">
+ <summary>
+ Database Utility class to fascilitate sql statements execution
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.DBUtils.Current">
+ <summary>
+ Constructs a DBUtilsBase class from the connection string stored in the configuration file.
+ <seealso cref="T:org.model.lib.db.DBConfig"></seealso>
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.DBUtils.getFromConnString(System.String,org.model.lib.db.DBUtils.enumConnType,org.model.lib.db.DBUtils.enumSqlDialect,System.String)">
+ <summary>
+ Constructs a DBUtils class from the connection string passed.
+ </summary>
+ <param name="connString"></param>
+ <param name="sqlConnType"></param>
+ <param name="iDialect"></param>
+ <param name="logFile"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="T:org.model.lib.db.DBUtils.enumConnType">
+ <summary>
+ Connection types
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:org.model.lib.db.DBUtils.enumSqlDialect">
+ <summary>
+ eSqlDialect enumeration, indicating the sql dialect that our database uses.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="P:org.model.lib.db.DBUtils.paramPrefix">
+ <summary>
+ Parameter prefix
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="P:org.model.lib.db.DBUtils.sqldialect">
+ <summary>
+ SQL Dialect
+ <seealso cref="T:org.model.lib.db.DBUtils.enumSqlDialect"></seealso>
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.DBUtils.commitTrans">
+ <summary>
+ Commits the current transaction and closes the connection to the database.
+ before committing, the class checks if a transaction is active.
+ If not, statement is ignored.
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.DBUtils.rollbackTrans">
+ <summary>
+ Rollbacks the current transaction and closes the connection to the database.
+ Before Rollback, the class checks if a transaction is active.
+ If not, statement is ignored.
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="P:org.model.lib.db.DBUtils.inTrans">
+ <summary>
+ Returns true if a transaction is active (ie started by a beginTrans call).
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.DBUtils.beginTrans">
+ <summary>
+ Starts a transaction and 
+ Sets the flag true that transaction is active.
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="P:org.model.lib.db.DBUtils.ConnString">
+ <summary>
+ Connection String of database connection
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="P:org.model.lib.db.DBUtils.Connection">
+ <summary>
+ Sets/Returns a ADO.NET connection object
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="P:org.model.lib.db.DBUtils.ConnType">
+ <summary>
+ Gets/Sets the connection type
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.DBUtils.quoteObjectName(System.String)">
+ <summary>
+ Escapes an object name in case it is a reserved word.  For example, it will return [User] for object named "User" for MSSQL database
+ </summary>
+ <param name="objName"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.DBUtils.quote(System.Object)">
+ <summary>
+ Encloses a value in single quotes.  Any quotes in the string are escaped.
+ <example>
+ <code lang="vbnet">
+ Dim dbconn as DBUtilsBase = DBUtilsBase.getDBUtilsFromConfig()
+ Dim someVal as String = "o'neil"
+ Dim sQuoted as String = dbconn.quote(someVal)
+ </code>
+ In the above, sQuoted value is <b>'o''neil'</b>
+ </example>
+ </summary>
+ <param name="qtStr"></param>
+ <returns>qtStr enclosed in single quotes.  If qtStr is IsDBNull or Nothing, it return the literal <b>NULL</b></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.DBUtils.quoteLIKE(System.String)">
+ <summary>
+ Quotes an object value as a LIKE string to be added to an sql statement.
+ The like character (%) is appended at <b>the end</b> of the string
+ <example>
+ <code lang="vbnet">
+ Dim dbconn as DBUtilsBase = DBUtilsBase.getDBUtilsFromConfig()
+ Dim someVal as String = "o'neil"
+ Dim sQuoted as String = dbconn.quoteLIKE(someVal)
+ </code>
+ </example>
+ In the above, sQuoted value is <b>'o''neil%'</b>
+ </summary>
+ <param name="dt"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.DBUtils.quoteDateTime(System.DateTime)">
+ <summary>
+ Quotes an object value as a DateTime string to be added to an sql statement
+ For Oracle, the value returned is enclosed in the TO_DATE function.
+ For MSSQL, the value is encloded in quotes, and the months are inserted by name to avoid 
+ confusion due to date formats
+ <example>
+ <code lang="vbnet">
+ Dim dbconn as DBUtilsBase = DBUtilsBase.getDBUtilsFromConfig()
+ Dim someVal as Date = #1/2/1980 12:56 AM#
+ Dim sQuoted as string = dbutils.quoteDateTime(someVal)
+ </code>
+ For MSSQL dialect BUtils, the above sQuoted value is <b>'1-Feb-1980 12:56:00 AM</b>
+ For Oracle dialect DBUtils, the above sQuoted value is <b>to_date('1-2-1980 12:56:00 AM','DD-MM-YYYY HH24:MI:SS')</b>
+ </example>
+ </summary>
+ <param name="dt"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.DBUtils.quoteDateTime(System.Object)">
+ <summary>
+ Quotes an object value as a DateTime string to be added to an sql statement.  The fucntion first checks if <paramref>indt</paramref>
+ can be converted to a date.  If not, the literal value of <b>NULL</b> is returned, else
+ it behaves like <b>quoteDateTime(ByVal dt As Date)</b>
+ <seealso cref="M:org.model.lib.db.DBUtils.quoteDateTime(System.DateTime)"></seealso>
+ </summary>
+ <param name="indt">some Object value</param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.DBUtils.quoteDate(System.Object)">
+ <summary>
+ Quotes an object value for an sql statement.  The function first checks if <paramref>odt</paramref>
+ can be converted to a date.  If not, the literal value of <b>NULL</b> is returned, else
+ it behaves like <b>quoteDate(ByVal dt As Date)</b>
+ </summary>
+ <param name="odt">some Object value</param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.DBUtils.quoteDate(System.DateTime)">
+ <summary>
+ Quotes an object value for an sql statement.  The function first checks if <paramref>odt</paramref>
+ can be converted to a date.  If not, the literal value of <b>NULL</b> is returned, else
+ it behaves like <b>quoteDate(ByVal dt As Date)</b>
+ </summary>
+ <param name="dt"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.DBUtils.closeDataReader(System.Data.IDataReader)">
+ <summary>
+ Closes a DataReader and the connection to the database.  Typically used when opening a datareader and 
+ processing results.
+ <code source="C:\vs2008Projects\org.codegen.lib.vb\org.codegen.lib.db\examples.vb" region="DataReader and NullChecker Examples" lang="vbnet" title="DataReader Example" />
+ </summary>
+ <param name="dr">DataReader object to close.</param>
+</member>
+<member name="M:org.model.lib.db.DBUtils.getDataTable(System.String,System.String)">
+ <summary>
+ Executes the sql passed and returns a DataTable filled with the results of the sql.
+ <code source="C:\vs2008Projects\org.codegen.lib.vb\org.codegen.lib.db\examples.vb" region="DataTableExample" lang="vbnet" title="getDataTable Example" />
+ </summary>
+ <param name="sql">SQL Statement to be executed</param>
+ <param name="stablename">Table name of returned datatable, default "table1"</param>
+ <returns>a DataTable filled with the results of the sql</returns>
+</member>
+<member name="M:org.model.lib.db.DBUtils.getDataTableWithParams(System.String,System.Object[])">
+ <summary>
+ Behaves just like DBUtilsBase.getDataTable
+ but it allows for a parametrized SQL statement
+ </summary>
+ <param name="sql">SQL Statement to be executed</param>
+ <param name="params">ParamArray of parameter values</param>
+ <returns>a DataTable filled with the results of the sql</returns>
+</member>
+<member name="M:org.model.lib.db.DBUtils.getDblValue(System.String)">
+ <summary>
+ Behaves just like <see cref="M:org.model.lib.db.DBUtils.getSValue(System.String)">DBUtilsBase.getSValue</see> but it returns a Double value
+ </summary>
+ <param name="sql">SQL statement to execute</param>
+ <returns>String value returned by first row, first column.  If no rows are returned, returns 0. 
+ If value of first column is DBNULL, returns 0</returns>
+ <remarks></remarks>
+ <seealso cref="M:org.model.lib.db.DBUtils.getSValue(System.String)"></seealso>
+</member>
+<member name="M:org.model.lib.db.DBUtils.getIntValue(System.String)">
+ <summary>
+ Behaves just like <see cref="M:org.model.lib.db.DBUtils.getSValue(System.String)">DBUtilsBase.getSValue</see> but it returns an Integer value
+ </summary>
+ <param name="sql">SQL statement to execute</param>
+ <returns>String value returned by first row, first column.  If no rows are returned, returns 0. 
+ If value of first column is DBNULL, returns 0</returns>
+ <remarks></remarks>
+ <seealso cref="M:org.model.lib.db.DBUtils.getSValue(System.String)"></seealso>
+</member>
+<member name="M:org.model.lib.db.DBUtils.getLngValue(System.String)">
+ <summary>
+ Behaves just like <see cref="M:org.model.lib.db.DBUtils.getSValue(System.String)">DBUtilsBase.getSValue</see> but it returns a Long value
+ </summary>
+ <param name="sql">SQL statement to execute</param>
+ <returns>String value returned by first row, first column.  If no rows are returned, returns 0. 
+ If value of first column is DBNULL, returns 0</returns>
+ <remarks></remarks>
+ <seealso cref="M:org.model.lib.db.DBUtils.getSValue(System.String)"></seealso>
+</member>
+<member name="M:org.model.lib.db.DBUtils.getLngValueWithParams(System.String,System.Object[])">
+ <summary>
+ Behaves just like <see cref="M:org.model.lib.db.DBUtils.getSValue(System.String)">DBUtilsBase.getSValue</see> but it allows for a parametarized SQL, and it returns a Long value
+ <code source="C:\vs2008Projects\org.codegen.lib.vb\org.codegen.lib.db\examples.vb" region="getSValueWithParams" lang="vbnet" title="getSValueWithParams Example" />
+ </summary>
+ <param name="sql">SQL statement to execute</param>
+ <returns>String value returned by first row, first column.  If no rows are returned, returns 0. 
+ If value of first column is DBNULL, returns 0</returns>
+ <remarks></remarks>
+ <seealso cref="M:org.model.lib.db.DBUtils.getSValueWithParams(System.String,System.Object[])"></seealso>
+</member>
+<member name="M:org.model.lib.db.DBUtils.getSValueWithParams(System.String,System.Object[])">
+ <summary>
+ Behaves just like <see cref="M:org.model.lib.db.DBUtils.getSValue(System.String)">DBUtilsBase.getSValue</see> but it allows for a parametarized SQL
+ <code source="C:\vs2008Projects\org.codegen.lib.vb\org.codegen.lib.db\examples.vb" region="getSValueWithParams" lang="vbnet" title="getSValueWithParams Example" />
+ </summary>
+ <param name="sql">SQL statement to execute</param>
+ <returns>String value returned by first row, first column.  If no rows are returned, returns String.Empty. 
+ If value of first column is DBNULL, returns String.Empty</returns>
+ <remarks></remarks>
+ <seealso cref="M:org.model.lib.db.DBUtils.getSValue(System.String)"></seealso>
+</member>
+<member name="M:org.model.lib.db.DBUtils.getDtValue(System.String)">
+ <summary>
+ This function opens a datareader, reads the first row and returns the value of the first field 
+ as a <b>date</b>.
+ <code source="C:\vs2008Projects\org.codegen.lib.vb\org.codegen.lib.db\examples.vb" region="DtValueExample" lang="vbnet" title="DtValue Example" />
+ </summary>
+ <param name="sql">SQL statement to execute</param>
+ <returns>String value returned by first row, first column.  If no rows are returned, returns String.Empty. 
+ If value of first column is DBNULL, returns String.Empty</returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.DBUtils.getSValue(System.String)">
+ <summary>
+ This function opens a datareader, reads the first row and returns the value of the first field 
+ as a string.
+ <code source="C:\vs2008Projects\org.codegen.lib.vb\org.codegen.lib.db\examples.vb" region="SValueExample" lang="vbnet" title="SValue Example" />
+ </summary>
+ <param name="sql">SQL statement to execute</param>
+ <returns>String value returned by first row, first column.  If no rows are returned, returns String.Empty. 
+ If value of first column is DBNULL, returns String.Empty</returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.DBUtils.executeSQLWithParams(System.String,System.Collections.Generic.List{System.Data.IDataParameter})">
+ <summary>
+ <code source="C:\vs2008Projects\org.codegen.lib.vb\org.codegen.common.tests\DBUtilsTest.vb" region="Parameters Example, with output parameter" lang="vbnet" title="Parameters Example, with output parameter" />
+ </summary>
+ <param name="sql">Paratarized sql statement</param>
+ <param name="params">Parameters collection</param>
+ <remarks></remarks>
+ 
+</member>
+<member name="M:org.model.lib.db.DBUtils.executeSQLWithParams(System.String,System.Object[])">
+ <summary>
+ Executes an sql statement of type UPDATE, INSERT or DELETE, but allows for paramerized sql
+ </summary>
+ <param name="sql"></param>
+ <param name="params"></param>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.DBUtils.executeSP(System.String,System.Collections.Generic.List{System.Data.IDataParameter})">
+ <summary>
+ Executes a stored procedure with parameters. How to use:
+ </summary>
+ <param name="spSql">Pass only the name of the stored procedure</param>
+ <param name="spParams">Pass a list of parameters, with the same name as the parameters 
+ of the stored procedure</param>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.DBUtils.executeSQL(System.String)">
+ <summary>
+ Executes an sql statement of type UPDATE, INSERT or DELETE
+ </summary>
+ <param name="sql"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.DBUtils.getDataReader(System.String,System.Collections.Generic.List{System.Data.IDataParameter})">
+ <summary>
+ 
+ </summary>
+ <param name="sql"></param>
+ <param name="spParams"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.DBUtils.getDataReaderWithParams(System.String,System.Object[])">
+ <summary>
+ <seealso cref="M:org.model.lib.db.DBUtils.getDataReader(System.String)"></seealso>
+ <code source="C:\vs2008Projects\org.codegen.lib.vb\org.codegen.lib.db\examples.vb" region="DataReader with parameters and NullChecker Examples" lang="vbnet" title="DataReader With Parameters Example" />
+ </summary>
+ <param name="sql"></param>
+ <param name="params"></param>
+ <returns></returns>
+ <remarks></remarks>
+ 
+</member>
+<member name="M:org.model.lib.db.DBUtils.getDataReader(System.String)">
+ <summary>
+ Opens a datareader for SQL results processing
+ <code source="C:\vs2008Projects\org.codegen.lib.vb\org.codegen.lib.db\examples.vb" region="DataReader and NullChecker Examples" lang="vbnet" title="DataReader Example" />
+ </summary>
+ <param name="sql"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.DBUtils.getStmtAndParamsAsString(System.Data.IDbCommand)">
+ <summary>
+ Used to built a string 
+ </summary>
+ <param name="pstmt"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="T:org.model.lib.db.NullChecker">
+ <summary>
+ Utility class to check for DBNulls.
+ <code source="C:\vs2008Projects\org.codegen.lib.vb\org.codegen.lib.db\examples.vb" region="DataReader and NullChecker Examples" lang="vbnet" title="DataReader Example" />
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:org.model.lib.db.NullChecker.NULL_DATE">
+ <summary>
+ NULL_DATE value of #12:00:00 AM# 
+ Any date variable with this value is treated as a NULL date
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.NullChecker.strNull(System.Object,System.Boolean)">
+ <summary>
+ Returns an empty string(String.Empty) if dbvalue is Nothing, or DBNull.value
+ </summary>
+ <param name="dbvalue">Value to check</param>
+ <param name="bTrimIt">if true, trim result before returning it. Default is true</param>
+ <returns>String value of dbvalue</returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.NullChecker.strNullOrDefault(System.Object,System.String)">
+ <summary>
+ Returns a default value if dbvalue is Nothing, or DBNull.value
+ </summary>
+ <param name="dbvalue"></param>
+ <param name="defaultIfDBNull"></param>
+ <returns>String value of dbvalue, or defaultIfDBNull if dbvalue is Nothing, or DBNull.value</returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.NullChecker.numNull(System.Object)">
+ <summary>
+ Checks a value for DBNull and if it isNumeric(), and returns a Double
+ </summary>
+ <param name="obj"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.NullChecker.decNull(System.Object)">
+ <summary>
+ Checks a value for DBNull and if it isNumeric(), and returns a Decimal
+ </summary>
+ <param name="obj"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.NullChecker.longNull(System.Object)">
+ <summary>
+ Checks a value for DBNull and if it isNumeric(), and returns a Long
+ </summary>
+ <param name="obj"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.NullChecker.SngNull(System.Object)">
+ <summary>
+ Checks a value for DBNull and if it isNumeric(), and returns a Single
+ </summary>
+ <param name="obj"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.NullChecker.intNull(System.Object)">
+ <summary>
+ Checks a value for DBNull and if it isNumeric(), and returns an Integer or 0
+ </summary>
+ <param name="obj"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.NullChecker.intNullOrDefault(System.Object,System.Int32)">
+ <summary>
+ Checks a value for DBNull and if it isNumeric(), and returns an Integer or defVal
+ </summary>
+ <param name="obj"></param>
+ <param name="defVal"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.NullChecker.shortNull(System.Object)">
+ <summary>
+ Checks a value for DBNull and if it isNumeric(), and returns a Short
+ </summary>
+ <param name="obj"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.NullChecker.shortNullOrDefault(System.Object,System.Int16)">
+ <summary>
+ Checks a value for DBNull and if it isNumeric(), and returns a Short or defVal
+ </summary>
+ <param name="obj"></param>
+ <param name="defaultIfNull"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:org.model.lib.db.NullChecker.dateNull(System.Object)">
+ <summary>
+ Checks a value for DBNull and if isDate(), and returns a Date value
+ </summary>
+ <param name="obj"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="T:org.model.lib.db.SQLStmtsRegistry">
+ <summary>
+ Provides sql statements from xml files.
+ Keeps a registry of files and statements.
+ To get a statement, call SQLStmtsRegistry.getStatement(filekey,statemtKey)
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:org.model.lib.db.TypeConvertor">
+ <summary>
+ Convert a base data type to another base data type
+ </summary>
+</member>
+<member name="M:org.model.lib.db.TypeConvertor.ToNetType(System.Data.DbType)">
+ <summary>
+ Convert db type to .Net data type
+ </summary>
+ <param name="dbType"></param>
+ <returns></returns>
+</member>
+<member name="M:org.model.lib.db.TypeConvertor.ToNetType(System.Data.SqlDbType)">
+ <summary>
+ Convert TSQL type to .Net data type
+ </summary>
+ <param name="sqlDbType"></param>
+ <returns></returns>
+</member>
+<member name="M:org.model.lib.db.TypeConvertor.ToDbType(System.Type)">
+ <summary>
+ Convert .Net type to Db type
+ </summary>
+ <param name="type"></param>
+ <returns></returns>
+</member>
+<member name="M:org.model.lib.db.TypeConvertor.ToDbType(System.Data.SqlDbType)">
+ <summary>
+ Convert TSQL data type to DbType
+ </summary>
+ <param name="sqlDbType"></param>
+ <returns></returns>
+</member>
+<member name="M:org.model.lib.db.TypeConvertor.ToSqlDbType(System.Type)">
+ <summary>
+ Convert .Net type to TSQL data type
+ </summary>
+ <param name="type"></param>
+ <returns></returns>
+</member>
+<member name="M:org.model.lib.db.TypeConvertor.ToSqlDbType(System.Data.DbType)">
+ <summary>
+ Convert DbType type to TSQL data type
+ </summary>
+ <param name="dbType"></param>
+ <returns></returns>
+</member>
+</members>
+</doc>

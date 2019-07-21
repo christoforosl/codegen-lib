@@ -62,9 +62,9 @@
   <ItemGroup>
     <Import Include="ModelLibTestsWinApp.BusObjects" />
     <Import Include="ModelLibTestsWinApp.BusObjects.Mappers" />
-    <Import Include="org.model.lib" />
-    <Import Include="org.model.lib.db" />
-    <Import Include="org.model.lib.Model" />
+    <Import Include="org.codegen.model.lib" />
+    <Import Include="org.codegen.model.lib.db" />
+    <Import Include="org.codegen.model.lib.Model" />
     <Import Include="System" />
     <Import Include="System.Collections" />
     <Import Include="System.Collections.Generic" />
@@ -101,17 +101,17 @@
       <Project>{C74737DF-2306-4605-9D15-C4BF4ED6788C}</Project>
       <Name>ModelLibTestsWinApp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\org.codegen.lib.db.mysql\org.model.lib.db.mysql.vbproj">
+    <ProjectReference Include="..\org.codegen.lib.db.mysql\org.codegen.model.lib.db.mysql.vbproj">
       <Project>{753f43f2-b572-49fc-b03d-aa5832f2dbd9}</Project>
-      <Name>org.model.lib.db.mysql</Name>
+      <Name>org.codegen.model.lib.db.mysql</Name>
     </ProjectReference>
-    <ProjectReference Include="..\org.codegen.lib.db\org.model.lib.db.vbproj">
-      <Project>{C744D17D-3132-4365-8C44-9D295D942597}</Project>
-      <Name>org.model.lib.db</Name>
+    <ProjectReference Include="..\org.codegen.lib.db\org.codegen.model.lib.db.vbproj">
+      <Project>{c744d17d-3132-4365-8c44-9d295d942597}</Project>
+      <Name>org.codegen.model.lib.db</Name>
     </ProjectReference>
-    <ProjectReference Include="..\org.codegen.lib\org.model.lib.vbproj">
+    <ProjectReference Include="..\org.codegen.lib\org.codegen.model.lib.vbproj">
       <Project>{BF9890A4-769A-406D-9AD0-0D9F5A7376A0}</Project>
-      <Name>org.model.lib</Name>
+      <Name>org.codegen.model.lib</Name>
     </ProjectReference>
     <ProjectReference Include="..\org.codegen.win.controls\org.codegen.win.controls.vbproj">
       <Project>{32D6AC6F-ED2F-4210-A3E8-359BE2F9F5C2}</Project>

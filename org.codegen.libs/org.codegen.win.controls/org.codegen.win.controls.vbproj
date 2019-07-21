@@ -109,8 +109,9 @@
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="org.codegen.common" />
-    <Import Include="org.model.lib" />
-    <Import Include="org.model.lib.db" />
+    <Import Include="org.codegen.model.lib" />
+    <Import Include="org.codegen.model.lib.db" />
+    <Import Include="org.codegen.model.lib.Model" />
     <Import Include="org.model.lib.Model" />
     <Import Include="System" />
     <Import Include="System.Collections" />
@@ -431,13 +432,13 @@
       <Project>{C367EAE9-FDEA-468D-9A91-C5075F927D39}</Project>
       <Name>org.codegen.common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\org.codegen.lib.db\org.model.lib.db.vbproj">
-      <Project>{C744D17D-3132-4365-8C44-9D295D942597}</Project>
-      <Name>org.model.lib.db</Name>
+    <ProjectReference Include="..\org.codegen.lib.db\org.codegen.model.lib.db.vbproj">
+      <Project>{c744d17d-3132-4365-8c44-9d295d942597}</Project>
+      <Name>org.codegen.model.lib.db</Name>
     </ProjectReference>
-    <ProjectReference Include="..\org.codegen.lib\org.model.lib.vbproj">
-      <Project>{BF9890A4-769A-406D-9AD0-0D9F5A7376A0}</Project>
-      <Name>org.model.lib</Name>
+    <ProjectReference Include="..\org.codegen.lib\org.codegen.model.lib.vbproj">
+      <Project>{bf9890a4-769a-406d-9ad0-0d9f5a7376a0}</Project>
+      <Name>org.codegen.model.lib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />

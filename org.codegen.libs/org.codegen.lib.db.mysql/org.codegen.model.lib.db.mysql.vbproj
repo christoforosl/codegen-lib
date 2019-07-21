@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{753F43F2-B572-49FC-B03D-AA5832F2DBD9}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>org.model.lib.db.mysql</RootNamespace>
-    <AssemblyName>org.model.lib.db.mysql.1.0</AssemblyName>
+    <RootNamespace>org.codegen.model.lib.db.mysql</RootNamespace>
+    <AssemblyName>org.codegen.model.lib.db.mysql.1.0</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -19,7 +19,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\debug\</OutputPath>
-    <DocumentationFile>org.model.lib.db.mysql.1.0.xml</DocumentationFile>
+    <DocumentationFile>org.codegen.model.lib.db.mysql.1.0.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -28,7 +28,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>org.model.lib.db.mysql.1.0.xml</DocumentationFile>
+    <DocumentationFile>org.codegen.model.lib.db.mysql.1.0.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -104,9 +104,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\org.codegen.lib.db\org.model.lib.db.vbproj">
+    <ProjectReference Include="..\org.codegen.lib.db\org.codegen.model.lib.db.vbproj">
       <Project>{c744d17d-3132-4365-8c44-9d295d942597}</Project>
-      <Name>org.model.lib.db</Name>
+      <Name>org.codegen.model.lib.db</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

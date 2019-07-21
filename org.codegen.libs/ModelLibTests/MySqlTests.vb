@@ -1,5 +1,5 @@
-﻿Imports System.Text
-Imports org.model.lib.db.mysql
+﻿Imports org.codegen.model.lib.db.mysql
+
 
 <TestClass()>
 Public Class MySqlTests

@@ -323,15 +323,15 @@ End If
     Public Class EmployeeRankRequiredFieldsValidator
         Implements IModelObjectValidator
 
-        Public Sub validate(ByVal imo As org.model.lib.Model.IModelObject) _
-                    Implements org.model.lib.IModelObjectValidator.validate
+        Public Sub validate(ByVal imo As org.codegen.model.lib.Model.IModelObject) _
+                    Implements org.codegen.model.lib.IModelObjectValidator.validate
 
             Dim mo As EmployeeRank = CType(imo, EmployeeRank)
-			if String.isNullOrEmpty( mo.Rank) Then
-		Throw new ModelObjectRequiredFieldException("Rank")
-End if 
+            If String.IsNullOrEmpty(mo.Rank) Then
+                Throw New ModelObjectRequiredFieldException("Rank")
+            End If
 
-			
+
         End Sub
 
     End Class

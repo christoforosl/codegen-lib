@@ -1096,18 +1096,18 @@ End If
     Public Class EmployeeRequiredFieldsValidator
         Implements IModelObjectValidator
 
-        Public Sub validate(ByVal imo As org.model.lib.Model.IModelObject) _
-                    Implements org.model.lib.IModelObjectValidator.validate
+        Public Sub validate(ByVal imo As org.codegen.model.lib.Model.IModelObject) _
+                    Implements org.codegen.model.lib.IModelObjectValidator.validate
 
             Dim mo As Employee = CType(imo, Employee)
-			if String.isNullOrEmpty( mo.EmployeeName) Then
-		Throw new ModelObjectRequiredFieldException("EmployeeName")
-End if 
-if mo.EmployeeRankId is Nothing then
-		Throw new ModelObjectRequiredFieldException("EmployeeRankId")
-End if 
+            If String.IsNullOrEmpty(mo.EmployeeName) Then
+                Throw New ModelObjectRequiredFieldException("EmployeeName")
+            End If
+            If mo.EmployeeRankId Is Nothing Then
+                Throw New ModelObjectRequiredFieldException("EmployeeRankId")
+            End If
 
-			
+
         End Sub
 
     End Class

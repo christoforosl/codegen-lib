@@ -523,18 +523,18 @@ End If
     Public Class ProjectRequiredFieldsValidator
         Implements IModelObjectValidator
 
-        Public Sub validate(ByVal imo As org.model.lib.Model.IModelObject) _
-                    Implements org.model.lib.IModelObjectValidator.validate
+        Public Sub validate(ByVal imo As org.codegen.model.lib.Model.IModelObject) _
+                    Implements org.codegen.model.lib.IModelObjectValidator.validate
 
             Dim mo As Project = CType(imo, Project)
-			if String.isNullOrEmpty( mo.ProjectName) Then
-		Throw new ModelObjectRequiredFieldException("ProjectName")
-End if 
-if mo.IsActive is Nothing then
-		Throw new ModelObjectRequiredFieldException("IsActive")
-End if 
+            If String.IsNullOrEmpty(mo.ProjectName) Then
+                Throw New ModelObjectRequiredFieldException("ProjectName")
+            End If
+            If mo.IsActive Is Nothing Then
+                Throw New ModelObjectRequiredFieldException("IsActive")
+            End If
 
-			
+
         End Sub
 
     End Class

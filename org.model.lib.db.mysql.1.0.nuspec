@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>org.model.lib.db.mysql</id>
+        <version>1.0</version>
+        <title>mysql dbutils</title>
+        <authors>CHRIS LAMBROU</authors>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>DB Utils implemntation for mysql</description>
+        <dependencies>
+            <group targetFramework=".NETFramework4.0">
+                <dependency id="MySql.Data" version="6.9.12" />
+				<dependency id="org.codegen.common" version="3.1" />
+				
+            </group>
+        </dependencies>
+        <frameworkAssemblies>
+            <frameworkAssembly assemblyName="System.Data" targetFramework="" />
+        </frameworkAssemblies>
+    </metadata>
+    <files>
+        <file src="org.codegen.libs\org.codegen.lib.db.mysql\bin\Release\org.model.lib.db.mysql.1.0.dll" target="lib\net40\org.model.lib.db.mysql.1.0.dll" />
+      </files>
+</package>

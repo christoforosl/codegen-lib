@@ -1,4 +1,5 @@
 Option Strict On
+Imports org.codegen.model.lib.Model
 
 '''
 ''' <summary>  
@@ -68,7 +69,7 @@ Public MustInherit Class DBMapper
     ''' <returns>loaded ModelObject class instance</returns>
     ''' <remarks></remarks>
     ''' 
-    Public Function findWhere(ByVal sWhereClause As String, _
+    Public Function findWhere(ByVal sWhereClause As String,
                                           ByVal ParamArray params() As Object) _
                                           As IModelObject
 
@@ -139,7 +140,7 @@ Public MustInherit Class DBMapper
     ''' </summary>
     ''' <returns>List of loaded ModelObject class instances</returns>
     ''' <remarks></remarks>
-    Public Function findList(ByVal sWhereClause As String, _
+    Public Function findList(ByVal sWhereClause As String,
                                           ByVal ParamArray params() As Object) _
                                           As IEnumerable(Of IModelObject)
 
@@ -147,7 +148,7 @@ Public MustInherit Class DBMapper
         Dim ret As List(Of IModelObject) = New List(Of IModelObject)
 
         Try
-            
+
             rs = dbConn.getDataReaderWithParams(Me.getSqlWithWhereClause(sWhereClause), params)
             Me.Loader.DataSource = rs
 
@@ -278,11 +279,11 @@ Public MustInherit Class DBMapper
 
             End If
 
-                Me.saveParents(o)
-                Me.saveModelObject(o)
-                Me.saveChildren(o)
+            Me.saveParents(o)
+            Me.saveModelObject(o)
+            Me.saveChildren(o)
 
-                Me.commitTrans()
+            Me.commitTrans()
 
 
         Finally
@@ -357,7 +358,7 @@ Public MustInherit Class DBMapper
             pstmt = Me.getUpdateDBCommand(o, sqlStmt)
             pstmt.ExecuteNonQuery()
 
-       
+
         Finally
             If pstmt IsNot Nothing Then pstmt.Dispose()
         End Try
@@ -377,7 +378,7 @@ Public MustInherit Class DBMapper
     ''' </summary>
     ''' <param name="obj">ModelObject that holds data</param>
     ''' <remarks></remarks>
-    Public MustOverride Function getUpdateDBCommand(ByVal obj As IModelObject, _
+    Public MustOverride Function getUpdateDBCommand(ByVal obj As IModelObject,
                                                     ByVal sql As String) As IDbCommand
 
     '''    
@@ -448,7 +449,7 @@ Public MustInherit Class DBMapper
 
             Me.commitTrans()
 
-       
+
         Finally
 
             Me.rollbackTrans()

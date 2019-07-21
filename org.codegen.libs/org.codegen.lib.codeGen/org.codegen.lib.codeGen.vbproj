@@ -85,7 +85,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>..\..\codeGen\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DocumentationFile>org.codegen.lib.codeGen.xml</DocumentationFile>
     <BaseAddress>285212672</BaseAddress>
     <ConfigurationOverrideFile>
@@ -127,7 +127,7 @@
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="org.codegen.dotnet" />
-    <Import Include="org.model.lib.db" />
+    <Import Include="org.codegen.model.lib.db" />
     <Import Include="System" />
     <Import Include="System.Collections" />
     <Import Include="System.Data" />
@@ -320,9 +320,13 @@
       <Project>{C64224BB-B4A8-439D-9413-01545789D31E}</Project>
       <Name>org.codegen.dotnet</Name>
     </ProjectReference>
-    <ProjectReference Include="..\org.codegen.lib.db\org.model.lib.db.vbproj">
-      <Project>{C744D17D-3132-4365-8C44-9D295D942597}</Project>
-      <Name>org.model.lib.db</Name>
+    <ProjectReference Include="..\org.codegen.lib.db\org.codegen.model.lib.db.vbproj">
+      <Project>{c744d17d-3132-4365-8c44-9d295d942597}</Project>
+      <Name>org.codegen.model.lib.db</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\org.codegen.lib\org.codegen.model.lib.vbproj">
+      <Project>{bf9890a4-769a-406d-9ad0-0d9f5a7376a0}</Project>
+      <Name>org.codegen.model.lib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />

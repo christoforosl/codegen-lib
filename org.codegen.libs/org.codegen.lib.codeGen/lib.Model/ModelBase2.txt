@@ -199,8 +199,8 @@ Namespace <NAMESPACE>
     Public Class <MODEL_CLASS_NAME>RequiredFieldsValidator
         Implements IModelObjectValidator
 
-        Public Sub validate(ByVal imo As org.model.lib.Model.IModelObject) _
-                    Implements org.model.lib.IModelObjectValidator.validate
+        Public Sub validate(ByVal imo As org.codegen.model.lib.Model.IModelObject) _
+                    Implements org.codegen.model.lib.IModelObjectValidator.validate
 
             Dim mo As <MODEL_CLASS_NAME> = CType(imo, <MODEL_CLASS_NAME>)
 			<REQ_FIELDS_VALIDATOR>

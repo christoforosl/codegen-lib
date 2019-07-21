@@ -64,9 +64,9 @@ Namespace My
     Friend Module MySettingsProperty
         
         <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")>  _
-        Friend ReadOnly Property Settings() As Global.org.model.[lib].db.mysql.My.MySettings
+        Friend ReadOnly Property Settings() As Global.org.codegen.model.[lib].db.mysql.My.MySettings
             Get
-                Return Global.org.model.[lib].db.mysql.My.MySettings.Default
+                Return Global.org.codegen.model.[lib].db.mysql.My.MySettings.Default
             End Get
         End Property
     End Module

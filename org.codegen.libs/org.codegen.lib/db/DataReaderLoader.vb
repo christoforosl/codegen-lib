@@ -1,9 +1,10 @@
 
+
+Imports org.codegen.model.lib.Model
 ''' <summary>
 ''' Loads a model object from a System.Data.IDataReader
 ''' </summary>
 ''' <remarks></remarks>
-
 Public MustInherit Class DataReaderLoader : Implements IModelObjectLoader
 
     Protected reader As IDataReader

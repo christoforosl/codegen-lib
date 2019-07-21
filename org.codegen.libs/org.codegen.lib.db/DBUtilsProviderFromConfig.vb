@@ -1,6 +1,6 @@
-Imports org.model.lib.db.DBUtils
-Imports org.codegen.common.Encryption
 
+Imports org.codegen.common.Encryption
+Imports org.codegen.model.lib.db.DBUtils
 
 ''' <summary>
 ''' Returns a DBUtils instance from the connection string stored in the configuration file.
@@ -19,8 +19,8 @@ Public Class DBUtilsProviderFromConfig
     Public Function getDBUtils() As DBUtils Implements IDBUtilsProvider.getDBUtils
 
         Dim ret As DBUtils
-        Dim dbConfigSect As DBConfig = _
-                    TryCast(System.Configuration.ConfigurationManager.GetSection("DBConfig"),  _
+        Dim dbConfigSect As DBConfig =
+                    TryCast(System.Configuration.ConfigurationManager.GetSection("DBConfig"),
                     DBConfig)
 
         If dbConfigSect IsNot Nothing Then

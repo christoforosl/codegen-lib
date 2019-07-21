@@ -1,4 +1,5 @@
-Imports org.model.lib.db.DBUtils
+Imports org.codegen.model.lib.db.DBUtils
+
 
 ''' <summary>
 ''' Returns a DBUtils instance from the connection string stored in the registry.
@@ -10,8 +11,8 @@ Public Class DBUtilsProviderFromRegistry
 
     Public Function getDBUtils() As DBUtils Implements IDBUtilsProvider.getDBUtils
 
-        Dim dbConfigSect As DBConfigRegistry = _
-                   TryCast(System.Configuration.ConfigurationManager.GetSection("DBConfigRegistry"),  _
+        Dim dbConfigSect As DBConfigRegistry =
+                   TryCast(System.Configuration.ConfigurationManager.GetSection("DBConfigRegistry"),
                    DBConfigRegistry)
 
         Dim connString As String = GetSetting(dbConfigSect.dbRegAppname, dbConfigSect.dbRegSection, _

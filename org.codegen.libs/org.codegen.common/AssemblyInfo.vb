@@ -8,15 +8,15 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyProduct("org.codegen.common.3.0")> 
-<Assembly: AssemblyTitle("org.codegen.common.3.0")> 
+<Assembly: AssemblyProduct("org.codegen.common.3.1")>
+<Assembly: AssemblyTitle("org.codegen.common.3.1")>
 <Assembly: AssemblyDescription("Common utilities library")> 
 <Assembly: AssemblyCompany("CodeGen.org")> 
 <Assembly: AssemblyCopyright("Copyright © CodeGen.org 2011")> 
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)> 
-<Assembly: CLSCompliant(False)> 
+<Assembly: CLSCompliant(False)>
 
 ' Version information for an assembly consists of the following four values:
 '
@@ -28,4 +28,4 @@ Imports System.Runtime.InteropServices
 ' You can specify all the values or you can default the Build and Revision Numbers 
 ' by using the '*' as shown below:
 
-<Assembly: AssemblyVersion("3.0.1")> 
+<Assembly: AssemblyVersion("3.1")>

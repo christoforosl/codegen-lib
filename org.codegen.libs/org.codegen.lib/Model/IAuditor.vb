@@ -1,4 +1,6 @@
-﻿Public Interface IAuditor
+﻿Imports org.codegen.model.lib.Model
+
+Public Interface IAuditor
 
     Sub setAuditFields(mo As IModelObject)
 

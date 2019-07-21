@@ -440,15 +440,15 @@ End If
     Public Class EmployeeInfoRequiredFieldsValidator
         Implements IModelObjectValidator
 
-        Public Sub validate(ByVal imo As org.model.lib.Model.IModelObject) _
-                    Implements org.model.lib.IModelObjectValidator.validate
+        Public Sub validate(ByVal imo As IModelObject) _
+                    Implements IModelObjectValidator.validate
 
             Dim mo As EmployeeInfo = CType(imo, EmployeeInfo)
-			if mo.EIEmployeeId is Nothing then
-		Throw new ModelObjectRequiredFieldException("EIEmployeeId")
-End if 
+            If mo.EIEmployeeId Is Nothing Then
+                Throw New ModelObjectRequiredFieldException("EIEmployeeId")
+            End If
 
-			
+
         End Sub
 
     End Class
