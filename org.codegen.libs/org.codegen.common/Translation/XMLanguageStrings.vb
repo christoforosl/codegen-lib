@@ -2,6 +2,7 @@ Imports System.Globalization
 Imports System.Security.Permissions
 Imports System.Threading
 Imports System.Collections.Generic
+Imports System.IO
 
 Namespace TranslationServices
     ''' <summary>
@@ -67,8 +68,11 @@ Namespace TranslationServices
 
         Public WriteOnly Property ResourceName() As String
             Set(ByVal value As String)
+                Using strm As Stream = CommonUtils.getResourceStream(value, GetType(XMLanguageStrings).Assembly)
+                    Validate.isNotNull(strm, "cant find/open stream from resource:""" & value & """, probably stream not found")
+                    Me.setXMLDataView(strm)
+                End Using
 
-                Me.setXMLDataView(CommonUtils.getResourceStream(value))
 
             End Set
         End Property

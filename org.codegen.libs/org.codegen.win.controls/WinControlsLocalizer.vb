@@ -1,9 +1,16 @@
 
+Imports System.IO
+
 Public Class WinControlsLocalizer
+    ' Fields
+    Public Shared clang As TranslationServices.XMLanguageStrings = New TranslationServices.XMLanguageStrings()
 
     ' Methods
     Shared Sub New()
-        WinControlsLocalizer.clang.ResourceName = "org.codegen.win.controls.langStrings2.xml"
+        Using strm As Stream = CommonUtils.getResourceStream("org.codegen.win.controls.langStrings2.xml", GetType(WinControlsLocalizer).Assembly)
+            WinControlsLocalizer.clang.XMLStream = strm
+        End Using
+
     End Sub
 
     Public Shared Function getString(ByVal skey As String) As String
@@ -22,7 +29,6 @@ Public Class WinControlsLocalizer
 
     End Function
 
-    ' Fields
-    Public Shared clang As TranslationServices.XMLanguageStrings = New TranslationServices.XMLanguageStrings()
+
 
 End Class

@@ -1,6 +1,6 @@
 
 Imports System.Reflection
-Imports System.io
+Imports System.IO
 Imports System.Text
 Imports System.Threading
 Imports System.Security.Principal
@@ -23,6 +23,7 @@ Public Class StringUtils
     End Function
 
 End Class
+
 Public Class CommonUtils
 
     Public Shared Function getAssemblyVersion(ByVal iAssemly As [Assembly]) As String
@@ -71,7 +72,7 @@ Public Class CommonUtils
     ''' <param name="assemblyName">Assembly Name</param>
     ''' <returns></returns>
     ''' <remarks>The file must be marked as "Embedded Resource"</remarks>
-    Public Shared Function getResourceStream(ByVal resname As String, ByVal assemblyName As String) As Stream
+    Private Shared Function getResourceStream(ByVal resname As String, ByVal assemblyName As String) As Stream
 
         Dim loadAsembly As [Assembly] = Nothing
         Dim i As Integer
@@ -118,15 +119,23 @@ Public Class CommonUtils
         Dim i As Integer
 
         For i = 0 To Thread.GetDomain.GetAssemblies.Length - 1
-            'Debug.WriteLine(Thread.GetDomain.GetAssemblies(i).FullName)
+
             If resname.ToUpper.StartsWith(Thread.GetDomain.GetAssemblies(i).GetName.Name.ToUpper) Then
                 loadAsembly = Thread.GetDomain.GetAssemblies(i)
                 Exit For
             End If
+
         Next
+
         If loadAsembly Is Nothing Then
             Throw New ApplicationException("Could not load resource file " & resname)
         End If
+
+        Return getResourceStream(resname, loadAsembly)
+
+    End Function
+
+    Public Shared Function getResourceStream(ByVal resname As String, loadAsembly As [Assembly]) As Stream
 
         Return loadAsembly.GetManifestResourceStream(resname)
 
@@ -178,7 +187,9 @@ Public Class CommonUtils
                 tline = ds.ReadLine()
                 templ &= tline & vbCrLf
             Loop Until tline Is Nothing
+
             Return templ
+
         Finally
             d.Close()
             ds.Close()
@@ -195,8 +206,8 @@ Public Class CommonUtils
     ''' <remarks></remarks>
     Public Shared Function GetWindowsIdentityRoles(ByVal identity As WindowsIdentity) As String()
 
-        Dim result As Object = GetType(WindowsIdentity).InvokeMember("_GetRoles", _
-          BindingFlags.Static Or BindingFlags.InvokeMethod Or BindingFlags.NonPublic, _
+        Dim result As Object = GetType(WindowsIdentity).InvokeMember("_GetRoles",
+          BindingFlags.Static Or BindingFlags.InvokeMethod Or BindingFlags.NonPublic,
           Nothing, identity, New Object() {identity.Token}, Nothing)
 
         Return CType(result, String())
@@ -244,7 +255,7 @@ Public Class CommonUtils
     ''' <param name="sFilePath"></param>
     ''' <param name="sFileContents"></param>
     ''' <remarks></remarks>
-    Public Shared Sub TextToFile(ByVal sFilePath As String, _
+    Public Shared Sub TextToFile(ByVal sFilePath As String,
                                         ByVal sFileContents As String, enc As Encoding)
 
         ' Create an instance of StreamReader to read from a file.
@@ -255,7 +266,7 @@ Public Class CommonUtils
 
     End Sub
 
-    Public Shared Sub TextToFile(ByVal sFilePath As String, _
+    Public Shared Sub TextToFile(ByVal sFilePath As String,
                                         ByVal sFileContents As String)
 
         ' Create an instance of StreamReader to read from a file.
