@@ -17,7 +17,7 @@
     </ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>org.codegen.common.3.0</AssemblyName>
+    <AssemblyName>org.codegen.common.3.1</AssemblyName>
     <AssemblyOriginatorKeyFile>codeGen.snk</AssemblyOriginatorKeyFile>
     <AssemblyOriginatorKeyMode>None</AssemblyOriginatorKeyMode>
     <DefaultClientScript>JScript</DefaultClientScript>
@@ -55,8 +55,8 @@
     <SccAuxPath />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>..\..\codeGenLibs\</OutputPath>
-    <DocumentationFile>org.codegen.common.3.0.xml</DocumentationFile>
+    <OutputPath>bin\debug\</OutputPath>
+    <DocumentationFile>org.codegen.common.3.1.xml</DocumentationFile>
     <BaseAddress>285212672</BaseAddress>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
@@ -76,8 +76,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>..\..\codeGen\</OutputPath>
-    <DocumentationFile>org.codegen.common.3.0.xml</DocumentationFile>
+    <OutputPath>bin\release\</OutputPath>
+    <DocumentationFile>org.codegen.common.3.1.xml</DocumentationFile>
     <BaseAddress>285212672</BaseAddress>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>

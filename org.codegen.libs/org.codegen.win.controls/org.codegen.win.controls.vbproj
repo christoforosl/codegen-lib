@@ -45,7 +45,7 @@
     </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>..\..\codeGenLibs\</OutputPath>
+    <OutputPath>bin\debug\</OutputPath>
     <DocumentationFile>org.codegen.win.controls.xml</DocumentationFile>
     <BaseAddress>285212672</BaseAddress>
     <ConfigurationOverrideFile>
@@ -435,10 +435,6 @@
     <ProjectReference Include="..\org.codegen.lib.db\org.codegen.model.lib.db.vbproj">
       <Project>{c744d17d-3132-4365-8c44-9d295d942597}</Project>
       <Name>org.codegen.model.lib.db</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\org.codegen.lib\org.codegen.model.lib.vbproj">
-      <Project>{bf9890a4-769a-406d-9ad0-0d9f5a7376a0}</Project>
-      <Name>org.codegen.model.lib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
