@@ -1,17 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
-        <id>org.codegen.model.lib</id>
-        <version>3.2</version>
-        <title>Model Utilities</title>
+        <id>org.codegen.lib.db.mssql</id>
+        <version>1.0</version>
+        <title>mssql dbutils</title>
         <authors>CHRIS LAMBROU</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>Model Libraries</description>
+        <description>DB Utils implemntation for mssql</description>
         <dependencies>
             <group targetFramework=".NETFramework4.0">
-                <dependency id="MySql.Data" version="6.9.12" />
+                <dependency id="mssql.Data" version="6.9.12" />
 				<dependency id="org.codegen.common" version="3.1" />
 				<dependency id="org.codegen.model.lib.db" version="3.3" />
+				
             </group>
         </dependencies>
         <frameworkAssemblies>
@@ -19,6 +20,6 @@
         </frameworkAssemblies>
     </metadata>
     <files>
-        <file src="org.codegen.libs\org.codegen.model.lib\bin\Release\org.codegen.model.lib.dll" target="lib\net40\org.codegen.model.lib.dll" />
+        <file src="org.codegen.libs\org.codegen.lib.db.mssql\bin\Release\org.codegen.model.lib.db.mssql.dll" target="lib\net40\org.codegen.model.lib.db.mssql.dll" />
       </files>
 </package>

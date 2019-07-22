@@ -20,6 +20,6 @@
         </frameworkAssemblies>
     </metadata>
     <files>
-        <file src="org.codegen.libs\org.codegen.lib.db.mysql\bin\Release\org.model.lib.db.mysql.1.0.dll" target="lib\net40\org.model.lib.db.mysql.1.0.dll" />
+        <file src="org.codegen.libs\org.codegen.lib.db.mysql\bin\Release\org.codegen.model.lib.db.mysql.dll" target="lib\net40\org.codegen.model.lib.db.mysql.dll" />
       </files>
 </package>

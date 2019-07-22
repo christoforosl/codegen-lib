@@ -27,7 +27,7 @@ Public Class DBUtilsProviderFromConfig
             Select Case CType(dbConfigSect.sqlConnectionType, enumConnType)
 
                 Case enumConnType.CONN_MSSQL
-                    ret = New MSSQLUtils()
+                    ret = CType(Activator.CreateInstance("org.codegen.model.lib.db.mssql", "org.codegen.model.lib.db.mssql.MSSQLUtils").Unwrap, DBUtils)
                     ret.sqldialect = enumSqlDialect.MSSQL
 
                 Case enumConnType.CONN_OLEDB

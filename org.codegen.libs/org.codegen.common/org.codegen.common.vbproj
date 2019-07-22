@@ -17,7 +17,7 @@
     </ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>org.codegen.common.3.1</AssemblyName>
+    <AssemblyName>org.codegen.common</AssemblyName>
     <AssemblyOriginatorKeyFile>codeGen.snk</AssemblyOriginatorKeyFile>
     <AssemblyOriginatorKeyMode>None</AssemblyOriginatorKeyMode>
     <DefaultClientScript>JScript</DefaultClientScript>

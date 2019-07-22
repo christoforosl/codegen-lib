@@ -20,8 +20,8 @@
         </frameworkAssemblies>
     </metadata>
     <files>
-        <file src="org.codegen.libs\org.codegen.win.controls\bin\Release\org.codegen.win.controls.3.2.dll" target="lib\net40\org.codegen.win.controls.3.2.dll" />
-		<file src="org.codegen.libs\org.codegen.win.controls\bin\Release\org.codegen.win.controls.3.2.pdb" target="lib\net40\org.codegen.win.controls.3.2.pdb" />
+        <file src="org.codegen.libs\org.codegen.win.controls\bin\Release\org.codegen.win.controls.dll" target="lib\net40\org.codegen.win.controls.dll" />
+		<file src="org.codegen.libs\org.codegen.win.controls\bin\Release\org.codegen.win.controls.pdb" target="lib\net40\org.codegen.win.controls.pdb" />
 		
       </files>
 </package>

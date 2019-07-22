@@ -19,6 +19,6 @@
         </frameworkAssemblies>
     </metadata>
     <files>
-        <file src="org.codegen.libs\org.codegen.lib.db\bin\Release\org.codegen.model.lib.db.3.3.dll" target="lib\net40\org.codegen.model.lib.db.3.3.dll" />
+        <file src="org.codegen.libs\org.codegen.lib.db\bin\Release\org.codegen.model.lib.db.dll" target="lib\net40\org.codegen.model.lib.db.dll" />
       </files>
 </package>

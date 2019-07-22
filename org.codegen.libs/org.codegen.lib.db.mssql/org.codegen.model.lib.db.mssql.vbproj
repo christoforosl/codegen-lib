@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{753F43F2-B572-49FC-B03D-AA5832F2DBD9}</ProjectGuid>
+    <ProjectGuid>{CFEDA734-2CCA-4FF2-9D30-2EDE64FD8FBD}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>org.codegen.model.lib.db.mysql</RootNamespace>
-    <AssemblyName>org.codegen.model.lib.db.mysql</AssemblyName>
+    <RootNamespace>org.codegen.model.lib.db.mssql</RootNamespace>
+    <AssemblyName>org.codegen.model.lib.db.mssql</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -19,7 +19,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\debug\</OutputPath>
-    <DocumentationFile>org.codegen.model.lib.db.mysql.xml</DocumentationFile>
+    <DocumentationFile>org.codegen.model.lib.db.mssql.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -28,7 +28,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>org.codegen.model.lib.db.mysql.xml</DocumentationFile>
+    <DocumentationFile>org.codegen.model.lib.db.mssql.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -65,7 +65,7 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MySQLUtils.vb" />
+    <Compile Include="MSSQLUtils.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -101,7 +101,6 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\org.codegen.lib.db\org.codegen.model.lib.db.vbproj">

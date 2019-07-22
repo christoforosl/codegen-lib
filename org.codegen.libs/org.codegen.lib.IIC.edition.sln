@@ -24,6 +24,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "org.codegen.model.lib.db.my
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "org.codegen.model.lib", "org.codegen.model.lib\org.codegen.model.lib.vbproj", "{BF9890A4-769A-406D-9AD0-0D9F5A7376A0}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "org.codegen.model.lib.db.mssql", "org.codegen.lib.db.mssql\org.codegen.model.lib.db.mssql.vbproj", "{CFEDA734-2CCA-4FF2-9D30-2EDE64FD8FBD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -149,6 +151,18 @@ Global
 		{BF9890A4-769A-406D-9AD0-0D9F5A7376A0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{BF9890A4-769A-406D-9AD0-0D9F5A7376A0}.Release|x86.ActiveCfg = Release|Any CPU
 		{BF9890A4-769A-406D-9AD0-0D9F5A7376A0}.Release|x86.Build.0 = Release|Any CPU
+		{CFEDA734-2CCA-4FF2-9D30-2EDE64FD8FBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFEDA734-2CCA-4FF2-9D30-2EDE64FD8FBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFEDA734-2CCA-4FF2-9D30-2EDE64FD8FBD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{CFEDA734-2CCA-4FF2-9D30-2EDE64FD8FBD}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{CFEDA734-2CCA-4FF2-9D30-2EDE64FD8FBD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CFEDA734-2CCA-4FF2-9D30-2EDE64FD8FBD}.Debug|x86.Build.0 = Debug|Any CPU
+		{CFEDA734-2CCA-4FF2-9D30-2EDE64FD8FBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFEDA734-2CCA-4FF2-9D30-2EDE64FD8FBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFEDA734-2CCA-4FF2-9D30-2EDE64FD8FBD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{CFEDA734-2CCA-4FF2-9D30-2EDE64FD8FBD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{CFEDA734-2CCA-4FF2-9D30-2EDE64FD8FBD}.Release|x86.ActiveCfg = Release|Any CPU
+		{CFEDA734-2CCA-4FF2-9D30-2EDE64FD8FBD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

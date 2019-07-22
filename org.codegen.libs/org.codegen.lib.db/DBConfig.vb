@@ -259,5 +259,20 @@ Public Class DBConfigRegistry
         End Set
     End Property
 
+    ''' <summary></summary>
+    ''' <value></value>
+    ''' <remarks></remarks>
+    <ConfigurationProperty("dbUtilsImplemention",
+                           DefaultValue:="",
+                           IsRequired:=False)>
+    Public Property dbUtilsImplemention() As String
+        Get
+            Return CStr(Me("dbUtilsImplemention"))
+        End Get
+        Set(ByVal value As String)
+            Me("dbUtilsImplemention") = value
+        End Set
+    End Property
+
 
 End Class

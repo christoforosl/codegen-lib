@@ -8,7 +8,7 @@
     <ProjectGuid>{C744D17D-3132-4365-8C44-9D295D942597}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>org.codegen.model.lib.db</RootNamespace>
-    <AssemblyName>org.codegen.model.lib.db.3.3</AssemblyName>
+    <AssemblyName>org.codegen.model.lib.db</AssemblyName>
     <MyType>Windows</MyType>
     <OptionStrict>On</OptionStrict>
     <FileUpgradeFlags>
@@ -40,7 +40,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\debug\</OutputPath>
-    <DocumentationFile>org.codegen.model.lib.db.3.3.xml</DocumentationFile>
+    <DocumentationFile>org.codegen.model.lib.db.xml</DocumentationFile>
     <NoWarn>42030,42104,42108,42109,42353,42354,42355</NoWarn>
     <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42024,42032,42036</WarningsAsErrors>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -51,7 +51,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\release\</OutputPath>
-    <DocumentationFile>org.codegen.model.lib.db.3.3.xml</DocumentationFile>
+    <DocumentationFile>org.codegen.model.lib.db.xml</DocumentationFile>
     <NoWarn>42030,42104,42108,42109,42353,42354,42355</NoWarn>
     <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42024,42032,42036</WarningsAsErrors>
     <DebugSymbols>true</DebugSymbols>
@@ -87,7 +87,6 @@
     <Compile Include="OLEDBUtils.vb" />
     <Compile Include="DBConfig.vb" />
     <Compile Include="DBUtils.vb" />
-    <Compile Include="MSSQLUtils.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

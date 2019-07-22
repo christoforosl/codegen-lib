@@ -6,27 +6,21 @@ set NUGETEXE="C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\Ex
 set OUTPUTDIR=%USERPROFILE%\VSProjects\Nuget.Local
 set SOLUTIONDIR=%USERPROFILE%\VSProjects\IIC\packages
 
-echo "delete and build org.codegen.common.3.1"
-rd /s /q %SOLUTIONDIR%\org.codegen.common.3.1
-del %OUTPUTDIR%\org.codegen.common.3.1.nupkg
-%NUGETEXE% pack org.codegen.common.3.1.nuspec -OutputDirectory %OUTPUTDIR%
+CALL :dopackahe org.codegen.common.3.1
+CALL :dopackahe org.codegen.model.lib.3.2
+CALL :dopackahe org.codegen.model.lib.db.3.3
+CALL :dopackahe org.codegen.model.lib.db.mssql.1.0
+CALL :dopackahe org.codegen.model.lib.db.mysql.1.0
+CALL :dopackahe org.codegen.win.controls.3.2
 
-echo "--------"
+EXIT /B %ERRORLEVEL% 
 
-rd /s /q %SOLUTIONDIR%\org.codegen.model.lib.3.2
-rd /s /q %SOLUTIONDIR%\org.codegen.model.lib.db.3.3
-rd /s /q %SOLUTIONDIR%\org.codegen.lib.db.mysql.1.0
-rd /s /q %SOLUTIONDIR%\org.codegen.win.controls.3.2
-
-
-del %OUTPUTDIR%\org.codegen.model.lib.3.2.nupkg
-del %OUTPUTDIR%\org.codegen.model.lib.db.3.3.nupkg
-del %OUTPUTDIR%\org.codegen.lib.db.mysql.1.0.nupkg
-del %OUTPUTDIR%\org.codegen.win.controls.3.2.nupkg
-
-
-%NUGETEXE% pack org.codegen.model.lib.3.2.nuspec -OutputDirectory %OUTPUTDIR%
-%NUGETEXE% pack org.codegen.model.lib.db.3.3.nuspec -OutputDirectory %OUTPUTDIR%
-%NUGETEXE% pack org.codegen.win.controls.3.2.nuspec -OutputDirectory %OUTPUTDIR%
-%NUGETEXE% pack org.codegen.model.lib.db.mysql.1.0.nuspec -OutputDirectory %OUTPUTDIR%
-
+:dopackahe
+echo "------start %~1 --"
+rd /s /q %SOLUTIONDIR%\%~1
+del %OUTPUTDIR%\%~1.nupkg
+%NUGETEXE% pack %~1.nuspec -OutputDirectory %OUTPUTDIR%
+echo "------end %~1 --"
+rem ECHO The square of %~1 is %~2
+rem PAUSE
+EXIT /B 0

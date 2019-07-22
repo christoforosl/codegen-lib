@@ -67,9 +67,9 @@ Public MustInherit Class DBUtils
     ''' <param name="logFile"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Shared Function getFromConnString(ByVal connString As String, _
-                                             ByVal sqlConnType As enumConnType, _
-                                             ByVal iDialect As enumSqlDialect, _
+    Public Shared Function getFromConnString(ByVal connString As String,
+                                             ByVal sqlConnType As enumConnType,
+                                             ByVal iDialect As enumSqlDialect,
                                              Optional ByVal logFile As String = "") As DBUtils
 
         Dim ret As DBUtils
@@ -77,7 +77,7 @@ Public MustInherit Class DBUtils
         Select Case sqlConnType
 
             Case enumConnType.CONN_MSSQL
-                ret = New MSSQLUtils()
+                ret = CType(Activator.CreateInstance("org.codegen.model.lib.db.mssql", "org.codegen.model.lib.db.mssql.MSSQLUtils").Unwrap, DBUtils)
                 ret.sqldialect = enumSqlDialect.MSSQL
 
             Case enumConnType.CONN_OLEDB

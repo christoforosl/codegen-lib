@@ -1,7 +1,18 @@
 {
   "ExpandedNodes": [
     "",
-    "\\org.codegen.libs"
+    "\\org.codegen.libs",
+    "\\org.codegen.libs\\org.codegen.codeGen.Win",
+    "\\org.codegen.libs\\org.codegen.codeGen.Win\\My Project",
+    "\\org.codegen.libs\\org.codegen.lib.codeGen",
+    "\\org.codegen.libs\\org.codegen.lib.codeGen\\codeGen",
+    "\\org.codegen.libs\\org.codegen.lib.db",
+    "\\org.codegen.libs\\org.codegen.lib.db.mssql",
+    "\\org.codegen.libs\\org.codegen.lib.db.mysql",
+    "\\org.codegen.libs\\org.codegen.lib.db\\My Project",
+    "\\org.codegen.libs\\org.codegen.model.lib",
+    "\\org.codegen.libs\\org.codegen.model.lib\\My Project"
   ],
+  "SelectedNode": "\\org.codegen.libs\\org.codegen.model.lib\\My Project\\AssemblyInfo.vb",
   "PreviewInSolutionExplorer": false
 }
