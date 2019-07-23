@@ -9,7 +9,7 @@
         <description>DB Utils implemntation for mssql</description>
         <dependencies>
             <group targetFramework=".NETFramework4.0">
-                <dependency id="mssql.Data" version="6.9.12" />
+                
 				<dependency id="org.codegen.common" version="3.1" />
 				<dependency id="org.codegen.model.lib.db" version="3.3" />
 				

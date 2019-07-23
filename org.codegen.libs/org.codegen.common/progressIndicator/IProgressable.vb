@@ -13,6 +13,13 @@ Namespace ProgressIndicator
         Property wasCancelled As Boolean
 
         ''' <summary>
+        ''' Gets set in case of an error!
+        ''' </summary>
+        ''' <returns></returns>
+        Property errorMesage As String
+
+
+        ''' <summary>
         ''' raised when process to be tracked by progress indicator has been started
         ''' </summary>
         ''' <param name="sender">Object of type IProgressable</param>

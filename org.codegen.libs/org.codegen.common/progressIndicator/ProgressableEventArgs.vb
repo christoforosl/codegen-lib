@@ -1,6 +1,18 @@
 ﻿
 Namespace ProgressIndicator
+    Public Class ErrorProgressableEventArgs
+        Inherits ProgressableEventArgs
 
+        Sub New(ByVal current As Long, ByVal totalSteps As Long, ByVal errorMessage As String)
+
+            Me.currentStep = CInt(current * 100 / totalSteps) 'express it as a percentage
+            Me.totalSteps = totalSteps
+            Me.progressMessage = errorMessage & String.Format(" at step: {0} of {1}", current, totalSteps)
+            Me.inError = True
+
+        End Sub
+
+    End Class
     Public Class ProgressableEventArgs
         Inherits System.EventArgs
 
@@ -83,6 +95,8 @@ Namespace ProgressIndicator
         ''' The progress message to show to the user
         ''' </summary>
         Public Property progressMessage As String
+
+        Public Property inError As Boolean
 
     End Class
 

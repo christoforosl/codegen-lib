@@ -61,6 +61,9 @@ Namespace BackroundProgressIndicator
         End Sub
 
         Private Sub processFinished(sender As Object, e As ProgressableEventArgs)
+            If e.inError Then
+                Call winUtils.MsgboxInfo(e.progressMessage)
+            End If
             Me.frmProgress.Close()
         End Sub
 
