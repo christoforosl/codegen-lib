@@ -233,7 +233,7 @@
     <Compile Include="InputControls\CGIntTextBox.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="progressIndicator\ProgressIndicatorClasses.vb" />
+    <Compile Include="progressIndicator\ProgressIndicator.vb" />
     <Compile Include="WinEventLogger.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>

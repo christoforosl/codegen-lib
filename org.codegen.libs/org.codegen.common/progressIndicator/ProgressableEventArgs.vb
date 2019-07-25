@@ -3,11 +3,18 @@ Namespace ProgressIndicator
     Public Class ErrorProgressableEventArgs
         Inherits ProgressableEventArgs
 
-        Sub New(ByVal current As Long, ByVal totalSteps As Long, ByVal errorMessage As String)
+        Sub New(ByVal ex As Exception)
+            Me.progressMessage = String.Format("Error Occyred: {0}",
+                                               ex.Message & vbCrLf & ex.StackTrace)
+            Me.inError = True
+
+        End Sub
+        Sub New(ByVal current As Long, ByVal totalSteps As Long, ByVal ex As Exception)
 
             Me.currentStep = CInt(current * 100 / totalSteps) 'express it as a percentage
             Me.totalSteps = totalSteps
-            Me.progressMessage = errorMessage & String.Format(" at step: {0} of {1}", current, totalSteps)
+            Me.progressMessage = String.Format("Error at step: {0} of {1}: {2}",
+                                               current, totalSteps, ex.Message & vbCrLf & ex.StackTrace)
             Me.inError = True
 
         End Sub
@@ -31,6 +38,9 @@ Namespace ProgressIndicator
 
         End Sub
 
+        Sub New( ByVal message As String)
+        
+        End Sub
 
         ''' <summary>
         ''' Constructor to be used during running of process, 
