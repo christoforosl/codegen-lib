@@ -177,9 +177,7 @@
     <Compile Include="CGLGrid\DataGridViewAutoFilterComboColumnHeaderCell.vb" />
     <Compile Include="CGLGrid\DataGridViewCalendarColumn.vb" />
     <Compile Include="CGLGrid\DataGridViewAutoFilterTextBoxColumn.vb" />
-    <Compile Include="CGLGrid\DataGridViewAutoFilterColumnHeaderCell.vb">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="CGLGrid\DataGridViewAutoFilterColumnHeaderCell.vb" />
     <Compile Include="CGLGrid\persistors\ICGBaseGridRowPersistor.vb" />
     <Compile Include="CGLGrid\persistors\DataGridViewRowLoader.vb" />
     <Compile Include="CGLGrid\export\ExcelGridExporter.vb" />
