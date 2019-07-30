@@ -160,9 +160,7 @@
     <Compile Include="BaseForms\frmBaseEdit.Designer.vb">
       <DependentUpon>frmBaseEdit.vb</DependentUpon>
     </Compile>
-    <Compile Include="BaseForms\frmBaseEdit.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="BaseForms\frmBaseEdit.vb" />
     <Compile Include="BaseForms\IMoveNextPrevious.vb" />
     <Compile Include="BaseForms\IUcEditControl.vb" />
     <Compile Include="BaseForms\UcBaseEditControl.Designer.vb">
@@ -192,9 +190,7 @@
     <Compile Include="CGLGrid\DataGridViewAutoFilterComboColumnHeaderCell.vb" />
     <Compile Include="CGLGrid\DataGridViewCalendarColumn.vb" />
     <Compile Include="CGLGrid\DataGridViewAutoFilterTextBoxColumn.vb" />
-    <Compile Include="CGLGrid\DataGridViewAutoFilterColumnHeaderCell.vb">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="CGLGrid\DataGridViewAutoFilterColumnHeaderCell.vb" />
     <Compile Include="CGLGrid\persistors\ICGBaseGridRowPersistor.vb" />
     <Compile Include="CGLGrid\persistors\DataGridViewRowLoader.vb" />
     <Compile Include="CGLGrid\export\ExcelGridExporter.vb" />

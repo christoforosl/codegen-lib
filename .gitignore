@@ -31,3 +31,4 @@ org.codegen.libs/packages/Bud.NUnit.ConsoleRunner.0.0.1/lib/net40/nunit.core.int
 *.sqlite
 *.ide
 *.sqlite-journal
+org.codegen.libs/.vs/

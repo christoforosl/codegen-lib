@@ -75,5 +75,9 @@ Public Class ucEditToolar
         Me.tlStripEdit.Items.Add(stripItem)
         Me.sepCustomItems.Visible = True
     End Sub
-    
+
+    Public Sub setSaveText(text As String)
+        Me.cmdSave.Text = text
+    End Sub
+
 End Class
