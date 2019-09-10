@@ -2,12 +2,13 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>CodeGen.WinControls.Library</id>
-        <version>3.0.2.2</version>
+        <version>3.0.2.39</version>
         <title>CodeGen WinControls Library</title>
         <authors>christoforosl</authors>
         <projectUrl>https://github.com/christoforosl/codegen-lib</projectUrl>
+		<license type="expression">Apache-2.0</license>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <developmentDependency>true</developmentDependency>
+        
         <description>See GitHub wiki for more information: 
 https://github.com/christoforosl/codegen-lib/wiki</description>
         <summary>Windows controls library based on CodeGen Lib ORM</summary>
@@ -25,6 +26,6 @@ https://github.com/christoforosl/codegen-lib/wiki</description>
     </metadata>
     <files>
         <file src="..\release\org.codegen.win.controls.4.0.dll" target="lib\net40\org.codegen.win.controls.4.0.dll" />
-        <file src="tools\_._" target="tools\_._" />
+       
     </files>
 </package>
