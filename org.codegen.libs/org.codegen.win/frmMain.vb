@@ -135,7 +135,7 @@ Public Class frmMain
         writer = New TextBoxWriter(TextBox1)
         Console.SetOut(writer)
         Me.Text = String.Format("{0} V:{1}", Me.Text, System.Reflection.Assembly.GetExecutingAssembly.GetName.Version.ToString)
-        Console.WriteLine("Latest generator is always at: http://www.netugroup.com/wp-content/themes/netu/Devs/CodeGeneratorReleases/publish.htm")
+        Console.WriteLine("Latest generator is always at: https://devresources.netu.com.cy/misc/CodeGeneratorReleases/publish.htm")
 
         For i As Integer = 0 To 20
             Dim regXmlConfFile As String = GetSetting(STR_REG_SECTION, STR_REG_SECTION, "Path" & i, String.Empty)

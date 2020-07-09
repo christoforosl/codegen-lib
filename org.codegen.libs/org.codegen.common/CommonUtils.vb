@@ -1,12 +1,12 @@
 
 Imports System.Reflection
-Imports System.io
+Imports System.IO
 Imports System.Text
 Imports System.Threading
 Imports System.Security.Principal
 Imports System.Globalization
 Imports System.Configuration
-
+Imports System.Collections.Generic
 
 Public Class StringUtils
 
@@ -105,7 +105,7 @@ Public Class CommonUtils
 
     End Function
 
-   
+
     ''' <summary>
     '''  Returns a resource in an assembly as a String
     ''' </summary>
@@ -279,6 +279,27 @@ Public Class CommonUtils
             End If
             d.Rows.Add(r)
         Next
+        Return d
+
+    End Function
+
+    Public Shared Function DataTableFromStringList(ByVal sList As Dictionary(Of String, String)) As DataTable
+
+        Dim d As New DataTable
+        d.Columns.Add(New DataColumn("id", System.Type.GetType("System.String")))
+        d.Columns.Add(New DataColumn("value", System.Type.GetType("System.String")))
+
+        For Each kvp As KeyValuePair(Of String, String) In sList
+            Dim v1 As String = kvp.Key
+            Dim v2 As String = kvp.Value
+
+            Dim r As DataRow = d.NewRow
+            r.Item(0) = v1
+            r.Item(1) = v2
+
+            d.Rows.Add(r)
+        Next
+
         Return d
 
     End Function
