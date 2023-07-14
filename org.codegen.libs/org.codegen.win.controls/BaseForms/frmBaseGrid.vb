@@ -483,7 +483,7 @@ Public Class frmBaseGrid
 
     End Sub
 
-    <Description("Sends grid data to Excel.")> _
+    <Description("Sends grid data to Excel.")>
     Public Sub toExcel()
 
         Dim exp As New ExcelGridExporter()
@@ -502,7 +502,7 @@ Public Class frmBaseGrid
 #End Region
 
 #Region "Methods"
-    <Description("Adds the shortcut menues displayed when a user righ-clicks on the data grid.")> _
+    <Description("Adds the shortcut menues displayed when a user righ-clicks on the data grid.")>
     Private Sub addMenues()
 
         Dim item As ToolStripMenuItem
@@ -569,14 +569,14 @@ Public Class frmBaseGrid
     ''' <param name="witdh">Width of button, default 60</param>
     ''' <param name="img">Image of button</param>
     ''' <remarks></remarks>
-    Public Sub addToolbarActionButton(ByVal text As String, _
-                                       ByVal handler As System.EventHandler, _
+    Public Sub addToolbarActionButton(ByVal text As String,
+                                       ByVal handler As System.EventHandler,
                                        ByVal tbtn As ToolStripButton,
                                        ByVal mn As ToolStripMenuItem,
-                                       Optional ByVal witdh As Integer = 60, _
+                                       Optional ByVal witdh As Integer = 60,
                                        Optional ByVal img As Drawing.Image = Nothing)
 
-        Call frmBase.addStripItem(Me.tlStripList, CType(tbtn, ToolStripItem), _
+        Call frmBase.addStripItem(Me.tlStripList, CType(tbtn, ToolStripItem),
            text, handler, witdh, img)
 
         mn.Text = text
@@ -594,16 +594,16 @@ Public Class frmBaseGrid
     ''' <param name="witdh">Width of button, default 60</param>
     ''' <param name="img">Image of button</param>
     ''' <remarks></remarks>
-    Public Sub addToolbarActionButton(ByVal text As String, _
-                            ByVal handler As System.EventHandler, _
-                            Optional ByVal witdh As Integer = 60, _
-                            Optional ByVal img As Drawing.Image = Nothing, _
+    Public Sub addToolbarActionButton(ByVal text As String,
+                            ByVal handler As System.EventHandler,
+                            Optional ByVal witdh As Integer = 60,
+                            Optional ByVal img As Drawing.Image = Nothing,
                             Optional ByVal hasSeparator As Boolean = False)
 
         If hasSeparator Then
             Call frmBase.addStripItem(Me.tlStripList, New ToolStripSeparator, String.Empty, Nothing)
         End If
-        Call frmBase.addStripItem(Me.tlStripList, New ToolStripButton, _
+        Call frmBase.addStripItem(Me.tlStripList, New ToolStripButton,
            text, handler, witdh, img)
 
         Dim item As New ToolStripMenuItem
@@ -614,8 +614,8 @@ Public Class frmBaseGrid
 
     End Sub
 
-    Public Sub addToReportMenu(ByVal btnText As String, _
-                               ByVal handler As System.EventHandler, _
+    Public Sub addToReportMenu(ByVal btnText As String,
+                               ByVal handler As System.EventHandler,
                                Optional ByVal tag As String = "")
 
         Dim item As ToolStripMenuItem = New ToolStripMenuItem
@@ -640,9 +640,9 @@ Public Class frmBaseGrid
     ''' <param name="withSeparator">Boolean that if true, inserts a separator before the menu item</param>
     ''' <param name="tag">Tag of item</param>
     ''' <remarks></remarks>
-    Public Sub addToGridContextMenu(ByVal btnText As String, _
-                               ByVal handler As System.EventHandler, _
-                               Optional ByVal withSeparator As Boolean = False, _
+    Public Sub addToGridContextMenu(ByVal btnText As String,
+                               ByVal handler As System.EventHandler,
+                               Optional ByVal withSeparator As Boolean = False,
                                Optional ByVal tag As String = "")
 
         Dim item As ToolStripMenuItem = New ToolStripMenuItem
@@ -670,30 +670,27 @@ Public Class frmBaseGrid
     ''' </summary>
     Public Overridable Function LoadEditForm() As frmBaseEdit
 
-        If String.IsNullOrEmpty(Me.grdData.gpEditForm) Then
+        If Me.grdData.gpEditForm Is Nothing Then
             Throw New ApplicationException("Please set the EditForm property.")
         End If
 
-        Dim f As frmBaseEdit = Nothing
         Try
-            Dim seditForm As String = Me.grdData.gpEditForm
-            Dim assname As String = Assembly.GetEntryAssembly.GetName.Name
-            If seditForm.StartsWith(assname & ".") = False Then
-                seditForm = String.Format("{0}.{1}", assname, seditForm)
+
+            ' Create an instance of the type
+            Dim instance As Object = Activator.CreateInstance(Me.grdData.gpEditForm)
+
+            ' You can cast it back to MyClass if necessary
+            Dim myClassInstance As frmBaseEdit = TryCast(instance, frmBaseEdit)
+
+            If myClassInstance Is Nothing Then
+                Throw New ApplicationException("Failed to instantiate edit form. Have you set the EditForm property?")
             End If
-
-            Dim fo As Object = Assembly.GetEntryAssembly.CreateInstance(seditForm, _
-              False, _
-              BindingFlags.CreateInstance, _
-              Nothing, Nothing, Nothing, Nothing)
-
-            f = DirectCast(fo, frmBaseEdit)
+            Return myClassInstance
 
         Catch e As Exception
             Throw New ApplicationException("Failed to instantiate edit form. Have you set the EditForm property?" & e.Message)
         End Try
 
-        Return f
 
     End Function
 
@@ -710,7 +707,7 @@ Public Class frmBaseGrid
     ''' (2) sets the id value, 
     ''' (3) calls the load data sub on the edit form.
     ''' </remarks>
-    Public Overridable Function PrepareEditForm(ByVal IdValue As Integer, _
+    Public Overridable Function PrepareEditForm(ByVal IdValue As Integer,
                                                 ByVal editForm As frmBaseEdit) As Boolean
 
         If editForm Is Nothing Then Return False
@@ -730,7 +727,7 @@ Public Class frmBaseGrid
     ''' This procedure is final and not overridable.
     ''' If you want to override the showing of the edit form, override procedure PrepareEditForm.
     ''' </remarks>
-    <Description("Procedure that gets called on edit button click.")> _
+    <Description("Procedure that gets called on edit button click.")>
     Public Overridable Sub ListEditRecord(ByVal IdValue As Integer)
 
         If Me.GridMode = enumGridFormMode.MODE_SELECT Then Exit Sub
@@ -790,7 +787,7 @@ Public Class frmBaseGrid
 
         If winUtils.MsgboxQuestion(msg) = MsgBoxResult.Yes Then
 
-			RaiseEvent gridDeleteRecordConfirmed(Me.grdData)
+            RaiseEvent gridDeleteRecordConfirmed(Me.grdData)
             Me.grdData.requery()
             RaiseEvent gridRowCountChanged(Me.grdData)
 

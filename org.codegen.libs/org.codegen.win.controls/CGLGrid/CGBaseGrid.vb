@@ -164,8 +164,8 @@ Namespace Grid
         <Description("Gets/Sets the primary key column name in the datasource.")> _
         Public Property gpKeyColumnName() As String
 
-        <Description("Fully qualified name of the form used to edit details of records in the grid.")> _
-        Public Property gpEditForm As String 'the fully qualified class name of the windows form used to edit/add
+        <Description("Fully qualified name of the form used to edit details of records in the grid.")>
+        Public Property gpEditForm As Type 'the fully qualified class name of the windows form used to edit/add
 
         <Description("Get/Set the field names that the search textbox searches on when enter is hit."), _
           DesignerSerializationVisibility(DesignerSerializationVisibility.Content), _
