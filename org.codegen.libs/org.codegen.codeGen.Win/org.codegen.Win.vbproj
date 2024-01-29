@@ -103,9 +103,7 @@
     <Compile Include="frmGeneratedFiles.Designer.vb">
       <DependentUpon>frmGeneratedFiles.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmGeneratedFiles.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="frmGeneratedFiles.vb" />
     <Compile Include="frmMain.Designer.vb">
       <DependentUpon>frmMain.vb</DependentUpon>
     </Compile>
